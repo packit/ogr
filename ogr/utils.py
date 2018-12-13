@@ -3,13 +3,20 @@ import logging
 import os
 import subprocess
 import tempfile
-from urllib.parse import urlparse
-
+from enum import Enum
 from time import sleep
+from urllib.parse import urlparse
 
 from ogr.constant import CLONE_TIMEOUT
 
 logger = logging.getLogger(__name__)
+
+
+class PRStatus(Enum):
+    open = 1
+    closed = 2
+    merged = 3
+    all = 4
 
 
 def parse_git_repo(potential_url):

@@ -1,3 +1,6 @@
+from ogr.utils import PRStatus
+
+
 class GitService:
     def __init__(self):
         pass
@@ -62,10 +65,11 @@ class GitProject:
         """
         raise NotImplementedError()
 
-    def get_pr_list(self, status="open"):
+    def get_pr_list(self, status=PRStatus.open):
         """
         List of pull requests (dics)
 
+        :param status: PRStatus enum
         :return: [{str: str}]
         """
         raise NotImplementedError()
@@ -78,10 +82,10 @@ class GitProject:
         :return: {
             "title": "???",
             "id": "???",
-            "status": "???",
+            "status": PRStatus enum,
             "url": "???",
             "description": "???"
-            "username": "???",
+            "author": "???",
             "source_project": "???",
             "target_project": "???",
             "source_branch": "???",
@@ -113,7 +117,7 @@ class GitProject:
         :param commit: str
         :param filename: str
         :param row: int
-        :return: ???
+        :return: pr_comment dict
         """
         raise NotImplementedError()
 
@@ -122,7 +126,7 @@ class GitProject:
         Close the pull-request.
 
         :param pr_id: int
-        :return:  ???
+        :return:  pr dict
         """
         raise NotImplementedError()
 
@@ -131,7 +135,7 @@ class GitProject:
         Merge the pull request.
 
         :param pr_id: int
-        :return: ???
+        :return: pr dict
         """
         raise NotImplementedError()
 
@@ -157,7 +161,7 @@ class GitProject:
         """
         Create a fork of the project.
 
-        :return: ???
+        :return: GitProject
         """
         raise NotImplementedError()
 
