@@ -1,3 +1,6 @@
+import datetime
+from dataclasses import dataclass
+
 from ogr.utils import PRStatus
 
 
@@ -61,7 +64,7 @@ class GitProject:
         :param body: str
         :param target_branch: str
         :param current_branch: str
-        :return: id of the new pull-request
+        :return: PullRequest
         """
         raise NotImplementedError()
 
@@ -79,18 +82,7 @@ class GitProject:
         Get pull request info
 
         :param pr_id: int
-        :return: {
-            "title": "???",
-            "id": "???",
-            "status": PRStatus enum,
-            "url": "???",
-            "description": "???"
-            "author": "???",
-            "source_project": "???",
-            "target_project": "???",
-            "source_branch": "???",
-            "target_branch": "???"
-        }
+        :return: PullRequest
         """
         raise NotImplementedError()
 
@@ -99,25 +91,20 @@ class GitProject:
         Get list of pull-request comments.
 
         :param pr_id: int
-        :return: [{
-            "comment": "???",
-            "author":"???",
-            "created": "???"
-            "edited": "???"
-        }]
+        :return: [PRComment]
         """
         raise NotImplementedError()
 
     def pr_comment(self, pr_id, body, commit=None, filename=None, row=None):
         """
-        Add new commit to the pull request.
+        Add new comment to the pull request.
 
         :param pr_id: int
         :param body: str
         :param commit: str
         :param filename: str
         :param row: int
-        :return: pr_comment dict
+        :return: PRComment
         """
         raise NotImplementedError()
 
@@ -126,7 +113,7 @@ class GitProject:
         Close the pull-request.
 
         :param pr_id: int
-        :return:  pr dict
+        :return:  PullRequest
         """
         raise NotImplementedError()
 
@@ -135,7 +122,7 @@ class GitProject:
         Merge the pull request.
 
         :param pr_id: int
-        :return: pr dict
+        :return: PullRequest
         """
         raise NotImplementedError()
 
@@ -170,3 +157,24 @@ class GitUser:
     @property
     def username(self):
         raise NotImplementedError()
+
+
+@dataclass
+class PullRequest:
+    title: str
+    id: int
+    status: PRStatus
+    url: str
+    description: str
+    author: str
+    source_branch: str
+    target_branch: str
+    created: datetime.datetime
+
+
+@dataclass
+class PRComment:
+    comment: str
+    author: str
+    created: datetime.datetime
+    edited: datetime.datetime
