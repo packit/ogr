@@ -1,19 +1,18 @@
+import datetime
 import logging
 import re
-from functools import lru_cache
 
-from ogr.services.abstract import GitService, GitProject
+from ogr.services.abstract import (
+    GitService,
+    GitProject,
+    PullRequest,
+    PRComment,
+    GitUser,
+)
 from ogr.services.our_pagure import OurPagure
+from ogr.utils import PRStatus
 
 logger = logging.getLogger(__name__)
-
-
-def replace_username_with_username(dictionary):
-    result = dictionary.copy()
-    if "username" in result and "fork_username" not in result:
-        result["fork_username"] = result["username"]
-        del (result["username"])
-    return result
 
 
 class PagureService(GitService):
@@ -25,22 +24,21 @@ class PagureService(GitService):
         self.token = token
         self.pagure_kwargs = kwargs
 
-        self.pagure = OurPagure(
-            pagure_token=token,
-            instance_url=instance_url,
-            **replace_username_with_username(kwargs),
-        )
+        self.pagure = OurPagure(pagure_token=token, instance_url=instance_url, **kwargs)
 
     def get_project(self, **kwargs):
         project_kwargs = self.pagure_kwargs.copy()
         project_kwargs.update(kwargs)
         return PagureProject(
-            instance_url=self.instance_url, token=self.token, **project_kwargs
+            instance_url=self.instance_url,
+            token=self.token,
+            service=self,
+            **project_kwargs,
         )
 
     @property
-    def token_username(self):
-        return self.pagure.whoami()
+    def user(self):
+        return PagureUser(service=self)
 
 
 class PagureProject(GitProject):
@@ -52,20 +50,26 @@ class PagureProject(GitProject):
             instance_url=None,
             token=None,
             is_fork=False,
+            service=None,
             **kwargs,
     ):
-        super().__init__()
-        self.repo = repo
-        self.namespace = namespace
-        self._username = username
+        if is_fork and username:
+            complete_namespace = f"fork/{username}/{namespace}"
+        else:
+            complete_namespace = namespace
+
+        super().__init__(repo=repo, namespace=complete_namespace, service=service)
+
         self.instance_url = instance_url
         self.token = token
-        self._is_fork = is_fork or False
+
         self.pagure_kwargs = kwargs
+        if username:
+            self.pagure_kwargs["username"] = username
 
         self.pagure = OurPagure(
             pagure_token=token,
-            pagure_repository=f"{self.namespace}/{self.repo}",
+            pagure_repository=f"{namespace}/{self.repo}",
             namespace=namespace,
             fork_username=username if is_fork else None,
             instance_url=instance_url,
@@ -73,26 +77,36 @@ class PagureProject(GitProject):
         )
 
     def __str__(self):
-        return f"namespace={self.namespace} repo={self.repo} username={self.username}"
+        return f"namespace={self.namespace} repo={self.repo}"
 
     def __repr__(self):
-        return f"PagureProject(namespace={self.namespace}, repo={self.repo}, username={self.username})"
+        return f"PagureProject(namespace={self.namespace}, repo={self.repo})"
 
-    @property
-    @lru_cache()
-    def username(self):
-        return self._username or self.pagure.whoami()
+    def get_branches(self):
+        return self.pagure.get_branches()
 
-    @property
-    def branches(self):
-        return self.pagure.branches
+    def get_description(self):
+        return self.pagure.get_project_description()
 
-    @property
-    def description(self):
-        return self.pagure.project_description
+    def get_pr_list(self, status=PRStatus.open):
+        status = status.name.lower().capitalize()
+        raw_prs = self.pagure.list_requests(status=status)
+        prs = [self._pr_from_pagure_dict(pr_dict) for pr_dict in raw_prs]
+        return prs
 
-    def pr_list(self, status="Open"):
-        return self.pagure.list_requests(status=status)
+    def get_pr_info(self, pr_id):
+        pr_dict = self.pagure.request_info(request_id=pr_id)
+        result = self._pr_from_pagure_dict(pr_dict)
+        return result
+
+    def get_pr_comments(self, pr_id):
+        raw_comments = self.pagure.request_info(request_id=pr_id)["comments"]
+
+        parsed_comments = [
+            self._prcomment_from_pagure_dict(comment_dict)
+            for comment_dict in raw_comments
+        ]
+        return parsed_comments
 
     def pr_comment(self, pr_id, body, commit=None, filename=None, row=None):
         return self.pagure.comment_request(
@@ -101,9 +115,6 @@ class PagureProject(GitProject):
 
     def pr_close(self, pr_id):
         return self.pagure.close_request(request_id=pr_id)
-
-    def pr_info(self, pr_id):
-        return self.pagure.request_info(request_id=pr_id)
 
     def search_in_pr_comments(self, pr_id, regex, pr_info=None):
         """
@@ -115,7 +126,7 @@ class PagureProject(GitProject):
         :return: return value of re.search
         """
         r = re.compile(regex)
-        pr_info = pr_info or self.pr_info(pr_id)
+        pr_info = pr_info or self.get_pr_info(pr_id)
         pr_comments = pr_info["comments"]
         # let's start with the recent ones first
         pr_comments = reversed(pr_comments)
@@ -140,41 +151,72 @@ class PagureProject(GitProject):
     def fork_create(self):
         return self.pagure.create_fork()
 
-    @property
-    def fork(self):
-        """PagureRepo instance of the fork of this repo."""
-        kwargs = replace_username_with_username(self.pagure_kwargs)
+    def get_fork(self):
+        """
+        PagureRepo instance of the fork of this repo.
+        """
+        kwargs = self.pagure_kwargs.copy()
         kwargs.update(
             repo=self.repo,
             namespace=self.namespace,
-            username=self.username,
             instance_url=self.instance_url,
             token=self.token,
             is_fork=True,
         )
+        if "username" not in kwargs:
+            kwargs["username"] = self.service.user.get_username()
+
         fork_project = PagureProject(**kwargs)
         try:
-            if fork_project.exists and fork_project.pagure.parent:
+            if fork_project.exists() and fork_project.pagure.get_parent():
                 return fork_project
         except:
             return None
         return None
 
+    def exists(self):
+        return self.pagure.project_exists()
+
+    def is_forked(self):
+        pass
+
     @property
     def is_fork(self):
-        return self._is_fork
+        return "fork" in self.namespace
 
-    @property
-    def exists(self):
-        return self.pagure.project_exists
-
-    @property
-    def is_forked(self):
-        return self.fork is not None
-
-    @property
-    def git_urls(self):
-        return self.pagure.git_urls
+    def get_git_urls(self):
+        return self.pagure.get_git_urls()
 
     def get_commit_flags(self, commit):
         return self.pagure.get_commit_flags(commit=commit)
+
+    @staticmethod
+    def _pr_from_pagure_dict(pr_dict):
+        return PullRequest(
+            title=pr_dict["title"],
+            id=pr_dict["id"],
+            status=PRStatus[pr_dict["status"].lower()],
+            url="???",
+            description=None,
+            author=pr_dict["user"]["name"],
+            source_branch=pr_dict["branch_from"],
+            target_branch=pr_dict["branch"],
+            created=None,
+        )
+
+    @staticmethod
+    def _prcomment_from_pagure_dict(pr_dict):
+        return PRComment(
+            comment="",
+            author="",
+            created=datetime.datetime.now(),
+            edited=datetime.datetime.now(),
+        )
+
+
+class PagureUser(GitUser):
+    def get_username(self):
+        return self.service.pagure.whoami()
+
+    def __init__(self, service):
+        super().__init__(service=service)

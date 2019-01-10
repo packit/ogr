@@ -4,7 +4,11 @@ import libpagure
 class OurPagure(libpagure.Pagure):
     """TODO: Move this functionality to upstream libpagure"""
 
-    def __init__(self, namespace=None, **kwargs):
+    def __init__(self, token=None, repo=None, namespace=None, username=None, **kwargs):
+        kwargs.setdefault("fork_username", username)
+        if repo and namespace:
+            kwargs.setdefault("pagure_repository", f"{namespace}/{repo}")
+        kwargs.setdefault("pagure_token", token)
         super().__init__(**kwargs)
         self.namespace = namespace
 
@@ -16,10 +20,10 @@ class OurPagure(libpagure.Pagure):
     def repo_name(self):
         return self.repo.split("/")[1]
 
-    def get_api_url(self, *args):
+    def get_api_url(self, *args, add_fork=True):
         args_list = []
 
-        if self.username:
+        if self.username and add_fork:
             args_list += ["fork", self.username]
 
         args_list += filter(lambda x: x is not None, args)
@@ -27,7 +31,7 @@ class OurPagure(libpagure.Pagure):
         return self.api_url + "/".join(args_list)
 
     def whoami(self):
-        request_url = self.get_api_url("-", "whoami")
+        request_url = self.get_api_url("-", "whoami", add_fork=False)
 
         return_value = self._call_api(url=request_url, method="POST", data={})
         return return_value["username"]
@@ -221,7 +225,6 @@ class OurPagure(libpagure.Pagure):
         )
         return return_value
 
-    @property
     def project_exists(self):
         request_url = self.get_api_url(self.repo)
         try:
@@ -230,30 +233,25 @@ class OurPagure(libpagure.Pagure):
         except:
             return False
 
-    @property
-    def project_info(self):
+    def get_project_info(self):
         request_url = self.get_api_url(self.repo)
 
         return_value = self._call_api(url=request_url, method="GET", data={})
         return return_value
 
-    @property
-    def project_description(self):
-        return self.project_info["description"]
+    def get_project_description(self):
+        return self.get_project_info()["description"]
 
-    @property
-    def parent(self):
-        return self.project_info["parent"]
+    def get_parent(self):
+        return self.get_project_info()["parent"]
 
-    @property
-    def git_urls(self):
+    def get_git_urls(self):
         request_url = self.get_api_url(self.repo, "git", "urls")
 
         return_value = self._call_api(url=request_url, method="GET", data={})
         return return_value["urls"]
 
-    @property
-    def branches(self):
+    def get_branches(self):
         request_url = self.get_api_url(self.repo, "git", "branches")
 
         return_value = self._call_api(url=request_url, method="GET", data={})
