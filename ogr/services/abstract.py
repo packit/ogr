@@ -71,6 +71,7 @@ class GitProject:
     def full_repo_name(self):
         """
         Get repo name with namespace
+        e.g. 'rpms/python-docker-py'
 
         :return: str
         """
@@ -127,14 +128,14 @@ class GitProject:
         """
         raise NotImplementedError()
 
-    def pr_create(self, title, body, target_branch, current_branch):
+    def pr_create(self, title, body, target_branch, source_branch):
         """
         Create a new pull request.
 
         :param title: str
         :param body: str
         :param target_branch: str
-        :param current_branch: str
+        :param source_branch: str
         :return: PullRequest
         """
         raise NotImplementedError()
