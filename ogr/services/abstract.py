@@ -40,6 +40,42 @@ class GitService:
 
 
 class GitProject:
+
+    def __init__(self, repo, namespace, service):
+        """
+        :param repo: name of the project
+        :param namespace:   github: username or org name
+                            gitlab: username or org name
+                            pagure: namespace (e.g. "rpms")
+                                for forks: "fork/{username}/{namespace}"
+        :param service: GitService instance
+        """
+        self.service = service
+        self.repo = repo
+        self.namespace = namespace
+
+    def is_forked(self):
+        """
+        True, if the project is forked by the user.
+
+        :return: Bool
+        """
+        raise NotImplementedError()
+
+    @property
+    def is_fork(self):
+        """True if the project is a fork."""
+        raise NotImplementedError()
+
+    @property
+    def full_repo_name(self):
+        """
+        Get repo name with namespace
+
+        :return: str
+        """
+        return f"{self.namespace}/{self.repo}"
+
     def get_branches(self):
         """
         List of project branches.
@@ -56,15 +92,11 @@ class GitProject:
         """
         raise NotImplementedError()
 
-    def pr_create(self, title, body, target_branch, current_branch):
+    def get_fork(self):
         """
-        Create a new pull request.
+        GitProject instance of the fork if the fork exists, else None
 
-        :param title: str
-        :param body: str
-        :param target_branch: str
-        :param current_branch: str
-        :return: PullRequest
+        :return: GitProject or None
         """
         raise NotImplementedError()
 
@@ -92,6 +124,18 @@ class GitProject:
 
         :param pr_id: int
         :return: [PRComment]
+        """
+        raise NotImplementedError()
+
+    def pr_create(self, title, body, target_branch, current_branch):
+        """
+        Create a new pull request.
+
+        :param title: str
+        :param body: str
+        :param target_branch: str
+        :param current_branch: str
+        :return: PullRequest
         """
         raise NotImplementedError()
 
@@ -126,22 +170,7 @@ class GitProject:
         """
         raise NotImplementedError()
 
-    @property
-    def fork(self):
-        """
-        GitProject instance of the fork if the fork exists, else None
-
-        :return: GitProject or None
-        """
-        raise NotImplementedError()
-
-    @property
-    def is_forked(self):
-        """
-        True, if the project is forked by the user.
-
-        :return: Bool
-        """
+    def get_git_urls(self):
         raise NotImplementedError()
 
     def fork_create(self):
@@ -154,8 +183,11 @@ class GitProject:
 
 
 class GitUser:
-    @property
-    def username(self):
+
+    def __init__(self, service):
+        self.service = service
+
+    def get_username(self):
         raise NotImplementedError()
 
 

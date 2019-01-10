@@ -17,7 +17,7 @@ class GitlabService(GitService):
         url = url or "https://gitlab.com"
         self.g = gitlab.Gitlab(url=url, private_token=token)
         self.g.auth()
-        self.user = self.g.users.list(username=self.g.user.username)[0]
+        self.user = self.g.users.list(username=self.g.user.get_username())[0]
         self.repo = None
         if full_repo_name:
             self.repo = self.g.projects.get(full_repo_name)
@@ -39,14 +39,14 @@ class GitlabService(GitService):
 
         try:
             # is it already forked?
-            user_repo = self.g.projects.get("{}/{}".format(self.user.username, target_repo_name))
+            user_repo = self.g.projects.get("{}/{}".format(self.user.get_username(), target_repo_name))
             if not self.is_fork_of(user_repo, target_repo_gl):
                 raise RuntimeError("repo %s is not a fork of %s" % (user_repo, target_repo_gl))
         except Exception:
             # nope
             user_repo = None
 
-        if self.user.username == target_repo_org:
+        if self.user.get_username() == target_repo_org:
             # user wants to fork its own repo; let's just set up remotes 'n stuff
             if not user_repo:
                 raise RuntimeError("repo %s not found" % target_repo_name)

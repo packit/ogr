@@ -43,8 +43,8 @@ class GithubService(GitService):
     @staticmethod
     def is_fork_of(user_repo, target_repo):
         """ is provided repo fork of gh.com/{parent_repo}/? """
-        return user_repo.fork_create and user_repo.parent and \
-               user_repo.parent.full_name == target_repo
+        return user_repo.fork_create and user_repo.get_parent and \
+               user_repo.get_parent.full_name == target_repo
 
     def fork_create(self, target_repo):
 
