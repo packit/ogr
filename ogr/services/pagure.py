@@ -190,27 +190,35 @@ class PagureProject(GitProject):
     def get_commit_flags(self, commit):
         return self.pagure.get_commit_flags(commit=commit)
 
-    @staticmethod
-    def _pr_from_pagure_dict(pr_dict):
+    def _pr_from_pagure_dict(self, pr_dict):
         return PullRequest(
             title=pr_dict["title"],
             id=pr_dict["id"],
             status=PRStatus[pr_dict["status"].lower()],
-            url="???",
-            description=None,
+            url="/".join(
+                [
+                    self.instance_url,
+                    pr_dict["project"]["url_path"],
+                    "pull-request",
+                    str(pr_dict["id"]),
+                ]
+            ),
+            description=pr_dict["initial_comment"],
             author=pr_dict["user"]["name"],
             source_branch=pr_dict["branch_from"],
             target_branch=pr_dict["branch"],
-            created=None,
+            created=datetime.datetime.fromtimestamp(int(pr_dict["date_created"])),
         )
 
     @staticmethod
-    def _prcomment_from_pagure_dict(pr_dict):
+    def _prcomment_from_pagure_dict(comment_dict):
         return PRComment(
-            comment="",
-            author="",
-            created=datetime.datetime.now(),
-            edited=datetime.datetime.now(),
+            comment=comment_dict["comment"],
+            author=comment_dict["user"]["name"],
+            created=datetime.datetime.fromtimestamp(int(comment_dict["date_created"])),
+            edited=datetime.datetime.fromtimestamp(int(comment_dict["edited_on"]))
+            if comment_dict["edited_on"]
+            else None,
         )
 
 
