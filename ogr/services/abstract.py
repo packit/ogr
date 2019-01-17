@@ -1,4 +1,5 @@
 import datetime
+import re
 from dataclasses import dataclass
 
 from ogr.utils import PRStatus
@@ -127,6 +128,19 @@ class GitProject:
         :return: [PRComment]
         """
         raise NotImplementedError()
+
+    def get_filtered_pr_comments(self, pr_id, filter_regex=None):
+        """
+        Get list of pull-request comments.
+
+        :param filter_regex: filter the comments' content with re.search
+        :param pr_id: int
+        :return: [PRComment]
+        """
+        all_comments = self.get_pr_comments(pr_id=pr_id)
+        pattern = re.compile(filter_regex)
+        filtered_comments = filter(lambda commit: bool(pattern.search(commit)), all_comments)
+        return filtered_comments
 
     def pr_create(self, title, body, target_branch, source_branch):
         """

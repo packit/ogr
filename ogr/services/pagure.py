@@ -1,6 +1,5 @@
 import datetime
 import logging
-import re
 
 from ogr.services.abstract import (
     GitService,
@@ -115,27 +114,6 @@ class PagureProject(GitProject):
 
     def pr_close(self, pr_id):
         return self.pagure.close_request(request_id=pr_id)
-
-    def search_in_pr_comments(self, pr_id, regex, pr_info=None):
-        """
-        Use re.search using the given regex on PR comments, default to PR description
-
-        :param pr_id: str, ID of the pull request
-        :param regex: str, regular expression
-        :param pr_info, dict, existing pr_info dict = optimization and saving queries
-        :return: return value of re.search
-        """
-        r = re.compile(regex)
-        pr_info = pr_info or self.get_pr_info(pr_id)
-        pr_comments = pr_info["comments"]
-        # let's start with the recent ones first
-        pr_comments = reversed(pr_comments)
-        pr_description = pr_info["initial_comment"]
-        for c in pr_comments:
-            out = r.search(c["comment"])
-            if out:
-                return out
-        return r.search(pr_description)
 
     def pr_merge(self, pr_id):
         return self.pagure.merge_request(request_id=pr_id)
