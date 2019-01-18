@@ -1,10 +1,7 @@
 import datetime
-import re
 from dataclasses import dataclass
 
-import six
-
-from ogr.utils import PRStatus
+from ogr.utils import PRStatus, search_in_comments, filter_comments
 
 
 class GitService:
@@ -143,10 +140,7 @@ class GitProject:
         if reverse:
             all_comments.reverse()
         if filter_regex:
-            pattern = re.compile(filter_regex)
-            all_comments = list(
-                filter(lambda comment: bool(pattern.search(comment.comment)), all_comments)
-            )
+            all_comments = filter_comments(all_comments, filter_regex)
         return all_comments
 
     def search_in_pr(self, pr_id, filter_regex, reverse=False, description=True):
@@ -167,14 +161,8 @@ class GitProject:
             else:
                 all_comments.insert(0, description_content)
 
-        pattern = re.compile(filter_regex)
-        for comment in all_comments:
-            if not isinstance(comment, six.string_types):
-                comment = comment.comment
-            re_search = pattern.search(comment)
-            if re_search:
-                return re_search
-        return None
+        return search_in_comments(comments=all_comments,
+                                  filter_regex=filter_regex)
 
     def pr_create(self, title, body, target_branch, source_branch):
         """

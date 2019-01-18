@@ -1,11 +1,14 @@
 import datetime
 import logging
 import os
+import re
 import subprocess
 import tempfile
 from enum import Enum
 from time import sleep
 from urllib.parse import urlparse
+
+import six
 
 from ogr.constant import CLONE_TIMEOUT
 
@@ -237,3 +240,29 @@ def git_push():
     # it would make sense to do `git push -u`
     # this command NEEDS to be configurable
     subprocess.check_call(["git", "push", "-q"])
+
+
+def filter_comments(comments, filter_regex):
+    pattern = re.compile(filter_regex)
+    comments = list(
+        filter(lambda comment: bool(pattern.search(comment.comment)), comments)
+    )
+    return comments
+
+
+def search_in_comments(comments, filter_regex):
+    """
+    Find match in pull-request description or comments.
+
+    :param comments: str or PRComment
+    :param filter_regex: filter the comments' content with re.search
+    :return: re.Match or None
+    """
+    pattern = re.compile(filter_regex)
+    for comment in comments:
+        if not isinstance(comment, six.string_types):
+            comment = comment.comment
+        re_search = pattern.search(comment)
+        if re_search:
+            return re_search
+    return None
