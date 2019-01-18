@@ -98,7 +98,7 @@ class PagureProject(GitProject):
         result = self._pr_from_pagure_dict(pr_dict)
         return result
 
-    def get_pr_comments(self, pr_id):
+    def _get_all_pr_comments(self, pr_id):
         raw_comments = self.pagure.request_info(request_id=pr_id)["comments"]
 
         parsed_comments = [

@@ -2,6 +2,8 @@ import datetime
 import re
 from dataclasses import dataclass
 
+import six
+
 from ogr.utils import PRStatus
 
 
@@ -41,7 +43,6 @@ class GitService:
 
 
 class GitProject:
-
     def __init__(self, repo, namespace, service):
         """
         :param repo: name of the project
@@ -120,7 +121,7 @@ class GitProject:
         """
         raise NotImplementedError()
 
-    def get_pr_comments(self, pr_id):
+    def _get_all_pr_comments(self, pr_id):
         """
         Get list of pull-request comments.
 
@@ -129,18 +130,51 @@ class GitProject:
         """
         raise NotImplementedError()
 
-    def get_filtered_pr_comments(self, pr_id, filter_regex=None):
+    def get_pr_comments(self, pr_id, filter_regex=None, reverse=False):
         """
         Get list of pull-request comments.
 
-        :param filter_regex: filter the comments' content with re.search
         :param pr_id: int
+        :param filter_regex: filter the comments' content with re.search
+        :param reverse: reverse order of comments
         :return: [PRComment]
         """
-        all_comments = self.get_pr_comments(pr_id=pr_id)
+        all_comments = self._get_all_pr_comments(pr_id=pr_id)
+        if reverse:
+            all_comments.reverse()
+        if filter_regex:
+            pattern = re.compile(filter_regex)
+            all_comments = list(
+                filter(lambda comment: bool(pattern.search(comment.comment)), all_comments)
+            )
+        return all_comments
+
+    def search_in_pr(self, pr_id, filter_regex, reverse=False, description=True):
+        """
+        Find match in pull-request description or comments.
+
+        :param description: bool (search in description?)
+        :param pr_id: int
+        :param filter_regex: filter the comments' content with re.search
+        :param reverse: reverse order of comments
+        :return: re.Match or None
+        """
+        all_comments = self.get_pr_comments(pr_id=pr_id, reverse=reverse)
+        if description:
+            description_content = self.get_pr_info(pr_id).description
+            if reverse:
+                all_comments.append(description_content)
+            else:
+                all_comments.insert(0, description_content)
+
         pattern = re.compile(filter_regex)
-        filtered_comments = filter(lambda commit: bool(pattern.search(commit)), all_comments)
-        return filtered_comments
+        for comment in all_comments:
+            if not isinstance(comment, six.string_types):
+                comment = comment.comment
+            re_search = pattern.search(comment)
+            if re_search:
+                return re_search
+        return None
 
     def pr_create(self, title, body, target_branch, source_branch):
         """
@@ -198,7 +232,6 @@ class GitProject:
 
 
 class GitUser:
-
     def __init__(self, service):
         self.service = service
 
