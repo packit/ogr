@@ -54,6 +54,48 @@ def abiword_project_non_existing_fork(pagure_service):
     return abiword
 
 
+def test_pr_info(abiword_project):
+    pr_info = abiword_project.get_pr_info(1)
+    assert pr_info
+
+
+def test_pr_comments(abiword_project):
+    pr_comments = abiword_project.get_pr_comments(1)
+    assert pr_comments
+    assert len(pr_comments) == 2
+    assert pr_comments[0].comment.startswith("rebased")
+
+
+def test_pr_comments_reversed(abiword_project):
+    pr_comments = abiword_project.get_pr_comments(1, reverse=True)
+    assert pr_comments
+    assert len(pr_comments) == 2
+    assert pr_comments[1].comment.startswith("rebased")
+
+
+def test_pr_comments_filter(abiword_project):
+    pr_comments = abiword_project.get_pr_comments(1, filter_regex="rebased")
+    assert pr_comments
+    assert len(pr_comments) == 1
+    assert pr_comments[0].comment.startswith("rebased")
+
+    pr_comments = abiword_project.get_pr_comments(1, filter_regex="onto ([a-z0-9]*)")
+    assert pr_comments
+    assert len(pr_comments) == 1
+    assert pr_comments[0].comment.startswith("rebased")
+
+
+def test_pr_comments_search(abiword_project):
+    comment_match = abiword_project.search_in_pr(1, filter_regex="rebased")
+    assert comment_match
+    assert comment_match[0] == "rebased"
+
+    comment_match = abiword_project.search_in_pr(1, filter_regex="onto ([a-z0-9]*)")
+    assert comment_match
+    assert comment_match[0].startswith("onto")
+    assert comment_match[1].startswith("09ac068")
+
+
 def test_description(docker_py_project):
     description = docker_py_project.get_description()
     assert description == "The python-docker-py rpms"
@@ -134,6 +176,7 @@ def test_fork_property(abiword_project):
     assert fork.get_description()
 
 
+@pytest.mark.skip
 def test_create_fork(docker_py_project):
     not_existing_fork = docker_py_project.get_fork()
     assert not not_existing_fork

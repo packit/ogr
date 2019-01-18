@@ -1,7 +1,7 @@
 import datetime
 from dataclasses import dataclass
 
-from ogr.utils import PRStatus
+from ogr.utils import PRStatus, search_in_comments, filter_comments
 
 
 class GitService:
@@ -40,7 +40,6 @@ class GitService:
 
 
 class GitProject:
-
     def __init__(self, repo, namespace, service):
         """
         :param repo: name of the project
@@ -119,7 +118,7 @@ class GitProject:
         """
         raise NotImplementedError()
 
-    def get_pr_comments(self, pr_id):
+    def _get_all_pr_comments(self, pr_id):
         """
         Get list of pull-request comments.
 
@@ -127,6 +126,43 @@ class GitProject:
         :return: [PRComment]
         """
         raise NotImplementedError()
+
+    def get_pr_comments(self, pr_id, filter_regex=None, reverse=False):
+        """
+        Get list of pull-request comments.
+
+        :param pr_id: int
+        :param filter_regex: filter the comments' content with re.search
+        :param reverse: reverse order of comments
+        :return: [PRComment]
+        """
+        all_comments = self._get_all_pr_comments(pr_id=pr_id)
+        if reverse:
+            all_comments.reverse()
+        if filter_regex:
+            all_comments = filter_comments(all_comments, filter_regex)
+        return all_comments
+
+    def search_in_pr(self, pr_id, filter_regex, reverse=False, description=True):
+        """
+        Find match in pull-request description or comments.
+
+        :param description: bool (search in description?)
+        :param pr_id: int
+        :param filter_regex: filter the comments' content with re.search
+        :param reverse: reverse order of comments
+        :return: re.Match or None
+        """
+        all_comments = self.get_pr_comments(pr_id=pr_id, reverse=reverse)
+        if description:
+            description_content = self.get_pr_info(pr_id).description
+            if reverse:
+                all_comments.append(description_content)
+            else:
+                all_comments.insert(0, description_content)
+
+        return search_in_comments(comments=all_comments,
+                                  filter_regex=filter_regex)
 
     def pr_create(self, title, body, target_branch, source_branch):
         """
@@ -184,7 +220,6 @@ class GitProject:
 
 
 class GitUser:
-
     def __init__(self, service):
         self.service = service
 

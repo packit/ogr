@@ -1,6 +1,5 @@
 import datetime
 import logging
-import re
 
 from ogr.services.abstract import (
     GitService,
@@ -99,7 +98,7 @@ class PagureProject(GitProject):
         result = self._pr_from_pagure_dict(pr_dict)
         return result
 
-    def get_pr_comments(self, pr_id):
+    def _get_all_pr_comments(self, pr_id):
         raw_comments = self.pagure.request_info(request_id=pr_id)["comments"]
 
         parsed_comments = [
@@ -115,27 +114,6 @@ class PagureProject(GitProject):
 
     def pr_close(self, pr_id):
         return self.pagure.close_request(request_id=pr_id)
-
-    def search_in_pr_comments(self, pr_id, regex, pr_info=None):
-        """
-        Use re.search using the given regex on PR comments, default to PR description
-
-        :param pr_id: str, ID of the pull request
-        :param regex: str, regular expression
-        :param pr_info, dict, existing pr_info dict = optimization and saving queries
-        :return: return value of re.search
-        """
-        r = re.compile(regex)
-        pr_info = pr_info or self.get_pr_info(pr_id)
-        pr_comments = pr_info["comments"]
-        # let's start with the recent ones first
-        pr_comments = reversed(pr_comments)
-        pr_description = pr_info["initial_comment"]
-        for c in pr_comments:
-            out = r.search(c["comment"])
-            if out:
-                return out
-        return r.search(pr_description)
 
     def pr_merge(self, pr_id):
         return self.pagure.merge_request(request_id=pr_id)
@@ -190,27 +168,35 @@ class PagureProject(GitProject):
     def get_commit_flags(self, commit):
         return self.pagure.get_commit_flags(commit=commit)
 
-    @staticmethod
-    def _pr_from_pagure_dict(pr_dict):
+    def _pr_from_pagure_dict(self, pr_dict):
         return PullRequest(
             title=pr_dict["title"],
             id=pr_dict["id"],
             status=PRStatus[pr_dict["status"].lower()],
-            url="???",
-            description=None,
+            url="/".join(
+                [
+                    self.instance_url,
+                    pr_dict["project"]["url_path"],
+                    "pull-request",
+                    str(pr_dict["id"]),
+                ]
+            ),
+            description=pr_dict["initial_comment"],
             author=pr_dict["user"]["name"],
             source_branch=pr_dict["branch_from"],
             target_branch=pr_dict["branch"],
-            created=None,
+            created=datetime.datetime.fromtimestamp(int(pr_dict["date_created"])),
         )
 
     @staticmethod
-    def _prcomment_from_pagure_dict(pr_dict):
+    def _prcomment_from_pagure_dict(comment_dict):
         return PRComment(
-            comment="",
-            author="",
-            created=datetime.datetime.now(),
-            edited=datetime.datetime.now(),
+            comment=comment_dict["comment"],
+            author=comment_dict["user"]["name"],
+            created=datetime.datetime.fromtimestamp(int(comment_dict["date_created"])),
+            edited=datetime.datetime.fromtimestamp(int(comment_dict["edited_on"]))
+            if comment_dict["edited_on"]
+            else None,
         )
 
 
