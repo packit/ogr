@@ -20,7 +20,7 @@ class PagureService(GitService):
     ):
         super().__init__()
         self.instance_url = instance_url
-        self.token = token
+        self._token = token
         self.pagure_kwargs = kwargs
 
         self.pagure = OurPagure(pagure_token=token, instance_url=instance_url, **kwargs)
@@ -30,7 +30,7 @@ class PagureService(GitService):
         project_kwargs.update(kwargs)
         return PagureProject(
             instance_url=self.instance_url,
-            token=self.token,
+            token=self._token,
             service=self,
             **project_kwargs,
         )
@@ -38,6 +38,15 @@ class PagureService(GitService):
     @property
     def user(self):
         return PagureUser(service=self)
+
+    def change_token(self, new_token: str):
+        """
+        Change an API token.
+
+        Only for this instance and newly created Projects via get_project.
+        """
+        self._token = new_token
+        self.pagure.change_token(new_token)
 
 
 class PagureProject(GitProject):
@@ -60,7 +69,7 @@ class PagureProject(GitProject):
         super().__init__(repo=repo, namespace=complete_namespace, service=service)
 
         self.instance_url = instance_url
-        self.token = token
+        self._token = token
 
         self.pagure_kwargs = kwargs
         if username:
@@ -138,7 +147,7 @@ class PagureProject(GitProject):
             repo=self.repo,
             namespace=self.namespace,
             instance_url=self.instance_url,
-            token=self.token,
+            token=self._token,
             is_fork=True,
         )
         if "username" not in kwargs:
@@ -198,6 +207,15 @@ class PagureProject(GitProject):
             if comment_dict["edited_on"]
             else None,
         )
+
+    def change_token(self, new_token: str):
+        """
+        Change an API token.
+
+        Only for this instance.
+        """
+        self._token = new_token
+        self.pagure.change_token(new_token)
 
 
 class PagureUser(GitUser):
