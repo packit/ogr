@@ -20,7 +20,7 @@ class PagureService(GitService):
     ):
         super().__init__()
         self.instance_url = instance_url
-        self.token = token
+        self._token = token
         self.pagure_kwargs = kwargs
 
         self.pagure = OurPagure(pagure_token=token, instance_url=instance_url, **kwargs)
@@ -30,7 +30,7 @@ class PagureService(GitService):
         project_kwargs.update(kwargs)
         return PagureProject(
             instance_url=self.instance_url,
-            token=self.token,
+            token=self._token,
             service=self,
             **project_kwargs,
         )
@@ -38,6 +38,15 @@ class PagureService(GitService):
     @property
     def user(self):
         return PagureUser(service=self)
+
+    def change_token(self, new_token: str):
+        """
+        Change an API token.
+
+        Only for this instance and newly created Projects via get_project.
+        """
+        self._token = new_token
+        self.pagure.change_token(new_token)
 
 
 class PagureProject(GitProject):
@@ -60,13 +69,13 @@ class PagureProject(GitProject):
         super().__init__(repo=repo, namespace=complete_namespace, service=service)
 
         self.instance_url = instance_url
-        self.token = token
+        self._token = token
 
-        self.pagure_kwargs = kwargs
+        self._pagure_kwargs = kwargs
         if username:
-            self.pagure_kwargs["username"] = username
+            self._pagure_kwargs["username"] = username
 
-        self.pagure = OurPagure(
+        self._pagure = OurPagure(
             pagure_token=token,
             pagure_repository=f"{namespace}/{self.repo}",
             namespace=namespace,
@@ -82,24 +91,24 @@ class PagureProject(GitProject):
         return f"PagureProject(namespace={self.namespace}, repo={self.repo})"
 
     def get_branches(self):
-        return self.pagure.get_branches()
+        return self._pagure.get_branches()
 
     def get_description(self):
-        return self.pagure.get_project_description()
+        return self._pagure.get_project_description()
 
     def get_pr_list(self, status=PRStatus.open):
         status = status.name.lower().capitalize()
-        raw_prs = self.pagure.list_requests(status=status)
+        raw_prs = self._pagure.list_requests(status=status)
         prs = [self._pr_from_pagure_dict(pr_dict) for pr_dict in raw_prs]
         return prs
 
     def get_pr_info(self, pr_id):
-        pr_dict = self.pagure.request_info(request_id=pr_id)
+        pr_dict = self._pagure.request_info(request_id=pr_id)
         result = self._pr_from_pagure_dict(pr_dict)
         return result
 
     def _get_all_pr_comments(self, pr_id):
-        raw_comments = self.pagure.request_info(request_id=pr_id)["comments"]
+        raw_comments = self._pagure.request_info(request_id=pr_id)["comments"]
 
         parsed_comments = [
             self._prcomment_from_pagure_dict(comment_dict)
@@ -108,18 +117,18 @@ class PagureProject(GitProject):
         return parsed_comments
 
     def pr_comment(self, pr_id, body, commit=None, filename=None, row=None):
-        return self.pagure.comment_request(
+        return self._pagure.comment_request(
             request_id=pr_id, body=body, commit=commit, filename=filename, row=row
         )
 
     def pr_close(self, pr_id):
-        return self.pagure.close_request(request_id=pr_id)
+        return self._pagure.close_request(request_id=pr_id)
 
     def pr_merge(self, pr_id):
-        return self.pagure.merge_request(request_id=pr_id)
+        return self._pagure.merge_request(request_id=pr_id)
 
     def pr_create(self, title, body, target_branch, source_branch):
-        return self.pagure.create_request(
+        return self._pagure.create_request(
             title=title,
             body=body,
             target_branch=target_branch,
@@ -127,18 +136,18 @@ class PagureProject(GitProject):
         )
 
     def fork_create(self):
-        return self.pagure.create_fork()
+        return self._pagure.create_fork()
 
     def get_fork(self):
         """
         PagureRepo instance of the fork of this repo.
         """
-        kwargs = self.pagure_kwargs.copy()
+        kwargs = self._pagure_kwargs.copy()
         kwargs.update(
             repo=self.repo,
             namespace=self.namespace,
             instance_url=self.instance_url,
-            token=self.token,
+            token=self._token,
             is_fork=True,
         )
         if "username" not in kwargs:
@@ -146,14 +155,14 @@ class PagureProject(GitProject):
 
         fork_project = PagureProject(**kwargs)
         try:
-            if fork_project.exists() and fork_project.pagure.get_parent():
+            if fork_project.exists() and fork_project._pagure.get_parent():
                 return fork_project
         except:
             return None
         return None
 
     def exists(self):
-        return self.pagure.project_exists()
+        return self._pagure.project_exists()
 
     def is_forked(self):
         pass
@@ -163,10 +172,10 @@ class PagureProject(GitProject):
         return "fork" in self.namespace
 
     def get_git_urls(self):
-        return self.pagure.get_git_urls()
+        return self._pagure.get_git_urls()
 
     def get_commit_flags(self, commit):
-        return self.pagure.get_commit_flags(commit=commit)
+        return self._pagure.get_commit_flags(commit=commit)
 
     def _pr_from_pagure_dict(self, pr_dict):
         return PullRequest(
@@ -198,6 +207,15 @@ class PagureProject(GitProject):
             if comment_dict["edited_on"]
             else None,
         )
+
+    def change_token(self, new_token: str):
+        """
+        Change an API token.
+
+        Only for this instance.
+        """
+        self._token = new_token
+        self._pagure.change_token(new_token)
 
 
 class PagureUser(GitUser):

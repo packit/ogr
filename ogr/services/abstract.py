@@ -38,6 +38,14 @@ class GitService:
         """
         raise NotImplementedError
 
+    def change_token(self, new_token: str):
+        """
+        Change an API token.
+
+        Only for this instance and newly created Projects via get_project.
+        """
+        raise NotImplementedError
+
 
 class GitProject:
     def __init__(self, repo, namespace, service):
@@ -217,6 +225,14 @@ class GitProject:
         :return: GitProject
         """
         raise NotImplementedError()
+
+    def change_token(self, new_token: str):
+        """
+        Change an API token.
+
+        Only for this instance.
+        """
+        raise NotImplementedError
 
 
 class GitUser:
