@@ -1,5 +1,6 @@
 import datetime
 from dataclasses import dataclass
+from typing import List, Optional, Match, Dict, Any
 
 from ogr.utils import PRStatus, search_in_comments, filter_comments
 
@@ -9,7 +10,7 @@ class GitService:
         pass
 
     @classmethod
-    def create_from_remote_url(cls, remote_url):
+    def create_from_remote_url(cls, remote_url) -> GitService:
         """
         Create instance of service from provided remote_url.
 
@@ -18,7 +19,7 @@ class GitService:
         """
         raise NotImplementedError()
 
-    def get_project(self, namespace=None, user=None, repo=None):
+    def get_project(self, **kwargs) -> GitProject:
         """
         Get the GitProject instance
 
@@ -30,7 +31,7 @@ class GitService:
         raise NotImplementedError
 
     @property
-    def user(self):
+    def user(self) -> GitUser:
         """
         GitUser instance for used token.
 
@@ -38,7 +39,7 @@ class GitService:
         """
         raise NotImplementedError
 
-    def change_token(self, new_token: str):
+    def change_token(self, new_token: str) -> None:
         """
         Change an API token.
 
@@ -48,20 +49,20 @@ class GitService:
 
 
 class GitProject:
-    def __init__(self, repo, namespace, service):
+    def __init__(self, repo: str, service: GitService, namespace: str) -> None:
         """
         :param repo: name of the project
+        :param service: GitService instance
         :param namespace:   github: username or org name
                             gitlab: username or org name
                             pagure: namespace (e.g. "rpms")
                                 for forks: "fork/{username}/{namespace}"
-        :param service: GitService instance
         """
         self.service = service
         self.repo = repo
         self.namespace = namespace
 
-    def is_forked(self):
+    def is_forked(self) -> bool:
         """
         True, if the project is forked by the user.
 
@@ -70,12 +71,12 @@ class GitProject:
         raise NotImplementedError()
 
     @property
-    def is_fork(self):
+    def is_fork(self) -> bool:
         """True if the project is a fork."""
         raise NotImplementedError()
 
     @property
-    def full_repo_name(self):
+    def full_repo_name(self) -> str:
         """
         Get repo name with namespace
         e.g. 'rpms/python-docker-py'
@@ -84,7 +85,7 @@ class GitProject:
         """
         return f"{self.namespace}/{self.repo}"
 
-    def get_branches(self):
+    def get_branches(self) -> List[str]:
         """
         List of project branches.
 
@@ -92,7 +93,7 @@ class GitProject:
         """
         raise NotImplementedError()
 
-    def get_description(self):
+    def get_description(self) -> str:
         """
         Project description.
 
@@ -100,7 +101,7 @@ class GitProject:
         """
         raise NotImplementedError()
 
-    def get_fork(self):
+    def get_fork(self) -> Optional[GitProject]:
         """
         GitProject instance of the fork if the fork exists, else None
 
@@ -108,16 +109,16 @@ class GitProject:
         """
         raise NotImplementedError()
 
-    def get_pr_list(self, status=PRStatus.open):
+    def get_pr_list(self, status: PRStatus = PRStatus.open) -> List[PullRequest]:
         """
         List of pull requests (dics)
 
         :param status: PRStatus enum
-        :return: [{str: str}]
+        :return: [PullRequest]
         """
         raise NotImplementedError()
 
-    def get_pr_info(self, pr_id):
+    def get_pr_info(self, pr_id: int) -> PullRequest:
         """
         Get pull request info
 
@@ -126,7 +127,7 @@ class GitProject:
         """
         raise NotImplementedError()
 
-    def _get_all_pr_comments(self, pr_id):
+    def _get_all_pr_comments(self, pr_id: int) -> List[PRComment]:
         """
         Get list of pull-request comments.
 
@@ -135,7 +136,9 @@ class GitProject:
         """
         raise NotImplementedError()
 
-    def get_pr_comments(self, pr_id, filter_regex=None, reverse=False):
+    def get_pr_comments(
+            self, pr_id, filter_regex: str = None, reverse: bool = False
+    ) -> List[PRComment]:
         """
         Get list of pull-request comments.
 
@@ -151,7 +154,13 @@ class GitProject:
             all_comments = filter_comments(all_comments, filter_regex)
         return all_comments
 
-    def search_in_pr(self, pr_id, filter_regex, reverse=False, description=True):
+    def search_in_pr(
+            self,
+            pr_id: int,
+            filter_regex: str,
+            reverse: bool = False,
+            description: bool = True,
+    ) -> Optional[Match[str]]:
         """
         Find match in pull-request description or comments.
 
@@ -161,7 +170,7 @@ class GitProject:
         :param reverse: reverse order of comments
         :return: re.Match or None
         """
-        all_comments = self.get_pr_comments(pr_id=pr_id, reverse=reverse)
+        all_comments: List[Any] = self.get_pr_comments(pr_id=pr_id, reverse=reverse)
         if description:
             description_content = self.get_pr_info(pr_id).description
             if reverse:
@@ -169,10 +178,11 @@ class GitProject:
             else:
                 all_comments.insert(0, description_content)
 
-        return search_in_comments(comments=all_comments,
-                                  filter_regex=filter_regex)
+        return search_in_comments(comments=all_comments, filter_regex=filter_regex)
 
-    def pr_create(self, title, body, target_branch, source_branch):
+    def pr_create(
+            self, title: str, body: str, target_branch: str, source_branch: str
+    ) -> PullRequest:
         """
         Create a new pull request.
 
@@ -184,7 +194,14 @@ class GitProject:
         """
         raise NotImplementedError()
 
-    def pr_comment(self, pr_id, body, commit=None, filename=None, row=None):
+    def pr_comment(
+            self,
+            pr_id: int,
+            body: str,
+            commit: str = None,
+            filename: str = None,
+            row: int = None,
+    ) -> PRComment:
         """
         Add new comment to the pull request.
 
@@ -197,7 +214,7 @@ class GitProject:
         """
         raise NotImplementedError()
 
-    def pr_close(self, pr_id):
+    def pr_close(self, pr_id: int) -> PullRequest:
         """
         Close the pull-request.
 
@@ -206,7 +223,7 @@ class GitProject:
         """
         raise NotImplementedError()
 
-    def pr_merge(self, pr_id):
+    def pr_merge(self, pr_id: int) -> PullRequest:
         """
         Merge the pull request.
 
@@ -215,7 +232,7 @@ class GitProject:
         """
         raise NotImplementedError()
 
-    def get_git_urls(self):
+    def get_git_urls(self) -> Dict[str, str]:
         raise NotImplementedError()
 
     def fork_create(self):
@@ -236,10 +253,10 @@ class GitProject:
 
 
 class GitUser:
-    def __init__(self, service):
+    def __init__(self, service) -> None:
         self.service = service
 
-    def get_username(self):
+    def get_username(self) -> str:
         raise NotImplementedError()
 
 

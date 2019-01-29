@@ -6,11 +6,13 @@ import subprocess
 import tempfile
 from enum import Enum
 from time import sleep
+from typing import List, Union, AnyStr, Match, Optional
 from urllib.parse import urlparse
 
 import six
 
 from ogr.constant import CLONE_TIMEOUT
+from ogr.services.abstract import PRComment
 
 logger = logging.getLogger(__name__)
 
@@ -242,7 +244,7 @@ def git_push():
     subprocess.check_call(["git", "push", "-q"])
 
 
-def filter_comments(comments, filter_regex):
+def filter_comments(comments: List[PRComment], filter_regex: str) -> List[PRComment]:
     pattern = re.compile(filter_regex)
     comments = list(
         filter(lambda comment: bool(pattern.search(comment.comment)), comments)
@@ -250,11 +252,13 @@ def filter_comments(comments, filter_regex):
     return comments
 
 
-def search_in_comments(comments, filter_regex):
+def search_in_comments(
+        comments: List[Union[str, PRComment]], filter_regex: str
+) -> Optional[Match[str]]:
     """
     Find match in pull-request description or comments.
 
-    :param comments: str or PRComment
+    :param comments: [str or PRComment]
     :param filter_regex: filter the comments' content with re.search
     :return: re.Match or None
     """
