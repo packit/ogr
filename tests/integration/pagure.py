@@ -54,11 +54,6 @@ def abiword_project_non_existing_fork(pagure_service):
     return abiword
 
 
-def test_pr_info(abiword_project):
-    pr_info = abiword_project.get_pr_info(1)
-    assert pr_info
-
-
 def test_pr_comments(abiword_project):
     pr_comments = abiword_project.get_pr_comments(1)
     assert pr_comments
