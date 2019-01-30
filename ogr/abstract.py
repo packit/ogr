@@ -1,8 +1,37 @@
+from __future__ import annotations
+
 import datetime
 from dataclasses import dataclass
-from typing import List, Optional, Match, Dict, Any
+from enum import Enum
+from typing import Optional, Match, List, Dict
 
-from ogr.utils import PRStatus, search_in_comments, filter_comments
+
+class PRStatus(Enum):
+    open = 1
+    closed = 2
+    merged = 3
+    all = 4
+
+
+@dataclass
+class PullRequest:
+    title: str
+    id: int
+    status: PRStatus
+    url: str
+    description: str
+    author: str
+    source_branch: str
+    target_branch: str
+    created: datetime.datetime
+
+
+@dataclass
+class PRComment:
+    comment: str
+    author: str
+    created: datetime.datetime
+    edited: datetime.datetime
 
 
 class GitService:
@@ -147,12 +176,7 @@ class GitProject:
         :param reverse: reverse order of comments
         :return: [PRComment]
         """
-        all_comments = self._get_all_pr_comments(pr_id=pr_id)
-        if reverse:
-            all_comments.reverse()
-        if filter_regex:
-            all_comments = filter_comments(all_comments, filter_regex)
-        return all_comments
+        raise NotImplementedError()
 
     def search_in_pr(
             self,
@@ -170,15 +194,7 @@ class GitProject:
         :param reverse: reverse order of comments
         :return: re.Match or None
         """
-        all_comments: List[Any] = self.get_pr_comments(pr_id=pr_id, reverse=reverse)
-        if description:
-            description_content = self.get_pr_info(pr_id).description
-            if reverse:
-                all_comments.append(description_content)
-            else:
-                all_comments.insert(0, description_content)
-
-        return search_in_comments(comments=all_comments, filter_regex=filter_regex)
+        raise NotImplementedError()
 
     def pr_create(
             self, title: str, body: str, target_branch: str, source_branch: str
@@ -253,29 +269,8 @@ class GitProject:
 
 
 class GitUser:
-    def __init__(self, service) -> None:
+    def __init__(self, service: GitService) -> None:
         self.service = service
 
     def get_username(self) -> str:
         raise NotImplementedError()
-
-
-@dataclass
-class PullRequest:
-    title: str
-    id: int
-    status: PRStatus
-    url: str
-    description: str
-    author: str
-    source_branch: str
-    target_branch: str
-    created: datetime.datetime
-
-
-@dataclass
-class PRComment:
-    comment: str
-    author: str
-    created: datetime.datetime
-    edited: datetime.datetime

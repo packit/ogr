@@ -3,8 +3,8 @@ import os
 import pytest
 from libpagure import APIError
 
+from ogr.abstract import PRStatus
 from ogr.services.pagure import PagureService
-from ogr.utils import PRStatus
 
 
 @pytest.fixture()

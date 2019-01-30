@@ -1,21 +1,18 @@
+from __future__ import annotations
+
 import datetime
 import logging
 from typing import List, Optional, Dict
 
-from ogr.services.abstract import (
-    GitService,
-    GitProject,
-    PullRequest,
-    PRComment,
-    GitUser,
-)
+from ogr.abstract import PRStatus
+from ogr.abstract import PullRequest, PRComment
+from ogr.services.base import BaseGitService, BaseGitProject, BaseGitUser
 from ogr.services.our_pagure import OurPagure
-from ogr.utils import PRStatus
 
 logger = logging.getLogger(__name__)
 
 
-class PagureService(GitService):
+class PagureService(BaseGitService):
     def __init__(
             self,
             token: str = None,
@@ -53,8 +50,7 @@ class PagureService(GitService):
         self.pagure.change_token(new_token)
 
 
-class PagureProject(GitProject):
-
+class PagureProject(BaseGitProject):
     def __init__(
             self,
             repo: str,
@@ -169,7 +165,7 @@ class PagureProject(GitProject):
         if "username" not in kwargs:
             kwargs["username"] = self.service.user.get_username()
 
-        fork_project = PagureProject(**kwargs)
+        fork_project = PagureProject(**kwargs, service=self.service)
         try:
             if fork_project.exists() and fork_project._pagure.get_parent():
                 return fork_project
@@ -231,7 +227,7 @@ class PagureProject(GitProject):
         self._pagure.change_token(new_token)
 
 
-class PagureUser(GitUser):
+class PagureUser(BaseGitUser):
     def __init__(self, service: PagureService) -> None:
         super().__init__(service=service)
 
