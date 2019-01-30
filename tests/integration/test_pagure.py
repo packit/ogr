@@ -3,8 +3,8 @@ import os
 import pytest
 from libpagure import APIError
 
+from ogr.abstract import PRStatus
 from ogr.services.pagure import PagureService
-from ogr.utils import PRStatus
 
 
 @pytest.fixture()
@@ -52,11 +52,6 @@ def abiword_project_non_existing_fork(pagure_service):
         namespace="rpms", repo="abiword", username="qwertzuiopasdfghjkl", is_fork=True
     )
     return abiword
-
-
-def test_pr_info(abiword_project):
-    pr_info = abiword_project.get_pr_info(1)
-    assert pr_info
 
 
 def test_pr_comments(abiword_project):

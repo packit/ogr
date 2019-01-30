@@ -2,7 +2,7 @@ import datetime
 
 import pytest
 
-from ogr.services.abstract import PRComment
+from ogr.abstract import PRComment
 from ogr.utils import filter_comments, search_in_comments
 
 
