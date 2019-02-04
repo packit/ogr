@@ -25,7 +25,7 @@ def pagure_service(pagure_token):
 @pytest.fixture()
 def docker_py_project(pagure_service):
     docker_py = pagure_service.get_project(
-        namespace="rpms", repo="python-docker-py", username="lachmanfrantisek"
+        namespace="rpms", repo="python-docker", username="lachmanfrantisek"
     )
     return docker_py
 
@@ -93,28 +93,13 @@ def test_pr_comments_search(abiword_project):
 
 def test_description(docker_py_project):
     description = docker_py_project.get_description()
-    assert description == "The python-docker-py rpms"
+    assert description == "The python-docker rpms"
 
 
 def test_branches(docker_py_project):
     branches = docker_py_project.get_branches()
     assert branches
-    assert branches == [
-        "el6",
-        "epel7",
-        "f19",
-        "f20",
-        "f21",
-        "f22",
-        "f23",
-        "f24",
-        "f25",
-        "f26",
-        "f27",
-        "f28",
-        "master",
-        "private-ttomecek-push-to-tls-registries-without-auth",
-    ]
+    assert set(branches) == {"f26", "f27", "f28", "f29", "master"}
 
 
 def test_git_urls(docker_py_project):
@@ -123,8 +108,8 @@ def test_git_urls(docker_py_project):
     assert len(urls) == 2
     assert "git" in urls
     assert "ssh" in urls
-    assert urls["git"] == "https://src.fedoraproject.org/rpms/python-docker-py.git"
-    assert urls["ssh"].endswith("@pkgs.fedoraproject.org/rpms/python-docker-py.git")
+    assert urls["git"] == "https://src.fedoraproject.org/rpms/python-docker.git"
+    assert urls["ssh"].endswith("@pkgs.fedoraproject.org/rpms/python-docker.git")
 
 
 def test_pr_list(abiword_project):
@@ -181,3 +166,15 @@ def test_create_fork(docker_py_project):
 
 def test_username(pagure_service, pagure_user):
     assert pagure_service.user.get_username() == pagure_user
+
+
+def test_get_file(docker_py_project):
+    file_content = docker_py_project.get_file_content(".gitignore")
+    assert file_content
+    assert isinstance(file_content, str)
+    assert "docker-2.6.1.tar.gz" in file_content
+
+
+def test_nonexisting_file(docker_py_project):
+    with pytest.raises(FileNotFoundError) as _:
+        docker_py_project.get_file_content(".blablabla_nonexisting_file")

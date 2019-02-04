@@ -3,7 +3,7 @@ from __future__ import annotations
 import datetime
 from dataclasses import dataclass
 from enum import Enum
-from typing import Optional, Match, List, Dict
+from typing import Optional, Match, List, Dict, AnyStr
 
 
 class PRStatus(Enum):
@@ -264,6 +264,16 @@ class GitProject:
         Change an API token.
 
         Only for this instance.
+        """
+        raise NotImplementedError
+
+    def get_file_content(self, path: str, ref="master") -> str:
+        """
+        Get a content of the file in the repo.
+
+        :param ref: branch or commit (defaults to master)
+        :param path: str
+        :return: str or FileNotFoundError if there is no such file
         """
         raise NotImplementedError
 

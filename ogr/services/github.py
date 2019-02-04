@@ -1,148 +1,153 @@
-import json
+from __future__ import annotations
+
 import logging
-import re
-import time
+from typing import Optional, Dict, List
 
 import github
+from github import UnknownObjectException, IssueComment as GithubIssueComment
+from github.PullRequest import PullRequest as GithubPullRequest
 
-from .abstract import GitService
-from ..utils import (clone_repo_and_cd_inside, fetch_all, get_commit_msgs,
-                     prompt_for_pr_content, set_origin_remote,
-                     set_upstream_remote, git_push)
+from ogr.abstract import GitUser, GitProject, PullRequest, PRComment, PRStatus
+from ogr.services.base import BaseGitService, BaseGitProject, BaseGitUser
 
 logger = logging.getLogger(__name__)
 
 
-def get_github_full_name(repo_url):
-    """ convert remote url into a <owner>/<repo> """
-    s = re.sub(r"^[a-zA-Z0-9:/@]+?github.com.", "", repo_url)
-    return re.sub(r"\.git$", "", s)
+class GithubService(BaseGitService):
+    def __init__(self, token=None):
+        super().__init__()
+        self._token = token
+        self.github = github.Github(login_or_token=self._token)
+
+    def get_project(
+            self, repo=None, namespace=None, is_fork=False, **kwargs
+    ) -> GithubProject:
+        if is_fork:
+            namespace = self.user.get_username()
+        return GithubProject(repo=repo, namespace=namespace, service=self, **kwargs)
+
+    @property
+    def user(self) -> GitUser:
+        return GithubUser(service=self)
+
+    def change_token(self, new_token: str) -> None:
+        self._token = new_token
+        self.github = github.Github(login_or_token=self._token)
 
 
-class GithubService(GitService):
-    name = "github"
+class GithubProject(BaseGitProject):
+    def __init__(self, repo: str, service: GithubService, namespace: str, **_) -> None:
+        super().__init__(repo, service, namespace)
+        self.github_repo = service.github.get_repo(
+            full_name_or_id=f"{namespace}/{repo}"
+        )
 
-    def __init__(self, token=None, full_repo_name=None):
-        super().__init__(token=token)
+    def is_forked(self) -> bool:
+        pass
 
-        self.g = github.Github(login_or_token=self.token)
-        self.user = self.g.get_user()
-        self.repo = None
-        if full_repo_name:
-            self.repo = self.g.get_repo(full_repo_name)
+    @property
+    def is_fork(self) -> bool:
+        return self.github_repo.fork
 
-    @classmethod
-    def create_from_remote_url(cls, remote_url, **kwargs):
-        """ create instance of service from provided remote_url """
-        if "github.com" not in remote_url:
-            return None
-        full_repo_name = get_github_full_name(remote_url)
-        logger.debug("github repo name: %s", full_repo_name)
-        return cls(full_repo_name=full_repo_name, **kwargs)
+    def get_branches(self) -> List[str]:
+        return [branch.name for branch in self.github_repo.get_branches()]
+
+    def get_description(self) -> str:
+        return self.github_repo.description
+
+    def get_fork(self) -> Optional[GitProject]:
+        raise NotImplementedError
+
+    def get_pr_list(self, status: PRStatus = PRStatus.open) -> List[PullRequest]:
+        prs = self.github_repo.get_pulls(
+            state=status.name, sort="updated", direction="desc"
+        )
+        try:
+            return [self._pr_from_github_object(pr) for pr in prs]
+        except UnknownObjectException as _:
+            return []
+
+    def get_pr_info(self, pr_id: int) -> PullRequest:
+        pr = self.github_repo.get_pull(number=pr_id)
+        return self._pr_from_github_object(pr)
+
+    def _get_all_pr_comments(self, pr_id: int) -> List[PRComment]:
+        pr = self.github_repo.get_pull(number=pr_id)
+        return [
+            self._prcomment_from_github_object(raw_comment)
+            for raw_comment in pr.get_issue_comments()
+        ]
+
+    def pr_create(
+            self, title: str, body: str, target_branch: str, source_branch: str
+    ) -> PullRequest:
+        created_pr = self.github_repo.create_pull(
+            title=title, body=body, base=target_branch, head=source_branch
+        )
+        return self._pr_from_github_object(created_pr)
+
+    def pr_comment(
+            self,
+            pr_id: int,
+            body: str,
+            commit: str = None,
+            filename: str = None,
+            row: int = None,
+    ) -> PRComment:
+        raise NotImplementedError
+
+    def pr_close(self, pr_id: int) -> PullRequest:
+        raise NotImplementedError
+
+    def pr_merge(self, pr_id: int) -> PullRequest:
+        closed_pr = self.github_repo.get_pull(number=pr_id).merge()
+        return self._pr_from_github_object(closed_pr)
+
+    def get_git_urls(self) -> Dict[str, str]:
+        return {"git": self.github_repo.clone_url, "ssh": self.github_repo.ssh_url}
+
+    def fork_create(self):
+        raise NotImplementedError
+
+    def change_token(self, new_token: str):
+        raise NotImplementedError
+
+    def get_file_content(self, path: str, ref="master") -> Optional[bytes]:
+        try:
+            return self.github_repo.get_contents(
+                path=path, ref=ref
+            ).decoded_content.decode()
+        except Exception as ex:
+            raise FileNotFoundError(f"File '{path}' on {ref} not found", ex)
+
+    def _pr_from_github_object(self, github_pr: GithubPullRequest) -> PullRequest:
+        return PullRequest(
+            title=github_pr.title,
+            id=github_pr.id,
+            status=PRStatus[github_pr.state],
+            url=github_pr.url,
+            description=github_pr.body,
+            author=github_pr.user.name,
+            source_branch=github_pr.head.ref,
+            target_branch=github_pr.base.ref,
+            created=github_pr.created_at,
+        )
 
     @staticmethod
-    def is_fork_of(user_repo, target_repo):
-        """ is provided repo fork of gh.com/{parent_repo}/? """
-        return user_repo.fork_create() and user_repo.get_parent() and \
-               user_repo.get_parent.full_name == target_repo
+    def _prcomment_from_github_object(raw_comment: GithubIssueComment) -> PRComment:
+        return PRComment(
+            comment=raw_comment.body,
+            author=raw_comment.user.login,
+            created=raw_comment.created_at,
+            edited=raw_comment.updated_at,
+        )
 
-    def fork_create(self, target_repo):
-
-        target_repo_org, target_repo_name = target_repo.split("/", 1)
-
-        target_repo_gh = self.g.get_repo(target_repo)
-
-        try:
-            # is it already forked?
-            user_repo = self.user.get_repo(target_repo_name)
-            if not self.is_fork_of(user_repo, target_repo):
-                raise RuntimeError("repo %s is not a fork of %s" % (user_repo, target_repo_gh))
-        except github.UnknownObjectException:
-            # nope
-            user_repo = None
-
-        if self.user.login == target_repo_org:
-            # user wants to fork its own repo; let's just set up remotes 'n stuff
-            if not user_repo:
-                raise RuntimeError("repo %s not found" % target_repo_name)
-            clone_repo_and_cd_inside(user_repo.name, user_repo.ssh_url, target_repo_org)
-        else:
-            user_repo = self._fork_gracefully(target_repo_gh)
-
-            clone_repo_and_cd_inside(user_repo.name, user_repo.ssh_url, target_repo_org)
-
-            set_upstream_remote(clone_url=target_repo_gh.clone_url,
-                                ssh_url=target_repo_gh.ssh_url,
-                                pull_merge_name="pull")
-        set_origin_remote(user_repo.ssh_url, pull_merge_name="pull")
-        fetch_all()
-
-    def _fork_gracefully(self, target_repo):
-        """ fork if not forked, return forked repo """
-        try:
-            target_repo.full_name
-        except github.GithubException.UnknownObjectException:
-            logger.error("repository doesn't exist")
-            raise RuntimeError("repo %s not found" % target_repo)
-        logger.info("forking repo %s", target_repo)
-        return self.user.fork_create(target_repo)
-
-    def pr_create(self, target_remote, target_branch, current_branch):
-        """
-        create pull request on repo specified in target_remote against target_branch
-        from current_branch
-
-        :param target_remote: str, git remote to create PR against
-        :param target_branch: str, git branch to create PR against
-        :param current_branch: str, local branch with the changes
-        :return: URL to the PR
-        """
-        head = "{}:{}".format(self.user.login, current_branch)
-        logger.debug("PR head is: %s", head)
-
-        base = "{}/{}".format(target_remote, target_branch)
-
-        git_push()
-
-        title, body = prompt_for_pr_content(get_commit_msgs(base))
-
-        opts = {
-            "title": title,
-            "body": body,
-            "base": target_branch,
-            "head": head,
-        }
-        logger.debug("PR to be created: %s", json.dumps(opts, indent=2))
-        # TODO: configurable, prompt instead maybe?
-        time.sleep(4.0)
-        pr = self.repo.create_pull(**opts)
-        logger.info("PR link: %s", pr.html_url)
-        return pr.html_url
-
-    def pr_list(self):
-        """
-        Get list of pull-requests for the repository.
-
-        :return: [PullRequest]
-        """
-        prs = self.repo.get_pulls(state="open",
-                                  sort="updated",
-                                  direction="desc")
-        return [
-            {
-                'id': pr.number,
-                'title': pr.title,
-                'author': pr.user.login,
-                'url': pr.html_url,
-            }
-            for pr in prs]
-
-    def list_labels(self):
+    def get_labels(self):
         """
         Get list of labels in the repository.
         :return: [Label]
         """
-        return list(self.repo.get_labels())
+        return list(self.github_repo.get_labels())
 
     def update_labels(self, labels):
         """
@@ -151,20 +156,28 @@ class GithubService(GitService):
         :param labels: [str]
         :return: int - number of added labels
         """
-        current_label_names = [l.name for l in list(self.repo.get_labels())]
+        current_label_names = [l.name for l in list(self.github_repo.get_labels())]
         changes = 0
         for label in labels:
             if label.name not in current_label_names:
                 color = self._normalize_label_color(color=label.color)
-                self.repo.create_label(name=label.name,
-                                       color=color,
-                                       description=label.description or "")
+                self.github_repo.create_label(
+                    name=label.name, color=color, description=label.description or ""
+                )
 
                 changes += 1
         return changes
 
     @staticmethod
     def _normalize_label_color(color):
-        if color.startswith('#'):
+        if color.startswith("#"):
             return color[1:]
         return color
+
+
+class GithubUser(BaseGitUser):
+    def __init__(self, service: GithubService) -> None:
+        super().__init__(service=service)
+
+    def get_username(self) -> str:
+        return self.service.github.get_user().login

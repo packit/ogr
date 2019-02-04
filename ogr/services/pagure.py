@@ -226,6 +226,15 @@ class PagureProject(BaseGitProject):
         self._token = new_token
         self._pagure.change_token(new_token)
 
+    def get_file_content(self, path: str, ref="master") -> Optional[bytes]:
+
+        result = self._pagure.get_raw_request(
+            "raw", ref, "f", path, api_url=False, repo_name=True, namespace=True
+        )
+        if not result and result.reason == "NOT FOUND":
+            raise FileNotFoundError(f"File '{path}' on {ref} not found")
+        return result.content.decode()
+
 
 class PagureUser(BaseGitUser):
     def __init__(self, service: PagureService) -> None:
