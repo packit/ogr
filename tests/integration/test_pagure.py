@@ -177,4 +177,10 @@ def test_username(pagure_service, pagure_user):
 def test_get_file(docker_py_project):
     file_content = docker_py_project.get_file_content(".gitignore")
     assert file_content
-    assert "docker-2.6.1.tar.gz" in file_content.decode()
+    assert isinstance(file_content, str)
+    assert "docker-2.6.1.tar.gz" in file_content
+
+
+def test_nonexisting_file(docker_py_project):
+    with pytest.raises(FileNotFoundError) as _:
+        docker_py_project.get_file_content(".blablabla_nonexisting_file")

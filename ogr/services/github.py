@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-import datetime
 import logging
 from typing import Optional, Dict, List
 
@@ -115,9 +114,11 @@ class GithubProject(BaseGitProject):
 
     def get_file_content(self, path: str, ref="master") -> Optional[bytes]:
         try:
-            return self.github_repo.get_contents(path=path, ref=ref).decoded_content
-        except Exception as _:
-            return None
+            return self.github_repo.get_contents(
+                path=path, ref=ref
+            ).decoded_content.decode()
+        except Exception as ex:
+            raise FileNotFoundError(f"File '{path}' on {ref} not found", ex)
 
     def _pr_from_github_object(self, github_pr: GithubPullRequest) -> PullRequest:
         return PullRequest(

@@ -175,4 +175,10 @@ def test_username(github_service, github_user):
 def test_get_file(colin_project):
     file_content = colin_project.get_file_content(".gitignore")
     assert file_content
-    assert "*.py[co]" in file_content.decode()
+    assert isinstance(file_content, str)
+    assert "*.py[co]" in file_content
+
+
+def test_nonexisting_file(colin_project):
+    with pytest.raises(FileNotFoundError) as _:
+        colin_project.get_file_content(".blablabla_nonexisting_file")

@@ -267,13 +267,13 @@ class GitProject:
         """
         raise NotImplementedError
 
-    def get_file_content(self, path: str, revision="master") -> Optional[bytes]:
+    def get_file_content(self, path: str, ref="master") -> str:
         """
         Get a content of the file in the repo.
 
-        :param revision: branch or commit (defaults to master)
+        :param ref: branch or commit (defaults to master)
         :param path: str
-        :return: bytes or None if there is no such file
+        :return: str or FileNotFoundError if there is no such file
         """
         raise NotImplementedError
 
