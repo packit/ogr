@@ -20,7 +20,7 @@ class OurPagure(libpagure.Pagure):
     def repo_name(self):
         return self.repo.split("/")[1]
 
-    def get_api_url(self, *args, add_fork=True, api_url=True):
+    def get_api_url(self, *args, add_fork=True, add_api_endpoint_part=True):
         args_list = []
 
         if self.username and add_fork:
@@ -28,7 +28,7 @@ class OurPagure(libpagure.Pagure):
 
         args_list += filter(lambda x: x is not None, args)
 
-        if api_url:
+        if add_api_endpoint_part:
             return self.api_url + "/".join(args_list)
         return f"{self.instance}/" + "/".join(args_list)
 
@@ -163,7 +163,7 @@ class OurPagure(libpagure.Pagure):
         if namespace:
             url_parts.insert(0, self.namespace)
 
-        request_url = self.get_api_url(*url_parts, api_url=api_url)
+        request_url = self.get_api_url(*url_parts, add_api_endpoint_part=api_url)
 
         req = self.session.request(
             method=method,
