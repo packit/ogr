@@ -70,7 +70,9 @@ def test_pr_comments_filter(colin_project):
     assert len(pr_comments) == 2
     assert pr_comments[1].comment.startswith("Thank you!")
 
-    pr_comments = colin_project.get_pr_comments(7, filter_regex="Thank you for the ([a-z]*)")
+    pr_comments = colin_project.get_pr_comments(
+        7, filter_regex="Thank you for the ([a-z]*)"
+    )
     assert pr_comments
     assert len(pr_comments) == 1
     assert pr_comments[0].comment.endswith("thoughts.")
@@ -81,7 +83,9 @@ def test_pr_comments_search(colin_project):
     assert comment_match
     assert comment_match[0] == "Thank"
 
-    comment_match = colin_project.search_in_pr(7, filter_regex="Thank you for the ([a-z]*)")
+    comment_match = colin_project.search_in_pr(
+        7, filter_regex="Thank you for the ([a-z]*)"
+    )
     assert comment_match
     assert comment_match[0] == "Thank you for the review"
     assert comment_match[1] == "review"

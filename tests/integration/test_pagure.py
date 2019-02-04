@@ -99,13 +99,7 @@ def test_description(docker_py_project):
 def test_branches(docker_py_project):
     branches = docker_py_project.get_branches()
     assert branches
-    assert set(branches) == {
-        "f26",
-        "f27",
-        "f28",
-        "f29",
-        "master",
-    }
+    assert set(branches) == {"f26", "f27", "f28", "f29", "master"}
 
 
 def test_git_urls(docker_py_project):
