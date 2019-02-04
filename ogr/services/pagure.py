@@ -226,6 +226,21 @@ class PagureProject(BaseGitProject):
         self._token = new_token
         self._pagure.change_token(new_token)
 
+    def get_file_content(self, path: str, revision="master") -> Optional[bytes]:
+        try:
+            result = self._pagure.get_raw_request(
+                "raw",
+                revision,
+                "f",
+                path,
+                api_url=False,
+                repo_name=True,
+                namespace=True,
+            )
+            return result.content
+        except Exception as _:
+            return None
+
 
 class PagureUser(BaseGitUser):
     def __init__(self, service: PagureService) -> None:

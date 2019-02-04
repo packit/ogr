@@ -20,7 +20,7 @@ class OurPagure(libpagure.Pagure):
     def repo_name(self):
         return self.repo.split("/")[1]
 
-    def get_api_url(self, *args, add_fork=True):
+    def get_api_url(self, *args, add_fork=True, api_url=True):
         args_list = []
 
         if self.username and add_fork:
@@ -28,7 +28,9 @@ class OurPagure(libpagure.Pagure):
 
         args_list += filter(lambda x: x is not None, args)
 
-        return self.api_url + "/".join(args_list)
+        if api_url:
+            return self.api_url + "/".join(args_list)
+        return f"{self.instance}/" + "/".join(args_list)
 
     def whoami(self):
         request_url = self.get_api_url("-", "whoami", add_fork=False)
@@ -144,6 +146,34 @@ class OurPagure(libpagure.Pagure):
             },
         )
         return return_value
+
+    def get_raw_request(
+            self,
+            *url_parts,
+            method="GET",
+            params=None,
+            data=None,
+            api_url=True,
+            repo_name=False,
+            namespace=False,
+    ):
+        url_parts = list(url_parts)
+        if repo_name:
+            url_parts.insert(0, self.repo_name)
+        if namespace:
+            url_parts.insert(0, self.namespace)
+
+        request_url = self.get_api_url(*url_parts, api_url=api_url)
+
+        req = self.session.request(
+            method=method,
+            url=request_url,
+            params=params,
+            headers=self.header,
+            data=data,
+            verify=not self.insecure,
+        )
+        return req
 
     def get_fork(self):
 

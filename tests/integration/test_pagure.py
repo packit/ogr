@@ -181,3 +181,9 @@ def test_create_fork(docker_py_project):
 
 def test_username(pagure_service, pagure_user):
     assert pagure_service.user.get_username() == pagure_user
+
+
+def test_get_file(docker_py_project):
+    file_content = docker_py_project.get_file_content(".gitignore")
+    assert file_content
+    assert "docker-2.6.1.tar.gz" in file_content.decode()
