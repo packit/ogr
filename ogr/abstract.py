@@ -1,7 +1,6 @@
 import datetime
-from dataclasses import dataclass
 from enum import Enum
-from typing import Optional, Match, List, Dict, AnyStr
+from typing import Optional, Match, List, Dict
 
 
 class PRStatus(Enum):
@@ -11,25 +10,42 @@ class PRStatus(Enum):
     all = 4
 
 
-@dataclass
 class PullRequest:
-    title: str
-    id: int
-    status: PRStatus
-    url: str
-    description: str
-    author: str
-    source_branch: str
-    target_branch: str
-    created: datetime.datetime
+    def __init__(
+        self,
+        title: str,
+        id: int,
+        status: PRStatus,
+        url: str,
+        description: str,
+        author: str,
+        source_branch: str,
+        target_branch: str,
+        created: datetime.datetime,
+    ) -> None:
+        self.title = title
+        self.id = id
+        self.status = status
+        self.url = url
+        self.description = description
+        self.author = author
+        self.source_branch = source_branch
+        self.target_branch = target_branch
+        self.created = created
 
 
-@dataclass
 class PRComment:
-    comment: str
-    author: str
-    created: datetime.datetime
-    edited: datetime.datetime
+    def __init__(
+        self,
+        comment: str,
+        author: str,
+        created: datetime.datetime,
+        edited: datetime.datetime,
+    ) -> None:
+        self.comment = comment
+        self.author = author
+        self.created = created
+        self.edited = edited
 
 
 class GitService:
