@@ -1,5 +1,3 @@
-from __future__ import annotations
-
 import datetime
 from dataclasses import dataclass
 from enum import Enum
@@ -39,7 +37,7 @@ class GitService:
         pass
 
     @classmethod
-    def create_from_remote_url(cls, remote_url) -> GitService:
+    def create_from_remote_url(cls, remote_url) -> "GitService":
         """
         Create instance of service from provided remote_url.
 
@@ -48,7 +46,7 @@ class GitService:
         """
         raise NotImplementedError()
 
-    def get_project(self, **kwargs) -> GitProject:
+    def get_project(self, **kwargs) -> "GitProject":
         """
         Get the GitProject instance
 
@@ -60,7 +58,7 @@ class GitService:
         raise NotImplementedError
 
     @property
-    def user(self) -> GitUser:
+    def user(self) -> "GitUser":
         """
         GitUser instance for used token.
 
@@ -130,7 +128,7 @@ class GitProject:
         """
         raise NotImplementedError()
 
-    def get_fork(self) -> Optional[GitProject]:
+    def get_fork(self) -> Optional["GitProject"]:
         """
         GitProject instance of the fork if the fork exists, else None
 
@@ -138,7 +136,7 @@ class GitProject:
         """
         raise NotImplementedError()
 
-    def get_pr_list(self, status: PRStatus = PRStatus.open) -> List[PullRequest]:
+    def get_pr_list(self, status: PRStatus = PRStatus.open) -> List["PullRequest"]:
         """
         List of pull requests (dics)
 
@@ -147,7 +145,7 @@ class GitProject:
         """
         raise NotImplementedError()
 
-    def get_pr_info(self, pr_id: int) -> PullRequest:
+    def get_pr_info(self, pr_id: int) -> "PullRequest":
         """
         Get pull request info
 
@@ -156,7 +154,7 @@ class GitProject:
         """
         raise NotImplementedError()
 
-    def _get_all_pr_comments(self, pr_id: int) -> List[PRComment]:
+    def _get_all_pr_comments(self, pr_id: int) -> List["PRComment"]:
         """
         Get list of pull-request comments.
 
@@ -166,8 +164,8 @@ class GitProject:
         raise NotImplementedError()
 
     def get_pr_comments(
-            self, pr_id, filter_regex: str = None, reverse: bool = False
-    ) -> List[PRComment]:
+        self, pr_id, filter_regex: str = None, reverse: bool = False
+    ) -> List["PRComment"]:
         """
         Get list of pull-request comments.
 
@@ -179,11 +177,11 @@ class GitProject:
         raise NotImplementedError()
 
     def search_in_pr(
-            self,
-            pr_id: int,
-            filter_regex: str,
-            reverse: bool = False,
-            description: bool = True,
+        self,
+        pr_id: int,
+        filter_regex: str,
+        reverse: bool = False,
+        description: bool = True,
     ) -> Optional[Match[str]]:
         """
         Find match in pull-request description or comments.
@@ -197,8 +195,8 @@ class GitProject:
         raise NotImplementedError()
 
     def pr_create(
-            self, title: str, body: str, target_branch: str, source_branch: str
-    ) -> PullRequest:
+        self, title: str, body: str, target_branch: str, source_branch: str
+    ) -> "PullRequest":
         """
         Create a new pull request.
 
@@ -211,13 +209,13 @@ class GitProject:
         raise NotImplementedError()
 
     def pr_comment(
-            self,
-            pr_id: int,
-            body: str,
-            commit: str = None,
-            filename: str = None,
-            row: int = None,
-    ) -> PRComment:
+        self,
+        pr_id: int,
+        body: str,
+        commit: str = None,
+        filename: str = None,
+        row: int = None,
+    ) -> "PRComment":
         """
         Add new comment to the pull request.
 
@@ -230,7 +228,7 @@ class GitProject:
         """
         raise NotImplementedError()
 
-    def pr_close(self, pr_id: int) -> PullRequest:
+    def pr_close(self, pr_id: int) -> "PullRequest":
         """
         Close the pull-request.
 
@@ -239,7 +237,7 @@ class GitProject:
         """
         raise NotImplementedError()
 
-    def pr_merge(self, pr_id: int) -> PullRequest:
+    def pr_merge(self, pr_id: int) -> "PullRequest":
         """
         Merge the pull request.
 
@@ -279,7 +277,7 @@ class GitProject:
 
 
 class GitUser:
-    def __init__(self, service: GitService) -> None:
+    def __init__(self, service: "GitService") -> None:
         self.service = service
 
     def get_username(self) -> str:

@@ -1,5 +1,3 @@
-from __future__ import annotations
-
 import logging
 from typing import Optional, Dict, List
 
@@ -20,8 +18,8 @@ class GithubService(BaseGitService):
         self.github = github.Github(login_or_token=self._token)
 
     def get_project(
-            self, repo=None, namespace=None, is_fork=False, **kwargs
-    ) -> GithubProject:
+        self, repo=None, namespace=None, is_fork=False, **kwargs
+    ) -> "GithubProject":
         if is_fork:
             namespace = self.user.get_username()
         return GithubProject(repo=repo, namespace=namespace, service=self, **kwargs)
@@ -79,7 +77,7 @@ class GithubProject(BaseGitProject):
         ]
 
     def pr_create(
-            self, title: str, body: str, target_branch: str, source_branch: str
+        self, title: str, body: str, target_branch: str, source_branch: str
     ) -> PullRequest:
         created_pr = self.github_repo.create_pull(
             title=title, body=body, base=target_branch, head=source_branch
@@ -87,12 +85,12 @@ class GithubProject(BaseGitProject):
         return self._pr_from_github_object(created_pr)
 
     def pr_comment(
-            self,
-            pr_id: int,
-            body: str,
-            commit: str = None,
-            filename: str = None,
-            row: int = None,
+        self,
+        pr_id: int,
+        body: str,
+        commit: str = None,
+        filename: str = None,
+        row: int = None,
     ) -> PRComment:
         raise NotImplementedError
 

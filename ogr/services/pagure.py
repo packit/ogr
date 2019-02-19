@@ -1,5 +1,3 @@
-from __future__ import annotations
-
 import datetime
 import logging
 from typing import List, Optional, Dict
@@ -14,10 +12,10 @@ logger = logging.getLogger(__name__)
 
 class PagureService(BaseGitService):
     def __init__(
-            self,
-            token: str = None,
-            instance_url: str = "https://src.fedoraproject.org",
-            **kwargs,
+        self,
+        token: str = None,
+        instance_url: str = "https://src.fedoraproject.org",
+        **kwargs,
     ) -> None:
         super().__init__()
         self.instance_url = instance_url
@@ -26,7 +24,7 @@ class PagureService(BaseGitService):
 
         self.pagure = OurPagure(pagure_token=token, instance_url=instance_url, **kwargs)
 
-    def get_project(self, **kwargs) -> PagureProject:
+    def get_project(self, **kwargs) -> "PagureProject":
         project_kwargs = self.pagure_kwargs.copy()
         project_kwargs.update(kwargs)
         return PagureProject(
@@ -37,7 +35,7 @@ class PagureService(BaseGitService):
         )
 
     @property
-    def user(self) -> PagureUser:
+    def user(self) -> "PagureUser":
         return PagureUser(service=self)
 
     def change_token(self, new_token: str) -> None:
@@ -52,15 +50,15 @@ class PagureService(BaseGitService):
 
 class PagureProject(BaseGitProject):
     def __init__(
-            self,
-            repo: str,
-            namespace: str,
-            service: PagureService,
-            username: Optional[str] = None,
-            instance_url: Optional[str] = None,
-            token: Optional[str] = None,
-            is_fork: bool = False,
-            **kwargs,
+        self,
+        repo: str,
+        namespace: str,
+        service: "PagureService",
+        username: Optional[str] = None,
+        instance_url: Optional[str] = None,
+        token: Optional[str] = None,
+        is_fork: bool = False,
+        **kwargs,
     ) -> None:
         if is_fork and username:
             complete_namespace = f"fork/{username}/{namespace}"
@@ -118,12 +116,12 @@ class PagureProject(BaseGitProject):
         return parsed_comments
 
     def pr_comment(
-            self,
-            pr_id: int,
-            body: str,
-            commit: str = None,
-            filename: str = None,
-            row: int = None,
+        self,
+        pr_id: int,
+        body: str,
+        commit: str = None,
+        filename: str = None,
+        row: int = None,
     ) -> PRComment:
         return self._pagure.comment_request(
             request_id=pr_id, body=body, commit=commit, filename=filename, row=row
@@ -136,7 +134,7 @@ class PagureProject(BaseGitProject):
         return self._pagure.merge_request(request_id=pr_id)
 
     def pr_create(
-            self, title: str, body: str, target_branch: str, source_branch: str
+        self, title: str, body: str, target_branch: str, source_branch: str
     ) -> PullRequest:
         pr_info = self._pagure.create_request(
             title=title,
@@ -150,7 +148,7 @@ class PagureProject(BaseGitProject):
     def fork_create(self) -> None:
         self._pagure.create_fork()
 
-    def get_fork(self) -> Optional[PagureProject]:
+    def get_fork(self) -> Optional["PagureProject"]:
         """
         PagureRepo instance of the fork of this repo.
         """
@@ -237,7 +235,7 @@ class PagureProject(BaseGitProject):
 
 
 class PagureUser(BaseGitUser):
-    def __init__(self, service: PagureService) -> None:
+    def __init__(self, service: "PagureService") -> None:
         super().__init__(service=service)
 
     def get_username(self) -> str:
