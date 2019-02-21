@@ -1,6 +1,7 @@
 import datetime
 from enum import Enum
 from typing import Optional, Match, List, Dict
+from urllib.request import urlopen
 
 
 class PRStatus(Enum):
@@ -46,6 +47,32 @@ class PRComment:
         self.author = author
         self.created = created
         self.edited = edited
+
+
+class Release:
+    def __init__(
+        self,
+        title: str,
+        body: str,
+        tag_name: str,
+        url: str,
+        created_at: str,
+        tarball_url: str,
+    ) -> None:
+        self.title = title
+        self.body = body
+        self.tag_name = tag_name
+        self.url = url
+        self.created_at = created_at
+        self.tarball_url = tarball_url
+
+    def save_archive(self, filename):
+        response = urlopen(self.tarball_url)
+        data = response.read()
+
+        file = open(filename, "w")
+        file.write(data)
+        file.close()
 
 
 class GitService:

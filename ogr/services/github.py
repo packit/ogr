@@ -3,9 +3,10 @@ from typing import Optional, Dict, List
 
 import github
 from github import UnknownObjectException, IssueComment as GithubIssueComment
+from github.GitRelease import GitRelease as GithubRelease
 from github.PullRequest import PullRequest as GithubPullRequest
 
-from ogr.abstract import GitUser, GitProject, PullRequest, PRComment, PRStatus
+from ogr.abstract import GitUser, GitProject, PullRequest, PRComment, PRStatus, Release
 from ogr.services.base import BaseGitService, BaseGitProject, BaseGitUser
 
 logger = logging.getLogger(__name__)
@@ -140,6 +141,17 @@ class GithubProject(BaseGitProject):
             edited=raw_comment.updated_at,
         )
 
+    @staticmethod
+    def _release_from_github_object(raw_release: GithubRelease) -> Release:
+        return Release(
+            title=raw_release.title,
+            body=raw_release.body,
+            tag_name=raw_release.tag_name,
+            url=raw_release.url,
+            created_at=raw_release.created_at,
+            tarball_url=raw_release.tarball_url,
+        )
+
     def get_labels(self):
         """
         Get list of labels in the repository.
@@ -171,6 +183,17 @@ class GithubProject(BaseGitProject):
         if color.startswith("#"):
             return color[1:]
         return color
+
+    def get_release(self, id: int) -> Release:
+        release = self.github_repo.get_release(id=id)
+        return self._release_from_github_object(raw_release=release)
+
+    def get_releases(self) -> List[Release]:
+        releases = self.github_repo.get_releases()
+        return [
+            self._release_from_github_object(raw_release=release)
+            for release in releases
+        ]
 
 
 class GithubUser(BaseGitUser):
