@@ -4,16 +4,16 @@ PY_PACKAGE := ogr
 OGR_IMAGE := ogr
 
 build: recipe.yaml
-	sudo ansible-bender build --build-volumes $(CURDIR):/src:Z -- ./recipe.yaml $(BASE_IMAGE) $(OGR_IMAGE)
+	ansible-bender build --build-volumes $(CURDIR):/src:Z -- ./recipe.yaml $(BASE_IMAGE) $(OGR_IMAGE)
 
 check:
 	PYTHONPATH=$(CURDIR) pytest-3 --color=yes --verbose --showlocals $(TEST_TARGET)
 
 shell:
-	sudo podman run --rm -ti -v $(CURDIR):/src:Z -w /src $(OGR_IMAGE) bash
+	podman run --rm -ti -v $(CURDIR):/src:Z -w /src $(OGR_IMAGE) bash
 
 check-pypi-packaging:
-	sudo podman run --rm -ti -v $(CURDIR):/src:Z -w /src $(OGR_IMAGE) bash -c '\
+	podman run --rm -ti -v $(CURDIR):/src:Z -w /src $(OGR_IMAGE) bash -c '\
 		set -x \
 		&& rm -f dist/* \
 		&& python3 ./setup.py sdist bdist_wheel \
