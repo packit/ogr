@@ -1,3 +1,11 @@
+# 0.0.3
+
+## Fixes
+
+* Fix the Python3.6 compatibility:
+    * remove dataclasses
+    * use strings for type annotations
+
 # 0.0.2
 
 ## New Features
