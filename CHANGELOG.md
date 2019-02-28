@@ -1,3 +1,10 @@
+# 0.0.3
+
+* add RPM spec file
+* [release-conf.yaml] remove deprecated python_versions
+* Remove dataclasses
+* Use strings for type annotations
+
 # 0.0.2
 
 ## New Features
