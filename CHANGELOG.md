@@ -1,9 +1,10 @@
 # 0.0.3
 
-* add RPM spec file
-* [release-conf.yaml] remove deprecated python_versions
-* Remove dataclasses
-* Use strings for type annotations
+## Fixes
+
+* Fix the Python3.6 compatibility:
+    * remove dataclasses
+    * use strings for type annotations
 
 # 0.0.2
 
