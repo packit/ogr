@@ -1,3 +1,9 @@
+# 0.1.0
+
+First minor release of ogr. We have added spec file to the upstream repository
+so that packit can start taking care of it.
+
+
 # 0.0.3
 
 ## Fixes
