@@ -6,6 +6,17 @@ from libpagure import APIError
 from ogr.abstract import PRStatus
 from ogr.services.github import GithubService
 
+def requirements_met():
+    try:
+        os.environ["GITHUB_TOKEN"]
+        os.environ["GITHUB_USER"]
+    except KeyError:
+        return False
+    return True
+
+
+pytestmark = pytest.mark.skipif(not requirements_met(), reason="you have to have set GITHUB_TOKEN, GITHUB_USER env vars")
+
 
 @pytest.fixture()
 def github_token():

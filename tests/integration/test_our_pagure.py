@@ -4,6 +4,17 @@ import pytest
 
 from ogr.services.our_pagure import OurPagure
 
+def requirements_met():
+    try:
+        os.environ["PAGURE_TOKEN"]
+        os.environ["PAGURE_USER"]
+    except KeyError:
+        return False
+    return True
+
+
+pytestmark = pytest.mark.skipif(not requirements_met(), reason="you have to have set PAGURE_TOKEN, PAGURE_USER env vars")
+
 
 @pytest.fixture()
 def pagure_token():
