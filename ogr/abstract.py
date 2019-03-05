@@ -1,9 +1,9 @@
 import datetime
-from enum import Enum
+from enum import IntEnum
 from typing import Optional, Match, List, Dict
 
 
-class PRStatus(Enum):
+class PRStatus(IntEnum):
     open = 1
     closed = 2
     merged = 3
