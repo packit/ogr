@@ -6,8 +6,11 @@ OGR_IMAGE := ogr
 build: recipe.yaml
 	ansible-bender build --build-volumes $(CURDIR):/src:Z -- ./recipe.yaml $(BASE_IMAGE) $(OGR_IMAGE)
 
+prepare-check:
+	sudo dnf install python3-tox python36
+
 check:
-	PYTHONPATH=$(CURDIR) pytest-3 --color=yes --verbose --showlocals $(TEST_TARGET)
+	tox
 
 shell:
 	podman run --rm -ti -v $(CURDIR):/src:Z -w /src $(OGR_IMAGE) bash

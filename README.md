@@ -16,11 +16,16 @@ Library for one API for many git forges. (e.g. GitHub, GitLab, Pagure).
 
 ## Requirements
 
-Makefile needs
+### Makefile
 
 - [podman](https://github.com/containers/libpod)
 - [ansible-bender](https://pypi.org/project/ansible-bender)
   - until ansible 2.8 is released, it requires [buildah](https://github.com/containers/buildah)
+
+### Tests
+
+Run `make prepare-check` before first `make check`.
+
 
 # Contribution notes
 
