@@ -6,16 +6,16 @@ from libpagure import APIError
 from ogr.abstract import PRStatus
 from ogr.services.pagure import PagureService
 
-def requirements_met():
-    try:
-        os.environ["PAGURE_TOKEN"]
-        os.environ["PAGURE_USER"]
-    except KeyError:
-        return False
-    return True
+def skip_tests(env_vars_list):
+    requirements_met = True
+    for item in env_vars_list:
+        if os.environ.get(item) is None:
+            requirements_met = False
+    return pytest.mark.skipif(not requirements_met,
+                              reason="you have to have set env vars: {}".format(env_vars_list))
 
 
-pytestmark = pytest.mark.skipif(not requirements_met(), reason="you have to have set PAGURE_TOKEN, PAGURE_USER env vars")
+pytestmark = skip_tests(["PAGURE_TOKEN", "PAGURE_USER"])
 
 
 @pytest.fixture()
