@@ -3,18 +3,9 @@ import os
 import pytest
 
 from ogr.services.our_pagure import OurPagure
+from tests.integration.conftest import skipif_not_all_env_vars_set
 
-
-def skip_tests(env_vars_list):
-    requirements_met = True
-    for item in env_vars_list:
-        if os.environ.get(item) is None:
-            requirements_met = False
-    return pytest.mark.skipif(not requirements_met,
-                              reason="you have to have set env vars: {}".format(env_vars_list))
-
-
-pytestmark = skip_tests(["PAGURE_TOKEN", "PAGURE_USER"])
+pytestmark = skipif_not_all_env_vars_set(["PAGURE_TOKEN", "PAGURE_USER"])
 
 
 @pytest.fixture()

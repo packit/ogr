@@ -5,16 +5,9 @@ from libpagure import APIError
 
 from ogr.abstract import PRStatus
 from ogr.services.github import GithubService
+from tests.integration.conftest import skipif_not_all_env_vars_set
 
-def skip_tests(env_vars_list):
-    requirements_met = True
-    for item in env_vars_list:
-        if os.environ.get(item) is None:
-            requirements_met = False
-    return pytest.mark.skipif(not requirements_met,
-                              reason="you have to have set env vars: {}".format(env_vars_list))
-
-pytestmark = skip_tests(["GITHUB_TOKEN", "GITHUB_USER"])
+pytestmark = skipif_not_all_env_vars_set(["GITHUB_TOKEN", "GITHUB_USER"])
 
 
 @pytest.fixture()
