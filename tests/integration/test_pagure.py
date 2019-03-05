@@ -5,6 +5,9 @@ from libpagure import APIError
 
 from ogr.abstract import PRStatus
 from ogr.services.pagure import PagureService
+from tests.integration.conftest import skipif_not_all_env_vars_set
+
+pytestmark = skipif_not_all_env_vars_set(["PAGURE_TOKEN", "PAGURE_USER"])
 
 
 @pytest.fixture()

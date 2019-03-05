@@ -3,6 +3,9 @@ import os
 import pytest
 
 from ogr.services.our_pagure import OurPagure
+from tests.integration.conftest import skipif_not_all_env_vars_set
+
+pytestmark = skipif_not_all_env_vars_set(["PAGURE_TOKEN", "PAGURE_USER"])
 
 
 @pytest.fixture()
