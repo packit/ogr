@@ -143,6 +143,18 @@ class GithubProject(BaseGitProject):
 
     @staticmethod
     def _release_from_github_object(raw_release: GithubRelease) -> Release:
+        """
+        Get ogr.abstract.Release object from github.GithubRelease
+        :param raw_release: GithubRelease, object from Github API
+        https://developer.github.com/v3/repos/releases/
+        :return: Release, example(type, value):
+        title: str, "0.1.0"
+        body: str, "Description of the release"
+        tag_name: str, "v1.0.0"
+        url: str, "https://api.github.com/repos/octocat/Hello-World/releases/1"
+        created_at: datetime.datetime, 2018-09-19 12:56:26
+        tarball_url: str, "https://api.github.com/repos/octocat/Hello-World/tarball/v1.0.0"
+        """
         return Release(
             title=raw_release.title,
             body=raw_release.body,
@@ -184,8 +196,8 @@ class GithubProject(BaseGitProject):
             return color[1:]
         return color
 
-    def get_release(self, id: int) -> Release:
-        release = self.github_repo.get_release(id=id)
+    def get_release(self, identifier: int) -> Release:
+        release = self.github_repo.get_release(id=identifier)
         return self._release_from_github_object(raw_release=release)
 
     def get_releases(self) -> List[Release]:

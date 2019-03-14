@@ -133,6 +133,13 @@ def test_pr_list(colin_project, colin_project_fork):
     assert len(pr_list) >= 2
 
 
+def test_get_releases(colin_project):
+    releases = colin_project.get_releases()
+    assert releases
+
+    assert len(releases) >= 9
+
+
 def test_pr_info(colin_project):
     pr_info = colin_project.get_pr_info(pr_id=1)
     assert pr_info
