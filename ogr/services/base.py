@@ -20,7 +20,7 @@ class BaseGitProject(GitProject):
         return f"{self.namespace}/{self.repo}"
 
     def get_pr_comments(
-            self, pr_id, filter_regex: str = None, reverse: bool = False
+        self, pr_id, filter_regex: str = None, reverse: bool = False
     ) -> List[PRComment]:
         """
         Get list of pull-request comments.
@@ -38,11 +38,11 @@ class BaseGitProject(GitProject):
         return all_comments
 
     def search_in_pr(
-            self,
-            pr_id: int,
-            filter_regex: str,
-            reverse: bool = False,
-            description: bool = True,
+        self,
+        pr_id: int,
+        filter_regex: str,
+        reverse: bool = False,
+        description: bool = True,
     ) -> Optional[Match[str]]:
         """
         Find match in pull-request description or comments.

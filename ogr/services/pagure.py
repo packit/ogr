@@ -49,11 +49,13 @@ class PagureService(BaseGitService):
 
 
 class PagureProject(BaseGitProject):
+    service: PagureService
+
     def __init__(
         self,
         repo: str,
         namespace: str,
-        service: "PagureService",
+        service: PagureService,
         username: Optional[str] = None,
         instance_url: Optional[str] = None,
         token: Optional[str] = None,
@@ -163,11 +165,11 @@ class PagureProject(BaseGitProject):
         if "username" not in kwargs:
             kwargs["username"] = self.service.user.get_username()
 
-        fork_project = PagureProject(**kwargs, service=self.service)
+        fork_project = PagureProject(service=self.service, **kwargs)
         try:
             if fork_project.exists() and fork_project._pagure.get_parent():
                 return fork_project
-        except:
+        except Exception:
             return None
         return None
 
@@ -224,7 +226,7 @@ class PagureProject(BaseGitProject):
         self._token = new_token
         self._pagure.change_token(new_token)
 
-    def get_file_content(self, path: str, ref="master") -> Optional[bytes]:
+    def get_file_content(self, path: str, ref="master") -> str:
 
         result = self._pagure.get_raw_request(
             "raw", ref, "f", path, api_url=False, repo_name=True, namespace=True
@@ -235,7 +237,9 @@ class PagureProject(BaseGitProject):
 
 
 class PagureUser(BaseGitUser):
-    def __init__(self, service: "PagureService") -> None:
+    service: PagureService
+
+    def __init__(self, service: PagureService) -> None:
         super().__init__(service=service)
 
     def get_username(self) -> str:

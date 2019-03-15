@@ -27,9 +27,7 @@ def test_full_repo_name(test_project):
 
 
 def test_non_fork(pagure_service):
-    test_project = pagure_service.get_project(
-        repo="my-test-project", namespace="rpms"
-    )
+    test_project = pagure_service.get_project(repo="my-test-project", namespace="rpms")
     assert not test_project.is_fork
     assert "fork" not in test_project.full_repo_name
 

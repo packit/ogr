@@ -22,4 +22,3 @@
 ## Fixes
 
 * Object representation of the pull-request and pull-request commend.
-
