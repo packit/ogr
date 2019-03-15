@@ -3,9 +3,10 @@ from typing import Optional, Dict, List
 
 import github
 from github import UnknownObjectException, IssueComment as GithubIssueComment
+from github.GitRelease import GitRelease as GithubRelease
 from github.PullRequest import PullRequest as GithubPullRequest
 
-from ogr.abstract import GitUser, GitProject, PullRequest, PRComment, PRStatus
+from ogr.abstract import GitUser, GitProject, PullRequest, PRComment, PRStatus, Release
 from ogr.services.base import BaseGitService, BaseGitProject, BaseGitUser
 
 logger = logging.getLogger(__name__)
@@ -140,6 +141,29 @@ class GithubProject(BaseGitProject):
             edited=raw_comment.updated_at,
         )
 
+    @staticmethod
+    def _release_from_github_object(raw_release: GithubRelease) -> Release:
+        """
+        Get ogr.abstract.Release object from github.GithubRelease
+        :param raw_release: GithubRelease, object from Github API
+        https://developer.github.com/v3/repos/releases/
+        :return: Release, example(type, value):
+        title: str, "0.1.0"
+        body: str, "Description of the release"
+        tag_name: str, "v1.0.0"
+        url: str, "https://api.github.com/repos/octocat/Hello-World/releases/1"
+        created_at: datetime.datetime, 2018-09-19 12:56:26
+        tarball_url: str, "https://api.github.com/repos/octocat/Hello-World/tarball/v1.0.0"
+        """
+        return Release(
+            title=raw_release.title,
+            body=raw_release.body,
+            tag_name=raw_release.tag_name,
+            url=raw_release.url,
+            created_at=raw_release.created_at,
+            tarball_url=raw_release.tarball_url,
+        )
+
     def get_labels(self):
         """
         Get list of labels in the repository.
@@ -171,6 +195,17 @@ class GithubProject(BaseGitProject):
         if color.startswith("#"):
             return color[1:]
         return color
+
+    def get_release(self, identifier: int) -> Release:
+        release = self.github_repo.get_release(id=identifier)
+        return self._release_from_github_object(raw_release=release)
+
+    def get_releases(self) -> List[Release]:
+        releases = self.github_repo.get_releases()
+        return [
+            self._release_from_github_object(raw_release=release)
+            for release in releases
+        ]
 
 
 class GithubUser(BaseGitUser):
