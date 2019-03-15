@@ -148,14 +148,14 @@ class OurPagure(libpagure.Pagure):
         return return_value
 
     def get_raw_request(
-            self,
-            *url_parts,
-            method="GET",
-            params=None,
-            data=None,
-            api_url=True,
-            repo_name=False,
-            namespace=False,
+        self,
+        *url_parts,
+        method="GET",
+        params=None,
+        data=None,
+        api_url=True,
+        repo_name=False,
+        namespace=False,
     ):
         url_parts = list(url_parts)
         if repo_name:
@@ -182,7 +182,7 @@ class OurPagure(libpagure.Pagure):
         try:
             return_value = self._call_api(url=request_url, method="GET", data={})
             return return_value
-        except Exception as ex:
+        except Exception:
             return None
 
     def create_fork(self):
@@ -260,7 +260,7 @@ class OurPagure(libpagure.Pagure):
         try:
             self._call_api(url=request_url, method="GET", data={})
             return True
-        except:
+        except Exception:
             return False
 
     def get_project_info(self):

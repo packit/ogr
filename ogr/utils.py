@@ -221,18 +221,18 @@ def list_local_branches():
     )
     for_each_ref = (
         subprocess.check_output(["git", "for-each-ref", "--format", fmt, "refs/heads/"])
-            .decode("utf-8")
-            .strip()
-            .split("\n")
+        .decode("utf-8")
+        .strip()
+        .split("\n")
     )
     response = []
     was_merged = (
         subprocess.check_output(
             ["git", "branch", "--merged", "master", "--format", "%(refname:short)"]
         )
-            .decode("utf-8")
-            .strip()
-            .split("\n")
+        .decode("utf-8")
+        .strip()
+        .split("\n")
     )
     for li in for_each_ref:
         fields = li.split(";")
@@ -251,8 +251,8 @@ def list_local_branches():
 def get_current_branch_name():
     return (
         subprocess.check_output(["git", "rev-parse", "--abbrev-ref", "HEAD"])
-            .decode("utf-8")
-            .strip()
+        .decode("utf-8")
+        .strip()
     )
 
 
@@ -261,8 +261,8 @@ def get_commit_msgs(branch):
         subprocess.check_output(
             ["git", "log", "--pretty=format:- %s.", "%s..HEAD" % branch]
         )
-            .decode("utf-8")
-            .strip()
+        .decode("utf-8")
+        .strip()
     )
 
 
@@ -282,7 +282,7 @@ def filter_comments(comments: List[PRComment], filter_regex: str) -> List[PRComm
 
 
 def search_in_comments(
-        comments: List[Union[str, PRComment]], filter_regex: str
+    comments: List[Union[str, PRComment]], filter_regex: str
 ) -> Optional[Match[str]]:
     """
     Find match in pull-request description or comments.

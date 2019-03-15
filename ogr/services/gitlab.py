@@ -3,8 +3,12 @@ import logging
 import gitlab
 
 from ogr.services.abstract import GitService
-from ogr.utils import clone_repo_and_cd_inside, set_upstream_remote, \
-    set_origin_remote, fetch_all
+from ogr.utils import (
+    clone_repo_and_cd_inside,
+    set_upstream_remote,
+    set_origin_remote,
+    fetch_all,
+)
 
 logger = logging.getLogger(__name__)
 
@@ -30,7 +34,7 @@ class GitlabService(GitService):
     @staticmethod
     def is_fork_of(user_repo, target_repo):
         """ is provided repo fork of the {parent_repo}/? """
-        return user_repo.forked_from_project['id'] == target_repo.id
+        return user_repo.forked_from_project["id"] == target_repo.id
 
     def fork(self, target_repo):
         target_repo_org, target_repo_name = target_repo.split("/", 1)
@@ -39,9 +43,13 @@ class GitlabService(GitService):
 
         try:
             # is it already forked?
-            user_repo = self.g.projects.get("{}/{}".format(self.user.get_username(), target_repo_name))
+            user_repo = self.g.projects.get(
+                "{}/{}".format(self.user.get_username(), target_repo_name)
+            )
             if not self.is_fork_of(user_repo, target_repo_gl):
-                raise RuntimeError("repo %s is not a fork of %s" % (user_repo, target_repo_gl))
+                raise RuntimeError(
+                    "repo %s is not a fork of %s" % (user_repo, target_repo_gl)
+                )
         except Exception:
             # nope
             user_repo = None
@@ -50,19 +58,24 @@ class GitlabService(GitService):
             # user wants to fork its own repo; let's just set up remotes 'n stuff
             if not user_repo:
                 raise RuntimeError("repo %s not found" % target_repo_name)
-            clone_repo_and_cd_inside(user_repo.path, user_repo.attributes['ssh_url_to_repo'],
-                                     target_repo_org)
+            clone_repo_and_cd_inside(
+                user_repo.path, user_repo.attributes["ssh_url_to_repo"], target_repo_org
+            )
         else:
             user_repo = user_repo or self._fork_gracefully(target_repo_gl)
 
-            clone_repo_and_cd_inside(user_repo.path, user_repo.attributes['ssh_url_to_repo'],
-                                     target_repo_org)
+            clone_repo_and_cd_inside(
+                user_repo.path, user_repo.attributes["ssh_url_to_repo"], target_repo_org
+            )
 
-            set_upstream_remote(clone_url=target_repo_gl.attributes['http_url_to_repo'],
-                                ssh_url=target_repo_gl.attributes['ssh_url_to_repo'],
-                                pull_merge_name="merge-requests")
-        set_origin_remote(user_repo.attributes['ssh_url_to_repo'],
-                          pull_merge_name="merge-requests")
+            set_upstream_remote(
+                clone_url=target_repo_gl.attributes["http_url_to_repo"],
+                ssh_url=target_repo_gl.attributes["ssh_url_to_repo"],
+                pull_merge_name="merge-requests",
+            )
+        set_origin_remote(
+            user_repo.attributes["ssh_url_to_repo"], pull_merge_name="merge-requests"
+        )
         fetch_all()
 
     @staticmethod
@@ -71,7 +84,7 @@ class GitlabService(GitService):
         try:
             logger.info("forking repo %s", target_repo)
             fork = target_repo.forks.create({})
-        except gitlab.GitlabCreateError as ex:
+        except gitlab.GitlabCreateError:
             logger.error("repo %s cannot be forked" % target_repo)
             raise RuntimeError("repo %s not found" % target_repo)
 
@@ -81,17 +94,18 @@ class GitlabService(GitService):
         raise NotImplementedError("Creating PRs for GitLab is not implemented yet.")
 
     def list_pull_requests(self):
-        mrs = self.repo.mergerequests.list(state='opened',
-                                           order_by='updated_at',
-                                           sort='desc')
+        mrs = self.repo.mergerequests.list(
+            state="opened", order_by="updated_at", sort="desc"
+        )
         return [
             {
-                'id': mr.iid,
-                'title': mr.title,
-                'author': mr.author['username'],
-                'url': mr.web_url,
+                "id": mr.iid,
+                "title": mr.title,
+                "author": mr.author["username"],
+                "url": mr.web_url,
             }
-            for mr in mrs]
+            for mr in mrs
+        ]
 
     def list_labels(self):
         """
@@ -112,15 +126,19 @@ class GitlabService(GitService):
         for label in labels:
             if label.name not in current_label_names:
                 color = self._normalize_label_color(color=label.color)
-                self.repo.labels.create({'name': label.name,
-                                         'color': color,
-                                         'description': label.description or ""})
+                self.repo.labels.create(
+                    {
+                        "name": label.name,
+                        "color": color,
+                        "description": label.description or "",
+                    }
+                )
 
                 changes += 1
         return changes
 
     @staticmethod
     def _normalize_label_color(color):
-        if not color.startswith('#'):
-            return '#{}'.format(color)
+        if not color.startswith("#"):
+            return "#{}".format(color)
         return color

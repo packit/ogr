@@ -320,7 +320,7 @@ class GitProject:
 
 
 class GitUser:
-    def __init__(self, service: "GitService") -> None:
+    def __init__(self, service: GitService) -> None:
         self.service = service
 
     def get_username(self) -> str:

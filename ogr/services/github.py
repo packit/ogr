@@ -63,7 +63,7 @@ class GithubProject(BaseGitProject):
         )
         try:
             return [self._pr_from_github_object(pr) for pr in prs]
-        except UnknownObjectException as _:
+        except UnknownObjectException:
             return []
 
     def get_pr_info(self, pr_id: int) -> PullRequest:
@@ -111,7 +111,7 @@ class GithubProject(BaseGitProject):
     def change_token(self, new_token: str):
         raise NotImplementedError
 
-    def get_file_content(self, path: str, ref="master") -> Optional[bytes]:
+    def get_file_content(self, path: str, ref="master") -> str:
         try:
             return self.github_repo.get_contents(
                 path=path, ref=ref
@@ -209,6 +209,8 @@ class GithubProject(BaseGitProject):
 
 
 class GithubUser(BaseGitUser):
+    service: GithubService
+
     def __init__(self, service: GithubService) -> None:
         super().__init__(service=service)
 
