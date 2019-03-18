@@ -1,3 +1,18 @@
+# 0.1.0
+
+### New Features
+
+* Ogr now has an API for Github releases.
+
+## Minor
+
+* We have started using black, flake8 and mypy to improve the code quality.
+
+* We are running upstream CI in CentosCI.
+
+* Ogr is using packit to bring upstream releases to Fedora.
+
+
 # 0.0.3
 
 ## Fixes
