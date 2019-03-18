@@ -1,3 +1,19 @@
+# 0.1.0
+
+* update packit.yaml to reflect packit==0.2.0
+* black & Flake8 & mypy fixes
+* .pre-commit-config.yaml
+* add test and docs for GitHub releases
+* Add releases for github
+* Jenkinsfile
+* Tox
+* [Makefile] no sudo
+* Enum -> IntEnum
+* Move skip_tests() to conftest.py
+* create better function to skip tests.
+* add skip decorators to skip whole module in case of integration tests in case env vars are not typed
+* add packit config
+
 # 0.0.3
 
 ## Fixes
