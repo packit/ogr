@@ -8,9 +8,10 @@ from github.PullRequest import PullRequest as GithubPullRequest
 
 from ogr.abstract import GitUser, GitProject, PullRequest, PRComment, PRStatus, Release
 from ogr.services.base import BaseGitService, BaseGitProject, BaseGitUser
-
+from ogr.services.mock.github_mock import MockGithub
 logger = logging.getLogger(__name__)
 
+github.Github = MockGithub
 
 class GithubService(BaseGitService):
     def __init__(self, token=None):
