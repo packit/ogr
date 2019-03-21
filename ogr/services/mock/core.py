@@ -32,6 +32,7 @@ class MockClass(object):
     configuration_file = "mock.yaml"
     mock_class = None
     namespace = "generic"
+    predefined_return = "Nothing"
 
     def __init__(self, *args, **kwargs):
         self.logger = CallLogger(self.namespace, self.mock_class or object)
@@ -39,21 +40,20 @@ class MockClass(object):
 
     def __getattr__(self, name):
         stored_value = self.__return_from_config(name)
+
         def method(*args, **kwargs):
             self.logger.logcall(name, args, kwargs)
             return MockClass()
-        # lookup for values in yaml file to return it directly
-        if stored_value is not None:
-            return stored_value
-
+        
+        output = method
         if self.mock_class is not None:
             if any([name in foo for foo in inspect.getmembers(self.mock_class, predicate=inspect.ismethod)]) or any([name in foo for foo in inspect.getmembers(self.mock_class, predicate=inspect.isfunction)]):
-                return method
+                output = method
             elif any([name in foo for foo in inspect.getmembers(self.mock_class)]):
-                return None
+                output = self.predefined_return
             else:
                 raise NotImplementedError("function:{} is not supported by {} class".format(name, self.mock_class))
-        return method
+        return stored_value if stored_value is not None else output
 
     def __return_from_config(self, name):
         output = None
