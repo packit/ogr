@@ -75,7 +75,7 @@ As a CI we use [CentOS CI](https://ci.centos.org/job/ogr-pr/) with a configurati
 
 - [podman](https://github.com/containers/libpod)
 - [ansible-bender](https://pypi.org/project/ansible-bender)
-  - until [ansible](https://github.com/ansible/ansible/releases) 2.8 is released, it requires [buildah](https://github.com/containers/buildah)
+- [buildah](https://github.com/containers/buildah)
 
 #### Targets
 
@@ -134,4 +134,3 @@ To [utilize pre-commit](https://pre-commit.com/#usage), install pre-commit with 
 * Or if you want to manually run all the checkers/linters/formatters, run `pre-commit run --all-files`.
 
 Thank you for your interest!
-ogr team.
