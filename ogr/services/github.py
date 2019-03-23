@@ -48,6 +48,15 @@ class GithubProject(BaseGitProject):
     def is_fork(self) -> bool:
         return self.github_repo.fork
 
+    @property
+    def parent(self) -> Optional["GitProject"]:
+        """
+        Return parent project if this project is a fork, otherwise return None
+        """
+        if self.is_fork:
+            parent = self.github_repo.parent
+            return GithubProject(parent.name, self.service, parent.owner.login)
+
     def get_branches(self) -> List[str]:
         return [branch.name for branch in self.github_repo.get_branches()]
 

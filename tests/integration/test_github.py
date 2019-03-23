@@ -196,3 +196,8 @@ def test_get_file(colin_project):
 def test_nonexisting_file(colin_project):
     with pytest.raises(FileNotFoundError) as _:
         colin_project.get_file_content(".blablabla_nonexisting_file")
+
+
+def test_parent_project(colin_project_fork):
+    assert colin_project_fork.parent.namespace == "user-cont"
+    assert colin_project_fork.parent.repo == "colin"

@@ -181,3 +181,8 @@ def test_get_file(docker_py_project):
 def test_nonexisting_file(docker_py_project):
     with pytest.raises(FileNotFoundError) as _:
         docker_py_project.get_file_content(".blablabla_nonexisting_file")
+
+
+def test_parent_project(abiword_project_fork):
+    assert abiword_project_fork.parent.namespace == "rpms"
+    assert abiword_project_fork.parent.repo == "abiword"

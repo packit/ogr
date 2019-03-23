@@ -155,6 +155,13 @@ class GitProject:
         """
         return f"{self.namespace}/{self.repo}"
 
+    @property
+    def parent(self) -> Optional["GitProject"]:
+        """
+        Return parent project if this project is a fork, otherwise return None
+        """
+        raise NotImplementedError()
+
     def get_branches(self) -> List[str]:
         """
         List of project branches.
