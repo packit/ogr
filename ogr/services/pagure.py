@@ -162,8 +162,7 @@ class PagureProject(BaseGitProject):
             token=self._token,
             is_fork=True,
         )
-        if "username" not in kwargs:
-            kwargs["username"] = self.service.user.get_username()
+        kwargs.setdefault("username", self.service.user.get_username())
 
         fork_project = PagureProject(service=self.service, **kwargs)
         try:
@@ -194,8 +193,7 @@ class PagureProject(BaseGitProject):
                 instance_url=self.instance_url,
                 token=self._token,
             )
-            if "username" not in kwargs:
-                kwargs["username"] = self.service.user.get_username()
+            kwargs.setdefault("username", self.service.user.get_username())
 
             parent_project = PagureProject(service=self.service, **kwargs)
             return parent_project
