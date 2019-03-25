@@ -2,11 +2,16 @@ import logging
 from typing import Optional, Dict, List
 
 import github
-from github import UnknownObjectException, IssueComment as GithubIssueComment
+from github import (
+    UnknownObjectException,
+    IssueComment as GithubIssueComment,
+    Repository,
+)
 from github.GitRelease import GitRelease as GithubRelease
 from github.PullRequest import PullRequest as GithubPullRequest
 
 from ogr.abstract import GitUser, GitProject, PullRequest, PRComment, PRStatus, Release
+from ogr.exceptions import OgrException
 from ogr.services.base import BaseGitService, BaseGitProject, BaseGitUser
 
 logger = logging.getLogger(__name__)
@@ -37,17 +42,43 @@ class GithubService(BaseGitService):
 class GithubProject(BaseGitProject):
     service: GithubService
 
-    def __init__(self, repo: str, service: GithubService, namespace: str, **_) -> None:
+    def __init__(
+        self,
+        repo: str,
+        service: GithubService,
+        namespace: str,
+        github_repo: Repository = None,
+        **unprocess_kwargs,
+    ) -> None:
+        if unprocess_kwargs:
+            logger.warning(f"GithubProject will not process these kwargs: {unprocess_kwargs}")
         super().__init__(repo, service, namespace)
-        self.github_repo = service.github.get_repo(
-            full_name_or_id=f"{namespace}/{repo}"
-        )
+        if github_repo:
+            self.github_repo = github_repo
+        else:
+            self.github_repo = service.github.get_repo(
+                full_name_or_id=f"{namespace}/{repo}"
+            )
 
-    def is_forked(self) -> bool:
-        pass
+    def is_forked(self) -> Optional["GithubProject"]:
+        """
+        Is this repo forked by the authenticated user?
+
+        :return: if yes, return the fork, if not, return None
+        """
+        gh_user = self.service.github.get_user()
+        try:
+            return GithubProject(self.repo, self.service, namespace=gh_user.login)
+        except github.GithubException:
+            return None
 
     @property
     def is_fork(self) -> bool:
+        """
+        Is this repository a fork?
+
+        :return: True if it is
+        """
         return self.github_repo.fork
 
     @property
@@ -66,8 +97,27 @@ class GithubProject(BaseGitProject):
     def get_description(self) -> str:
         return self.github_repo.description
 
-    def get_fork(self) -> Optional[GitProject]:
-        raise NotImplementedError
+    def get_fork(self, create: bool = True) -> Optional[GitProject]:
+        """
+        Provide GithubProject instance of a fork of this project.
+
+        Returns None if this is a fork.
+
+        :param create: create a fork if it doesn't exist
+        :return: instance of GithubProject
+        """
+        if self.is_fork:
+            return None
+        f = self.is_forked()
+        if not f:
+            if create:
+                return self.fork_create()
+            else:
+                raise OgrException(
+                    f"Fork of {self.github_repo.full_name}"
+                    " does not exist and we were asked not to create it."
+                )
+        return f
 
     def get_pr_list(self, status: PRStatus = PRStatus.open) -> List[PullRequest]:
         prs = self.github_repo.get_pulls(
@@ -117,8 +167,16 @@ class GithubProject(BaseGitProject):
     def get_git_urls(self) -> Dict[str, str]:
         return {"git": self.github_repo.clone_url, "ssh": self.github_repo.ssh_url}
 
-    def fork_create(self):
-        raise NotImplementedError
+    def fork_create(self) -> "GithubProject":
+        """
+        Fork this project using the authenticated user.
+        This may raise an exception if the fork already exists.
+
+        :return: fork GithubProject instance
+        """
+        gh_user = self.service.github.get_user()
+        fork = gh_user.create_fork(self.github_repo)
+        return GithubProject("", self.service, "", github_repo=fork)
 
     def change_token(self, new_token: str):
         raise NotImplementedError
