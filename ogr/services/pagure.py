@@ -148,8 +148,9 @@ class PagureProject(BaseGitProject):
         pr_object = self._pr_from_pagure_dict(pr_info)
         return pr_object
 
-    def fork_create(self) -> None:
+    def fork_create(self) -> "PagureProject":
         self._pagure.create_fork()
+        return self._construct_fork_project()
 
     def _construct_fork_project(self) -> "PagureProject":
         kwargs = self._pagure_kwargs.copy()
