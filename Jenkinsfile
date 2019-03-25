@@ -36,18 +36,18 @@ node('userspace-containerization'){
                 synctoduffynode "./." // copy all source files
             }
 
-            stage('Run tests & linters/checkers') {
-                steps {
-                    parallel (
-                        "Tests" : {
-                            onmyduffynode "tox -e py36"
-                        },
-                        "Linters/checkers" : {
-                            onmyduffynode "pre-commit run --all-files"
-                        }
-                    )
+            def tasks = [:]
+            tasks["Tests"] = {
+                stage ("Tests"){
+                    onmyduffynode "tox -e py36"
                 }
             }
+            tasks["Linters"] = {
+                stage ("Linters"){
+                    onmyduffynode "pre-commit run --all-files"
+                }
+            }
+            parallel tasks
         } catch (e) {
             currentBuild.result = "FAILURE"
             throw e
