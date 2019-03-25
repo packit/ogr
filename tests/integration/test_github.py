@@ -2,7 +2,6 @@ import os
 
 import pytest
 from github import GithubException
-from libpagure import APIError
 
 from ogr.abstract import PRStatus
 from ogr.services.github import GithubService
@@ -28,9 +27,7 @@ def github_service(github_token):
 
 @pytest.fixture()
 def colin_project(github_service):
-    colin_project = github_service.get_project(
-        namespace="user-cont", repo="colin"
-    )
+    colin_project = github_service.get_project(namespace="user-cont", repo="colin")
     return colin_project
 
 

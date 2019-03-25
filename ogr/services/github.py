@@ -10,7 +10,7 @@ from github import (
 from github.GitRelease import GitRelease as GithubRelease
 from github.PullRequest import PullRequest as GithubPullRequest
 
-from ogr.abstract import GitUser, GitProject, PullRequest, PRComment, PRStatus, Release
+from ogr.abstract import GitUser, PullRequest, PRComment, PRStatus, Release
 from ogr.exceptions import OgrException
 from ogr.services.base import BaseGitService, BaseGitProject, BaseGitUser
 
@@ -51,7 +51,9 @@ class GithubProject(BaseGitProject):
         **unprocess_kwargs,
     ) -> None:
         if unprocess_kwargs:
-            logger.warning(f"GithubProject will not process these kwargs: {unprocess_kwargs}")
+            logger.warning(
+                f"GithubProject will not process these kwargs: {unprocess_kwargs}"
+            )
         super().__init__(repo, service, namespace)
         if github_repo:
             self.github_repo = github_repo
@@ -97,7 +99,7 @@ class GithubProject(BaseGitProject):
     def get_description(self) -> str:
         return self.github_repo.description
 
-    def get_fork(self, create: bool = True) -> Optional[GitProject]:
+    def get_fork(self, create: bool = True) -> Optional["GithubProject"]:
         """
         Provide GithubProject instance of a fork of this project.
 
