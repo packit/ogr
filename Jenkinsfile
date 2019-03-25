@@ -32,12 +32,16 @@ node('userspace-containerization'){
             stage ("Setup"){
                 onmyduffynode "yum -y install epel-release"
                 onmyduffynode "yum -y install git python36-pip"
-                onmyduffynode "pip3.6 install tox"
+                onmyduffynode "pip3.6 install tox pre-commit"
                 synctoduffynode "./." // copy all source files
             }
 
             stage("Run tests") {
                 onmyduffynode "tox -e py36"
+            }
+
+            stage("Linters/checkers") {
+                onmyduffynode "pre-commit run --all-files"
             }
         } catch (e) {
             currentBuild.result = "FAILURE"
