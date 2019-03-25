@@ -142,8 +142,15 @@ def test_commit_flags(abiword_project):
 
 def test_fork(abiword_project_fork):
     assert abiword_project_fork.exists()
+    assert abiword_project_fork.is_fork
     fork_description = abiword_project_fork.get_description()
     assert fork_description
+    a = abiword_project_fork.parent
+    assert a
+    assert a.is_forked()
+    fork = a.get_fork(create=False)
+    assert fork
+    assert fork.is_fork
 
 
 def test_nonexisting_fork(abiword_project_non_existing_fork):

@@ -132,11 +132,11 @@ class GitProject:
         self.repo = repo
         self.namespace = namespace
 
-    def is_forked(self) -> bool:
+    def is_forked(self) -> Optional["GitProject"]:
         """
-        True, if the project is forked by the user.
+        Is this repo forked by the authenticated user?
 
-        :return: Bool
+        :return: if yes, return the fork, if not, return None
         """
         raise NotImplementedError()
 
@@ -178,11 +178,14 @@ class GitProject:
         """
         raise NotImplementedError()
 
-    def get_fork(self) -> Optional["GitProject"]:
+    def get_fork(self, create: bool = True) -> Optional["GitProject"]:
         """
-        GitProject instance of the fork if the fork exists, else None
+        Provide GitProject instance of a fork of this project.
 
-        :return: GitProject or None
+        Returns None if this is a fork.
+
+        :param create: create a fork if it doesn't exist
+        :return: instance of GitProject or None
         """
         raise NotImplementedError()
 
@@ -299,11 +302,12 @@ class GitProject:
     def get_git_urls(self) -> Dict[str, str]:
         raise NotImplementedError()
 
-    def fork_create(self):
+    def fork_create(self) -> "GitProject":
         """
-        Create a fork of the project.
+        Fork this project using the authenticated user.
+        This may raise an exception if the fork already exists.
 
-        :return: GitProject
+        :return: fork GitProject instance
         """
         raise NotImplementedError()
 

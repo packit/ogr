@@ -4,6 +4,7 @@ from typing import List, Optional, Dict
 
 from ogr.abstract import PRStatus
 from ogr.abstract import PullRequest, PRComment
+from ogr.exceptions import OgrException
 from ogr.services.base import BaseGitService, BaseGitProject, BaseGitUser
 from ogr.services.our_pagure import OurPagure
 
@@ -150,10 +151,7 @@ class PagureProject(BaseGitProject):
     def fork_create(self) -> None:
         self._pagure.create_fork()
 
-    def get_fork(self) -> Optional["PagureProject"]:
-        """
-        PagureRepo instance of the fork of this repo.
-        """
+    def _construct_fork_project(self) -> "PagureProject":
         kwargs = self._pagure_kwargs.copy()
         kwargs.update(
             repo=self.repo,
@@ -165,15 +163,44 @@ class PagureProject(BaseGitProject):
         kwargs.setdefault("username", self.service.user.get_username())
 
         fork_project = PagureProject(service=self.service, **kwargs)
-        try:
-            if fork_project.exists() and fork_project._pagure.get_parent():
-                return fork_project
-        except Exception:
+
+        return fork_project
+
+    def get_fork(self, create: bool = True) -> Optional["PagureProject"]:
+        """
+        Provide GitProject instance of a fork of this project.
+
+        Returns None if this is a fork.
+
+        :param create: create a fork if it doesn't exist
+        :return: instance of GitProject or None
+        """
+        if self.is_fork:
             return None
-        return None
+        f = self.is_forked()
+        if not f:
+            if create:
+                return self.fork_create()
+            else:
+                raise OgrException(
+                    f"Fork of {self.repo}"
+                    " does not exist and we were asked not to create it."
+                )
+        return f
 
     def exists(self):
         return self._pagure.project_exists()
+
+    def is_forked(self) -> Optional["PagureProject"]:
+        """
+        Is this repo forked by the authenticated user?
+
+        :return: if yes, return the fork, if not, return None
+        """
+        f = self._construct_fork_project()
+        if f.exists() and f.parent:
+            return f
+        return None
 
     @property
     def is_fork(self) -> bool:
