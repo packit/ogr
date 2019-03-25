@@ -162,8 +162,7 @@ class PagureProject(BaseGitProject):
             token=self._token,
             is_fork=True,
         )
-        if "username" not in kwargs:
-            kwargs["username"] = self.service.user.get_username()
+        kwargs.setdefault("username", self.service.user.get_username())
 
         fork_project = PagureProject(service=self.service, **kwargs)
         try:
@@ -179,6 +178,26 @@ class PagureProject(BaseGitProject):
     @property
     def is_fork(self) -> bool:
         return "fork" in self.namespace
+
+    @property
+    def parent(self) -> Optional["PagureProject"]:
+        """
+        Return parent project if this project is a fork, otherwise return None
+        """
+        if self.is_fork:
+            parent = self._pagure.get_parent()
+            kwargs = self._pagure_kwargs.copy()
+            kwargs.update(
+                repo=self.repo,
+                namespace=parent["namespace"],
+                instance_url=self.instance_url,
+                token=self._token,
+            )
+            kwargs.setdefault("username", self.service.user.get_username())
+
+            parent_project = PagureProject(service=self.service, **kwargs)
+            return parent_project
+        return None
 
     def get_git_urls(self) -> Dict[str, str]:
         return self._pagure.get_git_urls()
