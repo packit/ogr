@@ -181,7 +181,7 @@ class PagureProject(BaseGitProject):
         return "fork" in self.namespace
 
     @property
-    def parent(self) -> Optional["GitProject"]:
+    def parent(self) -> Optional["PagureProject"]:
         """
         Return parent project if this project is a fork, otherwise return None
         """
@@ -199,6 +199,7 @@ class PagureProject(BaseGitProject):
 
             parent_project = PagureProject(service=self.service, **kwargs)
             return parent_project
+        return None
 
     def get_git_urls(self) -> Dict[str, str]:
         return self._pagure.get_git_urls()
