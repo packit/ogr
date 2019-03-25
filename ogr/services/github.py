@@ -196,7 +196,7 @@ class GithubProject(BaseGitProject):
             title=github_pr.title,
             id=github_pr.id,
             status=PRStatus[github_pr.state],
-            url=github_pr.url,
+            url=github_pr.html_url,
             description=github_pr.body,
             author=github_pr.user.name,
             source_branch=github_pr.head.ref,
