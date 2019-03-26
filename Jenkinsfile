@@ -32,13 +32,22 @@ node('userspace-containerization'){
             stage ("Setup"){
                 onmyduffynode "yum -y install epel-release"
                 onmyduffynode "yum -y install git python36-pip"
-                onmyduffynode "pip3.6 install tox"
+                onmyduffynode "pip3.6 install tox pre-commit"
                 synctoduffynode "./." // copy all source files
             }
 
-            stage("Run tests") {
-                onmyduffynode "tox -e py36"
+            def tasks = [:]
+            tasks["Tests"] = {
+                stage ("Tests"){
+                    onmyduffynode "tox -e py36"
+                }
             }
+            tasks["Linters"] = {
+                stage ("Linters"){
+                    onmyduffynode "pre-commit run --all-files"
+                }
+            }
+            parallel tasks
         } catch (e) {
             currentBuild.result = "FAILURE"
             throw e
