@@ -182,7 +182,11 @@ def test_create_fork(colin_project):
 
 def test_is_fork(colin_project):
     assert not colin_project.is_fork
-    assert colin_project.is_forked() is True
+    is_forked = colin_project.is_forked()
+    assert isinstance(is_forked, bool)
+    # `is True` is here on purpose: we want to be sure that .is_forked() returns True object
+    # because Tomas had his crazy ideas and wanted to return GitProject directly, stop that madman
+    assert is_forked is True
     fork = colin_project.get_fork(create=False)
     assert fork
     assert fork.is_fork

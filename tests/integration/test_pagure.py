@@ -147,7 +147,11 @@ def test_fork(abiword_project_fork):
     assert fork_description
     a = abiword_project_fork.parent
     assert a
-    assert a.is_forked() is True
+    is_forked = a.is_forked()
+    assert isinstance(is_forked, bool)
+    # `is True` is here on purpose: we want to be sure that .is_forked() returns True object
+    # because Tomas had his crazy ideas and wanted to return GitProject directly, stop that madman
+    assert is_forked is True
     fork = a.get_fork(create=False)
     assert fork
     assert fork.is_fork
