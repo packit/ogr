@@ -4,7 +4,6 @@ from typing import List, Optional, Dict
 
 from ogr.abstract import PRStatus
 from ogr.abstract import PullRequest, PRComment
-from ogr.exceptions import OgrException
 from ogr.services.base import BaseGitService, BaseGitProject, BaseGitUser
 from ogr.services.our_pagure import OurPagure
 
@@ -176,13 +175,11 @@ class PagureProject(BaseGitProject):
         :param create: create a fork if it doesn't exist
         :return: instance of GitProject or None
         """
-        if self.is_fork:
-            return None
         if not self.is_forked():
             if create:
                 return self.fork_create()
             else:
-                raise OgrException(
+                logger.info(
                     f"Fork of {self.repo}"
                     " does not exist and we were asked not to create it."
                 )

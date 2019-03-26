@@ -11,7 +11,6 @@ from github.GitRelease import GitRelease as GithubRelease
 from github.PullRequest import PullRequest as GithubPullRequest
 
 from ogr.abstract import GitUser, PullRequest, PRComment, PRStatus, Release
-from ogr.exceptions import OgrException
 from ogr.services.base import BaseGitService, BaseGitProject, BaseGitUser
 
 logger = logging.getLogger(__name__)
@@ -113,13 +112,11 @@ class GithubProject(BaseGitProject):
         :param create: create a fork if it doesn't exist
         :return: instance of GithubProject
         """
-        if self.is_fork:
-            return None
         if not self.is_forked():
             if create:
                 return self.fork_create()
             else:
-                raise OgrException(
+                logger.info(
                     f"Fork of {self.github_repo.full_name}"
                     " does not exist and we were asked not to create it."
                 )
