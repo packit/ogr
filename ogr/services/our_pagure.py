@@ -260,7 +260,7 @@ class OurPagure(libpagure.Pagure):
         try:
             self._call_api(url=request_url, method="GET", data={})
             return True
-        except Exception:
+        except libpagure.APIError:
             return False
 
     def get_project_info(self):

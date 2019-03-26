@@ -147,13 +147,11 @@ class PagureProject(BaseGitProject):
         pr_object = self._pr_from_pagure_dict(pr_info)
         return pr_object
 
-    def fork_create(self) -> None:
+    def fork_create(self) -> "PagureProject":
         self._pagure.create_fork()
+        return self._construct_fork_project()
 
-    def get_fork(self) -> Optional["PagureProject"]:
-        """
-        PagureRepo instance of the fork of this repo.
-        """
+    def _construct_fork_project(self) -> "PagureProject":
         kwargs = self._pagure_kwargs.copy()
         kwargs.update(
             repo=self.repo,
@@ -165,15 +163,40 @@ class PagureProject(BaseGitProject):
         kwargs.setdefault("username", self.service.user.get_username())
 
         fork_project = PagureProject(service=self.service, **kwargs)
-        try:
-            if fork_project.exists() and fork_project._pagure.get_parent():
-                return fork_project
-        except Exception:
-            return None
-        return None
+
+        return fork_project
+
+    def get_fork(self, create: bool = True) -> Optional["PagureProject"]:
+        """
+        Provide GitProject instance of a fork of this project.
+
+        Returns None if this is a fork.
+
+        :param create: create a fork if it doesn't exist
+        :return: instance of GitProject or None
+        """
+        if not self.is_forked():
+            if create:
+                return self.fork_create()
+            else:
+                logger.info(
+                    f"Fork of {self.repo}"
+                    " does not exist and we were asked not to create it."
+                )
+                return None
+        return self._construct_fork_project()
 
     def exists(self):
         return self._pagure.project_exists()
+
+    def is_forked(self) -> bool:
+        """
+        Is this repo forked by the authenticated user?
+
+        :return: if yes, return True
+        """
+        f = self._construct_fork_project()
+        return bool(f.exists() and f.parent)
 
     @property
     def is_fork(self) -> bool:

@@ -2,11 +2,15 @@ import logging
 from typing import Optional, Dict, List
 
 import github
-from github import UnknownObjectException, IssueComment as GithubIssueComment
+from github import (
+    UnknownObjectException,
+    IssueComment as GithubIssueComment,
+    Repository,
+)
 from github.GitRelease import GitRelease as GithubRelease
 from github.PullRequest import PullRequest as GithubPullRequest
 
-from ogr.abstract import GitUser, GitProject, PullRequest, PRComment, PRStatus, Release
+from ogr.abstract import GitUser, PullRequest, PRComment, PRStatus, Release
 from ogr.services.base import BaseGitService, BaseGitProject, BaseGitUser
 
 logger = logging.getLogger(__name__)
@@ -37,17 +41,50 @@ class GithubService(BaseGitService):
 class GithubProject(BaseGitProject):
     service: GithubService
 
-    def __init__(self, repo: str, service: GithubService, namespace: str, **_) -> None:
+    def __init__(
+        self,
+        repo: str,
+        service: GithubService,
+        namespace: str,
+        github_repo: Repository = None,
+        **unprocess_kwargs,
+    ) -> None:
+        if unprocess_kwargs:
+            logger.warning(
+                f"GithubProject will not process these kwargs: {unprocess_kwargs}"
+            )
         super().__init__(repo, service, namespace)
-        self.github_repo = service.github.get_repo(
-            full_name_or_id=f"{namespace}/{repo}"
-        )
+        if github_repo:
+            self.github_repo = github_repo
+        else:
+            self.github_repo = service.github.get_repo(
+                full_name_or_id=f"{namespace}/{repo}"
+            )
+
+    def _construct_fork_project(self) -> Optional["GithubProject"]:
+        gh_user = self.service.github.get_user()
+        user_login = gh_user.login
+        try:
+            return GithubProject(self.repo, self.service, namespace=user_login)
+        except github.GithubException as ex:
+            logger.debug(f"Project {self.repo}/{user_login} does not exist: {ex}")
+            return None
 
     def is_forked(self) -> bool:
-        pass
+        """
+        Is this repo forked by the authenticated user?
+
+        :return: if yes, return True
+        """
+        return bool(self._construct_fork_project())
 
     @property
     def is_fork(self) -> bool:
+        """
+        Is this repository a fork?
+
+        :return: True if it is
+        """
         return self.github_repo.fork
 
     @property
@@ -66,8 +103,25 @@ class GithubProject(BaseGitProject):
     def get_description(self) -> str:
         return self.github_repo.description
 
-    def get_fork(self) -> Optional[GitProject]:
-        raise NotImplementedError
+    def get_fork(self, create: bool = True) -> Optional["GithubProject"]:
+        """
+        Provide GithubProject instance of a fork of this project.
+
+        Returns None if this is a fork.
+
+        :param create: create a fork if it doesn't exist
+        :return: instance of GithubProject
+        """
+        if not self.is_forked():
+            if create:
+                return self.fork_create()
+            else:
+                logger.info(
+                    f"Fork of {self.github_repo.full_name}"
+                    " does not exist and we were asked not to create it."
+                )
+                return None
+        return self._construct_fork_project()
 
     def get_pr_list(self, status: PRStatus = PRStatus.open) -> List[PullRequest]:
         prs = self.github_repo.get_pulls(
@@ -117,8 +171,16 @@ class GithubProject(BaseGitProject):
     def get_git_urls(self) -> Dict[str, str]:
         return {"git": self.github_repo.clone_url, "ssh": self.github_repo.ssh_url}
 
-    def fork_create(self):
-        raise NotImplementedError
+    def fork_create(self) -> "GithubProject":
+        """
+        Fork this project using the authenticated user.
+        This may raise an exception if the fork already exists.
+
+        :return: fork GithubProject instance
+        """
+        gh_user = self.service.github.get_user()
+        fork = gh_user.create_fork(self.github_repo)
+        return GithubProject("", self.service, "", github_repo=fork)
 
     def change_token(self, new_token: str):
         raise NotImplementedError
@@ -136,7 +198,7 @@ class GithubProject(BaseGitProject):
             title=github_pr.title,
             id=github_pr.id,
             status=PRStatus[github_pr.state],
-            url=github_pr.url,
+            url=github_pr.html_url,
             description=github_pr.body,
             author=github_pr.user.name,
             source_branch=github_pr.head.ref,
@@ -157,15 +219,16 @@ class GithubProject(BaseGitProject):
     def _release_from_github_object(raw_release: GithubRelease) -> Release:
         """
         Get ogr.abstract.Release object from github.GithubRelease
+
         :param raw_release: GithubRelease, object from Github API
-        https://developer.github.com/v3/repos/releases/
+            https://developer.github.com/v3/repos/releases/
         :return: Release, example(type, value):
-        title: str, "0.1.0"
-        body: str, "Description of the release"
-        tag_name: str, "v1.0.0"
-        url: str, "https://api.github.com/repos/octocat/Hello-World/releases/1"
-        created_at: datetime.datetime, 2018-09-19 12:56:26
-        tarball_url: str, "https://api.github.com/repos/octocat/Hello-World/tarball/v1.0.0"
+            title: str, "0.1.0"
+            body: str, "Description of the release"
+            tag_name: str, "v1.0.0"
+            url: str, "https://api.github.com/repos/octocat/Hello-World/releases/1"
+            created_at: datetime.datetime, 2018-09-19 12:56:26
+            tarball_url: str, "https://api.github.com/repos/octocat/Hello-World/tarball/v1.0.0"
         """
         return Release(
             title=raw_release.title,

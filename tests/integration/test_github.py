@@ -1,7 +1,7 @@
 import os
 
 import pytest
-from libpagure import APIError
+from github import GithubException
 
 from ogr.abstract import PRStatus
 from ogr.services.github import GithubService
@@ -27,16 +27,14 @@ def github_service(github_token):
 
 @pytest.fixture()
 def colin_project(github_service):
-    colin_project = github_service.get_project(
-        namespace="user-cont", repo="colin", username="lachmanfrantisek"
-    )
+    colin_project = github_service.get_project(namespace="user-cont", repo="colin")
     return colin_project
 
 
 @pytest.fixture()
 def colin_project_fork(github_service):
     colin_fork = github_service.get_project(
-        namespace="user-cont", repo="colin", username="lachmanfrantisek", is_fork=True
+        namespace="user-cont", repo="colin", is_fork=True
     )
     return colin_fork
 
@@ -44,9 +42,8 @@ def colin_project_fork(github_service):
 @pytest.fixture()
 def colin_project_non_existing_fork(github_service):
     colin_fork = github_service.get_project(
-        namespace="user-cont",
-        repo="colin",
-        username="askdjalkjdakjsdlkajsd",
+        # namespace is overwritten
+        repo="omfeprkfmwpefmwpefkmwpeofjwepof",
         is_fork=True,
     )
     return colin_fork
@@ -156,19 +153,20 @@ def test_commit_flags(colin_project):
 
 
 def test_fork(colin_project_fork):
-    assert colin_project_fork.exists()
+    assert colin_project_fork.is_fork is True
     fork_description = colin_project_fork.get_description()
     assert fork_description
 
 
 def test_nonexisting_fork(colin_project_non_existing_fork):
-    assert not colin_project_non_existing_fork.exists()
-    with pytest.raises(APIError) as ex:
+    with pytest.raises(GithubException) as ex:
         colin_project_non_existing_fork.get_description()
-    assert "Project not found" in ex.value.args
+    s = str(ex.value.args)
+    assert "Not Found" in s
+    assert "404" in s
 
 
-def test_fork_property(colin_project):
+def test_get_fork(colin_project):
     fork = colin_project.get_fork()
     assert fork
     assert fork.get_description()
@@ -180,6 +178,18 @@ def test_create_fork(colin_project):
     assert not not_existing_fork
     colin_project.fork_create()
     assert colin_project.get_fork().exists()
+
+
+def test_is_fork(colin_project):
+    assert not colin_project.is_fork
+    is_forked = colin_project.is_forked()
+    assert isinstance(is_forked, bool)
+    # `is True` is here on purpose: we want to be sure that .is_forked() returns True object
+    # because Tomas had his crazy ideas and wanted to return GitProject directly, stop that madman
+    assert is_forked is True
+    fork = colin_project.get_fork(create=False)
+    assert fork
+    assert fork.is_fork
 
 
 def test_username(github_service, github_user):
