@@ -65,7 +65,7 @@ class GithubProject(BaseGitProject):
         gh_user = self.service.github.get_user()
         user_login = gh_user.login
         try:
-            return GithubProject(self.repo, self.service, namespace=gh_user.login)
+            return GithubProject(self.repo, self.service, namespace=user_login)
         except github.GithubException as ex:
             logger.debug(f"Project {self.repo}/{user_login} does not exist: {ex}")
             return None
