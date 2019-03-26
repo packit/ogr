@@ -132,11 +132,11 @@ class GitProject:
         self.repo = repo
         self.namespace = namespace
 
-    def is_forked(self) -> Optional["GitProject"]:
+    def is_forked(self) -> bool:
         """
         Is this repo forked by the authenticated user?
 
-        :return: if yes, return the fork, if not, return None
+        :return: if yes, return True
         """
         raise NotImplementedError()
 

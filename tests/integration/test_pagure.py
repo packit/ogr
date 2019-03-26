@@ -147,7 +147,7 @@ def test_fork(abiword_project_fork):
     assert fork_description
     a = abiword_project_fork.parent
     assert a
-    assert a.is_forked()
+    assert a.is_forked() is True
     fork = a.get_fork(create=False)
     assert fork
     assert fork.is_fork

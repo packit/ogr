@@ -62,17 +62,22 @@ class GithubProject(BaseGitProject):
                 full_name_or_id=f"{namespace}/{repo}"
             )
 
-    def is_forked(self) -> Optional["GithubProject"]:
+    def _construct_fork_project(self) -> Optional["GithubProject"]:
+        gh_user = self.service.github.get_user()
+        user_login = gh_user.login
+        try:
+            return GithubProject(self.repo, self.service, namespace=gh_user.login)
+        except github.GithubException as ex:
+            logger.debug(f"Project {self.repo}/{user_login} does not exist: {ex}")
+            return None
+
+    def is_forked(self) -> bool:
         """
         Is this repo forked by the authenticated user?
 
-        :return: if yes, return the fork, if not, return None
+        :return: if yes, return True
         """
-        gh_user = self.service.github.get_user()
-        try:
-            return GithubProject(self.repo, self.service, namespace=gh_user.login)
-        except github.GithubException:
-            return None
+        return bool(self._construct_fork_project())
 
     @property
     def is_fork(self) -> bool:
@@ -110,8 +115,7 @@ class GithubProject(BaseGitProject):
         """
         if self.is_fork:
             return None
-        f = self.is_forked()
-        if not f:
+        if not self.is_forked():
             if create:
                 return self.fork_create()
             else:
@@ -119,7 +123,8 @@ class GithubProject(BaseGitProject):
                     f"Fork of {self.github_repo.full_name}"
                     " does not exist and we were asked not to create it."
                 )
-        return f
+                return None
+        return self._construct_fork_project()
 
     def get_pr_list(self, status: PRStatus = PRStatus.open) -> List[PullRequest]:
         prs = self.github_repo.get_pulls(

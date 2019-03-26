@@ -153,7 +153,7 @@ def test_commit_flags(colin_project):
 
 
 def test_fork(colin_project_fork):
-    assert colin_project_fork.is_fork
+    assert colin_project_fork.is_fork is True
     fork_description = colin_project_fork.get_description()
     assert fork_description
 
@@ -182,7 +182,7 @@ def test_create_fork(colin_project):
 
 def test_is_fork(colin_project):
     assert not colin_project.is_fork
-    assert colin_project.is_forked()
+    assert colin_project.is_forked() is True
     fork = colin_project.get_fork(create=False)
     assert fork
     assert fork.is_fork

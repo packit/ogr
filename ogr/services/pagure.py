@@ -178,8 +178,7 @@ class PagureProject(BaseGitProject):
         """
         if self.is_fork:
             return None
-        f = self.is_forked()
-        if not f:
+        if not self.is_forked():
             if create:
                 return self.fork_create()
             else:
@@ -187,21 +186,20 @@ class PagureProject(BaseGitProject):
                     f"Fork of {self.repo}"
                     " does not exist and we were asked not to create it."
                 )
-        return f
+                return None
+        return self._construct_fork_project()
 
     def exists(self):
         return self._pagure.project_exists()
 
-    def is_forked(self) -> Optional["PagureProject"]:
+    def is_forked(self) -> bool:
         """
         Is this repo forked by the authenticated user?
 
-        :return: if yes, return the fork, if not, return None
+        :return: if yes, return True
         """
         f = self._construct_fork_project()
-        if f.exists() and f.parent:
-            return f
-        return None
+        return bool(f.exists() and f.parent)
 
     @property
     def is_fork(self) -> bool:
