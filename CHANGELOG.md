@@ -1,3 +1,25 @@
+# 0.2.0
+
+### New Features
+
+* GithubProject now fully supports all the forking-related methods.
+* GitProject class now has a parent property to get the original GitProject of
+  a fork.
+* Methods related to forking received usability updates: they should be now
+  easier to work with and you'll need to write less code.
+* The upstream project now has a CONTRIBUTING.md file. All your contributions are
+  welcome!
+
+## Fixes
+
+* New github pull request now link to the URL on web interface instead of API.
+
+## Minor
+
+* We have implemented multiple tools to increate code quality: coverage, black, pre-commit, mypy, flake8
+  * All of them run in CI as well.
+
+
 # 0.1.0
 
 ### New Features
