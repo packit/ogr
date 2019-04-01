@@ -6,6 +6,7 @@ from ogr.abstract import PRStatus
 from ogr.abstract import PullRequest, PRComment
 from ogr.services.base import BaseGitService, BaseGitProject, BaseGitUser
 from ogr.services.our_pagure import OurPagure
+from ogr.mock_core import readonly, GitProjectReadOnly
 
 logger = logging.getLogger(__name__)
 
@@ -15,14 +16,15 @@ class PagureService(BaseGitService):
         self,
         token: str = None,
         instance_url: str = "https://src.fedoraproject.org",
+        read_only: bool = False,
         **kwargs,
     ) -> None:
         super().__init__()
         self.instance_url = instance_url
         self._token = token
         self.pagure_kwargs = kwargs
-
         self.pagure = OurPagure(pagure_token=token, instance_url=instance_url, **kwargs)
+        self.read_only = read_only
 
     def get_project(self, **kwargs) -> "PagureProject":
         project_kwargs = self.pagure_kwargs.copy()
@@ -31,6 +33,7 @@ class PagureService(BaseGitService):
             instance_url=self.instance_url,
             token=self._token,
             service=self,
+            read_only=self.read_only,
             **project_kwargs,
         )
 
@@ -60,6 +63,7 @@ class PagureProject(BaseGitProject):
         instance_url: Optional[str] = None,
         token: Optional[str] = None,
         is_fork: bool = False,
+        read_only: bool = False,
         **kwargs,
     ) -> None:
         if is_fork and username:
@@ -84,6 +88,7 @@ class PagureProject(BaseGitProject):
             instance_url=instance_url,
             **kwargs,
         )
+        self.read_only = read_only
 
     def __str__(self) -> str:
         return f"namespace={self.namespace} repo={self.repo}"
@@ -117,6 +122,7 @@ class PagureProject(BaseGitProject):
         ]
         return parsed_comments
 
+    @readonly(return_function=GitProjectReadOnly.pr_comment)
     def pr_comment(
         self,
         pr_id: int,
@@ -129,12 +135,15 @@ class PagureProject(BaseGitProject):
             request_id=pr_id, body=body, commit=commit, filename=filename, row=row
         )
 
+    @readonly(return_function=GitProjectReadOnly.pr_close)
     def pr_close(self, pr_id: int) -> PullRequest:
         return self._pagure.close_request(request_id=pr_id)
 
+    @readonly(return_function=GitProjectReadOnly.pr_merge)
     def pr_merge(self, pr_id: int) -> PullRequest:
         return self._pagure.merge_request(request_id=pr_id)
 
+    @readonly(return_function=GitProjectReadOnly.pr_create)
     def pr_create(
         self, title: str, body: str, target_branch: str, source_branch: str
     ) -> PullRequest:
@@ -147,6 +156,7 @@ class PagureProject(BaseGitProject):
         pr_object = self._pr_from_pagure_dict(pr_info)
         return pr_object
 
+    @readonly(return_function=GitProjectReadOnly.fork_create)
     def fork_create(self) -> "PagureProject":
         self._pagure.create_fork()
         return self._construct_fork_project()
@@ -159,6 +169,7 @@ class PagureProject(BaseGitProject):
             instance_url=self.instance_url,
             token=self._token,
             is_fork=True,
+            read_only=self.read_only,
         )
         kwargs.setdefault("username", self.service.user.get_username())
 

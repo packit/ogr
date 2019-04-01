@@ -12,22 +12,30 @@ from github.PullRequest import PullRequest as GithubPullRequest
 
 from ogr.abstract import GitUser, PullRequest, PRComment, PRStatus, Release
 from ogr.services.base import BaseGitService, BaseGitProject, BaseGitUser
+from ogr.mock_core import readonly, GitProjectReadOnly
 
 logger = logging.getLogger(__name__)
 
 
 class GithubService(BaseGitService):
-    def __init__(self, token=None):
+    def __init__(self, token=None, read_only=False):
         super().__init__()
         self._token = token
         self.github = github.Github(login_or_token=self._token)
+        self.read_only = read_only
 
     def get_project(
         self, repo=None, namespace=None, is_fork=False, **kwargs
     ) -> "GithubProject":
         if is_fork:
             namespace = self.user.get_username()
-        return GithubProject(repo=repo, namespace=namespace, service=self, **kwargs)
+        return GithubProject(
+            repo=repo,
+            namespace=namespace,
+            service=self,
+            read_only=self.read_only,
+            **kwargs,
+        )
 
     @property
     def user(self) -> GitUser:
@@ -47,6 +55,7 @@ class GithubProject(BaseGitProject):
         service: GithubService,
         namespace: str,
         github_repo: Repository = None,
+        read_only: bool = False,
         **unprocess_kwargs,
     ) -> None:
         if unprocess_kwargs:
@@ -60,12 +69,15 @@ class GithubProject(BaseGitProject):
             self.github_repo = service.github.get_repo(
                 full_name_or_id=f"{namespace}/{repo}"
             )
+        self.read_only = read_only
 
     def _construct_fork_project(self) -> Optional["GithubProject"]:
         gh_user = self.service.github.get_user()
         user_login = gh_user.login
         try:
-            return GithubProject(self.repo, self.service, namespace=user_login)
+            return GithubProject(
+                self.repo, self.service, namespace=user_login, read_only=self.read_only
+            )
         except github.GithubException as ex:
             logger.debug(f"Project {self.repo}/{user_login} does not exist: {ex}")
             return None
@@ -143,6 +155,7 @@ class GithubProject(BaseGitProject):
             for raw_comment in pr.get_issue_comments()
         ]
 
+    @readonly(return_function=GitProjectReadOnly.pr_create)
     def pr_create(
         self, title: str, body: str, target_branch: str, source_branch: str
     ) -> PullRequest:
@@ -151,6 +164,10 @@ class GithubProject(BaseGitProject):
         )
         return self._pr_from_github_object(created_pr)
 
+    @readonly(
+        return_function=GitProjectReadOnly.pr_comment,
+        log_message="Create Comment to PR",
+    )
     def pr_comment(
         self,
         pr_id: int,
@@ -161,9 +178,11 @@ class GithubProject(BaseGitProject):
     ) -> PRComment:
         raise NotImplementedError
 
+    @readonly(return_function=GitProjectReadOnly.pr_close)
     def pr_close(self, pr_id: int) -> PullRequest:
         raise NotImplementedError
 
+    @readonly(return_function=GitProjectReadOnly.pr_merge)
     def pr_merge(self, pr_id: int) -> PullRequest:
         closed_pr = self.github_repo.get_pull(number=pr_id).merge()
         return self._pr_from_github_object(closed_pr)
@@ -171,6 +190,7 @@ class GithubProject(BaseGitProject):
     def get_git_urls(self) -> Dict[str, str]:
         return {"git": self.github_repo.clone_url, "ssh": self.github_repo.ssh_url}
 
+    @readonly(return_function=GitProjectReadOnly.fork_create)
     def fork_create(self) -> "GithubProject":
         """
         Fork this project using the authenticated user.
