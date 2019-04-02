@@ -39,11 +39,7 @@ def readonly(
                 args_str = str(args)[1:-1]
                 kwargs_str = ""
                 for k in kwargs:
-                    if isinstance(kwargs[k], str):
-                        value = "'{}'".format(kwargs[k])
-                    else:
-                        value = kwargs[k]
-                    kwargs_str += ", {}={}".format(k, value)
+                    kwargs_str += f", {k}={kwargs[k]!r}"
                 if kwargs and not args:
                     kwargs_str = kwargs_str[2:]
                 logger.warning(
