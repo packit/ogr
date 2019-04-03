@@ -6,7 +6,11 @@ from ogr.abstract import PullRequest, PRComment, PRStatus, GitProject
 from ogr.constant import DEFAULT_RO_PREFIX_STRING
 
 
-logger = logging.getLogger(__name__)
+def log_output(
+    text: str, default_prefix: str = DEFAULT_RO_PREFIX_STRING, namespace: str = __name__
+) -> None:
+    logger = logging.getLogger(namespace)
+    logger.warning(f"{default_prefix} {text}")
 
 
 def readonly(
@@ -29,21 +33,16 @@ def readonly(
     def decorator_readonly(func):
         @functools.wraps(func)
         def readonly_func(self, *args, **kwargs):
-
-            output_str = DEFAULT_RO_PREFIX_STRING
             if not self.read_only:
                 return func(self, *args, **kwargs)
             else:
-                if log_message:
-                    output_str += " " + log_message
                 args_str = str(args)[1:-1]
-                kwargs_str = ""
-                for k in kwargs:
-                    kwargs_str += f", {k}={kwargs[k]!r}"
-                if kwargs and not args:
-                    kwargs_str = kwargs_str[2:]
-                logger.warning(
-                    f"{output_str} {self.__class__.__name__}."
+                kwargs_str = ", ".join(f"{k}={v!r}" for k, v in kwargs.items())
+                # add , in case there are also args, what has to be separated
+                if args and kwargs:
+                    kwargs_str = ", " + kwargs_str
+                log_output(
+                    f"{log_message} {self.__class__.__name__}."
                     f"{func.__name__}({args_str}{kwargs_str})"
                 )
                 if return_function:
@@ -70,7 +69,6 @@ class GitProjectReadOnly:
         target_branch: str,
         source_branch: str,
     ) -> "PullRequest":
-        _ = original_object
         output = PullRequest(
             title=title,
             description=body,
@@ -95,10 +93,7 @@ class GitProjectReadOnly:
         row: int = None,
     ) -> "PRComment":
         pull_request = original_object.get_pr_info(pr_id)
-        _ = commit
-        _ = filename
-        _ = row
-        _ = pull_request
+        log_output(pull_request)
         output = PRComment(
             comment=body,
             author=cls.author,
