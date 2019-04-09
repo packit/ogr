@@ -9,17 +9,18 @@ old__requestEncode = github_origin.MainClass.Requester._Requester__requestEncode
 
 
 def new__requestEncode(self, cnx, verb, url, parameters, requestHeaders, input, encode):
+    internal_keys = [verb, url, parameters]
     if self.persistent_storage.write_mode:
         status, responseHeaders, output = old__requestEncode(
             self, cnx, verb, url, parameters, requestHeaders, input, encode
         )
         self.persistent_storage.store(
-            keys=[verb, url, parameters], values=[status, responseHeaders, output]
+            keys=internal_keys, values=[status, responseHeaders, output]
         )
     else:
-        logger.debug(f"Persistent github API: {verb}, {url}, {parameters}")
+        logger.debug(f"Persistent github API: {internal_keys}")
         status, responseHeaders, output = self.persistent_storage.read(
-            keys=[verb, url, parameters]
+            keys=internal_keys
         )
     return status, responseHeaders, output
 
