@@ -8,6 +8,7 @@ import collections
 
 from ogr.abstract import PullRequest, PRComment, PRStatus, GitProject
 from ogr.constant import DEFAULT_RO_PREFIX_STRING
+from ogr.exceptions import PersistenStorageException
 
 
 def log_output(
@@ -159,7 +160,12 @@ class PersistentObjectStorage:
         for item in keys:
             if not isinstance(item, collections.Hashable):
                 item = str(item)
-            current_level = current_level[item]
+            try:
+                current_level = current_level[item]
+            except KeyError:
+                raise PersistenStorageException(
+                    f"Keys not in storage:{self.storage_file} {keys}"
+                )
         return current_level
 
     def dump(self) -> None:
