@@ -1,6 +1,6 @@
 import github as github_origin
 import logging
-from ogr.services.mock.base import PersistentObjectStorage
+from ogr.mock_core import PersistentObjectStorage
 from typing import Type
 
 logger = logging.getLogger(__name__)
