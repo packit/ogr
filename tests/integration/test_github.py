@@ -5,24 +5,34 @@ from github import GithubException
 
 from ogr.abstract import PRStatus
 from ogr.services.github import GithubService
-from tests.integration.conftest import skipif_not_all_env_vars_set
 
-pytestmark = skipif_not_all_env_vars_set(["GITHUB_TOKEN", "GITHUB_USER"])
+persistent_data_file = os.path.join(
+    os.path.dirname(os.path.realpath(__file__)), "test_github_data.yaml"
+)
+
+
+@pytest.fixture()
+def github_write_persistent_storage():
+    return bool(os.environ.get("FORCE_WRITE"))
 
 
 @pytest.fixture()
 def github_token():
-    return os.environ["GITHUB_TOKEN"]
+    return os.environ.get("GITHUB_TOKEN")
 
 
 @pytest.fixture()
 def github_user():
-    return os.environ["GITHUB_USER"]
+    return os.environ.get("GITHUB_USER")
 
 
 @pytest.fixture()
-def github_service(github_token):
-    return GithubService(token=github_token)
+def github_service(github_token, github_write_persistent_storage):
+    return GithubService(
+        token=github_token,
+        persistent_storage_file=persistent_data_file,
+        ps_force=github_write_persistent_storage,
+    )
 
 
 @pytest.fixture()

@@ -13,15 +13,23 @@ from github.PullRequest import PullRequest as GithubPullRequest
 from ogr.abstract import GitUser, PullRequest, PRComment, PRStatus, Release
 from ogr.services.base import BaseGitService, BaseGitProject, BaseGitUser
 from ogr.mock_core import readonly, GitProjectReadOnly
+from ogr.services.mock.github import get_Github_class
 
 logger = logging.getLogger(__name__)
 
 
 class GithubService(BaseGitService):
-    def __init__(self, token=None, read_only=False):
+    def __init__(
+        self, token=None, read_only=False, persistent_storage_file=None, ps_force=False
+    ):
         super().__init__()
         self._token = token
-        self.github = github.Github(login_or_token=self._token)
+        if persistent_storage_file:
+            self.github = get_Github_class(persistent_storage_file, ps_force)(
+                login_or_token=self._token
+            )
+        else:
+            self.github = github.Github(login_or_token=self._token)
         self.read_only = read_only
 
     def get_project(
