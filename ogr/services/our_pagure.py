@@ -279,7 +279,14 @@ class OurPagure(libpagure.Pagure):
         request_url = self.get_api_url(self.repo, "git", "urls")
 
         return_value = self._call_api(url=request_url, method="GET", data={})
-        return return_value["urls"]
+        urls = return_value["urls"]
+        rendered_urls = {}
+        for k, v in urls.items():
+            # https://pagure.io/pagure/issue/4427
+            if "{username}" in v:
+                v = v.format(username=self.whoami())
+            rendered_urls[k] = v
+        return rendered_urls
 
     def get_branches(self):
         request_url = self.get_api_url(self.repo, "git", "branches")

@@ -148,13 +148,12 @@ def test_fork(abiword_project_fork):
     a = abiword_project_fork.parent
     assert a
     is_forked = a.is_forked()
-    assert isinstance(is_forked, bool)
-    # `is True` is here on purpose: we want to be sure that .is_forked() returns True object
-    # because Tomas had his crazy ideas and wanted to return GitProject directly, stop that madman
-    assert is_forked is True
+    assert is_forked and isinstance(is_forked, bool)
     fork = a.get_fork(create=False)
     assert fork
     assert fork.is_fork
+    urls = fork.get_git_urls()
+    assert "{username}" not in urls["ssh"]
 
 
 def test_nonexisting_fork(abiword_project_non_existing_fork):
