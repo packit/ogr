@@ -165,7 +165,11 @@ class PersistentObjectStorage:
 
     def __del__(self):
         if self.is_write_mode:
-            self.dump()
+            try:
+                # ignore id instance deletion is done on level where is not open defined
+                self.dump()
+            except NameError:
+                pass
 
     def store(self, keys: List, values: Any) -> None:
         """
