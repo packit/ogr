@@ -9,6 +9,9 @@ old__requestEncode = github_origin.MainClass.Requester._Requester__requestEncode
 
 
 def new__requestEncode(self, cnx, verb, url, parameters, requestHeaders, input, encode):
+    """
+    replacement for  github_origin.MainClass.Requester._Requester__requestEncode method
+    """
     internal_keys = [verb, url, parameters]
     if self.persistent_storage.write_mode:
         status, responseHeaders, output = old__requestEncode(

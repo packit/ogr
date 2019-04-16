@@ -20,14 +20,18 @@ logger = logging.getLogger(__name__)
 
 class GithubService(BaseGitService):
     def __init__(
-        self, token=None, read_only=False, persistent_storage_file=None, ps_force=False
+        self,
+        token=None,
+        read_only=False,
+        persistent_storage_file=None,
+        is_persistent_storage_write_mode=False,
     ):
         super().__init__()
         self._token = token
         if persistent_storage_file:
-            self.github = get_Github_class(persistent_storage_file, ps_force)(
-                login_or_token=self._token
-            )
+            self.github = get_Github_class(
+                persistent_storage_file, is_persistent_storage_write_mode
+            )(login_or_token=self._token)
         else:
             self.github = github.Github(login_or_token=self._token)
         self.read_only = read_only

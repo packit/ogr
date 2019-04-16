@@ -31,7 +31,7 @@ def github_service(github_token, github_write_persistent_storage):
     return GithubService(
         token=github_token,
         persistent_storage_file=persistent_data_file,
-        ps_force=github_write_persistent_storage,
+        is_persistent_storage_write_mode=github_write_persistent_storage,
     )
 
 

@@ -1,4 +1,4 @@
-from typing import Callable, Any, Optional
+from typing import Callable, Any, Optional, Dict, List
 import functools
 import logging
 import datetime
@@ -125,11 +125,26 @@ class GitProjectReadOnly:
 
 
 class PersistentObjectStorage:
+    """
+    Class implements reading/writing simple JSON requests to dict structure
+    and return values based on keys.
+    It contains methods to reads/stores data to object and load and store them to YAML file
+
+    storage_object: dict with structured data based on keys (eg. simple JSON requests)
+    storage_file: file for reading and writing data in storage_object
+    """
+
     storage_file: str = ""
-    storage_object: dict = {}
+    storage_object: Dict
     write_mode: bool = False
 
     def __init__(self, storage_file: str, write_mode: Optional[bool] = None) -> None:
+        """
+        :param storage_file: file name location where to write/read object data
+        :param write_mode: force read/write mode, if not set (None) it tries to guess if
+                           it should write or read data based on if file exists
+
+        """
         self.storage_file = storage_file
         if write_mode is not None:
             self.write_mode = write_mode
@@ -142,7 +157,18 @@ class PersistentObjectStorage:
         if self.write_mode:
             self.dump()
 
-    def store(self, keys: list, values: list) -> None:
+    def store(self, keys: List, values: Any) -> None:
+        """
+        Stores data to dictionary object based on keys values it will create structure
+        if structure does not exist
+
+        It implicitly changes type to string if key is not hashable
+
+        :param keys: items what will be used as keys for dictionary
+        :param values: It could be whatever type what is used in original object handling
+        :return: None
+        """
+
         current_level = self.storage_object
         for item_num in range(len(keys)):
             item = keys[item_num]
@@ -155,7 +181,16 @@ class PersistentObjectStorage:
                 current_level[item] = values
             current_level = current_level[item]
 
-    def read(self, keys: list) -> Any:
+    def read(self, keys: List) -> Any:
+        """
+        Reads data from dictionary object structure based on keys.
+        If keys does not exists
+
+        It implicitly changes type to string if key is not hashable
+
+        :param keys: key list for searching in dict
+        :return: value assigged to key items
+        """
         current_level = self.storage_object
         for item in keys:
             if not isinstance(item, collections.Hashable):
@@ -169,11 +204,22 @@ class PersistentObjectStorage:
         return current_level
 
     def dump(self) -> None:
+        """
+        Explicitly stores content of storage_object to storage_file path
+
+        This method is also called when object is deleted and is set write mode to True
+
+        :return: None
+        """
         with open(self.storage_file, "w") as yaml_file:
             yaml.dump(self.storage_object, yaml_file, default_flow_style=False)
 
-    def load(self) -> dict:
+    def load(self) -> None:
+        """
+        Explicitly loads file content of storage_file to storage_object
+
+        :return: None
+        """
         with open(self.storage_file, "r") as yaml_file:
             output = yaml.safe_load(yaml_file)
         self.storage_object = output
-        return output
