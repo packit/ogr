@@ -13,7 +13,7 @@ def new__requestEncode(self, cnx, verb, url, parameters, requestHeaders, input, 
     replacement for  github_origin.MainClass.Requester._Requester__requestEncode method
     """
     internal_keys = [verb, url, parameters]
-    if self.persistent_storage.write_mode:
+    if self.persistent_storage.is_write_mode:
         status, responseHeaders, output = old__requestEncode(
             self, cnx, verb, url, parameters, requestHeaders, input, encode
         )
@@ -29,7 +29,7 @@ def new__requestEncode(self, cnx, verb, url, parameters, requestHeaders, input, 
 
 
 def get_Github_class(
-    storage_file: str, write_mode: bool
+    storage_file: str, is_write_mode: bool
 ) -> Type[github_origin.MainClass.Github]:
     """
     returns improved Github class, what allows read and write communication to yaml file
@@ -41,7 +41,7 @@ def get_Github_class(
     :param storage_file: string with
     :return: Github class
     """
-    storage = PersistentObjectStorage(storage_file, write_mode=write_mode)
+    storage = PersistentObjectStorage(storage_file, is_write_mode=is_write_mode)
     github_origin.MainClass.Requester.persistent_storage = storage
     github_origin.MainClass.Requester._Requester__requestEncode = new__requestEncode
     github_origin.MainClass.Github.persistent_storage = storage

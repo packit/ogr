@@ -136,25 +136,35 @@ class PersistentObjectStorage:
 
     storage_file: str = ""
     storage_object: Dict
-    write_mode: bool = False
+    is_write_mode: bool = False
 
-    def __init__(self, storage_file: str, write_mode: Optional[bool] = None) -> None:
+    def __init__(self, storage_file: str, is_write_mode: Optional[bool] = None) -> None:
         """
         :param storage_file: file name location where to write/read object data
-        :param write_mode: force read/write mode, if not set (None) it tries to guess if
+        :param is_write_mode: force read/write mode, if not set (None) it tries to guess if
                            it should write or read data based on if file exists
 
         """
         self.storage_file = storage_file
-        if write_mode is not None:
-            self.write_mode = write_mode
+        if is_write_mode is not None:
+            self.is_write_mode = is_write_mode
         else:
-            self.write_mode = not os.path.exists(self.storage_file)
-        if not self.write_mode:
-            self.load()
+            self.is_write_mode = not os.path.exists(self.storage_file)
+        if self.is_write_mode:
+            # load existing file if exist or use empty dir for write mode
+            if os.path.exists(self.storage_file):
+                self.storage_object = self.load()
+            else:
+                self.storage_object = {}
+        else:
+            if not os.path.exists(self.storage_file):
+                raise PersistenStorageException(
+                    f"file does not exists: {self.storage_file}"
+                )
+            self.storage_object = self.load()
 
     def __del__(self):
-        if self.write_mode:
+        if self.is_write_mode:
             self.dump()
 
     def store(self, keys: List, values: Any) -> None:
@@ -214,12 +224,13 @@ class PersistentObjectStorage:
         with open(self.storage_file, "w") as yaml_file:
             yaml.dump(self.storage_object, yaml_file, default_flow_style=False)
 
-    def load(self) -> None:
+    def load(self) -> Dict:
         """
-        Explicitly loads file content of storage_file to storage_object
+        Explicitly loads file content of storage_file to storage_object and return as well
 
-        :return: None
+        :return: dict
         """
         with open(self.storage_file, "r") as yaml_file:
             output = yaml.safe_load(yaml_file)
         self.storage_object = output
+        return output

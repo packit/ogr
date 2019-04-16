@@ -11,7 +11,7 @@ class PagureMockAPI(libpagure_origin.OurPagure):
 
     def _call_api(self, url, method="GET", params=None, data=None):
         keys_internal = [method, url, params, data]
-        if self.persistent_storage.write_mode:
+        if self.persistent_storage.is_write_mode:
             output = super(PagureMockAPI, self)._call_api(url, method, params, data)
             self.persistent_storage.store(keys=keys_internal, values=output)
         else:
@@ -21,7 +21,7 @@ class PagureMockAPI(libpagure_origin.OurPagure):
 
 
 def get_Pagure_class(
-    storage_file: str, write_mode: bool
+    storage_file: str, is_write_mode: bool
 ) -> Type[libpagure_origin.OurPagure]:
     """
     returns improved Pagure class, what allows read and write communication to yaml file
@@ -30,10 +30,10 @@ def get_Pagure_class(
     new class method:
         dump_yaml
     :param storage_file: string with
-    :param write_mode: bool force write mode
+    :param is_write_mode: bool force write mode
     :return: Pagure class
     """
-    storage = PersistentObjectStorage(storage_file, write_mode=write_mode)
+    storage = PersistentObjectStorage(storage_file, is_write_mode=is_write_mode)
     PagureMockAPI.persistent_storage = storage
     PagureMockAPI.dump_yaml = storage.dump
     return PagureMockAPI
