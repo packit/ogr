@@ -12,8 +12,15 @@ persistent_data_file = os.path.join(
 
 
 @pytest.fixture()
-def github_write_persistent_storage():
-    return bool(os.environ.get("FORCE_WRITE"))
+def github_write_persistent_storage(github_token, github_user):
+    """
+    This parameter have to be set if you want to regenerate yaml file with stored communication
+    and you have to have set  GITHUB_TOKEN GITHUB_USER env variables
+    """
+    is_write_mode = bool(os.environ.get("FORCE_WRITE"))
+    if is_write_mode and (not github_user or not github_token):
+        raise EnvironmentError("please set GITHUB_TOKEN GITHUB_USER env variables")
+    return is_write_mode
 
 
 @pytest.fixture()
