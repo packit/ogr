@@ -1,5 +1,5 @@
 import logging
-from typing import Optional, Dict, List
+from typing import Optional, Dict, List, Type
 
 import github
 from github import (
@@ -19,6 +19,9 @@ logger = logging.getLogger(__name__)
 
 
 class GithubService(BaseGitService):
+    # class parameter could be use to mock Github class api
+    github_class: Type[github.Github]
+
     def __init__(
         self,
         token=None,
@@ -28,12 +31,14 @@ class GithubService(BaseGitService):
     ):
         super().__init__()
         self._token = token
-        if persistent_storage_file:
-            self.github = get_Github_class(
-                persistent_storage_file, is_persistent_storage_write_mode
-            )(login_or_token=self._token)
-        else:
-            self.github = github.Github(login_or_token=self._token)
+        if not hasattr(self, "github_class"):
+            if persistent_storage_file:
+                self.github_class = get_Github_class(
+                    persistent_storage_file, is_persistent_storage_write_mode
+                )
+            else:
+                self.github_class = github.Github
+        self.github = self.github_class(login_or_token=self._token)
         self.read_only = read_only
 
     def get_project(
