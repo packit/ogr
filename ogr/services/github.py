@@ -13,7 +13,7 @@ from github.PullRequest import PullRequest as GithubPullRequest
 from ogr.abstract import GitUser, PullRequest, PRComment, PRStatus, Release
 from ogr.services.base import BaseGitService, BaseGitProject, BaseGitUser
 from ogr.mock_core import readonly, GitProjectReadOnly
-from ogr.services.mock.github import get_Github_class
+from ogr.services.mock.github_mock import get_Github_class
 
 logger = logging.getLogger(__name__)
 
