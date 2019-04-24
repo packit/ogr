@@ -301,7 +301,7 @@ class GitProject:
         self, commit: str, body: str, filename: str = None, row: int = None
     ) -> "CommitComment":
         """
-        Add new comment to the pull request.
+        Add new comment to a commit.
 
         :param commit: str
         :param body: str
