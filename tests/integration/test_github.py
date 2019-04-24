@@ -233,3 +233,11 @@ def test_nonexisting_file(colin_project):
 def test_parent_project(colin_project_fork):
     assert colin_project_fork.parent.namespace == "user-cont"
     assert colin_project_fork.parent.repo == "colin"
+
+
+def test_get_sha_from_tag(colin_project):
+    assert (
+        colin_project.get_sha_from_tag("v0.0.1")
+        == "4fde179d43b6c9c6a8c4d0c869293d18a6ce7ddc"
+    )
+    assert not colin_project.get_sha_from_tag("future")

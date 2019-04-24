@@ -172,6 +172,14 @@ class GithubProject(BaseGitProject):
             for raw_comment in pr.get_issue_comments()
         ]
 
+    def get_sha_from_tag(self, tag_name: str) -> str:
+        # TODO: This is ugly. Can we do it better?
+        all_tags = self.github_repo.get_tags()
+        for tag in all_tags:
+            if tag.name == tag_name:
+                return tag.commit.sha
+        return ""
+
     @readonly(return_function=GitProjectReadOnly.pr_create)
     def pr_create(
         self, title: str, body: str, target_branch: str, source_branch: str

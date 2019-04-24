@@ -207,6 +207,15 @@ class GitProject:
         """
         raise NotImplementedError()
 
+    def get_sha_from_tag(self, tag_name: str) -> str:
+        """
+        Search tag name in existing tags and return sha
+
+        :param tag_name: str
+        :return: str
+        """
+        raise NotImplementedError()
+
     def _get_all_pr_comments(self, pr_id: int) -> List["PRComment"]:
         """
         Get list of pull-request comments.
