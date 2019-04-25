@@ -1,5 +1,5 @@
 import logging
-from typing import Optional, Dict, List
+from typing import Optional, Dict, List, Type
 
 import github
 from github import (
@@ -13,15 +13,32 @@ from github.PullRequest import PullRequest as GithubPullRequest
 from ogr.abstract import GitUser, PullRequest, PRComment, PRStatus, Release
 from ogr.services.base import BaseGitService, BaseGitProject, BaseGitUser
 from ogr.mock_core import readonly, GitProjectReadOnly
+from ogr.services.mock.github_mock import get_Github_class
 
 logger = logging.getLogger(__name__)
 
 
 class GithubService(BaseGitService):
-    def __init__(self, token=None, read_only=False):
+    # class parameter could be use to mock Github class api
+    github_class: Type[github.Github]
+
+    def __init__(
+        self,
+        token=None,
+        read_only=False,
+        persistent_storage_file=None,
+        is_persistent_storage_write_mode=False,
+    ):
         super().__init__()
         self._token = token
-        self.github = github.Github(login_or_token=self._token)
+        if not hasattr(self, "github_class"):
+            if persistent_storage_file:
+                self.github_class = get_Github_class(
+                    persistent_storage_file, is_persistent_storage_write_mode
+                )
+            else:
+                self.github_class = github.Github
+        self.github = self.github_class(login_or_token=self._token)
         self.read_only = read_only
 
     def get_project(
