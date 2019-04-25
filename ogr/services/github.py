@@ -6,11 +6,19 @@ from github import (
     UnknownObjectException,
     IssueComment as GithubIssueComment,
     Repository,
+    CommitComment as GithubCommitComment,
 )
 from github.GitRelease import GitRelease as GithubRelease
 from github.PullRequest import PullRequest as GithubPullRequest
 
-from ogr.abstract import GitUser, PullRequest, PRComment, PRStatus, Release
+from ogr.abstract import (
+    GitUser,
+    PullRequest,
+    PRComment,
+    PRStatus,
+    Release,
+    CommitComment,
+)
 from ogr.services.base import BaseGitService, BaseGitProject, BaseGitUser
 from ogr.mock_core import readonly, GitProjectReadOnly
 from ogr.services.mock.github_mock import get_Github_class
@@ -203,6 +211,31 @@ class GithubProject(BaseGitProject):
     ) -> PRComment:
         raise NotImplementedError
 
+    @readonly(
+        return_function=GitProjectReadOnly.commit_comment,
+        log_message="Create Comment to commit",
+    )
+    def commit_comment(
+        self, commit: str, body: str, filename: str = None, row: int = None
+    ) -> CommitComment:
+        """
+        Create comment on a commit.
+
+        :param commit: str The SHA of the commit needing a comment.
+        :param body: str The text of the comment
+        :param filename: str The relative path to the file that necessitates a comment
+        :param row: int Line index in the diff to comment on.
+        :return: CommitComment
+        """
+        github_commit = self.github_repo.get_commit(commit)
+        if filename and row:
+            comment = github_commit.create_comment(
+                body=body, position=row, path=filename
+            )
+        else:
+            comment = github_commit.create_comment(body=body)
+        return self._commitcomment_from_github_object(comment)
+
     @readonly(return_function=GitProjectReadOnly.pr_close)
     def pr_close(self, pr_id: int) -> PullRequest:
         raise NotImplementedError
@@ -282,6 +315,16 @@ class GithubProject(BaseGitProject):
             url=raw_release.url,
             created_at=raw_release.created_at,
             tarball_url=raw_release.tarball_url,
+        )
+
+    @staticmethod
+    def _commitcomment_from_github_object(
+        raw_commitcoment: GithubCommitComment
+    ) -> CommitComment:
+        return CommitComment(
+            comment=raw_commitcoment.body,
+            author=raw_commitcoment.user.login,
+            sha=raw_commitcoment.commit_id,
         )
 
     def get_labels(self):
