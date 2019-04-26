@@ -1,0 +1,337 @@
+GET:
+  https://src.fedoraproject.org/api/0/rpms/abiword/pull-requests:
+    '{''status'': ''All''}':
+      empty:
+        args:
+          assignee: null
+          author: null
+          page: 1
+          per_page: 20
+          status: All
+        pagination:
+          first: https://src.fedoraproject.org/api/0/rpms/abiword/pull-requests?status=All&page=1&per_page=20
+          last: https://src.fedoraproject.org/api/0/rpms/abiword/pull-requests?status=All&page=1&per_page=20
+          next: null
+          page: 1
+          pages: 1
+          per_page: 20
+          prev: null
+        requests:
+        - assignee: null
+          branch: master
+          branch_from: py2macros
+          cached_merge_status: unknown
+          closed_at: '1532468281'
+          closed_by:
+            fullname: "Miro Hron\u010Dok"
+            name: churchyard
+          comments:
+          - comment: Pull-Request has been merged by churchyard
+            commit: null
+            date_created: '1532468282'
+            edited_on: null
+            editor: null
+            filename: null
+            id: 12756
+            line: null
+            notification: true
+            parent: null
+            reactions: {}
+            tree: null
+            user:
+              fullname: "Miro Hron\u010Dok"
+              name: churchyard
+          commit_start: d87466de81c72231906a6597758f37f28830bb71
+          commit_stop: d87466de81c72231906a6597758f37f28830bb71
+          date_created: '1531838516'
+          id: 2
+          initial_comment: "This package uses macros with ambiguous `python`.\r\n\r\
+            \nAccording to [Fedora Packaging guidelines for Python](https://fedoraproject.org/wiki/Packaging:Python#Macros),\
+            \ packages must use macros with either `python2` or `python3`.\r\n\r\n\
+            This PR is part of Fedora's Change [Move /usr/bin/python into a separate\
+            \ package](https://fedoraproject.org/wiki/Changes/Move_usr_bin_python_into_separate_package).\r\
+            \n\r\nNote that, although this PR was created automatically, we will respond\
+            \ to any comments or issues which you might find with it. We will keep\
+            \ the PR open for review for a week, and if there's no feedback we'll\
+            \ merge and build it.\r\nFor Koji scratch build please see simple-koji-ci\
+            \ result.\r\n\r\n*This PR was opened automatically, for source code see\
+            \ [here](https://pagure.io/fork/churchyard/python-fixrequires/tree/macros)*"
+          last_updated: '1532468282'
+          project:
+            access_groups:
+              admin: []
+              commit: []
+              ticket: []
+            access_users:
+              admin:
+              - herrold
+              - huzaifas
+              commit: []
+              owner:
+              - uwog
+              ticket: []
+            close_status: []
+            custom_keys: []
+            date_created: '1501865492'
+            date_modified: '1507634090'
+            description: abiword cross-platform Open Source word processor
+            fullname: rpms/abiword
+            id: 475
+            milestones: {}
+            name: abiword
+            namespace: rpms
+            parent: null
+            priorities: {}
+            tags:
+            - ''
+            url_path: rpms/abiword
+            user:
+              fullname: uwog
+              name: uwog
+          remote_git: null
+          repo_from:
+            access_groups:
+              admin: []
+              commit: []
+              ticket: []
+            access_users:
+              admin: []
+              commit: []
+              owner:
+              - churchyard
+              ticket: []
+            close_status: []
+            custom_keys: []
+            date_created: '1531838308'
+            date_modified: '1531838308'
+            description: abiword cross-platform Open Source word processor
+            fullname: forks/churchyard/rpms/abiword
+            id: 31453
+            milestones: {}
+            name: abiword
+            namespace: rpms
+            parent:
+              access_groups:
+                admin: []
+                commit: []
+                ticket: []
+              access_users:
+                admin:
+                - herrold
+                - huzaifas
+                commit: []
+                owner:
+                - uwog
+                ticket: []
+              close_status: []
+              custom_keys: []
+              date_created: '1501865492'
+              date_modified: '1507634090'
+              description: abiword cross-platform Open Source word processor
+              fullname: rpms/abiword
+              id: 475
+              milestones: {}
+              name: abiword
+              namespace: rpms
+              parent: null
+              priorities: {}
+              tags:
+              - ''
+              url_path: rpms/abiword
+              user:
+                fullname: uwog
+                name: uwog
+            priorities: {}
+            tags: []
+            url_path: fork/churchyard/rpms/abiword
+            user:
+              fullname: "Miro Hron\u010Dok"
+              name: churchyard
+          status: Merged
+          tags: []
+          threshold_reached: null
+          title: Update Python macros to new packaging standards
+          uid: 1ccdc60eb8234afdb9555097393d5f62
+          updated_on: '1531838516'
+          user:
+            fullname: "Miro Hron\u010Dok"
+            name: churchyard
+        - assignee: null
+          branch: master
+          branch_from: pyambiguous
+          cached_merge_status: FFORWARD
+          closed_at: '1519424480'
+          closed_by:
+            fullname: Iryna Shcherbina
+            name: ishcherb
+          comments:
+          - comment: rebased onto 09ac06860aab257d78b5348682e5f7390acb10c1
+            commit: null
+            date_created: '1518006190'
+            edited_on: null
+            editor: null
+            filename: null
+            id: 5062
+            line: null
+            notification: true
+            parent: null
+            reactions: {}
+            tree: null
+            user:
+              fullname: Iryna Shcherbina
+              name: ishcherb
+          - comment: Pull-Request has been merged by ishcherb
+            commit: null
+            date_created: '1519424481'
+            edited_on: null
+            editor: null
+            filename: null
+            id: 6972
+            line: null
+            notification: true
+            parent: null
+            reactions: {}
+            tree: null
+            user:
+              fullname: Iryna Shcherbina
+              name: ishcherb
+          commit_start: 09ac06860aab257d78b5348682e5f7390acb10c1
+          commit_stop: 09ac06860aab257d78b5348682e5f7390acb10c1
+          date_created: '1517943263'
+          id: 1
+          initial_comment: "This package uses names with ambiguous `python-` prefix\
+            \ in requirements.\r\n\r\nAccording to [Fedora Packaging guidelines for\
+            \ Python](https://fedoraproject.org/wiki/Packaging:Python#Dependencies),\
+            \ packages must use names with either `python2-` or `python3-` prefix\
+            \ in requirements where available.\r\nWe are aiming to rename `python-*`\
+            \ dependencies to `python2-*`, so we can later switch the `python-*` namespace\
+            \ to Python 3.\r\n\r\nThis PR is part of [Fedora's Switch to Python 3\
+            \ effort](https://fedoraproject.org/wiki/FinalizingFedoraSwitchtoPython3).\r\
+            \n\r\nNote that, although this PR was created automatically, we will respond\
+            \ to any comments or issues which you might find with it. We will keep\
+            \ the PR open for review for a week, and if there's no feedback we'll\
+            \ merge it. There is no need to build the package right after merge, this\
+            \ change can wait for the next package rebuild.\r\nThe local mock build\
+            \ passed, for Koji scratch build please see simple-koji-ci result.\r\n\
+            \r\nNote: please do not backport this to f26, f27 branch(es) as some of\
+            \ the modified requirements are not available there\r\n\r\n*This PR was\
+            \ opened automatically, for source code see [here](https://pagure.io/python-fixrequires)*"
+          last_updated: '1519424481'
+          project:
+            access_groups:
+              admin: []
+              commit: []
+              ticket: []
+            access_users:
+              admin:
+              - herrold
+              - huzaifas
+              commit: []
+              owner:
+              - uwog
+              ticket: []
+            close_status: []
+            custom_keys: []
+            date_created: '1501865492'
+            date_modified: '1507634090'
+            description: abiword cross-platform Open Source word processor
+            fullname: rpms/abiword
+            id: 475
+            milestones: {}
+            name: abiword
+            namespace: rpms
+            parent: null
+            priorities: {}
+            tags:
+            - ''
+            url_path: rpms/abiword
+            user:
+              fullname: uwog
+              name: uwog
+          remote_git: null
+          repo_from:
+            access_groups:
+              admin: []
+              commit: []
+              ticket: []
+            access_users:
+              admin: []
+              commit: []
+              owner:
+              - ishcherb
+              ticket: []
+            close_status: []
+            custom_keys: []
+            date_created: '1517942597'
+            date_modified: '1517942597'
+            description: The abiword rpms
+            fullname: forks/ishcherb/rpms/abiword
+            id: 28222
+            milestones: {}
+            name: abiword
+            namespace: rpms
+            parent:
+              access_groups:
+                admin: []
+                commit: []
+                ticket: []
+              access_users:
+                admin:
+                - herrold
+                - huzaifas
+                commit: []
+                owner:
+                - uwog
+                ticket: []
+              close_status: []
+              custom_keys: []
+              date_created: '1501865492'
+              date_modified: '1507634090'
+              description: abiword cross-platform Open Source word processor
+              fullname: rpms/abiword
+              id: 475
+              milestones: {}
+              name: abiword
+              namespace: rpms
+              parent: null
+              priorities: {}
+              tags:
+              - ''
+              url_path: rpms/abiword
+              user:
+                fullname: uwog
+                name: uwog
+            priorities: {}
+            tags: []
+            url_path: fork/ishcherb/rpms/abiword
+            user:
+              fullname: Iryna Shcherbina
+              name: ishcherb
+          status: Merged
+          tags: []
+          threshold_reached: null
+          title: Update Python 2 dependency declarations to new packaging standards
+          uid: aa6e05e2ec6046c9b1f69147c11e1b41
+          updated_on: '1517943263'
+          user:
+            fullname: Iryna Shcherbina
+            name: ishcherb
+        total_requests: 2
+    '{''status'': ''Open''}':
+      empty:
+        args:
+          assignee: null
+          author: null
+          page: 1
+          per_page: 20
+          status: Open
+        pagination:
+          first: https://src.fedoraproject.org/api/0/rpms/abiword/pull-requests?status=Open&page=1&per_page=20
+          last: https://src.fedoraproject.org/api/0/rpms/abiword/pull-requests?status=Open&page=0&per_page=20
+          next: null
+          page: 1
+          pages: 0
+          per_page: 20
+          prev: null
+        requests: []
+        total_requests: 0

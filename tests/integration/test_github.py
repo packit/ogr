@@ -1,243 +1,208 @@
 import os
-
-import pytest
+import unittest
 from github import GithubException
 
 from ogr.abstract import PRStatus
 from ogr.services.github import GithubService
 
-persistent_data_file = os.path.join(
-    os.path.dirname(os.path.realpath(__file__)), "test_github_data.yaml"
+DATA_DIR = "test_data"
+PERSISTENT_DATA_PREFIX = os.path.join(
+    os.path.dirname(os.path.realpath(__file__)), DATA_DIR
 )
 
 
-@pytest.fixture()
-def github_write_persistent_storage(github_token, github_user):
-    """
-    This parameter have to be set if you want to regenerate yaml file with stored communication
-    and you have to have set  GITHUB_TOKEN GITHUB_USER env variables
-    """
-    is_write_mode = bool(os.environ.get("FORCE_WRITE"))
-    if is_write_mode and (not github_user or not github_token):
-        raise EnvironmentError("please set GITHUB_TOKEN GITHUB_USER env variables")
-    return is_write_mode
+class GithubTests(unittest.TestCase):
+    def setUp(self):
+        self.token = os.environ.get("GITHUB_TOKEN")
+        self.user = os.environ.get("GITHUB_USER")
+        test_name = self.id() or "all"
+        self.is_write_mode = bool(os.environ.get("FORCE_WRITE"))
+        if self.is_write_mode and (not self.user or not self.token):
+            raise EnvironmentError("please set GITHUB_TOKEN GITHUB_USER env variables")
+        persistent_data_file = os.path.join(
+            PERSISTENT_DATA_PREFIX, f"test_github_data_{test_name}.yaml"
+        )
+        self.service = GithubService(
+            token=self.token,
+            persistent_storage_file=persistent_data_file,
+            is_persistent_storage_write_mode=self.is_write_mode,
+        )
+        self.colin_project = self.service.get_project(
+            namespace="user-cont", repo="colin"
+        )
+        self.colin_fork = self.service.get_project(
+            namespace="user-cont", repo="colin", is_fork=True
+        )
+
+    def tearDown(self):
+        self.service.github.dump_yaml()
 
 
-@pytest.fixture()
-def github_token():
-    return os.environ.get("GITHUB_TOKEN")
+class Comments(GithubTests):
+    def test_pr_comments(self):
+        pr_comments = self.colin_project.get_pr_comments(7)
+        assert pr_comments
+        assert len(pr_comments) == 2
+        assert pr_comments[0].comment.endswith("I've just integrated your thoughts.")
+        assert pr_comments[1].comment.startswith("Thank you!")
+
+    def test_pr_comments_reversed(self):
+        pr_comments = self.colin_project.get_pr_comments(7, reverse=True)
+        assert pr_comments
+        assert len(pr_comments) == 2
+        assert pr_comments[0].comment.startswith("Thank you!")
+
+    def test_pr_comments_filter(self):
+        pr_comments = self.colin_project.get_pr_comments(7, filter_regex="Thank")
+        assert pr_comments
+        assert len(pr_comments) == 2
+        assert pr_comments[1].comment.startswith("Thank you!")
+
+        pr_comments = self.colin_project.get_pr_comments(
+            7, filter_regex="Thank you for the ([a-z]*)"
+        )
+        assert pr_comments
+        assert len(pr_comments) == 1
+        assert pr_comments[0].comment.endswith("thoughts.")
+
+    def test_pr_comments_search(self):
+        comment_match = self.colin_project.search_in_pr(7, filter_regex="Thank")
+        assert comment_match
+        assert comment_match[0] == "Thank"
+
+        comment_match = self.colin_project.search_in_pr(
+            7, filter_regex="Thank you for the ([a-z]*)"
+        )
+        assert comment_match
+        assert comment_match[0] == "Thank you for the review"
+        assert comment_match[1] == "review"
 
 
-@pytest.fixture()
-def github_user():
-    return os.environ.get("GITHUB_USER")
+class GenericCommands(GithubTests):
+    def test_description(self):
+        description = self.colin_project.get_description()
+        assert description.startswith("Tool to check generic")
+
+    def test_branches(self):
+        branches = self.colin_project.get_branches()
+        assert branches
+        assert set(branches) == {"master", "overriden-labels-check"}
+
+    def test_git_urls(self):
+        urls = self.colin_project.get_git_urls()
+        assert urls
+        assert len(urls) == 2
+        assert "git" in urls
+        assert "ssh" in urls
+        assert urls["git"] == "https://github.com/user-cont/colin.git"
+        assert urls["ssh"].endswith("git@github.com:user-cont/colin.git")
+
+    @unittest.skip("don't know")
+    def test_get_releases(self):
+        releases = self.colin_project.get_releases()
+        assert releases
+
+        assert len(releases) >= 9
+
+    @unittest.skip("don't know")
+    def test_username(self):
+        assert self.service.user.get_username() == self.user
+
+    @unittest.skip("don't know")
+    def test_get_file(self):
+        file_content = self.colin_project.get_file_content(".gitignore")
+        assert file_content
+        assert isinstance(file_content, str)
+        assert "*.py[co]" in file_content
+
+    def test_nonexisting_file(self):
+        with self.assertRaises(FileNotFoundError):
+            self.colin_project.get_file_content(".blablabla_nonexisting_file")
+
+    def test_parent_project(self):
+        assert self.colin_fork.parent.namespace == "user-cont"
+        assert self.colin_fork.parent.repo == "colin"
+
+    @unittest.skip("don't know")
+    def test_commit_flags(self):
+        flags = self.colin_project.get_commit_flags(
+            commit="d87466de81c72231906a6597758f37f28830bb71"
+        )
+        assert isinstance(flags, list)
+        assert len(flags) == 0
+
+    def test_get_sha_from_tag(self):
+        assert (
+            self.colin_project.get_sha_from_tag("v0.0.1")
+            == "4fde179d43b6c9c6a8c4d0c869293d18a6ce7ddc"
+        )
+        assert not self.colin_project.get_sha_from_tag("future")
 
 
-@pytest.fixture()
-def github_service(github_token, github_write_persistent_storage):
-    return GithubService(
-        token=github_token,
-        persistent_storage_file=persistent_data_file,
-        is_persistent_storage_write_mode=github_write_persistent_storage,
+class PullRequests(GithubTests):
+    def test_pr_list(self):
+        pr_list = self.colin_fork.get_pr_list()
+        assert isinstance(pr_list, list)
+        assert not pr_list
+
+        pr_list_all = self.colin_project.get_pr_list(status=PRStatus.all)
+        assert pr_list_all
+        assert len(pr_list_all) >= 144
+
+        pr_list_closed = self.colin_project.get_pr_list(status=PRStatus.closed)
+        assert pr_list_closed
+        assert len(pr_list_closed) >= 140
+
+        pr_list = self.colin_project.get_pr_list()
+        assert pr_list
+        assert len(pr_list) >= 2
+
+    def test_pr_info(self):
+        pr_info = self.colin_project.get_pr_info(pr_id=1)
+        assert pr_info
+        assert pr_info.title.startswith("Add basic structure")
+        assert pr_info.status == PRStatus.closed
+
+
+class Forks(GithubTests):
+    def test_fork(self):
+        assert self.colin_fork.is_fork is True
+        fork_description = self.colin_fork.get_description()
+        assert fork_description
+
+    @unittest.skip(
+        "not working with yaml file because it  check exception within setup"
     )
+    def test_nonexisting_fork(self):
+        self.colin_nonexisting_fork = self.service.get_project(
+            repo="omfeprkfmwpefmwpefkmwpeofjwepof", is_fork=True
+        )
+        with self.assertRaises(GithubException) as ex:
+            self.colin_nonexisting_fork.get_description()
+        s = str(ex.value.args)
+        assert "Not Found" in s
+        assert "404" in s
 
+    def test_get_fork(self):
+        fork = self.colin_project.get_fork()
+        assert fork
+        assert fork.get_description()
 
-@pytest.fixture()
-def colin_project(github_service):
-    colin_project = github_service.get_project(namespace="user-cont", repo="colin")
-    return colin_project
+    @unittest.skip("don't know")
+    def test_create_fork(self):
+        not_existing_fork = self.colin_project.get_fork()
+        assert not not_existing_fork
+        self.colin_project.fork_create()
+        assert self.colin_project.get_fork().exists()
 
-
-@pytest.fixture()
-def colin_project_fork(github_service):
-    colin_fork = github_service.get_project(
-        namespace="user-cont", repo="colin", is_fork=True
-    )
-    return colin_fork
-
-
-@pytest.fixture()
-def colin_project_non_existing_fork(github_service):
-    colin_fork = github_service.get_project(
-        # namespace is overwritten
-        repo="omfeprkfmwpefmwpefkmwpeofjwepof",
-        is_fork=True,
-    )
-    return colin_fork
-
-
-def test_pr_comments(colin_project):
-    pr_comments = colin_project.get_pr_comments(7)
-    assert pr_comments
-    assert len(pr_comments) == 2
-    assert pr_comments[0].comment.endswith("I've just integrated your thoughts.")
-    assert pr_comments[1].comment.startswith("Thank you!")
-
-
-def test_pr_comments_reversed(colin_project):
-    pr_comments = colin_project.get_pr_comments(7, reverse=True)
-    assert pr_comments
-    assert len(pr_comments) == 2
-    assert pr_comments[0].comment.startswith("Thank you!")
-
-
-def test_pr_comments_filter(colin_project):
-    pr_comments = colin_project.get_pr_comments(7, filter_regex="Thank")
-    assert pr_comments
-    assert len(pr_comments) == 2
-    assert pr_comments[1].comment.startswith("Thank you!")
-
-    pr_comments = colin_project.get_pr_comments(
-        7, filter_regex="Thank you for the ([a-z]*)"
-    )
-    assert pr_comments
-    assert len(pr_comments) == 1
-    assert pr_comments[0].comment.endswith("thoughts.")
-
-
-def test_pr_comments_search(colin_project):
-    comment_match = colin_project.search_in_pr(7, filter_regex="Thank")
-    assert comment_match
-    assert comment_match[0] == "Thank"
-
-    comment_match = colin_project.search_in_pr(
-        7, filter_regex="Thank you for the ([a-z]*)"
-    )
-    assert comment_match
-    assert comment_match[0] == "Thank you for the review"
-    assert comment_match[1] == "review"
-
-
-def test_description(colin_project):
-    description = colin_project.get_description()
-    assert description.startswith("Tool to check generic")
-
-
-def test_branches(colin_project):
-    branches = colin_project.get_branches()
-    assert branches
-    assert set(branches) == {"master", "overriden-labels-check"}
-
-
-def test_git_urls(colin_project):
-    urls = colin_project.get_git_urls()
-    assert urls
-    assert len(urls) == 2
-    assert "git" in urls
-    assert "ssh" in urls
-    assert urls["git"] == "https://github.com/user-cont/colin.git"
-    assert urls["ssh"].endswith("git@github.com:user-cont/colin.git")
-
-
-def test_pr_list(colin_project, colin_project_fork):
-    pr_list = colin_project_fork.get_pr_list()
-    assert isinstance(pr_list, list)
-    assert not pr_list
-
-    pr_list_all = colin_project.get_pr_list(status=PRStatus.all)
-    assert pr_list_all
-    assert len(pr_list_all) >= 144
-
-    pr_list_closed = colin_project.get_pr_list(status=PRStatus.closed)
-    assert pr_list_closed
-    assert len(pr_list_closed) >= 140
-
-    pr_list = colin_project.get_pr_list()
-    assert pr_list
-    assert len(pr_list) >= 2
-
-
-@pytest.mark.skip
-def test_get_releases(colin_project):
-    releases = colin_project.get_releases()
-    assert releases
-
-    assert len(releases) >= 9
-
-
-def test_pr_info(colin_project):
-    pr_info = colin_project.get_pr_info(pr_id=1)
-    assert pr_info
-    assert pr_info.title.startswith("Add basic structure")
-    assert pr_info.status == PRStatus.closed
-
-
-@pytest.mark.skip
-def test_commit_flags(colin_project):
-    flags = colin_project.get_commit_flags(
-        commit="d87466de81c72231906a6597758f37f28830bb71"
-    )
-    assert isinstance(flags, list)
-    assert len(flags) == 0
-
-
-def test_fork(colin_project_fork):
-    assert colin_project_fork.is_fork is True
-    fork_description = colin_project_fork.get_description()
-    assert fork_description
-
-
-@pytest.mark.skip("not working with yaml file because it  check exception within setup")
-def test_nonexisting_fork(colin_project_non_existing_fork):
-    with pytest.raises(GithubException) as ex:
-        colin_project_non_existing_fork.get_description()
-    s = str(ex.value.args)
-    assert "Not Found" in s
-    assert "404" in s
-
-
-def test_get_fork(colin_project):
-    fork = colin_project.get_fork()
-    assert fork
-    assert fork.get_description()
-
-
-@pytest.mark.skip
-def test_create_fork(colin_project):
-    not_existing_fork = colin_project.get_fork()
-    assert not not_existing_fork
-    colin_project.fork_create()
-    assert colin_project.get_fork().exists()
-
-
-def test_is_fork(colin_project):
-    assert not colin_project.is_fork
-    is_forked = colin_project.is_forked()
-    assert isinstance(is_forked, bool)
-    # `is True` is here on purpose: we want to be sure that .is_forked() returns True object
-    # because Tomas had his crazy ideas and wanted to return GitProject directly, stop that madman
-    assert is_forked is True
-    fork = colin_project.get_fork(create=False)
-    assert fork
-    assert fork.is_fork
-
-
-@pytest.mark.skip
-def test_username(github_service, github_user):
-    assert github_service.user.get_username() == github_user
-
-
-@pytest.mark.skip
-def test_get_file(colin_project):
-    file_content = colin_project.get_file_content(".gitignore")
-    assert file_content
-    assert isinstance(file_content, str)
-    assert "*.py[co]" in file_content
-
-
-def test_nonexisting_file(colin_project):
-    with pytest.raises(FileNotFoundError) as _:
-        colin_project.get_file_content(".blablabla_nonexisting_file")
-
-
-def test_parent_project(colin_project_fork):
-    assert colin_project_fork.parent.namespace == "user-cont"
-    assert colin_project_fork.parent.repo == "colin"
-
-
-def test_get_sha_from_tag(colin_project):
-    assert (
-        colin_project.get_sha_from_tag("v0.0.1")
-        == "4fde179d43b6c9c6a8c4d0c869293d18a6ce7ddc"
-    )
-    assert not colin_project.get_sha_from_tag("future")
+    def test_is_fork(self):
+        assert not self.colin_project.is_fork
+        is_forked = self.colin_project.is_forked()
+        assert isinstance(is_forked, bool)
+        # `is True` is here on purpose: we want to be sure that .is_forked() returns True object
+        # because Tomas had his crazy ideas and wanted to return GitProject directly,
+        # stop that madman
+        assert is_forked is True
+        fork = self.colin_project.get_fork(create=False)
+        assert fork
+        assert fork.is_fork

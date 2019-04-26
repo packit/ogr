@@ -1,4 +1,5 @@
 import libpagure
+from ogr.exceptions import OurPagureRawRequest
 
 
 class OurPagure(libpagure.Pagure):
@@ -173,7 +174,13 @@ class OurPagure(libpagure.Pagure):
             data=data,
             verify=not self.insecure,
         )
-        return req
+        if not req:
+            raise OurPagureRawRequest(
+                f"FAILED raw request URL:{url_parts}, "
+                f"METHOD {method}, PARAMS: {params}, DATA={data}"
+            )
+        output = req.content.decode()
+        return output
 
     def get_fork(self):
 

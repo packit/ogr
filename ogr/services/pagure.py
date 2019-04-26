@@ -1,29 +1,44 @@
 import datetime
 import logging
-from typing import List, Optional, Dict
+from typing import List, Optional, Dict, Type
 
 from ogr.abstract import PRStatus
 from ogr.abstract import PullRequest, PRComment
 from ogr.services.base import BaseGitService, BaseGitProject, BaseGitUser
 from ogr.services.our_pagure import OurPagure
 from ogr.mock_core import readonly, GitProjectReadOnly
+from ogr.services.mock.pagure_mock import get_Pagure_class
 
 logger = logging.getLogger(__name__)
 
 
 class PagureService(BaseGitService):
+    # class parameter could be use to mock Pagure class api
+    pagure_class: Type[OurPagure]
+
     def __init__(
         self,
         token: str = None,
         instance_url: str = "https://src.fedoraproject.org",
         read_only: bool = False,
+        persistent_storage_file=None,
+        is_persistent_storage_write_mode=False,
         **kwargs,
     ) -> None:
         super().__init__()
         self.instance_url = instance_url
         self._token = token
         self.pagure_kwargs = kwargs
-        self.pagure = OurPagure(pagure_token=token, instance_url=instance_url, **kwargs)
+        if not hasattr(self, "pagure_class"):
+            if persistent_storage_file:
+                self.pagure_class = get_Pagure_class(
+                    persistent_storage_file, is_persistent_storage_write_mode
+                )
+            else:
+                self.pagure_class = OurPagure
+        self.pagure = self.pagure_class(
+            pagure_token=token, instance_url=instance_url, **kwargs
+        )
         self.read_only = read_only
 
     def get_project(self, **kwargs) -> "PagureProject":
@@ -75,13 +90,13 @@ class PagureProject(BaseGitProject):
 
         self.instance_url = instance_url
         self._token = token
-
+        self.service = service
         self._pagure_kwargs = kwargs
         if username:
             self._pagure_kwargs["username"] = username
 
-        self._pagure = OurPagure(
-            pagure_token=token,
+        self._pagure = self.service.pagure_class(
+            token=token,
             pagure_repository=f"{namespace}/{self.repo}",
             namespace=namespace,
             fork_username=username if is_fork else None,
@@ -281,12 +296,10 @@ class PagureProject(BaseGitProject):
 
     def get_file_content(self, path: str, ref="master") -> str:
 
-        result = self._pagure.get_raw_request(
+        content = self._pagure.get_raw_request(
             "raw", ref, "f", path, api_url=False, repo_name=True, namespace=True
         )
-        if not result and result.reason == "NOT FOUND":
-            raise FileNotFoundError(f"File '{path}' on {ref} not found")
-        return result.content.decode()
+        return content
 
 
 class PagureUser(BaseGitUser):

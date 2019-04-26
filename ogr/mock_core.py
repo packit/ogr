@@ -144,6 +144,7 @@ class PersistentObjectStorage:
     storage_file: str = ""
     storage_object: Dict
     is_write_mode: bool = False
+    is_flushed = False
 
     def __init__(self, storage_file: str, is_write_mode: Optional[bool] = None) -> None:
         """
@@ -170,13 +171,17 @@ class PersistentObjectStorage:
                 )
             self.storage_object = self.load()
 
-    def __del__(self):
-        if self.is_write_mode:
-            try:
-                # ignore id instance deletion is done on level where is not open defined
-                self.dump()
-            except NameError:
-                pass
+    @staticmethod
+    def transform_hashable(keys: List) -> List:
+        output: List = []
+        for item in keys:
+            if not item:
+                output.append("empty")
+            elif not isinstance(item, collections.Hashable):
+                output.append(str(item))
+            else:
+                output.append(item)
+        return output
 
     def store(self, keys: List, values: Any) -> None:
         """
@@ -191,16 +196,28 @@ class PersistentObjectStorage:
         """
 
         current_level = self.storage_object
-        for item_num in range(len(keys)):
-            item = keys[item_num]
-            if not isinstance(item, collections.Hashable):
-                item = str(item)
-            if item_num + 1 < len(keys):
+        hashable_keys = self.transform_hashable(keys)
+        for item_num in range(len(hashable_keys)):
+            item = hashable_keys[item_num]
+            if item_num + 1 < len(hashable_keys):
                 if not current_level.get(item):
                     current_level[item] = {}
             else:
+                # do not override if key is already there
+                # manually remove the file if you want to renew this
+                if current_level.get(item):
+                    return
                 current_level[item] = values
             current_level = current_level[item]
+        self.is_flushed = False
+
+    def __del__(self):
+        if self.is_write_mode:
+            try:
+                # ignore id instance deletion is done on level where is not open defined
+                self.dump()
+            except NameError:
+                pass
 
     def read(self, keys: List) -> Any:
         """
@@ -213,14 +230,13 @@ class PersistentObjectStorage:
         :return: value assigged to key items
         """
         current_level = self.storage_object
-        for item in keys:
-            if not isinstance(item, collections.Hashable):
-                item = str(item)
+        hashable_keys = self.transform_hashable(keys)
+        for item in hashable_keys:
             try:
                 current_level = current_level[item]
             except KeyError:
                 raise PersistenStorageException(
-                    f"Keys not in storage:{self.storage_file} {keys}"
+                    f"Keys not in storage:{self.storage_file} {hashable_keys}"
                 )
         return current_level
 
@@ -232,8 +248,11 @@ class PersistentObjectStorage:
 
         :return: None
         """
+        if self.is_flushed:
+            return None
         with open(self.storage_file, "w") as yaml_file:
-            yaml.dump(self.storage_object, yaml_file, default_flow_style=False)
+            yaml.dump(self.storage_object, yaml_file)
+        self.is_flushed = True
 
     def load(self) -> Dict:
         """
