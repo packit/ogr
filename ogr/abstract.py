@@ -49,6 +49,13 @@ class PRComment:
         self.edited = edited
 
 
+class CommitComment:
+    def __init__(self, sha: str, comment: str, author: str) -> None:
+        self.sha = sha
+        self.comment = comment
+        self.author = author
+
+
 class Release:
     def __init__(
         self,
@@ -207,6 +214,15 @@ class GitProject:
         """
         raise NotImplementedError()
 
+    def get_sha_from_tag(self, tag_name: str) -> str:
+        """
+        Search tag name in existing tags and return sha
+
+        :param tag_name: str
+        :return: str
+        """
+        raise NotImplementedError()
+
     def _get_all_pr_comments(self, pr_id: int) -> List["PRComment"]:
         """
         Get list of pull-request comments.
@@ -278,6 +294,20 @@ class GitProject:
         :param filename: str
         :param row: int
         :return: PRComment
+        """
+        raise NotImplementedError()
+
+    def commit_comment(
+        self, commit: str, body: str, filename: str = None, row: int = None
+    ) -> "CommitComment":
+        """
+        Add new comment to a commit.
+
+        :param commit: str
+        :param body: str
+        :param filename: str
+        :param row: int
+        :return: CommitComment
         """
         raise NotImplementedError()
 

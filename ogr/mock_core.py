@@ -6,7 +6,7 @@ import os
 import yaml
 import collections
 
-from ogr.abstract import PullRequest, PRComment, PRStatus, GitProject
+from ogr.abstract import PullRequest, PRComment, PRStatus, GitProject, CommitComment
 from ogr.constant import DEFAULT_RO_PREFIX_STRING
 from ogr.exceptions import PersistenStorageException
 
@@ -122,6 +122,13 @@ class GitProjectReadOnly:
     @classmethod
     def fork_create(cls, original_object: Any) -> "GitProject":
         return original_object
+
+    @classmethod
+    def commit_comment(
+        cls, original_object: Any, commit: str, body: str
+    ) -> "CommitComment":
+        output = CommitComment(sha=commit, comment=body, author=cls.author)
+        return output
 
 
 class PersistentObjectStorage:
