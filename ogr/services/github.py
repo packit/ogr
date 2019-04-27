@@ -193,7 +193,25 @@ class GithubProject(BaseGitProject):
         filename: str = None,
         row: int = None,
     ) -> PRComment:
-        raise NotImplementedError
+        """
+        Create comment on a pull request. If creating pull request review
+        comment (bind to specific point in diff), all values need to be filled.
+
+        :param pr_id: int The ID of the pull request
+        :param body: str The text of the comment
+        :param commit: str The SHA of the commit needing a comment.
+        :param filename: str The relative path to the file that necessitates a comment
+        :param row: int The position in the diff where you want to add a review comment
+            see https://developer.github.com/v3/pulls/comments/#create-a-comment for more info
+        :return: PRComment
+        """
+        github_pr = self.github_repo.get_pull(number=pr_id)
+        if not any([commit, filename, row]):
+            comment = github_pr.create_issue_comment(body)
+        else:
+            github_commit = self.github_repo.get_commit(commit)
+            comment = github_pr.create_comment(body, github_commit, filename, row)
+        return self._prcomment_from_github_object(comment)
 
     @readonly(return_function=GitProjectReadOnly.pr_close)
     def pr_close(self, pr_id: int) -> PullRequest:
