@@ -8,6 +8,7 @@ from ogr.services.base import BaseGitService, BaseGitProject, BaseGitUser
 from ogr.services.our_pagure import OurPagure
 from ogr.mock_core import readonly, GitProjectReadOnly
 from ogr.services.mock.pagure_mock import get_Pagure_class
+from ogr.exceptions import OurPagureRawRequest
 
 logger = logging.getLogger(__name__)
 
@@ -295,10 +296,12 @@ class PagureProject(BaseGitProject):
         self._pagure.change_token(new_token)
 
     def get_file_content(self, path: str, ref="master") -> str:
-
-        content = self._pagure.get_raw_request(
-            "raw", ref, "f", path, api_url=False, repo_name=True, namespace=True
-        )
+        try:
+            content = self._pagure.get_raw_request(
+                "raw", ref, "f", path, api_url=False, repo_name=True, namespace=True
+            )
+        except OurPagureRawRequest as ex:
+            raise FileNotFoundError(f"File '{path}' on {ref} not found", ex)
         return content
 
 
