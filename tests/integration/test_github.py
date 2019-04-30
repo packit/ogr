@@ -97,18 +97,16 @@ class GenericCommands(GithubTests):
         assert urls["git"] == "https://github.com/user-cont/colin.git"
         assert urls["ssh"].endswith("git@github.com:user-cont/colin.git")
 
-    @unittest.skip("don't know")
     def test_get_releases(self):
         releases = self.colin_project.get_releases()
         assert releases
 
         assert len(releases) >= 9
 
-    @unittest.skip("don't know")
     def test_username(self):
-        assert self.service.user.get_username() == self.user
+        # changed to check just lenght, because it is based who regenerated data files
+        assert len(self.service.user.get_username()) > 3
 
-    @unittest.skip("don't know")
     def test_get_file(self):
         file_content = self.colin_project.get_file_content(".gitignore")
         assert file_content
@@ -123,7 +121,7 @@ class GenericCommands(GithubTests):
         assert self.colin_fork.parent.namespace == "user-cont"
         assert self.colin_fork.parent.repo == "colin"
 
-    @unittest.skip("don't know")
+    @unittest.skip("get_commit_flags not implemented")
     def test_commit_flags(self):
         flags = self.colin_project.get_commit_flags(
             commit="d87466de81c72231906a6597758f37f28830bb71"
@@ -188,7 +186,7 @@ class Forks(GithubTests):
         assert fork
         assert fork.get_description()
 
-    @unittest.skip("don't know")
+    @unittest.skip("does not work when you don't have fork already created")
     def test_create_fork(self):
         not_existing_fork = self.colin_project.get_fork()
         assert not not_existing_fork
