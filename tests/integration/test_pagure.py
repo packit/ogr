@@ -1,12 +1,10 @@
 import os
 
 import unittest
-import pytest
 from libpagure import APIError
 
 from ogr.abstract import PRStatus
 from ogr.services.pagure import PagureService
-from ogr.exceptions import OgrException
 
 DATA_DIR = "test_data"
 PERSISTENT_DATA_PREFIX = os.path.join(
@@ -113,7 +111,7 @@ class GenericCommands(PagureTests):
         assert "docker-2.6.1.tar.gz" in file_content
 
     def test_nonexisting_file(self):
-        with pytest.raises(OgrException) as _:
+        with self.assertRaises(Exception) as _:
             self.docker_py_project.get_file_content(".blablabla_nonexisting_file")
 
     def test_parent_project(self):
@@ -170,7 +168,7 @@ class Forks(PagureTests):
             is_fork=True,
         )
         assert not abiword_project_non_existing_fork.exists()
-        with pytest.raises(APIError) as ex:
+        with self.assertRaises(APIError) as ex:
             abiword_project_non_existing_fork.get_description()
         assert "Project not found" in ex.value.args
 
