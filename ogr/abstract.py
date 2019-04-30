@@ -49,6 +49,13 @@ class PRComment:
         self.edited = edited
 
 
+class CommitStatus:
+    def __init__(self, commit: str, state: str, context: str):
+        self.commit = commit
+        self.state = state
+        self.context = context
+
+
 class CommitComment:
     def __init__(self, sha: str, comment: str, author: str) -> None:
         self.sha = sha
@@ -308,6 +315,21 @@ class GitProject:
         :param filename: str
         :param row: int
         :return: CommitComment
+        """
+        raise NotImplementedError()
+
+    def set_commit_status(
+        self, commit: str, state: str, target_url: str, description: str, context: str
+    ) -> "CommitStatus":
+        """
+        Create a status on a commit
+
+        :param commit: The SHA of the commit.
+        :param state: The state of the status.
+        :param target_url: The target URL to associate with this status.
+        :param description: A short description of the status
+        :param context: A label to differentiate this status from the status of other systems.
+        :return:
         """
         raise NotImplementedError()
 
