@@ -1,18 +1,45 @@
 import logging
 from ogr.mock_core import PersistentObjectStorage
-import ogr.services.our_pagure as libpagure_origin
+from ogr.services.our_pagure import OurPagure
 from typing import Type
 
 logger = logging.getLogger(__name__)
 
 
-class PagureMockAPI(libpagure_origin.OurPagure):
+class PagureMockAPI(OurPagure):
     persistent_storage: PersistentObjectStorage
 
     def _call_api(self, url, method="GET", params=None, data=None):
         keys_internal = [method, url, params, data]
         if self.persistent_storage.is_write_mode:
-            output = super(PagureMockAPI, self)._call_api(url, method, params, data)
+            output = super()._call_api(url=url, method=method, params=params, data=data)
+            self.persistent_storage.store(keys=keys_internal, values=output)
+        else:
+            logger.debug(f"Persistent libpagure API: {keys_internal}")
+            output = self.persistent_storage.read(keys=keys_internal)
+        return output
+
+    def get_raw_request(
+        self,
+        *url_parts,
+        method="GET",
+        params=None,
+        data=None,
+        api_url=True,
+        repo_name=False,
+        namespace=False,
+    ):
+        keys_internal = [method, "_".join(url_parts), params, data]
+        if self.persistent_storage.is_write_mode:
+            output = super().get_raw_request(
+                *url_parts,
+                method=method,
+                params=params,
+                data=data,
+                api_url=api_url,
+                repo_name=repo_name,
+                namespace=namespace,
+            )
             self.persistent_storage.store(keys=keys_internal, values=output)
         else:
             logger.debug(f"Persistent libpagure API: {keys_internal}")
@@ -20,9 +47,7 @@ class PagureMockAPI(libpagure_origin.OurPagure):
         return output
 
 
-def get_Pagure_class(
-    storage_file: str, is_write_mode: bool
-) -> Type[libpagure_origin.OurPagure]:
+def get_Pagure_class(storage_file: str, is_write_mode: bool) -> Type[OurPagure]:
     """
     returns improved Pagure class, what allows read and write communication to yaml file
     new class attribute:
@@ -34,6 +59,7 @@ def get_Pagure_class(
     :return: Pagure class
     """
     storage = PersistentObjectStorage(storage_file, is_write_mode=is_write_mode)
+
     PagureMockAPI.persistent_storage = storage
-    PagureMockAPI.dump_yaml = storage.dump
+    PagureMockAPI.dump_yaml = PagureMockAPI.persistent_storage.dump
     return PagureMockAPI
