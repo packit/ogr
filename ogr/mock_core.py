@@ -251,7 +251,7 @@ class PersistentObjectStorage:
         if self.is_flushed:
             return None
         with open(self.storage_file, "w") as yaml_file:
-            yaml.dump(self.storage_object, yaml_file)
+            yaml.dump(self.storage_object, yaml_file, default_flow_style=False)
         self.is_flushed = True
 
     def load(self) -> Dict:
