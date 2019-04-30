@@ -213,12 +213,11 @@ class PersistentObjectStorage:
         self.is_flushed = False
 
     def __del__(self):
-        if self.is_write_mode:
-            try:
-                # ignore id instance deletion is done on level where is not open defined
-                self.dump()
-            except NameError:
-                pass
+        try:
+            # ignore id instance deletion is done on level where is not open defined
+            self.dump()
+        except NameError:
+            pass
 
     def read(self, keys: List) -> Any:
         """
@@ -249,11 +248,12 @@ class PersistentObjectStorage:
 
         :return: None
         """
-        if self.is_flushed:
-            return None
-        with open(self.storage_file, "w") as yaml_file:
-            yaml.dump(self.storage_object, yaml_file, default_flow_style=False)
-        self.is_flushed = True
+        if self.is_write_mode:
+            if self.is_flushed:
+                return None
+            with open(self.storage_file, "w") as yaml_file:
+                yaml.dump(self.storage_object, yaml_file, default_flow_style=False)
+            self.is_flushed = True
 
     def load(self) -> Dict:
         """
