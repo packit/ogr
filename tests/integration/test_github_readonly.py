@@ -1,48 +1,48 @@
 import os
-
-import pytest
+import unittest
 from ogr.services.github import GithubService
-from tests.integration.conftest import skipif_not_all_env_vars_set
 
-pytestmark = skipif_not_all_env_vars_set(["GITHUB_TOKEN", "GITHUB_USER"])
-
-
-@pytest.fixture()
-def github_token():
-    return os.environ["GITHUB_TOKEN"]
+DATA_DIR = "test_data"
+PERSISTENT_DATA_PREFIX = os.path.join(
+    os.path.dirname(os.path.realpath(__file__)), DATA_DIR
+)
 
 
-@pytest.fixture()
-def github_user():
-    return os.environ["GITHUB_USER"]
+class ReadOnly(unittest.TestCase):
+    def setUp(self):
+        self.token = os.environ.get("GITHUB_TOKEN")
+        self.user = os.environ.get("GITHUB_USER")
+        test_name = self.id() or "all"
+        self.is_write_mode = bool(os.environ.get("FORCE_WRITE"))
+        if self.is_write_mode and (not self.user or not self.token):
+            raise EnvironmentError("please set GITHUB_TOKEN GITHUB_USER env variables")
+        persistent_data_file = os.path.join(
+            PERSISTENT_DATA_PREFIX, f"test_github_data_{test_name}.yaml"
+        )
+        self.service = GithubService(
+            token=self.token,
+            persistent_storage_file=persistent_data_file,
+            is_persistent_storage_write_mode=self.is_write_mode,
+            read_only=True,
+        )
+        self.colin_project = self.service.get_project(
+            namespace="user-cont", repo="colin"
+        )
 
+    def tearDown(self):
+        self.service.github.dump_yaml()
 
-@pytest.fixture()
-def github_service(github_token):
-    return GithubService(token=github_token, read_only=True)
+    def test_pr_comments(self):
+        pr_comments = self.colin_project.get_pr_comments(7)
+        assert pr_comments
+        assert len(pr_comments) == 2
+        assert pr_comments[0].comment.endswith("I've just integrated your thoughts.")
+        assert pr_comments[1].comment.startswith("Thank you!")
 
+    def test_create_pr(self):
+        pr = self.colin_project.pr_create("title", "text", "master", "souce_branch")
+        assert pr.title == "title"
 
-@pytest.fixture()
-def colin_project(github_service):
-    colin_project = github_service.get_project(
-        namespace="user-cont", repo="colin", username="lachmanfrantisek"
-    )
-    return colin_project
-
-
-def test_pr_comments(colin_project):
-    pr_comments = colin_project.get_pr_comments(7)
-    assert pr_comments
-    assert len(pr_comments) == 2
-    assert pr_comments[0].comment.endswith("I've just integrated your thoughts.")
-    assert pr_comments[1].comment.startswith("Thank you!")
-
-
-def test_create_pr(colin_project):
-    pr = colin_project.pr_create("title", "text", "master", "souce_branch")
-    assert pr.title == "title"
-
-
-def test_create_fork(colin_project):
-    fork = colin_project.fork_create()
-    assert not fork.is_fork
+    def test_create_fork(self):
+        fork = self.colin_project.fork_create()
+        assert not fork.is_fork
