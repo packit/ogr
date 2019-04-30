@@ -6,7 +6,14 @@ import os
 import yaml
 import collections
 
-from ogr.abstract import PullRequest, PRComment, PRStatus, GitProject, CommitComment
+from ogr.abstract import (
+    PullRequest,
+    PRComment,
+    PRStatus,
+    GitProject,
+    CommitComment,
+    CommitStatus,
+)
 from ogr.constant import DEFAULT_RO_PREFIX_STRING
 from ogr.exceptions import PersistenStorageException
 
@@ -128,6 +135,13 @@ class GitProjectReadOnly:
         cls, original_object: Any, commit: str, body: str
     ) -> "CommitComment":
         output = CommitComment(sha=commit, comment=body, author=cls.author)
+        return output
+
+    @classmethod
+    def set_commit_status(
+        cls, original_object: Any, commit: str, state: str, context: str
+    ) -> "CommitStatus":
+        output = CommitStatus(commit, state, context)
         return output
 
 

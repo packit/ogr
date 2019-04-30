@@ -18,6 +18,7 @@ from ogr.abstract import (
     PRStatus,
     Release,
     CommitComment,
+    CommitStatus,
 )
 from ogr.services.base import BaseGitService, BaseGitProject, BaseGitUser
 from ogr.mock_core import readonly, GitProjectReadOnly
@@ -253,6 +254,25 @@ class GithubProject(BaseGitProject):
         else:
             comment = github_commit.create_comment(body=body)
         return self._commitcomment_from_github_object(comment)
+
+    @readonly(
+        return_function=GitProjectReadOnly.set_commit_status,
+        log_message="Create a status on a commit",
+    )
+    def set_commit_status(self, commit, state, target_url, description, context):
+        """
+        Create a status on a commit
+
+        :param commit: The SHA of the commit.
+        :param state: The state of the status.
+        :param target_url: The target URL to associate with this status.
+        :param description: A short description of the status
+        :param context: A label to differentiate this status from the status of other systems.
+        :return:
+        """
+        github_commit = self.github_repo.get_commit(commit)
+        github_commit.create_status(state, target_url, description, context)
+        return CommitStatus(commit, state, context)
 
     @readonly(return_function=GitProjectReadOnly.pr_close)
     def pr_close(self, pr_id: int) -> PullRequest:
