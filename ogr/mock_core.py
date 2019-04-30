@@ -144,7 +144,7 @@ class PersistentObjectStorage:
     storage_file: str = ""
     storage_object: Dict
     is_write_mode: bool = False
-    is_flushed = False
+    is_flushed = True
 
     def __init__(self, storage_file: str, is_write_mode: Optional[bool] = None) -> None:
         """
@@ -159,6 +159,7 @@ class PersistentObjectStorage:
         else:
             self.is_write_mode = not os.path.exists(self.storage_file)
         if self.is_write_mode:
+            self.is_flushed = False
             # load existing file if exist or use empty dir for write mode
             if os.path.exists(self.storage_file):
                 self.storage_object = self.load()
