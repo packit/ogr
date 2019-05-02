@@ -30,6 +30,7 @@ class PagureService(BaseGitService):
         self.instance_url = instance_url
         self._token = token
         self.pagure_kwargs = kwargs
+        # it could be set as class parameter too, could be used for mocking in other projects
         if persistent_storage:
             self.persistent_storage = persistent_storage
         if self.persistent_storage:
