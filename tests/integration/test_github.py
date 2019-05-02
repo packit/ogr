@@ -4,6 +4,7 @@ from github import GithubException
 
 from ogr.abstract import PRStatus
 from ogr.services.github import GithubService
+from ogr.mock_core import PersistentObjectStorage
 
 DATA_DIR = "test_data"
 PERSISTENT_DATA_PREFIX = os.path.join(
@@ -24,8 +25,9 @@ class GithubTests(unittest.TestCase):
         )
         self.service = GithubService(
             token=self.token,
-            persistent_storage_file=persistent_data_file,
-            is_persistent_storage_write_mode=self.is_write_mode,
+            persistent_storage=PersistentObjectStorage(
+                persistent_data_file, self.is_write_mode
+            ),
         )
         self.colin_project = self.service.get_project(
             namespace="user-cont", repo="colin"
@@ -35,7 +37,7 @@ class GithubTests(unittest.TestCase):
         )
 
     def tearDown(self):
-        self.service.github.dump_yaml()
+        self.service.persistent_storage.dump()
 
 
 class Comments(GithubTests):
