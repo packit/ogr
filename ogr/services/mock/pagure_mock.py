@@ -47,19 +47,15 @@ class PagureMockAPI(OurPagure):
         return output
 
 
-def get_Pagure_class(storage_file: str, is_write_mode: bool) -> Type[OurPagure]:
+def get_Pagure_class(persistent_storage: PersistentObjectStorage) -> Type[OurPagure]:
     """
     returns improved Pagure class, what allows read and write communication to yaml file
     new class attribute:
          persistent_storage
     new class method:
         dump_yaml
-    :param storage_file: string with
-    :param is_write_mode: bool force write mode
+    :param persistent_storage: storage for calls
     :return: Pagure class
     """
-    storage = PersistentObjectStorage(storage_file, is_write_mode=is_write_mode)
-
-    PagureMockAPI.persistent_storage = storage
-    PagureMockAPI.dump_yaml = PagureMockAPI.persistent_storage.dump
+    PagureMockAPI.persistent_storage = persistent_storage
     return PagureMockAPI

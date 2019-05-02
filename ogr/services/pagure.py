@@ -6,7 +6,7 @@ from ogr.abstract import PRStatus
 from ogr.abstract import PullRequest, PRComment
 from ogr.services.base import BaseGitService, BaseGitProject, BaseGitUser
 from ogr.services.our_pagure import OurPagure
-from ogr.mock_core import readonly, GitProjectReadOnly
+from ogr.mock_core import readonly, GitProjectReadOnly, PersistentObjectStorage
 from ogr.services.mock.pagure_mock import get_Pagure_class
 from ogr.exceptions import OurPagureRawRequest
 
@@ -16,27 +16,27 @@ logger = logging.getLogger(__name__)
 class PagureService(BaseGitService):
     # class parameter could be use to mock Pagure class api
     pagure_class: Type[OurPagure]
+    persistent_storage: Optional[PersistentObjectStorage] = None
 
     def __init__(
         self,
         token: str = None,
         instance_url: str = "https://src.fedoraproject.org",
         read_only: bool = False,
-        persistent_storage_file=None,
-        is_persistent_storage_write_mode=False,
+        persistent_storage: Optional[PersistentObjectStorage] = None,
         **kwargs,
     ) -> None:
         super().__init__()
         self.instance_url = instance_url
         self._token = token
         self.pagure_kwargs = kwargs
-        if not hasattr(self, "pagure_class"):
-            if persistent_storage_file:
-                self.pagure_class = get_Pagure_class(
-                    persistent_storage_file, is_persistent_storage_write_mode
-                )
-            else:
-                self.pagure_class = OurPagure
+        # it could be set as class parameter too, could be used for mocking in other projects
+        if persistent_storage:
+            self.persistent_storage = persistent_storage
+        if self.persistent_storage:
+            self.pagure_class = get_Pagure_class(self.persistent_storage)
+        else:
+            self.pagure_class = OurPagure
         self.pagure = self.pagure_class(
             pagure_token=token, instance_url=instance_url, **kwargs
         )
