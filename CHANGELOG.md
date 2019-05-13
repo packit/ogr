@@ -1,38 +1,10 @@
 # 0.3.0
 
-* add comment why there is little bit confusing assigment
-* improve mock pf persistent objects
-* use generic exception, to not fail when regenerating
-* raise filenotfound exception in pagure method get_file_content
-* enable readonly tests
-* enable some tests what were disabled when debugging various issues
-* check write mode in dump function not in desctructor
-* do not flush within desctructor, in case read mode
-* avoid to use default flow style for yaml files
-* mock pagure classes
-* commit status
-* Regenerate github test data
-* Implement adding PR comments
-* commit_comment: Fix typo in docs
-* Implement adding commit comments
-* method GithubProject().get_sha_from_tag in
-* rename github in mock to another name to fix the pypy test
-* fix integration test for github by skipping
-* add yaml dependency to requirements
-* add there class attribute to be possible to use ogr mocking in pagure
-* fixed using of open in destructor
-* fixed using of open in destructor
-* rename write_mode to is_write_mode to be more explicit that there is expected boolean primarily
-* add doc strings and adapt PR review comments
-* pagure/get_urls: fill in {username}
-* use internal keys also in github to be clearer
-* mocking also pagure in simplier way
-* raise special exception in case key is not in storage file
-* move storage class to mock_core
-* mock via persistent storage: run integration tests with persistent storage
-* adapt jpopelka suggestions from PR
-* adapt jpopelka suggestion from PR
-* add read only helper and option to github and pagure classes
+### New Features
+
+* Mocking of GitHub and Pagure APIs for testing ogr and packit has been greatly improved.
+* GithubProject now implements adding of PR comments and also comments and status on a commit.
+
 
 # 0.2.0
 
