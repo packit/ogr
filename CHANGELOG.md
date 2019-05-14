@@ -1,3 +1,9 @@
+# 0.3.1
+
+## Fixes
+
+* Added missing module ogr.services.mock
+
 # 0.3.0
 
 ### New Features
