@@ -4,7 +4,7 @@
 %{?python_enable_dependency_generator}
 
 Name:           python-%{pypi_name}
-Version:        0.2.0
+Version:        0.3.0
 Release:        1%{?dist}
 Summary:        One API for multiple git forges
 
@@ -51,6 +51,9 @@ rm -rf %{pypi_name}.egg-info
 
 
 %changelog
+* Mon May 13 2019 Jiri Popelka <jpopelka@redhat.com> - 0.3.0-1
+- New upstream release: 0.3.0
+
 * Wed Mar 27 2019 Tomas Tomecek <ttomecek@redhat.com> - 0.2.0-1
 - New upstream release: 0.2.0
 

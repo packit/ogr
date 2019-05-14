@@ -1,3 +1,11 @@
+# 0.3.0
+
+### New Features
+
+* Mocking of GitHub and Pagure APIs for testing ogr and packit has been greatly improved.
+* GithubProject now implements adding of PR comments and also comments and status on a commit.
+
+
 # 0.2.0
 
 ### New Features
