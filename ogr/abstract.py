@@ -34,6 +34,20 @@ class PullRequest:
         self.target_branch = target_branch
         self.created = created
 
+    def __str__(self) -> str:
+        return (
+            f"PullRequest("
+            f"title='{self.title}', "
+            f"id={self.id}, "
+            f"status='{self.status.name}', "
+            f"url='{self.url}', "
+            f"description='{self.description[:10]}...', "
+            f"author='{self.author}', "
+            f"source_branch='{self.source_branch}', "
+            f"target_branch='{self.target_branch}', "
+            f"created='{self.created}')"
+        )
+
 
 class PRComment:
     def __init__(
@@ -47,6 +61,15 @@ class PRComment:
         self.author = author
         self.created = created
         self.edited = edited
+
+    def __str__(self) -> str:
+        return (
+            f"PRComment("
+            f"comment='{self.comment[:10]}...', "
+            f"author='{self.author}', "
+            f"created='{self.created}', "
+            f"edited='{self.edited}')"
+        )
 
 
 class CommitStatus:
