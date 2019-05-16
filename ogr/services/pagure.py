@@ -1,21 +1,19 @@
 import datetime
 import logging
-from typing import List, Optional, Dict, Type
+from typing import List, Optional, Dict
+
+import requests
 
 from ogr.abstract import PRStatus
 from ogr.abstract import PullRequest, PRComment
-from ogr.services.base import BaseGitService, BaseGitProject, BaseGitUser
-from ogr.services.our_pagure import OurPagure
+from ogr.exceptions import OurPagureRawRequest, ProjectNotFoundException
 from ogr.mock_core import readonly, GitProjectReadOnly, PersistentObjectStorage
-from ogr.services.mock.pagure_mock import get_Pagure_class
-from ogr.exceptions import OurPagureRawRequest
+from ogr.services.base import BaseGitService, BaseGitProject, BaseGitUser
 
 logger = logging.getLogger(__name__)
 
 
 class PagureService(BaseGitService):
-    # class parameter could be use to mock Pagure class api
-    pagure_class: Type[OurPagure]
     persistent_storage: Optional[PersistentObjectStorage] = None
 
     def __init__(
@@ -24,87 +22,137 @@ class PagureService(BaseGitService):
         instance_url: str = "https://src.fedoraproject.org",
         read_only: bool = False,
         persistent_storage: Optional[PersistentObjectStorage] = None,
-        **kwargs,
+        insecure: bool = False,
     ) -> None:
         super().__init__()
         self.instance_url = instance_url
         self._token = token
-        self.pagure_kwargs = kwargs
-        # it could be set as class parameter too, could be used for mocking in other projects
-        if persistent_storage:
-            self.persistent_storage = persistent_storage
-        if self.persistent_storage:
-            self.pagure_class = get_Pagure_class(self.persistent_storage)
-        else:
-            self.pagure_class = OurPagure
-        self.pagure = self.pagure_class(
-            pagure_token=token, instance_url=instance_url, **kwargs
-        )
+
         self.read_only = read_only
 
+        self.session = requests.session()
+
+        adapter = requests.adapters.HTTPAdapter(max_retries=5)
+
+        self.insecure = insecure
+        if self.insecure:
+            self.session.mount("http://", adapter)
+        else:
+            self.session.mount("https://", adapter)
+
+        if self._token:
+            self.session.headers = {"Authorization": "token " + self._token}
+
     def get_project(self, **kwargs) -> "PagureProject":
-        project_kwargs = self.pagure_kwargs.copy()
-        project_kwargs.update(kwargs)
-        return PagureProject(
-            instance_url=self.instance_url,
-            token=self._token,
-            service=self,
-            read_only=self.read_only,
-            **project_kwargs,
-        )
+        return PagureProject(service=self, **kwargs)
 
     @property
     def user(self) -> "PagureUser":
         return PagureUser(service=self)
 
-    def change_token(self, new_token: str) -> None:
-        """
-        Change an API token.
+    def call_api(self, url, method=None, params=None, data=None, raw=False):
+        """ Method used to call the API.
+        It returns the raw JSON returned by the API or raises an exception
+        if something goes wrong.
 
-        Only for this instance and newly created Projects via get_project.
+        :arg url: the URL to call
+        :kwarg method: the HTTP method to use when calling the specified
+            URL, can be GET, POST, DELETE, UPDATE...
+            Defaults to GET
+        :kwarg params: the params to specify to a GET request
+        :kwarg data: the data to send to a POST request
+
         """
-        self._token = new_token
-        self.pagure.change_token(new_token)
+        method = method or "GET"
+        req = self.session.request(
+            method=method, url=url, params=params, data=data, verify=not self.insecure
+        )
+
+        if raw:
+            return req
+
+        output = None
+        try:
+            output = req.json()
+        except Exception as err:
+            logger.debug(req.text)
+            # TODO: use a dedicated error class
+            raise Exception("Error while decoding JSON: {0}".format(err))
+
+        if req.status_code != 200:
+            logger.error(output)
+            if "error" in output and output["error"] == "Project not found":
+                raise ProjectNotFoundException(
+                    f"Project not found when calling '{url}'."
+                )
+
+            if "error_code" in output:
+                raise Exception(output["error"])
+        return output
+
+    def get_raw_request(self, url, method="GET", params=None, data=None):
+
+        req = self.session.request(
+            method=method,
+            url=url,
+            params=params,
+            headers=self.header,
+            data=data,
+            verify=not self.insecure,
+        )
+        return req
+
+    @property
+    def api_url(self):
+        return f"{self.instance_url}/api/0/"
+
+    def get_api_url(self, *args, add_api_endpoint_part=True):
+        args_list = []
+
+        args_list += filter(lambda x: x is not None, args)
+
+        if add_api_endpoint_part:
+            return self.api_url + "/".join(args_list)
+        return f"{self.instance_url}/" + "/".join(args_list)
+
+    def get_api_version(self):
+        """
+        Get Pagure API version.
+        :return:
+        """
+        request_url = self.get_api_url("version")
+        return_value = self.call_api(request_url)
+        return return_value["version"]
+
+    def get_error_codes(self):
+        """
+        Get a dictionary of all error codes.
+        :return:
+        """
+        request_url = self.get_api_url("error_codes")
+        return_value = self.call_api(request_url)
+        return return_value
+
+    def change_token(self, token):
+        self._token = token
+        self.header = {"Authorization": "token " + self._token}
 
 
 class PagureProject(BaseGitProject):
-    service: PagureService
-
     def __init__(
         self,
         repo: str,
         namespace: str,
-        service: PagureService,
-        username: Optional[str] = None,
-        instance_url: Optional[str] = None,
-        token: Optional[str] = None,
+        service: "PagureService",
+        username: str = None,
         is_fork: bool = False,
-        read_only: bool = False,
-        **kwargs,
     ) -> None:
-        if is_fork and username:
-            complete_namespace = f"fork/{username}/{namespace}"
-        else:
-            complete_namespace = namespace
+        super().__init__(repo, service, namespace)
+        self._is_fork = is_fork
+        self._username = username
 
-        super().__init__(repo=repo, namespace=complete_namespace, service=service)
-
-        self.instance_url = instance_url
-        self._token = token
-        self.service = service
-        self._pagure_kwargs = kwargs
-        if username:
-            self._pagure_kwargs["username"] = username
-
-        self._pagure = self.service.pagure_class(
-            token=token,
-            pagure_repository=f"{namespace}/{self.repo}",
-            namespace=namespace,
-            fork_username=username if is_fork else None,
-            instance_url=instance_url,
-            **kwargs,
-        )
-        self.read_only = read_only
+        self.repo = repo
+        self.namespace = namespace
 
     def __str__(self) -> str:
         return f"namespace={self.namespace} repo={self.repo}"
@@ -112,25 +160,66 @@ class PagureProject(BaseGitProject):
     def __repr__(self) -> str:
         return f"PagureProject(namespace={self.namespace}, repo={self.repo})"
 
+    def _call_project_api(
+        self,
+        *args,
+        add_fork_part: bool = True,
+        add_api_endpoint_part=True,
+        method: str = None,
+        params: dict = None,
+        data: dict = None,
+        raw: bool = False,
+    ):
+        additional_parts = []
+        if self._is_fork and add_fork_part:
+            additional_parts += ["fork", self.service.user.get_username()]
+
+        request_url = self.service.get_api_url(
+            *additional_parts,
+            self.namespace,
+            self.repo,
+            *args,
+            add_api_endpoint_part=add_api_endpoint_part,
+        )
+
+        return_value = self.service.call_api(
+            url=request_url, method=method, params=params, data=data, raw=raw
+        )
+        return return_value
+
+    def get_project_info(self):
+        return_value = self._call_project_api(method="GET")
+        return return_value
+
     def get_branches(self) -> List[str]:
-        return self._pagure.get_branches()
+        return_value = self._call_project_api("git", "branches", method="GET")
+        return return_value["branches"]
 
     def get_description(self) -> str:
-        return self._pagure.get_project_description()
+        return self.get_project_info()["description"]
 
-    def get_pr_list(self, status: PRStatus = PRStatus.open) -> List[PullRequest]:
-        status_str = status.name.lower().capitalize()
-        raw_prs = self._pagure.list_requests(status=status_str)
+    def get_pr_list(
+        self, status: PRStatus = PRStatus.open, assignee=None, author=None
+    ) -> List[PullRequest]:
+
+        payload = {}
+        payload["status"] = status.name.lower().capitalize()
+        if assignee is not None:
+            payload["assignee"] = assignee
+        if author is not None:
+            payload["author"] = author
+
+        raw_prs = self._call_project_api("pull-requests", params=payload)["requests"]
         prs = [self._pr_from_pagure_dict(pr_dict) for pr_dict in raw_prs]
         return prs
 
     def get_pr_info(self, pr_id: int) -> PullRequest:
-        pr_dict = self._pagure.request_info(request_id=pr_id)
-        result = self._pr_from_pagure_dict(pr_dict)
+        raw_pr = self._call_project_api("pull-request", str(pr_id))
+        result = self._pr_from_pagure_dict(raw_pr)
         return result
 
     def _get_all_pr_comments(self, pr_id: int) -> List[PRComment]:
-        raw_comments = self._pagure.request_info(request_id=pr_id)["comments"]
+        raw_comments = self._call_project_api("pull-request", str(pr_id))["comments"]
 
         parsed_comments = [
             self._prcomment_from_pagure_dict(comment_dict)
@@ -250,10 +339,12 @@ class PagureProject(BaseGitProject):
         return None
 
     def get_git_urls(self) -> Dict[str, str]:
-        return self._pagure.get_git_urls()
+        return_value = self._call_project_api("git", "urls")
+        return return_value["urls"]
 
     def get_commit_flags(self, commit: str) -> List[dict]:
-        return self._pagure.get_commit_flags(commit=commit)
+        return_value = self._call_project_api("c", commit, "flag")
+        return return_value["flags"]
 
     def _pr_from_pagure_dict(self, pr_dict: dict) -> PullRequest:
         return PullRequest(
@@ -262,7 +353,7 @@ class PagureProject(BaseGitProject):
             status=PRStatus[pr_dict["status"].lower()],
             url="/".join(
                 [
-                    self.instance_url,
+                    self.service.instance_url,
                     pr_dict["project"]["url_path"],
                     "pull-request",
                     str(pr_dict["id"]),
@@ -292,17 +383,18 @@ class PagureProject(BaseGitProject):
 
         Only for this instance.
         """
-        self._token = new_token
-        self._pagure.change_token(new_token)
+        self.service.change_token(new_token)
 
     def get_file_content(self, path: str, ref="master") -> str:
         try:
-            content = self._pagure.get_raw_request(
-                "raw", ref, "f", path, api_url=False, repo_name=True, namespace=True
+            result = self._call_project_api(
+                "raw", ref, "f", path, add_api_endpoint_part=False, raw=True
             )
+            if not result and result.reason == "NOT FOUND":
+                raise FileNotFoundError(f"File '{path}' on {ref} not found")
+            return result.content.decode()
         except OurPagureRawRequest as ex:
-            raise FileNotFoundError(f"File '{path}' on {ref} not found", ex)
-        return content
+            raise FileNotFoundError(f"Problem with getting file '{path}' on {ref}", ex)
 
 
 class PagureUser(BaseGitUser):
@@ -312,4 +404,7 @@ class PagureUser(BaseGitUser):
         super().__init__(service=service)
 
     def get_username(self) -> str:
-        return self.service.pagure.whoami()
+        request_url = self.service.get_api_url("-", "whoami")
+
+        return_value = self.service.call_api(url=request_url, method="POST", data={})
+        return return_value["username"]

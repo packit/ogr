@@ -8,3 +8,7 @@ class PersistenStorageException(OgrException):
 
 class OurPagureRawRequest(OgrException):
     """ Mocking Exceptions for pagure raw request """
+
+
+class ProjectNotFoundException(OgrException):
+    """ Called when no project when calling the API """
