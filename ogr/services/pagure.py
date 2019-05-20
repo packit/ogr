@@ -6,7 +6,11 @@ import requests
 
 from ogr.abstract import PRStatus
 from ogr.abstract import PullRequest, PRComment
-from ogr.exceptions import OurPagureRawRequest, ProjectNotFoundException
+from ogr.exceptions import (
+    OurPagureRawRequest,
+    ProjectNotFoundException,
+    PagureAPIException,
+)
 from ogr.mock_core import readonly, GitProjectReadOnly, PersistentObjectStorage
 from ogr.services.base import BaseGitService, BaseGitProject, BaseGitUser
 
@@ -149,7 +153,7 @@ class PagureProject(BaseGitProject):
     ) -> None:
         super().__init__(repo, service, namespace)
         self._is_fork = is_fork
-        self._username = username
+        self._owner = username
 
         self.repo = repo
         self.namespace = namespace
@@ -159,6 +163,12 @@ class PagureProject(BaseGitProject):
 
     def __repr__(self) -> str:
         return f"PagureProject(namespace={self.namespace}, repo={self.repo})"
+
+    @property
+    def owner(self):
+        if not self._owner:
+            self._owner = self.service.user.get_username()
+        return self._owner
 
     def _call_project_api(
         self,
@@ -202,8 +212,7 @@ class PagureProject(BaseGitProject):
         self, status: PRStatus = PRStatus.open, assignee=None, author=None
     ) -> List[PullRequest]:
 
-        payload = {}
-        payload["status"] = status.name.lower().capitalize()
+        payload = {"status": status.name.lower().capitalize()}
         if assignee is not None:
             payload["assignee"] = assignee
         if author is not None:
@@ -236,51 +245,79 @@ class PagureProject(BaseGitProject):
         filename: str = None,
         row: int = None,
     ) -> PRComment:
-        return self._pagure.comment_request(
-            request_id=pr_id, body=body, commit=commit, filename=filename, row=row
+        payload = {"comment": body}
+        if commit is not None:
+            payload["commit"] = commit
+        if filename is not None:
+            payload["filename"] = filename
+        if row is not None:
+            payload["row"] = row
+
+        self._call_project_api(
+            "pull-request", pr_id, "comment", method="POST", data=payload
         )
+
+        return PRComment(comment=body, author=self.service.user.get_username())
 
     @readonly(return_function=GitProjectReadOnly.pr_close)
     def pr_close(self, pr_id: int) -> PullRequest:
-        return self._pagure.close_request(request_id=pr_id)
+        return_value = self._call_project_api(
+            "pull-request", str(pr_id), "close", method="POST"
+        )
+
+        if return_value["message"] != "Pull-request closed!":
+            raise PagureAPIException(return_value["message"])
+
+        return self.get_pr_info(pr_id)
 
     @readonly(return_function=GitProjectReadOnly.pr_merge)
     def pr_merge(self, pr_id: int) -> PullRequest:
-        return self._pagure.merge_request(request_id=pr_id)
+        return_value = self._call_project_api(
+            "pull-request", str(pr_id), "merge", method="POST"
+        )
+
+        if return_value["message"] != "Changes merged!":
+            raise PagureAPIException(return_value["message"])
+
+        return self.get_pr_info(pr_id)
 
     @readonly(return_function=GitProjectReadOnly.pr_create)
     def pr_create(
         self, title: str, body: str, target_branch: str, source_branch: str
     ) -> PullRequest:
-        pr_info = self._pagure.create_request(
-            title=title,
-            body=body,
-            target_branch=target_branch,
-            source_branch=source_branch,
+
+        return_value = self._call_project_api(
+            "pull-request",
+            "new",
+            method="POST",
+            data={
+                "title": title,
+                "branch_to": target_branch,
+                "branch_from": source_branch,
+                "initial_comment": body,
+            },
         )
-        pr_object = self._pr_from_pagure_dict(pr_info)
+
+        pr_object = self._pr_from_pagure_dict(return_value)
         return pr_object
 
     @readonly(return_function=GitProjectReadOnly.fork_create)
     def fork_create(self) -> "PagureProject":
-        self._pagure.create_fork()
+        self._call_project_api(
+            "fork",
+            method="POST",
+            data={"repo": self.repo, "namespace": self.namespace, "wait": True},
+        )
         return self._construct_fork_project()
 
     def _construct_fork_project(self) -> "PagureProject":
-        kwargs = self._pagure_kwargs.copy()
-        kwargs.update(
+        return PagureProject(
+            service=self.service,
             repo=self.repo,
             namespace=self.namespace,
-            instance_url=self.instance_url,
-            token=self._token,
+            username=self._owner,
             is_fork=True,
-            read_only=self.read_only,
         )
-        kwargs.setdefault("username", self.service.user.get_username())
-
-        fork_project = PagureProject(service=self.service, **kwargs)
-
-        return fork_project
 
     def get_fork(self, create: bool = True) -> Optional["PagureProject"]:
         """
@@ -303,7 +340,8 @@ class PagureProject(BaseGitProject):
         return self._construct_fork_project()
 
     def exists(self):
-        return self._pagure.project_exists()
+        req = self._call_project_api(raw=True)
+        return req.status_code != 200
 
     def is_forked(self) -> bool:
         """
@@ -324,18 +362,11 @@ class PagureProject(BaseGitProject):
         Return parent project if this project is a fork, otherwise return None
         """
         if self.is_fork:
-            parent = self._pagure.get_parent()
-            kwargs = self._pagure_kwargs.copy()
-            kwargs.update(
+            return PagureProject(
                 repo=self.repo,
-                namespace=parent["namespace"],
-                instance_url=self.instance_url,
-                token=self._token,
+                namespace=self.get_project_info()["parent"]["namespace"],
+                service=self.service,
             )
-            kwargs.setdefault("username", self.service.user.get_username())
-
-            parent_project = PagureProject(service=self.service, **kwargs)
-            return parent_project
         return None
 
     def get_git_urls(self) -> Dict[str, str]:
