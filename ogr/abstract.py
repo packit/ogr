@@ -35,13 +35,16 @@ class PullRequest:
         self.created = created
 
     def __str__(self) -> str:
+        description = (
+            f"{self.description[:10]}..." if self.description is not None else "None"
+        )
         return (
             f"PullRequest("
             f"title='{self.title}', "
             f"id={self.id}, "
             f"status='{self.status.name}', "
             f"url='{self.url}', "
-            f"description='{self.description[:10]}...', "
+            f"description='{description}', "
             f"author='{self.author}', "
             f"source_branch='{self.source_branch}', "
             f"target_branch='{self.target_branch}', "
@@ -63,9 +66,10 @@ class PRComment:
         self.edited = edited
 
     def __str__(self) -> str:
+        comment = f"{self.comment[:10]}..." if self.comment is not None else "None"
         return (
             f"PRComment("
-            f"comment='{self.comment[:10]}...', "
+            f"comment='{comment}', "
             f"author='{self.author}', "
             f"created='{self.created}', "
             f"edited='{self.edited}')"
