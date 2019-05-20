@@ -5,6 +5,10 @@ class OgrException(Exception):
 class PagureAPIException(OgrException):
     """ Exception related to Pagure API """
 
+    def __init__(self, *args: object, pagure_error: str = None) -> None:
+        super().__init__(*args)
+        self.pagure_error = pagure_error
+
 
 class PersistenStorageException(OgrException):
     """ Mocking Exceptions for persistent storage of objects """
@@ -13,6 +17,3 @@ class PersistenStorageException(OgrException):
 class OurPagureRawRequest(OgrException):
     """ Mocking Exceptions for pagure raw request """
 
-
-class ProjectNotFoundException(OgrException):
-    """ Called when no project when calling the API """

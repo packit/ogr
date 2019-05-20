@@ -1,6 +1,6 @@
 import datetime
 import logging
-from typing import List, Optional, Dict
+from typing import List, Optional, Dict, Union
 
 import requests
 
@@ -8,7 +8,6 @@ from ogr.abstract import PRStatus
 from ogr.abstract import PullRequest, PRComment
 from ogr.exceptions import (
     OurPagureRawRequest,
-    ProjectNotFoundException,
     PagureAPIException,
 )
 from ogr.mock_core import readonly, GitProjectReadOnly, PersistentObjectStorage
@@ -54,44 +53,43 @@ class PagureService(BaseGitService):
     def user(self) -> "PagureUser":
         return PagureUser(service=self)
 
-    def call_api(self, url, method=None, params=None, data=None, raw=False):
+    def call_api(
+        self,
+        url: str,
+        method: str = None,
+        params: dict = None,
+        data=None,
+        raw: bool = False,
+    ) -> Union[dict, requests.Response]:
         """ Method used to call the API.
         It returns the raw JSON returned by the API or raises an exception
         if something goes wrong.
 
-        :arg url: the URL to call
-        :kwarg method: the HTTP method to use when calling the specified
-            URL, can be GET, POST, DELETE, UPDATE...
-            Defaults to GET
-        :kwarg params: the params to specify to a GET request
-        :kwarg data: the data to send to a POST request
-
+        It can return raw response when raw=True.
         """
         method = method or "GET"
-        req = self.session.request(
+        response = self.session.request(
             method=method, url=url, params=params, data=data, verify=not self.insecure
         )
 
         if raw:
-            return req
+            return response
 
-        output = None
         try:
-            output = req.json()
+            output = response.json()
         except Exception as err:
-            logger.debug(req.text)
-            # TODO: use a dedicated error class
-            raise Exception("Error while decoding JSON: {0}".format(err))
+            logger.debug(response.text)
+            raise PagureAPIException("Error while decoding JSON: {0}".format(err))
 
-        if req.status_code != 200:
+        if not response.ok:
             logger.error(output)
-            if "error" in output and output["error"] == "Project not found":
-                raise ProjectNotFoundException(
-                    f"Project not found when calling '{url}'."
+            if "error" in output:
+                error_msg = output["error"]
+                raise PagureAPIException(
+                    f"Pagure API returned an error when calling `{url}`: {error_msg}",
+                    pagure_error=error_msg,
                 )
-
-            if "error_code" in output:
-                raise Exception(output["error"])
+            raise PagureAPIException(f"Problem with Pagure API when calling `{url}`")
         return output
 
     def get_raw_request(self, url, method="GET", params=None, data=None):
@@ -153,7 +151,7 @@ class PagureProject(BaseGitProject):
     ) -> None:
         super().__init__(repo, service, namespace)
         self._is_fork = is_fork
-        self._owner = username
+        self._username = username
 
         self.repo = repo
         self.namespace = namespace
@@ -165,10 +163,10 @@ class PagureProject(BaseGitProject):
         return f"PagureProject(namespace={self.namespace}, repo={self.repo})"
 
     @property
-    def owner(self):
-        if not self._owner:
-            self._owner = self.service.user.get_username()
-        return self._owner
+    def _user(self):
+        if not self._username:
+            self._username = self.service.user.get_username()
+        return self._username
 
     def _call_project_api(
         self,
@@ -315,7 +313,7 @@ class PagureProject(BaseGitProject):
             service=self.service,
             repo=self.repo,
             namespace=self.namespace,
-            username=self._owner,
+            username=self._user,
             is_fork=True,
         )
 
@@ -340,8 +338,8 @@ class PagureProject(BaseGitProject):
         return self._construct_fork_project()
 
     def exists(self):
-        req = self._call_project_api(raw=True)
-        return req.status_code != 200
+        response = self._call_project_api(raw=True)
+        return response.ok
 
     def is_forked(self) -> bool:
         """

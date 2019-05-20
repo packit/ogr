@@ -39,7 +39,7 @@ def test_repo(pagure_project):
 def test_repo_fork(pagure_project_fork):
     assert pagure_project_fork.repo_name == "my-test-project"
     assert pagure_project_fork.repo == "rpms/my-test-project"
-    assert pagure_project_fork.username == "somebody"
+    assert pagure_project_fork._user == "somebody"
 
 
 def test_api_url(pagure):
