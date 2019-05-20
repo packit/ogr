@@ -6,10 +6,7 @@ import requests
 
 from ogr.abstract import PRStatus
 from ogr.abstract import PullRequest, PRComment
-from ogr.exceptions import (
-    OurPagureRawRequest,
-    PagureAPIException,
-)
+from ogr.exceptions import OurPagureRawRequest, PagureAPIException, OgrException
 from ogr.mock_core import readonly, GitProjectReadOnly, PersistentObjectStorage
 from ogr.services.base import BaseGitService, BaseGitProject, BaseGitUser
 
@@ -150,6 +147,8 @@ class PagureProject(BaseGitProject):
         is_fork: bool = False,
     ) -> None:
         super().__init__(repo, service, namespace)
+        self.read_only = service.read_only
+
         self._is_fork = is_fork
         self._username = username
 
@@ -301,8 +300,9 @@ class PagureProject(BaseGitProject):
 
     @readonly(return_function=GitProjectReadOnly.fork_create)
     def fork_create(self) -> "PagureProject":
-        self._call_project_api(
-            "fork",
+        request_url = self.service.get_api_url("fork")
+        self.service.call_api(
+            url=request_url,
             method="POST",
             data={"repo": self.repo, "namespace": self.namespace, "wait": True},
         )
@@ -326,6 +326,9 @@ class PagureProject(BaseGitProject):
         :param create: create a fork if it doesn't exist
         :return: instance of GitProject or None
         """
+        if self.is_fork:
+            raise OgrException("Cannot create fork from fork.")
+
         if not self.is_forked():
             if create:
                 return self.fork_create()
@@ -348,11 +351,11 @@ class PagureProject(BaseGitProject):
         :return: if yes, return True
         """
         f = self._construct_fork_project()
-        return bool(f.exists() and f.parent)
+        return bool(f.exists() and f.parent.exists())
 
     @property
     def is_fork(self) -> bool:
-        return "fork" in self.namespace
+        return bool(self.get_project_info()["parent"])
 
     @property
     def parent(self) -> Optional["PagureProject"]:
