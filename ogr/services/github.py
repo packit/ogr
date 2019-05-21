@@ -28,7 +28,7 @@ logger = logging.getLogger(__name__)
 
 
 class GithubService(BaseGitService):
-    # class parameter could be use to mock Github class api
+    # class parameter could be used to mock Github class api
     github_class: Type[github.Github]
     persistent_storage: Optional[PersistentObjectStorage] = None
 

@@ -379,10 +379,6 @@ class PagureProject(BaseGitProject):
         return_value = self._call_project_api("git", "urls")
         return return_value["urls"]
 
-    def get_commit_flags(self, commit: str) -> List[dict]:
-        return_value = self._call_project_api("c", commit, "flag")
-        return return_value["flags"]
-
     def _pr_from_pagure_dict(self, pr_dict: dict) -> PullRequest:
         return PullRequest(
             title=pr_dict["title"],
@@ -420,7 +416,7 @@ class PagureProject(BaseGitProject):
     ) -> CommitStatus:
         return CommitStatus(
             commit=status_dict["commit_hash"],
-            comment=status_dict["description"],
+            comment=status_dict["comment"],
             state=status_dict["status"],
             context=status_dict["username"],
             url=status_dict["url"],

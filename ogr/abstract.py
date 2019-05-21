@@ -87,11 +87,22 @@ class CommitStatus:
         url: str = None,
     ):
         self.commit = commit
-        self.state = state
+        self.state = state  # Should be enum
         self.context = context
         self.uid = uid
         self.comment = comment
         self.url = url
+
+    def __str__(self) -> str:
+        return (
+            f"CommitStatus("
+            f"commit='{self.commit}', "
+            f"state='{self.state}', "
+            f"context='{self.context}', "
+            f"uid='{self.uid}',"
+            f"comment='{self.comment}',"
+            f"url='{self.url}')"
+        )
 
 
 class CommitComment:
