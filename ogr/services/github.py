@@ -309,7 +309,8 @@ class GithubProject(BaseGitProject):
         except Exception as ex:
             raise FileNotFoundError(f"File '{path}' on {ref} not found", ex)
 
-    def _pr_from_github_object(self, github_pr: GithubPullRequest) -> PullRequest:
+    @staticmethod
+    def _pr_from_github_object(github_pr: GithubPullRequest) -> PullRequest:
         return PullRequest(
             title=github_pr.title,
             id=github_pr.id,

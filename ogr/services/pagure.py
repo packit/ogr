@@ -4,9 +4,14 @@ from typing import List, Optional, Dict, Union
 
 import requests
 
-from ogr.abstract import PRStatus, GitTag
+from ogr.abstract import PRStatus, GitTag, CommitStatus
 from ogr.abstract import PullRequest, PRComment
-from ogr.exceptions import OurPagureRawRequest, PagureAPIException, OgrException
+from ogr.exceptions import (
+    OurPagureRawRequest,
+    PagureAPIException,
+    OgrException,
+    OperationNotSupported,
+)
 from ogr.mock_core import readonly, GitProjectReadOnly, PersistentObjectStorage
 from ogr.services.base import BaseGitService, BaseGitProject, BaseGitUser
 
@@ -409,6 +414,19 @@ class PagureProject(BaseGitProject):
             else None,
         )
 
+    @staticmethod
+    def _commit_status_from_pagure_dict(
+        status_dict: dict, uid: str = None
+    ) -> CommitStatus:
+        return CommitStatus(
+            commit=status_dict["commit_hash"],
+            comment=status_dict["description"],
+            state=status_dict["status"],
+            context=status_dict["username"],
+            url=status_dict["url"],
+            uid=uid,
+        )
+
     def change_token(self, new_token: str) -> None:
         """
         Change an API token.
@@ -438,12 +456,39 @@ class PagureProject(BaseGitProject):
     def commit_comment(
         self, commit: str, body: str, filename: str = None, row: int = None
     ) -> "CommitComment":
-        pass
+        raise OperationNotSupported("Commit comments are not supported on Pagure.")
 
     def set_commit_status(
-        self, commit: str, state: str, target_url: str, description: str, context: str
+        self,
+        commit: str,
+        state: str,
+        target_url: str,
+        description: str,
+        context: str,
+        percent: int = None,
+        uid: str = None,
     ) -> "CommitStatus":
-        pass
+        data = {
+            "username": context,
+            "comment": description,
+            "url": target_url,
+            "status": state,
+        }
+        if percent:
+            data["percent"] = percent
+        if uid:
+            data["uid"] = uid
+
+        response = self._call_project_api("c", commit, "flag", method="POST", data=data)
+        return self._commit_status_from_pagure_dict(
+            response["flag"], uid=response["uid"]
+        )
+
+    def get_commit_statuses(self, commit: str) -> [CommitStatus]:
+        response = self._call_project_api("c", commit, "flag")
+        return [
+            self._commit_status_from_pagure_dict(flag) for flag in response["flags"]
+        ]
 
     def get_tags(self) -> [GitTag]:
         response = self._call_project_api("git", "tags", params={"with_commits": True})

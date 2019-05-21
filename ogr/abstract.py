@@ -77,10 +77,21 @@ class PRComment:
 
 
 class CommitStatus:
-    def __init__(self, commit: str, state: str, context: str):
+    def __init__(
+        self,
+        commit: str,
+        state: str,
+        context: str,
+        comment: str = None,
+        uid: str = None,
+        url: str = None,
+    ):
         self.commit = commit
         self.state = state
         self.context = context
+        self.uid = uid
+        self.comment = comment
+        self.url = url
 
 
 class CommitComment:
@@ -374,6 +385,15 @@ class GitProject:
         :param description: A short description of the status
         :param context: A label to differentiate this status from the status of other systems.
         :return:
+        """
+        raise NotImplementedError()
+
+    def get_commit_statuses(self, commit: str) -> [CommitStatus]:
+        """
+        Get status of the commit.
+
+        :param commit: str
+        :return: [CommitStatus]
         """
         raise NotImplementedError()
 
