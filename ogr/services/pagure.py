@@ -4,7 +4,7 @@ from typing import List, Optional, Dict, Union
 
 import requests
 
-from ogr.abstract import PRStatus
+from ogr.abstract import PRStatus, GitTag
 from ogr.abstract import PullRequest, PRComment
 from ogr.exceptions import OurPagureRawRequest, PagureAPIException, OgrException
 from ogr.mock_core import readonly, GitProjectReadOnly, PersistentObjectStorage
@@ -427,6 +427,35 @@ class PagureProject(BaseGitProject):
             return result.content.decode()
         except OurPagureRawRequest as ex:
             raise FileNotFoundError(f"Problem with getting file '{path}' on {ref}", ex)
+
+    def get_sha_from_tag(self, tag_name: str) -> str:
+        tags_dict = self.get_tags_dict()
+        if tag_name not in tags_dict:
+            raise PagureAPIException(f"Tag '{tag_name}' not found.")
+
+        return tags_dict[tag_name].commit_sha
+
+    def commit_comment(
+        self, commit: str, body: str, filename: str = None, row: int = None
+    ) -> "CommitComment":
+        pass
+
+    def set_commit_status(
+        self, commit: str, state: str, target_url: str, description: str, context: str
+    ) -> "CommitStatus":
+        pass
+
+    def get_tags(self) -> [GitTag]:
+        response = self._call_project_api("git", "tags", params={"with_commits": True})
+        tags = [GitTag(name=n, commit_sha=c) for n, c in response["tags"].items()]
+        return tags
+
+    def get_tags_dict(self) -> Dict[str, GitTag]:
+        response = self._call_project_api("git", "tags", params={"with_commits": True})
+        tags_dict = {
+            n: GitTag(name=n, commit_sha=c) for n, c in response["tags"].items()
+        }
+        return tags_dict
 
 
 class PagureUser(BaseGitUser):

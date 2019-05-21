@@ -116,6 +116,15 @@ class Release:
         file.close()
 
 
+class GitTag:
+    def __init__(self, name: str, commit_sha: str) -> None:
+        self.name = name
+        self.commit_sha = commit_sha
+
+    def __str__(self) -> str:
+        return f"GitTag(name={self.name}, commit_sha={self.commit_sha})"
+
+
 class GitService:
     def __init__(self):
         pass
@@ -245,6 +254,14 @@ class GitProject:
 
         :param pr_id: int
         :return: PullRequest
+        """
+        raise NotImplementedError()
+
+    def get_tags(self) -> [GitTag]:
+        """
+        Return list of tags.
+
+        :return: [GitTags]
         """
         raise NotImplementedError()
 
