@@ -214,7 +214,7 @@ class PagureProject(BaseGitProject):
         self, status: PRStatus = PRStatus.open, assignee=None, author=None
     ) -> List[PullRequest]:
 
-        payload = {"status": status.name.lower().capitalize()}
+        payload = {"status": status.name.capitalize()}
         if assignee is not None:
             payload["assignee"] = assignee
         if author is not None:
@@ -436,7 +436,7 @@ class PagureProject(BaseGitProject):
             result = self._call_project_api(
                 "raw", ref, "f", path, add_api_endpoint_part=False, raw=True
             )
-            if not result and result.reason == "NOT FOUND":
+            if not result or result.reason == "NOT FOUND":
                 raise FileNotFoundError(f"File '{path}' on {ref} not found")
             return result.content.decode()
         except OurPagureRawRequest as ex:
