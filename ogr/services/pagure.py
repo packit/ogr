@@ -46,7 +46,7 @@ class PagureService(BaseGitService):
             self.session.mount("https://", adapter)
 
         if self._token:
-            self.session.headers = {"Authorization": "token " + self._token}
+            self.header = {"Authorization": "token " + self._token}
 
     def get_project(self, **kwargs) -> "PagureProject":
         return PagureProject(service=self, **kwargs)
@@ -70,16 +70,29 @@ class PagureService(BaseGitService):
         It can return raw response when raw=True.
         """
         method = method or "GET"
-        response = self.session.request(
-            method=method, url=url, params=params, data=data, verify=not self.insecure
-        )
+
+        try:
+            response = self.session.request(
+                method=method,
+                url=url,
+                params=params,
+                data=data,
+                verify=not self.insecure,
+                headers=self.header,
+            )
+        except requests.exceptions.ConnectionError as er:
+            logger.error(er)
+            raise PagureAPIException(f"Cannot connect to url: `{url}`.", er)
 
         if raw:
             return response
 
+        if response.status_code == 404:
+            raise PagureAPIException(f"Page `{url}` not found when calling Pagure API.")
+
         try:
             output = response.json()
-        except Exception as err:
+        except ValueError as err:
             logger.debug(response.text)
             raise PagureAPIException("Error while decoding JSON: {0}".format(err))
 
@@ -92,6 +105,7 @@ class PagureService(BaseGitService):
                     pagure_error=error_msg,
                 )
             raise PagureAPIException(f"Problem with Pagure API when calling `{url}`")
+
         return output
 
     def get_raw_request(self, url, method="GET", params=None, data=None):
