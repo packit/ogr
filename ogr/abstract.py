@@ -57,8 +57,8 @@ class PRComment:
         self,
         comment: str,
         author: str,
-        created: datetime.datetime,
-        edited: datetime.datetime,
+        created: Optional[datetime.datetime] = None,
+        edited: Optional[datetime.datetime] = None,
     ) -> None:
         self.comment = comment
         self.author = author

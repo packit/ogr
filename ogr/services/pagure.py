@@ -270,7 +270,7 @@ class PagureProject(BaseGitProject):
             payload["row"] = row
 
         self._call_project_api(
-            "pull-request", pr_id, "comment", method="POST", data=payload
+            "pull-request", str(pr_id), "comment", method="POST", data=payload
         )
 
         return PRComment(comment=body, author=self.service.user.get_username())
