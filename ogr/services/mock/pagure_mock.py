@@ -11,10 +11,10 @@ class PagureMockAPI(PagureService):
     persistent_storage: PersistentObjectStorage
 
     def get_raw_request(self, url, method="GET", params=None, data=None):
-        keys_internal = [method, "_".join(url), params, data]
+        keys_internal = [method, url, params, data]
         if self.persistent_storage.is_write_mode:
             output = super().get_raw_request(
-                *url, method=method, params=params, data=data
+                url, method=method, params=params, data=data
             )
             self.persistent_storage.store(keys=keys_internal, values=output)
         else:

@@ -1,8 +1,17 @@
 GET:
   https://src.fedoraproject.org/api/0/rpms/python-docker/git/urls:
     empty:
-      empty:
-        total_urls: 2
-        urls:
-          git: https://src.fedoraproject.org/rpms/python-docker.git
-          ssh: ssh://jscotka@pkgs.fedoraproject.org/rpms/python-docker.git
+      empty: !!python/object:ogr.utils.RequestResponse
+        content: !!binary |
+          ewogICJ0b3RhbF91cmxzIjogMiwKICAidXJscyI6IHsKICAgICJnaXQiOiAiaHR0cHM6Ly9zcmMu
+          ZmVkb3JhcHJvamVjdC5vcmcvcnBtcy9weXRob24tZG9ja2VyLmdpdCIsCiAgICAic3NoIjogInNz
+          aDovL2xhY2htYW5mcmFudGlzZWtAcGtncy5mZWRvcmFwcm9qZWN0Lm9yZy9ycG1zL3B5dGhvbi1k
+          b2NrZXIuZ2l0IgogIH0KfQ==
+        json:
+          total_urls: 2
+          urls:
+            git: https://src.fedoraproject.org/rpms/python-docker.git
+            ssh: ssh://lachmanfrantisek@pkgs.fedoraproject.org/rpms/python-docker.git
+        ok: true
+        reason: OK
+        status_code: 200

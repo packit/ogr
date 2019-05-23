@@ -33,8 +33,10 @@ class PagureService(BaseGitService):
         super().__init__()
         self.instance_url = instance_url
         self._token = token
-
         self.read_only = read_only
+
+        if persistent_storage:
+            self.persistent_storage = persistent_storage
 
         self.session = requests.session()
 
@@ -121,12 +123,13 @@ class PagureService(BaseGitService):
             json_output = response.json()
         except ValueError:
             logger.debug(response.text)
+
         return RequestResponse(
             status_code=response.status_code,
             ok=response.ok,
             content=response.content,
-            headers=response.headers,
             json=json_output,
+            reason=response.reason,
         )
 
     @property

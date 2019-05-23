@@ -4,6 +4,7 @@ import unittest
 from libpagure import APIError
 
 from ogr.abstract import PRStatus
+from ogr.services.mock.pagure_mock import PagureMockAPI
 from ogr.services.pagure import PagureService
 from ogr.mock_core import PersistentObjectStorage
 
@@ -24,7 +25,7 @@ class PagureTests(unittest.TestCase):
         persistent_data_file = os.path.join(
             PERSISTENT_DATA_PREFIX, f"test_pagure_data_{test_name}.yaml"
         )
-        self.service = PagureService(
+        self.service = PagureMockAPI(
             token=self.token,
             persistent_storage=PersistentObjectStorage(
                 persistent_data_file, self.is_write_mode
@@ -120,8 +121,8 @@ class GenericCommands(PagureTests):
         assert self.abiword_fork.parent.namespace == "rpms"
         assert self.abiword_fork.parent.repo == "abiword"
 
-    def test_commit_flags(self):
-        flags = self.abiword_project.get_commit_flags(
+    def test_commit_statuses(self):
+        flags = self.abiword_project.get_commit_statuses(
             commit="d87466de81c72231906a6597758f37f28830bb71"
         )
         assert isinstance(flags, list)

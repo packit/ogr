@@ -306,21 +306,20 @@ class RequestResponse:
         self,
         status_code: int,
         ok: bool,
-        headers,
         content: str,
         json: Optional[dict] = None,
+        reason=None,
     ) -> None:
         self.status_code = status_code
         self.ok = ok
-        self.headers = headers
         self.content = content
         self.json = json
+        self.reason = reason
 
     def __str__(self) -> str:
         return (
             f"RequestResponse(status_code={self.status_code}, "
             f"ok={self.ok}, "
-            f"headers={self.headers}, "
             f"content={self.content}, "
             f"json={self.json})"
         )
