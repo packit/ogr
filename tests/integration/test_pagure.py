@@ -1,12 +1,10 @@
 import os
-
 import unittest
-from libpagure import APIError
 
 from ogr.abstract import PRStatus
-from ogr.services.mock.pagure_mock import PagureMockAPI
-from ogr.services.pagure import PagureService
+from ogr.exceptions import PagureAPIException
 from ogr.mock_core import PersistentObjectStorage
+from ogr.services.mock.pagure_mock import PagureMockAPI
 
 DATA_DIR = "test_data"
 PERSISTENT_DATA_PREFIX = os.path.join(
@@ -171,9 +169,9 @@ class Forks(PagureTests):
             is_fork=True,
         )
         assert not abiword_project_non_existing_fork.exists()
-        with self.assertRaises(APIError) as ex:
+        with self.assertRaises(PagureAPIException) as ex:
             abiword_project_non_existing_fork.get_description()
-        assert "Project not found" in ex.value.args
+        assert "Project not found" in ex.pagure_error
 
     def test_fork_property(self):
         fork = self.abiword_project.get_fork()
