@@ -124,7 +124,14 @@ class PagureService(BaseGitService):
     def api_url(self):
         return f"{self.instance_url}/api/0/"
 
-    def get_api_url(self, *args, add_api_endpoint_part=True):
+    def get_api_url(self, *args, add_api_endpoint_part=True) -> str:
+        """
+        Get a URL from its parts.
+
+        :param args: str parts of the url (e.g. "a", "b" will call "/a/b")
+        :param add_api_endpoint_part: Add part with API endpoint "/api/0/", True by default
+        :return: str
+        """
         args_list = []
 
         args_list += filter(lambda x: x is not None, args)
@@ -133,7 +140,7 @@ class PagureService(BaseGitService):
             return self.api_url + "/".join(args_list)
         return f"{self.instance_url}/" + "/".join(args_list)
 
-    def get_api_version(self):
+    def get_api_version(self) -> str:
         """
         Get Pagure API version.
         :return:
@@ -151,7 +158,7 @@ class PagureService(BaseGitService):
         return_value = self.call_api(request_url)
         return return_value
 
-    def change_token(self, token):
+    def change_token(self, token:str):
         self._token = token
         self.header = {"Authorization": "token " + self._token}
 
@@ -181,7 +188,7 @@ class PagureProject(BaseGitProject):
         return f"PagureProject(namespace={self.namespace}, repo={self.repo})"
 
     @property
-    def _user(self):
+    def _user(self) -> str:
         if not self._username:
             self._username = self.service.user.get_username()
         return self._username
@@ -195,7 +202,19 @@ class PagureProject(BaseGitProject):
         params: dict = None,
         data: dict = None,
         raw: bool = False,
-    ):
+    ) -> Union[dict, requests.Response]:
+        """
+        Call project API endpoint.
+
+        :param args: str parts of the url (e.g. "a", "b" will call "project/a/b")
+        :param add_fork_part: If the projects is a fork, use "fork/username" prefix, True by default
+        :param add_api_endpoint_part: Add part with API endpoint "/api/0/"
+        :param method: "GET"/"POST"/...
+        :param params: http(s) query parameters
+        :param data: data to be sent
+        :param raw: when True, return raw request object
+        :return: if raw=False, return json response, else requests.Response
+        """
         additional_parts = []
         if self._is_fork and add_fork_part:
             additional_parts += ["fork", self.service.user.get_username()]
