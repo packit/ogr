@@ -483,6 +483,7 @@ class PagureProject(BaseGitProject):
     ) -> "CommitComment":
         raise OperationNotSupported("Commit comments are not supported on Pagure.")
 
+    @readonly(return_function=GitProjectReadOnly.set_commit_status)
     def set_commit_status(
         self,
         commit: str,
