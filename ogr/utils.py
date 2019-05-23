@@ -299,3 +299,28 @@ def search_in_comments(
         if re_search:
             return re_search
     return None
+
+
+class RequestResponse:
+    def __init__(
+        self,
+        status_code: int,
+        ok: bool,
+        headers,
+        content: str,
+        json: Optional[dict] = None,
+    ) -> None:
+        self.status_code = status_code
+        self.ok = ok
+        self.headers = headers
+        self.content = content
+        self.json = json
+
+    def __str__(self) -> str:
+        return (
+            f"RequestResponse(status_code={self.status_code}, "
+            f"ok={self.ok}, "
+            f"headers={self.headers}, "
+            f"content={self.content}, "
+            f"json={self.json})"
+        )

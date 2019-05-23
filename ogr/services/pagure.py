@@ -14,6 +14,7 @@ from ogr.exceptions import (
 )
 from ogr.mock_core import readonly, GitProjectReadOnly, PersistentObjectStorage
 from ogr.services.base import BaseGitService, BaseGitProject, BaseGitUser
+from ogr.utils import RequestResponse
 
 logger = logging.getLogger(__name__)
 
@@ -62,7 +63,7 @@ class PagureService(BaseGitService):
         params: dict = None,
         data=None,
         raw: bool = False,
-    ) -> Union[dict, requests.Response]:
+    ) -> Union[dict, RequestResponse]:
         """ Method used to call the API.
         It returns the raw JSON returned by the API or raises an exception
         if something goes wrong.
@@ -86,27 +87,27 @@ class PagureService(BaseGitService):
         if response.status_code == 404:
             raise PagureAPIException(f"Page `{url}` not found when calling Pagure API.")
 
-        try:
-            output = response.json()
-        except ValueError as err:
-            logger.debug(response.text)
-            raise PagureAPIException("Error while decoding JSON: {0}".format(err))
+        if not response.json:
+            logger.debug(response.content)
+            raise PagureAPIException("Error while decoding JSON: {0}")
 
         if not response.ok:
-            logger.error(output)
-            if "error" in output:
-                error_msg = output["error"]
+            logger.error(response.json)
+            if "error" in response.json:
+                error_msg = response.json["error"]
                 raise PagureAPIException(
                     f"Pagure API returned an error when calling `{url}`: {error_msg}",
                     pagure_error=error_msg,
                 )
             raise PagureAPIException(f"Problem with Pagure API when calling `{url}`")
 
-        return output
+        return response.json
 
-    def get_raw_request(self, url, method="GET", params=None, data=None):
+    def get_raw_request(
+        self, url, method="GET", params=None, data=None
+    ) -> RequestResponse:
 
-        req = self.session.request(
+        response = self.session.request(
             method=method,
             url=url,
             params=params,
@@ -114,7 +115,19 @@ class PagureService(BaseGitService):
             data=data,
             verify=not self.insecure,
         )
-        return req
+
+        json_output = None
+        try:
+            json_output = response.json()
+        except ValueError:
+            logger.debug(response.text)
+        return RequestResponse(
+            status_code=response.status_code,
+            ok=response.ok,
+            content=response.content,
+            headers=response.headers,
+            json=json_output,
+        )
 
     @property
     def api_url(self):
