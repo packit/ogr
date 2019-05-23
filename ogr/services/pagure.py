@@ -72,14 +72,10 @@ class PagureService(BaseGitService):
         method = method or "GET"
 
         try:
-            response = self.session.request(
-                method=method,
-                url=url,
-                params=params,
-                data=data,
-                verify=not self.insecure,
-                headers=self.header,
+            response = self.get_raw_request(
+                method=method, url=url, params=params, data=data
             )
+
         except requests.exceptions.ConnectionError as er:
             logger.error(er)
             raise PagureAPIException(f"Cannot connect to url: `{url}`.", er)
@@ -158,7 +154,7 @@ class PagureService(BaseGitService):
         return_value = self.call_api(request_url)
         return return_value
 
-    def change_token(self, token:str):
+    def change_token(self, token: str):
         self._token = token
         self.header = {"Authorization": "token " + self._token}
 
