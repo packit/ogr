@@ -306,7 +306,7 @@ class RequestResponse:
         self,
         status_code: int,
         ok: bool,
-        content: str,
+        content: bytes,
         json: Optional[dict] = None,
         reason=None,
     ) -> None:

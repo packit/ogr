@@ -279,7 +279,7 @@ class GitProject:
         """
         raise NotImplementedError()
 
-    def get_tags(self) -> [GitTag]:
+    def get_tags(self) -> List["GitTag"]:
         """
         Return list of tags.
 
@@ -399,7 +399,7 @@ class GitProject:
         """
         raise NotImplementedError()
 
-    def get_commit_statuses(self, commit: str) -> [CommitStatus]:
+    def get_commit_statuses(self, commit: str) -> List[CommitStatus]:
         """
         Get status of the commit.
 

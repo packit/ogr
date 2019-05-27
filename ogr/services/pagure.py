@@ -1,10 +1,10 @@
 import datetime
 import logging
-from typing import List, Optional, Dict, Union
+from typing import List, Optional, Dict, Any
 
 import requests
 
-from ogr.abstract import PRStatus, GitTag, CommitStatus
+from ogr.abstract import PRStatus, GitTag, CommitStatus, CommitComment
 from ogr.abstract import PullRequest, PRComment
 from ogr.exceptions import (
     OurPagureRawRequest,
@@ -59,32 +59,13 @@ class PagureService(BaseGitService):
         return PagureUser(service=self)
 
     def call_api(
-        self,
-        url: str,
-        method: str = None,
-        params: dict = None,
-        data=None,
-        raw: bool = False,
-    ) -> Union[dict, RequestResponse]:
+        self, url: str, method: str = None, params: dict = None, data=None
+    ) -> dict:
         """ Method used to call the API.
         It returns the raw JSON returned by the API or raises an exception
         if something goes wrong.
-
-        It can return raw response when raw=True.
         """
-        method = method or "GET"
-
-        try:
-            response = self.get_raw_request(
-                method=method, url=url, params=params, data=data
-            )
-
-        except requests.exceptions.ConnectionError as er:
-            logger.error(er)
-            raise PagureAPIException(f"Cannot connect to url: `{url}`.", er)
-
-        if raw:
-            return response
+        response = self.call_api_raw(url=url, method=method, params=params, data=data)
 
         if response.status_code == 404:
             raise PagureAPIException(f"Page `{url}` not found when calling Pagure API.")
@@ -104,6 +85,20 @@ class PagureService(BaseGitService):
             raise PagureAPIException(f"Problem with Pagure API when calling `{url}`")
 
         return response.json
+
+    def call_api_raw(
+        self, url: str, method: str = None, params: dict = None, data=None
+    ):
+        method = method or "GET"
+        try:
+            response = self.get_raw_request(
+                method=method, url=url, params=params, data=data
+            )
+
+        except requests.exceptions.ConnectionError as er:
+            logger.error(er)
+            raise PagureAPIException(f"Cannot connect to url: `{url}`.", er)
+        return response
 
     def get_raw_request(
         self, url, method="GET", params=None, data=None
@@ -144,7 +139,7 @@ class PagureService(BaseGitService):
         :param add_api_endpoint_part: Add part with API endpoint "/api/0/", True by default
         :return: str
         """
-        args_list = []
+        args_list: List[str] = []
 
         args_list += filter(lambda x: x is not None, args)
 
@@ -176,6 +171,8 @@ class PagureService(BaseGitService):
 
 
 class PagureProject(BaseGitProject):
+    service: PagureService
+
     def __init__(
         self,
         repo: str,
@@ -213,8 +210,7 @@ class PagureProject(BaseGitProject):
         method: str = None,
         params: dict = None,
         data: dict = None,
-        raw: bool = False,
-    ) -> Union[dict, requests.Response]:
+    ) -> dict:
         """
         Call project API endpoint.
 
@@ -224,13 +220,54 @@ class PagureProject(BaseGitProject):
         :param method: "GET"/"POST"/...
         :param params: http(s) query parameters
         :param data: data to be sent
-        :param raw: when True, return raw request object
-        :return: if raw=False, return json response, else requests.Response
+        :return: dict
         """
+        request_url = self._get_project_url(
+            *args,
+            add_api_endpoint_part=add_api_endpoint_part,
+            add_fork_part=add_fork_part,
+        )
+
+        return_value = self.service.call_api(
+            url=request_url, method=method, params=params, data=data
+        )
+        return return_value
+
+    def _call_project_api_raw(
+        self,
+        *args,
+        add_fork_part: bool = True,
+        add_api_endpoint_part=True,
+        method: str = None,
+        params: dict = None,
+        data: dict = None,
+    ) -> RequestResponse:
+        """
+        Call project API endpoint.
+
+        :param args: str parts of the url (e.g. "a", "b" will call "project/a/b")
+        :param add_fork_part: If the projects is a fork, use "fork/username" prefix, True by default
+        :param add_api_endpoint_part: Add part with API endpoint "/api/0/"
+        :param method: "GET"/"POST"/...
+        :param params: http(s) query parameters
+        :param data: data to be sent
+        :return: RequestResponse
+        """
+        request_url = self._get_project_url(
+            *args,
+            add_api_endpoint_part=add_api_endpoint_part,
+            add_fork_part=add_fork_part,
+        )
+
+        return_value = self.service.call_api_raw(
+            url=request_url, method=method, params=params, data=data
+        )
+        return return_value
+
+    def _get_project_url(self, *args, add_fork_part=True, add_api_endpoint_part=True):
         additional_parts = []
         if self._is_fork and add_fork_part:
             additional_parts += ["fork", self.service.user.get_username()]
-
         request_url = self.service.get_api_url(
             *additional_parts,
             self.namespace,
@@ -238,11 +275,7 @@ class PagureProject(BaseGitProject):
             *args,
             add_api_endpoint_part=add_api_endpoint_part,
         )
-
-        return_value = self.service.call_api(
-            url=request_url, method=method, params=params, data=data, raw=raw
-        )
-        return return_value
+        return request_url
 
     def get_project_info(self):
         return_value = self._call_project_api(method="GET")
@@ -292,7 +325,7 @@ class PagureProject(BaseGitProject):
         filename: str = None,
         row: int = None,
     ) -> PRComment:
-        payload = {"comment": body}
+        payload: Dict[str, Any] = {"comment": body}
         if commit is not None:
             payload["commit"] = commit
         if filename is not None:
@@ -391,7 +424,7 @@ class PagureProject(BaseGitProject):
         return self._construct_fork_project()
 
     def exists(self):
-        response = self._call_project_api(raw=True)
+        response = self._call_project_api_raw()
         return response.ok
 
     def is_forked(self) -> bool:
@@ -478,8 +511,8 @@ class PagureProject(BaseGitProject):
 
     def get_file_content(self, path: str, ref="master") -> str:
         try:
-            result = self._call_project_api(
-                "raw", ref, "f", path, add_api_endpoint_part=False, raw=True
+            result = self._call_project_api_raw(
+                "raw", ref, "f", path, add_api_endpoint_part=False
             )
             if not result or result.reason == "NOT FOUND":
                 raise FileNotFoundError(f"File '{path}' on {ref} not found")
@@ -496,7 +529,7 @@ class PagureProject(BaseGitProject):
 
     def commit_comment(
         self, commit: str, body: str, filename: str = None, row: int = None
-    ) -> "CommitComment":
+    ) -> CommitComment:
         raise OperationNotSupported("Commit comments are not supported on Pagure.")
 
     @readonly(return_function=GitProjectReadOnly.set_commit_status)
@@ -510,7 +543,7 @@ class PagureProject(BaseGitProject):
         percent: int = None,
         uid: str = None,
     ) -> "CommitStatus":
-        data = {
+        data: Dict[str, Any] = {
             "username": context,
             "comment": description,
             "url": target_url,
@@ -526,13 +559,13 @@ class PagureProject(BaseGitProject):
             response["flag"], uid=response["uid"]
         )
 
-    def get_commit_statuses(self, commit: str) -> [CommitStatus]:
+    def get_commit_statuses(self, commit: str) -> List[CommitStatus]:
         response = self._call_project_api("c", commit, "flag")
         return [
             self._commit_status_from_pagure_dict(flag) for flag in response["flags"]
         ]
 
-    def get_tags(self) -> [GitTag]:
+    def get_tags(self) -> List[GitTag]:
         response = self._call_project_api("git", "tags", params={"with_commits": True})
         tags = [GitTag(name=n, commit_sha=c) for n, c in response["tags"].items()]
         return tags
