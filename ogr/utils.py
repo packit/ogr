@@ -318,8 +318,30 @@ class RequestResponse:
 
     def __str__(self) -> str:
         return (
-            f"RequestResponse(status_code={self.status_code}, "
+            f"RequestResponse("
+            f"status_code={self.status_code}, "
             f"ok={self.ok}, "
             f"content={self.content}, "
-            f"json={self.json})"
+            f"json={self.json}, "
+            f"reason={self.reason})"
         )
+
+    def __eq__(self, o: object) -> bool:
+        if not isinstance(o, RequestResponse):
+            return False
+        return (
+            self.status_code == o.status_code
+            and self.ok == o.ok
+            and self.content == o.content
+            and self.json == o.json
+            and self.reason == o.reason
+        )
+
+    def to_json_format(self) -> dict:
+        return {
+            "status_code": self.status_code,
+            "ok": self.ok,
+            "content": self.content,
+            "json": self.json,
+            "reason": self.reason,
+        }

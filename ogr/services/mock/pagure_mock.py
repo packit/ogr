@@ -3,6 +3,7 @@ from typing import Type
 
 from ogr.mock_core import PersistentObjectStorage
 from ogr.services.pagure import PagureService
+from ogr.utils import RequestResponse
 
 logger = logging.getLogger(__name__)
 
@@ -16,10 +17,13 @@ class PagureMockAPI(PagureService):
             output = super().get_raw_request(
                 url, method=method, params=params, data=data
             )
-            self.persistent_storage.store(keys=keys_internal, values=output)
+            self.persistent_storage.store(
+                keys=keys_internal, values=output.to_json_format()
+            )
         else:
             logger.debug(f"Persistent libpagure API: {keys_internal}")
-            output = self.persistent_storage.read(keys=keys_internal)
+            output_dict = self.persistent_storage.read(keys=keys_internal)
+            output = RequestResponse(**output_dict)
         return output
 
 
