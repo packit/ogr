@@ -299,3 +299,49 @@ def search_in_comments(
         if re_search:
             return re_search
     return None
+
+
+class RequestResponse:
+    def __init__(
+        self,
+        status_code: int,
+        ok: bool,
+        content: bytes,
+        json: Optional[dict] = None,
+        reason=None,
+    ) -> None:
+        self.status_code = status_code
+        self.ok = ok
+        self.content = content
+        self.json = json
+        self.reason = reason
+
+    def __str__(self) -> str:
+        return (
+            f"RequestResponse("
+            f"status_code={self.status_code}, "
+            f"ok={self.ok}, "
+            f"content={self.content}, "
+            f"json={self.json}, "
+            f"reason={self.reason})"
+        )
+
+    def __eq__(self, o: object) -> bool:
+        if not isinstance(o, RequestResponse):
+            return False
+        return (
+            self.status_code == o.status_code
+            and self.ok == o.ok
+            and self.content == o.content
+            and self.json == o.json
+            and self.reason == o.reason
+        )
+
+    def to_json_format(self) -> dict:
+        return {
+            "status_code": self.status_code,
+            "ok": self.ok,
+            "content": self.content,
+            "json": self.json,
+            "reason": self.reason,
+        }

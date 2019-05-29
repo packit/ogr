@@ -34,26 +34,75 @@ class PullRequest:
         self.target_branch = target_branch
         self.created = created
 
+    def __str__(self) -> str:
+        description = (
+            f"{self.description[:10]}..." if self.description is not None else "None"
+        )
+        return (
+            f"PullRequest("
+            f"title='{self.title}', "
+            f"id={self.id}, "
+            f"status='{self.status.name}', "
+            f"url='{self.url}', "
+            f"description='{description}', "
+            f"author='{self.author}', "
+            f"source_branch='{self.source_branch}', "
+            f"target_branch='{self.target_branch}', "
+            f"created='{self.created}')"
+        )
+
 
 class PRComment:
     def __init__(
         self,
         comment: str,
         author: str,
-        created: datetime.datetime,
-        edited: datetime.datetime,
+        created: Optional[datetime.datetime] = None,
+        edited: Optional[datetime.datetime] = None,
     ) -> None:
         self.comment = comment
         self.author = author
         self.created = created
         self.edited = edited
 
+    def __str__(self) -> str:
+        comment = f"{self.comment[:10]}..." if self.comment is not None else "None"
+        return (
+            f"PRComment("
+            f"comment='{comment}', "
+            f"author='{self.author}', "
+            f"created='{self.created}', "
+            f"edited='{self.edited}')"
+        )
+
 
 class CommitStatus:
-    def __init__(self, commit: str, state: str, context: str):
+    def __init__(
+        self,
+        commit: str,
+        state: str,
+        context: str,
+        comment: str = None,
+        uid: str = None,
+        url: str = None,
+    ):
         self.commit = commit
-        self.state = state
+        self.state = state  # Should be enum
         self.context = context
+        self.uid = uid
+        self.comment = comment
+        self.url = url
+
+    def __str__(self) -> str:
+        return (
+            f"CommitStatus("
+            f"commit='{self.commit}', "
+            f"state='{self.state}', "
+            f"context='{self.context}', "
+            f"uid='{self.uid}',"
+            f"comment='{self.comment}',"
+            f"url='{self.url}')"
+        )
 
 
 class CommitComment:
@@ -87,6 +136,15 @@ class Release:
         file = open(filename, "w")
         file.write(data)
         file.close()
+
+
+class GitTag:
+    def __init__(self, name: str, commit_sha: str) -> None:
+        self.name = name
+        self.commit_sha = commit_sha
+
+    def __str__(self) -> str:
+        return f"GitTag(name={self.name}, commit_sha={self.commit_sha})"
 
 
 class GitService:
@@ -221,6 +279,14 @@ class GitProject:
         """
         raise NotImplementedError()
 
+    def get_tags(self) -> List["GitTag"]:
+        """
+        Return list of tags.
+
+        :return: [GitTags]
+        """
+        raise NotImplementedError()
+
     def get_sha_from_tag(self, tag_name: str) -> str:
         """
         Search tag name in existing tags and return sha
@@ -330,6 +396,15 @@ class GitProject:
         :param description: A short description of the status
         :param context: A label to differentiate this status from the status of other systems.
         :return:
+        """
+        raise NotImplementedError()
+
+    def get_commit_statuses(self, commit: str) -> List[CommitStatus]:
+        """
+        Get status of the commit.
+
+        :param commit: str
+        :return: [CommitStatus]
         """
         raise NotImplementedError()
 
