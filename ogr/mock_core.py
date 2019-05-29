@@ -160,13 +160,22 @@ class PersistentObjectStorage:
     is_write_mode: bool = False
     is_flushed = True
 
-    def __init__(self, storage_file: str, is_write_mode: Optional[bool] = None) -> None:
+    def __init__(
+        self,
+        storage_file: str,
+        is_write_mode: Optional[bool] = None,
+        dump_after_store: bool = False,
+    ) -> None:
         """
         :param storage_file: file name location where to write/read object data
         :param is_write_mode: force read/write mode, if not set (None) it tries to guess if
                            it should write or read data based on if file exists
+        :param dump_after_store: serialize all the data into the yaml file
+                   after calling store() - no need to call it explicitly
 
         """
+        # call dump() after store() is called
+        self.dump_after_store = dump_after_store
         self.storage_file = storage_file
         if is_write_mode is not None:
             self.is_write_mode = is_write_mode
@@ -226,12 +235,8 @@ class PersistentObjectStorage:
             current_level = current_level[item]
         self.is_flushed = False
 
-    def __del__(self):
-        try:
-            # ignore id instance deletion is done on level where is not open defined
+        if self.dump_after_store:
             self.dump()
-        except NameError:
-            pass
 
     def read(self, keys: List) -> Any:
         """
