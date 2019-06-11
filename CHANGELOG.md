@@ -1,3 +1,9 @@
+# 0.4.0
+
+* Ogr no longer uses libpagure and calls Pagure API directly.
+* PersistentObjectStorage can serialize data into yaml file after calling store().
+
+
 # 0.3.1
 
 ## Fixes
