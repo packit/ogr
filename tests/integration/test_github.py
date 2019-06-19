@@ -2,7 +2,7 @@ import os
 import unittest
 from github import GithubException
 
-from ogr.abstract import PRStatus
+from ogr.abstract import PRStatus, IssueStatus
 from ogr.services.github import GithubService
 from ogr.mock_core import PersistentObjectStorage
 
@@ -139,6 +139,31 @@ class GenericCommands(GithubTests):
             == "4fde179d43b6c9c6a8c4d0c869293d18a6ce7ddc"
         )
         assert not self.colin_project.get_sha_from_tag("future")
+
+
+class Issues(GithubTests):
+    def test_issue_list(self):
+        issue_list = self.colin_fork.get_issue_list()
+        assert isinstance(issue_list, list)
+        assert not issue_list
+
+        issue_list_all = self.colin_project.get_issue_list(status=IssueStatus.all)
+        assert issue_list_all
+        assert len(issue_list_all) >= 144
+
+        issue_list_closed = self.colin_project.get_issue_list(status=IssueStatus.closed)
+        assert issue_list_closed
+        assert len(issue_list_closed) >= 140
+
+        issue_list = self.colin_project.get_issue_list()
+        assert issue_list
+        assert len(issue_list) >= 2
+
+    def test_issue_info(self):
+        issue_info = self.colin_project.get_issue_info(issue_id=2)
+        assert issue_info
+        assert issue_info.title.startswith("add basic readme")
+        assert issue_info.status == IssueStatus.closed
 
 
 class PullRequests(GithubTests):

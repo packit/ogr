@@ -4,6 +4,47 @@ from typing import Optional, Match, List, Dict
 from urllib.request import urlopen
 
 
+class IssueStatus(IntEnum):
+    open = 1
+    closed = 2
+    all = 3
+
+
+class Issue:
+    def __init__(
+            self,
+            title: str,
+            id: int,
+            status: IssueStatus,
+            url: str,
+            description: str,
+            author: str,
+            created: datetime.datetime,
+    ) -> None:
+        self.title = title
+        self.id = id
+        self.status = status
+        self.url = url
+        self.description = description
+        self.author = author
+        self.created = created
+
+    def __str__(self) -> str:
+        description = (
+            f"{self.description[:10]}..." if self.description is not None else "None"
+        )
+        return (
+            f"Issue("
+            f"title='{self.title}', "
+            f"id={self.id}, "
+            f"status='{self.status.name}', "
+            f"url='{self.url}', "
+            f"description='{description}', "
+            f"author='{self.author}', "
+            f"created='{self.created}')"
+        )
+
+
 class PRStatus(IntEnum):
     open = 1
     closed = 2
@@ -49,6 +90,30 @@ class PullRequest:
             f"source_branch='{self.source_branch}', "
             f"target_branch='{self.target_branch}', "
             f"created='{self.created}')"
+        )
+
+
+class IssueComment:
+    def __init__(
+        self,
+        comment: str,
+        author: str,
+        created: Optional[datetime.datetime] = None,
+        edited: Optional[datetime.datetime] = None,
+    ) -> None:
+        self.comment = comment
+        self.author = author
+        self.created = created
+        self.edited = edited
+
+    def __str__(self) -> str:
+        comment = f"{self.comment[:10]}..." if self.comment is not None else "None"
+        return (
+            f"PRComment("
+            f"comment='{comment}', "
+            f"author='{self.author}', "
+            f"created='{self.created}', "
+            f"edited='{self.edited}')"
         )
 
 
@@ -258,6 +323,60 @@ class GitProject:
 
         :param create: create a fork if it doesn't exist
         :return: instance of GitProject or None
+        """
+        raise NotImplementedError()
+
+    def get_issue_list(self, status: IssueStatus = IssueStatus.open) -> List["Issue"]:
+        """
+        List of issues (dics)
+
+        :param status: IssueStatus enum
+        :return: [Issue]
+        """
+        raise NotImplementedError()
+
+    def get_issue_info(self, issue_id: int) -> "Issue":
+        """
+        Get issue info
+
+        :param issue_id: int
+        :return: Issue
+        """
+        raise NotImplementedError()
+
+    def _get_all_issue_comments(self, issue_id: int) -> List["IssueComment"]:
+        """
+        Get list of issue comments.
+
+        :param issue_id: int
+        :return: [IssueComment]
+        """
+        raise NotImplementedError()
+
+    def get_issue_comments(
+        self, issue_id, filter_regex: str = None, reverse: bool = False
+    ) -> List["IssueComment"]:
+        """
+        Get list of Issue comments.
+
+        :param issue_id: int
+        :param filter_regex: filter the comments' content with re.search
+        :param reverse: reverse order of comments
+        :return: [IssueComment]
+        """
+        raise NotImplementedError()
+
+    def issue_comment(
+        self,
+        issue_id: int,
+        body: str
+    ) -> "IssueComment":
+        """
+        Add new comment to the issue.
+
+        :param issue_id: int
+        :param body: str
+        :return: IssueComment
         """
         raise NotImplementedError()
 

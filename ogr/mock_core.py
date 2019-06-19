@@ -8,6 +8,8 @@ import collections
 
 from ogr.abstract import (
     PullRequest,
+    IssueComment,
+    IssueStatus,
     PRComment,
     PRStatus,
     GitProject,
@@ -125,6 +127,23 @@ class GitProjectReadOnly:
         pull_request = original_object.get_pr_info(pr_id)
         pull_request.status = PRStatus.merged
         return pull_request
+
+    @classmethod
+    def issue_comment(
+            cls,
+            original_object: Any,
+            issue_id: int,
+            body: str
+    ) -> "IssueComment":
+        issue = original_object.get_issue_info(issue_id)
+        log_output(issue)
+        output = IssueComment(
+            comment=body,
+            author=cls.author,
+            created=datetime.datetime.now(),
+            edited=datetime.datetime.now(),
+        )
+        return output
 
     @classmethod
     def fork_create(cls, original_object: Any) -> "GitProject":
