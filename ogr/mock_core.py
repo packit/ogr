@@ -9,7 +9,6 @@ import collections
 from ogr.abstract import (
     PullRequest,
     IssueComment,
-    IssueStatus,
     PRComment,
     PRStatus,
     GitProject,

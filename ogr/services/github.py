@@ -11,6 +11,7 @@ from github import (
 from github.GitRelease import GitRelease as GithubRelease
 from github.PullRequest import PullRequest as GithubPullRequest
 from github.Issue import Issue as GithubIssue
+from github.Label import Label as GithubLabel
 
 from ogr.abstract import (
     GitUser,
@@ -184,6 +185,58 @@ class GithubProject(BaseGitProject):
             self._issuecomment_from_github_object(raw_comment)
             for raw_comment in issue.get_issue_comments()
         ]
+
+    def issue_comment(
+            self,
+            issue_id: int,
+            body: str
+    ) -> IssueComment:
+        """
+        Create comment on an issue.
+
+        :param issue_id: int The ID of the issue
+        :param body: str The text of the comment
+        :return: IssueComment
+        """
+        github_issue = self.github_repo.get_issue(number=issue_id)
+        comment = github_issue.create_comment(body)
+        return self._issuecomment_from_github_object(comment)
+
+    def create_issue(
+        self,
+        title: str,
+        body: str
+    ) -> Issue:
+        github_issue = self.github_repo.create_issue(title=title, body=body)
+        return self._issue_from_github_object(github_issue)
+
+    def issue_close(self, issue_id: int) -> Issue:
+        issue = self.github_repo.get_issue(number=issue_id)
+        issue.edit(state="closed")
+        return issue
+
+    def get_issue_labels(
+        self,
+        issue_id: int
+    ) -> List[GithubLabel]:
+        """
+        Get list of issue's labels.
+        :issue_id: int
+        :return: [GithubLabel]
+        """
+        issue = self.github_repo.get_issue(number=issue_id)
+        return list(issue.get_labels())
+
+    def add_issue_labels(self, issue_id, labels) -> None:
+        """
+        Add labels the the Issue.
+
+        :param issue_id: int
+        :param labels: [str]
+        """
+        issue = self.github_repo.get_issue(number=issue_id)
+        for label in labels:
+            issue.add_to_labels(label)
 
     def get_pr_list(self, status: PRStatus = PRStatus.open) -> List[PullRequest]:
         prs = self.github_repo.get_pulls(

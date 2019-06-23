@@ -380,6 +380,53 @@ class GitProject:
         """
         raise NotImplementedError()
 
+    def create_issue(
+            self,
+            title: str,
+            body: str
+    ) -> Issue:
+        """
+        Open new Issue.
+
+        :param title: str
+        :param body: str
+        :return: Issue
+        """
+        raise NotImplementedError()
+
+    def issue_close(
+        self,
+        issue_id: int
+    ) -> Issue:
+        """
+        Close an issue
+
+        :param issue_id: int
+        :return: Issue
+        """
+        raise NotImplementedError()
+
+    def get_issue_labels(
+        self,
+        issue_id: int
+    ) -> List:
+        """
+        Get list of issue's labels.
+
+        :issue_id: int
+        :return: [GithubLabel]
+        """
+        raise NotImplementedError()
+
+    def add_issue_labels(self, issue_id, labels) -> None:
+        """
+        Add labels the the Issue.
+
+        :param issue_id: int
+        :param labels: [str]
+        """
+        raise NotImplementedError()
+
     def get_pr_list(self, status: PRStatus = PRStatus.open) -> List["PullRequest"]:
         """
         List of pull requests (dics)
