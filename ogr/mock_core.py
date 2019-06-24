@@ -25,7 +25,7 @@ def log_output(
     logger.warning(f"{default_prefix} {text}")
 
 
-def readonly(
+def if_readonly(
     *,
     return_value: Optional[Any] = None,
     return_function: Optional[Callable] = None,

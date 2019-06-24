@@ -21,7 +21,7 @@ from ogr.abstract import (
     CommitStatus,
 )
 from ogr.services.base import BaseGitService, BaseGitProject, BaseGitUser
-from ogr.mock_core import readonly, GitProjectReadOnly, PersistentObjectStorage
+from ogr.mock_core import if_readonly, GitProjectReadOnly, PersistentObjectStorage
 from ogr.services.mock.github_mock import get_Github_class
 
 logger = logging.getLogger(__name__)
@@ -189,7 +189,7 @@ class GithubProject(BaseGitProject):
                 return tag.commit.sha
         return ""
 
-    @readonly(return_function=GitProjectReadOnly.pr_create)
+    @if_readonly(return_function=GitProjectReadOnly.pr_create)
     def pr_create(
         self, title: str, body: str, target_branch: str, source_branch: str
     ) -> PullRequest:
@@ -198,7 +198,7 @@ class GithubProject(BaseGitProject):
         )
         return self._pr_from_github_object(created_pr)
 
-    @readonly(
+    @if_readonly(
         return_function=GitProjectReadOnly.pr_comment,
         log_message="Create Comment to PR",
     )
@@ -230,7 +230,7 @@ class GithubProject(BaseGitProject):
             comment = github_pr.create_comment(body, github_commit, filename, row)
         return self._prcomment_from_github_object(comment)
 
-    @readonly(
+    @if_readonly(
         return_function=GitProjectReadOnly.commit_comment,
         log_message="Create Comment to commit",
     )
@@ -255,7 +255,7 @@ class GithubProject(BaseGitProject):
             comment = github_commit.create_comment(body=body)
         return self._commitcomment_from_github_object(comment)
 
-    @readonly(
+    @if_readonly(
         return_function=GitProjectReadOnly.set_commit_status,
         log_message="Create a status on a commit",
     )
@@ -274,11 +274,11 @@ class GithubProject(BaseGitProject):
         github_commit.create_status(state, target_url, description, context)
         return CommitStatus(commit, state, context)
 
-    @readonly(return_function=GitProjectReadOnly.pr_close)
+    @if_readonly(return_function=GitProjectReadOnly.pr_close)
     def pr_close(self, pr_id: int) -> PullRequest:
         raise NotImplementedError
 
-    @readonly(return_function=GitProjectReadOnly.pr_merge)
+    @if_readonly(return_function=GitProjectReadOnly.pr_merge)
     def pr_merge(self, pr_id: int) -> PullRequest:
         closed_pr = self.github_repo.get_pull(number=pr_id).merge()
         return self._pr_from_github_object(closed_pr)
@@ -286,7 +286,7 @@ class GithubProject(BaseGitProject):
     def get_git_urls(self) -> Dict[str, str]:
         return {"git": self.github_repo.clone_url, "ssh": self.github_repo.ssh_url}
 
-    @readonly(return_function=GitProjectReadOnly.fork_create)
+    @if_readonly(return_function=GitProjectReadOnly.fork_create)
     def fork_create(self) -> "GithubProject":
         """
         Fork this project using the authenticated user.
