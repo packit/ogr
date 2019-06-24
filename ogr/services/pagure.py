@@ -12,7 +12,7 @@ from ogr.exceptions import (
     OgrException,
     OperationNotSupported,
 )
-from ogr.mock_core import readonly, GitProjectReadOnly, PersistentObjectStorage
+from ogr.mock_core import if_readonly, GitProjectReadOnly, PersistentObjectStorage
 from ogr.services.base import BaseGitService, BaseGitProject, BaseGitUser
 from ogr.utils import RequestResponse
 
@@ -316,7 +316,7 @@ class PagureProject(BaseGitProject):
         ]
         return parsed_comments
 
-    @readonly(return_function=GitProjectReadOnly.pr_comment)
+    @if_readonly(return_function=GitProjectReadOnly.pr_comment)
     def pr_comment(
         self,
         pr_id: int,
@@ -339,7 +339,7 @@ class PagureProject(BaseGitProject):
 
         return PRComment(comment=body, author=self.service.user.get_username())
 
-    @readonly(return_function=GitProjectReadOnly.pr_close)
+    @if_readonly(return_function=GitProjectReadOnly.pr_close)
     def pr_close(self, pr_id: int) -> PullRequest:
         return_value = self._call_project_api(
             "pull-request", str(pr_id), "close", method="POST"
@@ -350,7 +350,7 @@ class PagureProject(BaseGitProject):
 
         return self.get_pr_info(pr_id)
 
-    @readonly(return_function=GitProjectReadOnly.pr_merge)
+    @if_readonly(return_function=GitProjectReadOnly.pr_merge)
     def pr_merge(self, pr_id: int) -> PullRequest:
         return_value = self._call_project_api(
             "pull-request", str(pr_id), "merge", method="POST"
@@ -361,7 +361,7 @@ class PagureProject(BaseGitProject):
 
         return self.get_pr_info(pr_id)
 
-    @readonly(return_function=GitProjectReadOnly.pr_create)
+    @if_readonly(return_function=GitProjectReadOnly.pr_create)
     def pr_create(
         self, title: str, body: str, target_branch: str, source_branch: str
     ) -> PullRequest:
@@ -381,7 +381,7 @@ class PagureProject(BaseGitProject):
         pr_object = self._pr_from_pagure_dict(return_value)
         return pr_object
 
-    @readonly(return_function=GitProjectReadOnly.fork_create)
+    @if_readonly(return_function=GitProjectReadOnly.fork_create)
     def fork_create(self) -> "PagureProject":
         request_url = self.service.get_api_url("fork")
         self.service.call_api(
@@ -532,7 +532,7 @@ class PagureProject(BaseGitProject):
     ) -> CommitComment:
         raise OperationNotSupported("Commit comments are not supported on Pagure.")
 
-    @readonly(return_function=GitProjectReadOnly.set_commit_status)
+    @if_readonly(return_function=GitProjectReadOnly.set_commit_status)
     def set_commit_status(
         self,
         commit: str,
