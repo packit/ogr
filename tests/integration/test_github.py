@@ -17,17 +17,19 @@ class GithubTests(unittest.TestCase):
         self.token = os.environ.get("GITHUB_TOKEN")
         self.user = os.environ.get("GITHUB_USER")
         test_name = self.id() or "all"
-        self.is_write_mode = bool(os.environ.get("FORCE_WRITE"))
-        if self.is_write_mode and (not self.user or not self.token):
-            raise EnvironmentError("please set GITHUB_TOKEN GITHUB_USER env variables")
+
         persistent_data_file = os.path.join(
             PERSISTENT_DATA_PREFIX, f"test_github_data_{test_name}.yaml"
         )
+        persistant_object_storage = PersistentObjectStorage(persistent_data_file)
+
+        if persistant_object_storage.is_write_mode and (
+            not self.user or not self.token
+        ):
+            raise EnvironmentError("please set GITHUB_TOKEN GITHUB_USER env variables")
+
         self.service = GithubService(
-            token=self.token,
-            persistent_storage=PersistentObjectStorage(
-                persistent_data_file, self.is_write_mode
-            ),
+            token=self.token, persistent_storage=persistant_object_storage
         )
         self.colin_project = self.service.get_project(
             namespace="user-cont", repo="colin"

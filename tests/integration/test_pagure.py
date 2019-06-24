@@ -17,17 +17,20 @@ class PagureTests(unittest.TestCase):
         self.token = os.environ.get("PAGURE_TOKEN")
         self.user = os.environ.get("PAGURE_USER")
         test_name = self.id() or "all"
-        self.is_write_mode = bool(os.environ.get("FORCE_WRITE"))
-        if self.is_write_mode and (not self.user or not self.token):
-            raise EnvironmentError("please set PAGURE_TOKEN PAGURE_USER env variables")
+
         persistent_data_file = os.path.join(
             PERSISTENT_DATA_PREFIX, f"test_pagure_data_{test_name}.yaml"
         )
+
+        persistant_object_storage = PersistentObjectStorage(persistent_data_file)
+
+        if persistant_object_storage.is_write_mode and (
+            not self.user or not self.token
+        ):
+            raise EnvironmentError("please set PAGURE_TOKEN PAGURE_USER env variables")
+
         self.service = PagureMockAPI(
-            token=self.token,
-            persistent_storage=PersistentObjectStorage(
-                persistent_data_file, self.is_write_mode
-            ),
+            token=self.token, persistent_storage=persistant_object_storage
         )
         self.docker_py_project = self.service.get_project(
             namespace="rpms", repo="python-docker", username="lachmanfrantisek"
