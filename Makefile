@@ -26,3 +26,14 @@ check-pypi-packaging:
 		&& python3 -c "import ogr; assert ogr.__version__" \
 		&& pip3 show -f $(PY_PACKAGE) | ( grep test && exit 1 || :) \
 		'
+
+remove-response-files-github:
+	rm -rf ./tests/integration/test_data/test_github*
+
+remove-response-files-pagure:
+	rm -rf ./tests/integration/test_data/test_pagure*
+
+remove-response-files-gitlab:
+	rm -rf ./tests/integration/test_data/test_gitlab*
+
+remove-response-files: remove-response-files-github remove-response-files-pagure remove-response-files-gitlab
