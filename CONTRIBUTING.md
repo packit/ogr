@@ -69,6 +69,15 @@ make prepare-check && make check
 
 As a CI we use [CentOS CI](https://ci.centos.org/job/ogr-pr/) with a configuration in [Jenkinsfile](Jenkinsfile).
 
+
+When running the tests we are using the pregenerated responses that are saved in the ./tests/integration/test_data.
+If you need to generate a new file, just run the tests and provide environment variables for the service.
+The missing file will be automatically generated from the real response. Do not forget to commit the file as well.
+
+If you need to regenerate a response file, just remove it and rerun the tests.
+(There are Makefile targets for removing the response files: `remove-response-files`, `remove-response-files-github`, `remove-response-files-gitlab`, `remove-response-files-pagure`.)
+
+
 ### Makefile
 
 #### Requirements
