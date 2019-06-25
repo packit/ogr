@@ -411,6 +411,17 @@ class PagureProject(BaseGitProject):
         if self.is_fork:
             raise OgrException("Cannot create fork from fork.")
 
+        user_url = self.service.get_api_url("user", self.service.user.get_username())
+        user_forks = self.service.call_api(user_url)["forks"]
+        for fork in user_forks:
+            if fork["parent"] == self.repo:
+                return PagureProject(
+                    repo=fork["name"],
+                    namespace=fork["namespace"],
+                    service=self.service,
+                    is_fork=True,
+                )
+
         if not self.is_forked():
             if create:
                 return self.fork_create()
