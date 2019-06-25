@@ -155,6 +155,17 @@ class GithubProject(BaseGitProject):
         :param create: create a fork if it doesn't exist
         :return: instance of GithubProject
         """
+        username = self.service.user.get_username()
+        for fork in self.github_repo.get_forks():
+            if fork.owner.login == username:
+                return GithubProject(
+                    repo=fork.name,
+                    namespace=username,
+                    github_repo=fork,
+                    service=self.service,
+                    read_only=self.read_only,
+                )
+
         if not self.is_forked():
             if create:
                 return self.fork_create()
