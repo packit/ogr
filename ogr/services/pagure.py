@@ -67,7 +67,15 @@ class PagureService(BaseGitService):
         response = self.call_api_raw(url=url, method=method, params=params, data=data)
 
         if response.status_code == 404:
-            raise PagureAPIException(f"Page `{url}` not found when calling Pagure API.")
+            error_msg = (
+                response.json["error"]
+                if response.json and "error" in response.json
+                else None
+            )
+            raise PagureAPIException(
+                f"Page `{url}` not found when calling Pagure API.",
+                pagure_error=error_msg,
+            )
 
         if not response.json:
             logger.debug(response.content)
@@ -266,7 +274,7 @@ class PagureProject(BaseGitProject):
     def _get_project_url(self, *args, add_fork_part=True, add_api_endpoint_part=True):
         additional_parts = []
         if self._is_fork and add_fork_part:
-            additional_parts += ["fork", self.service.user.get_username()]
+            additional_parts += ["fork", self._user]
         request_url = self.service.get_api_url(
             *additional_parts,
             self.namespace,
