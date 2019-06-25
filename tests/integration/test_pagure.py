@@ -163,7 +163,6 @@ class Forks(PagureTests):
         urls = fork.get_git_urls()
         assert "{username}" not in urls["ssh"]
 
-    @unittest.skip("Exception raised in setup")
     def test_nonexisting_fork(self):
         abiword_project_non_existing_fork = self.service.get_project(
             namespace="rpms",
@@ -174,7 +173,7 @@ class Forks(PagureTests):
         assert not abiword_project_non_existing_fork.exists()
         with self.assertRaises(PagureAPIException) as ex:
             abiword_project_non_existing_fork.get_description()
-        assert "Project not found" in ex.pagure_error
+        assert "Project not found" in ex.exception.pagure_error
 
     def test_fork_property(self):
         fork = self.abiword_project.get_fork()
