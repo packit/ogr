@@ -12,14 +12,14 @@ class IssueStatus(IntEnum):
 
 class Issue:
     def __init__(
-            self,
-            title: str,
-            id: int,
-            status: IssueStatus,
-            url: str,
-            description: str,
-            author: str,
-            created: datetime.datetime,
+        self,
+        title: str,
+        id: int,
+        status: IssueStatus,
+        url: str,
+        description: str,
+        author: str,
+        created: datetime.datetime,
     ) -> None:
         self.title = title
         self.id = id
@@ -366,11 +366,7 @@ class GitProject:
         """
         raise NotImplementedError()
 
-    def issue_comment(
-        self,
-        issue_id: int,
-        body: str
-    ) -> "IssueComment":
+    def issue_comment(self, issue_id: int, body: str) -> "IssueComment":
         """
         Add new comment to the issue.
 
@@ -380,11 +376,7 @@ class GitProject:
         """
         raise NotImplementedError()
 
-    def create_issue(
-            self,
-            title: str,
-            body: str
-    ) -> Issue:
+    def create_issue(self, title: str, body: str) -> Issue:
         """
         Open new Issue.
 
@@ -394,10 +386,7 @@ class GitProject:
         """
         raise NotImplementedError()
 
-    def issue_close(
-        self,
-        issue_id: int
-    ) -> Issue:
+    def issue_close(self, issue_id: int) -> Issue:
         """
         Close an issue
 
@@ -406,10 +395,7 @@ class GitProject:
         """
         raise NotImplementedError()
 
-    def get_issue_labels(
-        self,
-        issue_id: int
-    ) -> List:
+    def get_issue_labels(self, issue_id: int) -> List:
         """
         Get list of issue's labels.
 

@@ -129,10 +129,7 @@ class GitProjectReadOnly:
 
     @classmethod
     def issue_comment(
-            cls,
-            original_object: Any,
-            issue_id: int,
-            body: str
+        cls, original_object: Any, issue_id: int, body: str
     ) -> "IssueComment":
         issue = original_object.get_issue_info(issue_id)
         log_output(issue)

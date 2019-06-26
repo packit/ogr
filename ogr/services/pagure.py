@@ -48,8 +48,7 @@ class PagureService(BaseGitService):
         else:
             self.session.mount("https://", adapter)
 
-        if self._token:
-            self.header = {"Authorization": "token " + self._token}
+        self.header = {"Authorization": "token " + self._token} if self._token else {}
 
     def get_project(self, **kwargs) -> "PagureProject":
         return PagureProject(service=self, **kwargs)
