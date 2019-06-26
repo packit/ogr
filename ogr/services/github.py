@@ -10,9 +10,14 @@ from github import (
 )
 from github.GitRelease import GitRelease as GithubRelease
 from github.PullRequest import PullRequest as GithubPullRequest
+from github.Issue import Issue as GithubIssue
+from github.Label import Label as GithubLabel
 
 from ogr.abstract import (
     GitUser,
+    Issue,
+    IssueComment,
+    IssueStatus,
     PullRequest,
     PRComment,
     PRStatus,
@@ -160,6 +165,78 @@ class GithubProject(BaseGitProject):
                 )
                 return None
         return self._construct_fork_project()
+
+    def get_issue_list(self, status: IssueStatus = IssueStatus.open) -> List[Issue]:
+        issues = self.github_repo.get_issues(
+            state=status.name, sort="updated", direction="desc"
+        )
+        try:
+            return [self._issue_from_github_object(issue) for issue in issues]
+        except UnknownObjectException:
+            return []
+
+    def get_issue_info(self, issue_id: int) -> Issue:
+        issue = self.github_repo.get_issue(number=issue_id)
+        return self._issue_from_github_object(issue)
+
+    def _get_all_issue_comments(self, issue_id: int) -> List[IssueComment]:
+        issue = self.github_repo.get_pull(number=issue_id)
+        return [
+            self._issuecomment_from_github_object(raw_comment)
+            for raw_comment in issue.get_issue_comments()
+        ]
+
+    def issue_comment(
+            self,
+            issue_id: int,
+            body: str
+    ) -> IssueComment:
+        """
+        Create comment on an issue.
+
+        :param issue_id: int The ID of the issue
+        :param body: str The text of the comment
+        :return: IssueComment
+        """
+        github_issue = self.github_repo.get_issue(number=issue_id)
+        comment = github_issue.create_comment(body)
+        return self._issuecomment_from_github_object(comment)
+
+    def create_issue(
+        self,
+        title: str,
+        body: str
+    ) -> Issue:
+        github_issue = self.github_repo.create_issue(title=title, body=body)
+        return self._issue_from_github_object(github_issue)
+
+    def issue_close(self, issue_id: int) -> Issue:
+        issue = self.github_repo.get_issue(number=issue_id)
+        issue.edit(state="closed")
+        return issue
+
+    def get_issue_labels(
+        self,
+        issue_id: int
+    ) -> List[GithubLabel]:
+        """
+        Get list of issue's labels.
+        :issue_id: int
+        :return: [GithubLabel]
+        """
+        issue = self.github_repo.get_issue(number=issue_id)
+        return list(issue.get_labels())
+
+    def add_issue_labels(self, issue_id, labels) -> None:
+        """
+        Add labels the the Issue.
+
+        :param issue_id: int
+        :param labels: [str]
+        """
+        issue = self.github_repo.get_issue(number=issue_id)
+        for label in labels:
+            issue.add_to_labels(label)
 
     def get_pr_list(self, status: PRStatus = PRStatus.open) -> List[PullRequest]:
         prs = self.github_repo.get_pulls(
@@ -310,10 +387,22 @@ class GithubProject(BaseGitProject):
             raise FileNotFoundError(f"File '{path}' on {ref} not found", ex)
 
     @staticmethod
+    def _issue_from_github_object(github_issue: GithubIssue) -> Issue:
+        return Issue(
+            title=github_issue.title,
+            id=github_issue.number,
+            status=IssueStatus[github_issue.state],
+            url=github_issue.html_url,
+            description=github_issue.body,
+            author=github_issue.user.name,
+            created=github_issue.created_at,
+        )
+
+    @staticmethod
     def _pr_from_github_object(github_pr: GithubPullRequest) -> PullRequest:
         return PullRequest(
             title=github_pr.title,
-            id=github_pr.id,
+            id=github_pr.number,
             status=PRStatus[github_pr.state],
             url=github_pr.html_url,
             description=github_pr.body,
@@ -321,6 +410,15 @@ class GithubProject(BaseGitProject):
             source_branch=github_pr.head.ref,
             target_branch=github_pr.base.ref,
             created=github_pr.created_at,
+        )
+
+    @staticmethod
+    def _issuecomment_from_github_object(raw_comment: GithubIssueComment) -> IssueComment:
+        return IssueComment(
+            comment=raw_comment.body,
+            author=raw_comment.user.login,
+            created=raw_comment.created_at,
+            edited=raw_comment.updated_at,
         )
 
     @staticmethod
