@@ -419,16 +419,10 @@ class PagureProject(BaseGitProject):
         if self.is_fork:
             raise OgrException("Cannot create fork from fork.")
 
-        user_url = self.service.get_api_url("user", self.service.user.get_username())
-        user_forks = self.service.call_api(user_url)["forks"]
-        for fork in user_forks:
-            if fork["parent"] == self.repo:
-                return PagureProject(
-                    repo=fork["name"],
-                    namespace=fork["namespace"],
-                    service=self.service,
-                    is_fork=True,
-                )
+        for fork in self.get_forks():
+            fork_info = fork.get_project_info()
+            if self._user in fork_info["user"]["name"]:
+                return fork
 
         if not self.is_forked():
             if create:
@@ -595,6 +589,28 @@ class PagureProject(BaseGitProject):
         }
         return tags_dict
 
+    def get_forks(self) -> List["PagureProject"]:
+        """
+        Get forks of the project.
+
+        :return: [PagureProject]
+        """
+        forks_url = self.service.get_api_url("projects")
+        projects_response = self.service.call_api(
+            url=forks_url, params={"fork": True, "pattern": self.repo}
+        )
+        fork_objects = [
+            PagureProject(
+                repo=fork["name"],
+                namespace=fork["namespace"],
+                service=self.service,
+                username=fork["user"]["name"],
+                is_fork=True,
+            )
+            for fork in projects_response["projects"]
+        ]
+        return fork_objects
+
 
 class PagureUser(BaseGitUser):
     service: PagureService
@@ -607,3 +623,32 @@ class PagureUser(BaseGitUser):
 
         return_value = self.service.call_api(url=request_url, method="POST", data={})
         return return_value["username"]
+
+    def get_projects(self) -> List["PagureProject"]:
+        user_url = self.service.get_api_url("user", self.get_username())
+        raw_projects = self.service.call_api(user_url)["repos"]
+
+        project_objects = [
+            PagureProject(
+                repo=project["name"],
+                namespace=project["namespace"],
+                service=self.service,
+            )
+            for project in raw_projects
+        ]
+        return project_objects
+
+    def get_forks(self) -> List["PagureProject"]:
+        user_url = self.service.get_api_url("user", self.get_username())
+        raw_forks = self.service.call_api(user_url)["forks"]
+
+        fork_objects = [
+            PagureProject(
+                repo=fork["name"],
+                namespace=fork["namespace"],
+                service=self.service,
+                is_fork=True,
+            )
+            for fork in raw_forks
+        ]
+        return fork_objects
