@@ -186,11 +186,7 @@ class GithubProject(BaseGitProject):
             for raw_comment in issue.get_issue_comments()
         ]
 
-    def issue_comment(
-            self,
-            issue_id: int,
-            body: str
-    ) -> IssueComment:
+    def issue_comment(self, issue_id: int, body: str) -> IssueComment:
         """
         Create comment on an issue.
 
@@ -202,11 +198,7 @@ class GithubProject(BaseGitProject):
         comment = github_issue.create_comment(body)
         return self._issuecomment_from_github_object(comment)
 
-    def create_issue(
-        self,
-        title: str,
-        body: str
-    ) -> Issue:
+    def create_issue(self, title: str, body: str) -> Issue:
         github_issue = self.github_repo.create_issue(title=title, body=body)
         return self._issue_from_github_object(github_issue)
 
@@ -215,10 +207,7 @@ class GithubProject(BaseGitProject):
         issue.edit(state="closed")
         return issue
 
-    def get_issue_labels(
-        self,
-        issue_id: int
-    ) -> List[GithubLabel]:
+    def get_issue_labels(self, issue_id: int) -> List[GithubLabel]:
         """
         Get list of issue's labels.
         :issue_id: int
@@ -413,7 +402,9 @@ class GithubProject(BaseGitProject):
         )
 
     @staticmethod
-    def _issuecomment_from_github_object(raw_comment: GithubIssueComment) -> IssueComment:
+    def _issuecomment_from_github_object(
+        raw_comment: GithubIssueComment
+    ) -> IssueComment:
         return IssueComment(
             comment=raw_comment.body,
             author=raw_comment.user.login,
