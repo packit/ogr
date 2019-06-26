@@ -21,15 +21,15 @@ class GithubTests(unittest.TestCase):
         persistent_data_file = os.path.join(
             PERSISTENT_DATA_PREFIX, f"test_github_data_{test_name}.yaml"
         )
-        persistant_object_storage = PersistentObjectStorage(persistent_data_file)
+        persistent_object_storage = PersistentObjectStorage(persistent_data_file)
 
-        if persistant_object_storage.is_write_mode and (
+        if persistent_object_storage.is_write_mode and (
             not self.user or not self.token
         ):
             raise EnvironmentError("please set GITHUB_TOKEN GITHUB_USER env variables")
 
         self.service = GithubService(
-            token=self.token, persistent_storage=persistant_object_storage
+            token=self.token, persistent_storage=persistent_object_storage
         )
         self.colin_project = self.service.get_project(
             namespace="user-cont", repo="colin"
@@ -182,7 +182,7 @@ class PullRequests(GithubTests):
 
         pr_list = self.colin_project.get_pr_list()
         assert pr_list
-        assert len(pr_list) >= 2
+        assert len(pr_list) >= 1
 
     def test_pr_info(self):
         pr_info = self.colin_project.get_pr_info(pr_id=1)

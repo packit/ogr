@@ -228,11 +228,9 @@ class PersistentObjectStorage:
                 if not current_level.get(item):
                     current_level[item] = {}
             else:
-                # do not override if key is already there
-                # manually remove the file if you want to renew this
-                if current_level.get(item):
-                    return
-                current_level[item] = values
+                current_level.setdefault(item, [])
+                current_level[item].append(values)
+
             current_level = current_level[item]
         self.is_flushed = False
 
@@ -252,13 +250,22 @@ class PersistentObjectStorage:
         current_level = self.storage_object
         hashable_keys = self.transform_hashable(keys)
         for item in hashable_keys:
-            try:
-                current_level = current_level[item]
-            except KeyError:
+
+            if item not in current_level:
                 raise PersistenStorageException(
                     f"Keys not in storage:{self.storage_file} {hashable_keys}"
                 )
-        return current_level
+
+            current_level = current_level[item]
+
+        if len(current_level) == 0:
+            raise PersistenStorageException(
+                "No responses left. Try to regenerate response files."
+            )
+
+        result = current_level[0]
+        del current_level[0]
+        return result
 
     def dump(self) -> None:
         """
