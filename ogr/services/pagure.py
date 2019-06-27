@@ -50,6 +50,10 @@ class PagureService(BaseGitService):
 
         self.header = {"Authorization": "token " + self._token} if self._token else {}
 
+    def __str__(self) -> str:
+        return (
+            f"Pagure-Service"
+        )
     def get_project(self, **kwargs) -> "PagureProject":
         return PagureProject(service=self, **kwargs)
 
@@ -618,6 +622,10 @@ class PagureUser(BaseGitUser):
     def __init__(self, service: PagureService) -> None:
         super().__init__(service=service)
 
+    def __str__(self) -> str:
+        return (
+            f"Pagure-User"
+        )
     def get_username(self) -> str:
         request_url = self.service.get_api_url("-", "whoami")
 
