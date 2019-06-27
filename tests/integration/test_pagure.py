@@ -146,6 +146,14 @@ class PullRequests(PagureTests):
         assert pr_info.title.startswith("Update Python 2 dependency")
         assert pr_info.status == PRStatus.merged
 
+    def test_update_pr_info(self):
+        self.abiword_project.update_pr_info(
+            pr_id=1, title="new", description="new description"
+        )
+        pr_info = self.abiword_project.get_pr_info(pr_id=1)
+        assert pr_info.title == "new"
+        assert pr_info.description == "new description"
+
 
 class Forks(PagureTests):
     def test_fork(self):

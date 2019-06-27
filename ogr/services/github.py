@@ -35,6 +35,7 @@ from github.PullRequest import PullRequest as GithubPullRequest
 from github.Issue import Issue as GithubIssue
 from github.Label import Label as GithubLabel
 
+
 from ogr.abstract import (
     GitUser,
     Issue,
@@ -290,6 +291,24 @@ class GithubProject(BaseGitProject):
             title=title, body=body, base=target_branch, head=source_branch
         )
         return self._pr_from_github_object(created_pr)
+
+    def update_pr_info(self, pr_id: int, title: str, description: str):
+        """
+        Update pull-request information.
+
+        :param pr_id: int The ID of the pull request
+        :param title: str The title of the pull request
+        :param description str The description of the pull request
+        :return: PullRequest
+        """
+        pr = self.github_repo.get_pull(number=pr_id)
+        try:
+            pr.edit(title=title, body=description)
+            logger.info(f"PR updated: {pr.url}")
+            return self._pr_from_github_object(pr)
+        except Exception as ex:
+            logger.error("there was an error while update a PR: %r", ex)
+            raise
 
     @if_readonly(
         return_function=GitProjectReadOnly.pr_comment,

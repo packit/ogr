@@ -410,6 +410,28 @@ class PagureProject(BaseGitProject):
         pr_object = self._pr_from_pagure_dict(return_value)
         return pr_object
 
+    def update_pr_info(self, pr_id: int, title: str, description: str):
+        """
+        Update pull-request information.
+
+        :param pr_id: int The ID of the pull request
+        :param title: str The title of the pull request
+        :param description str The description of the pull request
+        :return: PullRequest
+        """
+        try:
+            updated_pr = self._call_project_api(
+                "pull-request",
+                str(pr_id),
+                method="POST",
+                data={"title": title, "initial_comment": description},
+            )
+            logger.info(f"PR updated.")
+            return self._pr_from_pagure_dict(updated_pr)
+        except Exception as ex:
+            logger.error("there was an error while update a PR: %r", ex)
+            raise
+
     @if_readonly(return_function=GitProjectReadOnly.fork_create)
     def fork_create(self) -> "PagureProject":
         request_url = self.service.get_api_url("fork")
