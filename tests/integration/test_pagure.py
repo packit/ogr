@@ -22,15 +22,15 @@ class PagureTests(unittest.TestCase):
             PERSISTENT_DATA_PREFIX, f"test_pagure_data_{test_name}.yaml"
         )
 
-        persistant_object_storage = PersistentObjectStorage(persistent_data_file)
+        persistent_object_storage = PersistentObjectStorage(persistent_data_file)
 
-        if persistant_object_storage.is_write_mode and (
+        if persistent_object_storage.is_write_mode and (
             not self.user or not self.token
         ):
             raise EnvironmentError("please set PAGURE_TOKEN PAGURE_USER env variables")
 
         self.service = PagureMockAPI(
-            token=self.token, persistent_storage=persistant_object_storage
+            token=self.token, persistent_storage=persistent_object_storage
         )
         self.docker_py_project = self.service.get_project(
             namespace="rpms", repo="python-docker", username="lachmanfrantisek"
@@ -163,7 +163,6 @@ class Forks(PagureTests):
         urls = fork.get_git_urls()
         assert "{username}" not in urls["ssh"]
 
-    @unittest.skip("Exception raised in setup")
     def test_nonexisting_fork(self):
         abiword_project_non_existing_fork = self.service.get_project(
             namespace="rpms",
@@ -174,16 +173,24 @@ class Forks(PagureTests):
         assert not abiword_project_non_existing_fork.exists()
         with self.assertRaises(PagureAPIException) as ex:
             abiword_project_non_existing_fork.get_description()
-        assert "Project not found" in ex.pagure_error
+        assert "Project not found" in ex.exception.pagure_error
 
     def test_fork_property(self):
         fork = self.abiword_project.get_fork()
         assert fork
         assert fork.get_description()
 
-    @unittest.skip("Need to be investigated")
     def test_create_fork(self):
-        not_existing_fork = self.docker_py_project.get_fork()
+        not_existing_fork = self.docker_py_project.get_fork(create=False)
         assert not not_existing_fork
+        assert not self.docker_py_project.is_forked()
+
+        old_forks = self.docker_py_project.service.user.get_forks()
+
         self.docker_py_project.fork_create()
+
         assert self.docker_py_project.get_fork().exists()
+        assert self.docker_py_project.is_forked()
+
+        new_forks = self.docker_py_project.service.user.get_forks()
+        assert len(old_forks) == len(new_forks) - 1

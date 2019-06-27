@@ -155,6 +155,11 @@ class GithubProject(BaseGitProject):
         :param create: create a fork if it doesn't exist
         :return: instance of GithubProject
         """
+        username = self.service.user.get_username()
+        for fork in self.get_forks():
+            if fork.github_repo.owner.login == username:
+                return fork
+
         if not self.is_forked():
             if create:
                 return self.fork_create()
@@ -498,6 +503,24 @@ class GithubProject(BaseGitProject):
             for release in releases
         ]
 
+    def get_forks(self) -> List["GithubProject"]:
+        """
+        Get forks of the project.
+
+        :return: [PagureProject]
+        """
+        fork_objects = [
+            GithubProject(
+                repo=fork.name,
+                namespace=fork.owner.login,
+                github_repo=fork,
+                service=self.service,
+                read_only=self.read_only,
+            )
+            for fork in self.github_repo.get_forks()
+        ]
+        return fork_objects
+
 
 class GithubUser(BaseGitUser):
     service: GithubService
@@ -505,5 +528,25 @@ class GithubUser(BaseGitUser):
     def __init__(self, service: GithubService) -> None:
         super().__init__(service=service)
 
+    @property
+    def _github_user(self):
+        return self.service.github.get_user()
+
     def get_username(self) -> str:
         return self.service.github.get_user().login
+
+    def get_projects(self) -> List["GithubProject"]:
+        raw_repos = self._github_user.get_repos(affiliation="owner")
+        return [
+            GithubProject(
+                repo=repo.name,
+                namespace=repo.owner.login,
+                github_repo=repo,
+                service=self.service,
+            )
+            for repo in raw_repos
+        ]
+
+    def get_forks(self) -> List["GithubProject"]:
+        forks = [project for project in self.get_projects() if project.github_repo.fork]
+        return forks

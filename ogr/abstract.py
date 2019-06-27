@@ -608,6 +608,14 @@ class GitProject:
         """
         raise NotImplementedError
 
+    def get_forks(self):
+        """
+        Get forks of the project.
+
+        :return: [GitProject]
+        """
+        raise NotImplementedError
+
 
 class GitUser:
     def __init__(self, service: GitService) -> None:
@@ -615,3 +623,9 @@ class GitUser:
 
     def get_username(self) -> str:
         raise NotImplementedError()
+
+    def get_projects(self):
+        raise NotImplementedError
+
+    def get_forks(self):
+        raise NotImplementedError
