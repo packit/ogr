@@ -131,9 +131,9 @@ class GithubProject(BaseGitProject):
 
     def __str__(self) -> str:
         return (
-            f"Github-Project"
+            f"Github-Project("
             f"namespace: '{self.namespace}'"
-            f"repo: '{self.repo}'"
+            f"repo: '{self.repo}')"
         )
 
     def _construct_fork_project(self) -> Optional["GithubProject"]:
@@ -583,7 +583,8 @@ class GithubUser(BaseGitUser):
 
     def __str__(self) -> str:
         return (
-            f"Github-User"
+            f"Github-User("
+            f"Username:'{self.service.github.get_user()}')"
         )
     @property
     def _github_user(self):
