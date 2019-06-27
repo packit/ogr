@@ -38,6 +38,10 @@ class GithubTests(unittest.TestCase):
             namespace="user-cont", repo="colin", is_fork=True
         )
 
+        self.not_forked_project = self.service.get_project(
+            namespace="fedora-modularity", repo="fed-to-brew"
+        )
+
     def tearDown(self):
         self.service.persistent_storage.dump()
 
@@ -215,13 +219,6 @@ class Forks(GithubTests):
         assert fork
         assert fork.get_description()
 
-    @unittest.skip("does not work when you don't have fork already created")
-    def test_create_fork(self):
-        not_existing_fork = self.colin_project.get_fork()
-        assert not not_existing_fork
-        self.colin_project.fork_create()
-        assert self.colin_project.get_fork().exists()
-
     def test_is_fork(self):
         assert not self.colin_project.is_fork
         is_forked = self.colin_project.is_forked()
@@ -233,3 +230,18 @@ class Forks(GithubTests):
         fork = self.colin_project.get_fork(create=False)
         assert fork
         assert fork.is_fork
+
+    def test_create_fork(self):
+        not_existing_fork = self.not_forked_project.get_fork(create=False)
+        assert not not_existing_fork
+        assert not self.not_forked_project.is_forked()
+
+        old_forks = self.not_forked_project.service.user.get_forks()
+
+        self.not_forked_project.fork_create()
+
+        assert self.not_forked_project.get_fork().get_description()
+        assert self.not_forked_project.is_forked()
+
+        new_forks = self.not_forked_project.service.user.get_forks()
+        assert len(old_forks) == len(new_forks) - 1

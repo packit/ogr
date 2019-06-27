@@ -180,9 +180,17 @@ class Forks(PagureTests):
         assert fork
         assert fork.get_description()
 
-    @unittest.skip("Need to be investigated")
     def test_create_fork(self):
-        not_existing_fork = self.docker_py_project.get_fork()
+        not_existing_fork = self.docker_py_project.get_fork(create=False)
         assert not not_existing_fork
+        assert not self.docker_py_project.is_forked()
+
+        old_forks = self.docker_py_project.service.user.get_forks()
+
         self.docker_py_project.fork_create()
+
         assert self.docker_py_project.get_fork().exists()
+        assert self.docker_py_project.is_forked()
+
+        new_forks = self.docker_py_project.service.user.get_forks()
+        assert len(old_forks) == len(new_forks) - 1
