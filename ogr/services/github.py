@@ -78,6 +78,10 @@ class GithubService(BaseGitService):
         self.github = self.github_class(login_or_token=self._token)
         self.read_only = read_only
 
+    def __str__(self)-> str:
+        return (
+            f"Github-Service"
+        )
     def get_project(
         self, repo=None, namespace=None, is_fork=False, **kwargs
     ) -> "GithubProject":
@@ -124,6 +128,13 @@ class GithubProject(BaseGitProject):
                 full_name_or_id=f"{namespace}/{repo}"
             )
         self.read_only = read_only
+
+    def __str__(self) -> str:
+        return (
+            f"Github-Project"
+            f"namespace: '{self.namespace}'"
+            f"repo: '{self.repo}'"
+        )
 
     def _construct_fork_project(self) -> Optional["GithubProject"]:
         gh_user = self.service.github.get_user()
@@ -570,6 +581,10 @@ class GithubUser(BaseGitUser):
     def __init__(self, service: GithubService) -> None:
         super().__init__(service=service)
 
+    def __str__(self) -> str:
+        return (
+            f"Github-User"
+        )
     @property
     def _github_user(self):
         return self.service.github.get_user()
