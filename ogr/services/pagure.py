@@ -202,7 +202,7 @@ class PagureProject(BaseGitProject):
         self.namespace = namespace
 
     def __str__(self) -> str:
-        return f"namespace={self.namespace} repo={self.repo}"
+        return f"namespace=\"{self.namespace}\" repo=\"{self.repo}\""
 
     def __repr__(self) -> str:
         return f"PagureProject(namespace={self.namespace}, repo={self.repo})"
