@@ -429,8 +429,7 @@ class PagureProject(BaseGitProject):
             logger.info(f"PR updated.")
             return self._pr_from_pagure_dict(updated_pr)
         except Exception as ex:
-            logger.error("there was an error while update a PR: %r", ex)
-            raise
+            raise PagureAPIException("there was an error while updating the PR", ex)
 
     @if_readonly(return_function=GitProjectReadOnly.fork_create)
     def fork_create(self) -> "PagureProject":

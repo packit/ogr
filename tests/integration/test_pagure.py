@@ -148,6 +148,13 @@ class PullRequests(PagureTests):
 
     def test_update_pr_info(self):
         self.abiword_project.update_pr_info(
+            pr_id=1, title="changed", description="changed description"
+        )
+        pr_info = self.abiword_project.get_pr_info(pr_id=1)
+        assert pr_info.title == "changed"
+        assert pr_info.description == "changed description"
+
+        self.abiword_project.update_pr_info(
             pr_id=1, title="new", description="new description"
         )
         pr_info = self.abiword_project.get_pr_info(pr_id=1)

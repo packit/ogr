@@ -35,7 +35,7 @@ from github.PullRequest import PullRequest as GithubPullRequest
 from github.Issue import Issue as GithubIssue
 from github.Label import Label as GithubLabel
 
-
+from ogr.exceptions import GithubAPIException
 from ogr.abstract import (
     GitUser,
     Issue,
@@ -302,13 +302,14 @@ class GithubProject(BaseGitProject):
         :return: PullRequest
         """
         pr = self.github_repo.get_pull(number=pr_id)
+        if not pr:
+            raise GithubAPIException("PR was not found.")
         try:
             pr.edit(title=title, body=description)
             logger.info(f"PR updated: {pr.url}")
             return self._pr_from_github_object(pr)
         except Exception as ex:
-            logger.error("there was an error while update a PR: %r", ex)
-            raise
+            raise GithubAPIException("there was an error while updating the PR", ex)
 
     @if_readonly(
         return_function=GitProjectReadOnly.pr_comment,
