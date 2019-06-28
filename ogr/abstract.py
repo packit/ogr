@@ -25,6 +25,8 @@ from enum import IntEnum
 from typing import Optional, Match, List, Dict
 from urllib.request import urlopen
 
+from ogr.parsing import parse_git_repo
+
 
 class IssueStatus(IntEnum):
     open = 1
@@ -258,6 +260,11 @@ class GitService:
         :return: GitProject
         """
         raise NotImplementedError
+
+    def get_project_from_url(self, url: str) -> "GitProject":
+        repo_url = parse_git_repo(potential_url=url)
+        project = self.get_project(repo=repo_url.repo, namespace=repo_url.namespace)
+        return project
 
     @property
     def user(self) -> "GitUser":

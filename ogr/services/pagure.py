@@ -37,6 +37,7 @@ from ogr.exceptions import (
 from ogr.mock_core import if_readonly, GitProjectReadOnly, PersistentObjectStorage
 from ogr.services.base import BaseGitService, BaseGitProject, BaseGitUser
 from ogr.utils import RequestResponse
+from ogr.parsing import parse_git_repo
 
 logger = logging.getLogger(__name__)
 
@@ -77,6 +78,16 @@ class PagureService(BaseGitService):
 
     def get_project(self, **kwargs) -> "PagureProject":
         return PagureProject(service=self, **kwargs)
+
+    def get_project_from_url(self, url: str) -> "PagureProject":
+        repo_url = parse_git_repo(potential_url=url)
+        project = self.get_project(
+            repo=repo_url.repo,
+            namespace=repo_url.namespace,
+            is_fork=repo_url.is_fork,
+            username=repo_url.username,
+        )
+        return project
 
     @property
     def user(self) -> "PagureUser":

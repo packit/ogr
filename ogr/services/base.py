@@ -24,10 +24,14 @@ from typing import List, Optional, Match, Any
 
 from ogr.abstract import GitService, GitProject, PRComment, GitUser
 from ogr.utils import search_in_comments, filter_comments
+from ogr.parsing import parse_git_repo
 
 
 class BaseGitService(GitService):
-    pass
+    def get_project_from_url(self, url: str) -> "GitProject":
+        repo_url = parse_git_repo(potential_url=url)
+        project = self.get_project(repo=repo_url.repo, namespace=repo_url.namespace)
+        return project
 
 
 class BaseGitProject(GitProject):
