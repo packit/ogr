@@ -33,3 +33,8 @@ try:
 except DistributionNotFound:
     # package is not installed
     pass
+
+from ogr.services.github import GithubService
+from ogr.services.pagure import PagureService
+
+__all__ = [GithubService.__name__, PagureService.__name__]
