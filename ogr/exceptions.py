@@ -33,6 +33,14 @@ class PagureAPIException(OgrException):
         self.pagure_error = pagure_error
 
 
+class GithubAPIException(OgrException):
+    """ Exception related to Github API """
+
+    def __init__(self, *args: object, github_error: str = None) -> None:
+        super().__init__(*args)
+        self.github_error = github_error
+
+
 class PersistenStorageException(OgrException):
     """ Mocking Exceptions for persistent storage of objects """
 

@@ -146,6 +146,25 @@ class PullRequests(PagureTests):
         assert pr_info.title.startswith("Update Python 2 dependency")
         assert pr_info.status == PRStatus.merged
 
+    @unittest.skip("No TOKEN is able to do it for now.")
+    def test_update_pr_info(self):
+        packit_prject = self.service.get_project(namespace="rpms", repo="packit")
+
+        pr_id = 1
+        packit_prject.update_pr_info(
+            pr_id=pr_id, title="changed", description="changed description"
+        )
+        pr_info = packit_prject.get_pr_info(pr_id=pr_id)
+        assert pr_info.title == "changed"
+        assert pr_info.description == "changed description"
+
+        packit_prject.update_pr_info(
+            pr_id=pr_id, title="new", description="new description"
+        )
+        pr_info = packit_prject.get_pr_info(pr_id=pr_id)
+        assert pr_info.title == "new"
+        assert pr_info.description == "new description"
+
 
 class Forks(PagureTests):
     def test_fork(self):
