@@ -61,6 +61,7 @@ class GithubService(BaseGitService):
     # class parameter could be used to mock Github class api
     github_class: Type[github.Github]
     persistent_storage: Optional[PersistentObjectStorage] = None
+    instance_url = "https://github.com"
 
     def __init__(
         self,
@@ -132,7 +133,7 @@ class GithubProject(BaseGitProject):
         self.read_only = read_only
 
     def __str__(self) -> str:
-        return f'GithubProject(namespace= "{self.namespace}", repo= "{self.repo}")'
+        return f'GithubProject(namespace="{self.namespace}", repo="{self.repo}")'
 
     def _construct_fork_project(self) -> Optional["GithubProject"]:
         gh_user = self.service.github.get_user()

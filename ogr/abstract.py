@@ -237,6 +237,8 @@ class GitTag:
 
 
 class GitService:
+    instance_url: Optional[str] = None
+
     def __init__(self, **_):
         pass
 

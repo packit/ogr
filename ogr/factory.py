@@ -21,7 +21,7 @@
 # SOFTWARE.
 
 import functools
-from typing import Dict, Type
+from typing import Dict, Type, List
 
 from ogr.abstract import GitService, GitProject
 from ogr.exceptions import OgrException
@@ -42,10 +42,22 @@ def use_for_service(service, _func=None):
 
 
 def get_project(
-    url, service_mapping_update: Dict[str, Type[GitService]] = None, **kwargs
+    url,
+    service_mapping_update: Dict[str, Type[GitService]] = None,
+    custom_instances: List[GitService] = None,
+    **kwargs,
 ) -> GitProject:
     kls = get_service_class(url=url, service_mapping_update=service_mapping_update)
-    service = kls(**kwargs)
+
+    if custom_instances:
+        for service_inst in custom_instances:
+            if isinstance(service_inst, kls) and service_inst.instance_url in url:
+                service = service_inst
+                break
+        else:
+            raise OgrException(f"Instance of type {kls.__name__} was not provided.")
+    else:
+        service = kls(**kwargs)
     project = service.get_project_from_url(url=url)
     return project
 

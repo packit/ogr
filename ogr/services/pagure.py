@@ -238,7 +238,7 @@ class PagureProject(BaseGitProject):
         self.namespace = namespace
 
     def __str__(self) -> str:
-        return f'PagureProject(namespace="{self.namespace}",repo="{self.repo}")'
+        return f'PagureProject(namespace="{self.namespace}", repo="{self.repo}")'
 
     @property
     def _user(self) -> str:
