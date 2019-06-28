@@ -48,6 +48,7 @@ from ogr.abstract import (
     CommitComment,
     CommitStatus,
 )
+from ogr.factory import use_for_service
 from ogr.mock_core import if_readonly, GitProjectReadOnly, PersistentObjectStorage
 from ogr.services.base import BaseGitService, BaseGitProject, BaseGitUser
 from ogr.services.mock.github_mock import get_Github_class
@@ -55,6 +56,7 @@ from ogr.services.mock.github_mock import get_Github_class
 logger = logging.getLogger(__name__)
 
 
+@use_for_service("github.com")
 class GithubService(BaseGitService):
     # class parameter could be used to mock Github class api
     github_class: Type[github.Github]
@@ -65,6 +67,7 @@ class GithubService(BaseGitService):
         token=None,
         read_only=False,
         persistent_storage: Optional[PersistentObjectStorage] = None,
+        **_,
     ):
         super().__init__()
         self._token = token

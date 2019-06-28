@@ -34,14 +34,17 @@ from ogr.exceptions import (
     OgrException,
     OperationNotSupported,
 )
+from ogr.factory import use_for_service
 from ogr.mock_core import if_readonly, GitProjectReadOnly, PersistentObjectStorage
+from ogr.parsing import parse_git_repo
 from ogr.services.base import BaseGitService, BaseGitProject, BaseGitUser
 from ogr.utils import RequestResponse
-from ogr.parsing import parse_git_repo
 
 logger = logging.getLogger(__name__)
 
 
+@use_for_service("pagure.io")
+@use_for_service("src.fedoraproject.org")
 class PagureService(BaseGitService):
     persistent_storage: Optional[PersistentObjectStorage] = None
 
@@ -52,6 +55,7 @@ class PagureService(BaseGitService):
         read_only: bool = False,
         persistent_storage: Optional[PersistentObjectStorage] = None,
         insecure: bool = False,
+        **_,
     ) -> None:
         super().__init__()
         self.instance_url = instance_url
