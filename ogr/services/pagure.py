@@ -74,7 +74,9 @@ class PagureService(BaseGitService):
 
     def __str__(self) -> str:
         return (
-            f"Pagure-Service"
+            f"PagureService("
+            f"read_only=\"{self.read_only}\","
+            f"instance_url=\"{self.instance_url}\")"
         )
     def get_project(self, **kwargs) -> "PagureProject":
         return PagureProject(service=self, **kwargs)
@@ -224,7 +226,11 @@ class PagureProject(BaseGitProject):
         self.namespace = namespace
 
     def __str__(self) -> str:
-        return f"namespace=\"{self.namespace}\" repo=\"{self.repo}\""
+        return (
+            f"PagureProject("
+            f"namespace=\"{self.namespace}\"," 
+            f"repo=\"{self.repo}\")"
+        )
 
     def __repr__(self) -> str:
         return f"PagureProject(namespace={self.namespace}, repo={self.repo})"
@@ -667,7 +673,8 @@ class PagureUser(BaseGitUser):
 
     def __str__(self) -> str:
         return (
-            f"Pagure-User"
+            f"PagureUser("
+            f"username=\"{self.get_username()}\")"
         )
     def get_username(self) -> str:
         request_url = self.service.get_api_url("-", "whoami")
