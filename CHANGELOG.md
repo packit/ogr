@@ -9,11 +9,11 @@
 ## Fixes
 
 * Better support for forks and forking. (@lachmanfrantisek)
-* Fix problem when Pagure token is not set. (@lachmanfrantisek)
+* Fix a problem when Pagure token is not set. (@lachmanfrantisek)
 
 ## Minor
 
-* Write mode in testing is determined form the file (non)existence. (@lachmanfrantisek)
+* Write mode in testing is determined whether a respective offline file exists or not. (@lachmanfrantisek)
 * Allow saving sequence of responses during tests. (@lachmanfrantisek)
 
 
