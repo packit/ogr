@@ -41,15 +41,24 @@ def use_for_service(service, _func=None):
     return decorator_cover(_func)
 
 
-def get_project(url, **kwargs) -> GitProject:
-    kls = get_service_class(url=url)
+def get_project(
+    url, service_mapping_update: Dict[str, Type[GitService]] = None, **kwargs
+) -> GitProject:
+    kls = get_service_class(url=url, service_mapping_update=service_mapping_update)
     service = kls(**kwargs)
     project = service.get_project_from_url(url=url)
     return project
 
 
-def get_service_class(url: str) -> Type[GitService]:
-    for service, service_kls in _SERVICE_MAPPING.items():
+def get_service_class(
+    url: str, service_mapping_update: Dict[str, Type[GitService]] = None
+) -> Type[GitService]:
+    mapping = {}
+    mapping.update(_SERVICE_MAPPING)
+    if service_mapping_update:
+        mapping.update(service_mapping_update)
+
+    for service, service_kls in mapping.items():
         if service in url:
             return service_kls
     raise OgrException("No matching service was found.")
