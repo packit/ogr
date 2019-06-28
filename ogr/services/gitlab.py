@@ -25,12 +25,7 @@ class GitlabService(GitService):
         self.repo = None
         if full_repo_name:
             self.repo = self.g.projects.get(full_repo_name)
-
-    def __str__(self) -> str:
-        return(
-            f"GitLab Service"
-        )
-        
+            
     @classmethod
     def create_from_remote_url(cls, remote_url, **kwargs):
         """ create instance of service from provided remote_url """
