@@ -1,3 +1,22 @@
+# 0.5.0
+
+## New Features
+
+* Add support for Github issues. (@marusinm)
+* New methods for updating pull-requests. (@lbarcziova)
+* New methods for getting forks for user/project. (@lachmanfrantisek)
+
+## Fixes
+
+* Better support for forks and forking. (@lachmanfrantisek)
+* Fix problem when Pagure token is not set. (@lachmanfrantisek)
+
+## Minor
+
+* Write mode in testing is determined form the file (non)existence. (@lachmanfrantisek)
+* Allow saving sequence of responses during tests. (@lachmanfrantisek)
+
+
 # 0.4.0
 
 * Ogr no longer uses libpagure and calls Pagure API directly.
