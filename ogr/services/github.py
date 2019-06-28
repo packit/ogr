@@ -31,9 +31,9 @@ from github import (
     CommitComment as GithubCommitComment,
 )
 from github.GitRelease import GitRelease as GithubRelease
-from github.PullRequest import PullRequest as GithubPullRequest
 from github.Issue import Issue as GithubIssue
 from github.Label import Label as GithubLabel
+from github.PullRequest import PullRequest as GithubPullRequest
 
 from ogr.exceptions import GithubAPIException
 from ogr.abstract import (
@@ -48,8 +48,8 @@ from ogr.abstract import (
     CommitComment,
     CommitStatus,
 )
-from ogr.services.base import BaseGitService, BaseGitProject, BaseGitUser
 from ogr.mock_core import if_readonly, GitProjectReadOnly, PersistentObjectStorage
+from ogr.services.base import BaseGitService, BaseGitProject, BaseGitUser
 from ogr.services.mock.github_mock import get_Github_class
 
 logger = logging.getLogger(__name__)
@@ -78,11 +78,9 @@ class GithubService(BaseGitService):
         self.github = self.github_class(login_or_token=self._token)
         self.read_only = read_only
 
-    def __str__(self)-> str:
-        return (
-            f"GithubService("
-            f"read_only=\"{self.read_only}\")"
-        )
+    def __str__(self) -> str:
+        return f"GithubService(read_only={self.read_only})"
+
     def get_project(
         self, repo=None, namespace=None, is_fork=False, **kwargs
     ) -> "GithubProject":
@@ -131,11 +129,7 @@ class GithubProject(BaseGitProject):
         self.read_only = read_only
 
     def __str__(self) -> str:
-        return (
-            f"GithubProject("
-            f"namespace= \"{self.namespace}\","
-            f"repo= \"{self.repo}\")"
-        )
+        return f'GithubProject(namespace= "{self.namespace}", repo= "{self.repo}")'
 
     def _construct_fork_project(self) -> Optional["GithubProject"]:
         gh_user = self.service.github.get_user()
@@ -583,10 +577,8 @@ class GithubUser(BaseGitUser):
         super().__init__(service=service)
 
     def __str__(self) -> str:
-        return (
-            f"GithubUser("
-            f"username=\"{self.get_username()}\")"
-        )
+        return f'GithubUser(username="{self.get_username()}")'
+
     @property
     def _github_user(self):
         return self.service.github.get_user()
