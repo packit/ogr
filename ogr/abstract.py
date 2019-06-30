@@ -67,6 +67,30 @@ class Issue:
         )
 
 
+class IssueComment:
+    def __init__(
+            self,
+            comment: str,
+            author: str,
+            created: Optional[datetime.datetime] = None,
+            edited: Optional[datetime.datetime] = None,
+    ) -> None:
+        self.comment = comment
+        self.author = author
+        self.created = created
+        self.edited = edited
+
+    def __str__(self) -> str:
+        comment = f"{self.comment[:10]}..." if self.comment is not None else "None"
+        return (
+            f"IssueComment("
+            f"comment='{comment}', "
+            f"author='{self.author}', "
+            f"created='{self.created}', "
+            f"edited='{self.edited}')"
+        )
+
+
 class PRStatus(IntEnum):
     open = 1
     closed = 2
@@ -112,30 +136,6 @@ class PullRequest:
             f"source_branch='{self.source_branch}', "
             f"target_branch='{self.target_branch}', "
             f"created='{self.created}')"
-        )
-
-
-class IssueComment:
-    def __init__(
-        self,
-        comment: str,
-        author: str,
-        created: Optional[datetime.datetime] = None,
-        edited: Optional[datetime.datetime] = None,
-    ) -> None:
-        self.comment = comment
-        self.author = author
-        self.created = created
-        self.edited = edited
-
-    def __str__(self) -> str:
-        comment = f"{self.comment[:10]}..." if self.comment is not None else "None"
-        return (
-            f"PRComment("
-            f"comment='{comment}', "
-            f"author='{self.author}', "
-            f"created='{self.created}', "
-            f"edited='{self.edited}')"
         )
 
 
