@@ -350,8 +350,8 @@ class PagureProject(BaseGitProject):
 
     def issue_close(self, issue_id: int) -> Issue:
         payload = {"status": "Closed"}
-        issue = self.get_issue_info(issue_id)
         self._call_project_api("issue", str(issue_id), "status", data=payload, method="POST")
+        issue = self.get_issue_info(issue_id)
         return issue
 
     def get_pr_list(
@@ -550,31 +550,11 @@ class PagureProject(BaseGitProject):
         return return_value["urls"]
 
     def _issue_from_pagure_dict(self, issue_dict: dict) -> Issue:
-        if self.namespace is None:
-            url = "/".join(
-                [
-                    self.service.instance_url,
-                    self.repo,
-                    "issue",
-                    str(issue_dict["id"]),
-                ]
-            )
-        else:
-            url = "/".join(
-                [
-                    self.service.instance_url,
-                    self.namespace,
-                    self.repo,
-                    "issue",
-                    str(issue_dict["id"]),
-                ]
-            )
-
         return Issue(
             title=issue_dict["title"],
             id=issue_dict["id"],
             status=IssueStatus[issue_dict["status"].lower()],
-            url=url,
+            url=self._get_project_url("issue", str(issue_dict["id"])),
             description=issue_dict["content"],
             author=issue_dict["user"]["name"],
             created=datetime.datetime.fromtimestamp(int(issue_dict["date_created"]))

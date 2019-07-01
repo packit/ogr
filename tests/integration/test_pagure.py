@@ -1,7 +1,7 @@
 import os
 import unittest
 
-from ogr.abstract import PRStatus
+from ogr.abstract import PRStatus, IssueStatus
 from ogr.exceptions import PagureAPIException
 from ogr.mock_core import PersistentObjectStorage
 from ogr.services.mock.pagure_mock import PagureMockAPI
@@ -42,11 +42,26 @@ class PagureTests(unittest.TestCase):
             namespace="rpms", repo="abiword", username="churchyard", is_fork=True
         )
 
+        self.service_pagure = PagureMockAPI(
+            token=self.token,
+            instance_url="https://pagure.io",
+            persistent_storage=persistent_object_storage
+        )
+        self.ogr_test_project = self.service_pagure.get_project(
+            namespace=None, repo="ogr-test", username="marusinm"
+        )
+
     def tearDown(self):
         self.service.persistent_storage.dump()
 
 
 class Comments(PagureTests):
+    def test_issue_comments(self):
+        issue_comments = self.ogr_test_project._get_all_issue_comments(2)
+        assert issue_comments
+        assert len(issue_comments) == 4
+        assert issue_comments[0].comment.startswith("this is")
+
     def test_pr_comments(self):
         pr_comments = self.abiword_project.get_pr_comments(1)
         assert pr_comments
@@ -128,6 +143,22 @@ class GenericCommands(PagureTests):
         )
         assert isinstance(flags, list)
         assert len(flags) == 0
+
+
+class Issues(PagureTests):
+    def test_issue_list(self):
+        issue_list = self.ogr_test_project.get_issue_list()
+        assert isinstance(issue_list, list)
+
+        issue_list = self.ogr_test_project.get_issue_list(status=IssueStatus.all)
+        assert issue_list
+        assert len(issue_list) >= 9
+
+    def test_issue_info(self):
+        issue_info = self.ogr_test_project.get_issue_info(issue_id=1)
+        assert issue_info
+        assert issue_info.title.startswith("test1")
+        assert issue_info.status == IssueStatus.closed
 
 
 class PullRequests(PagureTests):
