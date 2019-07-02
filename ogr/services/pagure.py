@@ -27,7 +27,7 @@ from typing import List, Optional, Dict, Any
 import requests
 
 from ogr.abstract import PRStatus, GitTag, CommitStatus, CommitComment
-from ogr.abstract import PullRequest, PRComment
+from ogr.abstract import PullRequest, PRComment, Issue, IssueStatus, IssueComment
 from ogr.exceptions import (
     OurPagureRawRequest,
     PagureAPIException,
@@ -317,6 +317,46 @@ class PagureProject(BaseGitProject):
     def get_description(self) -> str:
         return self.get_project_info()["description"]
 
+    def get_issue_list(self, status: IssueStatus = IssueStatus.open) -> List[Issue]:
+        payload = {"status": status.name.capitalize()}
+
+        raw_issues = self._call_project_api("issues", params=payload)["issues"]
+        issues = [self._issue_from_pagure_dict(issue_dict) for issue_dict in raw_issues]
+        return issues
+
+    def get_issue_info(self, issue_id: int) -> Issue:
+        raw_issue = self._call_project_api("issue", str(issue_id))
+        return self._issue_from_pagure_dict(raw_issue)
+
+    def _get_all_issue_comments(self, issue_id: int) -> List[IssueComment]:
+        raw_comments = self._call_project_api("issue", str(issue_id))["comments"]
+        return [
+            self._issuecomment_from_pagure_dict(raw_comment)
+            for raw_comment in raw_comments
+        ]
+
+    def issue_comment(self, issue_id: int, body: str) -> IssueComment:
+        payload = {"comment": body}
+        self._call_project_api(
+            "issue", str(issue_id), "comment", data=payload, method="POST"
+        )
+        return IssueComment(comment=body, author=self._username)
+
+    def create_issue(self, title: str, body: str) -> Issue:
+        payload = {"title": title, "issue_content": body}
+        new_issue = self._call_project_api("new_issue", data=payload, method="POST")[
+            "issue"
+        ]
+        return self._issue_from_pagure_dict(new_issue)
+
+    def issue_close(self, issue_id: int) -> Issue:
+        payload = {"status": "Closed"}
+        self._call_project_api(
+            "issue", str(issue_id), "status", data=payload, method="POST"
+        )
+        issue = self.get_issue_info(issue_id)
+        return issue
+
     def get_pr_list(
         self, status: PRStatus = PRStatus.open, assignee=None, author=None
     ) -> List[PullRequest]:
@@ -511,6 +551,25 @@ class PagureProject(BaseGitProject):
     def get_git_urls(self) -> Dict[str, str]:
         return_value = self._call_project_api("git", "urls")
         return return_value["urls"]
+
+    def _issue_from_pagure_dict(self, issue_dict: dict) -> Issue:
+        return Issue(
+            title=issue_dict["title"],
+            id=issue_dict["id"],
+            status=IssueStatus[issue_dict["status"].lower()],
+            url=self._get_project_url("issue", str(issue_dict["id"])),
+            description=issue_dict["content"],
+            author=issue_dict["user"]["name"],
+            created=datetime.datetime.fromtimestamp(int(issue_dict["date_created"])),
+        )
+
+    def _issuecomment_from_pagure_dict(self, comment_dict: dict) -> IssueComment:
+        return IssueComment(
+            comment=comment_dict["comment"],
+            author=comment_dict["user"]["name"],
+            created=datetime.datetime.fromtimestamp(int(comment_dict["date_created"])),
+            edited=None,
+        )
 
     def _pr_from_pagure_dict(self, pr_dict: dict) -> PullRequest:
         return PullRequest(
