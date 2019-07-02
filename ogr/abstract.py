@@ -69,11 +69,11 @@ class Issue:
 
 class IssueComment:
     def __init__(
-            self,
-            comment: str,
-            author: str,
-            created: Optional[datetime.datetime] = None,
-            edited: Optional[datetime.datetime] = None,
+        self,
+        comment: str,
+        author: str,
+        created: Optional[datetime.datetime] = None,
+        edited: Optional[datetime.datetime] = None,
     ) -> None:
         self.comment = comment
         self.author = author

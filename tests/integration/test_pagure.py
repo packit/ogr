@@ -45,7 +45,7 @@ class PagureTests(unittest.TestCase):
         self.service_pagure = PagureMockAPI(
             token=self.token,
             instance_url="https://pagure.io",
-            persistent_storage=persistent_object_storage
+            persistent_storage=persistent_object_storage,
         )
         self.ogr_test_project = self.service_pagure.get_project(
             namespace=None, repo="ogr-test", username="marusinm"

@@ -337,20 +337,23 @@ class PagureProject(BaseGitProject):
 
     def issue_comment(self, issue_id: int, body: str) -> IssueComment:
         payload = {"comment": body}
-        self._call_project_api("issue", str(issue_id), "comment", data=payload, method="POST")
+        self._call_project_api(
+            "issue", str(issue_id), "comment", data=payload, method="POST"
+        )
         return IssueComment(comment=body, author=self._username)
 
     def create_issue(self, title: str, body: str) -> Issue:
-        payload = {
-            "title": title,
-            "issue_content": body
-        }
-        new_issue = self._call_project_api("new_issue", data=payload, method="POST")["issue"]
+        payload = {"title": title, "issue_content": body}
+        new_issue = self._call_project_api("new_issue", data=payload, method="POST")[
+            "issue"
+        ]
         return self._issue_from_pagure_dict(new_issue)
 
     def issue_close(self, issue_id: int) -> Issue:
         payload = {"status": "Closed"}
-        self._call_project_api("issue", str(issue_id), "status", data=payload, method="POST")
+        self._call_project_api(
+            "issue", str(issue_id), "status", data=payload, method="POST"
+        )
         issue = self.get_issue_info(issue_id)
         return issue
 
@@ -557,7 +560,7 @@ class PagureProject(BaseGitProject):
             url=self._get_project_url("issue", str(issue_dict["id"])),
             description=issue_dict["content"],
             author=issue_dict["user"]["name"],
-            created=datetime.datetime.fromtimestamp(int(issue_dict["date_created"]))
+            created=datetime.datetime.fromtimestamp(int(issue_dict["date_created"])),
         )
 
     def _issuecomment_from_pagure_dict(self, comment_dict: dict) -> IssueComment:
@@ -565,7 +568,7 @@ class PagureProject(BaseGitProject):
             comment=comment_dict["comment"],
             author=comment_dict["user"]["name"],
             created=datetime.datetime.fromtimestamp(int(comment_dict["date_created"])),
-            edited=None
+            edited=None,
         )
 
     def _pr_from_pagure_dict(self, pr_dict: dict) -> PullRequest:
