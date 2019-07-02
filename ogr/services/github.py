@@ -124,13 +124,16 @@ class GithubProject(BaseGitProject):
                 f"GithubProject will not process these kwargs: {unprocess_kwargs}"
             )
         super().__init__(repo, service, namespace)
-        if github_repo:
-            self.github_repo = github_repo
-        else:
-            self.github_repo = service.github.get_repo(
-                full_name_or_id=f"{namespace}/{repo}"
-            )
+        self._github_repo = github_repo
         self.read_only = read_only
+
+    @property
+    def github_repo(self):
+        if not self._github_repo:
+            self._github_repo = self.service.github.get_repo(
+                full_name_or_id=f"{self.namespace}/{self.repo}"
+            )
+        return self._github_repo
 
     def __str__(self) -> str:
         return f'GithubProject(namespace="{self.namespace}", repo="{self.repo}")'
@@ -139,9 +142,13 @@ class GithubProject(BaseGitProject):
         gh_user = self.service.github.get_user()
         user_login = gh_user.login
         try:
-            return GithubProject(
+            project = GithubProject(
                 self.repo, self.service, namespace=user_login, read_only=self.read_only
             )
+            if not project.github_repo:
+                # The github_repo attribute is lazy.
+                return None
+            return project
         except github.GithubException as ex:
             logger.debug(f"Project {self.repo}/{user_login} does not exist: {ex}")
             return None
