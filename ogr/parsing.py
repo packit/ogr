@@ -41,6 +41,36 @@ class RepoUrl:
         self.hostname = hostname
         self.scheme = scheme
 
+    def get_instance_url(self):
+        scheme = self.scheme or "http"
+        return f"{scheme}://{self.hostname}"
+
+    def __eq__(self, o: object) -> bool:
+        if not isinstance(o, RepoUrl):
+            return False
+
+        return (
+            self.repo == o.repo
+            and self.namespace == o.namespace
+            and self.username == o.username
+            and self.is_fork == o.is_fork
+            and self.hostname == o.hostname
+            and self.scheme == o.scheme
+        )
+
+    def __str__(self) -> str:
+        repo_url_str = (
+            f"RepoUrl(repo='{self.repo}', "
+            f"namespace='{self.namespace}', "
+            f"is_fork={self.is_fork}, "
+            f"hostname='{self.hostname}', "
+            f"scheme='{self.scheme}'"
+        )
+        if self.username:
+            repo_url_str += f", username='{self.username}'"
+        repo_url_str += ")"
+        return repo_url_str
+
 
 def parse_git_repo(potential_url: str) -> Optional[RepoUrl]:
     """Cover the following variety of URL forms for Github/Gitlab repo referencing.

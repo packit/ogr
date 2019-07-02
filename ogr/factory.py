@@ -59,7 +59,7 @@ def get_project(
             raise OgrException(f"Instance of type {kls.__name__} was not provided.")
     else:
         repo_url = parse_git_repo(potential_url=url)
-        service = kls(instance_url=f"{repo_url.scheme}://{repo_url.hostname}", **kwargs)
+        service = kls(instance_url=repo_url.get_instance_url(), **kwargs)
     project = service.get_project_from_url(url=url)
     return project
 
