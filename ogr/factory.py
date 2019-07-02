@@ -25,6 +25,7 @@ from typing import Dict, Type, List
 
 from ogr.abstract import GitService, GitProject
 from ogr.exceptions import OgrException
+from ogr.parsing import parse_git_repo
 
 _SERVICE_MAPPING: Dict[str, Type[GitService]] = {}
 
@@ -57,7 +58,8 @@ def get_project(
         else:
             raise OgrException(f"Instance of type {kls.__name__} was not provided.")
     else:
-        service = kls(**kwargs)
+        repo_url = parse_git_repo(potential_url=url)
+        service = kls(instance_url=f"{repo_url.scheme}://{repo_url.hostname}", **kwargs)
     project = service.get_project_from_url(url=url)
     return project
 

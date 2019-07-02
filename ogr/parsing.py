@@ -31,11 +31,15 @@ class RepoUrl:
         namespace: str = None,
         username: str = None,
         is_fork: bool = False,
+        hostname: str = None,
+        scheme: str = None,
     ) -> None:
         self.repo = repo
         self.namespace = namespace
         self.username = username
         self.is_fork = is_fork
+        self.hostname = hostname
+        self.scheme = scheme
 
 
 def parse_git_repo(potential_url: str) -> Optional[RepoUrl]:
@@ -48,8 +52,7 @@ def parse_git_repo(potential_url: str) -> Optional[RepoUrl]:
     4) git@domain.com:foo/bar
     5) (same as above, but with ".git" in the end)
     6) (same as the two above but with "ssh://" in front or with "git+ssh" instead of "git")
-
-    Returns a tuple (<username>, <reponame>) or None if this does not seem to be a Github repo.
+    7) pagure format of forks (e.g. domain.com/fork/username/namespace/project
 
     Notably, the repo *must* have exactly username and reponame, nothing else and nothing
     more. E.g. `github.com/<username>/<reponame>/<something>` is *not* recognized.
@@ -88,9 +91,15 @@ def parse_git_repo(potential_url: str) -> Optional[RepoUrl]:
         path = path[: -len(".git")]
 
     split = path.split("/")
-    if username and len(split) == 1:
-        # path contains only reponame, we got username earlier
-        return RepoUrl(namespace=username, repo=path, username=username)
+    if len(split) == 1:
+        # path contains only reponame
+        return RepoUrl(
+            namespace=username,
+            repo=path,
+            username=username,
+            hostname=parsed.hostname,
+            scheme=parsed.scheme,
+        )
     if not username and len(split) >= 2:
         # path contains username/reponame
 
@@ -99,7 +108,12 @@ def parse_git_repo(potential_url: str) -> Optional[RepoUrl]:
             username = split[1]
 
         return RepoUrl(
-            namespace=split[-2], repo=split[-1], username=username, is_fork=is_fork
+            namespace=split[-2],
+            repo=split[-1],
+            username=username,
+            is_fork=is_fork,
+            hostname=parsed.hostname,
+            scheme=parsed.scheme,
         )
 
     # all other cases

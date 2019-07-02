@@ -223,7 +223,7 @@ class PagureProject(BaseGitProject):
     def __init__(
         self,
         repo: str,
-        namespace: str,
+        namespace: Optional[str],
         service: "PagureService",
         username: str = None,
         is_fork: bool = False,
