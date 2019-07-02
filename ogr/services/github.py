@@ -35,7 +35,6 @@ from github.Issue import Issue as GithubIssue
 from github.Label import Label as GithubLabel
 from github.PullRequest import PullRequest as GithubPullRequest
 
-from ogr.exceptions import GithubAPIException
 from ogr.abstract import (
     GitUser,
     Issue,
@@ -48,6 +47,7 @@ from ogr.abstract import (
     CommitComment,
     CommitStatus,
 )
+from ogr.exceptions import GithubAPIException
 from ogr.factory import use_for_service
 from ogr.mock_core import if_readonly, GitProjectReadOnly, PersistentObjectStorage
 from ogr.services.base import BaseGitService, BaseGitProject, BaseGitUser
@@ -84,6 +84,12 @@ class GithubService(BaseGitService):
 
     def __str__(self) -> str:
         return f"GithubService(read_only={self.read_only})"
+
+    def __eq__(self, o: object) -> bool:
+        if not isinstance(o, GithubService):
+            return False
+
+        return self._token == o._token and self.read_only == o.read_only
 
     def get_project(
         self, repo=None, namespace=None, is_fork=False, **kwargs
@@ -137,6 +143,17 @@ class GithubProject(BaseGitProject):
 
     def __str__(self) -> str:
         return f'GithubProject(namespace="{self.namespace}", repo="{self.repo}")'
+
+    def __eq__(self, o: object) -> bool:
+        if not isinstance(o, GithubProject):
+            return False
+
+        return (
+            self.repo == o.repo
+            and self.namespace == o.namespace
+            and self.service == o.service
+            and self.read_only == o.read_only
+        )
 
     def _construct_fork_project(self) -> Optional["GithubProject"]:
         gh_user = self.service.github.get_user()

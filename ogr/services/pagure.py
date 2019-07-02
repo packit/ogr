@@ -80,6 +80,18 @@ class PagureService(BaseGitService):
     def __str__(self) -> str:
         return f'PagureService(read_only={self.read_only}, instance_url="{self.instance_url}")'
 
+    def __eq__(self, o: object) -> bool:
+        if not isinstance(o, PagureService):
+            return False
+
+        return (
+            self._token == o._token
+            and self.read_only == o.read_only
+            and self.instance_url == o.instance_url
+            and self.insecure == o.insecure
+            and self.header == o.header
+        )
+
     def get_project(self, **kwargs) -> "PagureProject":
         return PagureProject(service=self, **kwargs)
 
@@ -239,6 +251,19 @@ class PagureProject(BaseGitProject):
 
     def __str__(self) -> str:
         return f'PagureProject(namespace="{self.namespace}", repo="{self.repo}")'
+
+    def __eq__(self, o: object) -> bool:
+        if not isinstance(o, PagureProject):
+            return False
+
+        return (
+            self.repo == o.repo
+            and self.namespace == o.namespace
+            and self.service == o.service
+            and self._username == o._username
+            and self._is_fork == o._is_fork
+            and self.read_only == o.read_only
+        )
 
     @property
     def _user(self) -> str:
