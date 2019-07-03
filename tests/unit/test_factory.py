@@ -1,4 +1,6 @@
 import pytest
+from flexmock import Mock
+from flexmock import flexmock
 
 from ogr import PagureService
 from ogr.exceptions import OgrException
@@ -113,8 +115,87 @@ def test_get_service_class_not_found(url, mapping):
                 service=PagureService(instance_url="https://pagure.io"),
             ),
         ),
+        (
+            "https://host.name/namespace/project",
+            {"host.name": Mock},
+            [
+                flexmock(
+                    instance_url="https://host.name",
+                    get_project_from_url=lambda url: "project",
+                )
+            ],
+            "project",
+        ),
+        (
+            "https://host2.name/namespace/project",
+            {"host.name": Mock, "host2.name": Mock},
+            [
+                flexmock(
+                    instance_url="https://host.name",
+                    get_project_from_url=lambda url: "wrong-project",
+                ),
+                flexmock(
+                    instance_url="https://host2.name",
+                    get_project_from_url=lambda url: "right-project",
+                ),
+            ],
+            "right-project",
+        ),
     ],
 )
 def test_get_project(url, mapping, instances, result):
-    project = get_project(url=url, service_mapping_update=mapping)
+    project = get_project(
+        url=url, service_mapping_update=mapping, custom_instances=instances
+    )
     assert project == result
+
+
+@pytest.mark.parametrize(
+    "url,mapping,instances,exc_str",
+    [
+        (
+            "https://unknown.com/packit-service/ogr",
+            None,
+            None,
+            "No matching service was found.",
+        ),
+        (
+            "https://unknown.com/packit-service/ogr",
+            {"some-url": GithubService},
+            None,
+            "No matching service was found.",
+        ),
+        (
+            "https://host.name/namespace/project",
+            {"host.name": Mock},
+            [
+                flexmock(
+                    instance_url="https://unknown.com",
+                    get_project_from_url=lambda url: "project",
+                )
+            ],
+            "Instance of type",
+        ),
+        (
+            "https://host.name/namespace/project",
+            {"host.name": Mock, "host2.name": Mock},
+            [
+                flexmock(
+                    instance_url="https://host2.name",
+                    get_project_from_url=lambda url: "wrong-project",
+                ),
+                flexmock(
+                    instance_url="https://host3.name",
+                    get_project_from_url=lambda url: "right-project",
+                ),
+            ],
+            "Instance of type",
+        ),
+    ],
+)
+def test_get_project_not_found(url, mapping, instances, exc_str):
+    with pytest.raises(OgrException) as ex:
+        _ = get_project(
+            url=url, service_mapping_update=mapping, custom_instances=instances
+        )
+    assert exc_str in str(ex.value)

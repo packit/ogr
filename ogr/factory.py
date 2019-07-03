@@ -88,7 +88,10 @@ def get_project(
                 service = service_inst
                 break
         else:
-            raise OgrException(f"Instance of type {kls.__name__} was not provided.")
+            raise OgrException(
+                f"Instance of type {kls.__name__} "
+                f"matching instance url '{url}' was not provided."
+            )
     else:
         repo_url = parse_git_repo(potential_url=url)
         service = kls(instance_url=repo_url.get_instance_url(), **kwargs)
