@@ -28,7 +28,6 @@ import subprocess
 import tempfile
 from time import sleep
 from typing import List, Union, Match, Optional
-from urllib.parse import urlparse
 
 import six
 
@@ -36,84 +35,6 @@ from ogr.abstract import PRComment
 from ogr.constant import CLONE_TIMEOUT
 
 logger = logging.getLogger(__name__)
-
-
-def parse_git_repo(potential_url):
-    """Cover the following variety of URL forms for Github/Gitlab repo referencing.
-
-    1) www.domain.com/foo/bar
-    2) (same as above, but with ".git" in the end)
-    3) (same as the two above, but without "www.")
-    # all of the three above, but starting with "http://", "https://", "git://", "git+https://"
-    4) git@domain.com:foo/bar
-    5) (same as above, but with ".git" in the end)
-    6) (same as the two above but with "ssh://" in front or with "git+ssh" instead of "git")
-
-    Returns a tuple (<username>, <reponame>) or None if this does not seem to be a Github repo.
-
-    Notably, the repo *must* have exactly username and reponame, nothing else and nothing
-    more. E.g. `github.com/<username>/<reponame>/<something>` is *not* recognized.
-    """
-    if not potential_url:
-        return None
-
-    # transform 4-6 to a URL-like string, so that we can handle it together with 1-3
-    if "@" in potential_url:
-        split = potential_url.split("@")
-        if len(split) == 2:
-            potential_url = "http://" + split[1]
-        else:
-            # more @s ?
-            return None
-
-    # make it parsable by urlparse if it doesn't contain scheme
-    if not potential_url.startswith(("http://", "https://", "git://", "git+https://")):
-        potential_url = "http://" + potential_url
-
-    # urlparse should handle it now
-    parsed = urlparse(potential_url)
-
-    username = None
-    if ":" in parsed.netloc:
-        # e.g. domain.com:foo or domain.com:1234, where foo is username, but 1234 is port number
-        split = parsed.netloc.split(":")
-        if split[1] and not split[1].isnumeric():
-            username = split[1]
-
-    # path starts with '/', strip it away
-    path = parsed.path.lstrip("/")
-
-    # strip trailing '.git'
-    if path.endswith(".git"):
-        path = path[: -len(".git")]
-
-    split = path.split("/")
-    if username and len(split) == 1:
-        # path contains only reponame, we got username earlier
-        return username, path
-    if not username and len(split) == 2:
-        # path contains username/reponame
-        return split[0], split[1]
-
-    # all other cases
-    return None
-
-
-def get_username_from_git_url(url):
-    """http://github.com/foo/bar.git -> foo"""
-    user_repo = parse_git_repo(url)
-    return user_repo[0] if user_repo else None
-
-
-def get_reponame_from_git_url(url):
-    """http://github.com/foo/bar.git -> bar"""
-    user_repo = parse_git_repo(url)
-    return user_repo[1] if user_repo else None
-
-
-def strip_dot_git(url):
-    """Strip trailing .git"""
-    return url[: -len(".git")] if url.endswith(".git") else url
 
 
 def clone_repo_and_cd_inside(repo_name, repo_ssh_url, namespace):

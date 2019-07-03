@@ -35,7 +35,6 @@ from github.Issue import Issue as GithubIssue
 from github.Label import Label as GithubLabel
 from github.PullRequest import PullRequest as GithubPullRequest
 
-from ogr.exceptions import GithubAPIException
 from ogr.abstract import (
     GitUser,
     Issue,
@@ -48,6 +47,8 @@ from ogr.abstract import (
     CommitComment,
     CommitStatus,
 )
+from ogr.exceptions import GithubAPIException
+from ogr.factory import use_for_service
 from ogr.mock_core import if_readonly, GitProjectReadOnly, PersistentObjectStorage
 from ogr.services.base import BaseGitService, BaseGitProject, BaseGitUser
 from ogr.services.mock.github_mock import get_Github_class
@@ -55,16 +56,19 @@ from ogr.services.mock.github_mock import get_Github_class
 logger = logging.getLogger(__name__)
 
 
+@use_for_service("github.com")
 class GithubService(BaseGitService):
     # class parameter could be used to mock Github class api
     github_class: Type[github.Github]
     persistent_storage: Optional[PersistentObjectStorage] = None
+    instance_url = "https://github.com"
 
     def __init__(
         self,
         token=None,
         read_only=False,
         persistent_storage: Optional[PersistentObjectStorage] = None,
+        **_,
     ):
         super().__init__()
         self._token = token
@@ -80,6 +84,12 @@ class GithubService(BaseGitService):
 
     def __str__(self) -> str:
         return f"GithubService(read_only={self.read_only})"
+
+    def __eq__(self, o: object) -> bool:
+        if not isinstance(o, GithubService):
+            return False
+
+        return self._token == o._token and self.read_only == o.read_only
 
     def get_project(
         self, repo=None, namespace=None, is_fork=False, **kwargs
@@ -120,24 +130,42 @@ class GithubProject(BaseGitProject):
                 f"GithubProject will not process these kwargs: {unprocess_kwargs}"
             )
         super().__init__(repo, service, namespace)
-        if github_repo:
-            self.github_repo = github_repo
-        else:
-            self.github_repo = service.github.get_repo(
-                full_name_or_id=f"{namespace}/{repo}"
-            )
+        self._github_repo = github_repo
         self.read_only = read_only
 
+    @property
+    def github_repo(self):
+        if not self._github_repo:
+            self._github_repo = self.service.github.get_repo(
+                full_name_or_id=f"{self.namespace}/{self.repo}"
+            )
+        return self._github_repo
+
     def __str__(self) -> str:
-        return f'GithubProject(namespace= "{self.namespace}", repo= "{self.repo}")'
+        return f'GithubProject(namespace="{self.namespace}", repo="{self.repo}")'
+
+    def __eq__(self, o: object) -> bool:
+        if not isinstance(o, GithubProject):
+            return False
+
+        return (
+            self.repo == o.repo
+            and self.namespace == o.namespace
+            and self.service == o.service
+            and self.read_only == o.read_only
+        )
 
     def _construct_fork_project(self) -> Optional["GithubProject"]:
         gh_user = self.service.github.get_user()
         user_login = gh_user.login
         try:
-            return GithubProject(
+            project = GithubProject(
                 self.repo, self.service, namespace=user_login, read_only=self.read_only
             )
+            if not project.github_repo:
+                # The github_repo attribute is lazy.
+                return None
+            return project
         except github.GithubException as ex:
             logger.debug(f"Project {self.repo}/{user_login} does not exist: {ex}")
             return None

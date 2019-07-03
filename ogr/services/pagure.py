@@ -34,13 +34,17 @@ from ogr.exceptions import (
     OgrException,
     OperationNotSupported,
 )
+from ogr.factory import use_for_service
 from ogr.mock_core import if_readonly, GitProjectReadOnly, PersistentObjectStorage
+from ogr.parsing import parse_git_repo
 from ogr.services.base import BaseGitService, BaseGitProject, BaseGitUser
 from ogr.utils import RequestResponse
 
 logger = logging.getLogger(__name__)
 
 
+@use_for_service("pagure.io")
+@use_for_service("src.fedoraproject.org")
 class PagureService(BaseGitService):
     persistent_storage: Optional[PersistentObjectStorage] = None
 
@@ -51,6 +55,7 @@ class PagureService(BaseGitService):
         read_only: bool = False,
         persistent_storage: Optional[PersistentObjectStorage] = None,
         insecure: bool = False,
+        **_,
     ) -> None:
         super().__init__()
         self.instance_url = instance_url
@@ -75,8 +80,30 @@ class PagureService(BaseGitService):
     def __str__(self) -> str:
         return f'PagureService(read_only={self.read_only}, instance_url="{self.instance_url}")'
 
+    def __eq__(self, o: object) -> bool:
+        if not isinstance(o, PagureService):
+            return False
+
+        return (
+            self._token == o._token
+            and self.read_only == o.read_only
+            and self.instance_url == o.instance_url
+            and self.insecure == o.insecure
+            and self.header == o.header
+        )
+
     def get_project(self, **kwargs) -> "PagureProject":
         return PagureProject(service=self, **kwargs)
+
+    def get_project_from_url(self, url: str) -> "PagureProject":
+        repo_url = parse_git_repo(potential_url=url)
+        project = self.get_project(
+            repo=repo_url.repo,
+            namespace=repo_url.namespace,
+            is_fork=repo_url.is_fork,
+            username=repo_url.username,
+        )
+        return project
 
     @property
     def user(self) -> "PagureUser":
@@ -208,7 +235,7 @@ class PagureProject(BaseGitProject):
     def __init__(
         self,
         repo: str,
-        namespace: str,
+        namespace: Optional[str],
         service: "PagureService",
         username: str = None,
         is_fork: bool = False,
@@ -223,7 +250,20 @@ class PagureProject(BaseGitProject):
         self.namespace = namespace
 
     def __str__(self) -> str:
-        return f'PagureProject(namespace="{self.namespace}",repo="{self.repo}")'
+        return f'PagureProject(namespace="{self.namespace}", repo="{self.repo}")'
+
+    def __eq__(self, o: object) -> bool:
+        if not isinstance(o, PagureProject):
+            return False
+
+        return (
+            self.repo == o.repo
+            and self.namespace == o.namespace
+            and self.service == o.service
+            and self._username == o._username
+            and self._is_fork == o._is_fork
+            and self.read_only == o.read_only
+        )
 
     @property
     def _user(self) -> str:
