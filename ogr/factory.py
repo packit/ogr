@@ -30,7 +30,30 @@ from ogr.parsing import parse_git_repo
 _SERVICE_MAPPING: Dict[str, Type[GitService]] = {}
 
 
-def use_for_service(service, _func=None):
+def use_for_service(service: str, _func=None):
+    """
+    Class decorator that adds the class to the service mapping.
+
+    When the project url contains the `service` as a substring,
+    this implementation will be used to initialize the project.
+
+    When using this decorator, be sure that your class is initialized.
+    (Add the import to ogr/__init__.py )
+
+    Usage:
+
+        @use_for_service("github.com")
+        class GithubService(BaseGitService):
+            pass
+
+        @use_for_service("pagure.io")
+        @use_for_service("src.fedoraproject.org")
+        class PagureService(BaseGitService):
+            pass
+
+    :param service: str (url of the service)
+    """
+
     def decorator_cover(func):
         @functools.wraps(func)
         def covered_func(kls: Type[GitService]):
@@ -48,6 +71,15 @@ def get_project(
     custom_instances: List[GitService] = None,
     **kwargs,
 ) -> GitProject:
+    """
+    Return the project for the given url.
+
+    :param url: str (url of the project, e.g. "https://github.com/packit-service/ogr")
+    :param service_mapping_update: custom mapping from  service url (str) to service class
+    :param custom_instances: list of instances that will be used when creating a project instance
+    :param kwargs: arguments forwarded to __init__ of the matching service
+    :return: GitProject using the matching implementation
+    """
     kls = get_service_class(url=url, service_mapping_update=service_mapping_update)
 
     if custom_instances:
@@ -67,6 +99,13 @@ def get_project(
 def get_service_class(
     url: str, service_mapping_update: Dict[str, Type[GitService]] = None
 ) -> Type[GitService]:
+    """
+    Get the matching service class from the url.
+
+    :param url: str (url of the project, e.g. "https://github.com/packit-service/ogr")
+    :param service_mapping_update: custom mapping from  service url (str) to service class
+    :return: Matched class (subclass of GitService)
+    """
     mapping = {}
     mapping.update(_SERVICE_MAPPING)
     if service_mapping_update:

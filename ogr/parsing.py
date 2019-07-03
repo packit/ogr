@@ -158,7 +158,7 @@ def get_username_from_git_url(url: str) -> Optional[str]:
     return None
 
 
-def get_reponame_from_git_url(url):
+def get_reponame_from_git_url(url: str) -> Optional[str]:
     """http://github.com/foo/bar.git -> bar"""
     repo_url = parse_git_repo(url)
     if repo_url:
@@ -166,6 +166,6 @@ def get_reponame_from_git_url(url):
     return None
 
 
-def strip_dot_git(url):
+def strip_dot_git(url: str) -> str:
     """Strip trailing .git"""
     return url[: -len(".git")] if url.endswith(".git") else url
