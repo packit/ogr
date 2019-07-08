@@ -359,6 +359,27 @@ class GitProject:
         """
         raise NotImplementedError()
 
+    def get_owners(self) -> List[str]:
+        """
+        Get all project owners
+        :return: List of usernames
+        """
+        raise NotImplementedError()
+
+    def who_can_close_issue(self) -> List[str]:
+        """
+        Get all usernames who have permissions to modify an Issue
+        :return: List of usernames
+        """
+        raise NotImplementedError()
+
+    def who_can_merge_pr(self) -> List[str]:
+        """
+        Get all usernames who have permissions to modify a PR
+        :return: List of usernames
+        """
+        raise NotImplementedError()
+
     def get_issue_list(self, status: IssueStatus = IssueStatus.open) -> List["Issue"]:
         """
         List of issues (dics)

@@ -229,6 +229,42 @@ class GithubProject(BaseGitProject):
                 return None
         return self._construct_fork_project()
 
+    def get_owners(self) -> List[str]:
+        # in case of github, repository has only one owner
+        owners = []
+        owner = self.github_repo.owner
+        owners.append(owner.login)
+        return owners
+
+    def who_can_close_issue(self) -> List[str]:
+        usernames = []
+        collaborators = self._get_collaborators_with_permission()
+        for username, persmission in collaborators.items():
+            if persmission == "admin" or persmission == "write":
+                usernames.append(username)
+        return usernames
+
+    def who_can_merge_pr(self) -> List[str]:
+        usernames = []
+        collaborators = self._get_collaborators_with_permission()
+        for username, persmission in collaborators.items():
+            if persmission == "admin" or persmission == "write":
+                usernames.append(username)
+        return usernames
+
+    def _get_collaborators_with_permission(self) -> dict:
+        """
+        Get all project collaborators in dictionary with permission association
+        :return: List of usernames
+        """
+        collaborators = {}
+        users = self.github_repo.get_collaborators()
+        for user in users:
+            permission = self.github_repo.get_collaborator_permission(user)
+            collaborators[user.login] = permission
+            # collaborators.append(user.login)
+        return collaborators
+
     def get_issue_list(self, status: IssueStatus = IssueStatus.open) -> List[Issue]:
         issues = self.github_repo.get_issues(
             state=status.name, sort="updated", direction="desc"

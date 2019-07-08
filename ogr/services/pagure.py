@@ -357,6 +357,27 @@ class PagureProject(BaseGitProject):
     def get_description(self) -> str:
         return self.get_project_info()["description"]
 
+    def get_owners(self) -> List[str]:
+        project = self.get_project_info()
+        return project["access_users"]["owner"]
+
+    def who_can_close_issue(self) -> List[str]:
+        users = set()
+        project = self.get_project_info()
+        users.update(project["access_users"]["admin"])
+        users.update(project["access_users"]["commit"])
+        users.update(project["access_users"]["ticket"])
+        users.update(project["access_users"]["owner"])
+        return list(users)
+
+    def who_can_merge_pr(self) -> List[str]:
+        users = set()
+        project = self.get_project_info()
+        users.update(project["access_users"]["admin"])
+        users.update(project["access_users"]["commit"])
+        users.update(project["access_users"]["owner"])
+        return list(users)
+
     def get_issue_list(self, status: IssueStatus = IssueStatus.open) -> List[Issue]:
         payload = {"status": status.name.capitalize()}
 
