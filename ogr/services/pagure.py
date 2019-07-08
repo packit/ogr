@@ -22,7 +22,7 @@
 
 import datetime
 import logging
-from typing import List, Optional, Dict, Any
+from typing import List, Optional, Dict, Any, Set
 
 import requests
 
@@ -362,7 +362,7 @@ class PagureProject(BaseGitProject):
         return project["access_users"]["owner"]
 
     def who_can_close_issue(self) -> List[str]:
-        users = set()
+        users: Set[str] = set()
         project = self.get_project_info()
         users.update(project["access_users"]["admin"])
         users.update(project["access_users"]["commit"])
@@ -371,7 +371,7 @@ class PagureProject(BaseGitProject):
         return list(users)
 
     def who_can_merge_pr(self) -> List[str]:
-        users = set()
+        users: Set[str] = set()
         project = self.get_project_info()
         users.update(project["access_users"]["admin"])
         users.update(project["access_users"]["commit"])
