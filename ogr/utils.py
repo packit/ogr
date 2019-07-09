@@ -26,7 +26,6 @@ import os
 import re
 import subprocess
 import tempfile
-from time import sleep
 from typing import List, Union, Match, Optional
 
 import six
@@ -42,16 +41,12 @@ def clone_repo_and_cd_inside(repo_name, repo_ssh_url, namespace):
     os.chdir(namespace)
     logger.debug("clone %s", repo_ssh_url)
 
-    for _ in range(CLONE_TIMEOUT):
-        proc = subprocess.Popen(["git", "clone", repo_ssh_url], stderr=subprocess.PIPE)
-        output = proc.stderr.read().decode()
-        logger.debug(
-            "Clone exited with {} and output: {}".format(proc.returncode, output)
-        )
-        if "does not exist yet" not in output:
-            break
-        sleep(1)
-    else:
+    proc = subprocess.run(
+        ["git", "clone", repo_ssh_url], stderr=subprocess.PIPE, timeout=CLONE_TIMEOUT
+    )
+    output = proc.stderr.read().decode()
+    logger.debug("Clone exited with {} and output: {}".format(proc.returncode, output))
+    if "does not exist yet" in output:
         logger.error("Clone failed.")
         raise Exception("Clone failed")
 
@@ -62,15 +57,15 @@ def clone_repo_and_cd_inside(repo_name, repo_ssh_url, namespace):
 def set_upstream_remote(clone_url, ssh_url, pull_merge_name):
     logger.debug("set remote upstream to %s", clone_url)
     try:
-        subprocess.check_call(["git", "remote", "add", "upstream", clone_url])
+        subprocess.run(["git", "remote", "add", "upstream", clone_url], check=True)
     except subprocess.CalledProcessError:
-        subprocess.check_call(["git", "remote", "set-url", "upstream", clone_url])
+        subprocess.run(["git", "remote", "set-url", "upstream", clone_url], check=True)
     try:
-        subprocess.check_call(["git", "remote", "add", "upstream-w", ssh_url])
+        subprocess.run(["git", "remote", "add", "upstream-w", ssh_url], check=True)
     except subprocess.CalledProcessError:
-        subprocess.check_call(["git", "remote", "set-url", "upstream-w", ssh_url])
+        subprocess.run(["git", "remote", "set-url", "upstream-w", ssh_url], check=True)
     logger.debug("adding fetch rule to get PRs for upstream")
-    subprocess.check_call(
+    subprocess.run(
         [
             "git",
             "config",
@@ -80,15 +75,16 @@ def set_upstream_remote(clone_url, ssh_url, pull_merge_name):
             "+refs/{}/*/head:refs/remotes/upstream/{}r/*".format(
                 pull_merge_name, pull_merge_name[0]
             ),
-        ]
+        ],
+        check=True,
     )
 
 
 def set_origin_remote(ssh_url, pull_merge_name):
     logger.debug("set remote origin to %s", ssh_url)
-    subprocess.check_call(["git", "remote", "set-url", "origin", ssh_url])
+    subprocess.run(["git", "remote", "set-url", "origin", ssh_url], check=True)
     logger.debug("adding fetch rule to get PRs for origin")
-    subprocess.check_call(
+    subprocess.run(
         [
             "git",
             "config",
@@ -98,24 +94,29 @@ def set_origin_remote(ssh_url, pull_merge_name):
             "+refs/{}/*/head:refs/remotes/origin/{}r/*".format(
                 pull_merge_name, pull_merge_name[0]
             ),
-        ]
+        ],
+        check=True,
     )
 
 
 def fetch_all():
     logger.debug("fetching everything")
     with open("/dev/null", "w") as fd:
-        subprocess.check_call(["git", "fetch", "--all"], stdout=fd)
+        subprocess.run(["git", "fetch", "--all"], stdout=fd, check=True)
 
 
 def get_remote_url(remote):
     logger.debug("get remote URL for remote %s", remote)
     try:
-        url = subprocess.check_output(["git", "remote", "get-url", remote])
+        url = subprocess.run(
+            ["git", "remote", "get-url", remote], check=True, stdout=subprocess.PIPE
+        ).stdout
     except subprocess.CalledProcessError:
         remote = "origin"
         logger.warning("falling back to %s", remote)
-        url = subprocess.check_output(["git", "remote", "get-url", remote])
+        url = subprocess.run(
+            ["git", "remote", "get-url", remote], check=True, stdout=subprocess.PIPE
+        ).stdout
     return remote, url.decode("utf-8").strip()
 
 
@@ -138,10 +139,9 @@ def prompt_for_pr_content(commit_msgs):
         cmd = [editor_cmdstring, t.name]
 
         logger.debug("invoking editor: %s", cmd)
-        proc = subprocess.Popen(cmd)
-        ret = proc.wait()
-        logger.debug("editor returned : %s", ret)
-        if ret:
+        proc = subprocess.run(cmd)
+        logger.debug("editor returned : %s", proc.returncode)
+        if proc.returncode:
             raise RuntimeError("error from editor")
         with open(t.name) as fd:
             pr_content = fd.read()
@@ -163,17 +163,23 @@ def list_local_branches():
         "%(refname:short);%(upstream:short);%(authordate:iso-strict);%(upstream:track)"
     )
     for_each_ref = (
-        subprocess.check_output(["git", "for-each-ref", "--format", fmt, "refs/heads/"])
-        .decode("utf-8")
+        subprocess.run(
+            ["git", "for-each-ref", "--format", fmt, "refs/heads/"],
+            check=True,
+            stdout=subprocess.PIPE,
+        )
+        .stdout.decode("utf-8")
         .strip()
         .split("\n")
     )
     response = []
     was_merged = (
-        subprocess.check_output(
-            ["git", "branch", "--merged", "master", "--format", "%(refname:short)"]
+        subprocess.run(
+            ["git", "branch", "--merged", "master", "--format", "%(refname:short)"],
+            check=True,
+            stdout=subprocess.PIPE,
         )
-        .decode("utf-8")
+        .stdout.decode("utf-8")
         .strip()
         .split("\n")
     )
@@ -193,18 +199,24 @@ def list_local_branches():
 
 def get_current_branch_name():
     return (
-        subprocess.check_output(["git", "rev-parse", "--abbrev-ref", "HEAD"])
-        .decode("utf-8")
+        subprocess.run(
+            ["git", "rev-parse", "--abbrev-ref", "HEAD"],
+            check=True,
+            stdout=subprocess.PIPE,
+        )
+        .stdout.decode("utf-8")
         .strip()
     )
 
 
 def get_commit_msgs(branch):
     return (
-        subprocess.check_output(
-            ["git", "log", "--pretty=format:- %s.", "%s..HEAD" % branch]
+        subprocess.run(
+            ["git", "log", "--pretty=format:- %s.", "%s..HEAD" % branch],
+            check=True,
+            stdout=subprocess.PIPE,
         )
-        .decode("utf-8")
+        .stdout.decode("utf-8")
         .strip()
     )
 
@@ -213,7 +225,7 @@ def git_push():
     """ perform `git push` """
     # it would make sense to do `git push -u`
     # this command NEEDS to be configurable
-    subprocess.check_call(["git", "push", "-q"])
+    subprocess.run(["git", "push", "-q"], check=True)
 
 
 def filter_comments(comments: List[PRComment], filter_regex: str) -> List[PRComment]:
