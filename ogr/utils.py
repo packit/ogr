@@ -44,9 +44,9 @@ def clone_repo_and_cd_inside(repo_name, repo_ssh_url, namespace):
     proc = subprocess.run(
         ["git", "clone", repo_ssh_url], stderr=subprocess.PIPE, timeout=CLONE_TIMEOUT
     )
-    output = proc.stderr.read().decode()
+    output = proc.stderr.decode()
     logger.debug("Clone exited with {} and output: {}".format(proc.returncode, output))
-    if "does not exist yet" in output:
+    if "does not exist" in output:
         logger.error("Clone failed.")
         raise Exception("Clone failed")
 
