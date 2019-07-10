@@ -366,13 +366,6 @@ class GitProject:
         """
         raise NotImplementedError()
 
-    # def who_can_close_issue(self) -> List[str]:
-    #     """
-    #     Get all usernames who have permissions to modify an Issue
-    #     :return: List of usernames
-    #     """
-    #     raise NotImplementedError()
-
     def can_close_issue(self, username: str, issue: Issue) -> bool:
         """
         Check if user have permissions to modify an Issue
@@ -389,13 +382,6 @@ class GitProject:
         :return: true if user can close PR, false otherwise
         """
         raise NotImplementedError()
-
-    # def who_can_merge_pr(self) -> List[str]:
-    #     """
-    #     Get all usernames who have permissions to modify a PR
-    #     :return: List of usernames
-    #     """
-    #     raise NotImplementedError()
 
     def get_issue_list(self, status: IssueStatus = IssueStatus.open) -> List["Issue"]:
         """
