@@ -453,7 +453,7 @@ class GithubProject(BaseGitProject):
             return self.github_repo.get_contents(
                 path=path, ref=ref
             ).decoded_content.decode()
-        except Exception as ex:
+        except UnknownObjectException as ex:
             raise FileNotFoundError(f"File '{path}' on {ref} not found", ex)
 
     @staticmethod
