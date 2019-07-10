@@ -231,26 +231,40 @@ class GithubProject(BaseGitProject):
 
     def get_owners(self) -> List[str]:
         # in case of github, repository has only one owner
-        owners = []
-        owner = self.github_repo.owner
-        owners.append(owner.login)
-        return owners
+        return [self.github_repo.owner.login]
 
-    def who_can_close_issue(self) -> List[str]:
-        usernames = []
-        collaborators = self._get_collaborators_with_permission()
-        for username, persmission in collaborators.items():
-            if persmission == "admin" or persmission == "write":
-                usernames.append(username)
-        return usernames
+    def can_close_issue(self, username: str, issue: Issue) -> bool:
+        try:
+            collaborators = self._get_collaborators_with_permission()
+        except github.GithubException:
+            logger.debug(
+                f"{username} must have push access to view repository permissions."
+            )
+            return False
 
-    def who_can_merge_pr(self) -> List[str]:
-        usernames = []
-        collaborators = self._get_collaborators_with_permission()
-        for username, persmission in collaborators.items():
-            if persmission == "admin" or persmission == "write":
-                usernames.append(username)
-        return usernames
+        for login, permission in collaborators.items():
+            if permission in ["admin", "write"] and username == login:
+                return True
+
+        if username == issue.author:
+            return True
+
+        return False
+
+    def can_merge_pr(self, username) -> bool:
+        try:
+            collaborators = self._get_collaborators_with_permission()
+        except github.GithubException:
+            logger.debug(
+                f"{username} must have push access to view repository permissions."
+            )
+            return False
+
+        for login, permission in collaborators.items():
+            if permission in ["admin", "write"] and username == login:
+                return True
+
+        return False
 
     def _get_collaborators_with_permission(self) -> dict:
         """
@@ -262,7 +276,6 @@ class GithubProject(BaseGitProject):
         for user in users:
             permission = self.github_repo.get_collaborator_permission(user)
             collaborators[user.login] = permission
-            # collaborators.append(user.login)
         return collaborators
 
     def get_issue_list(self, status: IssueStatus = IssueStatus.open) -> List[Issue]:
@@ -508,7 +521,7 @@ class GithubProject(BaseGitProject):
             status=IssueStatus[github_issue.state],
             url=github_issue.html_url,
             description=github_issue.body,
-            author=github_issue.user.name,
+            author=github_issue.user.login,
             created=github_issue.created_at,
         )
 

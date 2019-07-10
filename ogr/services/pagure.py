@@ -361,22 +361,31 @@ class PagureProject(BaseGitProject):
         project = self.get_project_info()
         return project["access_users"]["owner"]
 
-    def who_can_close_issue(self) -> List[str]:
+    def can_close_issue(self, username: str, issue: Issue) -> bool:
         users: Set[str] = set()
         project = self.get_project_info()
         users.update(project["access_users"]["admin"])
         users.update(project["access_users"]["commit"])
         users.update(project["access_users"]["ticket"])
         users.update(project["access_users"]["owner"])
-        return list(users)
+        if username in users:
+            return True
 
-    def who_can_merge_pr(self) -> List[str]:
+        if username == issue.author:
+            return True
+
+        return False
+
+    def can_merge_pr(self, username) -> bool:
         users: Set[str] = set()
         project = self.get_project_info()
         users.update(project["access_users"]["admin"])
         users.update(project["access_users"]["commit"])
         users.update(project["access_users"]["owner"])
-        return list(users)
+        if username in users:
+            return True
+
+        return False
 
     def get_issue_list(self, status: IssueStatus = IssueStatus.open) -> List[Issue]:
         payload = {"status": status.name.capitalize()}

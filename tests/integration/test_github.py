@@ -157,12 +157,13 @@ class GenericCommands(GithubTests):
         assert ["user-cont"] == owners
 
     def test_issue_permissions(self):
-        users = self.colin_project.who_can_close_issue()
-        assert "usercont-release-bot" in users
+        issue = self.colin_project.get_issue_info(1)
+        assert self.colin_project.can_close_issue("usercont-release-bot", issue)
+        assert not self.colin_project.can_close_issue("marusinm", issue)
 
     def test_pr_permissions(self):
-        users = self.colin_project.who_can_merge_pr()
-        assert "usercont-release-bot" in users
+        assert self.colin_project.can_merge_pr("usercont-release-bot")
+        assert not self.colin_project.can_merge_pr("marusinm")
 
 
 class Issues(GithubTests):
