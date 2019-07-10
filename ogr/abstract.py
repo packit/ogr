@@ -201,6 +201,15 @@ class CommitComment:
         self.author = author
 
 
+class GitTag:
+    def __init__(self, name: str, commit_sha: str) -> None:
+        self.name = name
+        self.commit_sha = commit_sha
+
+    def __str__(self) -> str:
+        return f"GitTag(name={self.name}, commit_sha={self.commit_sha})"
+
+
 class Release:
     def __init__(
         self,
@@ -210,6 +219,7 @@ class Release:
         url: str,
         created_at: str,
         tarball_url: str,
+        git_tag: GitTag = None,
     ) -> None:
         self.title = title
         self.body = body
@@ -217,6 +227,7 @@ class Release:
         self.url = url
         self.created_at = created_at
         self.tarball_url = tarball_url
+        self.git_tag = git_tag
 
     def save_archive(self, filename):
         response = urlopen(self.tarball_url)
@@ -225,15 +236,6 @@ class Release:
         file = open(filename, "w")
         file.write(data)
         file.close()
-
-
-class GitTag:
-    def __init__(self, name: str, commit_sha: str) -> None:
-        self.name = name
-        self.commit_sha = commit_sha
-
-    def __str__(self) -> str:
-        return f"GitTag(name={self.name}, commit_sha={self.commit_sha})"
 
 
 class GitService:
