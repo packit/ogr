@@ -322,7 +322,7 @@ class GithubProject(BaseGitProject):
         all_tags = self.github_repo.get_tags()
         for tag in all_tags:
             if tag.name == tag_name:
-                return GitTag(tag.name, tag.commit.sha)
+                return GitTag(name=tag.name, commit_sha=tag.commit.sha)
         return None
 
     @if_readonly(return_function=GitProjectReadOnly.pr_create)
