@@ -232,7 +232,7 @@ class PersistentObjectStorage:
         for item in keys:
             if not item:
                 output.append("empty")
-            elif not isinstance(item, collections.Hashable):
+            elif not isinstance(item, collections.abc.Hashable):
                 output.append(str(item))
             else:
                 output.append(item)
