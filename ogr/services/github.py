@@ -46,6 +46,7 @@ from ogr.abstract import (
     Release,
     CommitComment,
     CommitStatus,
+    GitTag,
 )
 from ogr.exceptions import GithubAPIException
 from ogr.factory import use_for_service
@@ -317,6 +318,13 @@ class GithubProject(BaseGitProject):
                 return tag.commit.sha
         return ""
 
+    def get_tag_from_tag_name(self, tag_name: str) -> Optional[GitTag]:
+        all_tags = self.github_repo.get_tags()
+        for tag in all_tags:
+            if tag.name == tag_name:
+                return GitTag(tag.name, tag.commit.sha)
+        return None
+
     @if_readonly(return_function=GitProjectReadOnly.pr_create)
     def pr_create(
         self, title: str, body: str, target_branch: str, source_branch: str
@@ -503,7 +511,9 @@ class GithubProject(BaseGitProject):
         )
 
     @staticmethod
-    def _release_from_github_object(raw_release: GithubRelease) -> Release:
+    def _release_from_github_object(
+        raw_release: GithubRelease, git_tag: GitTag
+    ) -> Release:
         """
         Get ogr.abstract.Release object from github.GithubRelease
 
@@ -524,6 +534,7 @@ class GithubProject(BaseGitProject):
             url=raw_release.url,
             created_at=raw_release.created_at,
             tarball_url=raw_release.tarball_url,
+            git_tag=git_tag,
         )
 
     @staticmethod
@@ -570,12 +581,17 @@ class GithubProject(BaseGitProject):
 
     def get_release(self, identifier: int) -> Release:
         release = self.github_repo.get_release(id=identifier)
-        return self._release_from_github_object(raw_release=release)
+        return self._release_from_github_object(
+            raw_release=release, git_tag=self.get_tag_from_tag_name(release.tag_name)
+        )
 
     def get_releases(self) -> List[Release]:
         releases = self.github_repo.get_releases()
         return [
-            self._release_from_github_object(raw_release=release)
+            self._release_from_github_object(
+                raw_release=release,
+                git_tag=self.get_tag_from_tag_name(release.tag_name),
+            )
             for release in releases
         ]
 

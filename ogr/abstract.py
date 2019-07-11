@@ -219,7 +219,7 @@ class Release:
         url: str,
         created_at: str,
         tarball_url: str,
-        git_tag: GitTag = None,
+        git_tag: GitTag,
     ) -> None:
         self.title = title
         self.body = body
