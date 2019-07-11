@@ -1,10 +1,11 @@
 import os
 import unittest
 
-from ogr import GithubService, get_project
+import github
+
+from ogr import GithubService, PagureService, get_project, BetterGithubIntegration
 from ogr.mock_core import PersistentObjectStorage
 from ogr.services.github import GithubProject
-from ogr.services.mock.pagure_mock import PagureMockAPI
 from ogr.services.pagure import PagureProject
 
 DATA_DIR = "test_data"
@@ -40,8 +41,10 @@ class FactoryTests(unittest.TestCase):
         self.github_service = GithubService(
             token=self.github_token, persistent_storage=self.persistent_object_storage
         )
+        BetterGithubIntegration.persistent_storage = self.persistent_object_storage
+        github.MainClass.Requester.persistent_storage = self.persistent_object_storage
 
-        self.pagure_service = PagureMockAPI(
+        self.pagure_service = PagureService(
             token=self.pagure_token, persistent_storage=self.persistent_object_storage
         )
 

@@ -1,6 +1,9 @@
 import os
 import unittest
-from ogr.services.github import GithubService
+
+import github
+
+from ogr import GithubService, BetterGithubIntegration
 from ogr.mock_core import PersistentObjectStorage
 
 DATA_DIR = "test_data"
@@ -20,13 +23,20 @@ class ReadOnly(unittest.TestCase):
         persistent_data_file = os.path.join(
             PERSISTENT_DATA_PREFIX, f"test_github_data_{test_name}.yaml"
         )
+        self.persistent_object_storage = PersistentObjectStorage(
+            persistent_data_file, self.is_write_mode
+        )
+
+        GithubService.persistent_storage = self.persistent_object_storage
         self.service = GithubService(
             token=self.token,
-            persistent_storage=PersistentObjectStorage(
-                persistent_data_file, self.is_write_mode
-            ),
+            persistent_storage=self.persistent_object_storage,
             read_only=True,
         )
+
+        BetterGithubIntegration.persistent_storage = self.persistent_object_storage
+        github.MainClass.Requester.persistent_storage = self.persistent_object_storage
+
         self.colin_project = self.service.get_project(
             namespace="user-cont", repo="colin"
         )

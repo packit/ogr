@@ -42,7 +42,7 @@ from ogr.exceptions import (
     OperationNotSupported,
 )
 from ogr.factory import use_for_service
-from ogr.mock_core import if_readonly, GitProjectReadOnly, PersistentObjectStorage
+from ogr.mock_core import if_readonly, GitProjectReadOnly
 from ogr.parsing import parse_git_repo
 from ogr.services.base import BaseGitService, BaseGitProject, BaseGitUser
 from ogr.utils import RequestResponse
@@ -53,14 +53,11 @@ logger = logging.getLogger(__name__)
 @use_for_service("pagure.io")
 @use_for_service("src.fedoraproject.org")
 class PagureService(BaseGitService):
-    persistent_storage: Optional[PersistentObjectStorage] = None
-
     def __init__(
         self,
         token: str = None,
         instance_url: str = "https://src.fedoraproject.org",
         read_only: bool = False,
-        persistent_storage: Optional[PersistentObjectStorage] = None,
         insecure: bool = False,
         **_,
     ) -> None:
@@ -68,9 +65,6 @@ class PagureService(BaseGitService):
         self.instance_url = instance_url
         self._token = token
         self.read_only = read_only
-
-        if persistent_storage:
-            self.persistent_storage = persistent_storage
 
         self.session = requests.session()
 
@@ -88,15 +82,15 @@ class PagureService(BaseGitService):
         return f'PagureService(read_only={self.read_only}, instance_url="{self.instance_url}")'
 
     def __eq__(self, o: object) -> bool:
-        if not isinstance(o, PagureService):
+        if not issubclass(o.__class__, PagureService):
             return False
 
         return (
-            self._token == o._token
-            and self.read_only == o.read_only
-            and self.instance_url == o.instance_url
-            and self.insecure == o.insecure
-            and self.header == o.header
+            self._token == o._token  # type: ignore
+            and self.read_only == o.read_only  # type: ignore
+            and self.instance_url == o.instance_url  # type: ignore
+            and self.insecure == o.insecure  # type: ignore
+            and self.header == o.header  # type: ignore
         )
 
     def get_project(self, **kwargs) -> "PagureProject":
@@ -167,14 +161,14 @@ class PagureService(BaseGitService):
         return response
 
     def get_raw_request(
-        self, url, method="GET", params=None, data=None
+        self, url, method="GET", params=None, data=None, header=None
     ) -> RequestResponse:
 
         response = self.session.request(
             method=method,
             url=url,
             params=params,
-            headers=self.header,
+            headers=header or self.header,
             data=data,
             verify=not self.insecure,
         )

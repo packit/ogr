@@ -1,9 +1,11 @@
 import os
 import unittest
+
+import github
 from github import GithubException
 
+from ogr import GithubService
 from ogr.abstract import PRStatus, IssueStatus
-from ogr.services.github import GithubService
 from ogr.mock_core import PersistentObjectStorage
 
 DATA_DIR = "test_data"
@@ -28,9 +30,10 @@ class GithubTests(unittest.TestCase):
         ):
             raise EnvironmentError("please set GITHUB_TOKEN GITHUB_USER env variables")
 
-        self.service = GithubService(
-            token=self.token, persistent_storage=persistent_object_storage
-        )
+        self.service = GithubService(token=self.token)
+        GithubService.persistent_storage = persistent_object_storage
+        github.MainClass.Requester.persistent_storage = persistent_object_storage
+
         self.hello_world_project = self.service.get_project(
             namespace="packit-service", repo="hello-world"
         )

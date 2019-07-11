@@ -25,8 +25,12 @@ Module for:
 - simplifying the python work with git
 - intruduce one api for multiple git services (github/gitlab/pagure)
 """
+import logging
+import os
 
 from pkg_resources import get_distribution, DistributionNotFound
+
+from ogr.factory import get_project, get_service_class
 
 try:
     __version__ = get_distribution(__name__).version
@@ -34,13 +38,66 @@ except DistributionNotFound:
     # package is not installed
     pass
 
-from ogr.services.github import GithubService
-from ogr.services.pagure import PagureService
-from ogr.factory import get_project, get_service_class
+logger = logging.getLogger(__name__)
+
+mock_env = os.getenv("OGR_MOCK")
+if mock_env:
+    import github
+    from ogr.services.mock.tweaks import (
+        use_persistent_storage,
+        use_persistent_storage_without_overwriting,
+    )
+
+    old__requestEncode = github.MainClass.Requester._Requester__requestEncode
+
+    github.MainClass.Requester = use_persistent_storage_without_overwriting(
+        github.MainClass.Requester
+    )
+
+    def new__requestEncode(
+        self, cnx, verb, url, parameters, requestHeaders, input, encode
+    ):
+        """
+        replacement for github_origin.MainClass.Requester._Requester__requestEncode method
+        """
+        internal_keys = [verb, url, parameters]
+        if self.persistent_storage.is_write_mode:
+            status, responseHeaders, output = old__requestEncode(
+                self, cnx, verb, url, parameters, requestHeaders, input, encode
+            )
+            self.persistent_storage.store(
+                keys=internal_keys, values=[status, responseHeaders, output]
+            )
+        else:
+            logger.debug(f"Persistent github API: {internal_keys}")
+            status, responseHeaders, output = self.persistent_storage.read(
+                keys=internal_keys
+            )
+        return status, responseHeaders, output
+
+    github.MainClass.Requester._Requester__requestEncode = new__requestEncode
+
+    from ogr.services.mock.github import (
+        BetterGithubIntegration as BetterGithubIntegrationOriginal,
+    )
+
+    BetterGithubIntegration = use_persistent_storage(BetterGithubIntegrationOriginal)
+
+    from ogr.services.github import GithubService
+    from ogr.services.pagure import PagureService as OriginalPagureService
+
+    PagureService = use_persistent_storage(OriginalPagureService)
+
+
+else:
+    from ogr.services.mock.github import BetterGithubIntegration
+    from ogr.services.github import GithubService
+    from ogr.services.pagure import PagureService
 
 __all__ = [
     GithubService.__name__,
     PagureService.__name__,
     get_project.__name__,
     get_service_class.__name__,
+    BetterGithubIntegration.__name__,
 ]

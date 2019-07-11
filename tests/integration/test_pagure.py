@@ -1,10 +1,10 @@
 import os
 import unittest
 
+from ogr import PagureService
 from ogr.abstract import PRStatus, IssueStatus
 from ogr.exceptions import PagureAPIException
 from ogr.mock_core import PersistentObjectStorage
-from ogr.services.mock.pagure_mock import PagureMockAPI
 
 DATA_DIR = "test_data"
 PERSISTENT_DATA_PREFIX = os.path.join(
@@ -29,7 +29,7 @@ class PagureTests(unittest.TestCase):
         ):
             raise EnvironmentError("please set PAGURE_TOKEN PAGURE_USER env variables")
 
-        self.service = PagureMockAPI(
+        self.service = PagureService(
             token=self.token, persistent_storage=persistent_object_storage
         )
         self.docker_py_project = self.service.get_project(
@@ -42,7 +42,7 @@ class PagureTests(unittest.TestCase):
             namespace="rpms", repo="abiword", username="churchyard", is_fork=True
         )
 
-        self.service_pagure = PagureMockAPI(
+        self.service_pagure = PagureService(
             token=self.token,
             instance_url="https://pagure.io",
             persistent_storage=persistent_object_storage,
