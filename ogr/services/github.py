@@ -21,7 +21,7 @@
 # SOFTWARE.
 
 import logging
-from typing import Optional, Dict, List, Type
+from typing import Optional, Dict, List, Type, Set
 
 import github
 from github import (
@@ -233,35 +233,54 @@ class GithubProject(BaseGitProject):
         # in case of github, repository has only one owner
         return [self.github_repo.owner.login]
 
-    def can_close_issue(self, username: str, issue: Issue) -> bool:
+    def who_can_close_issue(self) -> Set[str]:
         try:
             collaborators = self._get_collaborators_with_permission()
         except github.GithubException:
             logger.debug(
-                f"{username} must have push access to view repository permissions."
+                f"Current Github token must have push access to view repository permissions."
             )
-            return False
+            return set()
 
+        usernames = []
         for login, permission in collaborators.items():
-            if permission in ["admin", "write"] and username == login:
-                return True
+            if permission in ["admin", "write"]:
+                usernames.append(login)
 
+        return set(usernames)
+
+    def who_can_merge_pr(self) -> Set[str]:
+        try:
+            collaborators = self._get_collaborators_with_permission()
+        except github.GithubException:
+            logger.debug(
+                f"Current Github token must have push access to view repository permissions."
+            )
+            return set()
+
+        usernames = []
+        for login, permission in collaborators.items():
+            if permission in ["admin", "write"]:
+                usernames.append(login)
+
+        return set(usernames)
+
+    def can_close_issue(self, username: str, issue: Issue) -> bool:
+        allowed_users = self.who_can_close_issue()
+
+        for allowed_user in allowed_users:
+            if username == allowed_user:
+                return True
         if username == issue.author:
             return True
 
         return False
 
     def can_merge_pr(self, username) -> bool:
-        try:
-            collaborators = self._get_collaborators_with_permission()
-        except github.GithubException:
-            logger.debug(
-                f"{username} must have push access to view repository permissions."
-            )
-            return False
+        allowed_users = self.who_can_merge_pr()
 
-        for login, permission in collaborators.items():
-            if permission in ["admin", "write"] and username == login:
+        for allowed_user in allowed_users:
+            if username == allowed_user:
                 return True
 
         return False

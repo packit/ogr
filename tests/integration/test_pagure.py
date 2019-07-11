@@ -149,10 +149,15 @@ class GenericCommands(PagureTests):
         assert ["marusinm"] == owners
 
     def test_issue_permissions(self):
+        owners = self.ogr_test_project.who_can_close_issue()
+        assert "marusinm" in owners
+
         issue = self.ogr_test_project.get_issue_info(1)
         assert self.ogr_test_project.can_close_issue("marusinm", issue)
 
     def test_pr_permissions(self):
+        owners = self.ogr_test_project.who_can_merge_pr()
+        assert "marusinm" in owners
         assert self.ogr_test_project.can_merge_pr("marusinm")
 
 

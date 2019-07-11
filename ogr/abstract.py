@@ -22,7 +22,7 @@
 
 import datetime
 from enum import IntEnum
-from typing import Optional, Match, List, Dict
+from typing import Optional, Match, List, Dict, Set
 from urllib.request import urlopen
 
 from ogr.parsing import parse_git_repo
@@ -363,6 +363,20 @@ class GitProject:
         """
         Get all project owners
         :return: List of usernames
+        """
+        raise NotImplementedError()
+
+    def who_can_close_issue(self) -> Set[str]:
+        """
+        Get all usernames who have permissions to modify an Issue
+        :return: Set of usernames
+        """
+        raise NotImplementedError()
+
+    def who_can_merge_pr(self) -> Set[str]:
+        """
+        Get all usernames who have permissions to modify a PR
+        :return: Set of usernames
         """
         raise NotImplementedError()
 
