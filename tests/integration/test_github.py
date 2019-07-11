@@ -31,6 +31,9 @@ class GithubTests(unittest.TestCase):
         self.service = GithubService(
             token=self.token, persistent_storage=persistent_object_storage
         )
+        self.hello_world_project = self.service.get_project(
+            namespace="packit-service", repo="hello-world"
+        )
         self.colin_project = self.service.get_project(
             namespace="user-cont", repo="colin"
         )
@@ -110,6 +113,14 @@ class GenericCommands(GithubTests):
         assert releases
 
         assert len(releases) >= 9
+
+    def test_create_release(self):
+        release = self.hello_world_project.create_release(
+            tag="0.3.0", name="test", message="testing release"
+        )
+        assert release.tag_name == "0.3.0"
+        assert release.title == "test"
+        assert release.body == "testing release"
 
     def test_username(self):
         # changed to check just lenght, because it is based who regenerated data files
