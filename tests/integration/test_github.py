@@ -144,6 +144,14 @@ class GenericCommands(GithubTests):
         )
         assert not self.colin_project.get_sha_from_tag("future")
 
+    def test_get_tag_from_tag_name(self):
+        tag = self.colin_project.get_tag_from_tag_name("v0.0.1")
+        assert tag.name == "v0.0.1"
+        assert tag.commit_sha == "4fde179d43b6c9c6a8c4d0c869293d18a6ce7ddc"
+
+    def test_get_tag_from_nonexisting_tag_name(self):
+        assert not self.colin_project.get_tag_from_tag_name("future")
+
 
 class Issues(GithubTests):
     def test_issue_list(self):
