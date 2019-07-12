@@ -22,7 +22,7 @@
 
 import datetime
 from enum import IntEnum
-from typing import Optional, Match, List, Dict
+from typing import Optional, Match, List, Dict, Set
 from urllib.request import urlopen
 
 from ogr.parsing import parse_git_repo
@@ -356,6 +356,44 @@ class GitProject:
 
         :param create: create a fork if it doesn't exist
         :return: instance of GitProject or None
+        """
+        raise NotImplementedError()
+
+    def get_owners(self) -> List[str]:
+        """
+        Get all project owners
+        :return: List of usernames
+        """
+        raise NotImplementedError()
+
+    def who_can_close_issue(self) -> Set[str]:
+        """
+        Get all usernames who have permissions to modify an Issue
+        :return: Set of usernames
+        """
+        raise NotImplementedError()
+
+    def who_can_merge_pr(self) -> Set[str]:
+        """
+        Get all usernames who have permissions to modify a PR
+        :return: Set of usernames
+        """
+        raise NotImplementedError()
+
+    def can_close_issue(self, username: str, issue: Issue) -> bool:
+        """
+        Check if user have permissions to modify an Issue
+        :param username: str
+        :param issue: Issue
+        :return: true if user can close issue, false otherwise
+        """
+        raise NotImplementedError()
+
+    def can_merge_pr(self, username) -> bool:
+        """
+        Check if user have permissions to modify an Pr
+        :param username: str
+        :return: true if user can close PR, false otherwise
         """
         raise NotImplementedError()
 
