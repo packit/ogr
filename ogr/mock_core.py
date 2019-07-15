@@ -32,10 +32,10 @@ from ogr.abstract import (
     PullRequest,
     IssueComment,
     PRComment,
-    PRStatus,
+    PRFlag,
     GitProject,
     CommitComment,
-    CommitStatus,
+    CommitFlag,
 )
 from ogr.constant import DEFAULT_RO_PREFIX_STRING
 from ogr.exceptions import PersistenStorageException
@@ -110,7 +110,7 @@ class GitProjectReadOnly:
             target_branch=target_branch,
             source_branch=source_branch,
             id=cls.id,
-            status=PRStatus.open,
+            status=PRFlag.open,
             url=cls.url,
             author=cls.author,
             created=datetime.datetime.now(),
@@ -140,13 +140,13 @@ class GitProjectReadOnly:
     @classmethod
     def pr_close(cls, original_object: Any, pr_id: int) -> "PullRequest":
         pull_request = original_object.get_pr_info(pr_id)
-        pull_request.status = PRStatus.closed
+        pull_request.status = PRFlag.closed
         return pull_request
 
     @classmethod
     def pr_merge(cls, original_object: Any, pr_id: int) -> "PullRequest":
         pull_request = original_object.get_pr_info(pr_id)
-        pull_request.status = PRStatus.merged
+        pull_request.status = PRFlag.merged
         return pull_request
 
     @classmethod
@@ -177,8 +177,8 @@ class GitProjectReadOnly:
     @classmethod
     def set_commit_status(
         cls, original_object: Any, commit: str, state: str, context: str
-    ) -> "CommitStatus":
-        output = CommitStatus(commit, state, context)
+    ) -> "CommitFlag":
+        output = CommitFlag(commit, state, context)
         return output
 
 

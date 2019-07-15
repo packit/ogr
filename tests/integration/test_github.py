@@ -2,7 +2,7 @@ import os
 import unittest
 from github import GithubException
 
-from ogr.abstract import PRStatus, IssueStatus
+from ogr.abstract import PRFlag, IssueStatus
 from ogr.services.github import GithubService
 from ogr.mock_core import PersistentObjectStorage
 
@@ -217,11 +217,11 @@ class PullRequests(GithubTests):
         assert isinstance(pr_list, list)
         assert not pr_list
 
-        pr_list_all = self.colin_project.get_pr_list(status=PRStatus.all)
+        pr_list_all = self.colin_project.get_pr_list(status=PRFlag.all)
         assert pr_list_all
         assert len(pr_list_all) >= 144
 
-        pr_list_closed = self.colin_project.get_pr_list(status=PRStatus.closed)
+        pr_list_closed = self.colin_project.get_pr_list(status=PRFlag.closed)
         assert pr_list_closed
         assert len(pr_list_closed) >= 140
 
@@ -233,7 +233,7 @@ class PullRequests(GithubTests):
         pr_info = self.colin_project.get_pr_info(pr_id=1)
         assert pr_info
         assert pr_info.title.startswith("Add basic structure")
-        assert pr_info.status == PRStatus.closed
+        assert pr_info.status == PRFlag.closed
 
     def test_update_pr_info(self):
         self.colin_project.update_pr_info(
@@ -241,8 +241,6 @@ class PullRequests(GithubTests):
         )
         pr_info = self.colin_project.get_pr_info(pr_id=1)
         assert pr_info.title == "changed"
-        assert pr_info.description == "changed description"
-
         self.colin_project.update_pr_info(
             pr_id=1, title="new", description="new description"
         )

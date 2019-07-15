@@ -42,11 +42,11 @@ from ogr.abstract import (
     IssueStatus,
     PullRequest,
     PRComment,
-    PRStatus,
+    PRFlag,
     Release,
     CommitComment,
-    CommitStatus,
     GitTag,
+    CommitFlag,
 )
 from ogr.exceptions import GithubAPIException
 from ogr.factory import use_for_service
@@ -356,7 +356,7 @@ class GithubProject(BaseGitProject):
         for label in labels:
             issue.add_to_labels(label)
 
-    def get_pr_list(self, status: PRStatus = PRStatus.open) -> List[PullRequest]:
+    def get_pr_list(self, status: PRFlag = PRFlag.open) -> List[PullRequest]:
         prs = self.github_repo.get_pulls(
             state=status.name, sort="updated", direction="desc"
         )
@@ -493,7 +493,7 @@ class GithubProject(BaseGitProject):
         """
         github_commit = self.github_repo.get_commit(commit)
         github_commit.create_status(state, target_url, description, context)
-        return CommitStatus(commit, state, context)
+        return CommitFlag(commit, state, context)
 
     @if_readonly(return_function=GitProjectReadOnly.pr_close)
     def pr_close(self, pr_id: int) -> PullRequest:
@@ -547,7 +547,7 @@ class GithubProject(BaseGitProject):
         return PullRequest(
             title=github_pr.title,
             id=github_pr.number,
-            status=PRStatus[github_pr.state],
+            status=PRFlag[github_pr.state],
             url=github_pr.html_url,
             description=github_pr.body,
             author=github_pr.user.name,

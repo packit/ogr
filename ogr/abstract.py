@@ -93,7 +93,7 @@ class IssueComment:
         )
 
 
-class PRStatus(IntEnum):
+class PRFlag(IntEnum):
     open = 1
     closed = 2
     merged = 3
@@ -105,7 +105,7 @@ class PullRequest:
         self,
         title: str,
         id: int,
-        status: PRStatus,
+        status: PRFlag,
         url: str,
         description: str,
         author: str,
@@ -165,7 +165,7 @@ class PRComment:
         )
 
 
-class CommitStatus:
+class CommitFlag:
     def __init__(
         self,
         commit: str,
@@ -184,7 +184,7 @@ class CommitStatus:
 
     def __str__(self) -> str:
         return (
-            f"CommitStatus("
+            f"CommitFlag("
             f"commit='{self.commit}', "
             f"state='{self.state}', "
             f"context='{self.context}', "
@@ -495,11 +495,11 @@ class GitProject:
         """
         raise NotImplementedError()
 
-    def get_pr_list(self, status: PRStatus = PRStatus.open) -> List["PullRequest"]:
+    def get_pr_list(self, status: PRFlag = PRFlag.open) -> List["PullRequest"]:
         """
         List of pull requests (dics)
 
-        :param status: PRStatus enum
+        :param status: PRFlag enum
         :return: [PullRequest]
         """
         raise NotImplementedError()
@@ -637,7 +637,7 @@ class GitProject:
 
     def set_commit_status(
         self, commit: str, state: str, target_url: str, description: str, context: str
-    ) -> "CommitStatus":
+    ) -> "CommitFlag":
         """
         Create a status on a commit
 
@@ -650,12 +650,12 @@ class GitProject:
         """
         raise NotImplementedError()
 
-    def get_commit_statuses(self, commit: str) -> List[CommitStatus]:
+    def get_commit_statuses(self, commit: str) -> List[CommitFlag]:
         """
         Get status of the commit.
 
         :param commit: str
-        :return: [CommitStatus]
+        :return: [CommitFlag]
         """
         raise NotImplementedError()
 

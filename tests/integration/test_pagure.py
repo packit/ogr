@@ -1,7 +1,7 @@
 import os
 import unittest
 
-from ogr.abstract import PRStatus, IssueStatus
+from ogr.abstract import PRFlag, IssueStatus
 from ogr.exceptions import PagureAPIException
 from ogr.mock_core import PersistentObjectStorage
 from ogr.services.mock.pagure_mock import PagureMockAPI
@@ -189,7 +189,7 @@ class PullRequests(PagureTests):
         assert isinstance(pr_list, list)
         assert not pr_list
 
-        pr_list = self.abiword_project.get_pr_list(status=PRStatus.all)
+        pr_list = self.abiword_project.get_pr_list(status=PRFlag.all)
         assert pr_list
         assert len(pr_list) == 2
 
@@ -197,7 +197,7 @@ class PullRequests(PagureTests):
         pr_info = self.abiword_project.get_pr_info(pr_id=1)
         assert pr_info
         assert pr_info.title.startswith("Update Python 2 dependency")
-        assert pr_info.status == PRStatus.merged
+        assert pr_info.status == PRFlag.merged
 
     @unittest.skip("No TOKEN is able to do it for now.")
     def test_update_pr_info(self):
