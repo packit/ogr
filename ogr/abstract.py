@@ -237,6 +237,17 @@ class Release:
         file.write(data)
         file.close()
 
+    def __str__(self) -> str:
+        return (
+            f"Release("
+            f"title='{self.title}', "
+            f"body='{self.body}', "
+            f"tag_name='{self.tag_name}', "
+            f"url='{self.url}',"
+            f"created_at='{self.created_at}',"
+            f"tarball_url='{self.tarball_url}')"
+        )
+
 
 class GitService:
     instance_url: Optional[str] = None

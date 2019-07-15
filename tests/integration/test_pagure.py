@@ -110,6 +110,12 @@ class GenericCommands(PagureTests):
         assert branches
         assert set(branches) == {"f26", "f27", "f28", "f29", "f30", "master"}
 
+    def test_get_releases(self):
+        releases = self.ogr_test_project.get_releases()
+        assert releases
+
+        assert len(releases) >= 2
+
     def test_git_urls(self):
         urls = self.docker_py_project.get_git_urls()
         assert urls

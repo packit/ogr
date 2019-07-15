@@ -27,7 +27,14 @@ from typing import List, Optional, Dict, Any, Set
 import requests
 
 from ogr.abstract import PRStatus, GitTag, CommitStatus, CommitComment
-from ogr.abstract import PullRequest, PRComment, Issue, IssueStatus, IssueComment
+from ogr.abstract import (
+    PullRequest,
+    PRComment,
+    Issue,
+    IssueStatus,
+    IssueComment,
+    Release,
+)
 from ogr.exceptions import (
     OurPagureRawRequest,
     PagureAPIException,
@@ -767,6 +774,23 @@ class PagureProject(BaseGitProject):
             n: GitTag(name=n, commit_sha=c) for n, c in response["tags"].items()
         }
         return tags_dict
+
+    def get_releases(self) -> List[Release]:
+        # git tag for Pagure is shown as Release in Pagure UI
+        git_tags = self.get_tags()
+        return [self._release_from_git_tag(git_tag) for git_tag in git_tags]
+
+    @staticmethod
+    def _release_from_git_tag(git_tag: GitTag) -> Release:
+        return Release(
+            title=git_tag.name,
+            body="",
+            tag_name=git_tag.name,
+            url="",
+            created_at="",
+            tarball_url="",
+            git_tag=git_tag,
+        )
 
     def get_forks(self) -> List["PagureProject"]:
         """
