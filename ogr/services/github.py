@@ -268,9 +268,8 @@ class GithubProject(BaseGitProject):
     def can_close_issue(self, username: str, issue: Issue) -> bool:
         allowed_users = self.who_can_close_issue()
 
-        for allowed_user in allowed_users:
-            if username == allowed_user:
-                return True
+        if username in allowed_users:
+            return True
         if username == issue.author:
             return True
 
@@ -279,9 +278,8 @@ class GithubProject(BaseGitProject):
     def can_merge_pr(self, username) -> bool:
         allowed_users = self.who_can_merge_pr()
 
-        for allowed_user in allowed_users:
-            if username == allowed_user:
-                return True
+        if username in allowed_users:
+            return True
 
         return False
 

@@ -519,6 +519,23 @@ class GitProject:
         """
         raise NotImplementedError()
 
+    def get_release(self, identifier: int) -> Release:
+        """
+        Get a single release
+
+        :param identifier:
+        :return: Release
+        """
+        raise NotImplementedError()
+
+    def get_releases(self) -> List[Release]:
+        """
+        Return list of releases
+
+        :return: [Release]
+        """
+        raise NotImplementedError()
+
     def _get_all_pr_comments(self, pr_id: int) -> List["PRComment"]:
         """
         Get list of pull-request comments.
