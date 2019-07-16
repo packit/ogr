@@ -1,4 +1,4 @@
-BASE_IMAGE := registry.fedoraproject.org/fedora:29
+BASE_IMAGE := registry.fedoraproject.org/fedora:30
 TEST_TARGET := ./tests/
 PY_PACKAGE := ogr
 OGR_IMAGE := ogr
