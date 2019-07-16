@@ -28,14 +28,10 @@ class ReadOnly(unittest.TestCase):
         )
 
         GithubService.persistent_storage = self.persistent_object_storage
-        self.service = GithubService(
-            token=self.token,
-            persistent_storage=self.persistent_object_storage,
-            read_only=True,
-        )
-
         BetterGithubIntegration.persistent_storage = self.persistent_object_storage
         github.MainClass.Requester.persistent_storage = self.persistent_object_storage
+
+        self.service = GithubService(token=self.token, read_only=True)
 
         self.colin_project = self.service.get_project(
             namespace="user-cont", repo="colin"

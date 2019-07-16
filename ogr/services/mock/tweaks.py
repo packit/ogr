@@ -8,16 +8,6 @@ def use_persistent_storage_without_overwriting(cls):
     class ClassWithPersistentStorage(cls):
         persistent_storage: Optional[PersistentObjectStorage]
 
-        def __init__(
-            self,
-            *args,
-            persistent_storage: Optional[PersistentObjectStorage] = None,
-            **kwargs,
-        ) -> None:
-            if persistent_storage:
-                self.persistent_storage = persistent_storage
-            super().__init__(*args, **kwargs)
-
     ClassWithPersistentStorage.__name__ = cls.__name__
     return ClassWithPersistentStorage
 
@@ -25,16 +15,6 @@ def use_persistent_storage_without_overwriting(cls):
 def use_persistent_storage(cls):
     class ClassWithPersistentStorage(cls):
         persistent_storage: Optional[PersistentObjectStorage]
-
-        def __init__(
-            self,
-            *args,
-            persistent_storage: Optional[PersistentObjectStorage] = None,
-            **kwargs,
-        ) -> None:
-            if persistent_storage:
-                self.persistent_storage = persistent_storage
-            super().__init__(*args, **kwargs)
 
         def get_raw_request(
             self, url, method="GET", params=None, data=None, header=None

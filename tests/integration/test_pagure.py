@@ -29,9 +29,9 @@ class PagureTests(unittest.TestCase):
         ):
             raise EnvironmentError("please set PAGURE_TOKEN PAGURE_USER env variables")
 
-        self.service = PagureService(
-            token=self.token, persistent_storage=persistent_object_storage
-        )
+        PagureService.persistent_storage = persistent_object_storage
+
+        self.service = PagureService(token=self.token)
         self.docker_py_project = self.service.get_project(
             namespace="rpms", repo="python-docker", username="lachmanfrantisek"
         )
@@ -43,9 +43,7 @@ class PagureTests(unittest.TestCase):
         )
 
         self.service_pagure = PagureService(
-            token=self.token,
-            instance_url="https://pagure.io",
-            persistent_storage=persistent_object_storage,
+            token=self.token, instance_url="https://pagure.io"
         )
         self.ogr_test_project = self.service_pagure.get_project(
             namespace=None, repo="ogr-test", username="marusinm"

@@ -38,15 +38,13 @@ class FactoryTests(unittest.TestCase):
         ):
             raise EnvironmentError("please set PAGURE_TOKEN PAGURE_USER env variables")
 
-        self.github_service = GithubService(
-            token=self.github_token, persistent_storage=self.persistent_object_storage
-        )
+        self.github_service = GithubService(token=self.github_token)
+        self.pagure_service = PagureService(token=self.pagure_token)
+
+        PagureService.persistent_storage = self.persistent_object_storage
+        GithubService.persistent_storage = self.persistent_object_storage
         BetterGithubIntegration.persistent_storage = self.persistent_object_storage
         github.MainClass.Requester.persistent_storage = self.persistent_object_storage
-
-        self.pagure_service = PagureService(
-            token=self.pagure_token, persistent_storage=self.persistent_object_storage
-        )
 
     def tearDown(self):
         self.persistent_object_storage.dump()
