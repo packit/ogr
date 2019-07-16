@@ -42,7 +42,7 @@ from ogr.abstract import (
     IssueStatus,
     PullRequest,
     PRComment,
-    PRFlag,
+    PRStatus,
     Release,
     CommitComment,
     GitTag,
@@ -356,7 +356,7 @@ class GithubProject(BaseGitProject):
         for label in labels:
             issue.add_to_labels(label)
 
-    def get_pr_list(self, status: PRFlag = PRFlag.open) -> List[PullRequest]:
+    def get_pr_list(self, status: PRStatus = PRStatus.open) -> List[PullRequest]:
         prs = self.github_repo.get_pulls(
             state=status.name, sort="updated", direction="desc"
         )
@@ -547,7 +547,7 @@ class GithubProject(BaseGitProject):
         return PullRequest(
             title=github_pr.title,
             id=github_pr.number,
-            status=PRFlag[github_pr.state],
+            status=PRStatus[github_pr.state],
             url=github_pr.html_url,
             description=github_pr.body,
             author=github_pr.user.name,

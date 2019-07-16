@@ -26,7 +26,7 @@ from typing import List, Optional, Dict, Any, Set
 
 import requests
 
-from ogr.abstract import PRFlag, GitTag, CommitFlag, CommitComment
+from ogr.abstract import PRStatus, GitTag, CommitFlag, CommitComment
 from ogr.abstract import (
     PullRequest,
     PRComment,
@@ -442,7 +442,7 @@ class PagureProject(BaseGitProject):
         return issue
 
     def get_pr_list(
-        self, status: PRFlag = PRFlag.open, assignee=None, author=None
+        self, status: PRStatus = PRStatus.open, assignee=None, author=None
     ) -> List[PullRequest]:
 
         payload = {"status": status.name.capitalize()}
@@ -659,7 +659,7 @@ class PagureProject(BaseGitProject):
         return PullRequest(
             title=pr_dict["title"],
             id=pr_dict["id"],
-            status=PRFlag[pr_dict["status"].lower()],
+            status=PRStatus[pr_dict["status"].lower()],
             url="/".join(
                 [
                     self.service.instance_url,

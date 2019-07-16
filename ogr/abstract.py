@@ -93,7 +93,7 @@ class IssueComment:
         )
 
 
-class PRFlag(IntEnum):
+class PRStatus(IntEnum):
     open = 1
     closed = 2
     merged = 3
@@ -105,7 +105,7 @@ class PullRequest:
         self,
         title: str,
         id: int,
-        status: PRFlag,
+        status: PRStatus,
         url: str,
         description: str,
         author: str,
@@ -495,11 +495,11 @@ class GitProject:
         """
         raise NotImplementedError()
 
-    def get_pr_list(self, status: PRFlag = PRFlag.open) -> List["PullRequest"]:
+    def get_pr_list(self, status: PRStatus = PRStatus.open) -> List["PullRequest"]:
         """
         List of pull requests (dics)
 
-        :param status: PRFlag enum
+        :param status: PRStatus enum
         :return: [PullRequest]
         """
         raise NotImplementedError()

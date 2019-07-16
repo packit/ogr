@@ -32,7 +32,7 @@ from ogr.abstract import (
     PullRequest,
     IssueComment,
     PRComment,
-    PRFlag,
+    PRStatus,
     GitProject,
     CommitComment,
     CommitFlag,
@@ -110,7 +110,7 @@ class GitProjectReadOnly:
             target_branch=target_branch,
             source_branch=source_branch,
             id=cls.id,
-            status=PRFlag.open,
+            status=PRStatus.open,
             url=cls.url,
             author=cls.author,
             created=datetime.datetime.now(),
@@ -140,13 +140,13 @@ class GitProjectReadOnly:
     @classmethod
     def pr_close(cls, original_object: Any, pr_id: int) -> "PullRequest":
         pull_request = original_object.get_pr_info(pr_id)
-        pull_request.status = PRFlag.closed
+        pull_request.status = PRStatus.closed
         return pull_request
 
     @classmethod
     def pr_merge(cls, original_object: Any, pr_id: int) -> "PullRequest":
         pull_request = original_object.get_pr_info(pr_id)
-        pull_request.status = PRFlag.merged
+        pull_request.status = PRStatus.merged
         return pull_request
 
     @classmethod
