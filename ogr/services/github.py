@@ -29,7 +29,6 @@ from github import (
     IssueComment as GithubIssueComment,
     Repository,
     CommitComment as GithubCommitComment,
-    GithubObject,
 )
 from github.GitRelease import GitRelease as GithubRelease
 from github.Issue import Issue as GithubIssue
@@ -662,22 +661,9 @@ class GithubProject(BaseGitProject):
             for release in releases
         ]
 
-    def create_release(
-        self,
-        tag: str,
-        name: str,
-        message: str,
-        draft=False,
-        prerelease=False,
-        target_commitish=GithubObject.NotSet,
-    ) -> Release:
+    def create_release(self, tag: str, name: str, message: str) -> Release:
         created_release = self.github_repo.create_git_release(
-            tag=tag,
-            name=name,
-            message=message,
-            draft=draft,
-            prerelease=prerelease,
-            target_commitish=target_commitish,
+            tag=tag, name=name, message=message
         )
         return self.get_release(created_release.id)
 

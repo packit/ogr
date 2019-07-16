@@ -115,12 +115,15 @@ class GenericCommands(GithubTests):
         assert len(releases) >= 9
 
     def test_create_release(self):
+        count_before = len(self.hello_world_project.get_releases())
         release = self.hello_world_project.create_release(
-            tag="0.3.0", name="test", message="testing release"
+            tag="0.4.0", name="test", message="testing release"
         )
-        assert release.tag_name == "0.3.0"
+        count_after = len(self.hello_world_project.get_releases())
+        assert release.tag_name == "0.4.0"
         assert release.title == "test"
         assert release.body == "testing release"
+        assert count_before + 1 == count_after
 
     def test_username(self):
         # changed to check just lenght, because it is based who regenerated data files
