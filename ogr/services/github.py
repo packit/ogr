@@ -143,7 +143,7 @@ class GithubProject(BaseGitProject):
                 )
                 inst_id = integration.get_installation_id_for_repo(
                     self.namespace, self.repo
-                )
+                ).id
                 inst_auth = integration.get_access_token(inst_id)
                 self._github_instance = github.Github(login_or_token=inst_auth.token)
             else:

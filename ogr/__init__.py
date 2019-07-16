@@ -77,11 +77,9 @@ if mock_env:
 
     github.MainClass.Requester._Requester__requestEncode = new__requestEncode
 
-    from ogr.services.mock.github import (
-        BetterGithubIntegration as BetterGithubIntegrationOriginal,
-    )
+    from ogr.services.mock.github import BetterGithubIntegrationMock
 
-    BetterGithubIntegration = use_persistent_storage(BetterGithubIntegrationOriginal)
+    BetterGithubIntegration = BetterGithubIntegrationMock
 
     from ogr.services.github import GithubService
     from ogr.services.pagure import PagureService as OriginalPagureService
@@ -90,7 +88,7 @@ if mock_env:
 
 
 else:
-    from ogr.services.mock.github import BetterGithubIntegration
+    from ogr.services.github_tweak import BetterGithubIntegration
     from ogr.services.github import GithubService
     from ogr.services.pagure import PagureService
 
