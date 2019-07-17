@@ -1,6 +1,6 @@
 from typing import Optional
 
-from ogr.mock_core import PersistentObjectStorage
+from ogr.services.mock.mock_core import PersistentObjectStorage
 from ogr.utils import RequestResponse
 
 

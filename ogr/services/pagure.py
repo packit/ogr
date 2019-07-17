@@ -42,7 +42,7 @@ from ogr.exceptions import (
     OperationNotSupported,
 )
 from ogr.factory import use_for_service
-from ogr.mock_core import if_readonly, GitProjectReadOnly
+from ogr.read_only import if_readonly, GitProjectReadOnly
 from ogr.parsing import parse_git_repo
 from ogr.services.base import BaseGitService, BaseGitProject, BaseGitUser
 from ogr.utils import RequestResponse

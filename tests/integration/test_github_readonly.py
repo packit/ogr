@@ -4,7 +4,7 @@ import unittest
 import github
 
 from ogr import GithubService, BetterGithubIntegration
-from ogr.mock_core import PersistentObjectStorage
+from ogr.services.mock.mock_core import PersistentObjectStorage
 
 DATA_DIR = "test_data"
 PERSISTENT_DATA_PREFIX = os.path.join(

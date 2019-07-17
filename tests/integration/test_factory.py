@@ -4,7 +4,7 @@ import unittest
 import github
 
 from ogr import GithubService, PagureService, get_project, BetterGithubIntegration
-from ogr.mock_core import PersistentObjectStorage
+from ogr.services.mock.mock_core import PersistentObjectStorage
 from ogr.services.github import GithubProject
 from ogr.services.pagure import PagureProject
 

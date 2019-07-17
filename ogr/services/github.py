@@ -51,7 +51,7 @@ from ogr.abstract import (
 )
 from ogr.exceptions import GithubAPIException
 from ogr.factory import use_for_service
-from ogr.mock_core import if_readonly, GitProjectReadOnly
+from ogr.read_only import if_readonly, GitProjectReadOnly
 from ogr.services.base import BaseGitService, BaseGitProject, BaseGitUser
 
 logger = logging.getLogger(__name__)
