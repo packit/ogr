@@ -241,6 +241,8 @@ class PullRequests(GithubTests):
         )
         pr_info = self.colin_project.get_pr_info(pr_id=1)
         assert pr_info.title == "changed"
+        assert pr_info.description == "changed description"
+
         self.colin_project.update_pr_info(
             pr_id=1, title="new", description="new description"
         )
