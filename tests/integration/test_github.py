@@ -211,8 +211,11 @@ class Issues(GithubTests):
         assert issue_info.status == IssueStatus.closed
 
     def test_issue_labels(self):
-        self.colin_project.add_issue_labels(issue_id=2, labels=["test_lb1", "test_lb2"])
-        labels = self.colin_project.get_issue_labels(issue_id=2)
+        labels = self.colin_project.get_issue_labels(issue_id=6)
+        assert not labels
+        self.colin_project.add_issue_labels(issue_id=6, labels=["test_lb1", "test_lb2"])
+        labels = self.colin_project.get_issue_labels(issue_id=6)
+        assert len(labels) == 2
         assert labels[0].name == "test_lb1"
         assert labels[1].name == "test_lb2"
 
@@ -257,8 +260,11 @@ class PullRequests(GithubTests):
         assert pr_info.description == "new description"
 
     def test_pr_labels(self):
-        self.colin_project.add_pr_labels(pr_id=4, labels=["test_lb1", "test_lb2"])
-        labels = self.colin_project.get_pr_labels(pr_id=4)
+        labels = self.colin_project.get_pr_labels(pr_id=1)
+        assert not labels
+        self.colin_project.add_pr_labels(pr_id=1, labels=["test_lb1", "test_lb2"])
+        labels = self.colin_project.get_pr_labels(pr_id=1)
+        assert len(labels) == 2
         assert labels[0].name == "test_lb1"
         assert labels[1].name == "test_lb2"
 
