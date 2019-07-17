@@ -22,14 +22,12 @@ class PagureTests(unittest.TestCase):
             PERSISTENT_DATA_PREFIX, f"test_pagure_data_{test_name}.yaml"
         )
 
-        persistent_object_storage = PersistentObjectStorage(persistent_data_file)
+        PersistentObjectStorage().storage_file = persistent_data_file
 
-        if persistent_object_storage.is_write_mode and (
+        if PersistentObjectStorage().is_write_mode and (
             not self.user or not self.token
         ):
             raise EnvironmentError("please set PAGURE_TOKEN PAGURE_USER env variables")
-
-        PagureService.persistent_storage = persistent_object_storage
 
         self.service = PagureService(token=self.token)
         self.docker_py_project = self.service.get_project(

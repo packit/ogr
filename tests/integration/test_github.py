@@ -1,7 +1,6 @@
 import os
 import unittest
 
-import github
 from github import GithubException
 
 from ogr import GithubService
@@ -23,16 +22,14 @@ class GithubTests(unittest.TestCase):
         persistent_data_file = os.path.join(
             PERSISTENT_DATA_PREFIX, f"test_github_data_{test_name}.yaml"
         )
-        persistent_object_storage = PersistentObjectStorage(persistent_data_file)
+        PersistentObjectStorage().storage_file = persistent_data_file
 
-        if persistent_object_storage.is_write_mode and (
+        if PersistentObjectStorage().is_write_mode and (
             not self.user or not self.token
         ):
             raise EnvironmentError("please set GITHUB_TOKEN GITHUB_USER env variables")
 
         self.service = GithubService(token=self.token)
-        GithubService.persistent_storage = persistent_object_storage
-        github.MainClass.Requester.persistent_storage = persistent_object_storage
 
         self.hello_world_project = self.service.get_project(
             namespace="packit-service", repo="hello-world"
@@ -49,7 +46,7 @@ class GithubTests(unittest.TestCase):
         )
 
     def tearDown(self):
-        self.service.persistent_storage.dump()
+        PersistentObjectStorage().dump()
 
 
 class Comments(GithubTests):

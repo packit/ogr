@@ -1,11 +1,9 @@
 import os
 import unittest
 
-import github
-
-from ogr import GithubService, PagureService, get_project, BetterGithubIntegration
-from ogr.services.mock.mock_core import PersistentObjectStorage
+from ogr import GithubService, PagureService, get_project
 from ogr.services.github import GithubProject
+from ogr.services.mock.mock_core import PersistentObjectStorage
 from ogr.services.pagure import PagureProject
 
 DATA_DIR = "test_data"
@@ -26,14 +24,14 @@ class FactoryTests(unittest.TestCase):
         persistent_data_file = os.path.join(
             PERSISTENT_DATA_PREFIX, f"test_factory_data_{test_name}.yaml"
         )
-        self.persistent_object_storage = PersistentObjectStorage(persistent_data_file)
+        PersistentObjectStorage().storage_file = persistent_data_file
 
-        if self.persistent_object_storage.is_write_mode and (
+        if PersistentObjectStorage().is_write_mode and (
             not self.github_user or not self.github_token
         ):
             raise EnvironmentError("please set GITHUB_TOKEN GITHUB_USER env variables")
 
-        if self.persistent_object_storage.is_write_mode and (
+        if PersistentObjectStorage().is_write_mode and (
             not self.pagure_user or not self.pagure_token
         ):
             raise EnvironmentError("please set PAGURE_TOKEN PAGURE_USER env variables")
@@ -41,13 +39,8 @@ class FactoryTests(unittest.TestCase):
         self.github_service = GithubService(token=self.github_token)
         self.pagure_service = PagureService(token=self.pagure_token)
 
-        PagureService.persistent_storage = self.persistent_object_storage
-        GithubService.persistent_storage = self.persistent_object_storage
-        BetterGithubIntegration.persistent_storage = self.persistent_object_storage
-        github.MainClass.Requester.persistent_storage = self.persistent_object_storage
-
     def tearDown(self):
-        self.persistent_object_storage.dump()
+        PersistentObjectStorage().dump()
 
     def test_get_project_github(self):
         project = get_project(

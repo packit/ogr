@@ -1,9 +1,7 @@
 import os
 import unittest
 
-import github
-
-from ogr import GithubService, BetterGithubIntegration
+from ogr import GithubService
 from ogr.services.mock.mock_core import PersistentObjectStorage
 
 DATA_DIR = "test_data"
@@ -17,19 +15,14 @@ class ReadOnly(unittest.TestCase):
         self.token = os.environ.get("GITHUB_TOKEN")
         self.user = os.environ.get("GITHUB_USER")
         test_name = self.id() or "all"
-        self.is_write_mode = bool(os.environ.get("FORCE_WRITE"))
-        if self.is_write_mode and (not self.user or not self.token):
-            raise EnvironmentError("please set GITHUB_TOKEN GITHUB_USER env variables")
         persistent_data_file = os.path.join(
             PERSISTENT_DATA_PREFIX, f"test_github_data_{test_name}.yaml"
         )
-        self.persistent_object_storage = PersistentObjectStorage(
-            persistent_data_file, self.is_write_mode
-        )
-
-        GithubService.persistent_storage = self.persistent_object_storage
-        BetterGithubIntegration.persistent_storage = self.persistent_object_storage
-        github.MainClass.Requester.persistent_storage = self.persistent_object_storage
+        PersistentObjectStorage().storage_file = persistent_data_file
+        if PersistentObjectStorage().is_write_mode and (
+            not self.user or not self.token
+        ):
+            raise EnvironmentError("please set GITHUB_TOKEN GITHUB_USER env variables")
 
         self.service = GithubService(token=self.token, read_only=True)
 
@@ -38,7 +31,7 @@ class ReadOnly(unittest.TestCase):
         )
 
     def tearDown(self):
-        self.service.persistent_storage.dump()
+        PersistentObjectStorage().dump()
 
     def test_pr_comments(self):
         pr_comments = self.colin_project.get_pr_comments(7)

@@ -1,13 +1,14 @@
 import collections
 import os
-from typing import Dict, List, Any
+from typing import Dict, List, Any, Optional
 
 import yaml
 
 from ogr.exceptions import PersistenStorageException
+from ogr.utils import SingletonMeta
 
 
-class PersistentObjectStorage:
+class PersistentObjectStorage(metaclass=SingletonMeta):
     """
     Class implements reading/writing simple JSON requests to dict structure
     and return values based on keys.
@@ -17,29 +18,31 @@ class PersistentObjectStorage:
     storage_file: file for reading and writing data in storage_object
     """
 
-    storage_file: str = ""
-    storage_object: Dict
-    is_write_mode: bool = False
-    is_flushed = True
-
-    def __init__(self, storage_file: str, dump_after_store: bool = False) -> None:
-        """
-        :param storage_file: file name location where to write/read object data
-        :param dump_after_store: serialize all the data into the yaml file
-                   after calling store() - no need to call it explicitly
-
-        """
+    def __init__(self) -> None:
         # call dump() after store() is called
-        self.dump_after_store = dump_after_store
-        self.storage_file = storage_file
+        self.dump_after_store = False
+        self._storage_file: Optional[str] = None
+        self._is_write_mode: bool = False
+        self.is_flushed = True
+        self.storage_object: dict = {}
 
-        self.is_write_mode = not os.path.exists(self.storage_file)
+    @property
+    def storage_file(self):
+        return self._storage_file
 
+    @storage_file.setter
+    def storage_file(self, value):
+        self._storage_file = value
+        self._is_write_mode = not os.path.exists(self._storage_file)
         if self.is_write_mode:
             self.is_flushed = False
             self.storage_object = {}
         else:
             self.storage_object = self.load()
+
+    @property
+    def is_write_mode(self):
+        return self._is_write_mode
 
     @staticmethod
     def transform_hashable(keys: List) -> List:

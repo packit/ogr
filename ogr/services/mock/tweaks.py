@@ -6,7 +6,9 @@ from ogr.utils import RequestResponse
 
 def use_persistent_storage_without_overwriting(cls):
     class ClassWithPersistentStorage(cls):
-        persistent_storage: Optional[PersistentObjectStorage]
+        persistent_storage: Optional[
+            PersistentObjectStorage
+        ] = PersistentObjectStorage()
 
     ClassWithPersistentStorage.__name__ = cls.__name__
     return ClassWithPersistentStorage
@@ -14,7 +16,9 @@ def use_persistent_storage_without_overwriting(cls):
 
 def use_persistent_storage(cls):
     class ClassWithPersistentStorage(cls):
-        persistent_storage: Optional[PersistentObjectStorage]
+        persistent_storage: Optional[
+            PersistentObjectStorage
+        ] = PersistentObjectStorage()
 
         def get_raw_request(
             self, url, method="GET", params=None, data=None, header=None
