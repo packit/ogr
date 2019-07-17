@@ -35,7 +35,7 @@ from ogr.abstract import (
     PRStatus,
     GitProject,
     CommitComment,
-    CommitStatus,
+    CommitFlag,
 )
 from ogr.constant import DEFAULT_RO_PREFIX_STRING
 from ogr.exceptions import PersistenStorageException
@@ -177,8 +177,8 @@ class GitProjectReadOnly:
     @classmethod
     def set_commit_status(
         cls, original_object: Any, commit: str, state: str, context: str
-    ) -> "CommitStatus":
-        output = CommitStatus(commit, state, context)
+    ) -> "CommitFlag":
+        output = CommitFlag(commit, state, context)
         return output
 
 

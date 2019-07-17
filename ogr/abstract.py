@@ -165,7 +165,7 @@ class PRComment:
         )
 
 
-class CommitStatus:
+class CommitFlag:
     def __init__(
         self,
         commit: str,
@@ -184,7 +184,7 @@ class CommitStatus:
 
     def __str__(self) -> str:
         return (
-            f"CommitStatus("
+            f"CommitFlag("
             f"commit='{self.commit}', "
             f"state='{self.state}', "
             f"context='{self.context}', "
@@ -637,7 +637,7 @@ class GitProject:
 
     def set_commit_status(
         self, commit: str, state: str, target_url: str, description: str, context: str
-    ) -> "CommitStatus":
+    ) -> "CommitFlag":
         """
         Create a status on a commit
 
@@ -650,12 +650,12 @@ class GitProject:
         """
         raise NotImplementedError()
 
-    def get_commit_statuses(self, commit: str) -> List[CommitStatus]:
+    def get_commit_statuses(self, commit: str) -> List[CommitFlag]:
         """
         Get status of the commit.
 
         :param commit: str
-        :return: [CommitStatus]
+        :return: [CommitFlag]
         """
         raise NotImplementedError()
 

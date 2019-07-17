@@ -26,7 +26,7 @@ from typing import List, Optional, Dict, Any, Set
 
 import requests
 
-from ogr.abstract import PRStatus, GitTag, CommitStatus, CommitComment
+from ogr.abstract import PRStatus, GitTag, CommitFlag, CommitComment
 from ogr.abstract import (
     PullRequest,
     PRComment,
@@ -689,8 +689,8 @@ class PagureProject(BaseGitProject):
     @staticmethod
     def _commit_status_from_pagure_dict(
         status_dict: dict, uid: str = None
-    ) -> CommitStatus:
-        return CommitStatus(
+    ) -> CommitFlag:
+        return CommitFlag(
             commit=status_dict["commit_hash"],
             comment=status_dict["comment"],
             state=status_dict["status"],
@@ -740,7 +740,7 @@ class PagureProject(BaseGitProject):
         context: str,
         percent: int = None,
         uid: str = None,
-    ) -> "CommitStatus":
+    ) -> "CommitFlag":
         data: Dict[str, Any] = {
             "username": context,
             "comment": description,
@@ -757,7 +757,7 @@ class PagureProject(BaseGitProject):
             response["flag"], uid=response["uid"]
         )
 
-    def get_commit_statuses(self, commit: str) -> List[CommitStatus]:
+    def get_commit_statuses(self, commit: str) -> List[CommitFlag]:
         response = self._call_project_api("c", commit, "flag")
         return [
             self._commit_status_from_pagure_dict(flag) for flag in response["flags"]

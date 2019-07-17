@@ -45,8 +45,8 @@ from ogr.abstract import (
     PRStatus,
     Release,
     CommitComment,
-    CommitStatus,
     GitTag,
+    CommitFlag,
 )
 from ogr.exceptions import GithubAPIException
 from ogr.factory import use_for_service
@@ -493,7 +493,7 @@ class GithubProject(BaseGitProject):
         """
         github_commit = self.github_repo.get_commit(commit)
         github_commit.create_status(state, target_url, description, context)
-        return CommitStatus(commit, state, context)
+        return CommitFlag(commit, state, context)
 
     @if_readonly(return_function=GitProjectReadOnly.pr_close)
     def pr_close(self, pr_id: int) -> PullRequest:
