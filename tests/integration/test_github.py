@@ -210,6 +210,12 @@ class Issues(GithubTests):
         assert issue_info.title.startswith("add basic readme")
         assert issue_info.status == IssueStatus.closed
 
+    def test_issue_labels(self):
+        self.colin_project.add_issue_labels(issue_id=2, labels=["test_lb1", "test_lb2"])
+        labels = self.colin_project.get_issue_labels(issue_id=2)
+        assert labels[0].name == "test_lb1"
+        assert labels[1].name == "test_lb2"
+
 
 class PullRequests(GithubTests):
     def test_pr_list(self):
@@ -249,6 +255,12 @@ class PullRequests(GithubTests):
         pr_info = self.colin_project.get_pr_info(pr_id=1)
         assert pr_info.title == "new"
         assert pr_info.description == "new description"
+
+    def test_pr_labels(self):
+        self.colin_project.add_pr_labels(pr_id=4, labels=["test_lb1", "test_lb2"])
+        labels = self.colin_project.get_pr_labels(pr_id=4)
+        assert labels[0].name == "test_lb1"
+        assert labels[1].name == "test_lb2"
 
 
 class Forks(GithubTests):

@@ -476,6 +476,26 @@ class GithubProject(BaseGitProject):
             comment = github_commit.create_comment(body=body)
         return self._commitcomment_from_github_object(comment)
 
+    def get_pr_labels(self, pr_id: int) -> List[GithubLabel]:
+        """
+        Get list of pr's labels.
+        :pr_id: int
+        :return: [GithubLabel]
+        """
+        pr = self.github_repo.get_pull(number=pr_id)
+        return list(pr.get_labels())
+
+    def add_pr_labels(self, pr_id, labels) -> None:
+        """
+        Add labels the the Pull Request.
+
+        :param pr_id: int
+        :param labels: [str]
+        """
+        pr = self.github_repo.get_pull(number=pr_id)
+        for label in labels:
+            pr.add_to_labels(label)
+
     @if_readonly(
         return_function=GitProjectReadOnly.set_commit_status,
         log_message="Create a status on a commit",
