@@ -1,0 +1,34 @@
+---
+- project:
+    name: packit-service/ogr
+    check:
+      jobs:
+        - tests
+        - pre-commit
+    gate:
+      jobs:
+        - tests
+        - pre-commit
+- job:
+    name: tests
+    parent: base
+    description: Run tests of ogr
+    run: recipe.yaml
+    extra-vars:
+      with_testing: true
+      ansible_python_interpreter: /usr/bin/python3
+    nodeset:
+      nodes:
+        - name: test-node
+          label: cloud-fedora-30
+- job:
+    name: pre-commit
+    parent: base
+    description: Run pre-commit
+    run: pre-commit-pb.yaml
+    extra-vars:
+      ansible_python_interpreter: /usr/bin/python3
+    nodeset:
+      nodes:
+        - name: test-node
+          label: cloud-fedora-30

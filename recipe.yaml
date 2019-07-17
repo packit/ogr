@@ -1,22 +1,33 @@
 ---
 - name: This is a recipe for how to cook with ogr
   hosts: all
+  vars:
+    project_dir: /src
+    with_testing: false
+
   tasks:
+  - set_fact:
+      project_dir: "{{ ansible_user_dir }}/{{ zuul.project.src_dir }}"
+    when: zuul is defined
   - name: Install all packages needed to hack on ogr.
     dnf:
       name:
       - python3-pip
       - python3-setuptools
-      - git
+      - git-core
       - python3-setuptools_scm
       - python3-setuptools_scm_git_archive
       - python3-wheel  # for bdist_wheel
+      - python3-pytest
+      - python3-tox
+    become: true
   - name: Install latest twine for sake of check command
     pip:
       name:
       - twine  # we need newest twine, b/c of the check command
       - readme_renderer[md]
       state: latest
+    become: true
   - name: Install dependencies for git APIs
     dnf:
       name:
@@ -24,17 +35,24 @@
       - python3-pygithub
       - python3-gitlab
       state: present
-  - name: stat /src
+    become: true
+  - name: stat {{ project_dir }}
     stat:
-      path: /src
+      path: '{{ project_dir }}'
     tags:
     - no-cache
     register: src_path
-  - name: Let's make sure /src is present
+  - name: Let's make sure {{ project_dir }} is present
     assert:
       that:
       - 'src_path.stat.isdir'
   # this requires to have sources mounted inside at /src
-  - name: Install ogr from the current working directory
+  - name: Install ogr from {{ project_dir }}
     pip:
-      name: /src
+      name: '{{ project_dir }}'
+    become: true
+  - name: Run tests
+    command: tox
+    args:
+      chdir: '{{ project_dir }}'
+    when: with_testing
