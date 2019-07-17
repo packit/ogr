@@ -661,6 +661,12 @@ class GithubProject(BaseGitProject):
             for release in releases
         ]
 
+    def create_release(self, tag: str, name: str, message: str) -> Release:
+        created_release = self.github_repo.create_git_release(
+            tag=tag, name=name, message=message
+        )
+        return self.get_release(created_release.id)
+
     def get_forks(self) -> List["GithubProject"]:
         """
         Get forks of the project.
