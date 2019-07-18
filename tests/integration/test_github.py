@@ -5,7 +5,7 @@ from github import GithubException
 
 from ogr import GithubService
 from ogr.abstract import PRStatus, IssueStatus
-from ogr.services.mock.mock_core import PersistentObjectStorage
+from ogr.persistent_storage import PersistentObjectStorage
 
 DATA_DIR = "test_data"
 PERSISTENT_DATA_PREFIX = os.path.join(

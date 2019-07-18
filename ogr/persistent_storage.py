@@ -1,3 +1,25 @@
+# MIT License
+#
+# Copyright (c) 2018-2019 Red Hat, Inc.
+
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the "Software"), to deal
+# in the Software without restriction, including without limitation the rights
+# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+# copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
+#
+# The above copyright notice and this permission notice shall be included in all
+# copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+# SOFTWARE.
+
 import collections
 import os
 from typing import Dict, List, Any, Optional
@@ -5,7 +27,7 @@ from typing import Dict, List, Any, Optional
 import yaml
 
 from ogr.exceptions import PersistenStorageException
-from ogr.utils import SingletonMeta
+from ogr.utils import SingletonMeta, RequestResponse
 
 
 class PersistentObjectStorage(metaclass=SingletonMeta):
@@ -144,3 +166,39 @@ class PersistentObjectStorage(metaclass=SingletonMeta):
             output = yaml.safe_load(yaml_file)
         self.storage_object = output
         return output
+
+
+def use_persistent_storage_without_overwriting(cls):
+    class ClassWithPersistentStorage(cls):
+        persistent_storage: Optional[
+            PersistentObjectStorage
+        ] = PersistentObjectStorage()
+
+    ClassWithPersistentStorage.__name__ = cls.__name__
+    return ClassWithPersistentStorage
+
+
+def use_persistent_storage(cls):
+    class ClassWithPersistentStorage(cls):
+        persistent_storage: Optional[
+            PersistentObjectStorage
+        ] = PersistentObjectStorage()
+
+        def get_raw_request(
+            self, url, method="GET", params=None, data=None, header=None
+        ):
+            keys_internal = [method, url, params, data]
+            if self.persistent_storage.is_write_mode:
+                output = super().get_raw_request(
+                    url, method=method, params=params, data=data, header=header
+                )
+                self.persistent_storage.store(
+                    keys=keys_internal, values=output.to_json_format()
+                )
+            else:
+                output_dict = self.persistent_storage.read(keys=keys_internal)
+                output = RequestResponse(**output_dict)
+            return output
+
+    ClassWithPersistentStorage.__name__ = cls.__name__
+    return ClassWithPersistentStorage

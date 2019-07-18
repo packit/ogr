@@ -43,9 +43,9 @@ logger = logging.getLogger(__name__)
 mock_env = os.getenv("RECORD_REQUESTS")
 if mock_env:
     import github
-    from ogr.services.mock.tweaks import (
-        use_persistent_storage,
+    from ogr.persistent_storage import (
         use_persistent_storage_without_overwriting,
+        use_persistent_storage,
     )
 
     old__requestEncode = github.MainClass.Requester._Requester__requestEncode

@@ -3,7 +3,7 @@ import unittest
 
 from ogr import GithubService, PagureService, get_project
 from ogr.services.github import GithubProject
-from ogr.services.mock.mock_core import PersistentObjectStorage
+from ogr.persistent_storage import PersistentObjectStorage
 from ogr.services.pagure import PagureProject
 
 DATA_DIR = "test_data"
