@@ -660,6 +660,7 @@ class PagureProject(BaseGitProject):
             title=pr_dict["title"],
             id=pr_dict["id"],
             status=PRStatus[pr_dict["status"].lower()],
+            is_merged=True if pr_dict["status"].lower() == "merged" else False,
             url="/".join(
                 [
                     self.service.instance_url,

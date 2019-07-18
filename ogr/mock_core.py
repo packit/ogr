@@ -111,6 +111,7 @@ class GitProjectReadOnly:
             source_branch=source_branch,
             id=cls.id,
             status=PRStatus.open,
+            is_merged=False,
             url=cls.url,
             author=cls.author,
             created=datetime.datetime.now(),

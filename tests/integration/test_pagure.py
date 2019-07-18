@@ -198,6 +198,7 @@ class PullRequests(PagureTests):
         assert pr_info
         assert pr_info.title.startswith("Update Python 2 dependency")
         assert pr_info.status == PRStatus.merged
+        assert pr_info.is_merged
 
     @unittest.skip("No TOKEN is able to do it for now.")
     def test_update_pr_info(self):

@@ -106,6 +106,7 @@ class PullRequest:
         title: str,
         id: int,
         status: PRStatus,
+        is_merged: bool,
         url: str,
         description: str,
         author: str,
@@ -116,6 +117,7 @@ class PullRequest:
         self.title = title
         self.id = id
         self.status = status
+        self.is_merged = is_merged
         self.url = url
         self.description = description
         self.author = author
@@ -132,6 +134,7 @@ class PullRequest:
             f"title='{self.title}', "
             f"id={self.id}, "
             f"status='{self.status.name}', "
+            f"is_merged='{self.is_merged}', "
             f"url='{self.url}', "
             f"description='{description}', "
             f"author='{self.author}', "

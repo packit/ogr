@@ -568,6 +568,7 @@ class GithubProject(BaseGitProject):
             title=github_pr.title,
             id=github_pr.number,
             status=PRStatus[github_pr.state],
+            is_merged=github_pr.is_merged(),
             url=github_pr.html_url,
             description=github_pr.body,
             author=github_pr.user.name,
