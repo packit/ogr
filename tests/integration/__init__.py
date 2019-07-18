@@ -1,3 +1,3 @@
 import os
 
-os.environ["OGR_MOCK"] = "TRUE"
+os.environ["RECORD_REQUESTS"] = "TRUE"

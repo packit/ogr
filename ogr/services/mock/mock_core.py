@@ -21,10 +21,14 @@ class PersistentObjectStorage(metaclass=SingletonMeta):
     def __init__(self) -> None:
         # call dump() after store() is called
         self.dump_after_store = False
-        self._storage_file: Optional[str] = None
         self._is_write_mode: bool = False
         self.is_flushed = True
         self.storage_object: dict = {}
+        self._storage_file: Optional[str] = None
+
+        storage_file_from_env = os.getenv("RESPONSE_FILE")
+        if storage_file_from_env:
+            self.storage_file = storage_file_from_env
 
     @property
     def storage_file(self):

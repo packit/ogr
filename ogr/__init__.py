@@ -40,7 +40,7 @@ except DistributionNotFound:
 
 logger = logging.getLogger(__name__)
 
-mock_env = os.getenv("OGR_MOCK")
+mock_env = os.getenv("RECORD_REQUESTS")
 if mock_env:
     import github
     from ogr.services.mock.tweaks import (
