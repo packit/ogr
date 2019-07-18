@@ -112,6 +112,13 @@ class GenericCommands(GithubTests):
         # changed to check just lenght, because it is based who regenerated data files
         assert len(self.service.user.get_username()) > 3
 
+    def test_email(self):
+        test_str = self.service.user.get_email()
+        assert test_str != None
+        assert len(test_str) > 0
+        assert "@" in test_str
+        assert '.' in test_str
+
     def test_get_file(self):
         file_content = self.colin_project.get_file_content(".gitignore")
         assert file_content
