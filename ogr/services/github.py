@@ -141,9 +141,9 @@ class GithubProject(BaseGitProject):
                 integration = BetterGithubIntegration(
                     self.service.github_app_id, self.service.github_app_private_key
                 )
-                inst_id = integration.get_installation_id_for_repo(
+                inst_id = integration.get_installation(
                     self.namespace, self.repo
-                ).id
+                ).id.value
                 inst_auth = integration.get_access_token(inst_id)
                 self._github_instance = github.Github(login_or_token=inst_auth.token)
             else:

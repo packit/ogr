@@ -40,7 +40,7 @@ class BetterGithubIntegrationMock(BetterGithubIntegration):
     def get_raw_request(self, url, headers=None):
         keys_internal = [url]
         if self.persistent_storage.is_write_mode:
-            output = requests.get(url, header=headers)
+            output = requests.get(url, headers=headers)
             self.persistent_storage.store(keys=keys_internal, values=output.json())
         else:
             output_dict = self.persistent_storage.read(keys=keys_internal)
