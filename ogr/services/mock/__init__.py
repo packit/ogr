@@ -19,3 +19,9 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
+
+from ogr.persistent_storage import use_persistent_storage
+from ogr.services.pagure import PagureService as OriginalPagureService
+
+PagureService = use_persistent_storage(OriginalPagureService)
+__all__ = [PagureService.__name__]

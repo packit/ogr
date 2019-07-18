@@ -24,7 +24,7 @@ import requests
 from github import Consts, Installation
 from github.MainClass import DEFAULT_BASE_URL
 
-from ogr import use_persistent_storage_without_overwriting
+from ogr.persistent_storage import use_persistent_storage_without_overwriting
 from ogr.services.github_tweak import BetterGithubIntegration
 
 
