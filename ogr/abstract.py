@@ -677,6 +677,23 @@ class GitProject:
         """
         raise NotImplementedError()
 
+    def get_pr_labels(self, pr_id: int) -> List:
+        """
+        Get list of pr's labels.
+        :pr_id: int
+        :return: [GithubLabel]
+        """
+        raise NotImplementedError()
+
+    def add_pr_labels(self, pr_id, labels) -> None:
+        """
+        Add labels the the Pull Request.
+
+        :param pr_id: int
+        :param labels: [str]
+        """
+        raise NotImplementedError()
+
     def get_git_urls(self) -> Dict[str, str]:
         raise NotImplementedError()
 
