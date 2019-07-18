@@ -756,6 +756,9 @@ class GithubUser(BaseGitUser):
     def get_username(self) -> str:
         return self.service.github.get_user().login
 
+    def get_email(self) -> str:
+        return self.service.github.get_user().email
+
     def get_projects(self) -> List["GithubProject"]:
         raw_repos = self._github_user.get_repos(affiliation="owner")
         return [
