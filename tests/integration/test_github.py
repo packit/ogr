@@ -108,23 +108,6 @@ class GenericCommands(GithubTests):
         assert urls["git"] == "https://github.com/user-cont/colin.git"
         assert urls["ssh"].endswith("git@github.com:user-cont/colin.git")
 
-    def test_get_releases(self):
-        releases = self.colin_project.get_releases()
-        assert releases
-
-        assert len(releases) >= 9
-
-    def test_create_release(self):
-        count_before = len(self.hello_world_project.get_releases())
-        release = self.hello_world_project.create_release(
-            tag="0.4.0", name="test", message="testing release"
-        )
-        count_after = len(self.hello_world_project.get_releases())
-        assert release.tag_name == "0.4.0"
-        assert release.title == "test"
-        assert release.body == "testing release"
-        assert count_before + 1 == count_after
-
     def test_username(self):
         # changed to check just lenght, because it is based who regenerated data files
         assert len(self.service.user.get_username()) > 3
@@ -267,6 +250,31 @@ class PullRequests(GithubTests):
         assert len(labels) == 2
         assert labels[0].name == "test_lb1"
         assert labels[1].name == "test_lb2"
+
+
+class Releases(GithubTests):
+    def test_get_releases(self):
+        releases = self.colin_project.get_releases()
+        assert releases
+
+        assert len(releases) >= 9
+
+    def test_create_release(self):
+        count_before = len(self.hello_world_project.get_releases())
+        release = self.hello_world_project.create_release(
+            tag="0.4.1", name="test", message="testing release"
+        )
+        count_after = len(self.hello_world_project.get_releases())
+        assert release.tag_name == "0.4.1"
+        assert release.title == "test"
+        assert release.body == "testing release"
+        assert count_before + 1 == count_after
+
+    def test_latest_release(self):
+        release = self.hello_world_project.get_latest_release()
+        assert release.tag_name == "0.4.1"
+        assert release.title == "test"
+        assert release.body == "testing release"
 
 
 class Forks(GithubTests):

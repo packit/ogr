@@ -688,6 +688,12 @@ class GithubProject(BaseGitProject):
             raw_release=release, git_tag=self.get_tag_from_tag_name(release.tag_name)
         )
 
+    def get_latest_release(self) -> Release:
+        release = self.github_repo.get_latest_release()
+        return self._release_from_github_object(
+            raw_release=release, git_tag=self.get_tag_from_tag_name(release.tag_name)
+        )
+
     def get_releases(self) -> List[Release]:
         releases = self.github_repo.get_releases()
         return [
