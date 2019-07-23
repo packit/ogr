@@ -539,6 +539,14 @@ class GitProject:
         """
         raise NotImplementedError()
 
+    def get_latest_release(self) -> Release:
+        """
+        Get a latest release
+
+        :return: Release
+        """
+        raise NotImplementedError()
+
     def get_releases(self) -> List[Release]:
         """
         Return list of releases
