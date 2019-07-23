@@ -375,8 +375,17 @@ class GithubProject(BaseGitProject):
 
     def get_pr_list(self, status: PRStatus = PRStatus.open) -> List[PullRequest]:
         prs = self.github_repo.get_pulls(
-            state=status.name, sort="updated", direction="desc"
+            # Github API has no status 'merged', just 'closed'/'opened'/'all'
+            state=status.name if status != PRStatus.merged else "closed",
+            sort="updated",
+            direction="desc",
         )
+
+        if status == PRStatus.merged:
+            prs = list(prs)  # Github PaginatedList into list()
+            for pr in prs:
+                if not pr.is_merged():  # parse merged PRs
+                    prs.remove(pr)
         try:
             return [self._pr_from_github_object(pr) for pr in prs]
         except UnknownObjectException:
@@ -584,7 +593,9 @@ class GithubProject(BaseGitProject):
         return PullRequest(
             title=github_pr.title,
             id=github_pr.number,
-            status=PRStatus[github_pr.state],
+            status=PRStatus.merged
+            if github_pr.is_merged()
+            else PRStatus[github_pr.state],
             url=github_pr.html_url,
             description=github_pr.body,
             author=github_pr.user.name,

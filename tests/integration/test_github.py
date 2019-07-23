@@ -216,6 +216,18 @@ class PullRequests(GithubTests):
         pr_list_closed = self.colin_project.get_pr_list(status=PRStatus.closed)
         assert pr_list_closed
         assert len(pr_list_closed) >= 140
+        closed_pr_numbers = []
+        for closed_pr in pr_list_closed:
+            closed_pr_numbers.append(closed_pr.id)
+        assert 23 in closed_pr_numbers
+
+        pr_list_merged = self.colin_project.get_pr_list(status=PRStatus.merged)
+        assert pr_list_merged
+        assert len(pr_list_merged) >= 1
+        closed_pr_numbers = []
+        for closed_pr in pr_list_merged:
+            closed_pr_numbers.append(closed_pr.id)
+        assert 23 not in closed_pr_numbers
 
         pr_list = self.colin_project.get_pr_list()
         assert pr_list
@@ -224,8 +236,8 @@ class PullRequests(GithubTests):
     def test_pr_info(self):
         pr_info = self.colin_project.get_pr_info(pr_id=1)
         assert pr_info
-        assert pr_info.title.startswith("Add basic structure")
-        assert pr_info.status == PRStatus.closed
+        assert pr_info.title.startswith("new")
+        assert pr_info.status == PRStatus.merged
 
     def test_update_pr_info(self):
         self.colin_project.update_pr_info(
