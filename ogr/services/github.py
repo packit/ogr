@@ -35,6 +35,7 @@ from github.Issue import Issue as GithubIssue
 from github.Label import Label as GithubLabel
 from github.PullRequest import PullRequest as GithubPullRequest
 
+from ogr import BetterGithubIntegration
 from ogr.abstract import (
     GitUser,
     Issue,
@@ -50,9 +51,8 @@ from ogr.abstract import (
 )
 from ogr.exceptions import GithubAPIException
 from ogr.factory import use_for_service
-from ogr.mock_core import if_readonly, GitProjectReadOnly, PersistentObjectStorage
+from ogr.read_only import if_readonly, GitProjectReadOnly
 from ogr.services.base import BaseGitService, BaseGitProject, BaseGitUser
-from ogr.services.mock.github_mock import get_Github_class
 
 logger = logging.getLogger(__name__)
 
@@ -61,36 +61,34 @@ logger = logging.getLogger(__name__)
 class GithubService(BaseGitService):
     # class parameter could be used to mock Github class api
     github_class: Type[github.Github]
-    persistent_storage: Optional[PersistentObjectStorage] = None
     instance_url = "https://github.com"
 
     def __init__(
         self,
         token=None,
         read_only=False,
-        persistent_storage: Optional[PersistentObjectStorage] = None,
+        github_app_id: str = None,
+        github_app_private_key: str = None,
         **_,
     ):
         super().__init__()
-        self._token = token
-        # it could be set as class parameter too, could be used for mocking in other projects
-        if persistent_storage:
-            self.persistent_storage = persistent_storage
-        if self.persistent_storage:
-            self.github_class = get_Github_class(self.persistent_storage)
-        else:
-            self.github_class = github.Github
-        self.github = self.github_class(login_or_token=self._token)
+        self.token = token
+
+        # Authentication via GitHub app
+        self.github_app_id = github_app_id
+        self.github_app_private_key = github_app_private_key
+
+        self.github = github.Github(login_or_token=self.token)
         self.read_only = read_only
 
     def __str__(self) -> str:
         return f"GithubService(read_only={self.read_only})"
 
     def __eq__(self, o: object) -> bool:
-        if not isinstance(o, GithubService):
+        if not issubclass(o.__class__, GithubService):
             return False
 
-        return self._token == o._token and self.read_only == o.read_only
+        return self.token == o.token and self.read_only == o.read_only  # type: ignore
 
     def get_project(
         self, repo=None, namespace=None, is_fork=False, **kwargs
@@ -110,8 +108,8 @@ class GithubService(BaseGitService):
         return GithubUser(service=self)
 
     def change_token(self, new_token: str) -> None:
-        self._token = new_token
-        self.github = github.Github(login_or_token=self._token)
+        self.token = new_token
+        self.github = github.Github(login_or_token=self.token)
 
 
 class GithubProject(BaseGitProject):
@@ -134,10 +132,29 @@ class GithubProject(BaseGitProject):
         self._github_repo = github_repo
         self.read_only = read_only
 
+        self._github_instance = None
+
+    @property
+    def github_instance(self):
+        if not self._github_instance:
+            if self.service.github_app_id and self.service.github_app_private_key:
+                integration = BetterGithubIntegration(
+                    self.service.github_app_id, self.service.github_app_private_key
+                )
+                inst_id = integration.get_installation(
+                    self.namespace, self.repo
+                ).id.value
+                inst_auth = integration.get_access_token(inst_id)
+                self._github_instance = github.Github(login_or_token=inst_auth.token)
+            else:
+                self._github_instance = self.service.github
+
+        return self._github_instance
+
     @property
     def github_repo(self):
         if not self._github_repo:
-            self._github_repo = self.service.github.get_repo(
+            self._github_repo = self.github_instance.get_repo(
                 full_name_or_id=f"{self.namespace}/{self.repo}"
             )
         return self._github_repo
@@ -157,7 +174,7 @@ class GithubProject(BaseGitProject):
         )
 
     def _construct_fork_project(self) -> Optional["GithubProject"]:
-        gh_user = self.service.github.get_user()
+        gh_user = self.github_instance.get_user()
         user_login = gh_user.login
         try:
             project = GithubProject(
@@ -535,7 +552,7 @@ class GithubProject(BaseGitProject):
 
         :return: fork GithubProject instance
         """
-        gh_user = self.service.github.get_user()
+        gh_user = self.github_instance.get_user()
         fork = gh_user.create_fork(self.github_repo)
         return GithubProject("", self.service, "", github_repo=fork)
 

@@ -31,7 +31,7 @@ from ogr.services.pagure import PagureProject
 )
 def test_get_service_class(url, mapping, result):
     service = get_service_class(url=url, service_mapping_update=mapping)
-    assert service == result
+    assert issubclass(result, service)
 
 
 @pytest.mark.parametrize(

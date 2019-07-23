@@ -23,10 +23,13 @@
 """
 Module for:
 - simplifying the python work with git
-- intruduce one api for multiple git services (github/gitlab/pagure)
+- introduce one api for multiple git services (github/gitlab/pagure)
 """
+import os
 
 from pkg_resources import get_distribution, DistributionNotFound
+
+from ogr.factory import get_project, get_service_class
 
 try:
     __version__ = get_distribution(__name__).version
@@ -34,13 +37,26 @@ except DistributionNotFound:
     # package is not installed
     pass
 
-from ogr.services.github import GithubService
-from ogr.services.pagure import PagureService
-from ogr.factory import get_project, get_service_class
+mock_env = os.getenv("RECORD_REQUESTS")
+if mock_env:
+    from ogr.services.mock.github import (
+        BetterGithubIntegrationMock as BetterGithubIntegration,
+    )
+
+    import ogr.services.mock.github_import_tweaks  # noqa: F401
+    from ogr.services.github import GithubService
+    from ogr.services.mock import PagureService
+
+
+else:
+    from ogr.services.github_tweak import BetterGithubIntegration
+    from ogr.services.github import GithubService
+    from ogr.services.pagure import PagureService
 
 __all__ = [
     GithubService.__name__,
     PagureService.__name__,
     get_project.__name__,
     get_service_class.__name__,
+    BetterGithubIntegration.__name__,
 ]

@@ -20,19 +20,24 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-import github as github_origin
 import logging
-from ogr.mock_core import PersistentObjectStorage
-from typing import Type
+
+import github
+
+from ogr.persistent_storage import use_persistent_storage_without_overwriting
+
+old__requestEncode = github.MainClass.Requester._Requester__requestEncode
 
 logger = logging.getLogger(__name__)
 
-old__requestEncode = github_origin.MainClass.Requester._Requester__requestEncode
+github.MainClass.Requester = use_persistent_storage_without_overwriting(
+    github.MainClass.Requester
+)
 
 
 def new__requestEncode(self, cnx, verb, url, parameters, requestHeaders, input, encode):
     """
-    replacement for  github_origin.MainClass.Requester._Requester__requestEncode method
+    replacement for github_origin.MainClass.Requester._Requester__requestEncode method
     """
     internal_keys = [verb, url, parameters]
     if self.persistent_storage.is_write_mode:
@@ -50,20 +55,4 @@ def new__requestEncode(self, cnx, verb, url, parameters, requestHeaders, input, 
     return status, responseHeaders, output
 
 
-def get_Github_class(
-    persistent_storage: PersistentObjectStorage
-) -> Type[github_origin.MainClass.Github]:
-    """
-    returns improved Github class, what allows read and write communication to yaml file
-    It replace method of Reguester class to use storage
-    new class attribute:
-         persistent_storage
-    new class method:
-        dump_yaml
-    :param persistent_storage: storage for calls
-    :return: Github class
-    """
-    github_origin.MainClass.Requester.persistent_storage = persistent_storage
-    github_origin.MainClass.Requester._Requester__requestEncode = new__requestEncode
-
-    return github_origin.MainClass.Github
+github.MainClass.Requester._Requester__requestEncode = new__requestEncode
