@@ -253,8 +253,8 @@ class PullRequests(GithubTests):
     def test_pr_info(self):
         pr_info = self.colin_project.get_pr_info(pr_id=1)
         assert pr_info
-        assert pr_info.title.startswith("Add basic structure")
-        assert pr_info.status == PRStatus.closed
+        assert pr_info.title.startswith("new")
+        assert pr_info.status == PRStatus.merged
 
     def test_update_pr_info(self):
         self.colin_project.update_pr_info(

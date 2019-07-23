@@ -384,7 +384,7 @@ class GithubProject(BaseGitProject):
         if status == PRStatus.merged:
             prs = list(prs)  # Github PaginatedList into list()
             for pr in prs:
-                if not pr.is_merged():  # parse just merged PRs
+                if not pr.is_merged():  # parse merged PRs
                     prs.remove(pr)
         try:
             return [self._pr_from_github_object(pr) for pr in prs]
@@ -593,7 +593,9 @@ class GithubProject(BaseGitProject):
         return PullRequest(
             title=github_pr.title,
             id=github_pr.number,
-            status=PRStatus[github_pr.state],
+            status=PRStatus.merged
+            if github_pr.is_merged()
+            else PRStatus[github_pr.state],
             url=github_pr.html_url,
             description=github_pr.body,
             author=github_pr.user.name,
