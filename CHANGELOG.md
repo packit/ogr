@@ -1,3 +1,34 @@
+# 0.6.0
+
+
+## New Features
+
+* Possibility to authenticate via github-app. (@lachmanfrantisek)
+* New method `get_latest_release()` for projects. (@marusinm)
+* New method for creating releases in GitHub. (@lbarcziova)
+* Add method for getting releases for Pagure. (@lbarcziova)
+* Add labels for GitHub pull-requests. (@marusinm)
+* New methods for getting pull-request/issue permissions (`who_can_marge_pr`, `who_can_close_issue`, `can_close_issue` and `can_merge_pr`).  (@marusinm)
+* New methods to get project's owners and permissions of various users.  (@marusinm)
+* Link GitTag to Release object. (@lbarcziova)
+* Add method for creating projects/services from url. (@lachmanfrantisek)
+* Creating/closing/commenting Pagure Issues. (@marusinm)
+
+## Fixes
+
+* Correct status handling for Github pull-requests. (@marusinm)
+* Fix error 404 on `get_file_content`. (@lbarcziova)
+
+## Minor
+
+* Simplify usage of persistent storage and mocking. (@lachmanfrantisek)
+* CommitStatus renamed to CommitFlag. (@lbarcziova)
+* Add zuul as a CI system. (@TomasTomecek)
+* Removed unused functions. (@lbarcziova)
+* Unify external command invocation by subprocess.run. (@lbarcziova)
+* Add `__str__ ` and `__eq__` for classes. (@shreyanshrs44, @lachmanfrantisek)
+
+
 # 0.5.0
 
 ## New Features

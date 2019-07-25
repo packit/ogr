@@ -11,6 +11,18 @@ current_version_command: ["python3", "setup.py", "--version"]
 jobs:
 - job: sync_from_downstream
   trigger: commit
+- job: propose_downstream
+  trigger: release
+  metadata:
+    dist_git_branch: master
+- job: propose_downstream
+  trigger: release
+  metadata:
+    dist_git_branch: f30
+- job: propose_downstream
+  trigger: release
+  metadata:
+    dist_git_branch: f29
 - job: copr_build
   trigger: pull_request
   metadata:
