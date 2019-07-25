@@ -725,6 +725,21 @@ class GithubProject(BaseGitProject):
         )
         return self.get_release(created_release.id)
 
+    def edit_release(self, identifier: int, name: str, message: str):
+        """
+        Edit name and message of a release.
+
+        :param identifier: int
+        :param name: str
+        :param message: str
+        :return: Release
+        """
+        release = self.github_repo.get_release(id=identifier)
+        if not release:
+            raise GithubAPIException("Release was not found.")
+        release.update_release(name=name, message=message)
+        return self.get_release(release.id)
+
     def get_forks(self) -> List["GithubProject"]:
         """
         Get forks of the project.
