@@ -30,7 +30,7 @@ from github import (
     Repository,
     CommitComment as GithubCommitComment,
 )
-from github.GitRelease import GitRelease as GithubRelease
+from github.GitRelease import GitRelease as PyGithubRelease
 from github.Issue import Issue as GithubIssue
 from github.Label import Label as GithubLabel
 from github.PullRequest import PullRequest as GithubPullRequest
@@ -55,6 +55,38 @@ from ogr.read_only import if_readonly, GitProjectReadOnly
 from ogr.services.base import BaseGitService, BaseGitProject, BaseGitUser
 
 logger = logging.getLogger(__name__)
+
+
+class GithubRelease(Release):
+    project: "GithubProject"
+
+    def __init__(
+        self,
+        title: str,
+        body: str,
+        tag_name: str,
+        url: str,
+        created_at: str,
+        tarball_url: str,
+        git_tag: GitTag,
+        project: "GithubProject",
+        raw_release: PyGithubRelease,
+    ) -> None:
+        super().__init__(
+            title, body, tag_name, url, created_at, tarball_url, git_tag, project
+        )
+        self.raw_release = raw_release
+
+    def edit_release(self, name: str, message: str) -> None:
+        """
+        Edit name and message of a release.
+
+        :param name: str
+        :param message: str
+        """
+        self.raw_release.update_release(name=name, message=message)
+        self.title = self.raw_release.title
+        self.body = self.raw_release.body
 
 
 @use_for_service("github.com")
@@ -628,10 +660,9 @@ class GithubProject(BaseGitProject):
             edited=raw_comment.updated_at,
         )
 
-    @staticmethod
     def _release_from_github_object(
-        raw_release: GithubRelease, git_tag: GitTag
-    ) -> Release:
+        self, raw_release: PyGithubRelease, git_tag: GitTag
+    ) -> GithubRelease:
         """
         Get ogr.abstract.Release object from github.GithubRelease
 
@@ -644,8 +675,11 @@ class GithubProject(BaseGitProject):
             url: str, "https://api.github.com/repos/octocat/Hello-World/releases/1"
             created_at: datetime.datetime, 2018-09-19 12:56:26
             tarball_url: str, "https://api.github.com/repos/octocat/Hello-World/tarball/v1.0.0"
+            git_tag: GitTag
+            project: GithubProject
+            raw_release: PyGithubRelease
         """
-        return Release(
+        return GithubRelease(
             title=raw_release.title,
             body=raw_release.body,
             tag_name=raw_release.tag_name,
@@ -653,6 +687,8 @@ class GithubProject(BaseGitProject):
             created_at=raw_release.created_at,
             tarball_url=raw_release.tarball_url,
             git_tag=git_tag,
+            project=self,
+            raw_release=raw_release,
         )
 
     @staticmethod
@@ -697,13 +733,31 @@ class GithubProject(BaseGitProject):
             return color[1:]
         return color
 
-    def get_release(self, identifier: int) -> Release:
+    def release_id_from_name(self, name):
+        releases = self.github_repo.get_releases()
+        for release in releases:
+            if release.title == name:
+                return release.id
+        return None
+
+    def release_id_from_tag(self, tag):
+        releases = self.github_repo.get_releases()
+        for release in releases:
+            if release.tag_name == tag:
+                return release.id
+        return None
+
+    def get_release(self, identifier=None, name=None, tag_name=None) -> GithubRelease:
+        if tag_name:
+            identifier = self.release_id_from_tag(tag_name)
+        elif name:
+            identifier = self.release_id_from_name(name)
         release = self.github_repo.get_release(id=identifier)
         return self._release_from_github_object(
             raw_release=release, git_tag=self.get_tag_from_tag_name(release.tag_name)
         )
 
-    def get_latest_release(self) -> Release:
+    def get_latest_release(self) -> GithubRelease:
         release = self.github_repo.get_latest_release()
         return self._release_from_github_object(
             raw_release=release, git_tag=self.get_tag_from_tag_name(release.tag_name)
@@ -724,21 +778,6 @@ class GithubProject(BaseGitProject):
             tag=tag, name=name, message=message
         )
         return self.get_release(created_release.id)
-
-    def edit_release(self, identifier: int, name: str, message: str):
-        """
-        Edit name and message of a release.
-
-        :param identifier: int
-        :param name: str
-        :param message: str
-        :return: Release
-        """
-        release = self.github_repo.get_release(id=identifier)
-        if not release:
-            raise GithubAPIException("Release was not found.")
-        release.update_release(name=name, message=message)
-        return self.get_release(release.id)
 
     def get_forks(self) -> List["GithubProject"]:
         """
