@@ -313,13 +313,11 @@ class Releases(GithubTests):
         origin_name = release.title
         origin_message = release.body
 
-        release.edit_release(name="changed name", message="edited message")
-        assert release.title == "changed name"
-        assert release.body == "edited message"
-
-        release.edit_release(name=origin_name, message=origin_message)
-        assert release.title == origin_name
-        assert release.body == origin_message
+        release.edit_release(
+            name=f"{origin_name}-changed", message=f"{origin_message}-changed"
+        )
+        assert release.title == f"{origin_name}-changed"
+        assert release.body == f"{origin_message}-changed"
 
     def test_latest_release(self):
         release = self.ogr_project.get_latest_release()

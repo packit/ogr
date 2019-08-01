@@ -213,23 +213,27 @@ class GitTag:
 class Release:
     def __init__(
         self,
-        title: str,
-        body: str,
         tag_name: str,
         url: str,
         created_at: str,
         tarball_url: str,
         git_tag: GitTag,
-        project=None,
+        project: Optional["GitProject"],
     ) -> None:
-        self.title = title
-        self.body = body
         self.tag_name = tag_name
         self.url = url
         self.created_at = created_at
         self.tarball_url = tarball_url
         self.git_tag = git_tag
         self.project = project
+
+    @property
+    def title(self):
+        raise NotImplementedError()
+
+    @property
+    def body(self):
+        raise NotImplementedError()
 
     def save_archive(self, filename):
         response = urlopen(self.tarball_url)

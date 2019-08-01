@@ -62,8 +62,6 @@ class GithubRelease(Release):
 
     def __init__(
         self,
-        title: str,
-        body: str,
         tag_name: str,
         url: str,
         created_at: str,
@@ -72,10 +70,16 @@ class GithubRelease(Release):
         project: "GithubProject",
         raw_release: PyGithubRelease,
     ) -> None:
-        super().__init__(
-            title, body, tag_name, url, created_at, tarball_url, git_tag, project
-        )
+        super().__init__(tag_name, url, created_at, tarball_url, git_tag, project)
         self.raw_release = raw_release
+
+    @property
+    def title(self):
+        return self.raw_release.title
+
+    @property
+    def body(self):
+        return self.raw_release.body
 
     def edit_release(self, name: str, message: str) -> None:
         """
@@ -84,9 +88,7 @@ class GithubRelease(Release):
         :param name: str
         :param message: str
         """
-        self.raw_release.update_release(name=name, message=message)
-        self.title = self.raw_release.title
-        self.body = self.raw_release.body
+        self.raw_release = self.raw_release.update_release(name=name, message=message)
 
 
 @use_for_service("github.com")
@@ -669,8 +671,6 @@ class GithubProject(BaseGitProject):
         :param raw_release: GithubRelease, object from Github API
             https://developer.github.com/v3/repos/releases/
         :return: Release, example(type, value):
-            title: str, "0.1.0"
-            body: str, "Description of the release"
             tag_name: str, "v1.0.0"
             url: str, "https://api.github.com/repos/octocat/Hello-World/releases/1"
             created_at: datetime.datetime, 2018-09-19 12:56:26
@@ -680,8 +680,6 @@ class GithubProject(BaseGitProject):
             raw_release: PyGithubRelease
         """
         return GithubRelease(
-            title=raw_release.title,
-            body=raw_release.body,
             tag_name=raw_release.tag_name,
             url=raw_release.url,
             created_at=raw_release.created_at,
@@ -733,14 +731,14 @@ class GithubProject(BaseGitProject):
             return color[1:]
         return color
 
-    def release_id_from_name(self, name):
+    def _release_id_from_name(self, name) -> Optional[int]:
         releases = self.github_repo.get_releases()
         for release in releases:
             if release.title == name:
                 return release.id
         return None
 
-    def release_id_from_tag(self, tag):
+    def _release_id_from_tag(self, tag) -> Optional[int]:
         releases = self.github_repo.get_releases()
         for release in releases:
             if release.tag_name == tag:
@@ -749,9 +747,11 @@ class GithubProject(BaseGitProject):
 
     def get_release(self, identifier=None, name=None, tag_name=None) -> GithubRelease:
         if tag_name:
-            identifier = self.release_id_from_tag(tag_name)
+            identifier = self._release_id_from_tag(tag_name)
         elif name:
-            identifier = self.release_id_from_name(name)
+            identifier = self._release_id_from_name(name)
+        if identifier is None:
+            raise GithubAPIException("Release was not found.")
         release = self.github_repo.get_release(id=identifier)
         return self._release_from_github_object(
             raw_release=release, git_tag=self.get_tag_from_tag_name(release.tag_name)
@@ -773,7 +773,7 @@ class GithubProject(BaseGitProject):
             for release in releases
         ]
 
-    def create_release(self, tag: str, name: str, message: str) -> Release:
+    def create_release(self, tag: str, name: str, message: str) -> GithubRelease:
         created_release = self.github_repo.create_git_release(
             tag=tag, name=name, message=message
         )
