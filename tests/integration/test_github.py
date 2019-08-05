@@ -214,7 +214,6 @@ class PullRequests(GithubTests):
     def test_pr_list(self):
         pr_list = self.colin_fork.get_pr_list()
         assert isinstance(pr_list, list)
-        assert not pr_list
 
         pr_list_all = self.colin_project.get_pr_list(status=PRStatus.all)
         assert pr_list_all
@@ -245,6 +244,20 @@ class PullRequests(GithubTests):
         assert pr_info
         assert pr_info.title.startswith("new")
         assert pr_info.status == PRStatus.merged
+
+    def test_all_pr_commits(self):
+        commits = self.colin_project.get_all_pr_commits(pr_id=1)
+        assert commits
+        assert len(commits) == 7
+        assert commits == [
+            "0554902f48ba83364886148a5ce70942a8b4a309",
+            "ade47fbe87e37f5b503f50d29fc21eacb2e62f10",
+            "5d2abf3e3be4bbf0015416787c40c3d78a3a0ae7",
+            "6ed6f32970e27faaa1316e7fb8cda0f409235ae7",
+            "0b234239db05db0932e00728b72ee2535541be80",
+            "2e772dc02b173f7b2c0cc23569ea810f6e7fddb3",
+            "2b4e6645ed5962c2cb04a792afea6160c7361859",
+        ]
 
     def test_update_pr_info(self):
         self.colin_project.update_pr_info(
