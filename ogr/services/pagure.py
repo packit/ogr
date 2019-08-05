@@ -824,12 +824,6 @@ class PagureUser(BaseGitUser):
         return_value = self.service.call_api(url=request_url, method="POST", data={})
         return return_value["username"]
 
-    def get_email(self) -> str:
-        request_url = self.service.get_api_url("user", self.get_username())
-
-        return_value = self.service.call_api(url=request_url)["default_email"]
-        return return_value
-
     def get_projects(self) -> List["PagureProject"]:
         user_url = self.service.get_api_url("user", self.get_username())
         raw_projects = self.service.call_api(user_url)["repos"]
