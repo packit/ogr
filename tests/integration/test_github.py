@@ -114,10 +114,10 @@ class GenericCommands(GithubTests):
 
     def test_email(self):
         test_str = self.service.user.get_email()
-        assert test_str != None
+        assert test_str
         assert len(test_str) > 0
         assert "@" in test_str
-        assert '.' in test_str
+        assert "." in test_str
 
     def test_get_file(self):
         file_content = self.colin_project.get_file_content(".gitignore")
