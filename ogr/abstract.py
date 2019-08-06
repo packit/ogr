@@ -748,6 +748,9 @@ class GitUser:
     def get_username(self) -> str:
         raise NotImplementedError()
 
+    def get_email(self) -> str:
+        raise NotImplementedError()
+
     def get_projects(self):
         raise NotImplementedError
 
