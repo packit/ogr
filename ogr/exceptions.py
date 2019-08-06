@@ -41,7 +41,7 @@ class GithubAPIException(OgrException):
         self.github_error = github_error
 
 
-class PersistenStorageException(OgrException):
+class PersistentStorageException(OgrException):
     """ Mocking Exceptions for persistent storage of objects """
 
 
