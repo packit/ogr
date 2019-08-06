@@ -26,7 +26,7 @@ from typing import Dict, List, Any, Optional
 
 import yaml
 
-from ogr.exceptions import PersistenStorageException
+from ogr.exceptions import PersistentStorageException
 from ogr.utils import SingletonMeta, RequestResponse
 
 
@@ -126,14 +126,14 @@ class PersistentObjectStorage(metaclass=SingletonMeta):
         for item in hashable_keys:
 
             if item not in current_level:
-                raise PersistenStorageException(
+                raise PersistentStorageException(
                     f"Keys not in storage:{self.storage_file} {hashable_keys}"
                 )
 
             current_level = current_level[item]
 
         if len(current_level) == 0:
-            raise PersistenStorageException(
+            raise PersistentStorageException(
                 "No responses left. Try to regenerate response files."
             )
 
