@@ -397,7 +397,7 @@ class GithubProject(BaseGitProject):
 
     def get_all_pr_commits(self, pr_id: int) -> List[str]:
         pr = self.github_repo.get_pull(number=pr_id)
-        return list([commit.sha for commit in pr.get_commits()])
+        return [commit.sha for commit in pr.get_commits()]
 
     def _get_all_pr_comments(self, pr_id: int) -> List[PRComment]:
         pr = self.github_repo.get_pull(number=pr_id)
