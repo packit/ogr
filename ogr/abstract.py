@@ -579,7 +579,7 @@ class GitProject:
 
     def get_pr_commits(self, pr_id: int) -> List[str]:
         """
-        Get list of pull-request commits.
+        Return list of pull-request commits (sha).
 
         :param pr_id: int
         :return: [str]
