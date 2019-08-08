@@ -565,7 +565,7 @@ class GitProject:
         raise NotImplementedError()
 
     def get_pr_comments(
-        self, pr_id, filter_regex: str = None, reverse: bool = False
+        self, pr_id: int, filter_regex: str = None, reverse: bool = False
     ) -> List["PRComment"]:
         """
         Get list of pull-request comments.
@@ -574,6 +574,15 @@ class GitProject:
         :param filter_regex: filter the comments' content with re.search
         :param reverse: reverse order of comments
         :return: [PRComment]
+        """
+        raise NotImplementedError()
+
+    def get_pr_commits(self, pr_id: int) -> List[str]:
+        """
+        Return list of pull-request commits (sha).
+
+        :param pr_id: int
+        :return: [str]
         """
         raise NotImplementedError()
 
