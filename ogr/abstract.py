@@ -137,7 +137,7 @@ class PullRequest:
             f"author='{self.author}', "
             f"source_branch='{self.source_branch}', "
             f"target_branch='{self.target_branch}', "
-            f"created='{self.created}')"
+            f"created='{self.created}'), "
         )
 
 
