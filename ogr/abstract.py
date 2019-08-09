@@ -577,7 +577,7 @@ class GitProject:
         """
         raise NotImplementedError()
 
-    def get_pr_commits(self, pr_id: int) -> List[str]:
+    def get_all_pr_commits(self, pr_id: int) -> List[str]:
         """
         Return list of pull-request commits (sha).
 
