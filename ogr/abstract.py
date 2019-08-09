@@ -218,7 +218,7 @@ class Release:
         created_at: str,
         tarball_url: str,
         git_tag: GitTag,
-        project: Optional["GitProject"],
+        project: "GitProject",
     ) -> None:
         self.tag_name = tag_name
         self.url = url
