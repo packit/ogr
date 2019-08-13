@@ -24,7 +24,18 @@ import logging
 
 import gitlab
 
-from ogr.services.abstract import GitService
+from typing import List
+
+from ogr.abstract import (
+    GitService,
+    GitUser,
+    PullRequest,
+    Issue,
+    Release,
+    IssueComment,
+    PRComment,
+    GitTag,
+)
 from ogr.utils import (
     clone_repo_and_cd_inside,
     set_upstream_remote,
@@ -41,12 +52,15 @@ class GitlabService(GitService):
     def __init__(self, token=None, url=None, full_repo_name=None):
         super().__init__(token=token)
         url = url or "https://gitlab.com"
-        self.g = gitlab.Gitlab(url=url, private_token=token)
+        self.g = gitlab.Gitlab(url=url, private_token=token, ssl_verify=False)
         self.g.auth()
-        self.user = self.g.users.list(username=self.g.user.get_username())[0]
         self.repo = None
         if full_repo_name:
             self.repo = self.g.projects.get(full_repo_name)
+
+    @property
+    def user(self) -> GitUser:
+        return self.g.users.list(username=self.g.user.get_username())[0]
 
     @classmethod
     def create_from_remote_url(cls, remote_url, **kwargs):
@@ -112,22 +126,182 @@ class GitlabService(GitService):
 
         return fork
 
-    def create_pull_request(self, target_remote, target_branch, current_branch):
-        raise NotImplementedError("Creating PRs for GitLab is not implemented yet.")
+    def get_branches(self) -> List[str]:
+        return [branch.name for branch in self.repo.branches.list()]
 
-    def list_pull_requests(self):
-        mrs = self.repo.mergerequests.list(
+    def get_file_content(self, path, ref="master") -> str:
+        try:
+            file = self.repo.files.get(file_path=path, ref=ref)
+            return str(file.decode())
+        except gitlab.exceptions.GitlabGetError as ex:
+            raise FileNotFoundError(f"File '{path}' on {ref} not found", ex)
+
+    @staticmethod
+    def _issue_from_gitlab_object(gitlab_issue) -> Issue:
+        return Issue(
+            title=gitlab_issue.title,
+            id=gitlab_issue.iid,
+            url=gitlab_issue.web_url,
+            description=gitlab_issue.description,
+            status=gitlab_issue.state,
+            author=gitlab_issue.author["username"],
+            created=gitlab_issue.created_at,
+        )
+
+    def get_issue_list(self) -> List[Issue]:
+        issues = self.repo.issues.list(
             state="opened", order_by="updated_at", sort="desc"
         )
+        return [self._issue_from_gitlab_object(issue) for issue in issues]
+
+    def get_issue_info(self, issue_id: int) -> Issue:
+        issue = self.repo.issues.get(issue_id)
+        return self._issue_from_gitlab_object(gitlab_issue=issue)
+
+    def create_issue(self, title: str, description: str) -> Issue:
+        issue = self.repo.issues.create({"title": title, "description": description})
+        return self._issue_from_gitlab_object(issue)
+
+    def close_issue(self, issue_id: int) -> Issue:
+        issue = self.repo.issues.get(issue_id)
+        issue.state_event = "close"
+        issue.save()
+        return self._issue_from_gitlab_object(issue)
+
+    @staticmethod
+    def _issuecomment_from_gitlab_object(raw_comment) -> IssueComment:
+        return IssueComment(
+            comment=raw_comment.body,
+            author=raw_comment.author["username"],
+            created=raw_comment.created_at,
+            edited=raw_comment.updated_at,
+        )
+
+    def _get_all_issue_comments(self, issue_id: int) -> List[IssueComment]:
+        issue = self.repo.issues.get(issue_id)
         return [
-            {
-                "id": mr.iid,
-                "title": mr.title,
-                "author": mr.author["username"],
-                "url": mr.web_url,
-            }
-            for mr in mrs
+            self._issuecomment_from_gitlab_object(raw_comment)
+            for raw_comment in issue.notes.list()
         ]
+
+    def issue_comment(self, issue_id: int, body: str) -> IssueComment:
+        """
+        Create comment on an issue.
+        """
+        issue = self.repo.issues.get(issue_id)
+        comment = issue.notes.create({"body": body})
+        return self._issuecomment_from_gitlab_object(comment)
+
+    @staticmethod
+    def _pr_from_gitlab_object(gitlab_pr) -> PullRequest:
+        return PullRequest(
+            title=gitlab_pr.title,
+            id=gitlab_pr.iid,
+            status=gitlab_pr.state,
+            url=gitlab_pr.web_url,
+            description=gitlab_pr.description,
+            author=gitlab_pr.author["username"],
+            source_branch=gitlab_pr.source_branch,
+            target_branch=gitlab_pr.target_branch,
+            created=gitlab_pr.created_at,
+        )
+
+    def get_pr_info(self, pr_id: int) -> PullRequest:
+        mr = self.repo.mergerequests.get(pr_id)
+        return self._pr_from_gitlab_object(mr)
+
+    def list_pull_requests(self) -> List[PullRequest]:
+        mrs = self.repo.mergerequests.list(order_by="updated_at", sort="desc")
+        return [self._pr_from_gitlab_object(mr) for mr in mrs]
+
+    def create_pr(
+        self, source_branch: str, target_branch: str, title: str, labels: List[str]
+    ) -> PullRequest:
+        mr = self.repo.mergerequests.create(
+            {
+                "source_branch": source_branch,
+                "target_branch": target_branch,
+                "title": title,
+                "labels": labels,
+            }
+        )
+        return self._pr_from_gitlab_object(mr)
+
+    def update_pr_info(self, pr_id: int, description: str) -> PullRequest:
+        pr = self.repo.mergerequests.get(pr_id)
+        pr.description = description
+        pr.save()
+        return self._pr_from_gitlab_object(pr)
+
+    def get_all_pr_commits(self, pr_id: int) -> List[str]:
+        mr = self.repo.mergerequests.get(pr_id)
+        return [commit.id for commit in mr.commits()]
+
+    @staticmethod
+    def _prcomment_from_gitlab_object(raw_comment) -> PRComment:
+        return PRComment(
+            comment=raw_comment.body,
+            author=raw_comment.author["username"],
+            created=raw_comment.created_at,
+            edited=raw_comment.updated_at,
+        )
+
+    def _get_all_pr_comments(self, pr_id: int) -> List[PRComment]:
+        pr = self.repo.mergerequests.get(pr_id)
+        return [
+            self._prcomment_from_gitlab_object(raw_comment)
+            for raw_comment in pr.notes.list()
+        ]
+
+    def pr_comment(self, pr_id: int, body: str) -> PRComment:
+        """
+        Create comment on an pr.
+        """
+        pr = self.repo.issues.get(pr_id)
+        comment = pr.notes.create({"body": body})
+        return self._prcomment_from_gitlab_object(comment)
+
+    def _git_tag_from_tag_name(self, tag_name: str) -> GitTag:
+        git_tag = self.repo.tags.get(tag_name)
+        return GitTag(name=git_tag.name, commit_sha=git_tag.commit["id"])
+
+    @staticmethod
+    def _release_from_gitlab_object(raw_release, git_tag: GitTag) -> Release:
+        return Release(
+            title=raw_release.name,
+            body=raw_release.description,
+            tag_name=raw_release.tag_name,
+            url=None,
+            created_at=raw_release.created_at,
+            tarball_url=raw_release.assets["sources"][1]["url"],
+            git_tag=git_tag,
+        )
+
+    def get_releases(self) -> List[Release]:
+        releases = self.repo.releases.list()
+        return [
+            self._release_from_gitlab_object(
+                raw_release=release,
+                git_tag=self._git_tag_from_tag_name(release.tag_name),
+            )
+            for release in releases
+        ]
+
+    def get_release(self, tag_name: str) -> Release:
+        release = self.repo.releases.get(tag_name)
+        return self._release_from_gitlab_object(
+            raw_release=release, git_tag=self._git_tag_from_tag_name(release.tag_name)
+        )
+
+    def create_release(
+        self, name: str, tag_name: str, description: str, ref=None
+    ) -> Release:
+        release = self.repo.releases.create(
+            {"name": name, "tag_name": tag_name, "description": description, "ref": ref}
+        )
+        return self._release_from_gitlab_object(
+            raw_release=release, git_tag=self._git_tag_from_tag_name(release.tag_name)
+        )
 
     def list_labels(self):
         """
