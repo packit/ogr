@@ -50,6 +50,29 @@ from ogr.utils import RequestResponse
 logger = logging.getLogger(__name__)
 
 
+class PagureRelease(Release):
+    project: "PagureProject"
+
+    def __init__(
+        self,
+        tag_name: str,
+        url: str,
+        created_at: str,
+        tarball_url: str,
+        git_tag: GitTag,
+        project: "PagureProject",
+    ) -> None:
+        super().__init__(tag_name, url, created_at, tarball_url, git_tag, project)
+
+    @property
+    def title(self):
+        return self.git_tag.name
+
+    @property
+    def body(self):
+        return ""
+
+
 @use_for_service("pagure.io")
 @use_for_service("src.fedoraproject.org")
 class PagureService(BaseGitService):
@@ -774,16 +797,14 @@ class PagureProject(BaseGitProject):
         git_tags = self.get_tags()
         return [self._release_from_git_tag(git_tag) for git_tag in git_tags]
 
-    @staticmethod
-    def _release_from_git_tag(git_tag: GitTag) -> Release:
-        return Release(
-            title=git_tag.name,
-            body="",
+    def _release_from_git_tag(self, git_tag: GitTag) -> PagureRelease:
+        return PagureRelease(
             tag_name=git_tag.name,
             url="",
             created_at="",
             tarball_url="",
             git_tag=git_tag,
+            project=self,
         )
 
     def get_forks(self) -> List["PagureProject"]:

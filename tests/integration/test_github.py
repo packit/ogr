@@ -286,6 +286,11 @@ class PullRequests(GithubTests):
 
 
 class Releases(GithubTests):
+    def test_get_release(self):
+        release = self.hello_world_project.get_release(tag_name="0.4.1")
+        assert release.title == "test"
+        assert release.body == "testing release"
+
     def test_get_releases(self):
         releases = self.ogr_project.get_releases()
         assert releases
@@ -302,6 +307,17 @@ class Releases(GithubTests):
         assert release.title == "test"
         assert release.body == "testing release"
         assert count_before + 1 == count_after
+
+    def test_edit_release(self):
+        release = self.hello_world_project.get_release(tag_name="0.1.0")
+        origin_name = release.title
+        origin_message = release.body
+
+        release.edit_release(
+            name=f"{origin_name}-changed", message=f"{origin_message}-changed"
+        )
+        assert release.title == f"{origin_name}-changed"
+        assert release.body == f"{origin_message}-changed"
 
     def test_latest_release(self):
         release = self.ogr_project.get_latest_release()

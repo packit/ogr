@@ -213,21 +213,27 @@ class GitTag:
 class Release:
     def __init__(
         self,
-        title: str,
-        body: str,
         tag_name: str,
         url: str,
         created_at: str,
         tarball_url: str,
         git_tag: GitTag,
+        project: "GitProject",
     ) -> None:
-        self.title = title
-        self.body = body
         self.tag_name = tag_name
         self.url = url
         self.created_at = created_at
         self.tarball_url = tarball_url
         self.git_tag = git_tag
+        self.project = project
+
+    @property
+    def title(self):
+        raise NotImplementedError()
+
+    @property
+    def body(self):
+        raise NotImplementedError()
 
     def save_archive(self, filename):
         response = urlopen(self.tarball_url)
@@ -247,6 +253,15 @@ class Release:
             f"created_at='{self.created_at}',"
             f"tarball_url='{self.tarball_url}')"
         )
+
+    def edit_release(self, name: str, message: str):
+        """
+        Edit name and message of a release.
+
+        :param name: str
+        :param message: str
+        """
+        raise NotImplementedError()
 
 
 class GitService:
@@ -530,11 +545,13 @@ class GitProject:
         """
         raise NotImplementedError()
 
-    def get_release(self, identifier: int) -> Release:
+    def get_release(self, identifier=None, name=None, tag_name=None) -> Release:
         """
         Get a single release
 
-        :param identifier:
+        :param identifier: int
+        :param name: str
+        :param tag_name: str
         :return: Release
         """
         raise NotImplementedError()
