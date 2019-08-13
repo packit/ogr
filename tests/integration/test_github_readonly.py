@@ -25,25 +25,27 @@ class ReadOnly(unittest.TestCase):
             raise EnvironmentError("please set GITHUB_TOKEN GITHUB_USER env variables")
 
         self.service = GithubService(token=self.token, read_only=True)
-
-        self.colin_project = self.service.get_project(
-            namespace="user-cont", repo="colin"
+        self.ogr_project = self.service.get_project(
+            namespace="packit-service", repo="ogr"
         )
 
     def tearDown(self):
         PersistentObjectStorage().dump()
 
     def test_pr_comments(self):
-        pr_comments = self.colin_project.get_pr_comments(7)
+        pr_comments = self.ogr_project.get_pr_comments(9)
         assert pr_comments
         assert len(pr_comments) == 2
-        assert pr_comments[0].comment.endswith("I've just integrated your thoughts.")
-        assert pr_comments[1].comment.startswith("Thank you!")
+
+        assert pr_comments[0].comment.endswith("fixed")
+        assert pr_comments[1].comment.startswith("LGTM")
 
     def test_create_pr(self):
-        pr = self.colin_project.pr_create("title", "text", "master", "souce_branch")
+        pr = self.ogr_project.pr_create(
+            "title", "text", "master", "lbarcziova:testing_branch"
+        )
         assert pr.title == "title"
 
     def test_create_fork(self):
-        fork = self.colin_project.fork_create()
+        fork = self.ogr_project.fork_create()
         assert not fork.is_fork
