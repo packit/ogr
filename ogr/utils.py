@@ -139,12 +139,16 @@ class RequestResponse:
         content: bytes,
         json: Optional[dict] = None,
         reason=None,
+        headers: Optional[list] = None,
+        links: Optional[list] = None,
     ) -> None:
         self.status_code = status_code
         self.ok = ok
         self.content = content
-        self.json = json
+        self.json_content = json
         self.reason = reason
+        self.headers = headers
+        self.links = links
 
     def __str__(self) -> str:
         return (
@@ -152,8 +156,10 @@ class RequestResponse:
             f"status_code={self.status_code}, "
             f"ok={self.ok}, "
             f"content={self.content}, "
-            f"json={self.json}, "
-            f"reason={self.reason})"
+            f"json={self.json_content}, "
+            f"reason={self.reason}, "
+            f"headers={self.headers}, "
+            f"links={self.links})"
         )
 
     def __eq__(self, o: object) -> bool:
@@ -163,8 +169,10 @@ class RequestResponse:
             self.status_code == o.status_code
             and self.ok == o.ok
             and self.content == o.content
-            and self.json == o.json
+            and self.json_content == o.json_content
             and self.reason == o.reason
+            and self.headers == o.headers
+            and self.links == o.links
         )
 
     def to_json_format(self) -> dict:
@@ -172,9 +180,14 @@ class RequestResponse:
             "status_code": self.status_code,
             "ok": self.ok,
             "content": self.content,
-            "json": self.json,
+            "json": self.json_content,
             "reason": self.reason,
+            "headers": self.headers,
+            "links": self.links,
         }
+
+    def json(self):
+        return self.json_content
 
 
 class SingletonMeta(type):

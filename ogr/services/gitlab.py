@@ -77,10 +77,10 @@ class GitlabRelease(Release):
 class GitlabService(GitService):
     name = "gitlab"
 
-    def __init__(self, token=None, url=None, full_repo_name=None):
+    def __init__(self, token=None, url=None, full_repo_name=None, ssl_verify=True):
         super().__init__(token=token)
         url = url or "https://gitlab.com"
-        self.g = gitlab.Gitlab(url=url, private_token=token, ssl_verify=False)
+        self.g = gitlab.Gitlab(url=url, private_token=token, ssl_verify=ssl_verify)
         self.g.auth()
         self.repo = None
         if full_repo_name:

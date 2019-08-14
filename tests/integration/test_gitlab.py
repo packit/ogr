@@ -27,7 +27,7 @@ class GitlabTests(unittest.TestCase):
             raise EnvironmentError("please set GITLAB_TOKEN GITLAB_USER env variables")
 
         self.service = GitlabService(
-            token=self.token, url="https://gitlab.cee.redhat.com"
+            token=self.token, url="https://gitlab.cee.redhat.com", ssl_verify=False
         )
 
         self.project = self.service.get_project(

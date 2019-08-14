@@ -45,6 +45,8 @@ if mock_env:
 
     import ogr.services.mock.github_import_tweaks  # noqa: F401
     from ogr.services.github import GithubService
+    import ogr.services.mock.gitlab_import_tweaks  # noqa: F401
+    from ogr.services.gitlab import GitlabService
     from ogr.services.mock import PagureService
 
 
@@ -52,10 +54,12 @@ else:
     from ogr.services.github_tweak import BetterGithubIntegration
     from ogr.services.github import GithubService
     from ogr.services.pagure import PagureService
+    from ogr.services.gitlab import GitlabService
 
 __all__ = [
     GithubService.__name__,
     PagureService.__name__,
+    GitlabService.__name__,
     get_project.__name__,
     get_service_class.__name__,
     BetterGithubIntegration.__name__,
