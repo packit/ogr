@@ -147,7 +147,7 @@ class RequestResponse:
         self.content = content
         self.json_content = json
         self.reason = reason
-        self.headers = headers
+        self.headers = dict(headers)
         self.links = links
 
     def __str__(self) -> str:

@@ -19,6 +19,7 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
+from collections import OrderedDict
 
 import gitlab
 
@@ -29,7 +30,7 @@ from ogr.utils import RequestResponse
 @use_persistent_storage_without_overwriting
 class BetterGitlab(gitlab.Gitlab):
     def http_request(self, *args, **kwargs):
-        keys_internal = list(args) + [kwargs.items()]
+        keys_internal = list(args) + [str(OrderedDict(kwargs))]
         if self.persistent_storage.is_write_mode:
             raw_response = super().http_request(*args, **kwargs)
 
