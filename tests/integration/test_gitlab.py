@@ -26,15 +26,15 @@ class GitlabTests(unittest.TestCase):
         ):
             raise EnvironmentError("please set GITLAB_TOKEN GITLAB_USER env variables")
 
-        self.project = GitlabService(
-            token=self.token,
-            url="https://gitlab.cee.redhat.com",
-            full_repo_name="lbarczio/testing-ogr-repo",
+        self.service = GitlabService(
+            token=self.token, url="https://gitlab.cee.redhat.com"
         )
-        self.packit_project = GitlabService(
-            token=self.token,
-            url="https://gitlab.cee.redhat.com",
-            full_repo_name="user-cont/packit-service",
+
+        self.project = self.service.get_project(
+            repo="testing-ogr-repo", namespace="lbarczio"
+        )
+        self.packit_project = self.service.get_project(
+            repo="packit-service", namespace="user-cont"
         )
 
     def tearDown(self):
@@ -56,6 +56,22 @@ class GenericCommands(GitlabTests):
         with self.assertRaises(FileNotFoundError):
             self.project.get_file_content(".blablabla_nonexisting_file")
 
+    def test_username(self):
+        # check just lenght, because it is based who regenerated data files
+        assert len(self.service.user.get_username()) > 3
+
+    def test_email(self):
+        email = self.service.user.get_email()
+        assert email
+        assert len(email) > 3
+        assert "@" in email
+        assert "." in email
+
+    def test_get_forks(self):
+        forks = self.packit_project.get_forks()
+        assert forks[0].namespace == "lbarczio"
+        assert forks[0].repo == "packit-service"
+
 
 class Issues(GitlabTests):
     def test_get_issue_list(self):
@@ -66,7 +82,7 @@ class Issues(GitlabTests):
     def test_issue_info(self):
         issue_info = self.project.get_issue_info(issue_id=1)
         assert issue_info
-        assert issue_info.title.startswith("y first issue")
+        assert issue_info.title.startswith("My first issue")
         assert issue_info.description.startswith("This is testing issue")
 
     def test_get_all_issue_comments(self):
