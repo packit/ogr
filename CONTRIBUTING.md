@@ -60,6 +60,7 @@ When you are contributing to changelog, please follow these suggestions:
 ### Testing
 
 Tests are stored in [tests](/tests) directory.
+
 We use [Tox](https://pypi.org/project/tox) with configuration in [tox.ini](tox.ini).
 
 Running tests locally:
@@ -67,8 +68,8 @@ Running tests locally:
 make prepare-check && make check
 ```
 
-As a CI we use [CentOS CI](https://ci.centos.org/job/ogr-pr/) with a configuration in [Jenkinsfile](Jenkinsfile).
-
+As a CI we use [Zuul](https://softwarefactory-project.io/zuul/t/local/builds?project=packit-service/ogr) with a configuration in [.zuul.yaml](.zuul.yaml).
+If you want to re-run CI/tests in a pull request, just include `recheck` in a comment.
 
 When running the tests we are using the pregenerated responses that are saved in the ./tests/integration/test_data.
 If you need to generate a new file, just run the tests and provide environment variables for the service.
