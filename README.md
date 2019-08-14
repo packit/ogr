@@ -1,4 +1,4 @@
-# One Git library to Rule
+# One Git library to Rule [![Build Status](https://zuul-ci.org/gated.svg)](https://softwarefactory-project.io/zuul/t/local/builds?project=packit-service/ogr)
 
 ![PyPI](https://img.shields.io/pypi/v/ogr.svg)
 ![PyPI - License](https://img.shields.io/pypi/l/ogr.svg)
@@ -20,7 +20,6 @@ Library for one API for many git forges. (e.g. GitHub, GitLab, Pagure).
 
 - [podman](https://github.com/containers/libpod)
 - [ansible-bender](https://pypi.org/project/ansible-bender)
-  - until ansible 2.8 is released, it requires [buildah](https://github.com/containers/buildah)
 
 ### Tests
 
