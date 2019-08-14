@@ -27,14 +27,11 @@ class GitlabTests(unittest.TestCase):
             raise EnvironmentError("please set GITLAB_TOKEN GITLAB_USER env variables")
 
         self.service = GitlabService(
-            token=self.token, url="https://gitlab.cee.redhat.com", ssl_verify=False
+            token=self.token, url="https://gitlab.gnome.org", ssl_verify=False
         )
 
         self.project = self.service.get_project(
-            repo="testing-ogr-repo", namespace="lbarczio"
-        )
-        self.packit_project = self.service.get_project(
-            repo="packit-service", namespace="user-cont"
+            repo="testing-ogr-repo", namespace="lbarcziova"
         )
 
     def tearDown(self):
@@ -50,7 +47,7 @@ class GenericCommands(GitlabTests):
     def test_get_file(self):
         file_content = self.project.get_file_content("README.md")
         assert file_content
-        assert "New README" in file_content
+        assert "This is new README for testing-ogr-repo" in file_content
 
     def test_nonexisting_file(self):
         with self.assertRaises(FileNotFoundError):
@@ -67,11 +64,6 @@ class GenericCommands(GitlabTests):
         assert "@" in email
         assert "." in email
 
-    def test_get_forks(self):
-        forks = self.packit_project.get_forks()
-        assert forks[0].namespace == "lbarczio"
-        assert forks[0].repo == "packit-service"
-
 
 class Issues(GitlabTests):
     def test_get_issue_list(self):
@@ -86,17 +78,17 @@ class Issues(GitlabTests):
         assert issue_info.description.startswith("This is testing issue")
 
     def test_get_all_issue_comments(self):
-        comments = self.packit_project._get_all_issue_comments(issue_id=3)
-        assert comments[1].comment.startswith("Fixed")
-        assert comments[1].author == "jpopelka"
-        assert len(comments) == 3
+        comments = self.project._get_all_issue_comments(issue_id=2)
+        assert comments[0].comment.startswith("Comment")
+        assert comments[0].author == "lbarcziova"
+        assert len(comments) == 2
 
     def test_create_issue(self):
         issue = self.project.create_issue(
-            title="Issue 1", description="Description for issue 1"
+            title="Issue 2", description="Description for issue 2"
         )
-        assert issue.title == "Issue 1"
-        assert issue.description == "Description for issue 1"
+        assert issue.title == "Issue 2"
+        assert issue.description == "Description for issue 2"
 
     def test_close_issue(self):
         issue = self.project.close_issue(issue_id=1)
@@ -105,27 +97,30 @@ class Issues(GitlabTests):
 
 class PullRequests(GitlabTests):
     def test_pr_list(self):
-        pr_list = self.packit_project.list_pull_requests()
+        pr_list = self.project.list_pull_requests()
+        count = len(pr_list)
         assert pr_list
-        assert len(pr_list) >= 20
+        assert count >= 1
+        assert pr_list[count - 1].title == "change"
 
     def test_pr_info(self):
-        pr_info = self.packit_project.get_pr_info(pr_id=1)
+        pr_info = self.project.get_pr_info(pr_id=1)
         assert pr_info
-        assert pr_info.title.startswith("Add image")
-        assert pr_info.description.startswith("Requires")
+        assert pr_info.title == "change"
+        assert pr_info.description == "description of mergerequest"
 
     def test_get_all_pr_commits(self):
-        commits = self.packit_project.get_all_pr_commits(pr_id=6)
-        assert commits[0] == "8764b13154f3f415a97c872b217c7b502f30bd3f"
-        assert commits[1] == "e6b7f1604ee12e93021c81c2786369116d7ab3fe"
-        assert len(commits) == 5
+        commits = self.project.get_all_pr_commits(pr_id=1)
+        assert commits[0] == "0709030b613d56752725c33df36041c2b7610506"
+        assert commits[1] == "f3881188db863e4e053f5a82422f067ac9ba2594"
+        assert len(commits) == 2
 
     def test_get_all_pr_comments(self):
-        comments = self.packit_project._get_all_pr_comments(pr_id=21)
-        assert comments[2].comment.startswith("so, ansible")
-        assert comments[2].author == "ttomecek"
-        assert len(comments) == 5
+        comments = self.project._get_all_pr_comments(pr_id=1)
+        count = len(comments)
+        assert comments[count - 1].comment == "first comment of mergerequest"
+        assert comments[count - 1].author == "lbarcziova"
+        assert count == 5
 
     def test_update_pr_info(self):
         pr_info = self.project.get_pr_info(pr_id=1)
@@ -141,6 +136,17 @@ class PullRequests(GitlabTests):
 
 
 class Releases(GitlabTests):
+    def test_create_release(self):
+        count_before = len(self.project.get_releases())
+        release = self.project.create_release(
+            name="test", tag_name="0.2.0", description="testing release", ref="master"
+        )
+        count_after = len(self.project.get_releases())
+        assert release.tag_name == "0.2.0"
+        assert release.title == "test"
+        assert release.body == "testing release"
+        assert count_before + 1 == count_after
+
     def test_get_releases(self):
         releases = self.project.get_releases()
         assert releases
@@ -149,14 +155,3 @@ class Releases(GitlabTests):
         assert releases[count - 1].title == "test"
         assert releases[count - 1].tag_name == "0.1.0"
         assert releases[count - 1].body == "testing release"
-
-    def test_create_release(self):
-        count_before = len(self.project.get_releases())
-        release = self.project.create_release(
-            name="test", tag_name="0.3.0", description="testing release", ref="master"
-        )
-        count_after = len(self.project.get_releases())
-        assert release.tag_name == "0.3.0"
-        assert release.title == "test"
-        assert release.body == "testing release"
-        assert count_before + 1 == count_after
