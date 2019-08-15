@@ -21,10 +21,9 @@
 # SOFTWARE.
 
 import logging
+from typing import List, Optional
 
 import gitlab
-
-from typing import List, Optional
 
 from ogr.abstract import (
     GitService,
@@ -37,14 +36,14 @@ from ogr.abstract import (
     GitTag,
     IssueStatus,
 )
+from ogr.factory import use_for_service
+from ogr.services.base import BaseGitProject, BaseGitUser
 from ogr.utils import (
     clone_repo_and_cd_inside,
     set_upstream_remote,
     set_origin_remote,
     fetch_all,
 )
-
-from ogr.services.base import BaseGitProject, BaseGitUser
 
 logger = logging.getLogger(__name__)
 
@@ -74,6 +73,7 @@ class GitlabRelease(Release):
         return self.raw_release.description
 
 
+@use_for_service("gitlab")
 class GitlabService(GitService):
     name = "gitlab"
 
