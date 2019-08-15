@@ -658,7 +658,9 @@ class PagureProject(BaseGitProject):
             title=issue_dict["title"],
             id=issue_dict["id"],
             status=IssueStatus[issue_dict["status"].lower()],
-            url=self._get_project_url("issue", str(issue_dict["id"])),
+            url=self._get_project_url(
+                "issue", str(issue_dict["id"]), add_api_endpoint_part=False
+            ),
             description=issue_dict["content"],
             author=issue_dict["user"]["name"],
             created=datetime.datetime.fromtimestamp(int(issue_dict["date_created"])),
