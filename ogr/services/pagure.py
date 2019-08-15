@@ -42,8 +42,8 @@ from ogr.exceptions import (
     OperationNotSupported,
 )
 from ogr.factory import use_for_service
-from ogr.read_only import if_readonly, GitProjectReadOnly
 from ogr.parsing import parse_git_repo
+from ogr.read_only import if_readonly, GitProjectReadOnly
 from ogr.services.base import BaseGitService, BaseGitProject, BaseGitUser
 from ogr.utils import RequestResponse
 
@@ -73,7 +73,7 @@ class PagureRelease(Release):
         return ""
 
 
-@use_for_service("pagure.io")
+@use_for_service("pagure")
 @use_for_service("src.fedoraproject.org")
 class PagureService(BaseGitService):
     def __init__(
