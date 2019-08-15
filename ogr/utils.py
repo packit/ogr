@@ -141,6 +141,7 @@ class RequestResponse:
         reason=None,
         headers: Optional[list] = None,
         links: Optional[list] = None,
+        exception: Optional[dict] = None,
     ) -> None:
         self.status_code = status_code
         self.ok = ok
@@ -149,6 +150,7 @@ class RequestResponse:
         self.reason = reason
         self.headers = dict(headers)
         self.links = links
+        self.exception = exception
 
     def __str__(self) -> str:
         return (
@@ -159,7 +161,8 @@ class RequestResponse:
             f"json={self.json_content}, "
             f"reason={self.reason}, "
             f"headers={self.headers}, "
-            f"links={self.links})"
+            f"links={self.links}, "
+            f"exception={self.exception})"
         )
 
     def __eq__(self, o: object) -> bool:
@@ -173,6 +176,7 @@ class RequestResponse:
             and self.reason == o.reason
             and self.headers == o.headers
             and self.links == o.links
+            and self.exception == o.exception
         )
 
     def to_json_format(self) -> dict:
@@ -184,6 +188,7 @@ class RequestResponse:
             "reason": self.reason,
             "headers": self.headers,
             "links": self.links,
+            "exception": self.exception,
         }
 
     def json(self):

@@ -30,28 +30,48 @@ from ogr.utils import RequestResponse
 @use_persistent_storage_without_overwriting
 class BetterGitlab(gitlab.Gitlab):
     def http_request(self, *args, **kwargs):
+
         keys_internal = list(args) + [str(OrderedDict(kwargs))]
         if self.persistent_storage.is_write_mode:
-            raw_response = super().http_request(*args, **kwargs)
-
             try:
-                json_output = raw_response.json()
-            except ValueError:
-                json_output = None
+                raw_response = super().http_request(*args, **kwargs)
+                try:
+                    json_output = raw_response.json()
+                except ValueError:
+                    json_output = None
 
-            output = RequestResponse(
-                status_code=raw_response.status_code,
-                ok=raw_response.ok,
-                content=raw_response.content,
-                json=json_output,
-                reason=raw_response.reason,
-                headers=raw_response.headers,
-                links=raw_response.links,
-            )
-            self.persistent_storage.store(
-                keys=keys_internal, values=output.to_json_format()
-            )
+                output = RequestResponse(
+                    status_code=raw_response.status_code,
+                    ok=raw_response.ok,
+                    content=raw_response.content,
+                    json=json_output,
+                    reason=raw_response.reason,
+                    headers=raw_response.headers,
+                    links=raw_response.links,
+                )
+            except gitlab.GitlabHttpError as ex:
+                output = RequestResponse(
+                    status_code=ex.response_code,
+                    ok=False,
+                    content=ex.response_body,
+                    exception={
+                        "response_body": ex.response_body,
+                        "response_code": ex.response_code,
+                        "error_message": ex.error_message,
+                    },
+                )
+                raise ex
+            finally:
+                self.persistent_storage.store(
+                    keys=keys_internal, values=output.to_json_format()
+                )
         else:
             output_dict = self.persistent_storage.read(keys=keys_internal)
             output = RequestResponse(**output_dict)
+            if output.exception:
+                raise gitlab.GitlabHttpError(
+                    response_body=output.exception["response_body"],
+                    response_code=output.exception["response_code"],
+                    error_message=output.exception["error_message"],
+                )
         return output
