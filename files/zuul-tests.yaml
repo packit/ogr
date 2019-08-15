@@ -1,0 +1,12 @@
+---
+- name: This is a recipe for how to run packit tests
+  hosts: all
+  tasks:
+  - include_tasks: tasks/zuul-project-setup.yaml
+  - include_tasks: tasks/rpm-test-deps.yaml
+  - include_tasks: tasks/install-ogr.yaml
+  - include_tasks: tasks/configure-git.yaml
+  - name: Run tests
+    command: make check
+    args:
+      chdir: '{{ project_dir }}'

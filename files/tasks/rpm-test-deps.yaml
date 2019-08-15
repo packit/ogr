@@ -1,0 +1,21 @@
+---
+- name: Install test rpm dependencies
+  dnf:
+    name:
+    - python3-pip
+    - python3-setuptools
+    - git-core
+    - python3-setuptools_scm
+    - python3-setuptools_scm_git_archive
+    - python3-wheel  # for bdist_wheel
+    - python3-pytest
+    - python3-tox
+    state: present
+  become: true
+- name: Install latest twine for sake of check command
+  pip:
+    name:
+    - twine  # we need newest twine, b/c of the check command
+    - readme_renderer[md]
+    state: latest
+  become: true

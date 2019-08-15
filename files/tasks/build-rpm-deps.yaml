@@ -1,0 +1,6 @@
+---
+- name: Install RPM build dependencies
+  command: dnf -y builddep python-ogr.spec
+  args:
+    chdir: '{{ project_dir }}'
+  become: true

@@ -3,17 +3,21 @@
     name: packit-service/ogr
     check:
       jobs:
-        - tests
-        - pre-commit
+        - ogr-pre-commit
+        - ogr-tests-rpm
+        - ogr-tests-pip-deps
     gate:
       jobs:
-        - tests
-        - pre-commit
+        - ogr-pre-commit
+        - ogr-tests-rpm
+        - ogr-tests-pip-deps
+
 - job:
-    name: tests
+    name: ogr-tests-rpm
     parent: base
-    description: Run tests of ogr
-    run: recipe.yaml
+    description: Run tests of packit via rpms
+    pre-run: files/zuul-install-requirements-rpms.yaml
+    run: files/zuul-tests.yaml
     extra-vars:
       with_testing: true
       ansible_python_interpreter: /usr/bin/python3
@@ -21,8 +25,24 @@
       nodes:
         - name: test-node
           label: cloud-fedora-30
+
 - job:
-    name: pre-commit
+    name: ogr-tests-pip-deps
+    parent: base
+    description: Run tests of packit via pip installed dependencies
+    pre-run: files/zuul-install-requirements-pip.yaml
+    run: files/zuul-tests.yaml
+    extra-vars:
+      with_testing: true
+      ansible_python_interpreter: /usr/bin/python3
+    nodeset:
+      nodes:
+        - name: test-node
+          label: cloud-fedora-30
+
+
+- job:
+    name: ogr-pre-commit
     parent: base
     description: Run pre-commit
     run: pre-commit-pb.yaml
