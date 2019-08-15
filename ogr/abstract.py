@@ -214,7 +214,7 @@ class Release:
     def __init__(
         self,
         tag_name: str,
-        url: str,
+        url: Optional[str],
         created_at: str,
         tarball_url: str,
         git_tag: GitTag,

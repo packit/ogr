@@ -144,8 +144,8 @@ class PagureService(BaseGitService):
 
         if response.status_code == 404:
             error_msg = (
-                response.json["error"]
-                if response.json and "error" in response.json
+                response.json_content["error"]
+                if response.json_content and "error" in response.json_content
                 else None
             )
             raise PagureAPIException(
@@ -153,21 +153,21 @@ class PagureService(BaseGitService):
                 pagure_error=error_msg,
             )
 
-        if not response.json:
+        if not response.json_content:
             logger.debug(response.content)
             raise PagureAPIException("Error while decoding JSON: {0}")
 
         if not response.ok:
-            logger.error(response.json)
-            if "error" in response.json:
-                error_msg = response.json["error"]
+            logger.error(response.json_content)
+            if "error" in response.json_content:
+                error_msg = response.json_content["error"]
                 raise PagureAPIException(
                     f"Pagure API returned an error when calling `{url}`: {error_msg}",
                     pagure_error=error_msg,
                 )
             raise PagureAPIException(f"Problem with Pagure API when calling `{url}`")
 
-        return response.json
+        return response.json_content
 
     def call_api_raw(
         self, url: str, method: str = None, params: dict = None, data=None
