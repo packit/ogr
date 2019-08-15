@@ -25,9 +25,11 @@ class GitlabTests(unittest.TestCase):
             not self.user or not self.token
         ):
             raise EnvironmentError("please set GITLAB_TOKEN GITLAB_USER env variables")
+        else:
+            self.token = "some_token"
 
         self.service = GitlabService(
-            token=self.token, url="https://gitlab.gnome.org", ssl_verify=False
+            token=self.token, url="https://gitlab.gnome.org", ssl_verify=True
         )
 
         self.project = self.service.get_project(
