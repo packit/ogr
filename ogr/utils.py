@@ -148,7 +148,7 @@ class RequestResponse:
         self.content = content
         self.json_content = json
         self.reason = reason
-        self.headers = dict(headers)
+        self.headers = dict(headers) if headers else None
         self.links = links
         self.exception = exception
 

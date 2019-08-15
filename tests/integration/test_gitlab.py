@@ -135,6 +135,19 @@ class PullRequests(GitlabTests):
         assert pr_info.description == original_description
 
 
+class Tags(GitlabTests):
+    def test_get_tags(self):
+        tags = self.project.get_tags()
+        count = len(tags)
+        assert count >= 2
+        assert tags[count - 1].name == "0.1.0"
+        assert tags[count - 1].commit_sha == "957d267a5b0cd9e615cd081c0eb02397dce1eb73"
+
+    def test_tag_from_tag_name(self):
+        tag = self.project._git_tag_from_tag_name(tag_name="0.1.0")
+        assert tag.commit_sha == "957d267a5b0cd9e615cd081c0eb02397dce1eb73"
+
+
 class Releases(GitlabTests):
     def test_create_release(self):
         count_before = len(self.project.get_releases())

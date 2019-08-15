@@ -374,6 +374,10 @@ class GitlabProject(BaseGitProject):
         comment = pr.notes.create({"body": body})
         return self._prcomment_from_gitlab_object(comment)
 
+    def get_tags(self) -> List["GitTag"]:
+        tags = self.gitlab_repo.tags.list()
+        return [GitTag(tag.name, tag.commit["id"]) for tag in tags]
+
     def _git_tag_from_tag_name(self, tag_name: str) -> GitTag:
         git_tag = self.gitlab_repo.tags.get(tag_name)
         return GitTag(name=git_tag.name, commit_sha=git_tag.commit["id"])
