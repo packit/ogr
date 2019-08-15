@@ -2,7 +2,7 @@ import pytest
 from flexmock import Mock
 from flexmock import flexmock
 
-from ogr import PagureService
+from ogr import PagureService, GitlabService
 from ogr.exceptions import OgrException
 from ogr.factory import get_service_class, get_project
 from ogr.services.github import GithubService, GithubProject
@@ -27,6 +27,9 @@ from ogr.services.pagure import PagureProject
         ),
         ("https://src.fedoraproject.org/rpms/python-ogr", None, PagureService),
         ("https://pagure.io/ogr", None, PagureService),
+        ("https://pagure.something.com/ogr", None, PagureService),
+        ("https://gitlab.com/someone/project", None, GitlabService),
+        ("https://gitlab.abcd.def/someone/project", None, GitlabService),
     ],
 )
 def test_get_service_class(url, mapping, result):
