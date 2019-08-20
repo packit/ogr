@@ -1,9 +1,10 @@
 import os
 import unittest
 
-from ogr import GithubService, PagureService, get_project
-from ogr.services.github import GithubProject
+from ogr import GithubService, PagureService, get_project, GitlabService
 from ogr.persistent_storage import PersistentObjectStorage
+from ogr.services.github import GithubProject
+from ogr.services.gitlab import GitlabProject
 from ogr.services.pagure import PagureProject
 
 DATA_DIR = "test_data"
@@ -18,6 +19,8 @@ class FactoryTests(unittest.TestCase):
         self.github_user = os.environ.get("GITHUB_USER")
         self.pagure_token = os.environ.get("PAGURE_TOKEN")
         self.pagure_user = os.environ.get("PAGURE_USER")
+        self.gitlab_token = os.environ.get("GITLAB_TOKEN") or "some_token"
+        self.gitlab_user = os.environ.get("GITLAB_USER")
 
         test_name = self.id() or "all"
 
@@ -38,6 +41,14 @@ class FactoryTests(unittest.TestCase):
 
         self.github_service = GithubService(token=self.github_token)
         self.pagure_service = PagureService(token=self.pagure_token)
+        self.gitlab_service = GitlabService(
+            token=self.gitlab_token, instance_url="https://gitlab.gnome.org"
+        )
+        self.custom_instances = [
+            self.github_service,
+            self.pagure_service,
+            self.gitlab_service,
+        ]
 
     def tearDown(self):
         PersistentObjectStorage().dump()
@@ -45,7 +56,7 @@ class FactoryTests(unittest.TestCase):
     def test_get_project_github(self):
         project = get_project(
             url="https://github.com/packit-service/ogr",
-            custom_instances=[self.github_service, self.pagure_service],
+            custom_instances=self.custom_instances,
         )
         assert isinstance(project, GithubProject)
         assert project.github_repo
@@ -53,7 +64,15 @@ class FactoryTests(unittest.TestCase):
     def test_get_project_pagure(self):
         project = get_project(
             url="https://src.fedoraproject.org/rpms/python-ogr",
-            custom_instances=[self.github_service, self.pagure_service],
+            custom_instances=self.custom_instances,
         )
         assert isinstance(project, PagureProject)
         assert project.exists()
+
+    def test_get_project_gitlab(self):
+        project = get_project(
+            url="https://gitlab.gnome.org/lbarcziova/testing-ogr-repo",
+            custom_instances=self.custom_instances,
+        )
+        assert isinstance(project, GitlabProject)
+        assert project.gitlab_repo

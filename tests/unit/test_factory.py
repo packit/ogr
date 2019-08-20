@@ -2,10 +2,11 @@ import pytest
 from flexmock import Mock
 from flexmock import flexmock
 
-from ogr import PagureService, GitlabService
+from ogr import PagureService, GitlabService, GithubService
 from ogr.exceptions import OgrException
 from ogr.factory import get_service_class, get_project
-from ogr.services.github import GithubService, GithubProject
+from ogr.services.github import GithubProject
+from ogr.services.gitlab import GitlabProject
 from ogr.services.pagure import PagureProject
 
 
@@ -143,6 +144,16 @@ def test_get_service_class_not_found(url, mapping):
                 ),
             ],
             "right-project",
+        ),
+        (
+            "https://gitlab.gnome.org/lbarcziova/testing-ogr-repo",
+            None,
+            None,
+            GitlabProject(
+                repo="testing-ogr-repo",
+                namespace="lbarcziova",
+                service=GitlabService(instance_url="https://gitlab.gnome.org"),
+            ),
         ),
     ],
 )
