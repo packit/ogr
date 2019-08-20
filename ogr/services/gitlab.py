@@ -21,10 +21,10 @@
 # SOFTWARE.
 
 import logging
+from typing import List, Optional
 
 import gitlab
-
-from typing import List, Optional
+from gitlab.v4.objects import Project as GitlabObjectsProject
 
 from ogr.abstract import (
     GitService,
@@ -37,14 +37,14 @@ from ogr.abstract import (
     GitTag,
     IssueStatus,
 )
+from ogr.factory import use_for_service
+from ogr.services.base import BaseGitProject, BaseGitUser
 from ogr.utils import (
     clone_repo_and_cd_inside,
     set_upstream_remote,
     set_origin_remote,
     fetch_all,
 )
-
-from ogr.services.base import BaseGitProject, BaseGitUser
 
 logger = logging.getLogger(__name__)
 
@@ -74,21 +74,44 @@ class GitlabRelease(Release):
         return self.raw_release.description
 
 
+@use_for_service("gitlab")
 class GitlabService(GitService):
     name = "gitlab"
 
-    def __init__(self, token=None, url=None, full_repo_name=None, ssl_verify=True):
+    def __init__(self, token=None, instance_url=None, ssl_verify=True):
         super().__init__(token=token)
-        url = url or "https://gitlab.com"
-        self.g = gitlab.Gitlab(url=url, private_token=token, ssl_verify=ssl_verify)
-        self.g.auth()
-        self.repo = None
-        if full_repo_name:
-            self.repo = self.g.projects.get(full_repo_name)
+        self.instance_url = instance_url or "https://gitlab.com"
+        self.token = token
+        self.ssl_verify = ssl_verify
+        self._gitlab_instance = None
+
+    @property
+    def gitlab_instance(self) -> gitlab.Gitlab:
+        if not self._gitlab_instance:
+            self._gitlab_instance = gitlab.Gitlab(
+                url=self.instance_url,
+                private_token=self.token,
+                ssl_verify=self.ssl_verify,
+            )
+            self._gitlab_instance.auth()
+        return self._gitlab_instance
 
     @property
     def user(self) -> GitUser:
         return GitlabUser(service=self)
+
+    def __str__(self) -> str:
+        return f'GitlabService(instance_url="{self.instance_url}")'
+
+    def __eq__(self, o: object) -> bool:
+        if not issubclass(o.__class__, GitlabService):
+            return False
+
+        return (
+            self.token == o.token  # type: ignore
+            and self.instance_url == o.instance_url  # type: ignore
+            and self.ssl_verify == o.ssl_verify  # type: ignore
+        )
 
     def get_project(
         self, repo=None, namespace=None, is_fork=False, **kwargs
@@ -110,11 +133,11 @@ class GitlabService(GitService):
     def fork(self, target_repo):
         target_repo_org, target_repo_name = target_repo.split("/", 1)
 
-        target_repo_gl = self.g.projects.get(target_repo)
+        target_repo_gl = self.gitlab_instance.projects.get(target_repo)
 
         try:
             # is it already forked?
-            user_repo = self.g.projects.get(
+            user_repo = self.gitlab_instance.projects.get(
                 "{}/{}".format(self.user.get_username(), target_repo_name)
             )
             if not self.is_fork_of(user_repo, target_repo_gl):
@@ -161,35 +184,6 @@ class GitlabService(GitService):
 
         return fork
 
-    def update_labels(self, labels):
-        """
-        Update the labels of the repository. (No deletion, only add not existing ones.)
-
-        :param labels: [str]
-        :return: int - number of added labels
-        """
-        current_label_names = [l.name for l in list(self.repo.labels.list())]
-        changes = 0
-        for label in labels:
-            if label.name not in current_label_names:
-                color = self._normalize_label_color(color=label.color)
-                self.repo.labels.create(
-                    {
-                        "name": label.name,
-                        "color": color,
-                        "description": label.description or "",
-                    }
-                )
-
-                changes += 1
-        return changes
-
-    @staticmethod
-    def _normalize_label_color(color):
-        if not color.startswith("#"):
-            return "#{}".format(color)
-        return color
-
 
 class GitlabProject(BaseGitProject):
     service: GitlabService
@@ -202,7 +196,15 @@ class GitlabProject(BaseGitProject):
                 f"GitlabProject will not process these kwargs: {unprocess_kwargs}"
             )
         super().__init__(repo, service, namespace)
-        self.gitlab_repo = self.service.g.projects.get(f"{self.namespace}/{self.repo}")
+        self._gitlab_repo = None
+
+    @property
+    def gitlab_repo(self) -> GitlabObjectsProject:
+        if not self._gitlab_repo:
+            self._gitlab_repo = self.service.gitlab_instance.projects.get(
+                f"{self.namespace}/{self.repo}"
+            )
+        return self._gitlab_repo
 
     def __str__(self) -> str:
         return f'GitlabProject(namespace="{self.namespace}", repo="{self.repo}")'
@@ -431,6 +433,36 @@ class GitlabProject(BaseGitProject):
         ]
         return fork_objects
 
+    def update_labels(self, labels):
+        """
+        TODO: Not in API yet.
+        Update the labels of the repository. (No deletion, only add not existing ones.)
+
+        :param labels: [str]
+        :return: int - number of added labels
+        """
+        current_label_names = [l.name for l in list(self.gitlab_repo.labels.list())]
+        changes = 0
+        for label in labels:
+            if label.name not in current_label_names:
+                color = self._normalize_label_color(color=label.color)
+                self.gitlab_repo.labels.create(
+                    {
+                        "name": label.name,
+                        "color": color,
+                        "description": label.description or "",
+                    }
+                )
+
+                changes += 1
+        return changes
+
+    @staticmethod
+    def _normalize_label_color(color):
+        if not color.startswith("#"):
+            return "#{}".format(color)
+        return color
+
 
 class GitlabUser(BaseGitUser):
     service: GitlabService
@@ -443,7 +475,7 @@ class GitlabUser(BaseGitUser):
 
     @property
     def _gitlab_user(self):
-        return self.service.g.user
+        return self.service.gitlab_instance.user
 
     def get_username(self) -> str:
         return self._gitlab_user.username

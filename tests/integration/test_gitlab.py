@@ -29,7 +29,7 @@ class GitlabTests(unittest.TestCase):
             self.token = "some_token"
 
         self.service = GitlabService(
-            token=self.token, url="https://gitlab.gnome.org", ssl_verify=True
+            token=self.token, instance_url="https://gitlab.gnome.org", ssl_verify=True
         )
 
         self.project = self.service.get_project(
