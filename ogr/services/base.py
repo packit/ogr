@@ -23,8 +23,8 @@
 from typing import List, Optional, Match, Any
 
 from ogr.abstract import GitService, GitProject, PRComment, GitUser
-from ogr.utils import search_in_comments, filter_comments
 from ogr.parsing import parse_git_repo
+from ogr.utils import search_in_comments, filter_comments
 
 
 class BaseGitService(GitService):
