@@ -238,6 +238,10 @@ def test_get_project_not_found(url, mapping, instances, exc_str):
             {GithubService(token="abcd"), GitlabService(token="abcd")},
         ),
         (
+            {"github.com": {"github_app_id": "abcd", "github_app_private_key": "efgh"}},
+            {GithubService(github_app_id="abcd", github_app_private_key="efgh")},
+        ),
+        (
             {"https://my.gtlb": {"token": "abcd", "type": "gitlab"}},
             {GitlabService(token="abcd", instance_url="https://my.gtlb")},
         ),
