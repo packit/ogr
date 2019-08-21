@@ -1,10 +1,12 @@
+from typing import Set
+
 import pytest
 from flexmock import Mock
 from flexmock import flexmock
 
 from ogr import PagureService, GitlabService, GithubService
 from ogr.exceptions import OgrException
-from ogr.factory import get_service_class, get_project
+from ogr.factory import get_service_class, get_project, get_instances_from_dict
 from ogr.services.github import GithubProject
 from ogr.services.gitlab import GitlabProject
 from ogr.services.pagure import PagureProject
@@ -213,3 +215,50 @@ def test_get_project_not_found(url, mapping, instances, exc_str):
             url=url, service_mapping_update=mapping, custom_instances=instances
         )
     assert exc_str in str(ex.value)
+
+
+@pytest.mark.parametrize(
+    "instances_in_dict,result_instances",
+    [
+        ({}, set()),
+        ({"github.com": {"token": "abcd"}}, {GithubService(token="abcd")}),
+        ({"gitlab": {"token": "abcd"}}, {GitlabService(token="abcd")}),
+        ({"pagure": {"token": "abcd"}}, {PagureService(token="abcd")}),
+        (
+            {
+                "pagure": {
+                    "token": "abcd",
+                    "instance_url": "https://src.fedoraproject.org",
+                }
+            },
+            {PagureService(token="abcd", instance_url="https://src.fedoraproject.org")},
+        ),
+        (
+            {"github.com": {"token": "abcd"}, "gitlab": {"token": "abcd"}},
+            {GithubService(token="abcd"), GitlabService(token="abcd")},
+        ),
+        (
+            {"https://my.gtlb": {"token": "abcd", "type": "gitlab"}},
+            {GitlabService(token="abcd", instance_url="https://my.gtlb")},
+        ),
+    ],
+)
+def test_get_instances_from_dict(instances_in_dict, result_instances: Set):
+    services = get_instances_from_dict(instances=instances_in_dict)
+    assert services == result_instances
+
+
+@pytest.mark.parametrize(
+    "instances_in_dict,error_str",
+    [
+        ({"unknown": {"token": "abcd"}}, "No matching service was found for url"),
+        (
+            {"https://my.unknown.service": {"token": "abcd", "type": "unknown"}},
+            "No matching service was found for type",
+        ),
+    ],
+)
+def test_get_instances_from_dict_not_found(instances_in_dict, error_str):
+    with pytest.raises(OgrException) as ex:
+        _ = get_instances_from_dict(instances=instances_in_dict)
+    assert error_str in str(ex.value)

@@ -113,6 +113,9 @@ class GitlabService(GitService):
             and self.ssl_verify == o.ssl_verify  # type: ignore
         )
 
+    def __hash__(self) -> int:
+        return hash(str(self))
+
     def get_project(
         self, repo=None, namespace=None, is_fork=False, **kwargs
     ) -> "GitlabProject":

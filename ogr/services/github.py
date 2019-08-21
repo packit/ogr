@@ -124,6 +124,9 @@ class GithubService(BaseGitService):
 
         return self.token == o.token and self.read_only == o.read_only  # type: ignore
 
+    def __hash__(self) -> int:
+        return hash(str(self))
+
     def get_project(
         self, repo=None, namespace=None, is_fork=False, **kwargs
     ) -> "GithubProject":

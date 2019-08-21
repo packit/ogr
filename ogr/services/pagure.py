@@ -116,6 +116,9 @@ class PagureService(BaseGitService):
             and self.header == o.header  # type: ignore
         )
 
+    def __hash__(self) -> int:
+        return hash(str(self))
+
     def get_project(self, **kwargs) -> "PagureProject":
         return PagureProject(service=self, **kwargs)
 
