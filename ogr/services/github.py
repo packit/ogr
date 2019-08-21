@@ -116,13 +116,31 @@ class GithubService(BaseGitService):
         self.read_only = read_only
 
     def __str__(self) -> str:
-        return f"GithubService(read_only={self.read_only})"
+        token_str = f", token='{self.token}'" if self.token else ""
+        github_app_id_str = (
+            f", github_app_id='{self.github_app_id}'" if self.github_app_id else ""
+        )
+        github_app_private_key_str = (
+            f", github_app_private_key='{self.github_app_private_key}'"
+            if self.github_app_private_key
+            else ""
+        )
+        str_result = (
+            f"GithubService(read_only={self.read_only}"
+            f"{token_str}{github_app_id_str}{github_app_private_key_str})"
+        )
+        return str_result
 
     def __eq__(self, o: object) -> bool:
         if not issubclass(o.__class__, GithubService):
             return False
 
-        return self.token == o.token and self.read_only == o.read_only  # type: ignore
+        return (
+            self.token == o.token  # type: ignore
+            and self.read_only == o.read_only  # type: ignore
+            and self.github_app_id == o.github_app_id  # type: ignore
+            and self.github_app_private_key == o.github_app_private_key  # type: ignore
+        )
 
     def __hash__(self) -> int:
         return hash(str(self))
