@@ -21,6 +21,7 @@
 # SOFTWARE.
 
 import logging
+from pathlib import Path
 from typing import Optional, Dict, List, Type, Set
 
 import github
@@ -103,6 +104,7 @@ class GithubService(BaseGitService):
         read_only=False,
         github_app_id: str = None,
         github_app_private_key: str = None,
+        github_app_private_key_path: str = None,
         **_,
     ):
         super().__init__()
@@ -110,10 +112,27 @@ class GithubService(BaseGitService):
 
         # Authentication via GitHub app
         self.github_app_id = github_app_id
-        self.github_app_private_key = github_app_private_key
+        self._github_app_private_key = github_app_private_key
+        self.github_app_private_key_path = github_app_private_key_path
 
         self.github = github.Github(login_or_token=self.token)
         self.read_only = read_only
+
+    @property
+    def github_app_private_key(self):
+        if self._github_app_private_key:
+            return self._github_app_private_key
+
+        if self.github_app_private_key_path:
+            if not Path(self.github_app_private_key_path).is_file():
+                raise GithubAPIException(
+                    f"Path to the github-app private key "
+                    f"({self.github_app_private_key_path}) "
+                    f"does not exist."
+                )
+            return Path(self.github_app_private_key_path).read_text()
+
+        return None
 
     def __str__(self) -> str:
         token_str = f", token='{self.token}'" if self.token else ""
@@ -121,13 +140,19 @@ class GithubService(BaseGitService):
             f", github_app_id='{self.github_app_id}'" if self.github_app_id else ""
         )
         github_app_private_key_str = (
-            f", github_app_private_key='{self.github_app_private_key}'"
-            if self.github_app_private_key
+            f", github_app_private_key='{self._github_app_private_key}'"
+            if self._github_app_private_key
+            else ""
+        )
+        github_app_private_key_path_str = (
+            f", github_app_private_key_path='{self.github_app_private_key_path}'"
+            if self.github_app_private_key_path
             else ""
         )
         str_result = (
             f"GithubService(read_only={self.read_only}"
-            f"{token_str}{github_app_id_str}{github_app_private_key_str})"
+            f"{token_str}{github_app_id_str}"
+            f"{github_app_private_key_str}{github_app_private_key_path_str})"
         )
         return str_result
 
@@ -139,7 +164,10 @@ class GithubService(BaseGitService):
             self.token == o.token  # type: ignore
             and self.read_only == o.read_only  # type: ignore
             and self.github_app_id == o.github_app_id  # type: ignore
-            and self.github_app_private_key == o.github_app_private_key  # type: ignore
+            and self._github_app_private_key
+            == o._github_app_private_key  # type: ignore
+            and self.github_app_private_key_path
+            == o.github_app_private_key_path  # type: ignore
         )
 
     def __hash__(self) -> int:

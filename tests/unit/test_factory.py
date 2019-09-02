@@ -242,6 +242,19 @@ def test_get_project_not_found(url, mapping, instances, exc_str):
             {GithubService(github_app_id="abcd", github_app_private_key="efgh")},
         ),
         (
+            {
+                "github.com": {
+                    "github_app_id": "abcd",
+                    "github_app_private_key_path": "/abc/def/ghi",
+                }
+            },
+            {
+                GithubService(
+                    github_app_id="abcd", github_app_private_key_path="/abc/def/ghi"
+                )
+            },
+        ),
+        (
             {"https://my.gtlb": {"token": "abcd", "type": "gitlab"}},
             {GitlabService(token="abcd", instance_url="https://my.gtlb")},
         ),
