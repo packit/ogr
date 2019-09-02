@@ -21,7 +21,7 @@
 # SOFTWARE.
 
 import requests
-from github import Consts, Installation
+from github import Consts, Installation, InstallationAuthorization, GithubException
 from github.MainClass import DEFAULT_BASE_URL
 
 from ogr.persistent_storage import use_persistent_storage_without_overwriting
@@ -29,8 +29,9 @@ from ogr.services.github_tweak import BetterGithubIntegration
 
 
 class BetterGithubIntegrationMockResponse:
-    def __init__(self, json) -> None:
+    def __init__(self, json, status_code=None) -> None:
         self._json = json
+        self.status_code = status_code
 
     def json(self):
         return self._json
@@ -68,3 +69,60 @@ class BetterGithubIntegrationMock(BetterGithubIntegration):
             output_dict = self.persistent_storage.read(keys=keys_internal)
             output = BetterGithubIntegrationMockResponse(json=output_dict)
         return output
+
+    def post_raw_request(self, url, headers=None, json=None):
+        keys_internal = [url]
+        if self.persistent_storage.is_write_mode:
+            output = requests.post(url, headers=headers, json=json)
+            self.persistent_storage.store(
+                keys=keys_internal,
+                values={"json": output.json(), "status_code": output.status_code},
+            )
+        else:
+            output_dict = self.persistent_storage.read(keys=keys_internal)
+            output = BetterGithubIntegrationMockResponse(
+                json=output_dict["json"], status_code=output_dict["status_code"]
+            )
+        return output
+
+    def get_access_token(self, installation_id, user_id=None):
+        """
+        Get an access token for the given installation id.
+        POSTs https://api.github.com/app/installations/<installation_id>/access_tokens
+        :param user_id: int
+        :param installation_id: int
+        :return: :class:`github.InstallationAuthorization.InstallationAuthorization`
+        """
+        body = {}
+        if user_id:
+            body = {"user_id": user_id}
+        response = self.post_raw_request(
+            url="https://api.github.com/app/installations/{}/access_tokens".format(
+                installation_id
+            ),
+            headers={
+                "Authorization": "Bearer {}".format(self.create_jwt()),
+                "Accept": Consts.mediaTypeIntegrationPreview,
+                "User-Agent": "PyGithub/Python",
+            },
+            json=body,
+        )
+
+        if response.status_code == 201:
+            return InstallationAuthorization.InstallationAuthorization(
+                requester=None,  # not required, this is a NonCompletableGithubObject
+                headers={},  # not required, this is a NonCompletableGithubObject
+                attributes=response.json(),
+                completed=True,
+            )
+        elif response.status_code == 403:
+            raise GithubException.BadCredentialsException(
+                status=response.status_code, data=response.text
+            )
+        elif response.status_code == 404:
+            raise GithubException.UnknownObjectException(
+                status=response.status_code, data=response.text
+            )
+        raise GithubException.GithubException(
+            status=response.status_code, data=response.text
+        )
