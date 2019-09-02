@@ -29,7 +29,12 @@ import os
 
 from pkg_resources import get_distribution, DistributionNotFound
 
-from ogr.factory import get_project, get_service_class
+from ogr.factory import (
+    get_project,
+    get_service_class,
+    get_service_class_or_none,
+    get_instances_from_dict,
+)
 
 try:
     __version__ = get_distribution(__name__).version
@@ -62,5 +67,7 @@ __all__ = [
     GitlabService.__name__,
     get_project.__name__,
     get_service_class.__name__,
+    get_service_class_or_none.__name__,
+    get_instances_from_dict.__name__,
     BetterGithubIntegration.__name__,
 ]

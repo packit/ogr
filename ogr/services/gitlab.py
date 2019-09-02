@@ -101,7 +101,13 @@ class GitlabService(GitService):
         return GitlabUser(service=self)
 
     def __str__(self) -> str:
-        return f'GitlabService(instance_url="{self.instance_url}")'
+        token_str = f", token='{self.token}'" if self.token else ""
+        str_result = (
+            f"GitlabService(instance_url='{self.instance_url}'"
+            f"{token_str}, "
+            f"ssl_verify={self.ssl_verify})"
+        )
+        return str_result
 
     def __eq__(self, o: object) -> bool:
         if not issubclass(o.__class__, GitlabService):
@@ -112,6 +118,9 @@ class GitlabService(GitService):
             and self.instance_url == o.instance_url  # type: ignore
             and self.ssl_verify == o.ssl_verify  # type: ignore
         )
+
+    def __hash__(self) -> int:
+        return hash(str(self))
 
     def get_project(
         self, repo=None, namespace=None, is_fork=False, **kwargs

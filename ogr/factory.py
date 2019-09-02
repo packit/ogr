@@ -21,7 +21,7 @@
 # SOFTWARE.
 
 import functools
-from typing import Dict, Type, List
+from typing import Dict, Type, List, Optional, Set
 
 from ogr.abstract import GitService, GitProject
 from ogr.exceptions import OgrException
@@ -99,6 +99,28 @@ def get_project(
     return project
 
 
+def get_service_class_or_none(
+    url: str, service_mapping_update: Dict[str, Type[GitService]] = None
+) -> Optional[Type[GitService]]:
+    """
+    Get the matching service class from the url.
+
+    :param url: str (url of the project, e.g. "https://github.com/packit-service/ogr")
+    :param service_mapping_update: custom mapping from  service url (str) to service class
+    :return: Matched class (subclass of GitService) or None
+    """
+    mapping = {}
+    mapping.update(_SERVICE_MAPPING)
+    if service_mapping_update:
+        mapping.update(service_mapping_update)
+
+    for service, service_kls in mapping.items():
+        if service in url:
+            return service_kls
+
+    return None
+
+
 def get_service_class(
     url: str, service_mapping_update: Dict[str, Type[GitService]] = None
 ) -> Type[GitService]:
@@ -109,12 +131,72 @@ def get_service_class(
     :param service_mapping_update: custom mapping from  service url (str) to service class
     :return: Matched class (subclass of GitService)
     """
-    mapping = {}
-    mapping.update(_SERVICE_MAPPING)
-    if service_mapping_update:
-        mapping.update(service_mapping_update)
-
-    for service, service_kls in mapping.items():
-        if service in url:
-            return service_kls
+    service_kls = get_service_class_or_none(
+        url=url, service_mapping_update=service_mapping_update
+    )
+    if service_kls:
+        return service_kls
     raise OgrException("No matching service was found.")
+
+
+def get_instances_from_dict(instances: dict) -> Set[GitService]:
+    """
+    Load the service instances from the dictionary in the following form:
+
+    key = hostname, url or name that can be mapped to the service-type
+    value = dictionary with arguments used when creating a new instance of the service
+            (passed to the `__init__` method)
+
+    e.g.:
+
+    {
+        "github.com": {"token": "abcd"},
+        "pagure": {
+            "token": "abcd",
+            "instance_url": "https://src.fedoraproject.org",
+        },
+    },
+    => {
+    GithubService(token="abcd"),
+    PagureService(token="abcd", instance_url="https://src.fedoraproject.org")
+    }
+
+    When the mapping key->service-type is not recognised, you can add a `type` key to the dictionary
+    and specify the type of the instance.
+    (It can be either name, hostname or url. The used mapping is same as for key->service-type.)
+
+    The provided `key` is used as an `instance_url` and passed to the `__init__` method as well.
+
+    e.g.:
+
+    {
+        "https://my.gtlb": {"token": "abcd", "type": "gitlab"},
+    },
+    => {GitlabService(token="abcd", instance_url="https://my.gtlb")}
+
+    :param instances: mapping from service name/url/hostname to attributes for the service creation
+    :return: set of the service instances
+    """
+    services = []
+    for key, value in instances.items():
+        service_kls = get_service_class_or_none(url=key)
+        if not service_kls:
+            if "type" not in value:
+                raise OgrException(
+                    f"No matching service was found for url '{key}'. "
+                    f"Add the service name as a `type` attribute."
+                )
+            service_type = value["type"]
+            if service_type not in _SERVICE_MAPPING:
+                raise OgrException(
+                    f"No matching service was found for type '{service_type}'."
+                )
+
+            service_kls = _SERVICE_MAPPING[service_type]
+            value.setdefault("instance_url", key)
+            del value["type"]
+
+        service_instance = service_kls(**value)
+        services.append(service_instance)
+
+    return set(services)

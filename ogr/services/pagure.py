@@ -102,7 +102,14 @@ class PagureService(BaseGitService):
         self.header = {"Authorization": "token " + self._token} if self._token else {}
 
     def __str__(self) -> str:
-        return f'PagureService(read_only={self.read_only}, instance_url="{self.instance_url}")'
+        token_str = f", token='{self._token}'" if self._token else ""
+        str_result = (
+            f"PagureService(instance_url='{self.instance_url}'"
+            f"{token_str}, "
+            f"read_only={self.read_only}, "
+            f"insecure={self.insecure})"
+        )
+        return str_result
 
     def __eq__(self, o: object) -> bool:
         if not issubclass(o.__class__, PagureService):
@@ -115,6 +122,9 @@ class PagureService(BaseGitService):
             and self.insecure == o.insecure  # type: ignore
             and self.header == o.header  # type: ignore
         )
+
+    def __hash__(self) -> int:
+        return hash(str(self))
 
     def get_project(self, **kwargs) -> "PagureProject":
         return PagureProject(service=self, **kwargs)
