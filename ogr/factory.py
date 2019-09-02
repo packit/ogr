@@ -140,12 +140,52 @@ def get_service_class(
 
 
 def get_instances_from_dict(instances: dict) -> Set[GitService]:
+    """
+    Load the service instances from the dictionary in the following form:
+
+    key = hostname, url or name that can be mapped to the service-type
+    value = dictionary with arguments used when creating a new instance of the service
+            (passed to the `__init__` method)
+
+    e.g.:
+
+    {
+        "github.com": {"token": "abcd"},
+        "pagure": {
+            "token": "abcd",
+            "instance_url": "https://src.fedoraproject.org",
+        },
+    },
+    => {
+    GithubService(token="abcd"),
+    PagureService(token="abcd", instance_url="https://src.fedoraproject.org")
+    }
+
+    When the mapping key->service-type is not recognised, you can add a `type` key to the dictionary
+    and specify the type of the instance.
+    (It can be either name, hostname or url. The used mapping is same as for key->service-type.)
+
+    The provided `key` is used as an `instance_url` and passed to the `__init__` method as well.
+
+    e.g.:
+
+    {
+        "https://my.gtlb": {"token": "abcd", "type": "gitlab"},
+    },
+    => {GitlabService(token="abcd", instance_url="https://my.gtlb")}
+
+    :param instances: mapping from service name/url/hostname to attributes for the service creation
+    :return: set of the service instances
+    """
     services = []
     for key, value in instances.items():
         service_kls = get_service_class_or_none(url=key)
         if not service_kls:
             if "type" not in value:
-                raise OgrException(f"No matching service was found for url '{key}'.")
+                raise OgrException(
+                    f"No matching service was found for url '{key}'. "
+                    f"Add the service name as a `type` attribute."
+                )
             service_type = value["type"]
             if service_type not in _SERVICE_MAPPING:
                 raise OgrException(
