@@ -21,7 +21,14 @@
 # SOFTWARE.
 
 import requests
-from github import Consts, Installation, InstallationAuthorization, GithubException
+from github import (
+    Consts,
+    Installation,
+    InstallationAuthorization,
+    GithubException,
+    BadCredentialsException,
+    UnknownObjectException,
+)
 from github.MainClass import DEFAULT_BASE_URL
 
 from ogr.persistent_storage import use_persistent_storage_without_overwriting
@@ -116,13 +123,11 @@ class BetterGithubIntegrationMock(BetterGithubIntegration):
                 completed=True,
             )
         elif response.status_code == 403:
-            raise GithubException.BadCredentialsException(
+            raise BadCredentialsException(
                 status=response.status_code, data=response.text
             )
         elif response.status_code == 404:
-            raise GithubException.UnknownObjectException(
+            raise UnknownObjectException(
                 status=response.status_code, data=response.text
             )
-        raise GithubException.GithubException(
-            status=response.status_code, data=response.text
-        )
+        raise GithubException(status=response.status_code, data=response.text)
