@@ -126,7 +126,7 @@ class GithubService(BaseGitService):
         if self.github_app_private_key_path:
             if not Path(self.github_app_private_key_path).is_file():
                 raise GithubAPIException(
-                    f"Path to the github-app private key "
+                    f"File with the github-app private key "
                     f"({self.github_app_private_key_path}) "
                     f"does not exist."
                 )
