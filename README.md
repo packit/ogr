@@ -32,4 +32,4 @@ Run `make prepare-check` before first `make check`.
 
 
 # Contribution guidelines
-* - [CONTRIBUTING.md](/CONTRIBUTING.md)
+*  [CONTRIBUTING.md](/CONTRIBUTING.md)
