@@ -42,12 +42,6 @@ from ogr.abstract import (
 )
 from ogr.factory import use_for_service
 from ogr.services.base import BaseGitProject, BaseGitUser
-from ogr.utils import (
-    clone_repo_and_cd_inside,
-    set_upstream_remote,
-    set_origin_remote,
-    fetch_all,
-)
 
 logger = logging.getLogger(__name__)
 
@@ -131,65 +125,6 @@ class GitlabService(GitService):
         if is_fork:
             namespace = self.user.get_username()
         return GitlabProject(repo=repo, namespace=namespace, service=self, **kwargs)
-
-    @staticmethod
-    def is_fork_of(user_repo, target_repo):
-        """ is provided repo fork of the {parent_repo}/? """
-        return user_repo.forked_from_project["id"] == target_repo.id
-
-    def fork(self, target_repo):
-        target_repo_org, target_repo_name = target_repo.split("/", 1)
-
-        target_repo_gl = self.gitlab_instance.projects.get(target_repo)
-
-        try:
-            # is it already forked?
-            user_repo = self.gitlab_instance.projects.get(
-                "{}/{}".format(self.user.get_username(), target_repo_name)
-            )
-            if not self.is_fork_of(user_repo, target_repo_gl):
-                raise RuntimeError(
-                    "repo %s is not a fork of %s" % (user_repo, target_repo_gl)
-                )
-        except Exception:
-            # nope
-            user_repo = None
-
-        if self.user.get_username() == target_repo_org:
-            # user wants to fork its own repo; let's just set up remotes 'n stuff
-            if not user_repo:
-                raise RuntimeError("repo %s not found" % target_repo_name)
-            clone_repo_and_cd_inside(
-                user_repo.path, user_repo.attributes["ssh_url_to_repo"], target_repo_org
-            )
-        else:
-            user_repo = user_repo or self._fork_gracefully(target_repo_gl)
-
-            clone_repo_and_cd_inside(
-                user_repo.path, user_repo.attributes["ssh_url_to_repo"], target_repo_org
-            )
-
-            set_upstream_remote(
-                clone_url=target_repo_gl.attributes["http_url_to_repo"],
-                ssh_url=target_repo_gl.attributes["ssh_url_to_repo"],
-                pull_merge_name="merge-requests",
-            )
-        set_origin_remote(
-            user_repo.attributes["ssh_url_to_repo"], pull_merge_name="merge-requests"
-        )
-        fetch_all()
-
-    @staticmethod
-    def _fork_gracefully(target_repo):
-        """ fork if not forked, return forked repo """
-        try:
-            logger.info("forking repo %s", target_repo)
-            fork = target_repo.forks.create({})
-        except gitlab.GitlabCreateError:
-            logger.error("repo %s cannot be forked" % target_repo)
-            raise RuntimeError("repo %s not found" % target_repo)
-
-        return fork
 
     def change_token(self, new_token: str) -> None:
         self.token = new_token

@@ -1,8 +1,8 @@
 import os
 import unittest
 
-from ogr.services.gitlab import GitlabService
 from ogr.persistent_storage import PersistentObjectStorage
+from ogr.services.gitlab import GitlabService
 
 DATA_DIR = "test_data"
 PERSISTENT_DATA_PREFIX = os.path.join(
