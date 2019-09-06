@@ -397,7 +397,7 @@ class GitlabProject(BaseGitProject):
             raw_release=release, git_tag=self._git_tag_from_tag_name(release.tag_name)
         )
 
-    def get_latest_release(self) -> Release:
+    def get_latest_release(self) -> GitlabRelease:
         raise NotImplementedError()
 
     def list_labels(self):
