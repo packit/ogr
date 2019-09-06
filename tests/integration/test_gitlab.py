@@ -93,13 +93,13 @@ class Issues(GitlabTests):
         assert issue.description == "Description for issue 2"
 
     def test_close_issue(self):
-        issue = self.project.close_issue(issue_id=1)
+        issue = self.project.issue_close(issue_id=1)
         assert issue.status == "closed"
 
 
 class PullRequests(GitlabTests):
     def test_pr_list(self):
-        pr_list = self.project.list_pull_requests()
+        pr_list = self.project.get_pr_list()
         count = len(pr_list)
         assert pr_list
         assert count >= 1
