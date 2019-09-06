@@ -270,16 +270,6 @@ class GitService:
     def __init__(self, **_):
         pass
 
-    @classmethod
-    def create_from_remote_url(cls, remote_url) -> "GitService":
-        """
-        Create instance of service from provided remote_url.
-
-        :param remote_url: str
-        :return: GitService
-        """
-        raise NotImplementedError()
-
     def get_project(self, **kwargs) -> "GitProject":
         """
         Get the GitProject instance
