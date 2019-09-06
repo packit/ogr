@@ -29,3 +29,7 @@ Run `make prepare-check` before first `make check`.
 # Contribution notes
 
 - Property should not connect to network.
+
+
+# Contribution guidelines
+* - [CONTRIBUTING.md](/CONTRIBUTING.md)
