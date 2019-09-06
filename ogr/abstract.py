@@ -528,6 +528,19 @@ class GitProject:
         """
         raise NotImplementedError()
 
+    def update_pr_info(
+        self, pr_id: int, title: str = None, description: str = None
+    ) -> PullRequest:
+        """
+        Update pull-request information.
+
+        :param pr_id: int The ID of the pull request
+        :param title: str The title of the pull request
+        :param description str The description of the pull request
+        :return: PullRequest
+        """
+        raise NotImplementedError()
+
     def get_tags(self) -> List["GitTag"]:
         """
         Return list of tags.

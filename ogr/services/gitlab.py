@@ -340,22 +340,16 @@ class GitlabProject(BaseGitProject):
         mrs = self.gitlab_repo.mergerequests.list(order_by="updated_at", sort="desc")
         return [self._pr_from_gitlab_object(mr) for mr in mrs]
 
-    def create_pr(
-        self, source_branch: str, target_branch: str, title: str, labels: List[str]
+    def update_pr_info(
+        self, pr_id: int, title: str = None, description: str = None
     ) -> PullRequest:
-        mr = self.gitlab_repo.mergerequests.create(
-            {
-                "source_branch": source_branch,
-                "target_branch": target_branch,
-                "title": title,
-                "labels": labels,
-            }
-        )
-        return self._pr_from_gitlab_object(mr)
-
-    def update_pr_info(self, pr_id: int, description: str) -> PullRequest:
         pr = self.gitlab_repo.mergerequests.get(pr_id)
-        pr.description = description
+
+        if title:
+            pr.title = title
+        if description:
+            pr.description = description
+
         pr.save()
         return self._pr_from_gitlab_object(pr)
 
