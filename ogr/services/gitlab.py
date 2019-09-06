@@ -21,7 +21,7 @@
 # SOFTWARE.
 
 import logging
-from typing import List, Optional
+from typing import List, Optional, Dict, Set
 
 import gitlab
 from gitlab.v4.objects import Project as GitlabObjectsProject
@@ -36,15 +36,12 @@ from ogr.abstract import (
     PRComment,
     GitTag,
     IssueStatus,
+    CommitFlag,
+    PRStatus,
+    CommitComment,
 )
 from ogr.factory import use_for_service
 from ogr.services.base import BaseGitProject, BaseGitUser
-from ogr.utils import (
-    clone_repo_and_cd_inside,
-    set_upstream_remote,
-    set_origin_remote,
-    fetch_all,
-)
 
 logger = logging.getLogger(__name__)
 
@@ -129,69 +126,9 @@ class GitlabService(GitService):
             namespace = self.user.get_username()
         return GitlabProject(repo=repo, namespace=namespace, service=self, **kwargs)
 
-    @classmethod
-    def create_from_remote_url(cls, remote_url, **kwargs):
-        """ create instance of service from provided remote_url """
-        raise NotImplementedError()
-
-    @staticmethod
-    def is_fork_of(user_repo, target_repo):
-        """ is provided repo fork of the {parent_repo}/? """
-        return user_repo.forked_from_project["id"] == target_repo.id
-
-    def fork(self, target_repo):
-        target_repo_org, target_repo_name = target_repo.split("/", 1)
-
-        target_repo_gl = self.gitlab_instance.projects.get(target_repo)
-
-        try:
-            # is it already forked?
-            user_repo = self.gitlab_instance.projects.get(
-                "{}/{}".format(self.user.get_username(), target_repo_name)
-            )
-            if not self.is_fork_of(user_repo, target_repo_gl):
-                raise RuntimeError(
-                    "repo %s is not a fork of %s" % (user_repo, target_repo_gl)
-                )
-        except Exception:
-            # nope
-            user_repo = None
-
-        if self.user.get_username() == target_repo_org:
-            # user wants to fork its own repo; let's just set up remotes 'n stuff
-            if not user_repo:
-                raise RuntimeError("repo %s not found" % target_repo_name)
-            clone_repo_and_cd_inside(
-                user_repo.path, user_repo.attributes["ssh_url_to_repo"], target_repo_org
-            )
-        else:
-            user_repo = user_repo or self._fork_gracefully(target_repo_gl)
-
-            clone_repo_and_cd_inside(
-                user_repo.path, user_repo.attributes["ssh_url_to_repo"], target_repo_org
-            )
-
-            set_upstream_remote(
-                clone_url=target_repo_gl.attributes["http_url_to_repo"],
-                ssh_url=target_repo_gl.attributes["ssh_url_to_repo"],
-                pull_merge_name="merge-requests",
-            )
-        set_origin_remote(
-            user_repo.attributes["ssh_url_to_repo"], pull_merge_name="merge-requests"
-        )
-        fetch_all()
-
-    @staticmethod
-    def _fork_gracefully(target_repo):
-        """ fork if not forked, return forked repo """
-        try:
-            logger.info("forking repo %s", target_repo)
-            fork = target_repo.forks.create({})
-        except gitlab.GitlabCreateError:
-            logger.error("repo %s cannot be forked" % target_repo)
-            raise RuntimeError("repo %s not found" % target_repo)
-
-        return fork
+    def change_token(self, new_token: str) -> None:
+        self.token = new_token
+        self._gitlab_instance = None
 
 
 class GitlabProject(BaseGitProject):
@@ -215,6 +152,14 @@ class GitlabProject(BaseGitProject):
             )
         return self._gitlab_repo
 
+    @property
+    def is_fork(self) -> bool:
+        raise NotImplementedError()
+
+    @property
+    def parent(self) -> Optional["GitlabProject"]:
+        raise NotImplementedError()
+
     def __str__(self) -> str:
         return f'GitlabProject(namespace="{self.namespace}", repo="{self.repo}")'
 
@@ -228,6 +173,112 @@ class GitlabProject(BaseGitProject):
             and self.service == o.service
         )
 
+    def is_forked(self) -> bool:
+        raise NotImplementedError()
+
+    def get_description(self) -> str:
+        # Probably something like this:
+        # return self.gitlab_repo.attributes["description"]
+        raise NotImplementedError()
+
+    def get_fork(self, create: bool = True) -> Optional["GitlabProject"]:
+        raise NotImplementedError()
+
+    def get_owners(self) -> List[str]:
+        raise NotImplementedError()
+
+    def who_can_close_issue(self) -> Set[str]:
+        raise NotImplementedError()
+
+    def who_can_merge_pr(self) -> Set[str]:
+        raise NotImplementedError()
+
+    def can_close_issue(self, username: str, issue: Issue) -> bool:
+        raise NotImplementedError()
+
+    def can_merge_pr(self, username) -> bool:
+        raise NotImplementedError()
+
+    def get_issue_comments(
+        self, issue_id, filter_regex: str = None, reverse: bool = False
+    ) -> List["IssueComment"]:
+        raise NotImplementedError()
+
+    def issue_close(self, issue_id: int) -> Issue:
+        issue = self.gitlab_repo.issues.get(issue_id)
+        issue.state_event = "close"
+        issue.save()
+        return self._issue_from_gitlab_object(issue)
+
+    def get_issue_labels(self, issue_id: int) -> List:
+        raise NotImplementedError()
+
+    def add_issue_labels(self, issue_id, labels) -> None:
+        raise NotImplementedError()
+
+    def get_pr_list(self, status: PRStatus = PRStatus.open) -> List["PullRequest"]:
+        mrs = self.gitlab_repo.mergerequests.list(order_by="updated_at", sort="desc")
+        return [self._pr_from_gitlab_object(mr) for mr in mrs]
+
+    def get_sha_from_tag(self, tag_name: str) -> str:
+        raise NotImplementedError()
+
+    def pr_create(
+        self, title: str, body: str, target_branch: str, source_branch: str
+    ) -> "PullRequest":
+        mr = self.gitlab_repo.mergerequests.create(
+            {
+                "source_branch": source_branch,
+                "target_branch": target_branch,
+                "title": title,
+                "description": body,
+            }
+        )
+        return self._pr_from_gitlab_object(mr)
+
+    def commit_comment(
+        self, commit: str, body: str, filename: str = None, row: int = None
+    ) -> "CommitComment":
+        raise NotImplementedError()
+
+    def set_commit_status(
+        self, commit: str, state: str, target_url: str, description: str, context: str
+    ) -> "CommitFlag":
+        raise NotImplementedError()
+
+    def get_commit_statuses(self, commit: str) -> List[CommitFlag]:
+        """
+        Something like this:
+        commit_object = self.gitlab_repo.commits.get(commit)
+        raw_statuses = commit_object.statuses.list()
+        return [
+            GitlabProject._commit_status_from_gitlab_object(raw_status)
+            for raw_status in raw_statuses
+        ]
+        """
+        raise NotImplementedError()
+
+    def pr_close(self, pr_id: int) -> "PullRequest":
+        pass
+
+    def pr_merge(self, pr_id: int) -> "PullRequest":
+        pass
+
+    def get_pr_labels(self, pr_id: int) -> List:
+        pass
+
+    def add_pr_labels(self, pr_id, labels) -> None:
+        pass
+
+    def get_git_urls(self) -> Dict[str, str]:
+        pass
+
+    def fork_create(self) -> "GitlabProject":
+        pass
+
+    def change_token(self, new_token: str):
+        self.service.change_token(new_token)
+
     def get_branches(self) -> List[str]:
         return [branch.name for branch in self.gitlab_repo.branches.list()]
 
@@ -237,63 +288,6 @@ class GitlabProject(BaseGitProject):
             return str(file.decode())
         except gitlab.exceptions.GitlabGetError as ex:
             raise FileNotFoundError(f"File '{path}' on {ref} not found", ex)
-
-    @staticmethod
-    def _issue_from_gitlab_object(gitlab_issue) -> Issue:
-        return Issue(
-            title=gitlab_issue.title,
-            id=gitlab_issue.iid,
-            url=gitlab_issue.web_url,
-            description=gitlab_issue.description,
-            status=gitlab_issue.state,
-            author=gitlab_issue.author["username"],
-            created=gitlab_issue.created_at,
-        )
-
-    @staticmethod
-    def _issuecomment_from_gitlab_object(raw_comment) -> IssueComment:
-        return IssueComment(
-            comment=raw_comment.body,
-            author=raw_comment.author["username"],
-            created=raw_comment.created_at,
-            edited=raw_comment.updated_at,
-        )
-
-    @staticmethod
-    def _pr_from_gitlab_object(gitlab_pr) -> PullRequest:
-        return PullRequest(
-            title=gitlab_pr.title,
-            id=gitlab_pr.iid,
-            status=gitlab_pr.state,
-            url=gitlab_pr.web_url,
-            description=gitlab_pr.description,
-            author=gitlab_pr.author["username"],
-            source_branch=gitlab_pr.source_branch,
-            target_branch=gitlab_pr.target_branch,
-            created=gitlab_pr.created_at,
-        )
-
-    @staticmethod
-    def _prcomment_from_gitlab_object(raw_comment) -> PRComment:
-        return PRComment(
-            comment=raw_comment.body,
-            author=raw_comment.author["username"],
-            created=raw_comment.created_at,
-            edited=raw_comment.updated_at,
-        )
-
-    def _release_from_gitlab_object(
-        self, raw_release, git_tag: GitTag
-    ) -> GitlabRelease:
-        return GitlabRelease(
-            tag_name=raw_release.tag_name,
-            url=None,
-            created_at=raw_release.created_at,
-            tarball_url=raw_release.assets["sources"][1]["url"],
-            git_tag=git_tag,
-            project=self,
-            raw_release=raw_release,
-        )
 
     def get_issue_list(self, status: IssueStatus = None) -> List[Issue]:
         issues = self.gitlab_repo.issues.list(
@@ -309,12 +303,6 @@ class GitlabProject(BaseGitProject):
         issue = self.gitlab_repo.issues.create(
             {"title": title, "description": description}
         )
-        return self._issue_from_gitlab_object(issue)
-
-    def close_issue(self, issue_id: int) -> Issue:
-        issue = self.gitlab_repo.issues.get(issue_id)
-        issue.state_event = "close"
-        issue.save()
         return self._issue_from_gitlab_object(issue)
 
     def _get_all_issue_comments(self, issue_id: int) -> List[IssueComment]:
@@ -336,26 +324,16 @@ class GitlabProject(BaseGitProject):
         mr = self.gitlab_repo.mergerequests.get(pr_id)
         return self._pr_from_gitlab_object(mr)
 
-    def list_pull_requests(self) -> List[PullRequest]:
-        mrs = self.gitlab_repo.mergerequests.list(order_by="updated_at", sort="desc")
-        return [self._pr_from_gitlab_object(mr) for mr in mrs]
-
-    def create_pr(
-        self, source_branch: str, target_branch: str, title: str, labels: List[str]
+    def update_pr_info(
+        self, pr_id: int, title: str = None, description: str = None
     ) -> PullRequest:
-        mr = self.gitlab_repo.mergerequests.create(
-            {
-                "source_branch": source_branch,
-                "target_branch": target_branch,
-                "title": title,
-                "labels": labels,
-            }
-        )
-        return self._pr_from_gitlab_object(mr)
-
-    def update_pr_info(self, pr_id: int, description: str) -> PullRequest:
         pr = self.gitlab_repo.mergerequests.get(pr_id)
-        pr.description = description
+
+        if title:
+            pr.title = title
+        if description:
+            pr.description = description
+
         pr.save()
         return self._pr_from_gitlab_object(pr)
 
@@ -419,8 +397,12 @@ class GitlabProject(BaseGitProject):
             raw_release=release, git_tag=self._git_tag_from_tag_name(release.tag_name)
         )
 
+    def get_latest_release(self) -> GitlabRelease:
+        raise NotImplementedError()
+
     def list_labels(self):
         """
+        TODO: Not in API yet.
         Get list of labels in the repository.
         :return: [Label]
         """
@@ -471,6 +453,74 @@ class GitlabProject(BaseGitProject):
         if not color.startswith("#"):
             return "#{}".format(color)
         return color
+
+    @staticmethod
+    def _issue_from_gitlab_object(gitlab_issue) -> Issue:
+        return Issue(
+            title=gitlab_issue.title,
+            id=gitlab_issue.iid,
+            url=gitlab_issue.web_url,
+            description=gitlab_issue.description,
+            status=gitlab_issue.state,
+            author=gitlab_issue.author["username"],
+            created=gitlab_issue.created_at,
+        )
+
+    @staticmethod
+    def _issuecomment_from_gitlab_object(raw_comment) -> IssueComment:
+        return IssueComment(
+            comment=raw_comment.body,
+            author=raw_comment.author["username"],
+            created=raw_comment.created_at,
+            edited=raw_comment.updated_at,
+        )
+
+    @staticmethod
+    def _pr_from_gitlab_object(gitlab_pr) -> PullRequest:
+        return PullRequest(
+            title=gitlab_pr.title,
+            id=gitlab_pr.iid,
+            status=gitlab_pr.state,
+            url=gitlab_pr.web_url,
+            description=gitlab_pr.description,
+            author=gitlab_pr.author["username"],
+            source_branch=gitlab_pr.source_branch,
+            target_branch=gitlab_pr.target_branch,
+            created=gitlab_pr.created_at,
+        )
+
+    @staticmethod
+    def _prcomment_from_gitlab_object(raw_comment) -> PRComment:
+        return PRComment(
+            comment=raw_comment.body,
+            author=raw_comment.author["username"],
+            created=raw_comment.created_at,
+            edited=raw_comment.updated_at,
+        )
+
+    @staticmethod
+    def _commit_status_from_gitlab_object(raw_status) -> CommitFlag:
+        """
+        return CommitFlag(commit=raw_status.ref,
+                          state=raw_status.state,
+                          comment=raw_status.description,
+                          url=raw_status.target_url,
+                          )
+        """
+        raise NotImplementedError()
+
+    def _release_from_gitlab_object(
+        self, raw_release, git_tag: GitTag
+    ) -> GitlabRelease:
+        return GitlabRelease(
+            tag_name=raw_release.tag_name,
+            url=None,
+            created_at=raw_release.created_at,
+            tarball_url=raw_release.assets["sources"][1]["url"],
+            git_tag=git_tag,
+            project=self,
+            raw_release=raw_release,
+        )
 
 
 class GitlabUser(BaseGitUser):

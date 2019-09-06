@@ -561,7 +561,9 @@ class PagureProject(BaseGitProject):
         pr_object = self._pr_from_pagure_dict(return_value)
         return pr_object
 
-    def update_pr_info(self, pr_id: int, title: str, description: str):
+    def update_pr_info(
+        self, pr_id: int, title: str = None, description: str = None
+    ) -> PullRequest:
         """
         Update pull-request information.
 
@@ -571,11 +573,15 @@ class PagureProject(BaseGitProject):
         :return: PullRequest
         """
         try:
+            data = {}
+            if title:
+                data["title"] = title
+
+            if description:
+                data["initial_comment"] = description
+
             updated_pr = self._call_project_api(
-                "pull-request",
-                str(pr_id),
-                method="POST",
-                data={"title": title, "initial_comment": description},
+                "pull-request", str(pr_id), method="POST", data=data
             )
             logger.info(f"PR updated.")
             return self._pr_from_pagure_dict(updated_pr)

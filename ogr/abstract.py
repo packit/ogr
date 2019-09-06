@@ -270,16 +270,6 @@ class GitService:
     def __init__(self, **_):
         pass
 
-    @classmethod
-    def create_from_remote_url(cls, remote_url) -> "GitService":
-        """
-        Create instance of service from provided remote_url.
-
-        :param remote_url: str
-        :return: GitService
-        """
-        raise NotImplementedError()
-
     def get_project(self, **kwargs) -> "GitProject":
         """
         Get the GitProject instance
@@ -524,6 +514,19 @@ class GitProject:
         Get pull request info
 
         :param pr_id: int
+        :return: PullRequest
+        """
+        raise NotImplementedError()
+
+    def update_pr_info(
+        self, pr_id: int, title: str = None, description: str = None
+    ) -> PullRequest:
+        """
+        Update pull-request information.
+
+        :param pr_id: int The ID of the pull request
+        :param title: str The title of the pull request
+        :param description str The description of the pull request
         :return: PullRequest
         """
         raise NotImplementedError()

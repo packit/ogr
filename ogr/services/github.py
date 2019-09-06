@@ -513,7 +513,9 @@ class GithubProject(BaseGitProject):
         )
         return self._pr_from_github_object(created_pr)
 
-    def update_pr_info(self, pr_id: int, title: str, description: str):
+    def update_pr_info(
+        self, pr_id: int, title: str = None, description: str = None
+    ) -> PullRequest:
         """
         Update pull-request information.
 
