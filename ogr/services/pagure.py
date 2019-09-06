@@ -546,17 +546,27 @@ class PagureProject(BaseGitProject):
         self, title: str, body: str, target_branch: str, source_branch: str
     ) -> PullRequest:
 
-        return_value = self._call_project_api(
-            "pull-request",
-            "new",
-            method="POST",
-            data={
-                "title": title,
-                "branch_to": target_branch,
-                "branch_from": source_branch,
-                "initial_comment": body,
-            },
-        )
+        data = {
+            "title": title,
+            "branch_to": target_branch,
+            "branch_from": source_branch,
+            "initial_comment": body,
+        }
+
+        if self.is_fork:
+            data["repo_from"] = self.repo
+            data["repo_from_username"] = self._user
+            data["repo_from_namespace"] = self.namespace
+
+            # running the call from the parent project
+            return_value = self.parent._call_project_api(
+                "pull-request", "new", method="POST", data=data
+            )
+
+        else:
+            return_value = self._call_project_api(
+                "pull-request", "new", method="POST", data=data
+            )
 
         pr_object = self._pr_from_pagure_dict(return_value)
         return pr_object
