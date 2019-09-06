@@ -269,92 +269,177 @@ GET:
         ok: true
         reason: OK
         status_code: 200
-      - content: !!binary |
-          ewogICJhY2Nlc3NfZ3JvdXBzIjogewogICAgImFkbWluIjogW10sCiAgICAiY29tbWl0IjogW10s
-          CiAgICAidGlja2V0IjogW10KICB9LAogICJhY2Nlc3NfdXNlcnMiOiB7CiAgICAiYWRtaW4iOiBb
-          XSwKICAgICJjb21taXQiOiBbXSwKICAgICJvd25lciI6IFsKICAgICAgImxhY2htYW5mcmFudGlz
-          ZWsiCiAgICBdLAogICAgInRpY2tldCI6IFtdCiAgfSwKICAiY2xvc2Vfc3RhdHVzIjogW10sCiAg
-          ImN1c3RvbV9rZXlzIjogW10sCiAgImRhdGVfY3JlYXRlZCI6ICIxNTY3NzkyMzM5IiwKICAiZGF0
-          ZV9tb2RpZmllZCI6ICIxNTY3NzkyMzM5IiwKICAiZGVzY3JpcHRpb24iOiAiVGVzdGluZyByZXBv
-          c2l0b3J5IGZvciBweXRob24tb2dyIHBhY2thZ2UuIiwKICAiZnVsbG5hbWUiOiAiZm9ya3MvbGFj
-          aG1hbmZyYW50aXNlay9vZ3ItdGVzdHMiLAogICJpZCI6IDY3MDUsCiAgIm1pbGVzdG9uZXMiOiB7
-          fSwKICAibmFtZSI6ICJvZ3ItdGVzdHMiLAogICJuYW1lc3BhY2UiOiBudWxsLAogICJwYXJlbnQi
-          OiB7CiAgICAiYWNjZXNzX2dyb3VwcyI6IHsKICAgICAgImFkbWluIjogW10sCiAgICAgICJjb21t
-          aXQiOiBbXSwKICAgICAgInRpY2tldCI6IFtdCiAgICB9LAogICAgImFjY2Vzc191c2VycyI6IHsK
-          ICAgICAgImFkbWluIjogWwogICAgICAgICJsYmFyY3ppbyIKICAgICAgXSwKICAgICAgImNvbW1p
-          dCI6IFtdLAogICAgICAib3duZXIiOiBbCiAgICAgICAgImxhY2htYW5mcmFudGlzZWsiCiAgICAg
-          IF0sCiAgICAgICJ0aWNrZXQiOiBbXQogICAgfSwKICAgICJjbG9zZV9zdGF0dXMiOiBbXSwKICAg
-          ICJjdXN0b21fa2V5cyI6IFtdLAogICAgImRhdGVfY3JlYXRlZCI6ICIxNTYzNDUxNjk0IiwKICAg
-          ICJkYXRlX21vZGlmaWVkIjogIjE1NjM0NTIxMDgiLAogICAgImRlc2NyaXB0aW9uIjogIlRlc3Rp
-          bmcgcmVwb3NpdG9yeSBmb3IgcHl0aG9uLW9nciBwYWNrYWdlLiIsCiAgICAiZnVsbG5hbWUiOiAi
-          b2dyLXRlc3RzIiwKICAgICJpZCI6IDY0ODksCiAgICAibWlsZXN0b25lcyI6IHt9LAogICAgIm5h
-          bWUiOiAib2dyLXRlc3RzIiwKICAgICJuYW1lc3BhY2UiOiBudWxsLAogICAgInBhcmVudCI6IG51
-          bGwsCiAgICAicHJpb3JpdGllcyI6IHt9LAogICAgInRhZ3MiOiBbXSwKICAgICJ1cmxfcGF0aCI6
-          ICJvZ3ItdGVzdHMiLAogICAgInVzZXIiOiB7CiAgICAgICJmdWxsbmFtZSI6ICJGcmFudGlcdTAx
-          NjFlayBMYWNobWFuIiwKICAgICAgIm5hbWUiOiAibGFjaG1hbmZyYW50aXNlayIKICAgIH0KICB9
-          LAogICJwcmlvcml0aWVzIjoge30sCiAgInRhZ3MiOiBbXSwKICAidXJsX3BhdGgiOiAiZm9yay9s
-          YWNobWFuZnJhbnRpc2VrL29nci10ZXN0cyIsCiAgInVzZXIiOiB7CiAgICAiZnVsbG5hbWUiOiAi
-          RnJhbnRpXHUwMTYxZWsgTGFjaG1hbiIsCiAgICAibmFtZSI6ICJsYWNobWFuZnJhbnRpc2VrIgog
-          IH0KfQ==
-        exception: null
-        headers: null
-        json:
-          access_groups:
-            admin: []
-            commit: []
-            ticket: []
-          access_users:
-            admin: []
-            commit: []
-            owner:
-            - lachmanfrantisek
-            ticket: []
-          close_status: []
-          custom_keys: []
-          date_created: '1567792339'
-          date_modified: '1567792339'
-          description: Testing repository for python-ogr package.
-          fullname: forks/lachmanfrantisek/ogr-tests
-          id: 6705
-          milestones: {}
-          name: ogr-tests
-          namespace: null
-          parent:
-            access_groups:
-              admin: []
-              commit: []
-              ticket: []
-            access_users:
-              admin:
-              - lbarczio
-              commit: []
-              owner:
-              - lachmanfrantisek
-              ticket: []
-            close_status: []
-            custom_keys: []
-            date_created: '1563451694'
-            date_modified: '1563452108'
-            description: Testing repository for python-ogr package.
-            fullname: ogr-tests
-            id: 6489
-            milestones: {}
-            name: ogr-tests
-            namespace: null
-            parent: null
-            priorities: {}
+POST:
+  https://pagure.io/api/0/ogr-tests/pull-request/new:
+    empty:
+      ? '{''title'': ''Testing PR'', ''branch_to'': ''master'', ''branch_from'': ''master'',
+        ''initial_comment'': ''Body of the testing PR.'', ''repo_from'': ''ogr-tests'',
+        ''repo_from_username'': ''lachmanfrantisek'', ''repo_from_namespace'': None}'
+      : - content: !!binary |
+            ewogICJhc3NpZ25lZSI6IG51bGwsCiAgImJyYW5jaCI6ICJtYXN0ZXIiLAogICJicmFuY2hfZnJv
+            bSI6ICJtYXN0ZXIiLAogICJjYWNoZWRfbWVyZ2Vfc3RhdHVzIjogInVua25vd24iLAogICJjbG9z
+            ZWRfYXQiOiBudWxsLAogICJjbG9zZWRfYnkiOiBudWxsLAogICJjb21tZW50cyI6IFtdLAogICJj
+            b21taXRfc3RhcnQiOiBudWxsLAogICJjb21taXRfc3RvcCI6IG51bGwsCiAgImRhdGVfY3JlYXRl
+            ZCI6ICIxNTY3NzkzOTIyIiwKICAiaWQiOiA2LAogICJpbml0aWFsX2NvbW1lbnQiOiAiQm9keSBv
+            ZiB0aGUgdGVzdGluZyBQUi4iLAogICJsYXN0X3VwZGF0ZWQiOiAiMTU2Nzc5MzkyMiIsCiAgInBy
+            b2plY3QiOiB7CiAgICAiYWNjZXNzX2dyb3VwcyI6IHsKICAgICAgImFkbWluIjogW10sCiAgICAg
+            ICJjb21taXQiOiBbXSwKICAgICAgInRpY2tldCI6IFtdCiAgICB9LAogICAgImFjY2Vzc191c2Vy
+            cyI6IHsKICAgICAgImFkbWluIjogWwogICAgICAgICJsYmFyY3ppbyIKICAgICAgXSwKICAgICAg
+            ImNvbW1pdCI6IFtdLAogICAgICAib3duZXIiOiBbCiAgICAgICAgImxhY2htYW5mcmFudGlzZWsi
+            CiAgICAgIF0sCiAgICAgICJ0aWNrZXQiOiBbXQogICAgfSwKICAgICJjbG9zZV9zdGF0dXMiOiBb
+            XSwKICAgICJjdXN0b21fa2V5cyI6IFtdLAogICAgImRhdGVfY3JlYXRlZCI6ICIxNTYzNDUxNjk0
+            IiwKICAgICJkYXRlX21vZGlmaWVkIjogIjE1NjM0NTIxMDgiLAogICAgImRlc2NyaXB0aW9uIjog
+            IlRlc3RpbmcgcmVwb3NpdG9yeSBmb3IgcHl0aG9uLW9nciBwYWNrYWdlLiIsCiAgICAiZnVsbG5h
+            bWUiOiAib2dyLXRlc3RzIiwKICAgICJpZCI6IDY0ODksCiAgICAibWlsZXN0b25lcyI6IHt9LAog
+            ICAgIm5hbWUiOiAib2dyLXRlc3RzIiwKICAgICJuYW1lc3BhY2UiOiBudWxsLAogICAgInBhcmVu
+            dCI6IG51bGwsCiAgICAicHJpb3JpdGllcyI6IHt9LAogICAgInRhZ3MiOiBbXSwKICAgICJ1cmxf
+            cGF0aCI6ICJvZ3ItdGVzdHMiLAogICAgInVzZXIiOiB7CiAgICAgICJmdWxsbmFtZSI6ICJGcmFu
+            dGlcdTAxNjFlayBMYWNobWFuIiwKICAgICAgIm5hbWUiOiAibGFjaG1hbmZyYW50aXNlayIKICAg
+            IH0KICB9LAogICJyZW1vdGVfZ2l0IjogbnVsbCwKICAicmVwb19mcm9tIjogewogICAgImFjY2Vz
+            c19ncm91cHMiOiB7CiAgICAgICJhZG1pbiI6IFtdLAogICAgICAiY29tbWl0IjogW10sCiAgICAg
+            ICJ0aWNrZXQiOiBbXQogICAgfSwKICAgICJhY2Nlc3NfdXNlcnMiOiB7CiAgICAgICJhZG1pbiI6
+            IFtdLAogICAgICAiY29tbWl0IjogW10sCiAgICAgICJvd25lciI6IFsKICAgICAgICAibGFjaG1h
+            bmZyYW50aXNlayIKICAgICAgXSwKICAgICAgInRpY2tldCI6IFtdCiAgICB9LAogICAgImNsb3Nl
+            X3N0YXR1cyI6IFtdLAogICAgImN1c3RvbV9rZXlzIjogW10sCiAgICAiZGF0ZV9jcmVhdGVkIjog
+            IjE1Njc3OTIzMzkiLAogICAgImRhdGVfbW9kaWZpZWQiOiAiMTU2Nzc5MjMzOSIsCiAgICAiZGVz
+            Y3JpcHRpb24iOiAiVGVzdGluZyByZXBvc2l0b3J5IGZvciBweXRob24tb2dyIHBhY2thZ2UuIiwK
+            ICAgICJmdWxsbmFtZSI6ICJmb3Jrcy9sYWNobWFuZnJhbnRpc2VrL29nci10ZXN0cyIsCiAgICAi
+            aWQiOiA2NzA1LAogICAgIm1pbGVzdG9uZXMiOiB7fSwKICAgICJuYW1lIjogIm9nci10ZXN0cyIs
+            CiAgICAibmFtZXNwYWNlIjogbnVsbCwKICAgICJwYXJlbnQiOiB7CiAgICAgICJhY2Nlc3NfZ3Jv
+            dXBzIjogewogICAgICAgICJhZG1pbiI6IFtdLAogICAgICAgICJjb21taXQiOiBbXSwKICAgICAg
+            ICAidGlja2V0IjogW10KICAgICAgfSwKICAgICAgImFjY2Vzc191c2VycyI6IHsKICAgICAgICAi
+            YWRtaW4iOiBbCiAgICAgICAgICAibGJhcmN6aW8iCiAgICAgICAgXSwKICAgICAgICAiY29tbWl0
+            IjogW10sCiAgICAgICAgIm93bmVyIjogWwogICAgICAgICAgImxhY2htYW5mcmFudGlzZWsiCiAg
+            ICAgICAgXSwKICAgICAgICAidGlja2V0IjogW10KICAgICAgfSwKICAgICAgImNsb3NlX3N0YXR1
+            cyI6IFtdLAogICAgICAiY3VzdG9tX2tleXMiOiBbXSwKICAgICAgImRhdGVfY3JlYXRlZCI6ICIx
+            NTYzNDUxNjk0IiwKICAgICAgImRhdGVfbW9kaWZpZWQiOiAiMTU2MzQ1MjEwOCIsCiAgICAgICJk
+            ZXNjcmlwdGlvbiI6ICJUZXN0aW5nIHJlcG9zaXRvcnkgZm9yIHB5dGhvbi1vZ3IgcGFja2FnZS4i
+            LAogICAgICAiZnVsbG5hbWUiOiAib2dyLXRlc3RzIiwKICAgICAgImlkIjogNjQ4OSwKICAgICAg
+            Im1pbGVzdG9uZXMiOiB7fSwKICAgICAgIm5hbWUiOiAib2dyLXRlc3RzIiwKICAgICAgIm5hbWVz
+            cGFjZSI6IG51bGwsCiAgICAgICJwYXJlbnQiOiBudWxsLAogICAgICAicHJpb3JpdGllcyI6IHt9
+            LAogICAgICAidGFncyI6IFtdLAogICAgICAidXJsX3BhdGgiOiAib2dyLXRlc3RzIiwKICAgICAg
+            InVzZXIiOiB7CiAgICAgICAgImZ1bGxuYW1lIjogIkZyYW50aVx1MDE2MWVrIExhY2htYW4iLAog
+            ICAgICAgICJuYW1lIjogImxhY2htYW5mcmFudGlzZWsiCiAgICAgIH0KICAgIH0sCiAgICAicHJp
+            b3JpdGllcyI6IHt9LAogICAgInRhZ3MiOiBbXSwKICAgICJ1cmxfcGF0aCI6ICJmb3JrL2xhY2ht
+            YW5mcmFudGlzZWsvb2dyLXRlc3RzIiwKICAgICJ1c2VyIjogewogICAgICAiZnVsbG5hbWUiOiAi
+            RnJhbnRpXHUwMTYxZWsgTGFjaG1hbiIsCiAgICAgICJuYW1lIjogImxhY2htYW5mcmFudGlzZWsi
+            CiAgICB9CiAgfSwKICAic3RhdHVzIjogIk9wZW4iLAogICJ0YWdzIjogW10sCiAgInRocmVzaG9s
+            ZF9yZWFjaGVkIjogbnVsbCwKICAidGl0bGUiOiAiVGVzdGluZyBQUiIsCiAgInVpZCI6ICI3MTk2
+            MWRhMjZjNTM0NzczOTczZjA1N2Y0ZGI2YjgxMyIsCiAgInVwZGF0ZWRfb24iOiAiMTU2Nzc5Mzky
+            MiIsCiAgInVzZXIiOiB7CiAgICAiZnVsbG5hbWUiOiAiRnJhbnRpXHUwMTYxZWsgTGFjaG1hbiIs
+            CiAgICAibmFtZSI6ICJsYWNobWFuZnJhbnRpc2VrIgogIH0KfQ==
+          exception: null
+          headers: null
+          json:
+            assignee: null
+            branch: master
+            branch_from: master
+            cached_merge_status: unknown
+            closed_at: null
+            closed_by: null
+            comments: []
+            commit_start: null
+            commit_stop: null
+            date_created: '1567793922'
+            id: 6
+            initial_comment: Body of the testing PR.
+            last_updated: '1567793922'
+            project:
+              access_groups:
+                admin: []
+                commit: []
+                ticket: []
+              access_users:
+                admin:
+                - lbarczio
+                commit: []
+                owner:
+                - lachmanfrantisek
+                ticket: []
+              close_status: []
+              custom_keys: []
+              date_created: '1563451694'
+              date_modified: '1563452108'
+              description: Testing repository for python-ogr package.
+              fullname: ogr-tests
+              id: 6489
+              milestones: {}
+              name: ogr-tests
+              namespace: null
+              parent: null
+              priorities: {}
+              tags: []
+              url_path: ogr-tests
+              user:
+                fullname: "Franti\u0161ek Lachman"
+                name: lachmanfrantisek
+            remote_git: null
+            repo_from:
+              access_groups:
+                admin: []
+                commit: []
+                ticket: []
+              access_users:
+                admin: []
+                commit: []
+                owner:
+                - lachmanfrantisek
+                ticket: []
+              close_status: []
+              custom_keys: []
+              date_created: '1567792339'
+              date_modified: '1567792339'
+              description: Testing repository for python-ogr package.
+              fullname: forks/lachmanfrantisek/ogr-tests
+              id: 6705
+              milestones: {}
+              name: ogr-tests
+              namespace: null
+              parent:
+                access_groups:
+                  admin: []
+                  commit: []
+                  ticket: []
+                access_users:
+                  admin:
+                  - lbarczio
+                  commit: []
+                  owner:
+                  - lachmanfrantisek
+                  ticket: []
+                close_status: []
+                custom_keys: []
+                date_created: '1563451694'
+                date_modified: '1563452108'
+                description: Testing repository for python-ogr package.
+                fullname: ogr-tests
+                id: 6489
+                milestones: {}
+                name: ogr-tests
+                namespace: null
+                parent: null
+                priorities: {}
+                tags: []
+                url_path: ogr-tests
+                user:
+                  fullname: "Franti\u0161ek Lachman"
+                  name: lachmanfrantisek
+              priorities: {}
+              tags: []
+              url_path: fork/lachmanfrantisek/ogr-tests
+              user:
+                fullname: "Franti\u0161ek Lachman"
+                name: lachmanfrantisek
+            status: Open
             tags: []
-            url_path: ogr-tests
+            threshold_reached: null
+            title: Testing PR
+            uid: 71961da26c534773973f057f4db6b813
+            updated_on: '1567793922'
             user:
               fullname: "Franti\u0161ek Lachman"
               name: lachmanfrantisek
-          priorities: {}
-          tags: []
-          url_path: fork/lachmanfrantisek/ogr-tests
-          user:
-            fullname: "Franti\u0161ek Lachman"
-            name: lachmanfrantisek
-        links: null
-        ok: true
-        reason: OK
-        status_code: 200
+          links: null
+          ok: true
+          reason: OK
+          status_code: 200
