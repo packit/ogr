@@ -11,11 +11,13 @@ PERSISTENT_DATA_PREFIX = os.path.join(
     os.path.dirname(os.path.realpath(__file__)), DATA_DIR
 )
 
+LAST_GENERATED_BY = "lachmanfrantisek"
+
 
 class PagureTests(unittest.TestCase):
     def setUp(self):
         self.token = os.environ.get("PAGURE_TOKEN")
-        self.user = os.environ.get("PAGURE_USER")
+        self.user = os.environ.get("PAGURE_USER") or LAST_GENERATED_BY
         test_name = self.id() or "all"
 
         persistent_data_file = os.path.join(
@@ -30,11 +32,9 @@ class PagureTests(unittest.TestCase):
             raise EnvironmentError("please set PAGURE_TOKEN PAGURE_USER env variables")
 
         self.service = PagureService(token=self.token, instance_url="https://pagure.io")
-        self.ogr_project = self.service.get_project(
-            namespace=None, repo="ogr-tests", username="lbarczio"
-        )
+        self.ogr_project = self.service.get_project(namespace=None, repo="ogr-tests")
         self.ogr_fork = self.service.get_project(
-            namespace=None, repo="ogr-tests", username="lbarczio", is_fork=True
+            namespace=None, repo="ogr-tests", username=self.user, is_fork=True
         )
 
     def tearDown(self):
@@ -139,7 +139,7 @@ class GenericCommands(PagureTests):
 
     def test_get_owners(self):
         owners = self.ogr_fork.get_owners()
-        assert ["lbarczio"] == owners
+        assert [self.user] == owners
 
     def test_issue_permissions(self):
         owners = self.ogr_project.who_can_close_issue()
@@ -171,6 +171,19 @@ class Issues(PagureTests):
 
 
 class PullRequests(PagureTests):
+    def test_pr_create(self):
+        pr = self.ogr_fork.pr_create(
+            title="Testing PR",
+            body="Body of the testing PR.",
+            target_branch="master",
+            source_branch="master",
+        )
+        assert pr.title == "Testing PR"
+        assert pr.description == "Body of the testing PR."
+        assert pr.target_branch == "master"
+        assert pr.source_branch == "master"
+        assert pr.status == PRStatus.open
+
     def test_pr_list(self):
         pr_list = self.ogr_project.get_pr_list()
         assert isinstance(pr_list, list)
@@ -241,7 +254,7 @@ class Forks(PagureTests):
 
     def test_create_fork(self):
         self.testing_create_fork = self.service.get_project(
-            namespace=None, repo="ogr-test", username="lbarczio"
+            namespace=None, repo="ogr-test", username=self.user
         )
         not_existing_fork = self.testing_create_fork.get_fork(create=False)
         assert not not_existing_fork
