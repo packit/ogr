@@ -180,16 +180,22 @@ class RequestResponse:
         )
 
     def to_json_format(self) -> dict:
-        return {
+        output = {
             "status_code": self.status_code,
             "ok": self.ok,
             "content": self.content,
-            "json": self.json_content,
-            "reason": self.reason,
-            "headers": self.headers,
-            "links": self.links,
-            "exception": self.exception,
         }
+        if self.json_content:
+            output["json"] = self.json_content
+        if self.reason:
+            output["reason"] = self.reason
+        if self.headers:
+            output["headers"] = self.headers
+        if self.links:
+            output["links"] = self.links
+        if self.exception:
+            output["exception"] = self.exception
+        return output
 
     def json(self):
         return self.json_content
