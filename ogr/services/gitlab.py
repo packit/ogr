@@ -219,7 +219,12 @@ class GitlabProject(BaseGitProject):
         return [self._pr_from_gitlab_object(mr) for mr in mrs]
 
     def get_sha_from_tag(self, tag_name: str) -> str:
-        raise NotImplementedError()
+        try:
+            tag = self.gitlab_repo.tags.get(tag_name)
+            return tag.attributes["commit"]["id"]
+        except gitlab.exceptions.GitlabGetError:
+            logger.error(f"Tag {tag_name} was not found.")
+            return ""
 
     def pr_create(
         self, title: str, body: str, target_branch: str, source_branch: str

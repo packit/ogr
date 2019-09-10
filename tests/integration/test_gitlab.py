@@ -82,6 +82,13 @@ class GenericCommands(GitlabTests):
             "git@gitlab.gnome.org:lbarcziova/testing-ogr-repo.git"
         )
 
+    def test_get_sha_from_tag(self):
+        assert (
+            self.project.get_sha_from_tag("0.1.0")
+            == "957d267a5b0cd9e615cd081c0eb02397dce1eb73"
+        )
+        assert not self.project.get_sha_from_tag("future")
+
 
 class Issues(GitlabTests):
     def test_get_issue_list(self):
