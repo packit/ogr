@@ -399,6 +399,7 @@ class GitlabProject(BaseGitProject):
 
     def get_latest_release(self) -> GitlabRelease:
         releases = self.gitlab_repo.releases.list()
+        # list of releases sorted by released_at
         return self._release_from_gitlab_object(
             raw_release=releases[0],
             git_tag=self._git_tag_from_tag_name(releases[0].tag_name),
