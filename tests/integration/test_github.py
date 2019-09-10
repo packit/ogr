@@ -151,8 +151,9 @@ class GenericCommands(GithubTests):
             self.ogr_project.get_sha_from_tag("0.0.1")
             == "29ca3caefc781b4b41245df3e01086ffa4b4639e"
         )
-        with pytest.raises(GithubAPIException):
+        with pytest.raises(GithubAPIException) as ex:
             self.ogr_project.get_sha_from_tag("future")
+        assert "not found" in str(ex.value)
 
     def test_get_tag_from_tag_name(self):
         tag = self.ogr_project.get_tag_from_tag_name("0.0.1")
