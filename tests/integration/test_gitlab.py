@@ -170,3 +170,9 @@ class Releases(GitlabTests):
         assert releases[count - 1].title == "test"
         assert releases[count - 1].tag_name == "0.1.0"
         assert releases[count - 1].body == "testing release"
+
+    def test_get_latest_release(self):
+        latest_release = self.project.get_latest_release()
+        assert latest_release.title == "test"
+        assert latest_release.tag_name == "0.2.0"
+        assert "testing release" in latest_release.body
