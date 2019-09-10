@@ -177,9 +177,7 @@ class GitlabProject(BaseGitProject):
         raise NotImplementedError()
 
     def get_description(self) -> str:
-        # Probably something like this:
-        # return self.gitlab_repo.attributes["description"]
-        raise NotImplementedError()
+        return self.gitlab_repo.attributes["description"]
 
     def get_fork(self, create: bool = True) -> Optional["GitlabProject"]:
         raise NotImplementedError()
@@ -271,7 +269,10 @@ class GitlabProject(BaseGitProject):
         pass
 
     def get_git_urls(self) -> Dict[str, str]:
-        pass
+        return {
+            "git": self.gitlab_repo.attributes["http_url_to_repo"],
+            "ssh": self.gitlab_repo.attributes["ssh_url_to_repo"],
+        }
 
     def fork_create(self) -> "GitlabProject":
         pass
