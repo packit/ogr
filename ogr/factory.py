@@ -21,7 +21,7 @@
 # SOFTWARE.
 
 import functools
-from typing import Dict, Type, List, Optional, Set
+from typing import Dict, Type, Optional, Set, Iterable
 
 from ogr.abstract import GitService, GitProject
 from ogr.exceptions import OgrException
@@ -68,7 +68,7 @@ def use_for_service(service: str, _func=None):
 def get_project(
     url,
     service_mapping_update: Dict[str, Type[GitService]] = None,
-    custom_instances: List[GitService] = None,
+    custom_instances: Iterable[GitService] = None,
     **kwargs,
 ) -> GitProject:
     """
@@ -177,7 +177,7 @@ def get_instances_from_dict(instances: dict) -> Set[GitService]:
     :param instances: mapping from service name/url/hostname to attributes for the service creation
     :return: set of the service instances
     """
-    services = []
+    services = set()
     for key, value in instances.items():
         service_kls = get_service_class_or_none(url=key)
         if not service_kls:
@@ -197,6 +197,6 @@ def get_instances_from_dict(instances: dict) -> Set[GitService]:
             del value["type"]
 
         service_instance = service_kls(**value)
-        services.append(service_instance)
+        services.add(service_instance)
 
-    return set(services)
+    return services
