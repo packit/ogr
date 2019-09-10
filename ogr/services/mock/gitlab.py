@@ -33,6 +33,7 @@ class BetterGitlab(gitlab.Gitlab):
 
         keys_internal = list(args) + [str(OrderedDict(kwargs))]
         if self.persistent_storage.is_write_mode:
+            output = None
             try:
                 raw_response = super().http_request(*args, **kwargs)
                 try:
@@ -49,12 +50,13 @@ class BetterGitlab(gitlab.Gitlab):
                     headers=raw_response.headers,
                     links=raw_response.links,
                 )
-            except gitlab.GitlabHttpError as ex:
+            except (gitlab.GitlabHttpError, gitlab.GitlabAuthenticationError) as ex:
                 output = RequestResponse(
                     status_code=ex.response_code,
                     ok=False,
                     content=ex.response_body,
                     exception={
+                        "type": ex.__class__.__name__,
                         "response_body": ex.response_body,
                         "response_code": ex.response_code,
                         "error_message": ex.error_message,
@@ -62,14 +64,23 @@ class BetterGitlab(gitlab.Gitlab):
                 )
                 raise ex
             finally:
-                self.persistent_storage.store(
-                    keys=keys_internal, values=output.to_json_format()
-                )
+                if output:
+                    self.persistent_storage.store(
+                        keys=keys_internal, values=output.to_json_format()
+                    )
         else:
             output_dict = self.persistent_storage.read(keys=keys_internal)
             output = RequestResponse(**output_dict)
             if output.exception:
-                raise gitlab.GitlabHttpError(
+                error_cls_name = output.exception.get(
+                    "type", gitlab.GitlabHttpError.__name__
+                )
+                error_cls = {
+                    gitlab.GitlabHttpError.__name__: gitlab.GitlabHttpError,
+                    gitlab.GitlabAuthenticationError.__name__: gitlab.GitlabAuthenticationError,
+                }[error_cls_name]
+
+                raise error_cls(
                     response_body=output.exception["response_body"],
                     response_code=output.exception["response_code"],
                     error_message=output.exception["error_message"],

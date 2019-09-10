@@ -25,7 +25,7 @@ class GitlabTests(unittest.TestCase):
             not self.user or not self.token
         ):
             raise EnvironmentError("please set GITLAB_TOKEN GITLAB_USER env variables")
-        else:
+        elif not self.token:
             self.token = "some_token"
 
         self.service = GitlabService(
