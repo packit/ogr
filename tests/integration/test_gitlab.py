@@ -66,6 +66,22 @@ class GenericCommands(GitlabTests):
         assert "@" in email
         assert "." in email
 
+    def test_get_description(self):
+        description = self.project.get_description()
+        assert description
+        assert description == "this is description for our testing repo"
+
+    def test_get_git_urls(self):
+        urls = self.project.get_git_urls()
+        assert urls
+        assert len(urls) == 2
+        assert "git" in urls
+        assert "ssh" in urls
+        assert urls["git"] == "https://gitlab.gnome.org/lbarcziova/testing-ogr-repo.git"
+        assert urls["ssh"].endswith(
+            "git@gitlab.gnome.org:lbarcziova/testing-ogr-repo.git"
+        )
+
 
 class Issues(GitlabTests):
     def test_get_issue_list(self):
