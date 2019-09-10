@@ -41,6 +41,14 @@ class GithubAPIException(OgrException):
         self.github_error = github_error
 
 
+class GitlabAPIException(OgrException):
+    """ Exception related to Gitlab API """
+
+    def __init__(self, *args: object, gitlab_error: str = None) -> None:
+        super().__init__(*args)
+        self.gitlab_error = gitlab_error
+
+
 class PersistentStorageException(OgrException):
     """ Mocking Exceptions for persistent storage of objects """
 

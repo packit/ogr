@@ -495,7 +495,7 @@ class GithubProject(BaseGitProject):
         for tag in all_tags:
             if tag.name == tag_name:
                 return tag.commit.sha
-        return ""
+        raise GithubAPIException(f"Tag {tag_name} was not found.")
 
     def get_tag_from_tag_name(self, tag_name: str) -> Optional[GitTag]:
         all_tags = self.github_repo.get_tags()

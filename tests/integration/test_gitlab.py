@@ -1,8 +1,10 @@
 import os
 import unittest
+import pytest
 
 from ogr.persistent_storage import PersistentObjectStorage
 from ogr.services.gitlab import GitlabService
+from ogr.exceptions import GitlabAPIException
 
 DATA_DIR = "test_data"
 PERSISTENT_DATA_PREFIX = os.path.join(
@@ -81,6 +83,15 @@ class GenericCommands(GitlabTests):
         assert urls["ssh"].endswith(
             "git@gitlab.gnome.org:lbarcziova/testing-ogr-repo.git"
         )
+
+    def test_get_sha_from_tag(self):
+        assert (
+            self.project.get_sha_from_tag("0.1.0")
+            == "957d267a5b0cd9e615cd081c0eb02397dce1eb73"
+        )
+        with pytest.raises(GitlabAPIException) as ex:
+            self.project.get_sha_from_tag("future")
+        assert "not found" in str(ex.value)
 
 
 class Issues(GitlabTests):
