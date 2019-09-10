@@ -1,11 +1,13 @@
 import os
 import unittest
+import pytest
 
 from github import GithubException
 
 from ogr import GithubService
 from ogr.abstract import PRStatus, IssueStatus
 from ogr.persistent_storage import PersistentObjectStorage
+from ogr.exceptions import GithubAPIException
 
 DATA_DIR = "test_data"
 PERSISTENT_DATA_PREFIX = os.path.join(
@@ -149,7 +151,8 @@ class GenericCommands(GithubTests):
             self.ogr_project.get_sha_from_tag("0.0.1")
             == "29ca3caefc781b4b41245df3e01086ffa4b4639e"
         )
-        assert not self.ogr_project.get_sha_from_tag("future")
+        with pytest.raises(GithubAPIException):
+            self.ogr_project.get_sha_from_tag("future")
 
     def test_get_tag_from_tag_name(self):
         tag = self.ogr_project.get_tag_from_tag_name("0.0.1")

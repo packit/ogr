@@ -42,6 +42,7 @@ from ogr.abstract import (
 )
 from ogr.factory import use_for_service
 from ogr.services.base import BaseGitProject, BaseGitUser
+from ogr.exceptions import GitlabAPIException
 
 logger = logging.getLogger(__name__)
 
@@ -222,9 +223,9 @@ class GitlabProject(BaseGitProject):
         try:
             tag = self.gitlab_repo.tags.get(tag_name)
             return tag.attributes["commit"]["id"]
-        except gitlab.exceptions.GitlabGetError:
+        except gitlab.exceptions.GitlabGetError as ex:
             logger.error(f"Tag {tag_name} was not found.")
-            return ""
+            raise GitlabAPIException(f"Tag {tag_name} was not found.", ex)
 
     def pr_create(
         self, title: str, body: str, target_branch: str, source_branch: str
