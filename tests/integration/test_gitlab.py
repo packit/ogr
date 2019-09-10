@@ -85,7 +85,7 @@ class GenericCommands(GitlabTests):
     def test_get_sha_from_tag(self):
         assert (
             self.project.get_sha_from_tag("0.1.0")
-            == "957d267a5b0cd9e615cd081c0eb02397dce1eb73"
+            == "24c86d0704694f686329b2ea636c5b7522cfdc40"
         )
         with pytest.raises(GitlabAPIException) as ex:
             self.project.get_sha_from_tag("future")
