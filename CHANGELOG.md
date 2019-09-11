@@ -4,7 +4,7 @@
 
 * First version of **GitLab** support. (Implementation is not completed yet.) (@lbarcziova)
 * Add method for loading services from dictionary. (@lachmanfrantisek)
-* Release objects has a method for editing. (@lbarcziova)
+* Release objects have a method for editing. (@lbarcziova)
 * Function for getting all commits from specific PR. (@phracek)
 
 ## Fixes
