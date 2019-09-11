@@ -40,9 +40,9 @@ from ogr.abstract import (
     PRStatus,
     CommitComment,
 )
+from ogr.exceptions import GitlabAPIException
 from ogr.factory import use_for_service
 from ogr.services.base import BaseGitProject, BaseGitUser
-from ogr.exceptions import GitlabAPIException
 
 logger = logging.getLogger(__name__)
 
@@ -130,6 +130,17 @@ class GitlabService(GitService):
     def change_token(self, new_token: str) -> None:
         self.token = new_token
         self._gitlab_instance = None
+
+    def project_create(self, repo: str, namespace: str = None) -> "GitlabProject":
+        data = {"name": repo}
+        if namespace:
+            try:
+                group = self.gitlab_instance.groups.get(namespace)
+            except gitlab.GitlabGetError:
+                raise GitlabAPIException(f"Group {namespace} not found.")
+            data["namespace_id"] = group.id
+        self.gitlab_instance.projects.create(data)
+        return GitlabProject(repo=repo, namespace=namespace, service=self)
 
 
 class GitlabProject(BaseGitProject):

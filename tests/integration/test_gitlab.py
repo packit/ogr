@@ -1,10 +1,12 @@
 import os
 import unittest
-import pytest
 
+import pytest
+from gitlab import GitlabGetError
+
+from ogr.exceptions import GitlabAPIException
 from ogr.persistent_storage import PersistentObjectStorage
 from ogr.services.gitlab import GitlabService
-from ogr.exceptions import GitlabAPIException
 
 DATA_DIR = "test_data"
 PERSISTENT_DATA_PREFIX = os.path.join(
@@ -201,3 +203,36 @@ class Releases(GitlabTests):
         assert latest_release.title == "test"
         assert latest_release.tag_name == "0.2.0"
         assert "testing release" in latest_release.body
+
+
+class Service(GitlabTests):
+    def test_project_create(self):
+        name_of_the_repo = "new-ogr-testing-repo"
+        project = self.service.get_project(
+            repo=name_of_the_repo, namespace=self.service.user.get_username()
+        )
+        with pytest.raises(GitlabGetError):
+            assert project.gitlab_repo
+
+        self.service.project_create(name_of_the_repo)
+        project = self.service.get_project(
+            repo=name_of_the_repo, namespace=self.service.user.get_username()
+        )
+        assert project.gitlab_repo
+
+    def test_project_create_in_the_group(self):
+        name_of_the_repo = "new-ogr-testing-repo-in-the-group"
+        namespace_of_the_repo = "packit-service"
+        project = self.service.get_project(
+            repo=name_of_the_repo, namespace=namespace_of_the_repo
+        )
+        with pytest.raises(GitlabGetError):
+            assert project.gitlab_repo
+
+        self.service.project_create(
+            repo=name_of_the_repo, namespace=namespace_of_the_repo
+        )
+        project = self.service.get_project(
+            repo=name_of_the_repo, namespace=namespace_of_the_repo
+        )
+        assert project.gitlab_repo
