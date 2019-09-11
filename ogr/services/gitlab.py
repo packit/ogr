@@ -497,7 +497,9 @@ class GitlabProject(BaseGitProject):
             id=gitlab_issue.iid,
             url=gitlab_issue.web_url,
             description=gitlab_issue.description,
-            status=gitlab_issue.state,
+            status=IssueStatus.open
+            if gitlab_issue.state == "opened"
+            else IssueStatus[gitlab_issue.state],
             author=gitlab_issue.author["username"],
             created=gitlab_issue.created_at,
         )
@@ -516,7 +518,9 @@ class GitlabProject(BaseGitProject):
         return PullRequest(
             title=gitlab_pr.title,
             id=gitlab_pr.iid,
-            status=gitlab_pr.state,
+            status=PRStatus.open
+            if gitlab_pr.state == "opened"
+            else PRStatus[gitlab_pr.state],
             url=gitlab_pr.web_url,
             description=gitlab_pr.description,
             author=gitlab_pr.author["username"],
