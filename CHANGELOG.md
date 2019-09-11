@@ -18,7 +18,7 @@
 * Add `github_app_private_key_path` parameter to GithubService. (@lachmanfrantisek)
 * Make the pagure service mapping more general. (@lachmanfrantisek)
 * The tests in CI (zuul) runs both on pip and rpm versions of dependencies. (@lachmanfrantisek)
-* Jenkins removed. (@jpopelka)
+* We no longer use Centos CI Jenkins. (@jpopelka)
 * Run Pagure tests on one repository: https://pagure.io/api/0/ogr-tests. (@lbarcziova)
 
 
