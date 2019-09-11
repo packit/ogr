@@ -1,5 +1,28 @@
-# 0.6.0
+# 0.7.0
 
+## New Features
+
+* First version of **GitLab** support. (Implementation is not completed yet.) (@lbarcziova)
+* Add method for loading services from dictionary. (@lachmanfrantisek)
+* Release objects has a method for editing. (@lbarcziova)
+* Function for getting all commits from specific PR. (@phracek)
+
+## Fixes
+
+* Fix creating pull-request from fork to upstream on new versions of Pagure. (@lachmanfrantisek)
+* Use web url in Pagure issue. (@dustymabe)
+
+## Minor
+
+* Add cryptography to dependencies to be able to authenticate as a github app. (@lachmanfrantisek)
+* Add `github_app_private_key_path` parameter to GithubService. (@lachmanfrantisek)
+* Make the pagure service mapping more general. (@lachmanfrantisek)
+* The tests in CI (zuul) runs both on pip and rpm versions of dependencies. (@lachmanfrantisek)
+* Jenkins removed. (@jpopelka)
+* Run Pagure tests on one repository: https://pagure.io/api/0/ogr-tests. (@lbarcziova)
+
+
+# 0.6.0
 
 ## New Features
 
