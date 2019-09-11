@@ -227,7 +227,12 @@ class GitlabProject(BaseGitProject):
         raise NotImplementedError()
 
     def get_pr_list(self, status: PRStatus = PRStatus.open) -> List["PullRequest"]:
-        mrs = self.gitlab_repo.mergerequests.list(order_by="updated_at", sort="desc")
+        # Gitlab API has status 'opened', not 'open'
+        mrs = self.gitlab_repo.mergerequests.list(
+            state=status.name if status != PRStatus.open else "opened",
+            order_by="updated_at",
+            sort="desc",
+        )
         return [self._pr_from_gitlab_object(mr) for mr in mrs]
 
     def get_sha_from_tag(self, tag_name: str) -> str:
@@ -274,10 +279,15 @@ class GitlabProject(BaseGitProject):
         raise NotImplementedError()
 
     def pr_close(self, pr_id: int) -> "PullRequest":
-        pass
+        pr = self.gitlab_repo.mergerequests.get(pr_id)
+        pr.state_event = "close"
+        pr.save()
+        return self._pr_from_gitlab_object(pr)
 
     def pr_merge(self, pr_id: int) -> "PullRequest":
-        pass
+        pr = self.gitlab_repo.mergerequests.get(pr_id)
+        pr.merge()
+        return self._pr_from_gitlab_object(pr)
 
     def get_pr_labels(self, pr_id: int) -> List:
         pass
@@ -307,9 +317,12 @@ class GitlabProject(BaseGitProject):
         except gitlab.exceptions.GitlabGetError as ex:
             raise FileNotFoundError(f"File '{path}' on {ref} not found", ex)
 
-    def get_issue_list(self, status: IssueStatus = None) -> List[Issue]:
+    def get_issue_list(self, status: IssueStatus = IssueStatus.open) -> List[Issue]:
+        # Gitlab API has status 'opened', not 'open'
         issues = self.gitlab_repo.issues.list(
-            state="opened", order_by="updated_at", sort="desc"
+            state=status.name if status != IssueStatus.open else "opened",
+            order_by="updated_at",
+            sort="desc",
         )
         return [self._issue_from_gitlab_object(issue) for issue in issues]
 

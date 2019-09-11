@@ -130,7 +130,7 @@ class PullRequests(GitlabTests):
         count = len(pr_list)
         assert pr_list
         assert count >= 1
-        assert pr_list[count - 1].title == "change"
+        assert pr_list[count - 1].title == "new"
 
     def test_pr_info(self):
         pr_info = self.project.get_pr_info(pr_id=1)
@@ -162,6 +162,14 @@ class PullRequests(GitlabTests):
         self.project.update_pr_info(pr_id=1, description=original_description)
         pr_info = self.project.get_pr_info(pr_id=1)
         assert pr_info.description == original_description
+
+    def test_pr_close(self):
+        closed_pr = self.project.pr_close(pr_id=2)
+        assert closed_pr.status == "closed"
+
+    def test_pr_merge(self):
+        merged_pr = self.project.pr_merge(pr_id=2)
+        assert merged_pr.status == "merged"
 
 
 class Tags(GitlabTests):
