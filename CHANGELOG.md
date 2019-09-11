@@ -2,10 +2,10 @@
 
 ## New Features
 
-* First version of **GitLab** support. (Implementation is not completed yet.) (@lbarcziova)
-* Add method for loading services from dictionary. (@lachmanfrantisek)
+* Introduced a first version of **GitLab** support. (Implementation is not completed yet.) (@lbarcziova)
+* Added a method for loading services from dictionary. (@lachmanfrantisek)
 * Release objects have a method for editing. (@lbarcziova)
-* Function for getting all commits from specific PR. (@phracek)
+* Added a function for getting all commits from specific PR. (@phracek)
 
 ## Fixes
 
