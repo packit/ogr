@@ -12,7 +12,6 @@ Library for one API for many git forges. (e.g. GitHub, GitLab, Pagure).
 
 - GitHub
 - Pagure
-- GitLab
 
 ## Usage
 
