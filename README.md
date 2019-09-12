@@ -12,7 +12,48 @@ Library for one API for many git forges. (e.g. GitHub, GitLab, Pagure).
 
 - GitHub
 - Pagure
+- GitLab
 
+## Usage
+
+### GitHub
+
+This snippet shows how to obtain all releases for certain GitHub project using ogr.
+
+```python
+from ogr.services.github import GithubService
+
+service = GithubService(token="your_token")
+
+ogr_project = service.get_project(
+        repo="ogr",
+        namespace="packit-service"
+)
+
+ogr_releases = ogr_project.get_releases()
+
+
+for release in ogr_releases:
+    print(release.tag_name)
+```
+
+This will output:
+
+```
+0.7.0
+0.6.0
+0.5.0
+0.4.0
+0.3.1
+0.3.0
+0.2.0
+0.1.0
+0.0.3
+0.0.2
+0.0.1
+```
+
+You can use the same API for other forges, you just need to replace `GithubService` with either `PagureService` or `GitlabService`.
 
 ## Requirements
 
