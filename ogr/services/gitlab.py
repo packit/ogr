@@ -139,8 +139,10 @@ class GitlabService(GitService):
             except gitlab.GitlabGetError:
                 raise GitlabAPIException(f"Group {namespace} not found.")
             data["namespace_id"] = group.id
-        self.gitlab_instance.projects.create(data)
-        return GitlabProject(repo=repo, namespace=namespace, service=self)
+        new_project = self.gitlab_instance.projects.create(data)
+        return GitlabProject(
+            repo=repo, namespace=namespace, service=self, gitlab_repo=new_project
+        )
 
 
 class GitlabProject(BaseGitProject):
