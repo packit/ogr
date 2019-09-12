@@ -8,7 +8,6 @@ from ogr.exceptions import GitlabAPIException
 from ogr.persistent_storage import PersistentObjectStorage
 from ogr.services.gitlab import GitlabService, PRStatus, IssueStatus
 
-
 DATA_DIR = "test_data"
 PERSISTENT_DATA_PREFIX = os.path.join(
     os.path.dirname(os.path.realpath(__file__)), DATA_DIR
@@ -233,7 +232,10 @@ class Service(GitlabTests):
         with pytest.raises(GitlabGetError):
             assert project.gitlab_repo
 
-        self.service.project_create(name_of_the_repo)
+        new_project = self.service.project_create(name_of_the_repo)
+        assert new_project.repo == name_of_the_repo
+        assert new_project.gitlab_repo
+
         project = self.service.get_project(
             repo=name_of_the_repo, namespace=self.service.user.get_username()
         )
@@ -248,9 +250,13 @@ class Service(GitlabTests):
         with pytest.raises(GitlabGetError):
             assert project.gitlab_repo
 
-        self.service.project_create(
+        new_project = self.service.project_create(
             repo=name_of_the_repo, namespace=namespace_of_the_repo
         )
+        assert new_project.repo == name_of_the_repo
+        assert new_project.namespace == namespace_of_the_repo
+        assert new_project.gitlab_repo
+
         project = self.service.get_project(
             repo=name_of_the_repo, namespace=namespace_of_the_repo
         )
