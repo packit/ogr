@@ -303,6 +303,16 @@ class GitService:
         """
         raise NotImplementedError
 
+    def project_create(self, repo: str, namespace: str = None) -> "GitProject":
+        """
+        Create a new project.
+
+        :param repo: str
+        :param namespace: Optional[str]
+        :return: GitProject
+        """
+        raise NotImplementedError()
+
 
 class GitProject:
     def __init__(self, repo: str, service: GitService, namespace: str) -> None:
