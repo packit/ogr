@@ -272,10 +272,14 @@ class GitlabProject(BaseGitProject):
         return self._issue_from_gitlab_object(issue)
 
     def get_issue_labels(self, issue_id: int) -> List:
-        raise NotImplementedError()
+        issue = self.gitlab_repo.issues.get(issue_id)
+        return issue.labels
 
     def add_issue_labels(self, issue_id, labels) -> None:
-        raise NotImplementedError()
+        issue = self.gitlab_repo.issues.get(issue_id)
+        for label in labels:
+            issue.labels.append(label)
+        issue.save()
 
     def get_pr_list(self, status: PRStatus = PRStatus.open) -> List["PullRequest"]:
         # Gitlab API has status 'opened', not 'open'
@@ -391,10 +395,14 @@ class GitlabProject(BaseGitProject):
         return self._pr_from_gitlab_object(pr)
 
     def get_pr_labels(self, pr_id: int) -> List:
-        pass
+        pr = self.gitlab_repo.mergerequests.get(pr_id)
+        return pr.labels
 
     def add_pr_labels(self, pr_id, labels) -> None:
-        pass
+        pr = self.gitlab_repo.mergerequests.get(pr_id)
+        for label in labels:
+            pr.labels.append(label)
+        pr.save()
 
     def get_git_urls(self) -> Dict[str, str]:
         return {

@@ -173,6 +173,16 @@ class Issues(GitlabTests):
         assert comments[0].author == "lbarcziova"
         assert len(comments) == 2
 
+    def test_issue_labels(self):
+        labels = self.project.get_issue_labels(issue_id=1)
+
+        assert not labels
+        self.project.add_issue_labels(issue_id=1, labels=["test_lb1", "test_lb2"])
+        labels = self.project.get_issue_labels(issue_id=1)
+        assert len(labels) == 2
+        assert labels[0] == "test_lb1"
+        assert labels[1] == "test_lb2"
+
 
 class PullRequests(GitlabTests):
     def test_pr_list(self):
@@ -224,6 +234,15 @@ class PullRequests(GitlabTests):
         assert pr_for_merging.status == PRStatus.open
         merged_pr = self.project.pr_merge(pr_id=3)
         assert merged_pr.status == PRStatus.merged
+
+    def test_pr_labels(self):
+        labels = self.project.get_pr_labels(pr_id=1)
+        assert not labels
+        self.project.add_pr_labels(pr_id=1, labels=["test_lb1", "test_lb2"])
+        labels = self.project.get_pr_labels(pr_id=1)
+        assert len(labels) == 2
+        assert labels[0] == "test_lb1"
+        assert labels[1] == "test_lb2"
 
 
 class Tags(GitlabTests):
