@@ -6,7 +6,8 @@ from gitlab import GitlabGetError
 
 from ogr.exceptions import GitlabAPIException
 from ogr.persistent_storage import PersistentObjectStorage
-from ogr.services.gitlab import GitlabService
+from ogr.services.gitlab import GitlabService, PRStatus, IssueStatus
+
 
 DATA_DIR = "test_data"
 PERSISTENT_DATA_PREFIX = os.path.join(
@@ -114,8 +115,10 @@ class Issues(GitlabTests):
         assert issue.description == "Description for issue 2"
 
     def test_close_issue(self):
-        issue = self.project.issue_close(issue_id=1)
-        assert issue.status == "closed"
+        issue_for_closing = self.project.get_issue_info(issue_id=2)
+        assert issue_for_closing.status == IssueStatus.open
+        issue = self.project.issue_close(issue_id=2)
+        assert issue.status == IssueStatus.closed
 
     def test_get_all_issue_comments(self):
         comments = self.project._get_all_issue_comments(issue_id=2)
@@ -130,7 +133,7 @@ class PullRequests(GitlabTests):
         count = len(pr_list)
         assert pr_list
         assert count >= 1
-        assert pr_list[count - 1].title == "change"
+        assert pr_list[count - 1].title == "new"
 
     def test_pr_info(self):
         pr_info = self.project.get_pr_info(pr_id=1)
@@ -162,6 +165,18 @@ class PullRequests(GitlabTests):
         self.project.update_pr_info(pr_id=1, description=original_description)
         pr_info = self.project.get_pr_info(pr_id=1)
         assert pr_info.description == original_description
+
+    def test_pr_close(self):
+        pr_for_closing = self.project.get_pr_info(pr_id=3)
+        assert pr_for_closing.status == PRStatus.open
+        closed_pr = self.project.pr_close(pr_id=3)
+        assert closed_pr.status == PRStatus.closed
+
+    def test_pr_merge(self):
+        pr_for_merging = self.project.get_pr_info(pr_id=3)
+        assert pr_for_merging.status == PRStatus.open
+        merged_pr = self.project.pr_merge(pr_id=3)
+        assert merged_pr.status == PRStatus.merged
 
 
 class Tags(GitlabTests):
