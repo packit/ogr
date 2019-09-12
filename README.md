@@ -52,7 +52,7 @@ This will output:
 0.0.1
 ```
 
-You can use the same API for other forges, you just need to replace `GithubService` with either `PagureService` or `GitlabService`.
+You can use the same API for other forges, you just need to replace `GithubService` with `PagureService`.
 
 ## Requirements
 
