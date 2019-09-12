@@ -94,6 +94,10 @@ class GenericCommands(GitlabTests):
             self.project.get_sha_from_tag("future")
         assert "not found" in str(ex.value)
 
+    def test_parent_project(self):
+        assert self.project.get_fork().parent.namespace == "packit-service"
+        assert self.project.get_fork().parent.repo == "ogr-tests"
+
 
 class Issues(GitlabTests):
     def test_get_issue_list(self):
@@ -251,3 +255,28 @@ class Service(GitlabTests):
             repo=name_of_the_repo, namespace=namespace_of_the_repo
         )
         assert project.gitlab_repo
+
+
+class Forks(GitlabTests):
+    def test_get_fork(self):
+        fork = self.project.get_fork()
+        assert fork
+        assert fork.get_description()
+
+    def test_is_fork(self):
+        assert not self.project.is_fork
+        assert self.project.is_forked()
+        fork = self.project.get_fork(create=False)
+        assert fork
+        assert fork.is_fork
+
+    def test_create_fork(self):
+        not_existing_fork = self.project.get_fork(create=False)
+        assert not not_existing_fork
+        assert not self.project.is_forked()
+
+        new_fork = self.project.fork_create()
+
+        assert self.project.get_fork()
+        assert self.project.is_forked()
+        assert new_fork.is_fork

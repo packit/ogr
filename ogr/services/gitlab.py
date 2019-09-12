@@ -147,14 +147,19 @@ class GitlabProject(BaseGitProject):
     service: GitlabService
 
     def __init__(
-        self, repo: str, service: GitlabService, namespace: str, **unprocess_kwargs
+        self,
+        repo: str,
+        service: GitlabService,
+        namespace: str,
+        gitlab_repo=None,
+        **unprocess_kwargs,
     ) -> None:
         if unprocess_kwargs:
             logger.warning(
                 f"GitlabProject will not process these kwargs: {unprocess_kwargs}"
             )
         super().__init__(repo, service, namespace)
-        self._gitlab_repo = None
+        self._gitlab_repo = gitlab_repo
 
     @property
     def gitlab_repo(self) -> GitlabObjectsProject:
@@ -166,11 +171,21 @@ class GitlabProject(BaseGitProject):
 
     @property
     def is_fork(self) -> bool:
-        raise NotImplementedError()
+        return bool("forked_from_project" in self.gitlab_repo.attributes)
 
     @property
     def parent(self) -> Optional["GitlabProject"]:
-        raise NotImplementedError()
+        """
+        Return parent project if this project is a fork, otherwise return None
+        """
+        if self.is_fork:
+            parent_dict = self.gitlab_repo.attributes["forked_from_project"]
+            return GitlabProject(
+                repo=parent_dict["path"],
+                service=self.service,
+                namespace=parent_dict["namespace"]["full_path"],
+            )
+        return None
 
     def __str__(self) -> str:
         return f'GitlabProject(namespace="{self.namespace}", repo="{self.repo}")'
@@ -185,14 +200,48 @@ class GitlabProject(BaseGitProject):
             and self.service == o.service
         )
 
+    def _construct_fork_project(self) -> Optional["GitlabProject"]:
+        user_login = self.service.user.get_username()
+        try:
+            project = GitlabProject(
+                repo=self.repo, service=self.service, namespace=user_login
+            )
+            if project.gitlab_repo:
+                return project
+        except Exception as ex:
+            logger.debug(f"Project {self.repo}/{user_login} does not exist: {ex}")
+        return None
+
     def is_forked(self) -> bool:
-        raise NotImplementedError()
+        return bool(self._construct_fork_project())
 
     def get_description(self) -> str:
         return self.gitlab_repo.attributes["description"]
 
     def get_fork(self, create: bool = True) -> Optional["GitlabProject"]:
-        raise NotImplementedError()
+        """
+        Provide GitlabProject instance of a fork of this project.
+
+        Returns None if this is a fork.
+
+        :param create: create a fork if it doesn't exist
+        :return: instance of GitlabProject
+        """
+        username = self.service.user.get_username()
+        for fork in self.get_forks():
+            if fork.gitlab_repo.namespace["full_path"] == username:
+                return fork
+
+        if not self.is_forked():
+            if create:
+                return self.fork_create()
+            else:
+                logger.info(
+                    f"Fork of {self.gitlab_repo.attributes['name']}"
+                    " does not exist and we were asked not to create it."
+                )
+                return None
+        return self._construct_fork_project()
 
     def get_owners(self) -> List[str]:
         raise NotImplementedError()
@@ -302,7 +351,20 @@ class GitlabProject(BaseGitProject):
         }
 
     def fork_create(self) -> "GitlabProject":
-        pass
+        """
+        Fork this project using the authenticated user.
+        This may raise an exception if the fork already exists.
+
+        :return: fork GitlabProject instance
+        """
+        try:
+            fork = self.gitlab_repo.forks.create({})
+        except gitlab.GitlabCreateError:
+            logger.error(f"Repo {self.gitlab_repo} cannot be forked")
+            raise GitlabAPIException(f"Repo {self.gitlab_repo} cannot be forked")
+        return GitlabProject(
+            namespace=fork.namespace["full_path"], service=self.service, repo=fork.path
+        )
 
     def change_token(self, new_token: str):
         self.service.change_token(new_token)

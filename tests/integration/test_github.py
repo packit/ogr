@@ -134,7 +134,6 @@ class GenericCommands(GithubTests):
             self.ogr_project.get_file_content(".blablabla_nonexisting_file")
 
     def test_parent_project(self):
-        print(self.ogr_project.parent)
         assert self.ogr_fork.parent.namespace == "packit-service"
         assert self.ogr_fork.parent.repo == "ogr"
 
