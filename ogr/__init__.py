@@ -44,6 +44,14 @@ except DistributionNotFound:
 
 mock_env = os.getenv("RECORD_REQUESTS")
 if mock_env:
+    MODULE_LIST = [
+        ("^requests$", {"who_name": "ogr"}),
+        ("^requests$", {"who_name": "gitlab"}),
+        ("^requests$", {"who_name": "github"}),
+    ]
+    from requre.import_system import upgrade_import_system
+
+    upgrade_import_system(MODULE_LIST, debug_file="modules.out")
     from ogr.services.mock.github import (
         BetterGithubIntegrationMock as BetterGithubIntegration,
     )
