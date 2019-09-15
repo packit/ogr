@@ -272,11 +272,19 @@ class GitlabProject(BaseGitProject):
         return self._issue_from_gitlab_object(issue)
 
     def get_issue_labels(self, issue_id: int) -> List:
-        issue = self.gitlab_repo.issues.get(issue_id)
+        try:
+            issue = self.gitlab_repo.issues.get(issue_id)
+        except gitlab.exceptions.GitlabGetError as ex:
+            logger.error(f"Issue {issue_id} was not found.")
+            raise GitlabAPIException(f"Issue {issue_id} was not found. ", ex)
         return issue.labels
 
     def add_issue_labels(self, issue_id, labels) -> None:
-        issue = self.gitlab_repo.issues.get(issue_id)
+        try:
+            issue = self.gitlab_repo.issues.get(issue_id)
+        except gitlab.exceptions.GitlabGetError as ex:
+            logger.error(f"Issue {issue_id} was not found.")
+            raise GitlabAPIException(f"Issue {issue_id} was not found. ", ex)
         for label in labels:
             issue.labels.append(label)
         issue.save()
@@ -395,11 +403,19 @@ class GitlabProject(BaseGitProject):
         return self._pr_from_gitlab_object(pr)
 
     def get_pr_labels(self, pr_id: int) -> List:
-        pr = self.gitlab_repo.mergerequests.get(pr_id)
+        try:
+            pr = self.gitlab_repo.mergerequests.get(pr_id)
+        except gitlab.exceptions.GitlabGetError as ex:
+            logger.error(f"PR {pr_id} was not found.")
+            raise GitlabAPIException(f"PR {pr_id} was not found. ", ex)
         return pr.labels
 
     def add_pr_labels(self, pr_id, labels) -> None:
-        pr = self.gitlab_repo.mergerequests.get(pr_id)
+        try:
+            pr = self.gitlab_repo.mergerequests.get(pr_id)
+        except gitlab.exceptions.GitlabGetError as ex:
+            logger.error(f"PR {pr_id} was not found.")
+            raise GitlabAPIException(f"PR {pr_id} was not found. ", ex)
         for label in labels:
             pr.labels.append(label)
         pr.save()
