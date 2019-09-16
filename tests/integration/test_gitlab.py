@@ -5,7 +5,7 @@ import pytest
 from gitlab import GitlabGetError
 
 from ogr.exceptions import GitlabAPIException
-from ogr.persistent_storage import PersistentObjectStorage
+from requre.storage import PersistentObjectStorage
 from ogr.services.gitlab import GitlabService, PRStatus, IssueStatus
 
 DATA_DIR = "test_data"

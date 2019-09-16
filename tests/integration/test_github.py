@@ -6,7 +6,7 @@ from github import GithubException
 
 from ogr import GithubService
 from ogr.abstract import PRStatus, IssueStatus
-from ogr.persistent_storage import PersistentObjectStorage
+from requre.storage import PersistentObjectStorage
 from ogr.exceptions import GithubAPIException
 
 DATA_DIR = "test_data"

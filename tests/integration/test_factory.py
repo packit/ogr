@@ -2,7 +2,7 @@ import os
 import unittest
 
 from ogr import GithubService, PagureService, get_project, GitlabService
-from ogr.persistent_storage import PersistentObjectStorage
+from requre.storage import PersistentObjectStorage
 from ogr.services.github import GithubProject
 from ogr.services.gitlab import GitlabProject
 from ogr.services.pagure import PagureProject

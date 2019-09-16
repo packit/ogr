@@ -1,72 +1,31 @@
-GET:
-  https://pagure.io/api/0/ogr-tests/issue/3:
-    empty:
-      empty:
-      - content: !!binary |
-          ewogICJhc3NpZ25lZSI6IG51bGwsCiAgImJsb2NrcyI6IFtdLAogICJjbG9zZV9zdGF0dXMiOiBu
-          dWxsLAogICJjbG9zZWRfYXQiOiBudWxsLAogICJjbG9zZWRfYnkiOiBudWxsLAogICJjb21tZW50
-          cyI6IFsKICAgIHsKICAgICAgImNvbW1lbnQiOiAidGVzdCAtIGNvbW1lbnQgMSIsCiAgICAgICJk
-          YXRlX2NyZWF0ZWQiOiAiMTU2MzQ2MTk3MSIsCiAgICAgICJlZGl0ZWRfb24iOiBudWxsLAogICAg
-          ICAiZWRpdG9yIjogbnVsbCwKICAgICAgImlkIjogNTgzMDc5LAogICAgICAibm90aWZpY2F0aW9u
-          IjogZmFsc2UsCiAgICAgICJwYXJlbnQiOiBudWxsLAogICAgICAicmVhY3Rpb25zIjoge30sCiAg
-          ICAgICJ1c2VyIjogewogICAgICAgICJmdWxsbmFtZSI6ICJMYXVyYSBCYXJjemlvdlx1MDBlMSIs
-          CiAgICAgICAgIm5hbWUiOiAibGJhcmN6aW8iCiAgICAgIH0KICAgIH0sCiAgICB7CiAgICAgICJj
-          b21tZW50IjogInRlc3RzIC0gY29tbWVudCAyIiwKICAgICAgImRhdGVfY3JlYXRlZCI6ICIxNTYz
-          NDYxOTc5IiwKICAgICAgImVkaXRlZF9vbiI6IG51bGwsCiAgICAgICJlZGl0b3IiOiBudWxsLAog
-          ICAgICAiaWQiOiA1ODMwODAsCiAgICAgICJub3RpZmljYXRpb24iOiBmYWxzZSwKICAgICAgInBh
-          cmVudCI6IG51bGwsCiAgICAgICJyZWFjdGlvbnMiOiB7fSwKICAgICAgInVzZXIiOiB7CiAgICAg
-          ICAgImZ1bGxuYW1lIjogIkxhdXJhIEJhcmN6aW92XHUwMGUxIiwKICAgICAgICAibmFtZSI6ICJs
-          YmFyY3ppbyIKICAgICAgfQogICAgfQogIF0sCiAgImNvbnRlbnQiOiAiSXNzdWUgZm9yIHRlc3Rp
-          bmcgcHl0aG9uLW9nciAtIHRlc3QgMi4iLAogICJjdXN0b21fZmllbGRzIjogW10sCiAgImRhdGVf
-          Y3JlYXRlZCI6ICIxNTYzNDU3ODU0IiwKICAiZGVwZW5kcyI6IFtdLAogICJpZCI6IDMsCiAgImxh
-          c3RfdXBkYXRlZCI6ICIxNTYzNDYxOTc5IiwKICAibWlsZXN0b25lIjogbnVsbCwKICAicHJpb3Jp
-          dHkiOiBudWxsLAogICJwcml2YXRlIjogZmFsc2UsCiAgInN0YXR1cyI6ICJPcGVuIiwKICAidGFn
-          cyI6IFtdLAogICJ0aXRsZSI6ICJUZXN0IDIiLAogICJ1c2VyIjogewogICAgImZ1bGxuYW1lIjog
-          IkxhdXJhIEJhcmN6aW92XHUwMGUxIiwKICAgICJuYW1lIjogImxiYXJjemlvIgogIH0KfQ==
-        json:
-          assignee: null
-          blocks: []
-          close_status: null
-          closed_at: null
-          closed_by: null
-          comments:
-          - comment: test - comment 1
-            date_created: '1563461971'
-            edited_on: null
-            editor: null
-            id: 583079
-            notification: false
-            parent: null
-            reactions: {}
-            user:
-              fullname: "Laura Barcziov\xE1"
-              name: lbarczio
-          - comment: tests - comment 2
-            date_created: '1563461979'
-            edited_on: null
-            editor: null
-            id: 583080
-            notification: false
-            parent: null
-            reactions: {}
-            user:
-              fullname: "Laura Barcziov\xE1"
-              name: lbarczio
-          content: Issue for testing python-ogr - test 2.
-          custom_fields: []
-          date_created: '1563457854'
-          depends: []
-          id: 3
-          last_updated: '1563461979'
-          milestone: null
-          priority: null
-          private: false
-          status: Open
-          tags: []
-          title: Test 2
-          user:
-            fullname: "Laura Barcziov\xE1"
-            name: lbarczio
-        ok: true
-        reason: OK
-        status_code: 200
+requests.sessions:
+  request:
+  - _content: !!binary |
+      ewogICJlcnJvciI6ICJJbnZhbGlkIG9yIGV4cGlyZWQgdG9rZW4uIFBsZWFzZSB2aXNpdCBodHRw
+      czovL3BhZ3VyZS5pby9zZXR0aW5ncyNuYXYtYXBpLXRhYiB0byBnZXQgb3IgcmVuZXcgeW91ciBB
+      UEkgdG9rZW4uIiwKICAiZXJyb3JfY29kZSI6ICJFSU5WQUxJRFRPSyIsCiAgImVycm9ycyI6ICJJ
+      bnZhbGlkIHRva2VuIgp9
+    _next: null
+    elapsed: 0.596208
+    encoding: null
+    headers:
+      Connection: Keep-Alive
+      Content-Length: '186'
+      Content-Security-Policy: default-src 'self' https:; script-src 'self' 'unsafe-eval'
+        'unsafe-inline' https://apps.fedoraproject.org; style-src 'self' 'unsafe-inline'
+        https://apps.fedoraproject.org
+      Content-Type: application/json
+      Date: Mon, 16 Sep 2019 13:42:49 GMT
+      Keep-Alive: timeout=5, max=100
+      Referrer-Policy: same-origin
+      Server: Apache/2.4.6 (Red Hat Enterprise Linux) OpenSSL/1.0.2k-fips mod_wsgi/3.4
+        Python/2.7.5
+      Set-Cookie: pagure=eyJfcGVybWFuZW50Ijp0cnVlLCJjc3JmIjp7IiBiIjoiWWpSaE5EWXdZVEF4TVdZMU9EazNaR0V5TjJVMFpqRmxNemsxTkRZMFpqRXhPV0l5TURNNE1nPT0ifX0.EGEi2Q.tgsbYOhyD0tOZWiz0GAC6N4XZ5Q;
+        Expires=Thu, 17-Oct-2019 13:42:49 GMT; Secure; HttpOnly; Path=/
+      Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
+      X-Content-Type-Options: nosniff
+      X-Frame-Options: ALLOW-FROM https://pagure.io/
+      X-Xss-Protection: 1; mode=block
+    raw: !!binary ""
+    reason: UNAUTHORIZED
+    status_code: 401

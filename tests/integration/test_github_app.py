@@ -4,7 +4,7 @@ import unittest
 from pathlib import Path
 
 from ogr import GithubService
-from ogr.persistent_storage import PersistentObjectStorage
+from requre.storage import PersistentObjectStorage
 
 DATA_DIR = "test_data"
 PERSISTENT_DATA_PREFIX = os.path.join(

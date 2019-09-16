@@ -4,7 +4,7 @@ import unittest
 from ogr import PagureService
 from ogr.abstract import PRStatus, IssueStatus
 from ogr.exceptions import PagureAPIException
-from ogr.persistent_storage import PersistentObjectStorage
+from requre.storage import PersistentObjectStorage
 
 DATA_DIR = "test_data"
 PERSISTENT_DATA_PREFIX = os.path.join(
@@ -38,7 +38,7 @@ class PagureTests(unittest.TestCase):
         )
 
     def tearDown(self):
-        self.service.persistent_storage.dump()
+        PersistentObjectStorage().dump()
 
 
 class Comments(PagureTests):
