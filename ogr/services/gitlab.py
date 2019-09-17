@@ -271,7 +271,7 @@ class GitlabProject(BaseGitProject):
         issue.save()
         return self._issue_from_gitlab_object(issue)
 
-    def get_issue_labels(self, issue_id: int) -> List:
+    def get_issue_labels(self, issue_id: int) -> List[str]:
         try:
             issue = self.gitlab_repo.issues.get(issue_id)
         except gitlab.exceptions.GitlabGetError as ex:
@@ -402,7 +402,7 @@ class GitlabProject(BaseGitProject):
         pr.merge()
         return self._pr_from_gitlab_object(pr)
 
-    def get_pr_labels(self, pr_id: int) -> List:
+    def get_pr_labels(self, pr_id: int) -> List[str]:
         try:
             pr = self.gitlab_repo.mergerequests.get(pr_id)
         except gitlab.exceptions.GitlabGetError as ex:
