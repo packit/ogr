@@ -11,31 +11,55 @@ PERSISTENT_DATA_PREFIX = os.path.join(
     os.path.dirname(os.path.realpath(__file__)), DATA_DIR
 )
 
-LAST_GENERATED_BY = "lachmanfrantisek"
-
 
 class PagureTests(unittest.TestCase):
     def setUp(self):
         self.token = os.environ.get("PAGURE_TOKEN")
-        self.user = os.environ.get("PAGURE_USER") or LAST_GENERATED_BY
         test_name = self.id() or "all"
 
-        persistent_data_file = os.path.join(
+        self.persistent_data_file = os.path.join(
             PERSISTENT_DATA_PREFIX, f"test_pagure_data_{test_name}.yaml"
         )
 
-        PersistentObjectStorage().storage_file = persistent_data_file
+        PersistentObjectStorage().storage_file = self.persistent_data_file
 
-        if PersistentObjectStorage().is_write_mode and (
-            not self.user or not self.token
-        ):
-            raise EnvironmentError("please set PAGURE_TOKEN PAGURE_USER env variables")
+        if PersistentObjectStorage().is_write_mode and (not self.token):
+            raise EnvironmentError("please set PAGURE_TOKEN env variables")
 
-        self.service = PagureService(token=self.token, instance_url="https://pagure.io")
-        self.ogr_project = self.service.get_project(namespace=None, repo="ogr-tests")
-        self.ogr_fork = self.service.get_project(
-            namespace=None, repo="ogr-tests", username=self.user, is_fork=True
-        )
+        self._user = None
+        self._service = None
+        self._ogr_project = None
+        self._ogr_fork = None
+
+    @property
+    def user(self):
+        if not self._user:
+            self._user = self.service.user.get_username()
+        return self._user
+
+    @property
+    def service(self):
+        if not self._service:
+            self._service = PagureService(
+                token=self.token, instance_url="https://pagure.io"
+            )
+        return self._service
+
+    @property
+    def ogr_project(self):
+        if not self._ogr_project:
+            self._ogr_project = self.service.get_project(
+                namespace=None, repo="ogr-tests"
+            )
+        return self._ogr_project
+
+    @property
+    def ogr_fork(self):
+        if not self._ogr_fork:
+            self._ogr_fork = self.service.get_project(
+                namespace=None, repo="ogr-tests", username=self.user, is_fork=True
+            )
+        return self._ogr_fork
 
     def tearDown(self):
         self.service.persistent_storage.dump()
@@ -185,13 +209,14 @@ class PullRequests(PagureTests):
         assert pr.status == PRStatus.open
 
     def test_pr_list(self):
-        pr_list = self.ogr_project.get_pr_list()
-        assert isinstance(pr_list, list)
-        assert not pr_list
+        pr_list_default = self.ogr_project.get_pr_list()
+        assert isinstance(pr_list_default, list)
 
         pr_list = self.ogr_project.get_pr_list(status=PRStatus.all)
         assert pr_list
         assert len(pr_list) >= 2
+
+        assert len(pr_list_default) < len(pr_list)
 
     def test_pr_info(self):
         pr_info = self.ogr_project.get_pr_info(pr_id=1)
@@ -253,19 +278,16 @@ class Forks(PagureTests):
         assert fork.get_description()
 
     def test_create_fork(self):
-        self.testing_create_fork = self.service.get_project(
-            namespace=None, repo="ogr-test", username=self.user
-        )
-        not_existing_fork = self.testing_create_fork.get_fork(create=False)
+        not_existing_fork = self.ogr_project.get_fork(create=False)
         assert not not_existing_fork
-        assert not self.testing_create_fork.is_forked()
+        assert not self.ogr_project.is_forked()
 
-        old_forks = self.testing_create_fork.service.user.get_forks()
+        old_forks = self.ogr_project.service.user.get_forks()
 
-        self.testing_create_fork.fork_create()
+        self.ogr_project.fork_create()
 
-        assert self.testing_create_fork.get_fork().exists()
-        assert self.testing_create_fork.is_forked()
+        assert self.ogr_project.get_fork().exists()
+        assert self.ogr_project.is_forked()
 
-        new_forks = self.testing_create_fork.service.user.get_forks()
+        new_forks = self.ogr_project.service.user.get_forks()
         assert len(old_forks) == len(new_forks) - 1
