@@ -26,8 +26,8 @@ class PagureTests(unittest.TestCase):
         if PersistentObjectStorage().is_write_mode and (not self.token):
             raise EnvironmentError("please set PAGURE_TOKEN env variables")
 
+        self.service = PagureService(token=self.token, instance_url="https://pagure.io")
         self._user = None
-        self._service = None
         self._ogr_project = None
         self._ogr_fork = None
 
@@ -36,14 +36,6 @@ class PagureTests(unittest.TestCase):
         if not self._user:
             self._user = self.service.user.get_username()
         return self._user
-
-    @property
-    def service(self):
-        if not self._service:
-            self._service = PagureService(
-                token=self.token, instance_url="https://pagure.io"
-            )
-        return self._service
 
     @property
     def ogr_project(self):
