@@ -5,7 +5,7 @@ import pytest
 from gitlab import GitlabGetError
 
 from ogr.exceptions import GitlabAPIException
-from ogr.persistent_storage import PersistentObjectStorage
+from requre.storage import PersistentObjectStorage
 from ogr.services.gitlab import GitlabService, PRStatus, IssueStatus
 
 DATA_DIR = "test_data"
@@ -17,7 +17,6 @@ PERSISTENT_DATA_PREFIX = os.path.join(
 class GitlabTests(unittest.TestCase):
     def setUp(self):
         self.token = os.environ.get("GITLAB_TOKEN")
-        self.user = os.environ.get("GITLAB_USER")
         test_name = self.id() or "all"
 
         persistent_data_file = os.path.join(
@@ -25,10 +24,8 @@ class GitlabTests(unittest.TestCase):
         )
         PersistentObjectStorage().storage_file = persistent_data_file
 
-        if PersistentObjectStorage().is_write_mode and (
-            not self.user or not self.token
-        ):
-            raise EnvironmentError("please set GITLAB_TOKEN GITLAB_USER env variables")
+        if PersistentObjectStorage().is_write_mode and not self.token:
+            raise EnvironmentError("please set GITLAB_TOKEN env variables")
         elif not self.token:
             self.token = "some_token"
 
@@ -143,7 +140,7 @@ class GenericCommands(GitlabTests):
 
     def test_get_owners(self):
         owners = self.project.get_owners()
-        assert {"lachmanfrantisek", "lbarcziova"} == set(owners)
+        assert set(("lachmanfrantisek", "lbarcziova")).issubset(set(owners))
 
     def test_issue_permissions(self):
         users = self.project.who_can_close_issue()
@@ -164,6 +161,13 @@ class GenericCommands(GitlabTests):
 
 
 class Issues(GitlabTests):
+    """
+    Add another random string for creating merge requests,
+    otherwise gitlab will report you are SPAMMING
+    """
+
+    random_str = "abcde"
+
     def test_get_issue_list(self):
         issue_list = self.project.get_issue_list()
         assert issue_list
@@ -176,23 +180,33 @@ class Issues(GitlabTests):
         assert issue_info.description.startswith("This is testing issue")
 
     def test_create_issue(self):
-        issue = self.project.create_issue(
-            title="Issue 2", description="Description for issue 2"
-        )
-        assert issue.title == "Issue 2"
-        assert issue.description == "Description for issue 2"
+        """
+        see class comment in case of fail
+        """
+        issue_title = f"New Issue {self.random_str}"
+        issue_desc = f"Description for issue {self.random_str}"
+        issue = self.project.create_issue(title=issue_title, description=issue_desc)
+        assert issue.title == issue_title
+        assert issue.description == issue_desc
 
     def test_close_issue(self):
-        issue_for_closing = self.project.get_issue_info(issue_id=2)
+        """
+        see class comment in case of fail
+        """
+        issue = self.project.create_issue(
+            title=f"Close issue {self.random_str}",
+            description=f"Description for issue for closing {self.random_str}",
+        )
+        issue_for_closing = self.project.get_issue_info(issue_id=issue.id)
         assert issue_for_closing.status == IssueStatus.open
-        issue = self.project.issue_close(issue_id=2)
+        issue = self.project.issue_close(issue_id=issue.id)
         assert issue.status == IssueStatus.closed
 
     def test_get_all_issue_comments(self):
         comments = self.project._get_all_issue_comments(issue_id=2)
-        assert comments[0].comment.startswith("Comment")
+        self.assertIn("Comment", comments[-1].comment)
         assert comments[0].author == "lbarcziova"
-        assert len(comments) == 2
+        assert len(comments) >= 3
 
     def test_issue_labels(self):
         """
@@ -211,11 +225,13 @@ class Issues(GitlabTests):
 
 class PullRequests(GitlabTests):
     def test_pr_list(self):
+        title = "some special title"
+        pr = self.create_pull_request(title=title)
         pr_list = self.project.get_pr_list()
         count = len(pr_list)
-        assert pr_list
         assert count >= 1
-        assert pr_list[count - 1].title == "new"
+        assert title == pr_list[0].title
+        self.project.pr_close(pr_id=pr.id)
 
     def test_pr_info(self):
         pr_info = self.project.get_pr_info(pr_id=1)
@@ -248,16 +264,26 @@ class PullRequests(GitlabTests):
         pr_info = self.project.get_pr_info(pr_id=1)
         assert pr_info.description == original_description
 
+    def create_pull_request(
+        self, title="New PR of pr-3", body="Description", dest="master", source="pr-3"
+    ):
+        return self.project.pr_create(title, body, dest, source)
+
     def test_pr_close(self):
-        pr_for_closing = self.project.get_pr_info(pr_id=3)
+        pr = self.create_pull_request()
+        pr_for_closing = self.project.get_pr_info(pr_id=pr.id)
         assert pr_for_closing.status == PRStatus.open
-        closed_pr = self.project.pr_close(pr_id=3)
+        closed_pr = self.project.pr_close(pr_id=pr.id)
         assert closed_pr.status == PRStatus.closed
 
     def test_pr_merge(self):
-        pr_for_merging = self.project.get_pr_info(pr_id=3)
+        """
+        Create new PR and update pull request ID to this test before this test
+        """
+        pull_request_id = 17
+        pr_for_merging = self.project.get_pr_info(pr_id=pull_request_id)
         assert pr_for_merging.status == PRStatus.open
-        merged_pr = self.project.pr_merge(pr_id=3)
+        merged_pr = self.project.pr_merge(pr_id=pull_request_id)
         assert merged_pr.status == PRStatus.merged
 
     def test_pr_labels(self):
@@ -289,14 +315,20 @@ class Tags(GitlabTests):
 
 class Releases(GitlabTests):
     def test_create_release(self):
-        count_before = len(self.project.get_releases())
+        releases_before = self.project.get_releases()
+        version_list = releases_before[0].tag_name.rsplit(".", 1)
+        increased = ".".join([version_list[0], str(int(version_list[1]) + 1)])
+        count_before = len(releases_before)
         release = self.project.create_release(
-            name="test", tag_name="0.2.0", description="testing release-2", ref="master"
+            name=f"test {increased}",
+            tag_name=increased,
+            description=f"testing release-{increased}",
+            ref="master",
         )
         count_after = len(self.project.get_releases())
-        assert release.tag_name == "0.2.0"
-        assert release.title == "test"
-        assert release.body == "testing release-2"
+        assert release.tag_name == increased
+        assert release.title == f"test {increased}"
+        assert release.body == f"testing release-{increased}"
         assert count_before + 1 == count_after
 
     def test_get_releases(self):
@@ -304,19 +336,23 @@ class Releases(GitlabTests):
         assert releases
         count = len(releases)
         assert count >= 1
-        assert releases[count - 1].title == "test"
-        assert releases[count - 1].tag_name == "0.1.0"
-        assert releases[count - 1].body == "testing release"
+        assert releases[-1].title == "test"
+        assert releases[-1].tag_name == "0.1.0"
+        assert releases[-1].body == "testing release"
 
     def test_get_latest_release(self):
+        release = self.project.get_releases()[0]
         latest_release = self.project.get_latest_release()
-        assert latest_release.title == "test"
-        assert latest_release.tag_name == "0.2.0"
-        assert "testing release" in latest_release.body
+        assert latest_release.title == release.title
+        assert latest_release.tag_name == release.tag_name
+        assert latest_release.body == release.body
 
 
 class Service(GitlabTests):
     def test_project_create(self):
+        """
+        Remove https://gitlab.com/$USERNAME/new-ogr-testing-repo before data regeneration
+        """
         name_of_the_repo = "new-ogr-testing-repo"
         project = self.service.get_project(
             repo=name_of_the_repo, namespace=self.service.user.get_username()
@@ -334,6 +370,10 @@ class Service(GitlabTests):
         assert project.gitlab_repo
 
     def test_project_create_in_the_group(self):
+        """
+        Remove https://gitlab.com/packit-service/new-ogr-testing-repo-in-the-group
+        before data regeneration.
+        """
         name_of_the_repo = "new-ogr-testing-repo-in-the-group"
         namespace_of_the_repo = "packit-service"
         project = self.service.get_project(
@@ -369,6 +409,9 @@ class Forks(GitlabTests):
         assert fork.is_fork
 
     def test_create_fork(self):
+        """
+        Remove https://gitlab.com/$USERNAME/ogr-tests before data regeneration
+        """
         not_existing_fork = self.project.get_fork(create=False)
         assert not not_existing_fork
         assert not self.project.is_forked()

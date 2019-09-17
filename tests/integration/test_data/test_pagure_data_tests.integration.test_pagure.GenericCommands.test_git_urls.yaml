@@ -1,16 +1,37 @@
-GET:
-  https://pagure.io/api/0/ogr-tests/git/urls:
-    empty:
-      empty:
-      - content: !!binary |
-          ewogICJ0b3RhbF91cmxzIjogMiwKICAidXJscyI6IHsKICAgICJnaXQiOiAiaHR0cHM6Ly9wYWd1
-          cmUuaW8vb2dyLXRlc3RzLmdpdCIsCiAgICAic3NoIjogInNzaDovL2dpdEBwYWd1cmUuaW8vb2dy
-          LXRlc3RzLmdpdCIKICB9Cn0=
-        json:
-          total_urls: 2
-          urls:
-            git: https://pagure.io/ogr-tests.git
-            ssh: ssh://git@pagure.io/ogr-tests.git
-        ok: true
-        reason: OK
-        status_code: 200
+unittest.case:
+  tests.integration.test_pagure:
+    ogr.services.pagure:
+      requests.sessions:
+        requre.objects:
+          requests.sessions:
+            send:
+            - __store_indicator: 2
+              _content:
+                total_urls: 2
+                urls:
+                  git: https://pagure.io/ogr-tests.git
+                  ssh: ssh://git@pagure.io/ogr-tests.git
+              _next: null
+              elapsed: 0.60335
+              encoding: null
+              headers:
+                Connection: Keep-Alive
+                Content-Length: '131'
+                Content-Security-Policy: default-src 'self' https:; script-src 'self'
+                  'unsafe-eval' 'unsafe-inline' https://apps.fedoraproject.org; style-src
+                  'self' 'unsafe-inline' https://apps.fedoraproject.org
+                Content-Type: application/json
+                Date: Fri, 27 Sep 2019 08:23:41 GMT
+                Keep-Alive: timeout=5, max=100
+                Referrer-Policy: same-origin
+                Server: Apache/2.4.6 (Red Hat Enterprise Linux) OpenSSL/1.0.2k-fips
+                  mod_wsgi/3.4 Python/2.7.5
+                Set-Cookie: pagure=eyJfcGVybWFuZW50Ijp0cnVlLCJjc3JmIjp7IiBiIjoiWm1Sa05qYzBPVE0xTlRFM01UZzJaRGc1TldWa09HTTVPR0pqTURKa1pEazBZelpsWkRVeE1nPT0ifX0.EG9YjQ.9Hxclf7_iNwXIgrZTYBe22fwkGg;
+                  Expires=Mon, 28-Oct-2019 08:23:41 GMT; Secure; HttpOnly; Path=/
+                Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
+                X-Content-Type-Options: nosniff
+                X-Frame-Options: ALLOW-FROM https://pagure.io/
+                X-Xss-Protection: 1; mode=block
+              raw: !!binary ""
+              reason: OK
+              status_code: 200

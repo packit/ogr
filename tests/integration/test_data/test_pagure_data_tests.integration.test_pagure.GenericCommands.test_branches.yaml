@@ -1,14 +1,36 @@
-GET:
-  https://pagure.io/api/0/ogr-tests/git/branches:
-    empty:
-      empty:
-      - content: !!binary |
-          ewogICJicmFuY2hlcyI6IFsKICAgICJtYXN0ZXIiCiAgXSwKICAidG90YWxfYnJhbmNoZXMiOiAx
-          Cn0=
-        json:
-          branches:
-          - master
-          total_branches: 1
-        ok: true
-        reason: OK
-        status_code: 200
+unittest.case:
+  tests.integration.test_pagure:
+    ogr.services.pagure:
+      requests.sessions:
+        requre.objects:
+          requests.sessions:
+            send:
+            - __store_indicator: 2
+              _content:
+                branches:
+                - master
+                total_branches: 1
+              _next: null
+              elapsed: 0.759017
+              encoding: null
+              headers:
+                Connection: Keep-Alive
+                Content-Length: '59'
+                Content-Security-Policy: default-src 'self' https:; script-src 'self'
+                  'unsafe-eval' 'unsafe-inline' https://apps.fedoraproject.org; style-src
+                  'self' 'unsafe-inline' https://apps.fedoraproject.org
+                Content-Type: application/json
+                Date: Fri, 27 Sep 2019 08:23:34 GMT
+                Keep-Alive: timeout=5, max=100
+                Referrer-Policy: same-origin
+                Server: Apache/2.4.6 (Red Hat Enterprise Linux) OpenSSL/1.0.2k-fips
+                  mod_wsgi/3.4 Python/2.7.5
+                Set-Cookie: pagure=eyJfcGVybWFuZW50Ijp0cnVlLCJjc3JmIjp7IiBiIjoiTUdSaE9Ua3lPRGN5TWpoalpEVXpaV0ptT1dZNE5HUTNPRGcxTkRFeE1tVXhOREppT1daaFlRPT0ifX0.EG9Yhg.JuB3I2ayXO_D0FJ82Mo4yJmlLZE;
+                  Expires=Mon, 28-Oct-2019 08:23:34 GMT; Secure; HttpOnly; Path=/
+                Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
+                X-Content-Type-Options: nosniff
+                X-Frame-Options: ALLOW-FROM https://pagure.io/
+                X-Xss-Protection: 1; mode=block
+              raw: !!binary ""
+              reason: OK
+              status_code: 200

@@ -1,110 +1,289 @@
-GET:
-  /repos/packit-service/ogr:
-    empty:
-    - - 200
-      - access-control-allow-origin: '*'
-        access-control-expose-headers: ETag, Link, Location, Retry-After, X-GitHub-OTP,
-          X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Reset, X-OAuth-Scopes,
-          X-Accepted-OAuth-Scopes, X-Poll-Interval, X-GitHub-Media-Type
-        cache-control: private, max-age=60, s-maxage=60
-        content-encoding: gzip
-        content-security-policy: default-src 'none'
-        content-type: application/json; charset=utf-8
-        date: Tue, 17 Sep 2019 10:31:03 GMT
-        etag: W/"bc787408ebdbe026d16e3892ed2ee28b"
-        last-modified: Thu, 12 Sep 2019 18:19:01 GMT
-        referrer-policy: origin-when-cross-origin, strict-origin-when-cross-origin
-        server: GitHub.com
-        status: 200 OK
-        strict-transport-security: max-age=31536000; includeSubdomains; preload
-        transfer-encoding: chunked
-        vary: Accept, Authorization, Cookie, X-GitHub-OTP, Accept-Encoding
-        x-accepted-oauth-scopes: repo
-        x-content-type-options: nosniff
-        x-frame-options: deny
-        x-github-media-type: github.v3; format=json
-        x-github-request-id: 1CEE:1A713:352CA0B:405C652:5D80B5E6
-        x-oauth-scopes: admin:gpg_key, admin:org, admin:org_hook, admin:public_key,
-          admin:repo_hook, delete_repo, gist, notifications, repo, user, write:discussion
-        x-ratelimit-limit: '5000'
-        x-ratelimit-remaining: '4838'
-        x-ratelimit-reset: '1568719820'
-        x-xss-protection: 1; mode=block
-      - '{"id":161636700,"node_id":"MDEwOlJlcG9zaXRvcnkxNjE2MzY3MDA=","name":"ogr","full_name":"packit-service/ogr","private":false,"owner":{"login":"packit-service","id":46870917,"node_id":"MDEyOk9yZ2FuaXphdGlvbjQ2ODcwOTE3","avatar_url":"https://avatars3.githubusercontent.com/u/46870917?v=4","gravatar_id":"","url":"https://api.github.com/users/packit-service","html_url":"https://github.com/packit-service","followers_url":"https://api.github.com/users/packit-service/followers","following_url":"https://api.github.com/users/packit-service/following{/other_user}","gists_url":"https://api.github.com/users/packit-service/gists{/gist_id}","starred_url":"https://api.github.com/users/packit-service/starred{/owner}{/repo}","subscriptions_url":"https://api.github.com/users/packit-service/subscriptions","organizations_url":"https://api.github.com/users/packit-service/orgs","repos_url":"https://api.github.com/users/packit-service/repos","events_url":"https://api.github.com/users/packit-service/events{/privacy}","received_events_url":"https://api.github.com/users/packit-service/received_events","type":"Organization","site_admin":false},"html_url":"https://github.com/packit-service/ogr","description":"One
-        Git library to Rule -- one API for many git forges","fork":false,"url":"https://api.github.com/repos/packit-service/ogr","forks_url":"https://api.github.com/repos/packit-service/ogr/forks","keys_url":"https://api.github.com/repos/packit-service/ogr/keys{/key_id}","collaborators_url":"https://api.github.com/repos/packit-service/ogr/collaborators{/collaborator}","teams_url":"https://api.github.com/repos/packit-service/ogr/teams","hooks_url":"https://api.github.com/repos/packit-service/ogr/hooks","issue_events_url":"https://api.github.com/repos/packit-service/ogr/issues/events{/number}","events_url":"https://api.github.com/repos/packit-service/ogr/events","assignees_url":"https://api.github.com/repos/packit-service/ogr/assignees{/user}","branches_url":"https://api.github.com/repos/packit-service/ogr/branches{/branch}","tags_url":"https://api.github.com/repos/packit-service/ogr/tags","blobs_url":"https://api.github.com/repos/packit-service/ogr/git/blobs{/sha}","git_tags_url":"https://api.github.com/repos/packit-service/ogr/git/tags{/sha}","git_refs_url":"https://api.github.com/repos/packit-service/ogr/git/refs{/sha}","trees_url":"https://api.github.com/repos/packit-service/ogr/git/trees{/sha}","statuses_url":"https://api.github.com/repos/packit-service/ogr/statuses/{sha}","languages_url":"https://api.github.com/repos/packit-service/ogr/languages","stargazers_url":"https://api.github.com/repos/packit-service/ogr/stargazers","contributors_url":"https://api.github.com/repos/packit-service/ogr/contributors","subscribers_url":"https://api.github.com/repos/packit-service/ogr/subscribers","subscription_url":"https://api.github.com/repos/packit-service/ogr/subscription","commits_url":"https://api.github.com/repos/packit-service/ogr/commits{/sha}","git_commits_url":"https://api.github.com/repos/packit-service/ogr/git/commits{/sha}","comments_url":"https://api.github.com/repos/packit-service/ogr/comments{/number}","issue_comment_url":"https://api.github.com/repos/packit-service/ogr/issues/comments{/number}","contents_url":"https://api.github.com/repos/packit-service/ogr/contents/{+path}","compare_url":"https://api.github.com/repos/packit-service/ogr/compare/{base}...{head}","merges_url":"https://api.github.com/repos/packit-service/ogr/merges","archive_url":"https://api.github.com/repos/packit-service/ogr/{archive_format}{/ref}","downloads_url":"https://api.github.com/repos/packit-service/ogr/downloads","issues_url":"https://api.github.com/repos/packit-service/ogr/issues{/number}","pulls_url":"https://api.github.com/repos/packit-service/ogr/pulls{/number}","milestones_url":"https://api.github.com/repos/packit-service/ogr/milestones{/number}","notifications_url":"https://api.github.com/repos/packit-service/ogr/notifications{?since,all,participating}","labels_url":"https://api.github.com/repos/packit-service/ogr/labels{/name}","releases_url":"https://api.github.com/repos/packit-service/ogr/releases{/id}","deployments_url":"https://api.github.com/repos/packit-service/ogr/deployments","created_at":"2018-12-13T12:33:52Z","updated_at":"2019-09-12T18:19:01Z","pushed_at":"2019-09-17T09:04:22Z","git_url":"git://github.com/packit-service/ogr.git","ssh_url":"git@github.com:packit-service/ogr.git","clone_url":"https://github.com/packit-service/ogr.git","svn_url":"https://github.com/packit-service/ogr","homepage":"","size":2071,"stargazers_count":16,"watchers_count":16,"language":"Python","has_issues":true,"has_projects":true,"has_downloads":true,"has_wiki":true,"has_pages":false,"forks_count":14,"mirror_url":null,"archived":false,"disabled":false,"open_issues_count":32,"license":{"key":"mit","name":"MIT
-        License","spdx_id":"MIT","url":"https://api.github.com/licenses/mit","node_id":"MDc6TGljZW5zZTEz"},"forks":14,"open_issues":32,"watchers":16,"default_branch":"master","permissions":{"admin":true,"push":true,"pull":true},"allow_squash_merge":true,"allow_merge_commit":true,"allow_rebase_merge":true,"organization":{"login":"packit-service","id":46870917,"node_id":"MDEyOk9yZ2FuaXphdGlvbjQ2ODcwOTE3","avatar_url":"https://avatars3.githubusercontent.com/u/46870917?v=4","gravatar_id":"","url":"https://api.github.com/users/packit-service","html_url":"https://github.com/packit-service","followers_url":"https://api.github.com/users/packit-service/followers","following_url":"https://api.github.com/users/packit-service/following{/other_user}","gists_url":"https://api.github.com/users/packit-service/gists{/gist_id}","starred_url":"https://api.github.com/users/packit-service/starred{/owner}{/repo}","subscriptions_url":"https://api.github.com/users/packit-service/subscriptions","organizations_url":"https://api.github.com/users/packit-service/orgs","repos_url":"https://api.github.com/users/packit-service/repos","events_url":"https://api.github.com/users/packit-service/events{/privacy}","received_events_url":"https://api.github.com/users/packit-service/received_events","type":"Organization","site_admin":false},"network_count":14,"subscribers_count":8}'
-  /user:
-    empty:
-    - - 200
-      - access-control-allow-origin: '*'
-        access-control-expose-headers: ETag, Link, Location, Retry-After, X-GitHub-OTP,
-          X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Reset, X-OAuth-Scopes,
-          X-Accepted-OAuth-Scopes, X-Poll-Interval, X-GitHub-Media-Type
-        cache-control: private, max-age=60, s-maxage=60
-        content-encoding: gzip
-        content-security-policy: default-src 'none'
-        content-type: application/json; charset=utf-8
-        date: Tue, 17 Sep 2019 10:31:02 GMT
-        etag: W/"2260589ce64cf8431d644c3361a2a4f9"
-        last-modified: Mon, 02 Sep 2019 14:54:35 GMT
-        referrer-policy: origin-when-cross-origin, strict-origin-when-cross-origin
-        server: GitHub.com
-        status: 200 OK
-        strict-transport-security: max-age=31536000; includeSubdomains; preload
-        transfer-encoding: chunked
-        vary: Accept, Authorization, Cookie, X-GitHub-OTP, Accept-Encoding
-        x-accepted-oauth-scopes: ''
-        x-content-type-options: nosniff
-        x-frame-options: deny
-        x-github-media-type: github.v3; format=json
-        x-github-request-id: 1CEE:1A713:352C9D7:405C61A:5D80B5E6
-        x-oauth-scopes: admin:gpg_key, admin:org, admin:org_hook, admin:public_key,
-          admin:repo_hook, delete_repo, gist, notifications, repo, user, write:discussion
-        x-ratelimit-limit: '5000'
-        x-ratelimit-remaining: '4839'
-        x-ratelimit-reset: '1568719820'
-        x-xss-protection: 1; mode=block
-      - '{"login":"lachmanfrantisek","id":20214043,"node_id":"MDQ6VXNlcjIwMjE0MDQz","avatar_url":"https://avatars1.githubusercontent.com/u/20214043?v=4","gravatar_id":"","url":"https://api.github.com/users/lachmanfrantisek","html_url":"https://github.com/lachmanfrantisek","followers_url":"https://api.github.com/users/lachmanfrantisek/followers","following_url":"https://api.github.com/users/lachmanfrantisek/following{/other_user}","gists_url":"https://api.github.com/users/lachmanfrantisek/gists{/gist_id}","starred_url":"https://api.github.com/users/lachmanfrantisek/starred{/owner}{/repo}","subscriptions_url":"https://api.github.com/users/lachmanfrantisek/subscriptions","organizations_url":"https://api.github.com/users/lachmanfrantisek/orgs","repos_url":"https://api.github.com/users/lachmanfrantisek/repos","events_url":"https://api.github.com/users/lachmanfrantisek/events{/privacy}","received_events_url":"https://api.github.com/users/lachmanfrantisek/received_events","type":"User","site_admin":false,"name":null,"company":null,"blog":"","location":null,"email":null,"hireable":null,"bio":null,"public_repos":32,"public_gists":1,"followers":1,"following":0,"created_at":"2016-06-29T21:31:27Z","updated_at":"2019-09-02T14:54:35Z","private_gists":3,"total_private_repos":0,"owned_private_repos":0,"disk_usage":26,"collaborators":0,"two_factor_authentication":true,"plan":{"name":"free","space":976562499,"collaborators":0,"private_repos":10000}}'
-  https://api.github.com/repos/packit-service/ogr/issues/4:
-    empty:
-    - - 200
-      - access-control-allow-origin: '*'
-        access-control-expose-headers: ETag, Link, Location, Retry-After, X-GitHub-OTP,
-          X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Reset, X-OAuth-Scopes,
-          X-Accepted-OAuth-Scopes, X-Poll-Interval, X-GitHub-Media-Type
-        cache-control: private, max-age=60, s-maxage=60
-        content-encoding: gzip
-        content-security-policy: default-src 'none'
-        content-type: application/json; charset=utf-8
-        date: Tue, 17 Sep 2019 10:31:03 GMT
-        etag: W/"5c078175a63193f95100b9f42443a87d"
-        last-modified: Tue, 17 Sep 2019 08:26:46 GMT
-        referrer-policy: origin-when-cross-origin, strict-origin-when-cross-origin
-        server: GitHub.com
-        status: 200 OK
-        strict-transport-security: max-age=31536000; includeSubdomains; preload
-        transfer-encoding: chunked
-        vary: Accept, Authorization, Cookie, X-GitHub-OTP, Accept-Encoding
-        x-accepted-oauth-scopes: repo
-        x-content-type-options: nosniff
-        x-frame-options: deny
-        x-github-media-type: github.v3; format=json
-        x-github-request-id: 1CEE:1A713:352CA5E:405C6C0:5D80B5E7
-        x-oauth-scopes: admin:gpg_key, admin:org, admin:org_hook, admin:public_key,
-          admin:repo_hook, delete_repo, gist, notifications, repo, user, write:discussion
-        x-ratelimit-limit: '5000'
-        x-ratelimit-remaining: '4837'
-        x-ratelimit-reset: '1568719820'
-        x-xss-protection: 1; mode=block
-      - '{"url":"https://api.github.com/repos/packit-service/ogr/issues/4","repository_url":"https://api.github.com/repos/packit-service/ogr","labels_url":"https://api.github.com/repos/packit-service/ogr/issues/4/labels{/name}","comments_url":"https://api.github.com/repos/packit-service/ogr/issues/4/comments","events_url":"https://api.github.com/repos/packit-service/ogr/issues/4/events","html_url":"https://github.com/packit-service/ogr/issues/4","id":400160755,"node_id":"MDU6SXNzdWU0MDAxNjA3NTU=","number":4,"title":"Better
-        name","user":{"login":"lachmanfrantisek","id":20214043,"node_id":"MDQ6VXNlcjIwMjE0MDQz","avatar_url":"https://avatars1.githubusercontent.com/u/20214043?v=4","gravatar_id":"","url":"https://api.github.com/users/lachmanfrantisek","html_url":"https://github.com/lachmanfrantisek","followers_url":"https://api.github.com/users/lachmanfrantisek/followers","following_url":"https://api.github.com/users/lachmanfrantisek/following{/other_user}","gists_url":"https://api.github.com/users/lachmanfrantisek/gists{/gist_id}","starred_url":"https://api.github.com/users/lachmanfrantisek/starred{/owner}{/repo}","subscriptions_url":"https://api.github.com/users/lachmanfrantisek/subscriptions","organizations_url":"https://api.github.com/users/lachmanfrantisek/orgs","repos_url":"https://api.github.com/users/lachmanfrantisek/repos","events_url":"https://api.github.com/users/lachmanfrantisek/events{/privacy}","received_events_url":"https://api.github.com/users/lachmanfrantisek/received_events","type":"User","site_admin":false},"labels":[{"id":1457192587,"node_id":"MDU6TGFiZWwxNDU3MTkyNTg3","url":"https://api.github.com/repos/packit-service/ogr/labels/test_lb1","name":"test_lb1","color":"ededed","default":false},{"id":1457192593,"node_id":"MDU6TGFiZWwxNDU3MTkyNTkz","url":"https://api.github.com/repos/packit-service/ogr/labels/test_lb2","name":"test_lb2","color":"ededed","default":false}],"state":"closed","locked":false,"assignee":null,"assignees":[],"milestone":null,"comments":4,"created_at":"2019-01-17T08:26:58Z","updated_at":"2019-09-17T08:26:46Z","closed_at":"2019-02-14T13:28:27Z","author_association":"MEMBER","body":"The
-        `ogr` is a nice, short name, but the ''meaning'' should be changed.\r\n\r\nFeel
-        free to edit this comment.\r\n\r\n| O | G | R |\r\n| - | - | - |\r\n| our
-        | git | rule |\r\n| one | git-forge | revolution |\r\n| open | | rebellion
-        |\r\n| object | | realm |\r\n| only |  | route |\r\n| omnipotent | | rocket
-        |\r\n| | | recipe |\r\n| | | rainbow |\r\n| | | roadway |\r\n| | | reactor
-        |\r\n| | | reunion |\r\n| | | rebel |\r\n| | | ruler |\r\n\r\nPossible combinations
-        (and votes):\r\n- our-git-rebel @phracek \r\n- open-git-rainbow @phracek @TomasTomecek
-        \r\n- object-git-reactor @phracek \r\n- the [O]ne [G]it [R]uler @TomasTomecek
-        \r\n- [O]ne [G]it library to [R]ule @TomasTomecek @jpopelka\r\n- [O]mniponent
-        [G]it-forge [R]uler @jpopelka  @lachmanfrantisek @TomasTomecek ","closed_by":{"login":"lachmanfrantisek","id":20214043,"node_id":"MDQ6VXNlcjIwMjE0MDQz","avatar_url":"https://avatars1.githubusercontent.com/u/20214043?v=4","gravatar_id":"","url":"https://api.github.com/users/lachmanfrantisek","html_url":"https://github.com/lachmanfrantisek","followers_url":"https://api.github.com/users/lachmanfrantisek/followers","following_url":"https://api.github.com/users/lachmanfrantisek/following{/other_user}","gists_url":"https://api.github.com/users/lachmanfrantisek/gists{/gist_id}","starred_url":"https://api.github.com/users/lachmanfrantisek/starred{/owner}{/repo}","subscriptions_url":"https://api.github.com/users/lachmanfrantisek/subscriptions","organizations_url":"https://api.github.com/users/lachmanfrantisek/orgs","repos_url":"https://api.github.com/users/lachmanfrantisek/repos","events_url":"https://api.github.com/users/lachmanfrantisek/events{/privacy}","received_events_url":"https://api.github.com/users/lachmanfrantisek/received_events","type":"User","site_admin":false}}'
+unittest.case:
+  tests.integration.test_github:
+    ogr.services.github:
+      github.MainClass:
+        github.Requester:
+          requests.sessions:
+            requre.objects:
+              requests.sessions:
+                send:
+                - __store_indicator: 2
+                  _content:
+                    allow_merge_commit: true
+                    allow_rebase_merge: true
+                    allow_squash_merge: true
+                    archive_url: https://api.github.com/repos/packit-service/ogr/{archive_format}{/ref}
+                    archived: false
+                    assignees_url: https://api.github.com/repos/packit-service/ogr/assignees{/user}
+                    blobs_url: https://api.github.com/repos/packit-service/ogr/git/blobs{/sha}
+                    branches_url: https://api.github.com/repos/packit-service/ogr/branches{/branch}
+                    clone_url: https://github.com/packit-service/ogr.git
+                    collaborators_url: https://api.github.com/repos/packit-service/ogr/collaborators{/collaborator}
+                    comments_url: https://api.github.com/repos/packit-service/ogr/comments{/number}
+                    commits_url: https://api.github.com/repos/packit-service/ogr/commits{/sha}
+                    compare_url: https://api.github.com/repos/packit-service/ogr/compare/{base}...{head}
+                    contents_url: https://api.github.com/repos/packit-service/ogr/contents/{+path}
+                    contributors_url: https://api.github.com/repos/packit-service/ogr/contributors
+                    created_at: '2018-12-13T12:33:52Z'
+                    default_branch: master
+                    deployments_url: https://api.github.com/repos/packit-service/ogr/deployments
+                    description: One Git library to Rule -- one API for many git forges
+                    disabled: false
+                    downloads_url: https://api.github.com/repos/packit-service/ogr/downloads
+                    events_url: https://api.github.com/repos/packit-service/ogr/events
+                    fork: false
+                    forks: 15
+                    forks_count: 15
+                    forks_url: https://api.github.com/repos/packit-service/ogr/forks
+                    full_name: packit-service/ogr
+                    git_commits_url: https://api.github.com/repos/packit-service/ogr/git/commits{/sha}
+                    git_refs_url: https://api.github.com/repos/packit-service/ogr/git/refs{/sha}
+                    git_tags_url: https://api.github.com/repos/packit-service/ogr/git/tags{/sha}
+                    git_url: git://github.com/packit-service/ogr.git
+                    has_downloads: true
+                    has_issues: true
+                    has_pages: false
+                    has_projects: true
+                    has_wiki: true
+                    homepage: ''
+                    hooks_url: https://api.github.com/repos/packit-service/ogr/hooks
+                    html_url: https://github.com/packit-service/ogr
+                    id: 161636700
+                    issue_comment_url: https://api.github.com/repos/packit-service/ogr/issues/comments{/number}
+                    issue_events_url: https://api.github.com/repos/packit-service/ogr/issues/events{/number}
+                    issues_url: https://api.github.com/repos/packit-service/ogr/issues{/number}
+                    keys_url: https://api.github.com/repos/packit-service/ogr/keys{/key_id}
+                    labels_url: https://api.github.com/repos/packit-service/ogr/labels{/name}
+                    language: Python
+                    languages_url: https://api.github.com/repos/packit-service/ogr/languages
+                    license:
+                      key: mit
+                      name: MIT License
+                      node_id: MDc6TGljZW5zZTEz
+                      spdx_id: MIT
+                      url: https://api.github.com/licenses/mit
+                    merges_url: https://api.github.com/repos/packit-service/ogr/merges
+                    milestones_url: https://api.github.com/repos/packit-service/ogr/milestones{/number}
+                    mirror_url: null
+                    name: ogr
+                    network_count: 15
+                    node_id: MDEwOlJlcG9zaXRvcnkxNjE2MzY3MDA=
+                    notifications_url: https://api.github.com/repos/packit-service/ogr/notifications{?since,all,participating}
+                    open_issues: 32
+                    open_issues_count: 32
+                    organization:
+                      avatar_url: https://avatars3.githubusercontent.com/u/46870917?v=4
+                      events_url: https://api.github.com/users/packit-service/events{/privacy}
+                      followers_url: https://api.github.com/users/packit-service/followers
+                      following_url: https://api.github.com/users/packit-service/following{/other_user}
+                      gists_url: https://api.github.com/users/packit-service/gists{/gist_id}
+                      gravatar_id: ''
+                      html_url: https://github.com/packit-service
+                      id: 46870917
+                      login: packit-service
+                      node_id: MDEyOk9yZ2FuaXphdGlvbjQ2ODcwOTE3
+                      organizations_url: https://api.github.com/users/packit-service/orgs
+                      received_events_url: https://api.github.com/users/packit-service/received_events
+                      repos_url: https://api.github.com/users/packit-service/repos
+                      site_admin: false
+                      starred_url: https://api.github.com/users/packit-service/starred{/owner}{/repo}
+                      subscriptions_url: https://api.github.com/users/packit-service/subscriptions
+                      type: Organization
+                      url: https://api.github.com/users/packit-service
+                    owner:
+                      avatar_url: https://avatars3.githubusercontent.com/u/46870917?v=4
+                      events_url: https://api.github.com/users/packit-service/events{/privacy}
+                      followers_url: https://api.github.com/users/packit-service/followers
+                      following_url: https://api.github.com/users/packit-service/following{/other_user}
+                      gists_url: https://api.github.com/users/packit-service/gists{/gist_id}
+                      gravatar_id: ''
+                      html_url: https://github.com/packit-service
+                      id: 46870917
+                      login: packit-service
+                      node_id: MDEyOk9yZ2FuaXphdGlvbjQ2ODcwOTE3
+                      organizations_url: https://api.github.com/users/packit-service/orgs
+                      received_events_url: https://api.github.com/users/packit-service/received_events
+                      repos_url: https://api.github.com/users/packit-service/repos
+                      site_admin: false
+                      starred_url: https://api.github.com/users/packit-service/starred{/owner}{/repo}
+                      subscriptions_url: https://api.github.com/users/packit-service/subscriptions
+                      type: Organization
+                      url: https://api.github.com/users/packit-service
+                    permissions:
+                      admin: true
+                      pull: true
+                      push: true
+                    private: false
+                    pulls_url: https://api.github.com/repos/packit-service/ogr/pulls{/number}
+                    pushed_at: '2019-09-27T06:38:19Z'
+                    releases_url: https://api.github.com/repos/packit-service/ogr/releases{/id}
+                    size: 2395
+                    ssh_url: git@github.com:packit-service/ogr.git
+                    stargazers_count: 17
+                    stargazers_url: https://api.github.com/repos/packit-service/ogr/stargazers
+                    statuses_url: https://api.github.com/repos/packit-service/ogr/statuses/{sha}
+                    subscribers_count: 8
+                    subscribers_url: https://api.github.com/repos/packit-service/ogr/subscribers
+                    subscription_url: https://api.github.com/repos/packit-service/ogr/subscription
+                    svn_url: https://github.com/packit-service/ogr
+                    tags_url: https://api.github.com/repos/packit-service/ogr/tags
+                    teams_url: https://api.github.com/repos/packit-service/ogr/teams
+                    trees_url: https://api.github.com/repos/packit-service/ogr/git/trees{/sha}
+                    updated_at: '2019-09-26T10:43:44Z'
+                    url: https://api.github.com/repos/packit-service/ogr
+                    watchers: 17
+                    watchers_count: 17
+                  _next: null
+                  elapsed: 0.719529
+                  encoding: utf-8
+                  headers:
+                    Access-Control-Allow-Origin: '*'
+                    Access-Control-Expose-Headers: ETag, Link, Location, Retry-After,
+                      X-GitHub-OTP, X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Reset,
+                      X-OAuth-Scopes, X-Accepted-OAuth-Scopes, X-Poll-Interval, X-GitHub-Media-Type
+                    Cache-Control: private, max-age=60, s-maxage=60
+                    Content-Encoding: gzip
+                    Content-Security-Policy: default-src 'none'
+                    Content-Type: application/json; charset=utf-8
+                    Date: Fri, 27 Sep 2019 08:59:37 GMT
+                    ETag: W/"9c2fa0edcc5fe908f378dbf7dc5780d2"
+                    Last-Modified: Thu, 26 Sep 2019 10:43:44 GMT
+                    Referrer-Policy: origin-when-cross-origin, strict-origin-when-cross-origin
+                    Server: GitHub.com
+                    Status: 200 OK
+                    Strict-Transport-Security: max-age=31536000; includeSubdomains;
+                      preload
+                    Transfer-Encoding: chunked
+                    Vary: Accept, Authorization, Cookie, X-GitHub-OTP, Accept-Encoding
+                    X-Accepted-OAuth-Scopes: repo
+                    X-Content-Type-Options: nosniff
+                    X-Frame-Options: deny
+                    X-GitHub-Media-Type: github.v3; format=json
+                    X-GitHub-Request-Id: 8B36:184EA:29DB258:3296E88:5D8DCF79
+                    X-OAuth-Scopes: admin:gpg_key, admin:org, admin:org_hook, admin:public_key,
+                      admin:repo_hook, delete_repo, gist, notifications, repo, user,
+                      write:discussion
+                    X-RateLimit-Limit: '5000'
+                    X-RateLimit-Remaining: '4860'
+                    X-RateLimit-Reset: '1569578321'
+                    X-XSS-Protection: 1; mode=block
+                  raw: !!binary ""
+                  reason: OK
+                  status_code: 200
+      github.Repository:
+        github.Requester:
+          requests.sessions:
+            requre.objects:
+              requests.sessions:
+                send:
+                - __store_indicator: 2
+                  _content:
+                    assignee: null
+                    assignees: []
+                    author_association: MEMBER
+                    body: "The `ogr` is a nice, short name, but the 'meaning' should\
+                      \ be changed.\r\n\r\nFeel free to edit this comment.\r\n\r\n\
+                      | O | G | R |\r\n| - | - | - |\r\n| our | git | rule |\r\n|\
+                      \ one | git-forge | revolution |\r\n| open | | rebellion |\r\
+                      \n| object | | realm |\r\n| only |  | route |\r\n| omnipotent\
+                      \ | | rocket |\r\n| | | recipe |\r\n| | | rainbow |\r\n| | |\
+                      \ roadway |\r\n| | | reactor |\r\n| | | reunion |\r\n| | | rebel\
+                      \ |\r\n| | | ruler |\r\n\r\nPossible combinations (and votes):\r\
+                      \n- our-git-rebel @phracek \r\n- open-git-rainbow @phracek @TomasTomecek\
+                      \ \r\n- object-git-reactor @phracek \r\n- the [O]ne [G]it [R]uler\
+                      \ @TomasTomecek \r\n- [O]ne [G]it library to [R]ule @TomasTomecek\
+                      \ @jpopelka\r\n- [O]mniponent [G]it-forge [R]uler @jpopelka\
+                      \  @lachmanfrantisek @TomasTomecek "
+                    closed_at: '2019-02-14T13:28:27Z'
+                    closed_by:
+                      avatar_url: https://avatars1.githubusercontent.com/u/20214043?v=4
+                      events_url: https://api.github.com/users/lachmanfrantisek/events{/privacy}
+                      followers_url: https://api.github.com/users/lachmanfrantisek/followers
+                      following_url: https://api.github.com/users/lachmanfrantisek/following{/other_user}
+                      gists_url: https://api.github.com/users/lachmanfrantisek/gists{/gist_id}
+                      gravatar_id: ''
+                      html_url: https://github.com/lachmanfrantisek
+                      id: 20214043
+                      login: lachmanfrantisek
+                      node_id: MDQ6VXNlcjIwMjE0MDQz
+                      organizations_url: https://api.github.com/users/lachmanfrantisek/orgs
+                      received_events_url: https://api.github.com/users/lachmanfrantisek/received_events
+                      repos_url: https://api.github.com/users/lachmanfrantisek/repos
+                      site_admin: false
+                      starred_url: https://api.github.com/users/lachmanfrantisek/starred{/owner}{/repo}
+                      subscriptions_url: https://api.github.com/users/lachmanfrantisek/subscriptions
+                      type: User
+                      url: https://api.github.com/users/lachmanfrantisek
+                    comments: 4
+                    comments_url: https://api.github.com/repos/packit-service/ogr/issues/4/comments
+                    created_at: '2019-01-17T08:26:58Z'
+                    events_url: https://api.github.com/repos/packit-service/ogr/issues/4/events
+                    html_url: https://github.com/packit-service/ogr/issues/4
+                    id: 400160755
+                    labels: []
+                    labels_url: https://api.github.com/repos/packit-service/ogr/issues/4/labels{/name}
+                    locked: false
+                    milestone: null
+                    node_id: MDU6SXNzdWU0MDAxNjA3NTU=
+                    number: 4
+                    repository_url: https://api.github.com/repos/packit-service/ogr
+                    state: closed
+                    title: Better name
+                    updated_at: '2019-09-27T08:55:35Z'
+                    url: https://api.github.com/repos/packit-service/ogr/issues/4
+                    user:
+                      avatar_url: https://avatars1.githubusercontent.com/u/20214043?v=4
+                      events_url: https://api.github.com/users/lachmanfrantisek/events{/privacy}
+                      followers_url: https://api.github.com/users/lachmanfrantisek/followers
+                      following_url: https://api.github.com/users/lachmanfrantisek/following{/other_user}
+                      gists_url: https://api.github.com/users/lachmanfrantisek/gists{/gist_id}
+                      gravatar_id: ''
+                      html_url: https://github.com/lachmanfrantisek
+                      id: 20214043
+                      login: lachmanfrantisek
+                      node_id: MDQ6VXNlcjIwMjE0MDQz
+                      organizations_url: https://api.github.com/users/lachmanfrantisek/orgs
+                      received_events_url: https://api.github.com/users/lachmanfrantisek/received_events
+                      repos_url: https://api.github.com/users/lachmanfrantisek/repos
+                      site_admin: false
+                      starred_url: https://api.github.com/users/lachmanfrantisek/starred{/owner}{/repo}
+                      subscriptions_url: https://api.github.com/users/lachmanfrantisek/subscriptions
+                      type: User
+                      url: https://api.github.com/users/lachmanfrantisek
+                  _next: null
+                  elapsed: 0.712745
+                  encoding: utf-8
+                  headers:
+                    Access-Control-Allow-Origin: '*'
+                    Access-Control-Expose-Headers: ETag, Link, Location, Retry-After,
+                      X-GitHub-OTP, X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Reset,
+                      X-OAuth-Scopes, X-Accepted-OAuth-Scopes, X-Poll-Interval, X-GitHub-Media-Type
+                    Cache-Control: private, max-age=60, s-maxage=60
+                    Content-Encoding: gzip
+                    Content-Security-Policy: default-src 'none'
+                    Content-Type: application/json; charset=utf-8
+                    Date: Fri, 27 Sep 2019 08:59:38 GMT
+                    ETag: W/"a9d80ee66e6d96aed3eefecbb0d9cb04"
+                    Last-Modified: Fri, 27 Sep 2019 08:55:35 GMT
+                    Referrer-Policy: origin-when-cross-origin, strict-origin-when-cross-origin
+                    Server: GitHub.com
+                    Status: 200 OK
+                    Strict-Transport-Security: max-age=31536000; includeSubdomains;
+                      preload
+                    Transfer-Encoding: chunked
+                    Vary: Accept, Authorization, Cookie, X-GitHub-OTP, Accept-Encoding
+                    X-Accepted-OAuth-Scopes: repo
+                    X-Content-Type-Options: nosniff
+                    X-Frame-Options: deny
+                    X-GitHub-Media-Type: github.v3; format=json
+                    X-GitHub-Request-Id: 8B36:184EA:29DB2B1:3296EDA:5D8DCF79
+                    X-OAuth-Scopes: admin:gpg_key, admin:org, admin:org_hook, admin:public_key,
+                      admin:repo_hook, delete_repo, gist, notifications, repo, user,
+                      write:discussion
+                    X-RateLimit-Limit: '5000'
+                    X-RateLimit-Remaining: '4859'
+                    X-RateLimit-Reset: '1569578321'
+                    X-XSS-Protection: 1; mode=block
+                  raw: !!binary ""
+                  reason: OK
+                  status_code: 200
