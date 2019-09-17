@@ -1,270 +1,581 @@
-GET:
-  /repos/lbarcziova/repo_created_for_test:
-    empty:
-    - - 404
-      - access-control-allow-origin: '*'
-        access-control-expose-headers: ETag, Link, Location, Retry-After, X-GitHub-OTP,
-          X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Reset, X-OAuth-Scopes,
-          X-Accepted-OAuth-Scopes, X-Poll-Interval, X-GitHub-Media-Type
-        content-encoding: gzip
-        content-security-policy: default-src 'none'
-        content-type: application/json; charset=utf-8
-        date: Thu, 19 Sep 2019 07:32:34 GMT
-        referrer-policy: origin-when-cross-origin, strict-origin-when-cross-origin
-        server: GitHub.com
-        status: 404 Not Found
-        strict-transport-security: max-age=31536000; includeSubdomains; preload
-        transfer-encoding: chunked
-        x-accepted-oauth-scopes: repo
-        x-content-type-options: nosniff
-        x-frame-options: deny
-        x-github-media-type: github.v3; format=json
-        x-github-request-id: 2401:262E8:A6A39A:CA7708:5D832F12
-        x-oauth-scopes: notifications, repo
-        x-ratelimit-limit: '5000'
-        x-ratelimit-remaining: '4997'
-        x-ratelimit-reset: '1568881954'
-        x-xss-protection: 1; mode=block
-      - '{"message":"Not Found","documentation_url":"https://developer.github.com/v3/repos/#get"}'
-    - - 200
-      - access-control-allow-origin: '*'
-        access-control-expose-headers: ETag, Link, Location, Retry-After, X-GitHub-OTP,
-          X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Reset, X-OAuth-Scopes,
-          X-Accepted-OAuth-Scopes, X-Poll-Interval, X-GitHub-Media-Type
-        cache-control: private, max-age=60, s-maxage=60
-        content-encoding: gzip
-        content-security-policy: default-src 'none'
-        content-type: application/json; charset=utf-8
-        date: Thu, 19 Sep 2019 07:32:36 GMT
-        etag: W/"0449e6e02e4b7029581c443ae3175ec5"
-        last-modified: Thu, 19 Sep 2019 07:32:35 GMT
-        referrer-policy: origin-when-cross-origin, strict-origin-when-cross-origin
-        server: GitHub.com
-        status: 200 OK
-        strict-transport-security: max-age=31536000; includeSubdomains; preload
-        transfer-encoding: chunked
-        vary: Accept, Authorization, Cookie, X-GitHub-OTP, Accept-Encoding
-        x-accepted-oauth-scopes: repo
-        x-content-type-options: nosniff
-        x-frame-options: deny
-        x-github-media-type: github.v3; format=json
-        x-github-request-id: 2401:262E8:A6A3B4:CA7728:5D832F14
-        x-oauth-scopes: notifications, repo
-        x-ratelimit-limit: '5000'
-        x-ratelimit-remaining: '4993'
-        x-ratelimit-reset: '1568881954'
-        x-xss-protection: 1; mode=block
-      - '{"id":209490784,"node_id":"MDEwOlJlcG9zaXRvcnkyMDk0OTA3ODQ=","name":"repo_created_for_test","full_name":"lbarcziova/repo_created_for_test","private":false,"owner":{"login":"lbarcziova","id":49026743,"node_id":"MDQ6VXNlcjQ5MDI2NzQz","avatar_url":"https://avatars3.githubusercontent.com/u/49026743?v=4","gravatar_id":"","url":"https://api.github.com/users/lbarcziova","html_url":"https://github.com/lbarcziova","followers_url":"https://api.github.com/users/lbarcziova/followers","following_url":"https://api.github.com/users/lbarcziova/following{/other_user}","gists_url":"https://api.github.com/users/lbarcziova/gists{/gist_id}","starred_url":"https://api.github.com/users/lbarcziova/starred{/owner}{/repo}","subscriptions_url":"https://api.github.com/users/lbarcziova/subscriptions","organizations_url":"https://api.github.com/users/lbarcziova/orgs","repos_url":"https://api.github.com/users/lbarcziova/repos","events_url":"https://api.github.com/users/lbarcziova/events{/privacy}","received_events_url":"https://api.github.com/users/lbarcziova/received_events","type":"User","site_admin":false},"html_url":"https://github.com/lbarcziova/repo_created_for_test","description":null,"fork":false,"url":"https://api.github.com/repos/lbarcziova/repo_created_for_test","forks_url":"https://api.github.com/repos/lbarcziova/repo_created_for_test/forks","keys_url":"https://api.github.com/repos/lbarcziova/repo_created_for_test/keys{/key_id}","collaborators_url":"https://api.github.com/repos/lbarcziova/repo_created_for_test/collaborators{/collaborator}","teams_url":"https://api.github.com/repos/lbarcziova/repo_created_for_test/teams","hooks_url":"https://api.github.com/repos/lbarcziova/repo_created_for_test/hooks","issue_events_url":"https://api.github.com/repos/lbarcziova/repo_created_for_test/issues/events{/number}","events_url":"https://api.github.com/repos/lbarcziova/repo_created_for_test/events","assignees_url":"https://api.github.com/repos/lbarcziova/repo_created_for_test/assignees{/user}","branches_url":"https://api.github.com/repos/lbarcziova/repo_created_for_test/branches{/branch}","tags_url":"https://api.github.com/repos/lbarcziova/repo_created_for_test/tags","blobs_url":"https://api.github.com/repos/lbarcziova/repo_created_for_test/git/blobs{/sha}","git_tags_url":"https://api.github.com/repos/lbarcziova/repo_created_for_test/git/tags{/sha}","git_refs_url":"https://api.github.com/repos/lbarcziova/repo_created_for_test/git/refs{/sha}","trees_url":"https://api.github.com/repos/lbarcziova/repo_created_for_test/git/trees{/sha}","statuses_url":"https://api.github.com/repos/lbarcziova/repo_created_for_test/statuses/{sha}","languages_url":"https://api.github.com/repos/lbarcziova/repo_created_for_test/languages","stargazers_url":"https://api.github.com/repos/lbarcziova/repo_created_for_test/stargazers","contributors_url":"https://api.github.com/repos/lbarcziova/repo_created_for_test/contributors","subscribers_url":"https://api.github.com/repos/lbarcziova/repo_created_for_test/subscribers","subscription_url":"https://api.github.com/repos/lbarcziova/repo_created_for_test/subscription","commits_url":"https://api.github.com/repos/lbarcziova/repo_created_for_test/commits{/sha}","git_commits_url":"https://api.github.com/repos/lbarcziova/repo_created_for_test/git/commits{/sha}","comments_url":"https://api.github.com/repos/lbarcziova/repo_created_for_test/comments{/number}","issue_comment_url":"https://api.github.com/repos/lbarcziova/repo_created_for_test/issues/comments{/number}","contents_url":"https://api.github.com/repos/lbarcziova/repo_created_for_test/contents/{+path}","compare_url":"https://api.github.com/repos/lbarcziova/repo_created_for_test/compare/{base}...{head}","merges_url":"https://api.github.com/repos/lbarcziova/repo_created_for_test/merges","archive_url":"https://api.github.com/repos/lbarcziova/repo_created_for_test/{archive_format}{/ref}","downloads_url":"https://api.github.com/repos/lbarcziova/repo_created_for_test/downloads","issues_url":"https://api.github.com/repos/lbarcziova/repo_created_for_test/issues{/number}","pulls_url":"https://api.github.com/repos/lbarcziova/repo_created_for_test/pulls{/number}","milestones_url":"https://api.github.com/repos/lbarcziova/repo_created_for_test/milestones{/number}","notifications_url":"https://api.github.com/repos/lbarcziova/repo_created_for_test/notifications{?since,all,participating}","labels_url":"https://api.github.com/repos/lbarcziova/repo_created_for_test/labels{/name}","releases_url":"https://api.github.com/repos/lbarcziova/repo_created_for_test/releases{/id}","deployments_url":"https://api.github.com/repos/lbarcziova/repo_created_for_test/deployments","created_at":"2019-09-19T07:32:34Z","updated_at":"2019-09-19T07:32:35Z","pushed_at":"2019-09-19T07:32:35Z","git_url":"git://github.com/lbarcziova/repo_created_for_test.git","ssh_url":"git@github.com:lbarcziova/repo_created_for_test.git","clone_url":"https://github.com/lbarcziova/repo_created_for_test.git","svn_url":"https://github.com/lbarcziova/repo_created_for_test","homepage":null,"size":0,"stargazers_count":0,"watchers_count":0,"language":null,"has_issues":true,"has_projects":true,"has_downloads":true,"has_wiki":true,"has_pages":false,"forks_count":0,"mirror_url":null,"archived":false,"disabled":false,"open_issues_count":0,"license":null,"forks":0,"open_issues":0,"watchers":0,"default_branch":"master","permissions":{"admin":true,"push":true,"pull":true},"allow_squash_merge":true,"allow_merge_commit":true,"allow_rebase_merge":true,"network_count":0,"subscribers_count":1}'
-  /user:
-    empty:
-    - - 200
-      - access-control-allow-origin: '*'
-        access-control-expose-headers: ETag, Link, Location, Retry-After, X-GitHub-OTP,
-          X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Reset, X-OAuth-Scopes,
-          X-Accepted-OAuth-Scopes, X-Poll-Interval, X-GitHub-Media-Type
-        cache-control: private, max-age=60, s-maxage=60
-        content-encoding: gzip
-        content-security-policy: default-src 'none'
-        content-type: application/json; charset=utf-8
-        date: Thu, 19 Sep 2019 07:32:34 GMT
-        etag: W/"c2a9aeb3c91874b0d91295706ed8119a"
-        last-modified: Tue, 17 Sep 2019 13:57:50 GMT
-        referrer-policy: origin-when-cross-origin, strict-origin-when-cross-origin
-        server: GitHub.com
-        status: 200 OK
-        strict-transport-security: max-age=31536000; includeSubdomains; preload
-        transfer-encoding: chunked
-        vary: Accept, Authorization, Cookie, X-GitHub-OTP, Accept-Encoding
-        x-accepted-oauth-scopes: ''
-        x-content-type-options: nosniff
-        x-frame-options: deny
-        x-github-media-type: github.v3; format=json
-        x-github-request-id: 2401:262E8:A6A395:CA7702:5D832F12
-        x-oauth-scopes: notifications, repo
-        x-ratelimit-limit: '5000'
-        x-ratelimit-remaining: '4999'
-        x-ratelimit-reset: '1568881954'
-        x-xss-protection: 1; mode=block
-      - "{\"login\":\"lbarcziova\",\"id\":49026743,\"node_id\":\"MDQ6VXNlcjQ5MDI2NzQz\"\
-        ,\"avatar_url\":\"https://avatars3.githubusercontent.com/u/49026743?v=4\"\
-        ,\"gravatar_id\":\"\",\"url\":\"https://api.github.com/users/lbarcziova\"\
-        ,\"html_url\":\"https://github.com/lbarcziova\",\"followers_url\":\"https://api.github.com/users/lbarcziova/followers\"\
-        ,\"following_url\":\"https://api.github.com/users/lbarcziova/following{/other_user}\"\
-        ,\"gists_url\":\"https://api.github.com/users/lbarcziova/gists{/gist_id}\"\
-        ,\"starred_url\":\"https://api.github.com/users/lbarcziova/starred{/owner}{/repo}\"\
-        ,\"subscriptions_url\":\"https://api.github.com/users/lbarcziova/subscriptions\"\
-        ,\"organizations_url\":\"https://api.github.com/users/lbarcziova/orgs\",\"\
-        repos_url\":\"https://api.github.com/users/lbarcziova/repos\",\"events_url\"\
-        :\"https://api.github.com/users/lbarcziova/events{/privacy}\",\"received_events_url\"\
-        :\"https://api.github.com/users/lbarcziova/received_events\",\"type\":\"User\"\
-        ,\"site_admin\":false,\"name\":\"Laura Barcziov\xE1\",\"company\":null,\"\
-        blog\":\"\",\"location\":\"Brno\",\"email\":null,\"hireable\":null,\"bio\"\
-        :null,\"public_repos\":6,\"public_gists\":0,\"followers\":0,\"following\"\
-        :0,\"created_at\":\"2019-03-28T11:17:32Z\",\"updated_at\":\"2019-09-17T13:57:50Z\"\
-        }"
-    - - 200
-      - access-control-allow-origin: '*'
-        access-control-expose-headers: ETag, Link, Location, Retry-After, X-GitHub-OTP,
-          X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Reset, X-OAuth-Scopes,
-          X-Accepted-OAuth-Scopes, X-Poll-Interval, X-GitHub-Media-Type
-        cache-control: private, max-age=60, s-maxage=60
-        content-encoding: gzip
-        content-security-policy: default-src 'none'
-        content-type: application/json; charset=utf-8
-        date: Thu, 19 Sep 2019 07:32:34 GMT
-        etag: W/"c2a9aeb3c91874b0d91295706ed8119a"
-        last-modified: Tue, 17 Sep 2019 13:57:50 GMT
-        referrer-policy: origin-when-cross-origin, strict-origin-when-cross-origin
-        server: GitHub.com
-        status: 200 OK
-        strict-transport-security: max-age=31536000; includeSubdomains; preload
-        transfer-encoding: chunked
-        vary: Accept, Authorization, Cookie, X-GitHub-OTP, Accept-Encoding
-        x-accepted-oauth-scopes: ''
-        x-content-type-options: nosniff
-        x-frame-options: deny
-        x-github-media-type: github.v3; format=json
-        x-github-request-id: 2401:262E8:A6A397:CA7704:5D832F12
-        x-oauth-scopes: notifications, repo
-        x-ratelimit-limit: '5000'
-        x-ratelimit-remaining: '4998'
-        x-ratelimit-reset: '1568881954'
-        x-xss-protection: 1; mode=block
-      - "{\"login\":\"lbarcziova\",\"id\":49026743,\"node_id\":\"MDQ6VXNlcjQ5MDI2NzQz\"\
-        ,\"avatar_url\":\"https://avatars3.githubusercontent.com/u/49026743?v=4\"\
-        ,\"gravatar_id\":\"\",\"url\":\"https://api.github.com/users/lbarcziova\"\
-        ,\"html_url\":\"https://github.com/lbarcziova\",\"followers_url\":\"https://api.github.com/users/lbarcziova/followers\"\
-        ,\"following_url\":\"https://api.github.com/users/lbarcziova/following{/other_user}\"\
-        ,\"gists_url\":\"https://api.github.com/users/lbarcziova/gists{/gist_id}\"\
-        ,\"starred_url\":\"https://api.github.com/users/lbarcziova/starred{/owner}{/repo}\"\
-        ,\"subscriptions_url\":\"https://api.github.com/users/lbarcziova/subscriptions\"\
-        ,\"organizations_url\":\"https://api.github.com/users/lbarcziova/orgs\",\"\
-        repos_url\":\"https://api.github.com/users/lbarcziova/repos\",\"events_url\"\
-        :\"https://api.github.com/users/lbarcziova/events{/privacy}\",\"received_events_url\"\
-        :\"https://api.github.com/users/lbarcziova/received_events\",\"type\":\"User\"\
-        ,\"site_admin\":false,\"name\":\"Laura Barcziov\xE1\",\"company\":null,\"\
-        blog\":\"\",\"location\":\"Brno\",\"email\":null,\"hireable\":null,\"bio\"\
-        :null,\"public_repos\":6,\"public_gists\":0,\"followers\":0,\"following\"\
-        :0,\"created_at\":\"2019-03-28T11:17:32Z\",\"updated_at\":\"2019-09-17T13:57:50Z\"\
-        }"
-    - - 200
-      - access-control-allow-origin: '*'
-        access-control-expose-headers: ETag, Link, Location, Retry-After, X-GitHub-OTP,
-          X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Reset, X-OAuth-Scopes,
-          X-Accepted-OAuth-Scopes, X-Poll-Interval, X-GitHub-Media-Type
-        cache-control: private, max-age=60, s-maxage=60
-        content-encoding: gzip
-        content-security-policy: default-src 'none'
-        content-type: application/json; charset=utf-8
-        date: Thu, 19 Sep 2019 07:32:36 GMT
-        etag: W/"359763e50cfce7a5cab885988f60309d"
-        last-modified: Tue, 17 Sep 2019 13:57:50 GMT
-        referrer-policy: origin-when-cross-origin, strict-origin-when-cross-origin
-        server: GitHub.com
-        status: 200 OK
-        strict-transport-security: max-age=31536000; includeSubdomains; preload
-        transfer-encoding: chunked
-        vary: Accept, Authorization, Cookie, X-GitHub-OTP, Accept-Encoding
-        x-accepted-oauth-scopes: ''
-        x-content-type-options: nosniff
-        x-frame-options: deny
-        x-github-media-type: github.v3; format=json
-        x-github-request-id: 2401:262E8:A6A3B0:CA7723:5D832F13
-        x-oauth-scopes: notifications, repo
-        x-ratelimit-limit: '5000'
-        x-ratelimit-remaining: '4995'
-        x-ratelimit-reset: '1568881954'
-        x-xss-protection: 1; mode=block
-      - "{\"login\":\"lbarcziova\",\"id\":49026743,\"node_id\":\"MDQ6VXNlcjQ5MDI2NzQz\"\
-        ,\"avatar_url\":\"https://avatars3.githubusercontent.com/u/49026743?v=4\"\
-        ,\"gravatar_id\":\"\",\"url\":\"https://api.github.com/users/lbarcziova\"\
-        ,\"html_url\":\"https://github.com/lbarcziova\",\"followers_url\":\"https://api.github.com/users/lbarcziova/followers\"\
-        ,\"following_url\":\"https://api.github.com/users/lbarcziova/following{/other_user}\"\
-        ,\"gists_url\":\"https://api.github.com/users/lbarcziova/gists{/gist_id}\"\
-        ,\"starred_url\":\"https://api.github.com/users/lbarcziova/starred{/owner}{/repo}\"\
-        ,\"subscriptions_url\":\"https://api.github.com/users/lbarcziova/subscriptions\"\
-        ,\"organizations_url\":\"https://api.github.com/users/lbarcziova/orgs\",\"\
-        repos_url\":\"https://api.github.com/users/lbarcziova/repos\",\"events_url\"\
-        :\"https://api.github.com/users/lbarcziova/events{/privacy}\",\"received_events_url\"\
-        :\"https://api.github.com/users/lbarcziova/received_events\",\"type\":\"User\"\
-        ,\"site_admin\":false,\"name\":\"Laura Barcziov\xE1\",\"company\":null,\"\
-        blog\":\"\",\"location\":\"Brno\",\"email\":null,\"hireable\":null,\"bio\"\
-        :null,\"public_repos\":7,\"public_gists\":0,\"followers\":0,\"following\"\
-        :0,\"created_at\":\"2019-03-28T11:17:32Z\",\"updated_at\":\"2019-09-17T13:57:50Z\"\
-        }"
-    - - 200
-      - access-control-allow-origin: '*'
-        access-control-expose-headers: ETag, Link, Location, Retry-After, X-GitHub-OTP,
-          X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Reset, X-OAuth-Scopes,
-          X-Accepted-OAuth-Scopes, X-Poll-Interval, X-GitHub-Media-Type
-        cache-control: private, max-age=60, s-maxage=60
-        content-encoding: gzip
-        content-security-policy: default-src 'none'
-        content-type: application/json; charset=utf-8
-        date: Thu, 19 Sep 2019 07:32:36 GMT
-        etag: W/"359763e50cfce7a5cab885988f60309d"
-        last-modified: Tue, 17 Sep 2019 13:57:50 GMT
-        referrer-policy: origin-when-cross-origin, strict-origin-when-cross-origin
-        server: GitHub.com
-        status: 200 OK
-        strict-transport-security: max-age=31536000; includeSubdomains; preload
-        transfer-encoding: chunked
-        vary: Accept, Authorization, Cookie, X-GitHub-OTP, Accept-Encoding
-        x-accepted-oauth-scopes: ''
-        x-content-type-options: nosniff
-        x-frame-options: deny
-        x-github-media-type: github.v3; format=json
-        x-github-request-id: 2401:262E8:A6A3B3:CA7726:5D832F14
-        x-oauth-scopes: notifications, repo
-        x-ratelimit-limit: '5000'
-        x-ratelimit-remaining: '4994'
-        x-ratelimit-reset: '1568881954'
-        x-xss-protection: 1; mode=block
-      - "{\"login\":\"lbarcziova\",\"id\":49026743,\"node_id\":\"MDQ6VXNlcjQ5MDI2NzQz\"\
-        ,\"avatar_url\":\"https://avatars3.githubusercontent.com/u/49026743?v=4\"\
-        ,\"gravatar_id\":\"\",\"url\":\"https://api.github.com/users/lbarcziova\"\
-        ,\"html_url\":\"https://github.com/lbarcziova\",\"followers_url\":\"https://api.github.com/users/lbarcziova/followers\"\
-        ,\"following_url\":\"https://api.github.com/users/lbarcziova/following{/other_user}\"\
-        ,\"gists_url\":\"https://api.github.com/users/lbarcziova/gists{/gist_id}\"\
-        ,\"starred_url\":\"https://api.github.com/users/lbarcziova/starred{/owner}{/repo}\"\
-        ,\"subscriptions_url\":\"https://api.github.com/users/lbarcziova/subscriptions\"\
-        ,\"organizations_url\":\"https://api.github.com/users/lbarcziova/orgs\",\"\
-        repos_url\":\"https://api.github.com/users/lbarcziova/repos\",\"events_url\"\
-        :\"https://api.github.com/users/lbarcziova/events{/privacy}\",\"received_events_url\"\
-        :\"https://api.github.com/users/lbarcziova/received_events\",\"type\":\"User\"\
-        ,\"site_admin\":false,\"name\":\"Laura Barcziov\xE1\",\"company\":null,\"\
-        blog\":\"\",\"location\":\"Brno\",\"email\":null,\"hireable\":null,\"bio\"\
-        :null,\"public_repos\":7,\"public_gists\":0,\"followers\":0,\"following\"\
-        :0,\"created_at\":\"2019-03-28T11:17:32Z\",\"updated_at\":\"2019-09-17T13:57:50Z\"\
-        }"
-POST:
-  /user/repos:
-    empty:
-    - - 201
-      - access-control-allow-origin: '*'
-        access-control-expose-headers: ETag, Link, Location, Retry-After, X-GitHub-OTP,
-          X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Reset, X-OAuth-Scopes,
-          X-Accepted-OAuth-Scopes, X-Poll-Interval, X-GitHub-Media-Type
-        cache-control: private, max-age=60, s-maxage=60
-        content-length: '5553'
-        content-security-policy: default-src 'none'
-        content-type: application/json; charset=utf-8
-        date: Thu, 19 Sep 2019 07:32:35 GMT
-        etag: '"0449e6e02e4b7029581c443ae3175ec5"'
-        location: https://api.github.com/repos/lbarcziova/repo_created_for_test
-        referrer-policy: origin-when-cross-origin, strict-origin-when-cross-origin
-        server: GitHub.com
-        status: 201 Created
-        strict-transport-security: max-age=31536000; includeSubdomains; preload
-        vary: Accept, Authorization, Cookie, X-GitHub-OTP, Accept-Encoding
-        x-accepted-oauth-scopes: public_repo, repo
-        x-content-type-options: nosniff
-        x-frame-options: deny
-        x-github-media-type: github.v3; format=json
-        x-github-request-id: 2401:262E8:A6A39E:CA770F:5D832F12
-        x-oauth-scopes: notifications, repo
-        x-ratelimit-limit: '5000'
-        x-ratelimit-remaining: '4996'
-        x-ratelimit-reset: '1568881954'
-        x-xss-protection: 1; mode=block
-      - '{"id":209490784,"node_id":"MDEwOlJlcG9zaXRvcnkyMDk0OTA3ODQ=","name":"repo_created_for_test","full_name":"lbarcziova/repo_created_for_test","private":false,"owner":{"login":"lbarcziova","id":49026743,"node_id":"MDQ6VXNlcjQ5MDI2NzQz","avatar_url":"https://avatars3.githubusercontent.com/u/49026743?v=4","gravatar_id":"","url":"https://api.github.com/users/lbarcziova","html_url":"https://github.com/lbarcziova","followers_url":"https://api.github.com/users/lbarcziova/followers","following_url":"https://api.github.com/users/lbarcziova/following{/other_user}","gists_url":"https://api.github.com/users/lbarcziova/gists{/gist_id}","starred_url":"https://api.github.com/users/lbarcziova/starred{/owner}{/repo}","subscriptions_url":"https://api.github.com/users/lbarcziova/subscriptions","organizations_url":"https://api.github.com/users/lbarcziova/orgs","repos_url":"https://api.github.com/users/lbarcziova/repos","events_url":"https://api.github.com/users/lbarcziova/events{/privacy}","received_events_url":"https://api.github.com/users/lbarcziova/received_events","type":"User","site_admin":false},"html_url":"https://github.com/lbarcziova/repo_created_for_test","description":null,"fork":false,"url":"https://api.github.com/repos/lbarcziova/repo_created_for_test","forks_url":"https://api.github.com/repos/lbarcziova/repo_created_for_test/forks","keys_url":"https://api.github.com/repos/lbarcziova/repo_created_for_test/keys{/key_id}","collaborators_url":"https://api.github.com/repos/lbarcziova/repo_created_for_test/collaborators{/collaborator}","teams_url":"https://api.github.com/repos/lbarcziova/repo_created_for_test/teams","hooks_url":"https://api.github.com/repos/lbarcziova/repo_created_for_test/hooks","issue_events_url":"https://api.github.com/repos/lbarcziova/repo_created_for_test/issues/events{/number}","events_url":"https://api.github.com/repos/lbarcziova/repo_created_for_test/events","assignees_url":"https://api.github.com/repos/lbarcziova/repo_created_for_test/assignees{/user}","branches_url":"https://api.github.com/repos/lbarcziova/repo_created_for_test/branches{/branch}","tags_url":"https://api.github.com/repos/lbarcziova/repo_created_for_test/tags","blobs_url":"https://api.github.com/repos/lbarcziova/repo_created_for_test/git/blobs{/sha}","git_tags_url":"https://api.github.com/repos/lbarcziova/repo_created_for_test/git/tags{/sha}","git_refs_url":"https://api.github.com/repos/lbarcziova/repo_created_for_test/git/refs{/sha}","trees_url":"https://api.github.com/repos/lbarcziova/repo_created_for_test/git/trees{/sha}","statuses_url":"https://api.github.com/repos/lbarcziova/repo_created_for_test/statuses/{sha}","languages_url":"https://api.github.com/repos/lbarcziova/repo_created_for_test/languages","stargazers_url":"https://api.github.com/repos/lbarcziova/repo_created_for_test/stargazers","contributors_url":"https://api.github.com/repos/lbarcziova/repo_created_for_test/contributors","subscribers_url":"https://api.github.com/repos/lbarcziova/repo_created_for_test/subscribers","subscription_url":"https://api.github.com/repos/lbarcziova/repo_created_for_test/subscription","commits_url":"https://api.github.com/repos/lbarcziova/repo_created_for_test/commits{/sha}","git_commits_url":"https://api.github.com/repos/lbarcziova/repo_created_for_test/git/commits{/sha}","comments_url":"https://api.github.com/repos/lbarcziova/repo_created_for_test/comments{/number}","issue_comment_url":"https://api.github.com/repos/lbarcziova/repo_created_for_test/issues/comments{/number}","contents_url":"https://api.github.com/repos/lbarcziova/repo_created_for_test/contents/{+path}","compare_url":"https://api.github.com/repos/lbarcziova/repo_created_for_test/compare/{base}...{head}","merges_url":"https://api.github.com/repos/lbarcziova/repo_created_for_test/merges","archive_url":"https://api.github.com/repos/lbarcziova/repo_created_for_test/{archive_format}{/ref}","downloads_url":"https://api.github.com/repos/lbarcziova/repo_created_for_test/downloads","issues_url":"https://api.github.com/repos/lbarcziova/repo_created_for_test/issues{/number}","pulls_url":"https://api.github.com/repos/lbarcziova/repo_created_for_test/pulls{/number}","milestones_url":"https://api.github.com/repos/lbarcziova/repo_created_for_test/milestones{/number}","notifications_url":"https://api.github.com/repos/lbarcziova/repo_created_for_test/notifications{?since,all,participating}","labels_url":"https://api.github.com/repos/lbarcziova/repo_created_for_test/labels{/name}","releases_url":"https://api.github.com/repos/lbarcziova/repo_created_for_test/releases{/id}","deployments_url":"https://api.github.com/repos/lbarcziova/repo_created_for_test/deployments","created_at":"2019-09-19T07:32:34Z","updated_at":"2019-09-19T07:32:35Z","pushed_at":"2019-09-19T07:32:35Z","git_url":"git://github.com/lbarcziova/repo_created_for_test.git","ssh_url":"git@github.com:lbarcziova/repo_created_for_test.git","clone_url":"https://github.com/lbarcziova/repo_created_for_test.git","svn_url":"https://github.com/lbarcziova/repo_created_for_test","homepage":null,"size":0,"stargazers_count":0,"watchers_count":0,"language":null,"has_issues":true,"has_projects":true,"has_downloads":true,"has_wiki":true,"has_pages":false,"forks_count":0,"mirror_url":null,"archived":false,"disabled":false,"open_issues_count":0,"license":null,"forks":0,"open_issues":0,"watchers":0,"default_branch":"master","permissions":{"admin":true,"push":true,"pull":true},"allow_squash_merge":true,"allow_merge_commit":true,"allow_rebase_merge":true,"network_count":0,"subscribers_count":1}'
+unittest.case:
+  tests.integration.test_github:
+    ogr.services.github:
+      github.AuthenticatedUser:
+        github.GithubObject:
+          github.Requester:
+            requests.sessions:
+              requre.objects:
+                requests.sessions:
+                  send:
+                  - __store_indicator: 2
+                    _content:
+                      avatar_url: https://avatars0.githubusercontent.com/u/8735467?v=4
+                      bio: null
+                      blog: ''
+                      collaborators: 0
+                      company: null
+                      created_at: '2014-09-11T10:37:11Z'
+                      disk_usage: 659
+                      email: null
+                      events_url: https://api.github.com/users/jscotka/events{/privacy}
+                      followers: 1
+                      followers_url: https://api.github.com/users/jscotka/followers
+                      following: 0
+                      following_url: https://api.github.com/users/jscotka/following{/other_user}
+                      gists_url: https://api.github.com/users/jscotka/gists{/gist_id}
+                      gravatar_id: ''
+                      hireable: null
+                      html_url: https://github.com/jscotka
+                      id: 8735467
+                      location: null
+                      login: jscotka
+                      name: null
+                      node_id: MDQ6VXNlcjg3MzU0Njc=
+                      organizations_url: https://api.github.com/users/jscotka/orgs
+                      owned_private_repos: 0
+                      plan:
+                        collaborators: 0
+                        name: free
+                        private_repos: 10000
+                        space: 976562499
+                      private_gists: 0
+                      public_gists: 0
+                      public_repos: 27
+                      received_events_url: https://api.github.com/users/jscotka/received_events
+                      repos_url: https://api.github.com/users/jscotka/repos
+                      site_admin: false
+                      starred_url: https://api.github.com/users/jscotka/starred{/owner}{/repo}
+                      subscriptions_url: https://api.github.com/users/jscotka/subscriptions
+                      total_private_repos: 0
+                      two_factor_authentication: true
+                      type: User
+                      updated_at: '2019-09-16T07:00:36Z'
+                      url: https://api.github.com/users/jscotka
+                    _next: null
+                    elapsed: 5.426338
+                    encoding: utf-8
+                    headers:
+                      Access-Control-Allow-Origin: '*'
+                      Access-Control-Expose-Headers: ETag, Link, Location, Retry-After,
+                        X-GitHub-OTP, X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Reset,
+                        X-OAuth-Scopes, X-Accepted-OAuth-Scopes, X-Poll-Interval,
+                        X-GitHub-Media-Type
+                      Cache-Control: private, max-age=60, s-maxage=60
+                      Content-Encoding: gzip
+                      Content-Security-Policy: default-src 'none'
+                      Content-Type: application/json; charset=utf-8
+                      Date: Fri, 27 Sep 2019 09:07:25 GMT
+                      ETag: W/"ee2028c1a303867bfb2e643941184da2"
+                      Last-Modified: Mon, 16 Sep 2019 07:00:36 GMT
+                      Referrer-Policy: origin-when-cross-origin, strict-origin-when-cross-origin
+                      Server: GitHub.com
+                      Status: 200 OK
+                      Strict-Transport-Security: max-age=31536000; includeSubdomains;
+                        preload
+                      Transfer-Encoding: chunked
+                      Vary: Accept, Authorization, Cookie, X-GitHub-OTP, Accept-Encoding
+                      X-Accepted-OAuth-Scopes: ''
+                      X-Content-Type-Options: nosniff
+                      X-Frame-Options: deny
+                      X-GitHub-Media-Type: github.v3; format=json
+                      X-GitHub-Request-Id: C500:184EC:6194578:75E7951:5D8DD14C
+                      X-OAuth-Scopes: admin:gpg_key, admin:org, admin:org_hook, admin:public_key,
+                        admin:repo_hook, delete_repo, gist, notifications, repo, user,
+                        write:discussion
+                      X-RateLimit-Limit: '5000'
+                      X-RateLimit-Remaining: '3553'
+                      X-RateLimit-Reset: '1569578321'
+                      X-XSS-Protection: 1; mode=block
+                    raw: !!binary ""
+                    reason: OK
+                    status_code: 200
+                  - __store_indicator: 2
+                    _content:
+                      avatar_url: https://avatars0.githubusercontent.com/u/8735467?v=4
+                      bio: null
+                      blog: ''
+                      collaborators: 0
+                      company: null
+                      created_at: '2014-09-11T10:37:11Z'
+                      disk_usage: 659
+                      email: null
+                      events_url: https://api.github.com/users/jscotka/events{/privacy}
+                      followers: 1
+                      followers_url: https://api.github.com/users/jscotka/followers
+                      following: 0
+                      following_url: https://api.github.com/users/jscotka/following{/other_user}
+                      gists_url: https://api.github.com/users/jscotka/gists{/gist_id}
+                      gravatar_id: ''
+                      hireable: null
+                      html_url: https://github.com/jscotka
+                      id: 8735467
+                      location: null
+                      login: jscotka
+                      name: null
+                      node_id: MDQ6VXNlcjg3MzU0Njc=
+                      organizations_url: https://api.github.com/users/jscotka/orgs
+                      owned_private_repos: 0
+                      plan:
+                        collaborators: 0
+                        name: free
+                        private_repos: 10000
+                        space: 976562499
+                      private_gists: 0
+                      public_gists: 0
+                      public_repos: 28
+                      received_events_url: https://api.github.com/users/jscotka/received_events
+                      repos_url: https://api.github.com/users/jscotka/repos
+                      site_admin: false
+                      starred_url: https://api.github.com/users/jscotka/starred{/owner}{/repo}
+                      subscriptions_url: https://api.github.com/users/jscotka/subscriptions
+                      total_private_repos: 0
+                      two_factor_authentication: true
+                      type: User
+                      updated_at: '2019-09-16T07:00:36Z'
+                      url: https://api.github.com/users/jscotka
+                    _next: null
+                    elapsed: 0.700304
+                    encoding: utf-8
+                    headers:
+                      Access-Control-Allow-Origin: '*'
+                      Access-Control-Expose-Headers: ETag, Link, Location, Retry-After,
+                        X-GitHub-OTP, X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Reset,
+                        X-OAuth-Scopes, X-Accepted-OAuth-Scopes, X-Poll-Interval,
+                        X-GitHub-Media-Type
+                      Cache-Control: private, max-age=60, s-maxage=60
+                      Content-Encoding: gzip
+                      Content-Security-Policy: default-src 'none'
+                      Content-Type: application/json; charset=utf-8
+                      Date: Fri, 27 Sep 2019 09:07:27 GMT
+                      ETag: W/"bc764ffe7be3fe8def6dee80350264ec"
+                      Last-Modified: Mon, 16 Sep 2019 07:00:36 GMT
+                      Referrer-Policy: origin-when-cross-origin, strict-origin-when-cross-origin
+                      Server: GitHub.com
+                      Status: 200 OK
+                      Strict-Transport-Security: max-age=31536000; includeSubdomains;
+                        preload
+                      Transfer-Encoding: chunked
+                      Vary: Accept, Authorization, Cookie, X-GitHub-OTP, Accept-Encoding
+                      X-Accepted-OAuth-Scopes: ''
+                      X-Content-Type-Options: nosniff
+                      X-Frame-Options: deny
+                      X-GitHub-Media-Type: github.v3; format=json
+                      X-GitHub-Request-Id: C500:184EC:6194976:75E7DE1:5D8DD14F
+                      X-OAuth-Scopes: admin:gpg_key, admin:org, admin:org_hook, admin:public_key,
+                        admin:repo_hook, delete_repo, gist, notifications, repo, user,
+                        write:discussion
+                      X-RateLimit-Limit: '5000'
+                      X-RateLimit-Remaining: '3550'
+                      X-RateLimit-Reset: '1569578321'
+                      X-XSS-Protection: 1; mode=block
+                    raw: !!binary ""
+                    reason: OK
+                    status_code: 200
+                  - __store_indicator: 2
+                    _content:
+                      avatar_url: https://avatars0.githubusercontent.com/u/8735467?v=4
+                      bio: null
+                      blog: ''
+                      collaborators: 0
+                      company: null
+                      created_at: '2014-09-11T10:37:11Z'
+                      disk_usage: 659
+                      email: null
+                      events_url: https://api.github.com/users/jscotka/events{/privacy}
+                      followers: 1
+                      followers_url: https://api.github.com/users/jscotka/followers
+                      following: 0
+                      following_url: https://api.github.com/users/jscotka/following{/other_user}
+                      gists_url: https://api.github.com/users/jscotka/gists{/gist_id}
+                      gravatar_id: ''
+                      hireable: null
+                      html_url: https://github.com/jscotka
+                      id: 8735467
+                      location: null
+                      login: jscotka
+                      name: null
+                      node_id: MDQ6VXNlcjg3MzU0Njc=
+                      organizations_url: https://api.github.com/users/jscotka/orgs
+                      owned_private_repos: 0
+                      plan:
+                        collaborators: 0
+                        name: free
+                        private_repos: 10000
+                        space: 976562499
+                      private_gists: 0
+                      public_gists: 0
+                      public_repos: 28
+                      received_events_url: https://api.github.com/users/jscotka/received_events
+                      repos_url: https://api.github.com/users/jscotka/repos
+                      site_admin: false
+                      starred_url: https://api.github.com/users/jscotka/starred{/owner}{/repo}
+                      subscriptions_url: https://api.github.com/users/jscotka/subscriptions
+                      total_private_repos: 0
+                      two_factor_authentication: true
+                      type: User
+                      updated_at: '2019-09-16T07:00:36Z'
+                      url: https://api.github.com/users/jscotka
+                    _next: null
+                    elapsed: 0.301675
+                    encoding: utf-8
+                    headers:
+                      Access-Control-Allow-Origin: '*'
+                      Access-Control-Expose-Headers: ETag, Link, Location, Retry-After,
+                        X-GitHub-OTP, X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Reset,
+                        X-OAuth-Scopes, X-Accepted-OAuth-Scopes, X-Poll-Interval,
+                        X-GitHub-Media-Type
+                      Cache-Control: private, max-age=60, s-maxage=60
+                      Content-Encoding: gzip
+                      Content-Security-Policy: default-src 'none'
+                      Content-Type: application/json; charset=utf-8
+                      Date: Fri, 27 Sep 2019 09:07:28 GMT
+                      ETag: W/"bc764ffe7be3fe8def6dee80350264ec"
+                      Last-Modified: Mon, 16 Sep 2019 07:00:36 GMT
+                      Referrer-Policy: origin-when-cross-origin, strict-origin-when-cross-origin
+                      Server: GitHub.com
+                      Status: 200 OK
+                      Strict-Transport-Security: max-age=31536000; includeSubdomains;
+                        preload
+                      Transfer-Encoding: chunked
+                      Vary: Accept, Authorization, Cookie, X-GitHub-OTP, Accept-Encoding
+                      X-Accepted-OAuth-Scopes: ''
+                      X-Content-Type-Options: nosniff
+                      X-Frame-Options: deny
+                      X-GitHub-Media-Type: github.v3; format=json
+                      X-GitHub-Request-Id: C500:184EC:6194AC2:75E7F36:5D8DD14F
+                      X-OAuth-Scopes: admin:gpg_key, admin:org, admin:org_hook, admin:public_key,
+                        admin:repo_hook, delete_repo, gist, notifications, repo, user,
+                        write:discussion
+                      X-RateLimit-Limit: '5000'
+                      X-RateLimit-Remaining: '3549'
+                      X-RateLimit-Reset: '1569578321'
+                      X-XSS-Protection: 1; mode=block
+                    raw: !!binary ""
+                    reason: OK
+                    status_code: 200
+        github.Requester:
+          requests.sessions:
+            requre.objects:
+              requests.sessions:
+                send:
+                - __store_indicator: 2
+                  _content:
+                    allow_merge_commit: true
+                    allow_rebase_merge: true
+                    allow_squash_merge: true
+                    archive_url: https://api.github.com/repos/jscotka/repo_created_for_test/{archive_format}{/ref}
+                    archived: false
+                    assignees_url: https://api.github.com/repos/jscotka/repo_created_for_test/assignees{/user}
+                    blobs_url: https://api.github.com/repos/jscotka/repo_created_for_test/git/blobs{/sha}
+                    branches_url: https://api.github.com/repos/jscotka/repo_created_for_test/branches{/branch}
+                    clone_url: https://github.com/jscotka/repo_created_for_test.git
+                    collaborators_url: https://api.github.com/repos/jscotka/repo_created_for_test/collaborators{/collaborator}
+                    comments_url: https://api.github.com/repos/jscotka/repo_created_for_test/comments{/number}
+                    commits_url: https://api.github.com/repos/jscotka/repo_created_for_test/commits{/sha}
+                    compare_url: https://api.github.com/repos/jscotka/repo_created_for_test/compare/{base}...{head}
+                    contents_url: https://api.github.com/repos/jscotka/repo_created_for_test/contents/{+path}
+                    contributors_url: https://api.github.com/repos/jscotka/repo_created_for_test/contributors
+                    created_at: '2019-09-27T09:07:25Z'
+                    default_branch: master
+                    deployments_url: https://api.github.com/repos/jscotka/repo_created_for_test/deployments
+                    description: null
+                    disabled: false
+                    downloads_url: https://api.github.com/repos/jscotka/repo_created_for_test/downloads
+                    events_url: https://api.github.com/repos/jscotka/repo_created_for_test/events
+                    fork: false
+                    forks: 0
+                    forks_count: 0
+                    forks_url: https://api.github.com/repos/jscotka/repo_created_for_test/forks
+                    full_name: jscotka/repo_created_for_test
+                    git_commits_url: https://api.github.com/repos/jscotka/repo_created_for_test/git/commits{/sha}
+                    git_refs_url: https://api.github.com/repos/jscotka/repo_created_for_test/git/refs{/sha}
+                    git_tags_url: https://api.github.com/repos/jscotka/repo_created_for_test/git/tags{/sha}
+                    git_url: git://github.com/jscotka/repo_created_for_test.git
+                    has_downloads: true
+                    has_issues: true
+                    has_pages: false
+                    has_projects: true
+                    has_wiki: true
+                    homepage: null
+                    hooks_url: https://api.github.com/repos/jscotka/repo_created_for_test/hooks
+                    html_url: https://github.com/jscotka/repo_created_for_test
+                    id: 211280107
+                    issue_comment_url: https://api.github.com/repos/jscotka/repo_created_for_test/issues/comments{/number}
+                    issue_events_url: https://api.github.com/repos/jscotka/repo_created_for_test/issues/events{/number}
+                    issues_url: https://api.github.com/repos/jscotka/repo_created_for_test/issues{/number}
+                    keys_url: https://api.github.com/repos/jscotka/repo_created_for_test/keys{/key_id}
+                    labels_url: https://api.github.com/repos/jscotka/repo_created_for_test/labels{/name}
+                    language: null
+                    languages_url: https://api.github.com/repos/jscotka/repo_created_for_test/languages
+                    license: null
+                    merges_url: https://api.github.com/repos/jscotka/repo_created_for_test/merges
+                    milestones_url: https://api.github.com/repos/jscotka/repo_created_for_test/milestones{/number}
+                    mirror_url: null
+                    name: repo_created_for_test
+                    network_count: 0
+                    node_id: MDEwOlJlcG9zaXRvcnkyMTEyODAxMDc=
+                    notifications_url: https://api.github.com/repos/jscotka/repo_created_for_test/notifications{?since,all,participating}
+                    open_issues: 0
+                    open_issues_count: 0
+                    owner:
+                      avatar_url: https://avatars0.githubusercontent.com/u/8735467?v=4
+                      events_url: https://api.github.com/users/jscotka/events{/privacy}
+                      followers_url: https://api.github.com/users/jscotka/followers
+                      following_url: https://api.github.com/users/jscotka/following{/other_user}
+                      gists_url: https://api.github.com/users/jscotka/gists{/gist_id}
+                      gravatar_id: ''
+                      html_url: https://github.com/jscotka
+                      id: 8735467
+                      login: jscotka
+                      node_id: MDQ6VXNlcjg3MzU0Njc=
+                      organizations_url: https://api.github.com/users/jscotka/orgs
+                      received_events_url: https://api.github.com/users/jscotka/received_events
+                      repos_url: https://api.github.com/users/jscotka/repos
+                      site_admin: false
+                      starred_url: https://api.github.com/users/jscotka/starred{/owner}{/repo}
+                      subscriptions_url: https://api.github.com/users/jscotka/subscriptions
+                      type: User
+                      url: https://api.github.com/users/jscotka
+                    permissions:
+                      admin: true
+                      pull: true
+                      push: true
+                    private: false
+                    pulls_url: https://api.github.com/repos/jscotka/repo_created_for_test/pulls{/number}
+                    pushed_at: '2019-09-27T09:07:26Z'
+                    releases_url: https://api.github.com/repos/jscotka/repo_created_for_test/releases{/id}
+                    size: 0
+                    ssh_url: git@github.com:jscotka/repo_created_for_test.git
+                    stargazers_count: 0
+                    stargazers_url: https://api.github.com/repos/jscotka/repo_created_for_test/stargazers
+                    statuses_url: https://api.github.com/repos/jscotka/repo_created_for_test/statuses/{sha}
+                    subscribers_count: 0
+                    subscribers_url: https://api.github.com/repos/jscotka/repo_created_for_test/subscribers
+                    subscription_url: https://api.github.com/repos/jscotka/repo_created_for_test/subscription
+                    svn_url: https://github.com/jscotka/repo_created_for_test
+                    tags_url: https://api.github.com/repos/jscotka/repo_created_for_test/tags
+                    teams_url: https://api.github.com/repos/jscotka/repo_created_for_test/teams
+                    trees_url: https://api.github.com/repos/jscotka/repo_created_for_test/git/trees{/sha}
+                    updated_at: '2019-09-27T09:07:25Z'
+                    url: https://api.github.com/repos/jscotka/repo_created_for_test
+                    watchers: 0
+                    watchers_count: 0
+                  _next: null
+                  elapsed: 1.859089
+                  encoding: utf-8
+                  headers:
+                    Access-Control-Allow-Origin: '*'
+                    Access-Control-Expose-Headers: ETag, Link, Location, Retry-After,
+                      X-GitHub-OTP, X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Reset,
+                      X-OAuth-Scopes, X-Accepted-OAuth-Scopes, X-Poll-Interval, X-GitHub-Media-Type
+                    Cache-Control: private, max-age=60, s-maxage=60
+                    Content-Length: '5386'
+                    Content-Security-Policy: default-src 'none'
+                    Content-Type: application/json; charset=utf-8
+                    Date: Fri, 27 Sep 2019 09:07:27 GMT
+                    ETag: '"4462227a023a82cf53cb28f6b9134600"'
+                    Location: https://api.github.com/repos/jscotka/repo_created_for_test
+                    Referrer-Policy: origin-when-cross-origin, strict-origin-when-cross-origin
+                    Server: GitHub.com
+                    Status: 201 Created
+                    Strict-Transport-Security: max-age=31536000; includeSubdomains;
+                      preload
+                    Vary: Accept, Authorization, Cookie, X-GitHub-OTP, Accept-Encoding
+                    X-Accepted-OAuth-Scopes: public_repo, repo
+                    X-Content-Type-Options: nosniff
+                    X-Frame-Options: deny
+                    X-GitHub-Media-Type: github.v3; format=json
+                    X-GitHub-Request-Id: C500:184EC:619463D:75E7A2C:5D8DD14D
+                    X-OAuth-Scopes: admin:gpg_key, admin:org, admin:org_hook, admin:public_key,
+                      admin:repo_hook, delete_repo, gist, notifications, repo, user,
+                      write:discussion
+                    X-RateLimit-Limit: '5000'
+                    X-RateLimit-Remaining: '3551'
+                    X-RateLimit-Reset: '1569578321'
+                    X-XSS-Protection: 1; mode=block
+                  raw: !!binary ""
+                  reason: Created
+                  status_code: 201
+      github.MainClass:
+        github.Requester:
+          requests.sessions:
+            requre.objects:
+              requests.sessions:
+                send:
+                - __store_indicator: 2
+                  _content:
+                    documentation_url: https://developer.github.com/v3/repos/#get
+                    message: Not Found
+                  _next: null
+                  elapsed: 0.182131
+                  encoding: utf-8
+                  headers:
+                    Access-Control-Allow-Origin: '*'
+                    Access-Control-Expose-Headers: ETag, Link, Location, Retry-After,
+                      X-GitHub-OTP, X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Reset,
+                      X-OAuth-Scopes, X-Accepted-OAuth-Scopes, X-Poll-Interval, X-GitHub-Media-Type
+                    Content-Encoding: gzip
+                    Content-Security-Policy: default-src 'none'
+                    Content-Type: application/json; charset=utf-8
+                    Date: Fri, 27 Sep 2019 09:07:25 GMT
+                    Referrer-Policy: origin-when-cross-origin, strict-origin-when-cross-origin
+                    Server: GitHub.com
+                    Status: 404 Not Found
+                    Strict-Transport-Security: max-age=31536000; includeSubdomains;
+                      preload
+                    Transfer-Encoding: chunked
+                    X-Accepted-OAuth-Scopes: repo
+                    X-Content-Type-Options: nosniff
+                    X-Frame-Options: deny
+                    X-GitHub-Media-Type: github.v3; format=json
+                    X-GitHub-Request-Id: C500:184EC:61945F5:75E79A1:5D8DD14D
+                    X-OAuth-Scopes: admin:gpg_key, admin:org, admin:org_hook, admin:public_key,
+                      admin:repo_hook, delete_repo, gist, notifications, repo, user,
+                      write:discussion
+                    X-RateLimit-Limit: '5000'
+                    X-RateLimit-Remaining: '3552'
+                    X-RateLimit-Reset: '1569578321'
+                    X-XSS-Protection: 1; mode=block
+                  raw: !!binary ""
+                  reason: Not Found
+                  status_code: 404
+                - __store_indicator: 2
+                  _content:
+                    allow_merge_commit: true
+                    allow_rebase_merge: true
+                    allow_squash_merge: true
+                    archive_url: https://api.github.com/repos/jscotka/repo_created_for_test/{archive_format}{/ref}
+                    archived: false
+                    assignees_url: https://api.github.com/repos/jscotka/repo_created_for_test/assignees{/user}
+                    blobs_url: https://api.github.com/repos/jscotka/repo_created_for_test/git/blobs{/sha}
+                    branches_url: https://api.github.com/repos/jscotka/repo_created_for_test/branches{/branch}
+                    clone_url: https://github.com/jscotka/repo_created_for_test.git
+                    collaborators_url: https://api.github.com/repos/jscotka/repo_created_for_test/collaborators{/collaborator}
+                    comments_url: https://api.github.com/repos/jscotka/repo_created_for_test/comments{/number}
+                    commits_url: https://api.github.com/repos/jscotka/repo_created_for_test/commits{/sha}
+                    compare_url: https://api.github.com/repos/jscotka/repo_created_for_test/compare/{base}...{head}
+                    contents_url: https://api.github.com/repos/jscotka/repo_created_for_test/contents/{+path}
+                    contributors_url: https://api.github.com/repos/jscotka/repo_created_for_test/contributors
+                    created_at: '2019-09-27T09:07:25Z'
+                    default_branch: master
+                    deployments_url: https://api.github.com/repos/jscotka/repo_created_for_test/deployments
+                    description: null
+                    disabled: false
+                    downloads_url: https://api.github.com/repos/jscotka/repo_created_for_test/downloads
+                    events_url: https://api.github.com/repos/jscotka/repo_created_for_test/events
+                    fork: false
+                    forks: 0
+                    forks_count: 0
+                    forks_url: https://api.github.com/repos/jscotka/repo_created_for_test/forks
+                    full_name: jscotka/repo_created_for_test
+                    git_commits_url: https://api.github.com/repos/jscotka/repo_created_for_test/git/commits{/sha}
+                    git_refs_url: https://api.github.com/repos/jscotka/repo_created_for_test/git/refs{/sha}
+                    git_tags_url: https://api.github.com/repos/jscotka/repo_created_for_test/git/tags{/sha}
+                    git_url: git://github.com/jscotka/repo_created_for_test.git
+                    has_downloads: true
+                    has_issues: true
+                    has_pages: false
+                    has_projects: true
+                    has_wiki: true
+                    homepage: null
+                    hooks_url: https://api.github.com/repos/jscotka/repo_created_for_test/hooks
+                    html_url: https://github.com/jscotka/repo_created_for_test
+                    id: 211280107
+                    issue_comment_url: https://api.github.com/repos/jscotka/repo_created_for_test/issues/comments{/number}
+                    issue_events_url: https://api.github.com/repos/jscotka/repo_created_for_test/issues/events{/number}
+                    issues_url: https://api.github.com/repos/jscotka/repo_created_for_test/issues{/number}
+                    keys_url: https://api.github.com/repos/jscotka/repo_created_for_test/keys{/key_id}
+                    labels_url: https://api.github.com/repos/jscotka/repo_created_for_test/labels{/name}
+                    language: null
+                    languages_url: https://api.github.com/repos/jscotka/repo_created_for_test/languages
+                    license: null
+                    merges_url: https://api.github.com/repos/jscotka/repo_created_for_test/merges
+                    milestones_url: https://api.github.com/repos/jscotka/repo_created_for_test/milestones{/number}
+                    mirror_url: null
+                    name: repo_created_for_test
+                    network_count: 0
+                    node_id: MDEwOlJlcG9zaXRvcnkyMTEyODAxMDc=
+                    notifications_url: https://api.github.com/repos/jscotka/repo_created_for_test/notifications{?since,all,participating}
+                    open_issues: 0
+                    open_issues_count: 0
+                    owner:
+                      avatar_url: https://avatars0.githubusercontent.com/u/8735467?v=4
+                      events_url: https://api.github.com/users/jscotka/events{/privacy}
+                      followers_url: https://api.github.com/users/jscotka/followers
+                      following_url: https://api.github.com/users/jscotka/following{/other_user}
+                      gists_url: https://api.github.com/users/jscotka/gists{/gist_id}
+                      gravatar_id: ''
+                      html_url: https://github.com/jscotka
+                      id: 8735467
+                      login: jscotka
+                      node_id: MDQ6VXNlcjg3MzU0Njc=
+                      organizations_url: https://api.github.com/users/jscotka/orgs
+                      received_events_url: https://api.github.com/users/jscotka/received_events
+                      repos_url: https://api.github.com/users/jscotka/repos
+                      site_admin: false
+                      starred_url: https://api.github.com/users/jscotka/starred{/owner}{/repo}
+                      subscriptions_url: https://api.github.com/users/jscotka/subscriptions
+                      type: User
+                      url: https://api.github.com/users/jscotka
+                    permissions:
+                      admin: true
+                      pull: true
+                      push: true
+                    private: false
+                    pulls_url: https://api.github.com/repos/jscotka/repo_created_for_test/pulls{/number}
+                    pushed_at: '2019-09-27T09:07:26Z'
+                    releases_url: https://api.github.com/repos/jscotka/repo_created_for_test/releases{/id}
+                    size: 0
+                    ssh_url: git@github.com:jscotka/repo_created_for_test.git
+                    stargazers_count: 0
+                    stargazers_url: https://api.github.com/repos/jscotka/repo_created_for_test/stargazers
+                    statuses_url: https://api.github.com/repos/jscotka/repo_created_for_test/statuses/{sha}
+                    subscribers_count: 1
+                    subscribers_url: https://api.github.com/repos/jscotka/repo_created_for_test/subscribers
+                    subscription_url: https://api.github.com/repos/jscotka/repo_created_for_test/subscription
+                    svn_url: https://github.com/jscotka/repo_created_for_test
+                    tags_url: https://api.github.com/repos/jscotka/repo_created_for_test/tags
+                    teams_url: https://api.github.com/repos/jscotka/repo_created_for_test/teams
+                    trees_url: https://api.github.com/repos/jscotka/repo_created_for_test/git/trees{/sha}
+                    updated_at: '2019-09-27T09:07:25Z'
+                    url: https://api.github.com/repos/jscotka/repo_created_for_test
+                    watchers: 0
+                    watchers_count: 0
+                  _next: null
+                  elapsed: 0.295965
+                  encoding: utf-8
+                  headers:
+                    Access-Control-Allow-Origin: '*'
+                    Access-Control-Expose-Headers: ETag, Link, Location, Retry-After,
+                      X-GitHub-OTP, X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Reset,
+                      X-OAuth-Scopes, X-Accepted-OAuth-Scopes, X-Poll-Interval, X-GitHub-Media-Type
+                    Cache-Control: private, max-age=60, s-maxage=60
+                    Content-Encoding: gzip
+                    Content-Security-Policy: default-src 'none'
+                    Content-Type: application/json; charset=utf-8
+                    Date: Fri, 27 Sep 2019 09:07:28 GMT
+                    ETag: W/"75d33fba7ef44f91ca310da88c405238"
+                    Last-Modified: Fri, 27 Sep 2019 09:07:25 GMT
+                    Referrer-Policy: origin-when-cross-origin, strict-origin-when-cross-origin
+                    Server: GitHub.com
+                    Status: 200 OK
+                    Strict-Transport-Security: max-age=31536000; includeSubdomains;
+                      preload
+                    Transfer-Encoding: chunked
+                    Vary: Accept, Authorization, Cookie, X-GitHub-OTP, Accept-Encoding
+                    X-Accepted-OAuth-Scopes: repo
+                    X-Content-Type-Options: nosniff
+                    X-Frame-Options: deny
+                    X-GitHub-Media-Type: github.v3; format=json
+                    X-GitHub-Request-Id: C500:184EC:6194B4C:75E7FFA:5D8DD150
+                    X-OAuth-Scopes: admin:gpg_key, admin:org, admin:org_hook, admin:public_key,
+                      admin:repo_hook, delete_repo, gist, notifications, repo, user,
+                      write:discussion
+                    X-RateLimit-Limit: '5000'
+                    X-RateLimit-Remaining: '3548'
+                    X-RateLimit-Reset: '1569578321'
+                    X-XSS-Protection: 1; mode=block
+                  raw: !!binary ""
+                  reason: OK
+                  status_code: 200

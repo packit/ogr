@@ -1,125 +1,164 @@
-GET:
-  https://pagure.io/api/0/ogr-tests/issues:
-    '{''status'': ''All''}':
-      empty:
-      - content: !!binary |
-          ewogICJhcmdzIjogewogICAgImFzc2lnbmVlIjogbnVsbCwKICAgICJhdXRob3IiOiBudWxsLAog
-          ICAgIm1pbGVzdG9uZXMiOiBbXSwKICAgICJub19zdG9uZXMiOiBudWxsLAogICAgIm9yZGVyIjog
-          bnVsbCwKICAgICJwcmlvcml0eSI6IG51bGwsCiAgICAic2luY2UiOiBudWxsLAogICAgInN0YXR1
-          cyI6ICJBbGwiLAogICAgInRhZ3MiOiBbXQogIH0sCiAgImlzc3VlcyI6IFsKICAgIHsKICAgICAg
-          ImFzc2lnbmVlIjogbnVsbCwKICAgICAgImJsb2NrcyI6IFtdLAogICAgICAiY2xvc2Vfc3RhdHVz
-          IjogbnVsbCwKICAgICAgImNsb3NlZF9hdCI6IG51bGwsCiAgICAgICJjbG9zZWRfYnkiOiBudWxs
-          LAogICAgICAiY29tbWVudHMiOiBbCiAgICAgICAgewogICAgICAgICAgImNvbW1lbnQiOiAidGVz
-          dCAtIGNvbW1lbnQgMSIsCiAgICAgICAgICAiZGF0ZV9jcmVhdGVkIjogIjE1NjM0NjE5NzEiLAog
-          ICAgICAgICAgImVkaXRlZF9vbiI6IG51bGwsCiAgICAgICAgICAiZWRpdG9yIjogbnVsbCwKICAg
-          ICAgICAgICJpZCI6IDU4MzA3OSwKICAgICAgICAgICJub3RpZmljYXRpb24iOiBmYWxzZSwKICAg
-          ICAgICAgICJwYXJlbnQiOiBudWxsLAogICAgICAgICAgInJlYWN0aW9ucyI6IHt9LAogICAgICAg
-          ICAgInVzZXIiOiB7CiAgICAgICAgICAgICJmdWxsbmFtZSI6ICJMYXVyYSBCYXJjemlvdlx1MDBl
-          MSIsCiAgICAgICAgICAgICJuYW1lIjogImxiYXJjemlvIgogICAgICAgICAgfQogICAgICAgIH0s
-          CiAgICAgICAgewogICAgICAgICAgImNvbW1lbnQiOiAidGVzdHMgLSBjb21tZW50IDIiLAogICAg
-          ICAgICAgImRhdGVfY3JlYXRlZCI6ICIxNTYzNDYxOTc5IiwKICAgICAgICAgICJlZGl0ZWRfb24i
-          OiBudWxsLAogICAgICAgICAgImVkaXRvciI6IG51bGwsCiAgICAgICAgICAiaWQiOiA1ODMwODAs
-          CiAgICAgICAgICAibm90aWZpY2F0aW9uIjogZmFsc2UsCiAgICAgICAgICAicGFyZW50IjogbnVs
-          bCwKICAgICAgICAgICJyZWFjdGlvbnMiOiB7fSwKICAgICAgICAgICJ1c2VyIjogewogICAgICAg
-          ICAgICAiZnVsbG5hbWUiOiAiTGF1cmEgQmFyY3ppb3ZcdTAwZTEiLAogICAgICAgICAgICAibmFt
-          ZSI6ICJsYmFyY3ppbyIKICAgICAgICAgIH0KICAgICAgICB9CiAgICAgIF0sCiAgICAgICJjb250
-          ZW50IjogIklzc3VlIGZvciB0ZXN0aW5nIHB5dGhvbi1vZ3IgLSB0ZXN0IDIuIiwKICAgICAgImN1
-          c3RvbV9maWVsZHMiOiBbXSwKICAgICAgImRhdGVfY3JlYXRlZCI6ICIxNTYzNDU3ODU0IiwKICAg
-          ICAgImRlcGVuZHMiOiBbXSwKICAgICAgImlkIjogMywKICAgICAgImxhc3RfdXBkYXRlZCI6ICIx
-          NTYzNDYxOTc5IiwKICAgICAgIm1pbGVzdG9uZSI6IG51bGwsCiAgICAgICJwcmlvcml0eSI6IG51
-          bGwsCiAgICAgICJwcml2YXRlIjogZmFsc2UsCiAgICAgICJzdGF0dXMiOiAiT3BlbiIsCiAgICAg
-          ICJ0YWdzIjogW10sCiAgICAgICJ0aXRsZSI6ICJUZXN0IDIiLAogICAgICAidXNlciI6IHsKICAg
-          ICAgICAiZnVsbG5hbWUiOiAiTGF1cmEgQmFyY3ppb3ZcdTAwZTEiLAogICAgICAgICJuYW1lIjog
-          ImxiYXJjemlvIgogICAgICB9CiAgICB9LAogICAgewogICAgICAiYXNzaWduZWUiOiBudWxsLAog
-          ICAgICAiYmxvY2tzIjogW10sCiAgICAgICJjbG9zZV9zdGF0dXMiOiBudWxsLAogICAgICAiY2xv
-          c2VkX2F0IjogIjE1NjM0NTc1ODciLAogICAgICAiY2xvc2VkX2J5IjogewogICAgICAgICJmdWxs
-          bmFtZSI6ICJMYXVyYSBCYXJjemlvdlx1MDBlMSIsCiAgICAgICAgIm5hbWUiOiAibGJhcmN6aW8i
-          CiAgICAgIH0sCiAgICAgICJjb21tZW50cyI6IFsKICAgICAgICB7CiAgICAgICAgICAiY29tbWVu
-          dCI6ICIqKk1ldGFkYXRhIFVwZGF0ZSBmcm9tIEBsYmFyY3ppbyoqOlxuLSBJc3N1ZSBzdGF0dXMg
-          dXBkYXRlZCB0bzogQ2xvc2VkICh3YXM6IE9wZW4pIiwKICAgICAgICAgICJkYXRlX2NyZWF0ZWQi
-          OiAiMTU2MzQ1NzU4OCIsCiAgICAgICAgICAiZWRpdGVkX29uIjogbnVsbCwKICAgICAgICAgICJl
-          ZGl0b3IiOiBudWxsLAogICAgICAgICAgImlkIjogNTgzMDY2LAogICAgICAgICAgIm5vdGlmaWNh
-          dGlvbiI6IHRydWUsCiAgICAgICAgICAicGFyZW50IjogbnVsbCwKICAgICAgICAgICJyZWFjdGlv
-          bnMiOiB7fSwKICAgICAgICAgICJ1c2VyIjogewogICAgICAgICAgICAiZnVsbG5hbWUiOiAiTGF1
-          cmEgQmFyY3ppb3ZcdTAwZTEiLAogICAgICAgICAgICAibmFtZSI6ICJsYmFyY3ppbyIKICAgICAg
-          ICAgIH0KICAgICAgICB9CiAgICAgIF0sCiAgICAgICJjb250ZW50IjogIklzc3VlIGZvciB0ZXN0
-          aW5nIHB5dGhvbi1vZ3IgLSB0ZXN0IDEiLAogICAgICAiY3VzdG9tX2ZpZWxkcyI6IFtdLAogICAg
-          ICAiZGF0ZV9jcmVhdGVkIjogIjE1NjM0NTc1NzYiLAogICAgICAiZGVwZW5kcyI6IFtdLAogICAg
-          ICAiaWQiOiAyLAogICAgICAibGFzdF91cGRhdGVkIjogIjE1NjM0NTc1ODgiLAogICAgICAibWls
-          ZXN0b25lIjogbnVsbCwKICAgICAgInByaW9yaXR5IjogbnVsbCwKICAgICAgInByaXZhdGUiOiBm
-          YWxzZSwKICAgICAgInN0YXR1cyI6ICJDbG9zZWQiLAogICAgICAidGFncyI6IFtdLAogICAgICAi
-          dGl0bGUiOiAiVGVzdCAxIiwKICAgICAgInVzZXIiOiB7CiAgICAgICAgImZ1bGxuYW1lIjogIkxh
-          dXJhIEJhcmN6aW92XHUwMGUxIiwKICAgICAgICAibmFtZSI6ICJsYmFyY3ppbyIKICAgICAgfQog
-          ICAgfQogIF0sCiAgInBhZ2luYXRpb24iOiB7CiAgICAiZmlyc3QiOiAiaHR0cHM6Ly9wYWd1cmUu
-          aW8vYXBpLzAvb2dyLXRlc3RzL2lzc3Vlcz9zdGF0dXM9QWxsJnBhZ2U9MSZwZXJfcGFnZT0yMCIs
-          CiAgICAibGFzdCI6ICJodHRwczovL3BhZ3VyZS5pby9hcGkvMC9vZ3ItdGVzdHMvaXNzdWVzP3N0
-          YXR1cz1BbGwmcGFnZT0xJnBlcl9wYWdlPTIwIiwKICAgICJuZXh0IjogbnVsbCwKICAgICJwYWdl
-          IjogMSwKICAgICJwYWdlcyI6IDEsCiAgICAicGVyX3BhZ2UiOiAyMCwKICAgICJwcmV2IjogbnVs
-          bAogIH0sCiAgInRvdGFsX2lzc3VlcyI6IDIKfQ==
-        json:
-          args:
-            assignee: null
-            author: null
-            milestones: []
-            no_stones: null
-            order: null
-            priority: null
-            since: null
-            status: All
-            tags: []
-          issues:
-          - assignee: null
-            blocks: []
-            close_status: null
-            closed_at: null
-            closed_by: null
-            comments:
-            - comment: test - comment 1
-              date_created: '1563461971'
-              edited_on: null
-              editor: null
-              id: 583079
-              notification: false
-              parent: null
-              reactions: {}
-              user:
-                fullname: "Laura Barcziov\xE1"
-                name: lbarczio
-            - comment: tests - comment 2
-              date_created: '1563461979'
-              edited_on: null
-              editor: null
-              id: 583080
-              notification: false
-              parent: null
-              reactions: {}
-              user:
-                fullname: "Laura Barcziov\xE1"
-                name: lbarczio
-            content: Issue for testing python-ogr - test 2.
-            custom_fields: []
-            date_created: '1563457854'
-            depends: []
-            id: 3
-            last_updated: '1563461979'
-            milestone: null
-            priority: null
-            private: false
-            status: Open
-            tags: []
-            title: Test 2
-            user:
-              fullname: "Laura Barcziov\xE1"
-              name: lbarczio
-          - assignee: null
-            blocks: []
-            close_status: null
-            closed_at: '1563457587'
-            closed_by:
-              fullname: "Laura Barcziov\xE1"
-              name: lbarczio
-            comments:
-            - comment: '**Metadata Update from @lbarczio**:
+unittest.case:
+  tests.integration.test_pagure:
+    ogr.services.pagure:
+      requests.sessions:
+        requre.objects:
+          requests.sessions:
+            send:
+            - __store_indicator: 2
+              _content:
+                args:
+                  assignee: null
+                  author: null
+                  milestones: []
+                  no_stones: null
+                  order: null
+                  priority: null
+                  since: null
+                  status: Open
+                  tags: []
+                issues:
+                - assignee: null
+                  blocks: []
+                  close_status: null
+                  closed_at: null
+                  closed_by: null
+                  comments:
+                  - comment: test - comment 1
+                    date_created: '1563461971'
+                    edited_on: null
+                    editor: null
+                    id: 583079
+                    notification: false
+                    parent: null
+                    reactions: {}
+                    user:
+                      fullname: "Laura Barcziov\xE1"
+                      name: lbarczio
+                  - comment: tests - comment 2
+                    date_created: '1563461979'
+                    edited_on: null
+                    editor: null
+                    id: 583080
+                    notification: false
+                    parent: null
+                    reactions: {}
+                    user:
+                      fullname: "Laura Barcziov\xE1"
+                      name: lbarczio
+                  content: Issue for testing python-ogr - test 2.
+                  custom_fields: []
+                  date_created: '1563457854'
+                  depends: []
+                  id: 3
+                  last_updated: '1563461979'
+                  milestone: null
+                  priority: null
+                  private: false
+                  status: Open
+                  tags: []
+                  title: Test 2
+                  user:
+                    fullname: "Laura Barcziov\xE1"
+                    name: lbarczio
+                pagination:
+                  first: https://pagure.io/api/0/ogr-tests/issues?status=Open&page=1&per_page=20
+                  last: https://pagure.io/api/0/ogr-tests/issues?status=Open&page=1&per_page=20
+                  next: null
+                  page: 1
+                  pages: 1
+                  per_page: 20
+                  prev: null
+                total_issues: 1
+              _next: null
+              elapsed: 0.928472
+              encoding: null
+              headers:
+                Connection: Keep-Alive
+                Content-Length: '1875'
+                Content-Security-Policy: default-src 'self' https:; script-src 'self'
+                  'unsafe-eval' 'unsafe-inline' https://apps.fedoraproject.org; style-src
+                  'self' 'unsafe-inline' https://apps.fedoraproject.org
+                Content-Type: application/json
+                Date: Fri, 27 Sep 2019 08:23:47 GMT
+                Keep-Alive: timeout=5, max=100
+                Referrer-Policy: same-origin
+                Server: Apache/2.4.6 (Red Hat Enterprise Linux) OpenSSL/1.0.2k-fips
+                  mod_wsgi/3.4 Python/2.7.5
+                Set-Cookie: pagure=eyJfcGVybWFuZW50Ijp0cnVlLCJjc3JmIjp7IiBiIjoiWWpnMllUSTNOV1ZsWVRBNE1ESXdOakV5TXprNVpEQmpaV0UxTm1OaE5UQTFOVFppWlRJME5BPT0ifX0.EG9Ykw.u9r_0gCNlzmPYlhv1zbBGDlW3sI;
+                  Expires=Mon, 28-Oct-2019 08:23:47 GMT; Secure; HttpOnly; Path=/
+                Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
+                X-Content-Type-Options: nosniff
+                X-Frame-Options: ALLOW-FROM https://pagure.io/
+                X-Xss-Protection: 1; mode=block
+              raw: !!binary ""
+              reason: OK
+              status_code: 200
+            - __store_indicator: 2
+              _content:
+                args:
+                  assignee: null
+                  author: null
+                  milestones: []
+                  no_stones: null
+                  order: null
+                  priority: null
+                  since: null
+                  status: All
+                  tags: []
+                issues:
+                - assignee: null
+                  blocks: []
+                  close_status: null
+                  closed_at: null
+                  closed_by: null
+                  comments:
+                  - comment: test - comment 1
+                    date_created: '1563461971'
+                    edited_on: null
+                    editor: null
+                    id: 583079
+                    notification: false
+                    parent: null
+                    reactions: {}
+                    user:
+                      fullname: "Laura Barcziov\xE1"
+                      name: lbarczio
+                  - comment: tests - comment 2
+                    date_created: '1563461979'
+                    edited_on: null
+                    editor: null
+                    id: 583080
+                    notification: false
+                    parent: null
+                    reactions: {}
+                    user:
+                      fullname: "Laura Barcziov\xE1"
+                      name: lbarczio
+                  content: Issue for testing python-ogr - test 2.
+                  custom_fields: []
+                  date_created: '1563457854'
+                  depends: []
+                  id: 3
+                  last_updated: '1563461979'
+                  milestone: null
+                  priority: null
+                  private: false
+                  status: Open
+                  tags: []
+                  title: Test 2
+                  user:
+                    fullname: "Laura Barcziov\xE1"
+                    name: lbarczio
+                - assignee: null
+                  blocks: []
+                  close_status: null
+                  closed_at: '1563457587'
+                  closed_by:
+                    fullname: "Laura Barcziov\xE1"
+                    name: lbarczio
+                  comments:
+                  - comment: '**Metadata Update from @lbarczio**:
 
                 - Issue status updated to: Closed (was: Open)'
               date_created: '1563457588'

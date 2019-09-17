@@ -8,7 +8,7 @@ from github import GithubException, UnknownObjectException
 from ogr import GithubService
 from ogr.abstract import PRStatus, IssueStatus
 from ogr.exceptions import GithubAPIException
-from ogr.persistent_storage import PersistentObjectStorage
+from requre.storage import PersistentObjectStorage
 
 DATA_DIR = "test_data"
 PERSISTENT_DATA_PREFIX = os.path.join(
@@ -147,7 +147,7 @@ class GenericCommands(GithubTests):
     def test_branches(self):
         branches = self.ogr_project.get_branches()
         assert branches
-        assert set(branches) == {"master"}
+        assert {"master"}.issubset(set(branches))
 
     def test_git_urls(self):
         urls = self.ogr_project.get_git_urls()
@@ -424,12 +424,20 @@ class Releases(GithubTests):
         Raise the number in `tag` when regenerating the response files.
         (The `tag` has to be unique.)
         """
-        count_before = len(self.hello_world_project.get_releases())
+        releases_before = self.hello_world_project.get_releases()
+        latest_release = releases_before[0].tag_name
+        count_before = len(releases_before)
+        increased_release = ".".join(
+            [
+                latest_release.rsplit(".", 1)[0],
+                str(int(latest_release.rsplit(".", 1)[1]) + 1),
+            ]
+        )
         release = self.hello_world_project.create_release(
-            tag="0.7.0", name="test", message="testing release"
+            tag=increased_release, name="test", message="testing release"
         )
         count_after = len(self.hello_world_project.get_releases())
-        assert release.tag_name == "0.7.0"
+        assert release.tag_name == increased_release
         assert release.title == "test"
         assert release.body == "testing release"
         assert count_before + 1 == count_after
@@ -491,7 +499,8 @@ class Forks(GithubTests):
 
     def test_create_fork(self):
         """
-        Remove your fork of fedora-modularity/fed-to-brew before regenerating the response files.
+        Remove your fork https://github.com/$USERNAME/fed-to-brew
+        before regenerating the response files.
         """
         not_existing_fork = self.not_forked_project.get_fork(create=False)
         assert not not_existing_fork
@@ -510,12 +519,16 @@ class Forks(GithubTests):
 
 class Service(GithubTests):
     def test_project_create(self):
+        """
+        Remove https://github.com/$USERNAME/repo_created_for_test repository before regeneration
+
+        """
         name_of_the_repo = "repo_created_for_test"
         project = self.service.get_project(
             repo=name_of_the_repo, namespace=self.service.user.get_username()
         )
-        with pytest.raises(UnknownObjectException):
-            assert project.github_repo
+        with self.assertRaises(UnknownObjectException):
+            project.github_repo
 
         new_project = self.service.project_create(name_of_the_repo)
         assert new_project.repo == name_of_the_repo
@@ -527,13 +540,17 @@ class Service(GithubTests):
         assert project.github_repo
 
     def test_project_create_in_the_group(self):
+        """
+        Remove https://github.com/packit-service/repo_created_for_test_in_group
+        repository before regeneration
+        """
         name_of_the_repo = "repo_created_for_test_in_group"
         namespace_of_the_repo = "packit-service"
         project = self.service.get_project(
             repo=name_of_the_repo, namespace=namespace_of_the_repo
         )
-        with pytest.raises(UnknownObjectException):
-            assert project.github_repo
+        with self.assertRaises(UnknownObjectException):
+            project.github_repo
 
         new_project = self.service.project_create(
             repo=name_of_the_repo, namespace=namespace_of_the_repo
