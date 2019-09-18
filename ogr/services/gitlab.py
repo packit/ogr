@@ -287,12 +287,11 @@ class GitlabProject(BaseGitProject):
             50 => Owner access
         :return: List of usernames
         """
-        collaborators = []
-        members = self.gitlab_repo.members.all(all=True)
-        for member in members:
-            if member.access_level in access_levels:
-                collaborators.append(member.username)
-        return collaborators
+        return [
+            member.username
+            for member in self.gitlab_repo.members.all(all=True)
+            if member.access_level in access_levels
+        ]
 
     def get_issue_comments(
         self, issue_id, filter_regex: str = None, reverse: bool = False

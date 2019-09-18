@@ -143,7 +143,7 @@ class GenericCommands(GitlabTests):
 
     def test_get_owners(self):
         owners = self.project.get_owners()
-        assert ["lachmanfrantisek", "lbarcziova"] == owners
+        assert {"lachmanfrantisek", "lbarcziova"} == set(owners)
 
     def test_issue_permissions(self):
         users = self.project.who_can_close_issue()
