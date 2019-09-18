@@ -97,12 +97,29 @@ class GenericCommands(GitlabTests):
         assert self.project.get_fork().parent.namespace == "packit-service"
         assert self.project.get_fork().parent.repo == "ogr-tests"
 
-    def test_commit_statuses(self):
+    def test_get_commit_statuses(self):
         flags = self.project.get_commit_statuses(
-            commit="24c86d0704694f686329b2ea636c5b7522cfdc40"
+            commit="11b37d913374b14f8519d16c2a2cca3ebc14ac64"
         )
         assert isinstance(flags, list)
-        assert len(flags) == 0
+        assert len(flags) >= 2
+
+    def test_set_commit_status(self):
+        old_statuses = self.project.get_commit_statuses(
+            commit="11b37d913374b14f8519d16c2a2cca3ebc14ac64"
+        )
+        status = self.project.set_commit_status(
+            commit="11b37d913374b14f8519d16c2a2cca3ebc14ac64",
+            state="success",
+            target_url="https://gitlab.com/packit-service/ogr-tests",
+            description="testing status",
+            context="test",
+        )
+        assert status
+        new_statuses = self.project.get_commit_statuses(
+            commit="11b37d913374b14f8519d16c2a2cca3ebc14ac64"
+        )
+        assert len(old_statuses) == len(new_statuses)
 
     def test_commit_comment(self):
         comment = self.project.commit_comment(
