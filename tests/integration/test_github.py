@@ -224,6 +224,10 @@ class Issues(GithubTests):
         assert issue_info.status == IssueStatus.closed
 
     def test_issue_labels(self):
+        """
+        Remove the labels from this issue before regenerating the response files:
+        https://github.com/packit-service/ogr/issues/4
+        """
         labels = self.ogr_project.get_issue_labels(issue_id=4)
 
         assert not labels
@@ -296,6 +300,10 @@ class PullRequests(GithubTests):
         assert pr_info.description == orig_description
 
     def test_pr_labels(self):
+        """
+        Remove the labels from this pr before regenerating the response files:
+        https://github.com/packit-service/ogr/pull/1
+        """
         labels = self.ogr_project.get_pr_labels(pr_id=1)
         assert not labels
         self.ogr_project.add_pr_labels(pr_id=1, labels=["test_lb1", "test_lb2"])
@@ -318,6 +326,10 @@ class Releases(GithubTests):
         assert len(releases) >= 9
 
     def test_create_release(self):
+        """
+        Raise the number in `tag` when regenerating the response files.
+        (The `tag` has to be unique.)
+        """
         count_before = len(self.hello_world_project.get_releases())
         release = self.hello_world_project.create_release(
             tag="0.7.0", name="test", message="testing release"
@@ -384,6 +396,9 @@ class Forks(GithubTests):
         assert fork.is_fork
 
     def test_create_fork(self):
+        """
+        Remove your fork of fedora-modularity/fed-to-brew before regenerating the response files.
+        """
         not_existing_fork = self.not_forked_project.get_fork(create=False)
         assert not not_existing_fork
         assert not self.not_forked_project.is_forked()
