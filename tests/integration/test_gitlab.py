@@ -103,6 +103,9 @@ class GenericCommands(GitlabTests):
         )
         assert isinstance(flags, list)
         assert len(flags) >= 2
+        assert flags[0].state == "success"
+        assert flags[0].comment == "testing status"
+        assert flags[0].context == "default"
 
     def test_set_commit_status(self):
         old_statuses = self.project.get_commit_statuses(
