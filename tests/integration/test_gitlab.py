@@ -97,6 +97,23 @@ class GenericCommands(GitlabTests):
         assert self.project.get_fork().parent.namespace == "packit-service"
         assert self.project.get_fork().parent.repo == "ogr-tests"
 
+    def test_commit_statuses(self):
+        flags = self.project.get_commit_statuses(
+            commit="24c86d0704694f686329b2ea636c5b7522cfdc40"
+        )
+        assert isinstance(flags, list)
+        assert len(flags) == 0
+
+    def test_commit_comment(self):
+        comment = self.project.commit_comment(
+            commit="11b37d913374b14f8519d16c2a2cca3ebc14ac64",
+            body="Comment to line 3",
+            filename="README.md",
+            row=3,
+        )
+        assert comment.author == self.service.user.get_username()
+        assert comment.comment == "Comment to line 3"
+
 
 class Issues(GitlabTests):
     def test_get_issue_list(self):
