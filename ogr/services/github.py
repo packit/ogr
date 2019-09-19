@@ -650,8 +650,8 @@ class GithubProject(BaseGitProject):
         github_commit = self.github_repo.get_commit(commit)
         if trim:
             description = description[:140]
-        github_commit.create_status(state, target_url, description, context)
-        return CommitFlag(commit, state, context)
+        status = github_commit.create_status(state, target_url, description, context)
+        return CommitFlag(commit, status.state, status.context, status.description)
 
     @if_readonly(return_function=GitProjectReadOnly.pr_close)
     def pr_close(self, pr_id: int) -> PullRequest:
