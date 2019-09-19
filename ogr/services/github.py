@@ -197,16 +197,18 @@ class GithubService(BaseGitService):
     def project_create(self, repo: str, namespace: str = None) -> "GithubProject":
         if namespace:
             try:
-                group = self.github.get_organization(namespace)
-                new_repo = group.create_repo(name=repo)
+                owner = self.github.get_organization(namespace)
             except UnknownObjectException:
                 raise GithubAPIException(f"Group {namespace} not found.")
         else:
-            user = self.github.get_user()
-            new_repo = user.create_repo(name=repo)
+            owner = self.github.get_user()
 
+        new_repo = owner.create_repo(name=repo)
         return GithubProject(
-            repo=repo, namespace=namespace or user, service=self, github_repo=new_repo
+            repo=repo,
+            namespace=namespace or owner.login,
+            service=self,
+            github_repo=new_repo,
         )
 
 
