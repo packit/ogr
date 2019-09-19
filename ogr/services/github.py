@@ -865,8 +865,22 @@ class GithubUser(BaseGitUser):
     def get_username(self) -> str:
         return self.service.github.get_user().login
 
-    def get_email(self) -> str:
-        return self.service.github.get_user().email
+    def get_email(self) -> Optional[str]:
+        user_email_property = self.service.github.get_user().email
+        if user_email_property:
+            return user_email_property
+
+        user_emails = self.service.github.get_user().get_emails()
+
+        if not user_emails:
+            return None
+
+        for email_dict in user_emails:
+            if email_dict["primary"]:
+                return email_dict["email"]
+
+        # Return the first email we received
+        return user_emails[0]["email"]
 
     def get_projects(self) -> List["GithubProject"]:
         raw_repos = self._github_user.get_repos(affiliation="owner")

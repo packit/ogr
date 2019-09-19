@@ -1,13 +1,13 @@
 import os
 import unittest
-import pytest
 
+import pytest
 from github import GithubException
 
 from ogr import GithubService
 from ogr.abstract import PRStatus, IssueStatus
-from ogr.persistent_storage import PersistentObjectStorage
 from ogr.exceptions import GithubAPIException
+from ogr.persistent_storage import PersistentObjectStorage
 
 DATA_DIR = "test_data"
 PERSISTENT_DATA_PREFIX = os.path.join(
@@ -18,7 +18,6 @@ PERSISTENT_DATA_PREFIX = os.path.join(
 class GithubTests(unittest.TestCase):
     def setUp(self):
         self.token = os.environ.get("GITHUB_TOKEN")
-        self.user = os.environ.get("GITHUB_USER")
         test_name = self.id() or "all"
 
         persistent_data_file = os.path.join(
@@ -26,28 +25,46 @@ class GithubTests(unittest.TestCase):
         )
         PersistentObjectStorage().storage_file = persistent_data_file
 
-        if PersistentObjectStorage().is_write_mode and (
-            not self.user or not self.token
-        ):
-            raise EnvironmentError("please set GITHUB_TOKEN GITHUB_USER env variables")
+        if PersistentObjectStorage().is_write_mode and (not self.token):
+            raise EnvironmentError("please set GITHUB_TOKEN env variables")
 
         self.service = GithubService(token=self.token)
+        self._ogr_project = None
+        self._ogr_fork = None
+        self._hello_world_project = None
+        self._not_forked_project = None
 
-        self.ogr_project = self.service.get_project(
-            namespace="packit-service", repo="ogr"
-        )
+    @property
+    def ogr_project(self):
+        if not self._ogr_project:
+            self._ogr_project = self.service.get_project(
+                namespace="packit-service", repo="ogr"
+            )
+        return self._ogr_project
 
-        self.ogr_fork = self.service.get_project(
-            namespace="packit-service", repo="ogr", is_fork=True
-        )
+    @property
+    def ogr_fork(self):
+        if not self._ogr_fork:
+            self._ogr_fork = self.service.get_project(
+                namespace="packit-service", repo="ogr", is_fork=True
+            )
+        return self._ogr_fork
 
-        self.hello_world_project = self.service.get_project(
-            namespace="packit-service", repo="hello-world"
-        )
+    @property
+    def hello_world_project(self):
+        if not self._hello_world_project:
+            self._hello_world_project = self.service.get_project(
+                namespace="packit-service", repo="hello-world"
+            )
+        return self._hello_world_project
 
-        self.not_forked_project = self.service.get_project(
-            namespace="fedora-modularity", repo="fed-to-brew"
-        )
+    @property
+    def not_forked_project(self):
+        if not self._not_forked_project:
+            self._not_forked_project = self.service.get_project(
+                namespace="fedora-modularity", repo="fed-to-brew"
+            )
+        return self._not_forked_project
 
     def tearDown(self):
         PersistentObjectStorage().dump()
@@ -172,14 +189,14 @@ class GenericCommands(GithubTests):
 
         issue = self.ogr_project.get_issue_info(1)
         assert self.ogr_project.can_close_issue("lachmanfrantisek", issue)
-        assert not self.ogr_project.can_close_issue("marusinm", issue)
+        assert not self.ogr_project.can_close_issue("unknown_user", issue)
 
     def test_pr_permissions(self):
         users = self.ogr_project.who_can_merge_pr()
         assert "lachmanfrantisek" in users
 
         assert self.ogr_project.can_merge_pr("lachmanfrantisek")
-        assert not self.ogr_project.can_merge_pr("marusinm")
+        assert not self.ogr_project.can_merge_pr("unknown_user")
 
 
 class Issues(GithubTests):
@@ -207,6 +224,10 @@ class Issues(GithubTests):
         assert issue_info.status == IssueStatus.closed
 
     def test_issue_labels(self):
+        """
+        Remove the labels from this issue before regenerating the response files:
+        https://github.com/packit-service/ogr/issues/4
+        """
         labels = self.ogr_project.get_issue_labels(issue_id=4)
 
         assert not labels
@@ -279,6 +300,10 @@ class PullRequests(GithubTests):
         assert pr_info.description == orig_description
 
     def test_pr_labels(self):
+        """
+        Remove the labels from this pr before regenerating the response files:
+        https://github.com/packit-service/ogr/pull/1
+        """
         labels = self.ogr_project.get_pr_labels(pr_id=1)
         assert not labels
         self.ogr_project.add_pr_labels(pr_id=1, labels=["test_lb1", "test_lb2"])
@@ -301,12 +326,16 @@ class Releases(GithubTests):
         assert len(releases) >= 9
 
     def test_create_release(self):
+        """
+        Raise the number in `tag` when regenerating the response files.
+        (The `tag` has to be unique.)
+        """
         count_before = len(self.hello_world_project.get_releases())
         release = self.hello_world_project.create_release(
-            tag="0.5.0", name="test", message="testing release"
+            tag="0.7.0", name="test", message="testing release"
         )
         count_after = len(self.hello_world_project.get_releases())
-        assert release.tag_name == "0.5.0"
+        assert release.tag_name == "0.7.0"
         assert release.title == "test"
         assert release.body == "testing release"
         assert count_before + 1 == count_after
@@ -323,9 +352,10 @@ class Releases(GithubTests):
         assert release.body == f"{origin_message}-changed"
 
     def test_latest_release(self):
+        last_version = "0.7.0"
         release = self.ogr_project.get_latest_release()
-        assert release.tag_name == "0.5.0"
-        assert release.title == "0.5.0"
+        assert release.tag_name == last_version
+        assert release.title == last_version
         assert "New Features" in release.body
 
 
@@ -366,6 +396,9 @@ class Forks(GithubTests):
         assert fork.is_fork
 
     def test_create_fork(self):
+        """
+        Remove your fork of fedora-modularity/fed-to-brew before regenerating the response files.
+        """
         not_existing_fork = self.not_forked_project.get_fork(create=False)
         assert not not_existing_fork
         assert not self.not_forked_project.is_forked()
