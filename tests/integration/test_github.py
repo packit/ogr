@@ -199,6 +199,44 @@ class GenericCommands(GithubTests):
         assert self.ogr_project.can_merge_pr("lachmanfrantisek")
         assert not self.ogr_project.can_merge_pr("unknown_user")
 
+    def test_set_commit_status(self):
+        status = self.ogr_project.set_commit_status(
+            commit="c891a9e4ac01e6575f3fd66cf1b7db2f52f10128",
+            state="success",
+            target_url="https://github.com/packit-service/ogr",
+            description="testing description",
+            context="test",
+            trim=True,
+        )
+        assert status
+        assert status.comment == "testing description"
+
+    def test_set_commit_status_long_description(self):
+        long_description = (
+            "Testing the trimming of the description after an argument trim "
+            "is added. The argument defaults to False, but in packit-service the"
+            " argument trim is set to True."
+        )
+        with pytest.raises(GithubException):
+            self.ogr_project.set_commit_status(
+                commit="c891a9e4ac01e6575f3fd66cf1b7db2f52f10128",
+                state="success",
+                target_url="https://github.com/packit-service/ogr",
+                description=long_description,
+                context="test",
+            )
+
+        status = self.ogr_project.set_commit_status(
+            commit="c891a9e4ac01e6575f3fd66cf1b7db2f52f10128",
+            state="success",
+            target_url="https://github.com/packit-service/ogr",
+            description=long_description,
+            context="test",
+            trim=True,
+        )
+        assert status
+        assert len(status.comment) == 140
+
 
 class Issues(GithubTests):
     def test_issue_list(self):
