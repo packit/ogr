@@ -194,6 +194,23 @@ class GithubService(BaseGitService):
         self.token = new_token
         self.github = github.Github(login_or_token=self.token)
 
+    def project_create(self, repo: str, namespace: str = None) -> "GithubProject":
+        if namespace:
+            try:
+                owner = self.github.get_organization(namespace)
+            except UnknownObjectException:
+                raise GithubAPIException(f"Group {namespace} not found.")
+        else:
+            owner = self.github.get_user()
+
+        new_repo = owner.create_repo(name=repo)
+        return GithubProject(
+            repo=repo,
+            namespace=namespace or owner.login,
+            service=self,
+            github_repo=new_repo,
+        )
+
 
 class GithubProject(BaseGitProject):
     service: GithubService

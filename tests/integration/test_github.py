@@ -1,8 +1,9 @@
 import os
 import unittest
 
+
 import pytest
-from github import GithubException
+from github import GithubException, UnknownObjectException
 
 from ogr import GithubService
 from ogr.abstract import PRStatus, IssueStatus
@@ -412,3 +413,43 @@ class Forks(GithubTests):
 
         new_forks = self.not_forked_project.service.user.get_forks()
         assert len(old_forks) == len(new_forks) - 1
+
+
+class Service(GithubTests):
+    def test_project_create(self):
+        name_of_the_repo = "repo_created_for_test"
+        project = self.service.get_project(
+            repo=name_of_the_repo, namespace=self.service.user.get_username()
+        )
+        with pytest.raises(UnknownObjectException):
+            assert project.github_repo
+
+        new_project = self.service.project_create(name_of_the_repo)
+        assert new_project.repo == name_of_the_repo
+        assert new_project.github_repo
+
+        project = self.service.get_project(
+            repo=name_of_the_repo, namespace=self.service.user.get_username()
+        )
+        assert project.github_repo
+
+    def test_project_create_in_the_group(self):
+        name_of_the_repo = "repo_created_for_test_in_group"
+        namespace_of_the_repo = "packit-service"
+        project = self.service.get_project(
+            repo=name_of_the_repo, namespace=namespace_of_the_repo
+        )
+        with pytest.raises(UnknownObjectException):
+            assert project.github_repo
+
+        new_project = self.service.project_create(
+            repo=name_of_the_repo, namespace=namespace_of_the_repo
+        )
+        assert new_project.repo == name_of_the_repo
+        assert new_project.namespace == namespace_of_the_repo
+        assert new_project.github_repo
+
+        project = self.service.get_project(
+            repo=name_of_the_repo, namespace=namespace_of_the_repo
+        )
+        assert project.github_repo
