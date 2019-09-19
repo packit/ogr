@@ -632,7 +632,9 @@ class GithubProject(BaseGitProject):
         return_function=GitProjectReadOnly.set_commit_status,
         log_message="Create a status on a commit",
     )
-    def set_commit_status(self, commit, state, target_url, description, context):
+    def set_commit_status(
+        self, commit, state, target_url, description, context, trim=False
+    ):
         """
         Create a status on a commit
 
@@ -641,9 +643,13 @@ class GithubProject(BaseGitProject):
         :param target_url: The target URL to associate with this status.
         :param description: A short description of the status
         :param context: A label to differentiate this status from the status of other systems.
+        :param trim: bool Whether to trim the description in order to avoid throwing
+            github.GithubException
         :return:
         """
         github_commit = self.github_repo.get_commit(commit)
+        if trim:
+            description = description[:140]
         github_commit.create_status(state, target_url, description, context)
         return CommitFlag(commit, state, context)
 
