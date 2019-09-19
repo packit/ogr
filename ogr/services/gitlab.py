@@ -310,24 +310,74 @@ class GitlabProject(BaseGitProject):
     def commit_comment(
         self, commit: str, body: str, filename: str = None, row: int = None
     ) -> "CommitComment":
-        raise NotImplementedError()
+        """
+        Create comment on a commit.
+
+        :param commit: str The SHA of the commit needing a comment.
+        :param body: str The text of the comment
+        :param filename: str The relative path to the file that necessitates a comment
+        :param row: int Line index in the diff to comment on.
+        :return: CommitComment
+        """
+        try:
+            commit_object = self.gitlab_repo.commits.get(commit)
+        except gitlab.exceptions.GitlabGetError:
+            logger.error(f"Commit {commit} was not found.")
+            raise GitlabAPIException(f"Commit {commit} was not found.")
+
+        if filename and row:
+            raw_comment = commit_object.comments.create(
+                {"note": body, "path": filename, "line": row, "line_type": "new"}
+            )
+        else:
+            raw_comment = commit_object.comments.create({"note": body})
+        return self._commit_comment_from_gitlab_object(raw_comment, commit)
 
     def set_commit_status(
         self, commit: str, state: str, target_url: str, description: str, context: str
     ) -> "CommitFlag":
-        raise NotImplementedError()
+        """
+        Create a status on a commit
+
+        :param commit: The SHA of the commit.
+        :param state: The state of the status.
+        :param target_url: The target URL to associate with this status.
+        :param description: A short description of the status
+        :param context: A label to differentiate this status from the status of other systems.
+        :return: CommitFlag
+        """
+        try:
+            commit_object = self.gitlab_repo.commits.get(commit)
+        except gitlab.exceptions.GitlabGetError:
+            logger.error(f"Commit {commit} was not found.")
+            raise GitlabAPIException(f"Commit {commit} was not found.")
+
+        data_dict = {
+            "state": state,
+            "target_url": target_url,
+            "context": context,
+            "description": description,
+        }
+        raw_status = commit_object.statuses.create(data_dict)
+        return self._commit_status_from_gitlab_object(raw_status)
 
     def get_commit_statuses(self, commit: str) -> List[CommitFlag]:
         """
-        Something like this:
-        commit_object = self.gitlab_repo.commits.get(commit)
+        Get the statuses of a commit in a project.
+        :param commit: The SHA of the commit.
+        :return: [CommitFlag]
+        """
+        try:
+            commit_object = self.gitlab_repo.commits.get(commit)
+        except gitlab.exceptions.GitlabGetError:
+            logger.error(f"Commit {commit} was not found.")
+            raise GitlabAPIException(f"Commit {commit} was not found.")
+
         raw_statuses = commit_object.statuses.list()
         return [
-            GitlabProject._commit_status_from_gitlab_object(raw_status)
+            self._commit_status_from_gitlab_object(raw_status)
             for raw_status in raw_statuses
         ]
-        """
-        raise NotImplementedError()
 
     def pr_close(self, pr_id: int) -> "PullRequest":
         pr = self.gitlab_repo.mergerequests.get(pr_id)
@@ -604,14 +654,20 @@ class GitlabProject(BaseGitProject):
 
     @staticmethod
     def _commit_status_from_gitlab_object(raw_status) -> CommitFlag:
-        """
-        return CommitFlag(commit=raw_status.ref,
-                          state=raw_status.state,
-                          comment=raw_status.description,
-                          url=raw_status.target_url,
-                          )
-        """
-        raise NotImplementedError()
+        return CommitFlag(
+            commit=raw_status.sha,
+            state=raw_status.status,
+            context=raw_status.name,
+            comment=raw_status.description,
+            uid=raw_status.id,
+            url=raw_status.target_url,
+        )
+
+    @staticmethod
+    def _commit_comment_from_gitlab_object(raw_comment, commit) -> CommitComment:
+        return CommitComment(
+            sha=commit, comment=raw_comment.note, author=raw_comment.author["username"]
+        )
 
     def _release_from_gitlab_object(
         self, raw_release, git_tag: GitTag
