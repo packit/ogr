@@ -779,6 +779,14 @@ class GitProject:
         """
         raise NotImplementedError
 
+    def get_web_url(self) -> str:
+        """
+        Get web URL of the project.
+
+        :return: str
+        """
+        raise NotImplementedError
+
 
 class GitUser:
     def __init__(self, service: GitService) -> None:
