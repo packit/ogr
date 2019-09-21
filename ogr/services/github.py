@@ -871,6 +871,14 @@ class GithubProject(BaseGitProject):
         ]
         return fork_objects
 
+    def get_web_url(self) -> str:
+        """
+        Get web URL of the project.
+
+        :return: str
+        """
+        return f"{self.service.instance_url}/{self.full_repo_name}"
+
 
 class GithubUser(BaseGitUser):
     service: GithubService
