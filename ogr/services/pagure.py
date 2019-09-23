@@ -863,7 +863,10 @@ class PagureProject(BaseGitProject):
 
         :return: str
         """
-        return f"{self.service.instance_url}/{self.full_repo_name}"
+        if self.namespace:
+            return f"{self.service.instance_url}/{self.full_repo_name}"
+        else:
+            return f"{self.service.instance_url}/{self.repo}"
 
 
 class PagureUser(BaseGitUser):
