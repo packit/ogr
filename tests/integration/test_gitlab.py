@@ -135,7 +135,7 @@ class GenericCommands(GitlabTests):
         assert comment.comment == "Comment to line 3"
 
     def test_get_web_url(self):
-        url = self.ogr_project.get_web_url()
+        url = self.project.get_web_url()
         assert url == "https://gitlab.com/packit-service/ogr-tests"
 
 
