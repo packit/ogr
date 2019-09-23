@@ -877,7 +877,7 @@ class GithubProject(BaseGitProject):
 
         :return: str
         """
-        return f"{self.service.instance_url}/{self.full_repo_name}"
+        return self.github_repo.html_url
 
 
 class GithubUser(BaseGitUser):
