@@ -688,7 +688,7 @@ class GitlabProject(BaseGitProject):
 
         :return: str
         """
-        return f"{self.service.instance_url}/{self.full_repo_name}"
+        return self.gitlab_repo.web_url
 
 
 class GitlabUser(BaseGitUser):
