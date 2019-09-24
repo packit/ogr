@@ -857,6 +857,14 @@ class PagureProject(BaseGitProject):
         ]
         return fork_objects
 
+    def get_web_url(self) -> str:
+        """
+        Get web URL of the project.
+
+        :return: str
+        """
+        return f'{self.service.instance_url}/{self.get_project_info()["url_path"]}'
+
 
 class PagureUser(BaseGitUser):
     service: PagureService

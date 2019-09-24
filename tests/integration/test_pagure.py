@@ -169,6 +169,10 @@ class GenericCommands(PagureTests):
         assert "lachmanfrantisek" in owners
         assert self.ogr_project.can_merge_pr("lachmanfrantisek")
 
+    def test_get_web_url(self):
+        url = self.ogr_project.get_web_url()
+        assert url == "https://pagure.io/ogr-tests"
+
 
 class Issues(PagureTests):
     def test_issue_list(self):

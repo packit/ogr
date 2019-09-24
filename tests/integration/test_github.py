@@ -237,6 +237,10 @@ class GenericCommands(GithubTests):
         assert status
         assert len(status.comment) == 140
 
+    def test_get_web_url(self):
+        url = self.ogr_project.get_web_url()
+        assert url == "https://github.com/packit-service/ogr"
+
 
 class Issues(GithubTests):
     def test_issue_list(self):

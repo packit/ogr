@@ -682,6 +682,14 @@ class GitlabProject(BaseGitProject):
             raw_release=raw_release,
         )
 
+    def get_web_url(self) -> str:
+        """
+        Get web URL of the project.
+
+        :return: str
+        """
+        return self.gitlab_repo.web_url
+
 
 class GitlabUser(BaseGitUser):
     service: GitlabService
