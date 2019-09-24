@@ -175,6 +175,15 @@ class GenericCommands(PagureTests):
 
     def test_full_repo_name(self):
         assert self.ogr_project.full_repo_name == "ogr-tests"
+        assert (
+            self.service.get_project(namespace="mbi", repo="ansible").full_repo_name
+            == "mbi/ansible"
+        )
+
+        # test fork
+        assert self.ogr_fork.exists()
+        assert self.ogr_fork.is_fork
+        assert self.ogr_fork.full_repo_name == f"fork/{self.user}/ogr-tests"
 
 
 class Issues(PagureTests):
