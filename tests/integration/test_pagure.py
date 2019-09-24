@@ -181,8 +181,6 @@ class GenericCommands(PagureTests):
         )
 
         # test fork
-        assert self.ogr_fork.exists()
-        assert self.ogr_fork.is_fork
         assert self.ogr_fork.full_repo_name == f"fork/{self.user}/ogr-tests"
 
 
