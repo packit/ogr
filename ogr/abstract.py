@@ -349,7 +349,7 @@ class GitProject:
 
         :return: str
         """
-        return f"{self.namespace}/{self.repo}"
+        raise NotImplementedError()
 
     @property
     def parent(self) -> Optional["GitProject"]:
