@@ -82,6 +82,21 @@ class PersistentObjectStorage(metaclass=SingletonMeta):
                 output.append(item)
         return output
 
+    @staticmethod
+    def _make_a_copy(value):
+        if isinstance(value, dict):
+            return {
+                k: PersistentObjectStorage._make_a_copy(v) for k, v in value.items()
+            }
+        if isinstance(value, list):
+            return [PersistentObjectStorage._make_a_copy(v) for v in value]
+        else:
+            if hasattr(value, "deepcopy"):
+                return value.deepcopy()
+            elif hasattr(value, "copy"):
+                return value.copy()
+            return value
+
     def store(self, keys: List, values: Any) -> None:
         """
         Stores data to dictionary object based on keys values it will create structure
@@ -103,7 +118,8 @@ class PersistentObjectStorage(metaclass=SingletonMeta):
                     current_level[item] = {}
             else:
                 current_level.setdefault(item, [])
-                current_level[item].append(values)
+                copy_of_values = PersistentObjectStorage._make_a_copy(values)
+                current_level[item].append(copy_of_values)
 
             current_level = current_level[item]
         self.is_flushed = False
