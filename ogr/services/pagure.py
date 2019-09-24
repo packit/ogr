@@ -865,6 +865,7 @@ class PagureProject(BaseGitProject):
         """
         return f'{self.service.instance_url}/{self.get_project_info()["url_path"]}'
 
+
 class PagureUser(BaseGitUser):
     service: PagureService
 
