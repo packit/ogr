@@ -417,7 +417,11 @@ class GithubProject(BaseGitProject):
             state=status.name, sort="updated", direction="desc"
         )
         try:
-            return [self._issue_from_github_object(issue) for issue in issues]
+            return [
+                self._issue_from_github_object(issue)
+                for issue in issues
+                if not issue.pull_request
+            ]
         except UnknownObjectException:
             return []
 

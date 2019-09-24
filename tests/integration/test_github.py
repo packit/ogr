@@ -283,6 +283,14 @@ class Issues(GithubTests):
         assert labels[0].name == "test_lb1"
         assert labels[1].name == "test_lb2"
 
+    def test_list_contains_only_issues(self):
+        issue_list_all = self.ogr_project.get_issue_list(status=IssueStatus.all)
+        issue_ids = [issue.id for issue in issue_list_all]
+
+        pr_ids = [219, 207, 201, 217, 208, 210]
+        for id in pr_ids:
+            assert id not in issue_ids
+
 
 class PullRequests(GithubTests):
     def test_pr_list(self):
