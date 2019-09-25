@@ -430,7 +430,7 @@ class GithubProject(BaseGitProject):
         return self._issue_from_github_object(issue)
 
     def _get_all_issue_comments(self, issue_id: int) -> List[IssueComment]:
-        issue = self.github_repo.get_pull(number=issue_id)
+        issue = self.github_repo.get_issue(number=issue_id)
         return [
             self._issuecomment_from_github_object(raw_comment)
             for raw_comment in issue.get_issue_comments()
