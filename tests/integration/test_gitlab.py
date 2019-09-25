@@ -138,6 +138,9 @@ class GenericCommands(GitlabTests):
         url = self.project.get_web_url()
         assert url == "https://gitlab.com/packit-service/ogr-tests"
 
+    def test_full_repo_name(self):
+        assert self.project.full_repo_name == "packit-service/ogr-tests"
+
 
 class Issues(GitlabTests):
     def test_get_issue_list(self):

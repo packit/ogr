@@ -865,6 +865,16 @@ class PagureProject(BaseGitProject):
         """
         return f'{self.service.instance_url}/{self.get_project_info()["url_path"]}'
 
+    @property
+    def full_repo_name(self) -> str:
+        """
+        Get repo name with namespace
+        e.g. 'rpms/python-docker-py'
+
+        :return: str
+        """
+        return self.get_project_info()["url_path"]
+
 
 class PagureUser(BaseGitUser):
     service: PagureService

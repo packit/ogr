@@ -241,6 +241,9 @@ class GenericCommands(GithubTests):
         url = self.ogr_project.get_web_url()
         assert url == "https://github.com/packit-service/ogr"
 
+    def test_full_repo_name(self):
+        assert self.ogr_project.full_repo_name == "packit-service/ogr"
+
 
 class Issues(GithubTests):
     def test_issue_list(self):
