@@ -425,7 +425,7 @@ class GithubProject(BaseGitProject):
         except UnknownObjectException:
             return []
 
-    def __get_issue(self, number: int) -> Issue:
+    def __get_issue(self, number: int) -> GithubIssue:
         issue = self.github_repo.get_issue(number=number)
         if issue.pull_request:
             raise GithubAPIException(f"Requested issue #{number} is a pull request")
@@ -701,7 +701,9 @@ class GithubProject(BaseGitProject):
     @staticmethod
     def _issue_from_github_object(github_issue: GithubIssue) -> Issue:
         if github_issue.pull_request:
-            raise GithubAPIException(f"Requested issue #{github_issue.number} is a pull request")
+            raise GithubAPIException(
+                f"Requested issue #{github_issue.number} is a pull request"
+            )
         return Issue(
             title=github_issue.title,
             id=github_issue.number,
