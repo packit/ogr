@@ -246,16 +246,31 @@ class GitlabProject(BaseGitProject):
         return self._construct_fork_project()
 
     def get_owners(self) -> List[str]:
-        return self._get_collaborators_with_given_access(access_levels=[50])
+        return self._get_collaborators_with_given_access(
+            access_levels=[gitlab.OWNER_ACCESS]
+        )
 
     def who_can_close_issue(self) -> Set[str]:
         return set(
-            self._get_collaborators_with_given_access(access_levels=[20, 30, 40, 50])
+            self._get_collaborators_with_given_access(
+                access_levels=[
+                    gitlab.REPORTER_ACCESS,
+                    gitlab.DEVELOPER_ACCESS,
+                    gitlab.MAINTAINER_ACCESS,
+                    gitlab.OWNER_ACCESS,
+                ]
+            )
         )
 
     def who_can_merge_pr(self) -> Set[str]:
         return set(
-            self._get_collaborators_with_given_access(access_levels=[30, 40, 50])
+            self._get_collaborators_with_given_access(
+                access_levels=[
+                    gitlab.DEVELOPER_ACCESS,
+                    gitlab.MAINTAINER_ACCESS,
+                    gitlab.OWNER_ACCESS,
+                ]
+            )
         )
 
     def can_close_issue(self, username: str, issue: Issue) -> bool:

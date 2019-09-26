@@ -147,7 +147,8 @@ class GenericCommands(GitlabTests):
 
     def test_issue_permissions(self):
         users = self.project.who_can_close_issue()
-        assert ("lachmanfrantisek", "lbarcziova") in users
+        assert "lachmanfrantisek" in users
+        assert "lbarcziova" in users
 
         issue = self.project.get_issue_info(1)
         assert self.project.can_close_issue("lachmanfrantisek", issue)
@@ -155,7 +156,8 @@ class GenericCommands(GitlabTests):
 
     def test_pr_permissions(self):
         users = self.project.who_can_merge_pr()
-        assert ("lachmanfrantisek", "lbarcziova") in users
+        assert "lachmanfrantisek" in users
+        assert "lbarcziova" in users
 
         assert self.project.can_merge_pr("lachmanfrantisek")
         assert not self.project.can_merge_pr("not_existing_user")
