@@ -188,7 +188,7 @@ class GenericCommands(GithubTests):
         users = self.ogr_project.who_can_close_issue()
         assert "lachmanfrantisek" in users
 
-        issue = self.ogr_project.get_issue_info(1)
+        issue = self.ogr_project.get_issue_info(4)
         assert self.ogr_project.can_close_issue("lachmanfrantisek", issue)
         assert not self.ogr_project.can_close_issue("unknown_user", issue)
 
@@ -282,6 +282,26 @@ class Issues(GithubTests):
         assert len(labels) == 2
         assert labels[0].name == "test_lb1"
         assert labels[1].name == "test_lb2"
+
+    def test_list_contains_only_issues(self):
+        issue_list_all = self.ogr_project.get_issue_list(status=IssueStatus.all)
+        issue_ids = [issue.id for issue in issue_list_all]
+
+        pr_ids = [219, 207, 201, 217, 208, 210]
+        for id in pr_ids:
+            assert id not in issue_ids
+
+    def test_functions_fail_for_pr(self):
+        with pytest.raises(GithubAPIException):
+            self.ogr_project.get_issue_info(issue_id=1)
+        with pytest.raises(GithubAPIException):
+            self.ogr_project.issue_comment(issue_id=1, body="should fail")
+        with pytest.raises(GithubAPIException):
+            self.ogr_project.issue_close(issue_id=1)
+        with pytest.raises(GithubAPIException):
+            self.ogr_project.get_issue_labels(issue_id=1)
+        with pytest.raises(GithubAPIException):
+            self.ogr_project.add_issue_labels(issue_id=1, labels=["should fail"])
 
 
 class PullRequests(GithubTests):

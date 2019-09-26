@@ -417,16 +417,26 @@ class GithubProject(BaseGitProject):
             state=status.name, sort="updated", direction="desc"
         )
         try:
-            return [self._issue_from_github_object(issue) for issue in issues]
+            return [
+                self._issue_from_github_object(issue)
+                for issue in issues
+                if not issue.pull_request
+            ]
         except UnknownObjectException:
             return []
 
+    def __get_issue(self, number: int) -> GithubIssue:
+        issue = self.github_repo.get_issue(number=number)
+        if issue.pull_request:
+            raise GithubAPIException(f"Requested issue #{number} is a pull request")
+        return issue
+
     def get_issue_info(self, issue_id: int) -> Issue:
-        issue = self.github_repo.get_issue(number=issue_id)
+        issue = self.__get_issue(number=issue_id)
         return self._issue_from_github_object(issue)
 
     def _get_all_issue_comments(self, issue_id: int) -> List[IssueComment]:
-        issue = self.github_repo.get_pull(number=issue_id)
+        issue = self.__get_issue(number=issue_id)
         return [
             self._issuecomment_from_github_object(raw_comment)
             for raw_comment in issue.get_issue_comments()
@@ -440,7 +450,7 @@ class GithubProject(BaseGitProject):
         :param body: str The text of the comment
         :return: IssueComment
         """
-        github_issue = self.github_repo.get_issue(number=issue_id)
+        github_issue = self.__get_issue(number=issue_id)
         comment = github_issue.create_comment(body)
         return self._issuecomment_from_github_object(comment)
 
@@ -449,7 +459,7 @@ class GithubProject(BaseGitProject):
         return self._issue_from_github_object(github_issue)
 
     def issue_close(self, issue_id: int) -> Issue:
-        issue = self.github_repo.get_issue(number=issue_id)
+        issue = self.__get_issue(number=issue_id)
         issue.edit(state="closed")
         return issue
 
@@ -459,7 +469,7 @@ class GithubProject(BaseGitProject):
         :issue_id: int
         :return: [GithubLabel]
         """
-        issue = self.github_repo.get_issue(number=issue_id)
+        issue = self.__get_issue(number=issue_id)
         return list(issue.get_labels())
 
     def add_issue_labels(self, issue_id, labels) -> None:
@@ -469,7 +479,7 @@ class GithubProject(BaseGitProject):
         :param issue_id: int
         :param labels: [str]
         """
-        issue = self.github_repo.get_issue(number=issue_id)
+        issue = self.__get_issue(number=issue_id)
         for label in labels:
             issue.add_to_labels(label)
 
@@ -690,6 +700,10 @@ class GithubProject(BaseGitProject):
 
     @staticmethod
     def _issue_from_github_object(github_issue: GithubIssue) -> Issue:
+        if github_issue.pull_request:
+            raise GithubAPIException(
+                f"Requested issue #{github_issue.number} is a pull request"
+            )
         return Issue(
             title=github_issue.title,
             id=github_issue.number,
