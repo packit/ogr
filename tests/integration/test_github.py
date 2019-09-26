@@ -291,7 +291,7 @@ class Issues(GithubTests):
         for id in pr_ids:
             assert id not in issue_ids
 
-    def test_get_issue(self):
+    def test_functions_fail_for_pr(self):
         with pytest.raises(GithubAPIException):
             self.ogr_project.get_issue_info(issue_id=1)
         with pytest.raises(GithubAPIException):
