@@ -873,7 +873,9 @@ class PagureProject(BaseGitProject):
 
         :return: str
         """
-        return self.get_project_info()["url_path"]
+        fork = f"fork/{self._user}/" if self.is_fork else ""
+        namespace = f"{self.namespace}/" if self.namespace else ""
+        return f"{fork}{namespace}{self.repo}"
 
 
 class PagureUser(BaseGitUser):
