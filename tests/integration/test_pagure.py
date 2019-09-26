@@ -180,8 +180,17 @@ class GenericCommands(PagureTests):
             == "mbi/ansible"
         )
 
-        # test fork
+        # test forks
         assert self.ogr_fork.full_repo_name == f"fork/{self.user}/ogr-tests"
+        assert (
+            self.service.get_project(
+                namespace="Fedora-Infra",
+                repo="ansible",
+                username=self.user,
+                is_fork=True,
+            ).full_repo_name
+            == f"fork/{self.user}/Fedora-Infra/ansible"
+        )
 
 
 class Issues(PagureTests):
