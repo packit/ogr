@@ -141,6 +141,27 @@ class GenericCommands(GitlabTests):
     def test_full_repo_name(self):
         assert self.project.full_repo_name == "packit-service/ogr-tests"
 
+    def test_get_owners(self):
+        owners = self.project.get_owners()
+        assert {"lachmanfrantisek", "lbarcziova"} == set(owners)
+
+    def test_issue_permissions(self):
+        users = self.project.who_can_close_issue()
+        assert "lachmanfrantisek" in users
+        assert "lbarcziova" in users
+
+        issue = self.project.get_issue_info(1)
+        assert self.project.can_close_issue("lachmanfrantisek", issue)
+        assert not self.project.can_close_issue("not_existing_user", issue)
+
+    def test_pr_permissions(self):
+        users = self.project.who_can_merge_pr()
+        assert "lachmanfrantisek" in users
+        assert "lbarcziova" in users
+
+        assert self.project.can_merge_pr("lachmanfrantisek")
+        assert not self.project.can_merge_pr("not_existing_user")
+
 
 class Issues(GitlabTests):
     def test_get_issue_list(self):

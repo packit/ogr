@@ -246,19 +246,67 @@ class GitlabProject(BaseGitProject):
         return self._construct_fork_project()
 
     def get_owners(self) -> List[str]:
-        raise NotImplementedError()
+        return self._get_collaborators_with_given_access(
+            access_levels=[gitlab.OWNER_ACCESS]
+        )
 
     def who_can_close_issue(self) -> Set[str]:
-        raise NotImplementedError()
+        return set(
+            self._get_collaborators_with_given_access(
+                access_levels=[
+                    gitlab.REPORTER_ACCESS,
+                    gitlab.DEVELOPER_ACCESS,
+                    gitlab.MAINTAINER_ACCESS,
+                    gitlab.OWNER_ACCESS,
+                ]
+            )
+        )
 
     def who_can_merge_pr(self) -> Set[str]:
-        raise NotImplementedError()
+        return set(
+            self._get_collaborators_with_given_access(
+                access_levels=[
+                    gitlab.DEVELOPER_ACCESS,
+                    gitlab.MAINTAINER_ACCESS,
+                    gitlab.OWNER_ACCESS,
+                ]
+            )
+        )
 
     def can_close_issue(self, username: str, issue: Issue) -> bool:
-        raise NotImplementedError()
+        allowed_users = self.who_can_close_issue()
+
+        if username in allowed_users or username == issue.author:
+            return True
+
+        return False
 
     def can_merge_pr(self, username) -> bool:
-        raise NotImplementedError()
+        allowed_users = self.who_can_close_issue()
+
+        if username in allowed_users:
+            return True
+
+        return False
+
+    def _get_collaborators_with_given_access(
+        self, access_levels: List[int]
+    ) -> List[str]:
+        """
+        Get all project collaborators with one of the given access levels.
+        Access levels:
+            10 => Guest access
+            20 => Reporter access
+            30 => Developer access
+            40 => Maintainer access
+            50 => Owner access
+        :return: List of usernames
+        """
+        return [
+            member.username
+            for member in self.gitlab_repo.members.all(all=True)
+            if member.access_level in access_levels
+        ]
 
     def get_issue_comments(
         self, issue_id, filter_regex: str = None, reverse: bool = False
