@@ -658,16 +658,19 @@ class PagureProject(BaseGitProject):
         f = self._construct_fork_project()
         return bool(f.exists() and f.parent.exists())
 
+    def get_is_fork_from_api(self) -> bool:
+        return bool(self.get_project_info()["parent"])
+
     @property
     def is_fork(self) -> bool:
-        return bool(self.get_project_info()["parent"])
+        return self._is_fork
 
     @property
     def parent(self) -> Optional["PagureProject"]:
         """
         Return parent project if this project is a fork, otherwise return None
         """
-        if self.is_fork:
+        if self.get_is_fork_from_api():
             return PagureProject(
                 repo=self.repo,
                 namespace=self.get_project_info()["parent"]["namespace"],
