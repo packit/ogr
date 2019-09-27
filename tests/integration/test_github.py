@@ -110,6 +110,31 @@ class Comments(GithubTests):
         assert comment_match
         assert comment_match[0] == "LGTM, nicely done"
 
+    def test_issue_comments(self):
+        comments = self.ogr_project.get_issue_comments(194)
+        assert comments
+        assert len(comments) == 6
+        assert comments[0].comment.startswith("/packit")
+
+    def test_issue_comments_reversed(self):
+        comments = self.ogr_project.get_issue_comments(194, reverse=True)
+        assert comments
+        assert len(comments) == 6
+        assert comments[0].comment.startswith("The ")
+
+    def test_issue_comments_regex(self):
+        comments = self.ogr_project.get_issue_comments(194, filter_regex=r".*Fedora package.*")
+        assert comments
+        assert len(comments) == 3
+        assert "master" in comments[0].comment
+
+    def test_issue_comments_regex_reversed(self):
+        comments = self.ogr_project.get_issue_comments(194, reverse=True, filter_regex=".*Fedora package.*")
+        assert comments
+        assert len(comments) == 3
+        assert "f29" in comments[0].comment
+
+
 
 class GenericCommands(GithubTests):
     def test_description(self):
