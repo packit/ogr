@@ -350,7 +350,7 @@ class GithubProject(BaseGitProject):
         # in case of github, repository has only one owner
         return [self.github_repo.owner.login]
 
-    def __collaborators(self) -> Set[str]:
+    def __get_collaborators(self) -> Set[str]:
         try:
             collaborators = self._get_collaborators_with_permission()
         except github.GithubException:
@@ -367,10 +367,10 @@ class GithubProject(BaseGitProject):
         return set(usernames)
 
     def who_can_close_issue(self) -> Set[str]:
-        return self.__collaborators()
+        return self.__get_collaborators()
 
     def who_can_merge_pr(self) -> Set[str]:
-        return self.__collaborators()
+        return self.__get_collaborators()
 
     def can_close_issue(self, username: str, issue: Issue) -> bool:
         allowed_users = self.who_can_close_issue()
