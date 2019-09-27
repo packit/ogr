@@ -123,17 +123,20 @@ class Comments(GithubTests):
         assert comments[0].comment.startswith("The ")
 
     def test_issue_comments_regex(self):
-        comments = self.ogr_project.get_issue_comments(194, filter_regex=r".*Fedora package.*")
+        comments = self.ogr_project.get_issue_comments(
+            194, filter_regex=r".*Fedora package.*"
+        )
         assert comments
         assert len(comments) == 3
         assert "master" in comments[0].comment
 
     def test_issue_comments_regex_reversed(self):
-        comments = self.ogr_project.get_issue_comments(194, reverse=True, filter_regex=".*Fedora package.*")
+        comments = self.ogr_project.get_issue_comments(
+            194, reverse=True, filter_regex=".*Fedora package.*"
+        )
         assert comments
         assert len(comments) == 3
         assert "f29" in comments[0].comment
-
 
 
 class GenericCommands(GithubTests):

@@ -426,7 +426,9 @@ class GithubProject(BaseGitProject):
         issue = self.__get_issue(number=issue_id)
         return self._issue_from_github_object(issue)
 
-    def get_issue_comments(self, issue_id: int, filter_regex: str = None, reverse: bool = False) -> List[IssueComment]:
+    def get_issue_comments(
+        self, issue_id: int, filter_regex: str = None, reverse: bool = False
+    ) -> List[IssueComment]:
         """
         Get list of Issue comments.
 
