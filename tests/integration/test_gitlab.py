@@ -188,11 +188,28 @@ class Issues(GitlabTests):
         issue = self.project.issue_close(issue_id=2)
         assert issue.status == IssueStatus.closed
 
-    def test_get_all_issue_comments(self):
-        comments = self.project._get_all_issue_comments(issue_id=2)
+    def test_get_issue_comments(self):
+        comments = self.project.get_issue_comments(issue_id=2)
+        assert len(comments) == 5
         assert comments[0].comment.startswith("Comment")
         assert comments[0].author == "lbarcziova"
+
+    def test_get_issue_comments_reversed(self):
+        comments = self.project.get_issue_comments(issue_id=2, reverse=True)
+        assert len(comments) == 5
+        assert comments[0].comment.startswith("regex")
+
+    def test_get_issue_comments_regex(self):
+        comments = self.project.get_issue_comments(issue_id=2, filter_regex="regex")
         assert len(comments) == 2
+        assert comments[0].comment.startswith("let's")
+
+    def test_get_issue_comments_regex_reversed(self):
+        comments = self.project.get_issue_comments(
+            issue_id=2, filter_regex="regex", reverse=True
+        )
+        assert len(comments) == 2
+        assert comments[0].comment.startswith("regex")
 
     def test_issue_labels(self):
         """
