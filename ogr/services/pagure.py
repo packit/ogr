@@ -127,7 +127,13 @@ class PagureService(BaseGitService):
         return hash(str(self))
 
     def get_project(self, **kwargs) -> "PagureProject":
-        return PagureProject(service=self, **kwargs)
+        if "username" in kwargs:
+            return PagureProject(service=self, **kwargs)
+        else:
+            return PagureProject(service=self,
+                                 username=self.user.get_username(),
+                                 **kwargs
+            )
 
     def get_project_from_url(self, url: str) -> "PagureProject":
         repo_url = parse_git_repo(potential_url=url)
