@@ -262,3 +262,14 @@ GET:
         ok: true
         reason: OK
         status_code: 200
+POST:
+  https://pagure.io/api/0/-/whoami:
+    empty:
+      empty:
+      - content: !!binary |
+          ewogICJ1c2VybmFtZSI6ICJtZm9ja28iCn0=
+        json:
+          username: mfocko
+        ok: true
+        reason: OK
+        status_code: 200

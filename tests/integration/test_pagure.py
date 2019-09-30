@@ -61,7 +61,7 @@ class Comments(PagureTests):
     def test_issue_comments(self):
         issue_comments = self.ogr_project._get_all_issue_comments(issue_id=3)
         assert issue_comments
-        assert len(issue_comments) == 2
+        assert len(issue_comments) == 4
         assert issue_comments[0].comment.startswith("test")
         assert issue_comments[1].comment.startswith("tests")
 
