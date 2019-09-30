@@ -130,9 +130,8 @@ class PagureService(BaseGitService):
         if "username" in kwargs:
             return PagureProject(service=self, **kwargs)
         else:
-            return PagureProject(service=self,
-                                 username=self.user.get_username(),
-                                 **kwargs
+            return PagureProject(
+                service=self, username=self.user.get_username(), **kwargs
             )
 
     def get_project_from_url(self, url: str) -> "PagureProject":
