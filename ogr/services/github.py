@@ -350,7 +350,7 @@ class GithubProject(BaseGitProject):
         # in case of github, repository has only one owner
         return [self.github_repo.owner.login]
 
-    def who_can_close_issue(self) -> Set[str]:
+    def __get_collaborators(self) -> Set[str]:
         try:
             collaborators = self._get_collaborators_with_permission()
         except github.GithubException:
@@ -365,22 +365,12 @@ class GithubProject(BaseGitProject):
                 usernames.append(login)
 
         return set(usernames)
+
+    def who_can_close_issue(self) -> Set[str]:
+        return self.__get_collaborators()
 
     def who_can_merge_pr(self) -> Set[str]:
-        try:
-            collaborators = self._get_collaborators_with_permission()
-        except github.GithubException:
-            logger.debug(
-                f"Current Github token must have push access to view repository permissions."
-            )
-            return set()
-
-        usernames = []
-        for login, permission in collaborators.items():
-            if permission in ["admin", "write"]:
-                usernames.append(login)
-
-        return set(usernames)
+        return self.__get_collaborators()
 
     def can_close_issue(self, username: str, issue: Issue) -> bool:
         allowed_users = self.who_can_close_issue()
