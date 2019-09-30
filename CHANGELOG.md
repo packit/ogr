@@ -1,3 +1,21 @@
+# 0.8.0
+
+## New Features
+
+* GitLab implementation is now feature-complete. (@lbarcziova)
+* Added a `get_web_url` method to project classes. (@mfocko)
+* Added methods for creating projects to service classes. (@lachmanfrantisek, @mfocko)
+
+## Fixes
+
+* GitHub pull-requests are no longer listed in issue methods. (@mfocko)
+
+## Minor
+
+* Implementations of the full_repo_name property were improved. (@mfocko)
+* New quickstart example added to the README. (@rpitonak)
+
+
 # 0.7.0
 
 ## New Features
