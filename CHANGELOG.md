@@ -12,7 +12,7 @@
 
 ## Minor
 
-* Implementations of the full_repo_name property were improved. (@mfocko)
+* Implementations of the `full_repo_name` property were improved. (@mfocko)
 * New quickstart example added to the README. (@rpitonak)
 
 
