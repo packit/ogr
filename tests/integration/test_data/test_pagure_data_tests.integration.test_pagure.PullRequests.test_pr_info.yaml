@@ -18,7 +18,7 @@ GET:
           cnQiOiAiMGI3NDZiMTZmOTBiY2VjYmFkMzRhMzc2NmVlNGI5YWViYjg4NWNhNCIsCiAgImNvbW1p
           dF9zdG9wIjogIjBiNzQ2YjE2ZjkwYmNlY2JhZDM0YTM3NjZlZTRiOWFlYmI4ODVjYTQiLAogICJk
           YXRlX2NyZWF0ZWQiOiAiMTU2MzQ1NzM5MyIsCiAgImlkIjogMSwKICAiaW5pdGlhbF9jb21tZW50
-          IjogIk5ldyBSRUFETUUiLAogICJsYXN0X3VwZGF0ZWQiOiAiMTU2ODY0MzA2MSIsCiAgInByb2pl
+          IjogIk5ldyBSRUFETUUiLAogICJsYXN0X3VwZGF0ZWQiOiAiMTU2OTU3MjY0OCIsCiAgInByb2pl
           Y3QiOiB7CiAgICAiYWNjZXNzX2dyb3VwcyI6IHsKICAgICAgImFkbWluIjogW10sCiAgICAgICJj
           b21taXQiOiBbXSwKICAgICAgInRpY2tldCI6IFtdCiAgICB9LAogICAgImFjY2Vzc191c2VycyI6
           IHsKICAgICAgImFkbWluIjogWwogICAgICAgICJ0dG9tZWNlayIsCiAgICAgICAgImpwb3BlbGth
@@ -99,7 +99,7 @@ GET:
           date_created: '1563457393'
           id: 1
           initial_comment: New README
-          last_updated: '1568643061'
+          last_updated: '1569572648'
           project:
             access_groups:
               admin: []
@@ -207,6 +207,17 @@ GET:
           user:
             fullname: "Laura Barcziov\xE1"
             name: lbarczio
+        ok: true
+        reason: OK
+        status_code: 200
+POST:
+  https://pagure.io/api/0/-/whoami:
+    empty:
+      empty:
+      - content: !!binary |
+          ewogICJ1c2VybmFtZSI6ICJtZm9ja28iCn0=
+        json:
+          username: mfocko
         ok: true
         reason: OK
         status_code: 200

@@ -61,7 +61,7 @@ class Comments(PagureTests):
     def test_issue_comments(self):
         issue_comments = self.ogr_project._get_all_issue_comments(issue_id=3)
         assert issue_comments
-        assert len(issue_comments) == 2
+        assert len(issue_comments) == 4
         assert issue_comments[0].comment.startswith("test")
         assert issue_comments[1].comment.startswith("tests")
 
@@ -180,8 +180,17 @@ class GenericCommands(PagureTests):
             == "mbi/ansible"
         )
 
-        # test fork
+        # test forks
         assert self.ogr_fork.full_repo_name == f"fork/{self.user}/ogr-tests"
+        assert (
+            self.service.get_project(
+                namespace="Fedora-Infra",
+                repo="ansible",
+                username=self.user,
+                is_fork=True,
+            ).full_repo_name
+            == f"fork/{self.user}/Fedora-Infra/ansible"
+        )
 
 
 class Issues(PagureTests):

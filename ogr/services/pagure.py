@@ -127,7 +127,12 @@ class PagureService(BaseGitService):
         return hash(str(self))
 
     def get_project(self, **kwargs) -> "PagureProject":
-        return PagureProject(service=self, **kwargs)
+        if "username" in kwargs:
+            return PagureProject(service=self, **kwargs)
+        else:
+            return PagureProject(
+                service=self, username=self.user.get_username(), **kwargs
+            )
 
     def get_project_from_url(self, url: str) -> "PagureProject":
         repo_url = parse_git_repo(potential_url=url)
@@ -658,16 +663,19 @@ class PagureProject(BaseGitProject):
         f = self._construct_fork_project()
         return bool(f.exists() and f.parent.exists())
 
+    def get_is_fork_from_api(self) -> bool:
+        return bool(self.get_project_info()["parent"])
+
     @property
     def is_fork(self) -> bool:
-        return bool(self.get_project_info()["parent"])
+        return self._is_fork
 
     @property
     def parent(self) -> Optional["PagureProject"]:
         """
         Return parent project if this project is a fork, otherwise return None
         """
-        if self.is_fork:
+        if self.get_is_fork_from_api():
             return PagureProject(
                 repo=self.repo,
                 namespace=self.get_project_info()["parent"]["namespace"],
@@ -873,7 +881,9 @@ class PagureProject(BaseGitProject):
 
         :return: str
         """
-        return self.get_project_info()["url_path"]
+        fork = f"fork/{self._user}/" if self.is_fork else ""
+        namespace = f"{self.namespace}/" if self.namespace else ""
+        return f"{fork}{namespace}{self.repo}"
 
 
 class PagureUser(BaseGitUser):
