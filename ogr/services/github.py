@@ -22,6 +22,7 @@
 
 import logging
 from pathlib import Path
+import re
 from typing import Optional, Dict, List, Type, Set
 
 import github
@@ -425,12 +426,31 @@ class GithubProject(BaseGitProject):
         issue = self.__get_issue(number=issue_id)
         return self._issue_from_github_object(issue)
 
-    def _get_all_issue_comments(self, issue_id: int) -> List[IssueComment]:
+    def get_issue_comments(
+        self, issue_id: int, filter_regex: str = None, reverse: bool = False
+    ) -> List[IssueComment]:
+        """
+        Get list of Issue comments.
+
+        :param issue_id: int
+        :param filter_regex: filter the comments' content with re.search
+        :param reverse: reverse order of comments
+        :return: [IssueComment]
+        """
         issue = self.__get_issue(number=issue_id)
-        return [
+        if not filter_regex:
+            filter_regex = r".*"
+
+        comments = [
             self._issuecomment_from_github_object(raw_comment)
-            for raw_comment in issue.get_issue_comments()
+            for raw_comment in issue.get_comments()
+            if re.search(filter_regex, raw_comment.body)
         ]
+
+        if reverse:
+            comments.reverse()
+
+        return comments
 
     def issue_comment(self, issue_id: int, body: str) -> IssueComment:
         """

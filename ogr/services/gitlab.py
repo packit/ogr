@@ -21,6 +21,7 @@
 # SOFTWARE.
 
 import logging
+import re
 from typing import List, Optional, Dict, Set
 
 import gitlab
@@ -311,7 +312,20 @@ class GitlabProject(BaseGitProject):
     def get_issue_comments(
         self, issue_id, filter_regex: str = None, reverse: bool = False
     ) -> List["IssueComment"]:
-        raise NotImplementedError()
+        issue = self.gitlab_repo.issues.get(issue_id)
+        if not filter_regex:
+            filter_regex = r".*"
+
+        comments = [
+            self._issuecomment_from_gitlab_object(raw_comment)
+            for raw_comment in issue.notes.list()
+            if re.search(filter_regex, raw_comment.body)
+        ]
+
+        if not reverse:
+            comments.reverse()
+
+        return comments
 
     def issue_close(self, issue_id: int) -> Issue:
         issue = self.gitlab_repo.issues.get(issue_id)

@@ -22,6 +22,7 @@
 
 import datetime
 import logging
+import re
 from typing import List, Optional, Dict, Any, Set
 
 import requests
@@ -443,6 +444,24 @@ class PagureProject(BaseGitProject):
     def get_issue_info(self, issue_id: int) -> Issue:
         raw_issue = self._call_project_api("issue", str(issue_id))
         return self._issue_from_pagure_dict(raw_issue)
+
+    def get_issue_comments(
+        self, issue_id: int, filter_regex: str = None, reverse: bool = False
+    ) -> List[IssueComment]:
+        raw_comments = self._call_project_api("issue", str(issue_id))["comments"]
+        if not filter_regex:
+            filter_regex = r".*"
+
+        comments = [
+            self._issuecomment_from_pagure_dict(raw_comment)
+            for raw_comment in raw_comments
+            if re.search(filter_regex, raw_comment["comment"])
+        ]
+
+        if reverse:
+            comments.reverse()
+
+        return comments
 
     def _get_all_issue_comments(self, issue_id: int) -> List[IssueComment]:
         raw_comments = self._call_project_api("issue", str(issue_id))["comments"]
