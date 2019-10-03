@@ -1,10 +1,11 @@
 import os
 import unittest
 
+from requre.storage import PersistentObjectStorage
+
 from ogr import PagureService
 from ogr.abstract import PRStatus, IssueStatus
 from ogr.exceptions import PagureAPIException
-from requre.storage import PersistentObjectStorage
 
 DATA_DIR = "test_data"
 PERSISTENT_DATA_PREFIX = os.path.join(
@@ -57,32 +58,6 @@ class PagureTests(unittest.TestCase):
 
 
 class Comments(PagureTests):
-    def test_issue_comments(self):
-        issue_comments = self.ogr_project.get_issue_comments(issue_id=3)
-        assert issue_comments
-        assert len(issue_comments) == 4
-        assert issue_comments[0].comment.startswith("test")
-        assert issue_comments[1].comment.startswith("tests")
-
-    def test_issue_comments_reversed(self):
-        issue_comments = self.ogr_project.get_issue_comments(issue_id=3, reverse=True)
-        assert len(issue_comments) == 4
-        assert issue_comments[0].comment.startswith("regex")
-
-    def test_issue_comments_regex(self):
-        issue_comments = self.ogr_project.get_issue_comments(
-            issue_id=3, filter_regex="regex"
-        )
-        assert len(issue_comments) == 2
-        assert issue_comments[0].comment.startswith("let's")
-
-    def test_issue_comments_regex_reversed(self):
-        issue_comments = self.ogr_project.get_issue_comments(
-            issue_id=3, filter_regex="regex", reverse=True
-        )
-        assert len(issue_comments) == 2
-        assert issue_comments[0].comment.startswith("regex")
-
     def test_pr_comments(self):
         pr_comments = self.ogr_project.get_pr_comments(pr_id=4)
         assert pr_comments
@@ -329,7 +304,7 @@ class PagureProjectTokenCommands(PagureTests):
     def test_issue_comments(self):
         issue_comments = self.ogr_project._get_all_issue_comments(issue_id=3)
         assert issue_comments
-        assert len(issue_comments) == 2
+        assert len(issue_comments) == 4
         assert issue_comments[0].comment.startswith("test")
         assert issue_comments[1].comment.startswith("tests")
 
@@ -338,6 +313,25 @@ class PagureProjectTokenCommands(PagureTests):
         assert issue_info
         assert issue_info.title.startswith("Test 1")
         assert issue_info.status == IssueStatus.closed
+
+    def test_issue_comments_reversed(self):
+        issue_comments = self.ogr_project.get_issue_comments(issue_id=3, reverse=True)
+        assert len(issue_comments) == 4
+        assert issue_comments[0].comment.startswith("regex")
+
+    def test_issue_comments_regex(self):
+        issue_comments = self.ogr_project.get_issue_comments(
+            issue_id=3, filter_regex="regex"
+        )
+        assert len(issue_comments) == 2
+        assert issue_comments[0].comment.startswith("let's")
+
+    def test_issue_comments_regex_reversed(self):
+        issue_comments = self.ogr_project.get_issue_comments(
+            issue_id=3, filter_regex="regex", reverse=True
+        )
+        assert len(issue_comments) == 2
+        assert issue_comments[0].comment.startswith("regex")
 
     def test_update_pr_info(self):
         pr_info = self.ogr_project.get_pr_info(pr_id=1)
