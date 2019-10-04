@@ -1,23 +1,62 @@
-GET:
-  https://pagure.io/api/0/ogr-tests/git/tags:
-    '{''with_commits'': True}':
-      empty:
-      - content: !!binary |
-          ewogICJ0YWdzIjoge30sCiAgInRvdGFsX3RhZ3MiOiAwCn0=
-        json:
-          tags: {}
-          total_tags: 0
-        ok: true
-        reason: OK
-        status_code: 200
-POST:
-  https://pagure.io/api/0/-/whoami:
-    empty:
-      empty:
-      - content: !!binary |
-          ewogICJ1c2VybmFtZSI6ICJtZm9ja28iCn0=
-        json:
-          username: mfocko
-        ok: true
-        reason: OK
-        status_code: 200
+unittest.case:
+  tests.integration.test_pagure:
+    ogr.services.pagure:
+      requests.sessions:
+        requre.objects:
+          requests.sessions:
+            send:
+            - __store_indicator: 2
+              _content:
+                username: lachmanfrantisek
+              _next: null
+              elapsed: 0.609016
+              encoding: null
+              headers:
+                Connection: Keep-Alive
+                Content-Length: '36'
+                Content-Security-Policy: default-src 'self' https:; script-src 'self'
+                  'unsafe-eval' 'unsafe-inline' https://apps.fedoraproject.org; style-src
+                  'self' 'unsafe-inline' https://apps.fedoraproject.org
+                Content-Type: application/json
+                Date: Thu, 03 Oct 2019 11:50:14 GMT
+                Keep-Alive: timeout=5, max=100
+                Referrer-Policy: same-origin
+                Server: Apache/2.4.6 (Red Hat Enterprise Linux) OpenSSL/1.0.2k-fips
+                  mod_wsgi/3.4 Python/2.7.5
+                Set-Cookie: pagure=eyJfcGVybWFuZW50Ijp0cnVlLCJjc3JmIjp7IiBiIjoiTmpZek56TmhNV1prWkRZelpXWTBNVEJtTURGaE0ySmxOR1kzTVdWak5tSTJPVFF3TXpoaVpRPT0ifX0.EHdx9g.10XV0dxrgINFm4kEZjFnWw1UptM;
+                  Expires=Sun, 03-Nov-2019 11:50:14 GMT; Secure; HttpOnly; Path=/
+                Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
+                X-Content-Type-Options: nosniff
+                X-Frame-Options: ALLOW-FROM https://pagure.io/
+                X-Xss-Protection: 1; mode=block
+              raw: !!binary ""
+              reason: OK
+              status_code: 200
+            - __store_indicator: 2
+              _content:
+                tags: {}
+                total_tags: 0
+              _next: null
+              elapsed: 0.190674
+              encoding: null
+              headers:
+                Connection: Keep-Alive
+                Content-Length: '35'
+                Content-Security-Policy: default-src 'self' https:; script-src 'self'
+                  'unsafe-eval' 'unsafe-inline' https://apps.fedoraproject.org; style-src
+                  'self' 'unsafe-inline' https://apps.fedoraproject.org
+                Content-Type: application/json
+                Date: Thu, 03 Oct 2019 11:50:14 GMT
+                Keep-Alive: timeout=5, max=99
+                Referrer-Policy: same-origin
+                Server: Apache/2.4.6 (Red Hat Enterprise Linux) OpenSSL/1.0.2k-fips
+                  mod_wsgi/3.4 Python/2.7.5
+                Set-Cookie: pagure=eyJfcGVybWFuZW50Ijp0cnVlLCJjc3JmIjp7IiBiIjoiTmpZek56TmhNV1prWkRZelpXWTBNVEJtTURGaE0ySmxOR1kzTVdWak5tSTJPVFF3TXpoaVpRPT0ifX0.EHdx9g.10XV0dxrgINFm4kEZjFnWw1UptM;
+                  Expires=Sun, 03-Nov-2019 11:50:14 GMT; Secure; HttpOnly; Path=/
+                Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
+                X-Content-Type-Options: nosniff
+                X-Frame-Options: ALLOW-FROM https://pagure.io/
+                X-Xss-Protection: 1; mode=block
+              raw: !!binary ""
+              reason: OK
+              status_code: 200

@@ -1,10 +1,11 @@
 import os
 import unittest
 
+from requre.storage import PersistentObjectStorage
+
 from ogr import PagureService
 from ogr.abstract import PRStatus, IssueStatus
 from ogr.exceptions import PagureAPIException
-from ogr.persistent_storage import PersistentObjectStorage
 
 DATA_DIR = "test_data"
 PERSISTENT_DATA_PREFIX = os.path.join(
@@ -16,7 +17,6 @@ class PagureTests(unittest.TestCase):
     def setUp(self):
         self.token = os.environ.get("PAGURE_TOKEN")
         test_name = self.id() or "all"
-
         self.persistent_data_file = os.path.join(
             PERSISTENT_DATA_PREFIX, f"test_pagure_data_{test_name}.yaml"
         )
@@ -54,36 +54,10 @@ class PagureTests(unittest.TestCase):
         return self._ogr_fork
 
     def tearDown(self):
-        self.service.persistent_storage.dump()
+        PersistentObjectStorage().dump()
 
 
 class Comments(PagureTests):
-    def test_issue_comments(self):
-        issue_comments = self.ogr_project.get_issue_comments(issue_id=3)
-        assert issue_comments
-        assert len(issue_comments) == 4
-        assert issue_comments[0].comment.startswith("test")
-        assert issue_comments[1].comment.startswith("tests")
-
-    def test_issue_comments_reversed(self):
-        issue_comments = self.ogr_project.get_issue_comments(issue_id=3, reverse=True)
-        assert len(issue_comments) == 4
-        assert issue_comments[0].comment.startswith("regex")
-
-    def test_issue_comments_regex(self):
-        issue_comments = self.ogr_project.get_issue_comments(
-            issue_id=3, filter_regex="regex"
-        )
-        assert len(issue_comments) == 2
-        assert issue_comments[0].comment.startswith("let's")
-
-    def test_issue_comments_regex_reversed(self):
-        issue_comments = self.ogr_project.get_issue_comments(
-            issue_id=3, filter_regex="regex", reverse=True
-        )
-        assert len(issue_comments) == 2
-        assert issue_comments[0].comment.startswith("regex")
-
     def test_pr_comments(self):
         pr_comments = self.ogr_project.get_pr_comments(pr_id=4)
         assert pr_comments
@@ -176,13 +150,6 @@ class GenericCommands(PagureTests):
         owners = self.ogr_fork.get_owners()
         assert [self.user] == owners
 
-    def test_issue_permissions(self):
-        owners = self.ogr_project.who_can_close_issue()
-        assert "lachmanfrantisek" in owners
-
-        issue = self.ogr_project.get_issue_info(2)
-        assert self.ogr_project.can_close_issue("lachmanfrantisek", issue)
-
     def test_pr_permissions(self):
         owners = self.ogr_project.who_can_merge_pr()
         assert "lachmanfrantisek" in owners
@@ -221,12 +188,6 @@ class Issues(PagureTests):
         assert issue_list
         assert len(issue_list) >= 2
 
-    def test_issue_info(self):
-        issue_info = self.ogr_project.get_issue_info(issue_id=2)
-        assert issue_info
-        assert issue_info.title.startswith("Test 1")
-        assert issue_info.status == IssueStatus.closed
-
 
 class PullRequests(PagureTests):
     def test_pr_create(self):
@@ -257,25 +218,6 @@ class PullRequests(PagureTests):
         assert pr_info
         assert pr_info.title.startswith("Add README file")
         assert pr_info.status == PRStatus.merged
-
-    def test_update_pr_info(self):
-        pr_info = self.ogr_project.get_pr_info(pr_id=1)
-        orig_title = pr_info.title
-        orig_description = pr_info.description
-
-        self.ogr_project.update_pr_info(
-            pr_id=1, title="changed", description="changed description"
-        )
-        pr_info = self.ogr_project.get_pr_info(pr_id=1)
-        assert pr_info.title == "changed"
-        assert pr_info.description == "changed description"
-
-        self.ogr_project.update_pr_info(
-            pr_id=1, title=orig_title, description=orig_description
-        )
-        pr_info = self.ogr_project.get_pr_info(pr_id=1)
-        assert pr_info.title == orig_title
-        assert pr_info.description == orig_description
 
 
 class Forks(PagureTests):
@@ -312,6 +254,13 @@ class Forks(PagureTests):
         assert fork.get_description()
 
     def test_create_fork(self):
+        """
+        Remove your fork of ogr-tests https://pagure.io/fork/$USER/ogr-tests
+        before regeneration data.
+        But other tests needs to have already existed user fork.
+        So regenerate data for other tests, remove  data file for this test
+        and regenerate it again.
+        """
         not_existing_fork = self.ogr_project.get_fork(create=False)
         assert not not_existing_fork
         assert not self.ogr_project.is_forked()
@@ -325,3 +274,80 @@ class Forks(PagureTests):
 
         new_forks = self.ogr_project.service.user.get_forks()
         assert len(old_forks) == len(new_forks) - 1
+
+
+class PagureProjectTokenCommands(PagureTests):
+    def setUp(self):
+        self.token = os.environ.get("PAGURE_OGR_TEST_TOKEN")
+        test_name = self.id() or "all"
+        self.persistent_data_file = os.path.join(
+            PERSISTENT_DATA_PREFIX, f"test_pagure_data_{test_name}.yaml"
+        )
+
+        PersistentObjectStorage().storage_file = self.persistent_data_file
+
+        if PersistentObjectStorage().is_write_mode and (not self.token):
+            raise EnvironmentError("please set PAGURE_OGR_TEST_TOKEN env variables")
+
+        self.service = PagureService(token=self.token, instance_url="https://pagure.io")
+        self._user = None
+        self._ogr_project = None
+        self._ogr_fork = None
+
+    def test_issue_permissions(self):
+        owners = self.ogr_project.who_can_close_issue()
+        assert "lachmanfrantisek" in owners
+
+        issue = self.ogr_project.get_issue_info(2)
+        assert self.ogr_project.can_close_issue("lachmanfrantisek", issue)
+
+    def test_issue_comments(self):
+        issue_comments = self.ogr_project._get_all_issue_comments(issue_id=3)
+        assert issue_comments
+        assert len(issue_comments) == 4
+        assert issue_comments[0].comment.startswith("test")
+        assert issue_comments[1].comment.startswith("tests")
+
+    def test_issue_info(self):
+        issue_info = self.ogr_project.get_issue_info(issue_id=2)
+        assert issue_info
+        assert issue_info.title.startswith("Test 1")
+        assert issue_info.status == IssueStatus.closed
+
+    def test_issue_comments_reversed(self):
+        issue_comments = self.ogr_project.get_issue_comments(issue_id=3, reverse=True)
+        assert len(issue_comments) == 4
+        assert issue_comments[0].comment.startswith("regex")
+
+    def test_issue_comments_regex(self):
+        issue_comments = self.ogr_project.get_issue_comments(
+            issue_id=3, filter_regex="regex"
+        )
+        assert len(issue_comments) == 2
+        assert issue_comments[0].comment.startswith("let's")
+
+    def test_issue_comments_regex_reversed(self):
+        issue_comments = self.ogr_project.get_issue_comments(
+            issue_id=3, filter_regex="regex", reverse=True
+        )
+        assert len(issue_comments) == 2
+        assert issue_comments[0].comment.startswith("regex")
+
+    def test_update_pr_info(self):
+        pr_info = self.ogr_project.get_pr_info(pr_id=1)
+        orig_title = pr_info.title
+        orig_description = pr_info.description
+
+        self.ogr_project.update_pr_info(
+            pr_id=1, title="changed", description="changed description"
+        )
+        pr_info = self.ogr_project.get_pr_info(pr_id=1)
+        assert pr_info.title == "changed"
+        assert pr_info.description == "changed description"
+
+        self.ogr_project.update_pr_info(
+            pr_id=1, title=orig_title, description=orig_description
+        )
+        pr_info = self.ogr_project.get_pr_info(pr_id=1)
+        assert pr_info.title == orig_title
+        assert pr_info.description == orig_description

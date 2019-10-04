@@ -2,7 +2,7 @@ import os
 import unittest
 
 from ogr import GithubService, PagureService, get_project, GitlabService
-from ogr.persistent_storage import PersistentObjectStorage
+from requre.storage import PersistentObjectStorage
 from ogr.services.github import GithubProject
 from ogr.services.gitlab import GitlabProject
 from ogr.services.pagure import PagureProject
@@ -16,11 +16,8 @@ PERSISTENT_DATA_PREFIX = os.path.join(
 class FactoryTests(unittest.TestCase):
     def setUp(self):
         self.github_token = os.environ.get("GITHUB_TOKEN")
-        self.github_user = os.environ.get("GITHUB_USER")
         self.pagure_token = os.environ.get("PAGURE_TOKEN")
-        self.pagure_user = os.environ.get("PAGURE_USER")
         self.gitlab_token = os.environ.get("GITLAB_TOKEN") or "some_token"
-        self.gitlab_user = os.environ.get("GITLAB_USER")
 
         test_name = self.id() or "all"
 
@@ -29,20 +26,21 @@ class FactoryTests(unittest.TestCase):
         )
         PersistentObjectStorage().storage_file = persistent_data_file
 
-        if PersistentObjectStorage().is_write_mode and (
-            not self.github_user or not self.github_token
-        ):
-            raise EnvironmentError("please set GITHUB_TOKEN GITHUB_USER env variables")
+        if PersistentObjectStorage().is_write_mode and not self.github_token:
+            raise EnvironmentError("please set GITHUB_TOKEN env variables")
 
-        if PersistentObjectStorage().is_write_mode and (
-            not self.pagure_user or not self.pagure_token
+        if PersistentObjectStorage().is_write_mode and not self.pagure_token:
+            raise EnvironmentError("please set PAGURE_TOKEN env variables")
+
+        if PersistentObjectStorage().is_write_mode and not os.environ.get(
+            "GITLAB_TOKEN"
         ):
-            raise EnvironmentError("please set PAGURE_TOKEN PAGURE_USER env variables")
+            raise EnvironmentError("please set GITLAB_TOKEN env variables")
 
         self.github_service = GithubService(token=self.github_token)
         self.pagure_service = PagureService(token=self.pagure_token)
         self.gitlab_service = GitlabService(
-            token=self.gitlab_token, instance_url="https://gitlab.gnome.org"
+            token=self.gitlab_token, instance_url="https://gitlab.com"
         )
         self.custom_instances = [
             self.github_service,
@@ -71,7 +69,7 @@ class FactoryTests(unittest.TestCase):
 
     def test_get_project_gitlab(self):
         project = get_project(
-            url="https://gitlab.gnome.org/lbarcziova/testing-ogr-repo",
+            url="https://gitlab.com/packit-service/ogr-tests",
             custom_instances=self.custom_instances,
         )
         assert isinstance(project, GitlabProject)
