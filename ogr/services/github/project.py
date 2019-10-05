@@ -21,9 +21,8 @@
 # SOFTWARE.
 
 import logging
-from pathlib import Path
 import re
-from typing import Optional, Dict, List, Type, Set
+from typing import Optional, Dict, List, Set
 
 import github
 from github import (
@@ -39,7 +38,6 @@ from github.PullRequest import PullRequest as GithubPullRequest
 
 from ogr import BetterGithubIntegration
 from ogr.abstract import (
-    GitUser,
     Issue,
     IssueComment,
     IssueStatus,
@@ -52,165 +50,11 @@ from ogr.abstract import (
     CommitFlag,
 )
 from ogr.exceptions import GithubAPIException
-from ogr.factory import use_for_service
 from ogr.read_only import if_readonly, GitProjectReadOnly
-from ogr.services.base import BaseGitService, BaseGitProject, BaseGitUser
+from ogr.services.base import BaseGitProject
+from ogr.services.github import GithubService, GithubRelease
 
 logger = logging.getLogger(__name__)
-
-
-class GithubRelease(Release):
-    project: "GithubProject"
-
-    def __init__(
-        self,
-        tag_name: str,
-        url: str,
-        created_at: str,
-        tarball_url: str,
-        git_tag: GitTag,
-        project: "GithubProject",
-        raw_release: PyGithubRelease,
-    ) -> None:
-        super().__init__(tag_name, url, created_at, tarball_url, git_tag, project)
-        self.raw_release = raw_release
-
-    @property
-    def title(self):
-        return self.raw_release.title
-
-    @property
-    def body(self):
-        return self.raw_release.body
-
-    def edit_release(self, name: str, message: str) -> None:
-        """
-        Edit name and message of a release.
-
-        :param name: str
-        :param message: str
-        """
-        self.raw_release = self.raw_release.update_release(name=name, message=message)
-
-
-@use_for_service("github.com")
-class GithubService(BaseGitService):
-    # class parameter could be used to mock Github class api
-    github_class: Type[github.Github]
-    instance_url = "https://github.com"
-
-    def __init__(
-        self,
-        token=None,
-        read_only=False,
-        github_app_id: str = None,
-        github_app_private_key: str = None,
-        github_app_private_key_path: str = None,
-        **_,
-    ):
-        super().__init__()
-        self.token = token
-
-        # Authentication via GitHub app
-        self.github_app_id = github_app_id
-        self._github_app_private_key = github_app_private_key
-        self.github_app_private_key_path = github_app_private_key_path
-
-        self.github = github.Github(login_or_token=self.token)
-        self.read_only = read_only
-
-    @property
-    def github_app_private_key(self):
-        if self._github_app_private_key:
-            return self._github_app_private_key
-
-        if self.github_app_private_key_path:
-            if not Path(self.github_app_private_key_path).is_file():
-                raise GithubAPIException(
-                    f"File with the github-app private key "
-                    f"({self.github_app_private_key_path}) "
-                    f"does not exist."
-                )
-            return Path(self.github_app_private_key_path).read_text()
-
-        return None
-
-    def __str__(self) -> str:
-        token_str = f", token='{self.token}'" if self.token else ""
-        github_app_id_str = (
-            f", github_app_id='{self.github_app_id}'" if self.github_app_id else ""
-        )
-        github_app_private_key_str = (
-            f", github_app_private_key='{self._github_app_private_key}'"
-            if self._github_app_private_key
-            else ""
-        )
-        github_app_private_key_path_str = (
-            f", github_app_private_key_path='{self.github_app_private_key_path}'"
-            if self.github_app_private_key_path
-            else ""
-        )
-        str_result = (
-            f"GithubService(read_only={self.read_only}"
-            f"{token_str}{github_app_id_str}"
-            f"{github_app_private_key_str}{github_app_private_key_path_str})"
-        )
-        return str_result
-
-    def __eq__(self, o: object) -> bool:
-        if not issubclass(o.__class__, GithubService):
-            return False
-
-        return (
-            self.token == o.token  # type: ignore
-            and self.read_only == o.read_only  # type: ignore
-            and self.github_app_id == o.github_app_id  # type: ignore
-            and self._github_app_private_key
-            == o._github_app_private_key  # type: ignore
-            and self.github_app_private_key_path
-            == o.github_app_private_key_path  # type: ignore
-        )
-
-    def __hash__(self) -> int:
-        return hash(str(self))
-
-    def get_project(
-        self, repo=None, namespace=None, is_fork=False, **kwargs
-    ) -> "GithubProject":
-        if is_fork:
-            namespace = self.user.get_username()
-        return GithubProject(
-            repo=repo,
-            namespace=namespace,
-            service=self,
-            read_only=self.read_only,
-            **kwargs,
-        )
-
-    @property
-    def user(self) -> GitUser:
-        return GithubUser(service=self)
-
-    def change_token(self, new_token: str) -> None:
-        self.token = new_token
-        self.github = github.Github(login_or_token=self.token)
-
-    def project_create(self, repo: str, namespace: str = None) -> "GithubProject":
-        if namespace:
-            try:
-                owner = self.github.get_organization(namespace)
-            except UnknownObjectException:
-                raise GithubAPIException(f"Group {namespace} not found.")
-        else:
-            owner = self.github.get_user()
-
-        new_repo = owner.create_repo(name=repo)
-        return GithubProject(
-            repo=repo,
-            namespace=namespace or owner.login,
-            service=self,
-            github_repo=new_repo,
-        )
 
 
 class GithubProject(BaseGitProject):
@@ -902,53 +746,3 @@ class GithubProject(BaseGitProject):
         :return: str
         """
         return self.github_repo.html_url
-
-
-class GithubUser(BaseGitUser):
-    service: GithubService
-
-    def __init__(self, service: GithubService) -> None:
-        super().__init__(service=service)
-
-    def __str__(self) -> str:
-        return f'GithubUser(username="{self.get_username()}")'
-
-    @property
-    def _github_user(self):
-        return self.service.github.get_user()
-
-    def get_username(self) -> str:
-        return self.service.github.get_user().login
-
-    def get_email(self) -> Optional[str]:
-        user_email_property = self.service.github.get_user().email
-        if user_email_property:
-            return user_email_property
-
-        user_emails = self.service.github.get_user().get_emails()
-
-        if not user_emails:
-            return None
-
-        for email_dict in user_emails:
-            if email_dict["primary"]:
-                return email_dict["email"]
-
-        # Return the first email we received
-        return user_emails[0]["email"]
-
-    def get_projects(self) -> List["GithubProject"]:
-        raw_repos = self._github_user.get_repos(affiliation="owner")
-        return [
-            GithubProject(
-                repo=repo.name,
-                namespace=repo.owner.login,
-                github_repo=repo,
-                service=self.service,
-            )
-            for repo in raw_repos
-        ]
-
-    def get_forks(self) -> List["GithubProject"]:
-        forks = [project for project in self.get_projects() if project.github_repo.fork]
-        return forks
