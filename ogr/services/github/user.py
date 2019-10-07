@@ -23,13 +23,13 @@
 from typing import Optional, List
 
 from ogr.services.base import BaseGitUser
-from ogr.services.github import GithubService, GithubProject
+from ogr.services.github.project import GithubProject
 
 
 class GithubUser(BaseGitUser):
-    service: GithubService
+    service: "GithubService"
 
-    def __init__(self, service: GithubService) -> None:
+    def __init__(self, service: "GithubService") -> None:
         super().__init__(service=service)
 
     def __str__(self) -> str:

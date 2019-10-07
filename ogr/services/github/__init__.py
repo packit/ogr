@@ -20,15 +20,14 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-
 from ogr.services.github.release import GithubRelease
-from ogr.services.github.service import GithubService
-from ogr.services.github.project import GithubProject
 from ogr.services.github.user import GithubUser
+from ogr.services.github.project import GithubProject
+from ogr.services.github.service import GithubService
 
 __all__ = [
     GithubRelease.__name__,
-    GithubService.__name__,
+    GithubUser.__name__,
     GithubProject.__name__,
-    GithubUser.__name__
+    GithubService.__name__
 ]

@@ -30,7 +30,8 @@ from ogr.abstract import GitUser
 from ogr.exceptions import GithubAPIException
 from ogr.factory import use_for_service
 from ogr.services.base import BaseGitService
-from ogr.services.github import GithubUser, GithubProject
+from ogr.services.github.user import GithubUser
+from ogr.services.github.project import GithubProject
 
 
 @use_for_service("github.com")

@@ -26,7 +26,6 @@ from ogr.abstract import (
     Release,
     GitTag,
 )
-from ogr.services.github import GithubProject
 
 
 class GithubRelease(Release):

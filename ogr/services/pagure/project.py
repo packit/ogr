@@ -43,13 +43,13 @@ from ogr.exceptions import (
 from ogr.read_only import if_readonly, GitProjectReadOnly
 from ogr.services.base import BaseGitProject
 from ogr.utils import RequestResponse
-from ogr.services.pagure import PagureService, PagureRelease
+from ogr.services.pagure.release import PagureRelease
 
 logger = logging.getLogger(__name__)
 
 
 class PagureProject(BaseGitProject):
-    service: PagureService
+    service: "PagureService"
 
     def __init__(
         self,

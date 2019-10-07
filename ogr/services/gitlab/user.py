@@ -21,13 +21,12 @@
 # SOFTWARE.
 
 from ogr.services.base import BaseGitUser
-from ogr.services.gitlab import GitlabService
 
 
 class GitlabUser(BaseGitUser):
-    service: GitlabService
+    service: "GitlabService"
 
-    def __init__(self, service: GitlabService) -> None:
+    def __init__(self, service: "GitlabService") -> None:
         super().__init__(service=service)
 
     def __str__(self) -> str:

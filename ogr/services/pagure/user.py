@@ -23,13 +23,13 @@
 from typing import List
 
 from ogr.services.base import BaseGitUser
-from ogr.services.pagure import PagureService, PagureProject
+from ogr.services.pagure.project import PagureProject
 
 
 class PagureUser(BaseGitUser):
-    service: PagureService
+    service: "PagureService"
 
-    def __init__(self, service: PagureService) -> None:
+    def __init__(self, service: "PagureService") -> None:
         super().__init__(service=service)
 
     def __str__(self) -> str:

@@ -21,7 +21,6 @@
 # SOFTWARE.
 
 from ogr.abstract import GitTag, Release
-from ogr.services.pagure import PagureProject
 
 
 class PagureRelease(Release):

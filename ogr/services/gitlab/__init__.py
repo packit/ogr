@@ -20,19 +20,14 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-
 from ogr.services.gitlab.release import GitlabRelease
-from ogr.services.gitlab.service import GitlabService
-from ogr.services.gitlab.project import GitlabProject
 from ogr.services.gitlab.user import GitlabUser
-# from ogr.abstract import PRStatus
-# from ogr.abstract import IssueStatus
+from ogr.services.gitlab.project import GitlabProject
+from ogr.services.gitlab.service import GitlabService
 
 __all__ = [
     GitlabRelease.__name__,
-    GitlabService.__name__,
-    GitlabProject.__name__,
     GitlabUser.__name__,
-    # PRStatus.__name__,
-    # IssueStatus.__name__
+    GitlabProject.__name__,
+    GitlabService.__name__
 ]

@@ -21,13 +21,13 @@
 # SOFTWARE.
 
 from ogr.services.pagure.release import PagureRelease
-from ogr.services.pagure.service import PagureService
-from ogr.services.pagure.project import PagureProject
 from ogr.services.pagure.user import PagureUser
+from ogr.services.pagure.project import PagureProject
+from ogr.services.pagure.service import PagureService
 
 __all__ = [
     PagureRelease.__name__,
-    PagureService.__name__,
+    PagureUser.__name__,
     PagureProject.__name__,
-    PagureUser.__name__
+    PagureService.__name__
 ]

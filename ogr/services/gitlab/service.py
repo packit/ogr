@@ -28,7 +28,8 @@ from ogr.abstract import (
 )
 from ogr.exceptions import GitlabAPIException
 from ogr.factory import use_for_service
-from ogr.services.gitlab import GitlabUser, GitlabProject
+from ogr.services.gitlab.user import GitlabUser
+from ogr.services.gitlab.project import GitlabProject
 
 
 @use_for_service("gitlab")

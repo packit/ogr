@@ -30,7 +30,8 @@ from ogr.factory import use_for_service
 from ogr.parsing import parse_git_repo
 from ogr.services.base import BaseGitService
 from ogr.utils import RequestResponse
-from ogr.services.pagure import PagureProject, PagureUser
+from ogr.services.pagure.project import PagureProject
+from ogr.services.pagure.user import PagureUser
 
 logger = logging.getLogger(__name__)
 

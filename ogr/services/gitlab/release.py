@@ -26,7 +26,6 @@ from ogr.abstract import (
     Release,
     GitTag,
 )
-from ogr.services.gitlab import GitlabProject
 
 
 class GitlabRelease(Release):
