@@ -6,7 +6,8 @@ from gitlab import GitlabGetError
 
 from ogr.exceptions import GitlabAPIException
 from requre.storage import PersistentObjectStorage
-from ogr.services.gitlab import GitlabService, PRStatus, IssueStatus
+from ogr.abstract import PRStatus, IssueStatus
+from ogr.services.gitlab import GitlabService
 
 DATA_DIR = "test_data"
 PERSISTENT_DATA_PREFIX = os.path.join(
