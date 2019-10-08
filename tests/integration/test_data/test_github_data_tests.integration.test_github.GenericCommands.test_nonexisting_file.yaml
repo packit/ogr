@@ -1,6 +1,6 @@
 unittest.case:
   tests.integration.test_github:
-    ogr.services.github:
+    ogr.services.github.project:
       github.MainClass:
         github.Requester:
           requests.sessions:
@@ -9,9 +9,6 @@ unittest.case:
                 send:
                 - __store_indicator: 2
                   _content:
-                    allow_merge_commit: true
-                    allow_rebase_merge: true
-                    allow_squash_merge: true
                     archive_url: https://api.github.com/repos/packit-service/ogr/{archive_format}{/ref}
                     archived: false
                     assignees_url: https://api.github.com/repos/packit-service/ogr/assignees{/user}
@@ -32,8 +29,8 @@ unittest.case:
                     downloads_url: https://api.github.com/repos/packit-service/ogr/downloads
                     events_url: https://api.github.com/repos/packit-service/ogr/events
                     fork: false
-                    forks: 15
-                    forks_count: 15
+                    forks: 17
+                    forks_count: 17
                     forks_url: https://api.github.com/repos/packit-service/ogr/forks
                     full_name: packit-service/ogr
                     git_commits_url: https://api.github.com/repos/packit-service/ogr/git/commits{/sha}
@@ -66,11 +63,11 @@ unittest.case:
                     milestones_url: https://api.github.com/repos/packit-service/ogr/milestones{/number}
                     mirror_url: null
                     name: ogr
-                    network_count: 15
+                    network_count: 17
                     node_id: MDEwOlJlcG9zaXRvcnkxNjE2MzY3MDA=
                     notifications_url: https://api.github.com/repos/packit-service/ogr/notifications{?since,all,participating}
-                    open_issues: 32
-                    open_issues_count: 32
+                    open_issues: 30
+                    open_issues_count: 30
                     organization:
                       avatar_url: https://avatars3.githubusercontent.com/u/46870917?v=4
                       events_url: https://api.github.com/users/packit-service/events{/privacy}
@@ -110,14 +107,14 @@ unittest.case:
                       type: Organization
                       url: https://api.github.com/users/packit-service
                     permissions:
-                      admin: true
+                      admin: false
                       pull: true
-                      push: true
+                      push: false
                     private: false
                     pulls_url: https://api.github.com/repos/packit-service/ogr/pulls{/number}
-                    pushed_at: '2019-09-27T06:38:19Z'
+                    pushed_at: '2019-10-07T14:44:23Z'
                     releases_url: https://api.github.com/repos/packit-service/ogr/releases{/id}
-                    size: 2395
+                    size: 3524
                     ssh_url: git@github.com:packit-service/ogr.git
                     stargazers_count: 17
                     stargazers_url: https://api.github.com/repos/packit-service/ogr/stargazers
@@ -129,12 +126,12 @@ unittest.case:
                     tags_url: https://api.github.com/repos/packit-service/ogr/tags
                     teams_url: https://api.github.com/repos/packit-service/ogr/teams
                     trees_url: https://api.github.com/repos/packit-service/ogr/git/trees{/sha}
-                    updated_at: '2019-09-26T10:43:44Z'
+                    updated_at: '2019-10-07T14:04:43Z'
                     url: https://api.github.com/repos/packit-service/ogr
                     watchers: 17
                     watchers_count: 17
                   _next: null
-                  elapsed: 0.367447
+                  elapsed: 0.349128
                   encoding: utf-8
                   headers:
                     Access-Control-Allow-Origin: '*'
@@ -145,9 +142,9 @@ unittest.case:
                     Content-Encoding: gzip
                     Content-Security-Policy: default-src 'none'
                     Content-Type: application/json; charset=utf-8
-                    Date: Fri, 27 Sep 2019 08:59:10 GMT
-                    ETag: W/"9c2fa0edcc5fe908f378dbf7dc5780d2"
-                    Last-Modified: Thu, 26 Sep 2019 10:43:44 GMT
+                    Date: Mon, 07 Oct 2019 15:05:02 GMT
+                    ETag: W/"a77512cb44c1622694cc8f07b52914c1"
+                    Last-Modified: Mon, 07 Oct 2019 14:04:43 GMT
                     Referrer-Policy: origin-when-cross-origin, strict-origin-when-cross-origin
                     Server: GitHub.com
                     Status: 200 OK
@@ -159,13 +156,11 @@ unittest.case:
                     X-Content-Type-Options: nosniff
                     X-Frame-Options: deny
                     X-GitHub-Media-Type: github.v3; format=json
-                    X-GitHub-Request-Id: 8B26:16C6A:60C5BB6:74DD8C5:5D8DCF5E
-                    X-OAuth-Scopes: admin:gpg_key, admin:org, admin:org_hook, admin:public_key,
-                      admin:repo_hook, delete_repo, gist, notifications, repo, user,
-                      write:discussion
+                    X-GitHub-Request-Id: 9864:427C8:A6DE322:CA0F40B:5D9B541E
+                    X-OAuth-Scopes: repo
                     X-RateLimit-Limit: '5000'
-                    X-RateLimit-Remaining: '4919'
-                    X-RateLimit-Reset: '1569578321'
+                    X-RateLimit-Remaining: '4979'
+                    X-RateLimit-Reset: '1570464289'
                     X-XSS-Protection: 1; mode=block
                   raw: !!binary ""
                   reason: OK
@@ -181,7 +176,7 @@ unittest.case:
                     documentation_url: https://developer.github.com/v3/repos/contents/#get-contents
                     message: Not Found
                   _next: null
-                  elapsed: 0.194072
+                  elapsed: 0.21914
                   encoding: utf-8
                   headers:
                     Access-Control-Allow-Origin: '*'
@@ -191,7 +186,7 @@ unittest.case:
                     Content-Encoding: gzip
                     Content-Security-Policy: default-src 'none'
                     Content-Type: application/json; charset=utf-8
-                    Date: Fri, 27 Sep 2019 08:59:10 GMT
+                    Date: Mon, 07 Oct 2019 15:05:02 GMT
                     Referrer-Policy: origin-when-cross-origin, strict-origin-when-cross-origin
                     Server: GitHub.com
                     Status: 404 Not Found
@@ -202,13 +197,11 @@ unittest.case:
                     X-Content-Type-Options: nosniff
                     X-Frame-Options: deny
                     X-GitHub-Media-Type: github.v3; format=json
-                    X-GitHub-Request-Id: 8B26:16C6A:60C5C2E:74DD944:5D8DCF5E
-                    X-OAuth-Scopes: admin:gpg_key, admin:org, admin:org_hook, admin:public_key,
-                      admin:repo_hook, delete_repo, gist, notifications, repo, user,
-                      write:discussion
+                    X-GitHub-Request-Id: 9864:427C8:A6DE3A2:CA0F489:5D9B541E
+                    X-OAuth-Scopes: repo
                     X-RateLimit-Limit: '5000'
-                    X-RateLimit-Remaining: '4918'
-                    X-RateLimit-Reset: '1569578321'
+                    X-RateLimit-Remaining: '4978'
+                    X-RateLimit-Reset: '1570464289'
                     X-XSS-Protection: 1; mode=block
                   raw: !!binary ""
                   reason: Not Found
