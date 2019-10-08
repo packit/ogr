@@ -51,6 +51,7 @@ from ogr.abstract import (
 )
 from ogr.exceptions import GithubAPIException
 from ogr.read_only import if_readonly, GitProjectReadOnly
+from ogr.services import github as ogr_github
 from ogr.services.base import BaseGitProject
 from ogr.services.github.release import GithubRelease
 
@@ -58,12 +59,12 @@ logger = logging.getLogger(__name__)
 
 
 class GithubProject(BaseGitProject):
-    service: "GithubService"
+    service: "ogr_github.GithubService"
 
     def __init__(
         self,
         repo: str,
-        service: "GithubService",
+        service: "ogr_github.GithubService",
         namespace: str,
         github_repo: Repository = None,
         read_only: bool = False,

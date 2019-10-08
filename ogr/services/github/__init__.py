@@ -29,5 +29,5 @@ __all__ = [
     GithubRelease.__name__,
     GithubUser.__name__,
     GithubProject.__name__,
-    GithubService.__name__
+    GithubService.__name__,
 ]

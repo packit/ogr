@@ -22,14 +22,15 @@
 
 from typing import Optional, List
 
+from ogr.services import github as ogr_github
 from ogr.services.base import BaseGitUser
 from ogr.services.github.project import GithubProject
 
 
 class GithubUser(BaseGitUser):
-    service: "GithubService"
+    service: "ogr_github.GithubService"
 
-    def __init__(self, service: "GithubService") -> None:
+    def __init__(self, service: "ogr_github.GithubService") -> None:
         super().__init__(service=service)
 
     def __str__(self) -> str:
@@ -59,7 +60,7 @@ class GithubUser(BaseGitUser):
         # Return the first email we received
         return user_emails[0]["email"]
 
-    def get_projects(self) -> List["GithubProject"]:
+    def get_projects(self) -> List["ogr_github.GithubProject"]:
         raw_repos = self._github_user.get_repos(affiliation="owner")
         return [
             GithubProject(
@@ -71,6 +72,6 @@ class GithubUser(BaseGitUser):
             for repo in raw_repos
         ]
 
-    def get_forks(self) -> List["GithubProject"]:
+    def get_forks(self) -> List["ogr_github.GithubProject"]:
         forks = [project for project in self.get_projects() if project.github_repo.fork]
         return forks

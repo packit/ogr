@@ -22,14 +22,12 @@
 
 from github.GitRelease import GitRelease as PyGithubRelease
 
-from ogr.abstract import (
-    Release,
-    GitTag,
-)
+from ogr.abstract import Release, GitTag
+from ogr.services import github as ogr_github
 
 
 class GithubRelease(Release):
-    project: "GithubProject"
+    project: "ogr_github.GithubProject"
 
     def __init__(
         self,
@@ -38,7 +36,7 @@ class GithubRelease(Release):
         created_at: str,
         tarball_url: str,
         git_tag: GitTag,
-        project: "GithubProject",
+        project: "ogr_github.GithubProject",
         raw_release: PyGithubRelease,
     ) -> None:
         super().__init__(tag_name, url, created_at, tarball_url, git_tag, project)
