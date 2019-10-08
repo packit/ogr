@@ -29,5 +29,5 @@ __all__ = [
     GitlabRelease.__name__,
     GitlabUser.__name__,
     GitlabProject.__name__,
-    GitlabService.__name__
+    GitlabService.__name__,
 ]

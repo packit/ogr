@@ -29,5 +29,5 @@ __all__ = [
     PagureRelease.__name__,
     PagureUser.__name__,
     PagureProject.__name__,
-    PagureService.__name__
+    PagureService.__name__,
 ]

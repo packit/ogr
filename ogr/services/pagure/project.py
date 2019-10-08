@@ -43,19 +43,20 @@ from ogr.exceptions import (
 from ogr.read_only import if_readonly, GitProjectReadOnly
 from ogr.services.base import BaseGitProject
 from ogr.utils import RequestResponse
+from ogr.services import pagure as ogr_pagure
 from ogr.services.pagure.release import PagureRelease
 
 logger = logging.getLogger(__name__)
 
 
 class PagureProject(BaseGitProject):
-    service: "PagureService"
+    service: "ogr_pagure.PagureService"
 
     def __init__(
         self,
         repo: str,
         namespace: Optional[str],
-        service: "PagureService",
+        service: "ogr_pagure.PagureService",
         username: str = None,
         is_fork: bool = False,
     ) -> None:
@@ -682,5 +683,3 @@ class PagureProject(BaseGitProject):
         fork = f"fork/{self._user}/" if self.is_fork else ""
         namespace = f"{self.namespace}/" if self.namespace else ""
         return f"{fork}{namespace}{self.repo}"
-
-

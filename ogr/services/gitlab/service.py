@@ -22,10 +22,7 @@
 
 import gitlab
 
-from ogr.abstract import (
-    GitService,
-    GitUser,
-)
+from ogr.abstract import GitService, GitUser
 from ogr.exceptions import GitlabAPIException
 from ogr.factory import use_for_service
 from ogr.services.gitlab.user import GitlabUser

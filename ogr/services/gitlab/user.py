@@ -20,13 +20,14 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
+from ogr.services import gitlab as ogr_gitlab
 from ogr.services.base import BaseGitUser
 
 
 class GitlabUser(BaseGitUser):
-    service: "GitlabService"
+    service: "ogr_gitlab.GitlabService"
 
-    def __init__(self, service: "GitlabService") -> None:
+    def __init__(self, service: "ogr_gitlab.GitlabService") -> None:
         super().__init__(service=service)
 
     def __str__(self) -> str:

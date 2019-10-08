@@ -40,6 +40,7 @@ from ogr.abstract import (
     CommitComment,
 )
 from ogr.exceptions import GitlabAPIException
+from ogr.services import gitlab as ogr_gitlab
 from ogr.services.base import BaseGitProject
 from ogr.services.gitlab.release import GitlabRelease
 
@@ -47,12 +48,12 @@ logger = logging.getLogger(__name__)
 
 
 class GitlabProject(BaseGitProject):
-    service: "GitlabService"
+    service: "ogr_gitlab.GitlabService"
 
     def __init__(
         self,
         repo: str,
-        service: "GitlabService",
+        service: "ogr_gitlab.GitlabService",
         namespace: str,
         gitlab_repo=None,
         **unprocess_kwargs,

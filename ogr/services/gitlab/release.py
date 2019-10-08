@@ -22,14 +22,12 @@
 
 from typing import Optional
 
-from ogr.abstract import (
-    Release,
-    GitTag,
-)
+from ogr.abstract import Release, GitTag
+from ogr.services import gitlab as ogr_gitlab
 
 
 class GitlabRelease(Release):
-    project: "GitlabProject"
+    project: "ogr_gitlab.GitlabProject"
 
     def __init__(
         self,
@@ -38,7 +36,7 @@ class GitlabRelease(Release):
         created_at: str,
         tarball_url: str,
         git_tag: GitTag,
-        project: "GitlabProject",
+        project: "ogr_gitlab.GitlabProject",
         raw_release,
     ) -> None:
         super().__init__(tag_name, url, created_at, tarball_url, git_tag, project)

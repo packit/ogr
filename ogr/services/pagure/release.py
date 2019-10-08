@@ -21,10 +21,11 @@
 # SOFTWARE.
 
 from ogr.abstract import GitTag, Release
+from ogr.services import pagure as ogr_pagure
 
 
 class PagureRelease(Release):
-    project: "PagureProject"
+    project: "ogr_pagure.PagureProject"
 
     def __init__(
         self,
@@ -33,7 +34,7 @@ class PagureRelease(Release):
         created_at: str,
         tarball_url: str,
         git_tag: GitTag,
-        project: "PagureProject",
+        project: "ogr_pagure.PagureProject",
     ) -> None:
         super().__init__(tag_name, url, created_at, tarball_url, git_tag, project)
 
