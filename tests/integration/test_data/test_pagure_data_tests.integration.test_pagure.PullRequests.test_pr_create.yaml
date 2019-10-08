@@ -1,259 +1,31 @@
 unittest.case:
   tests.integration.test_pagure:
     ogr.read_only:
-      ogr.services.pagure:
-        requests.sessions:
-          requre.objects:
-            requests.sessions:
-              send:
-              - __store_indicator: 2
-                _content:
-                  access_groups:
-                    admin: []
-                    commit: []
-                    ticket: []
-                  access_users:
-                    admin: []
-                    commit: []
-                    owner:
-                    - lachmanfrantisek
-                    ticket: []
-                  close_status: []
-                  custom_keys: []
-                  date_created: '1570117037'
-                  date_modified: '1570117037'
-                  description: Testing repository for python-ogr package.
-                  fullname: forks/lachmanfrantisek/ogr-tests
-                  id: 6808
-                  milestones: {}
-                  name: ogr-tests
-                  namespace: null
-                  parent:
+      ogr.services.pagure.project:
+        ogr.services.pagure.service:
+          requests.sessions:
+            requre.objects:
+              requests.sessions:
+                send:
+                - __store_indicator: 2
+                  _content:
                     access_groups:
                       admin: []
                       commit: []
                       ticket: []
                     access_users:
-                      admin:
-                      - ttomecek
-                      - jpopelka
-                      - phracek
-                      - jscotka
-                      - dhodovsk
-                      - rpitonak
-                      - lbarczio
+                      admin: []
+                      commit: []
+                      owner:
                       - mfocko
-                      commit: []
-                      owner:
-                      - lachmanfrantisek
                       ticket: []
                     close_status: []
                     custom_keys: []
-                    date_created: '1563451694'
-                    date_modified: '1569840228'
+                    date_created: '1569322448'
+                    date_modified: '1569322448'
                     description: Testing repository for python-ogr package.
-                    fullname: ogr-tests
-                    id: 6489
-                    milestones: {}
-                    name: ogr-tests
-                    namespace: null
-                    parent: null
-                    priorities: {}
-                    tags: []
-                    url_path: ogr-tests
-                    user:
-                      fullname: "Franti\u0161ek Lachman"
-                      name: lachmanfrantisek
-                  priorities: {}
-                  tags: []
-                  url_path: fork/lachmanfrantisek/ogr-tests
-                  user:
-                    fullname: "Franti\u0161ek Lachman"
-                    name: lachmanfrantisek
-                _next: null
-                elapsed: 0.668386
-                encoding: null
-                headers:
-                  Connection: Keep-Alive
-                  Content-Length: '1565'
-                  Content-Security-Policy: default-src 'self' https:; script-src 'self'
-                    'unsafe-eval' 'unsafe-inline' https://apps.fedoraproject.org;
-                    style-src 'self' 'unsafe-inline' https://apps.fedoraproject.org
-                  Content-Type: application/json
-                  Date: Thu, 03 Oct 2019 15:38:59 GMT
-                  Keep-Alive: timeout=5, max=99
-                  Referrer-Policy: same-origin
-                  Server: Apache/2.4.6 (Red Hat Enterprise Linux) OpenSSL/1.0.2k-fips
-                    mod_wsgi/3.4 Python/2.7.5
-                  Set-Cookie: pagure=eyJfcGVybWFuZW50Ijp0cnVlLCJjc3JmIjp7IiBiIjoiTkRBME0yTmhaRFk1T0dJek5tWTJNelF4WW1KalptWXhNbVl5WXpjelltSTBabVpqWldVMU53PT0ifX0.EHenkw.77F1t7jc0_bNneB2t0ailXFjZwE;
-                    Expires=Sun, 03-Nov-2019 15:38:59 GMT; Secure; HttpOnly; Path=/
-                  Strict-Transport-Security: max-age=31536000; includeSubDomains;
-                    preload
-                  X-Content-Type-Options: nosniff
-                  X-Frame-Options: ALLOW-FROM https://pagure.io/
-                  X-Xss-Protection: 1; mode=block
-                raw: !!binary ""
-                reason: OK
-                status_code: 200
-              - __store_indicator: 2
-                _content:
-                  access_groups:
-                    admin: []
-                    commit: []
-                    ticket: []
-                  access_users:
-                    admin: []
-                    commit: []
-                    owner:
-                    - lachmanfrantisek
-                    ticket: []
-                  close_status: []
-                  custom_keys: []
-                  date_created: '1570117037'
-                  date_modified: '1570117037'
-                  description: Testing repository for python-ogr package.
-                  fullname: forks/lachmanfrantisek/ogr-tests
-                  id: 6808
-                  milestones: {}
-                  name: ogr-tests
-                  namespace: null
-                  parent:
-                    access_groups:
-                      admin: []
-                      commit: []
-                      ticket: []
-                    access_users:
-                      admin:
-                      - ttomecek
-                      - jpopelka
-                      - phracek
-                      - jscotka
-                      - dhodovsk
-                      - rpitonak
-                      - lbarczio
-                      - mfocko
-                      commit: []
-                      owner:
-                      - lachmanfrantisek
-                      ticket: []
-                    close_status: []
-                    custom_keys: []
-                    date_created: '1563451694'
-                    date_modified: '1569840228'
-                    description: Testing repository for python-ogr package.
-                    fullname: ogr-tests
-                    id: 6489
-                    milestones: {}
-                    name: ogr-tests
-                    namespace: null
-                    parent: null
-                    priorities: {}
-                    tags: []
-                    url_path: ogr-tests
-                    user:
-                      fullname: "Franti\u0161ek Lachman"
-                      name: lachmanfrantisek
-                  priorities: {}
-                  tags: []
-                  url_path: fork/lachmanfrantisek/ogr-tests
-                  user:
-                    fullname: "Franti\u0161ek Lachman"
-                    name: lachmanfrantisek
-                _next: null
-                elapsed: 0.364441
-                encoding: null
-                headers:
-                  Connection: Keep-Alive
-                  Content-Length: '1565'
-                  Content-Security-Policy: default-src 'self' https:; script-src 'self'
-                    'unsafe-eval' 'unsafe-inline' https://apps.fedoraproject.org;
-                    style-src 'self' 'unsafe-inline' https://apps.fedoraproject.org
-                  Content-Type: application/json
-                  Date: Thu, 03 Oct 2019 15:39:00 GMT
-                  Keep-Alive: timeout=5, max=98
-                  Referrer-Policy: same-origin
-                  Server: Apache/2.4.6 (Red Hat Enterprise Linux) OpenSSL/1.0.2k-fips
-                    mod_wsgi/3.4 Python/2.7.5
-                  Set-Cookie: pagure=eyJfcGVybWFuZW50Ijp0cnVlLCJjc3JmIjp7IiBiIjoiTkRBME0yTmhaRFk1T0dJek5tWTJNelF4WW1KalptWXhNbVl5WXpjelltSTBabVpqWldVMU53PT0ifX0.EHenlA.HZ4VrR2JwRLdVasQVMJhHopiBng;
-                    Expires=Sun, 03-Nov-2019 15:39:00 GMT; Secure; HttpOnly; Path=/
-                  Strict-Transport-Security: max-age=31536000; includeSubDomains;
-                    preload
-                  X-Content-Type-Options: nosniff
-                  X-Frame-Options: ALLOW-FROM https://pagure.io/
-                  X-Xss-Protection: 1; mode=block
-                raw: !!binary ""
-                reason: OK
-                status_code: 200
-              - __store_indicator: 2
-                _content:
-                  assignee: null
-                  branch: master
-                  branch_from: master
-                  cached_merge_status: unknown
-                  closed_at: null
-                  closed_by: null
-                  comments: []
-                  commit_start: null
-                  commit_stop: null
-                  date_created: '1570117140'
-                  id: 19
-                  initial_comment: Body of the testing PR.
-                  last_updated: '1570117140'
-                  project:
-                    access_groups:
-                      admin: []
-                      commit: []
-                      ticket: []
-                    access_users:
-                      admin:
-                      - ttomecek
-                      - jpopelka
-                      - phracek
-                      - jscotka
-                      - dhodovsk
-                      - rpitonak
-                      - lbarczio
-                      - mfocko
-                      commit: []
-                      owner:
-                      - lachmanfrantisek
-                      ticket: []
-                    close_status: []
-                    custom_keys: []
-                    date_created: '1563451694'
-                    date_modified: '1569840228'
-                    description: Testing repository for python-ogr package.
-                    fullname: ogr-tests
-                    id: 6489
-                    milestones: {}
-                    name: ogr-tests
-                    namespace: null
-                    parent: null
-                    priorities: {}
-                    tags: []
-                    url_path: ogr-tests
-                    user:
-                      fullname: "Franti\u0161ek Lachman"
-                      name: lachmanfrantisek
-                  remote_git: null
-                  repo_from:
-                    access_groups:
-                      admin: []
-                      commit: []
-                      ticket: []
-                    access_users:
-                      admin: []
-                      commit: []
-                      owner:
-                      - lachmanfrantisek
-                      ticket: []
-                    close_status: []
-                    custom_keys: []
-                    date_created: '1570117037'
-                    date_modified: '1570117037'
-                    description: Testing repository for python-ogr package.
-                    fullname: forks/lachmanfrantisek/ogr-tests
-                    id: 6808
+                    fullname: forks/mfocko/ogr-tests
+                    id: 6767
                     milestones: {}
                     name: ogr-tests
                     namespace: null
@@ -295,36 +67,299 @@ unittest.case:
                         name: lachmanfrantisek
                     priorities: {}
                     tags: []
-                    url_path: fork/lachmanfrantisek/ogr-tests
+                    url_path: fork/mfocko/ogr-tests
                     user:
-                      fullname: "Franti\u0161ek Lachman"
-                      name: lachmanfrantisek
-                  status: Open
-                  tags: []
-                  threshold_reached: null
-                  title: Testing PR
-                  uid: 6f5a2de5e697446291e929a267a9ffe5
-                  updated_on: '1570117140'
-                  user:
-                    fullname: "Franti\u0161ek Lachman"
-                    name: lachmanfrantisek
+                      fullname: Matej Focko
+                      name: mfocko
+                  _next: null
+                  elapsed: 0.21019
+                  encoding: null
+                  headers:
+                    Connection: Keep-Alive
+                    Content-Length: '1514'
+                    Content-Security-Policy: default-src 'self' https:; script-src
+                      'self' 'unsafe-eval' 'unsafe-inline' https://apps.fedoraproject.org;
+                      style-src 'self' 'unsafe-inline' https://apps.fedoraproject.org
+                    Content-Type: application/json
+                    Date: Tue, 08 Oct 2019 19:04:22 GMT
+                    Keep-Alive: timeout=5, max=99
+                    Referrer-Policy: same-origin
+                    Server: Apache/2.4.6 (Red Hat Enterprise Linux) OpenSSL/1.0.2k-fips
+                      mod_wsgi/3.4 Python/2.7.5
+                    Set-Cookie: pagure=eyJfcGVybWFuZW50Ijp0cnVlLCJjc3JmIjp7IiBiIjoiWXpCaE5tVmlaVEU0WmpreE5ERTFOMkZqTnpSbE0yTXlNbVUzTVdWaU5HVmpaR016TldJMlpnPT0ifX0.EH5vNg.RX2skRJthVjhWaWGU1xaBuWiEx0;
+                      Expires=Fri, 08-Nov-2019 19:04:22 GMT; Secure; HttpOnly; Path=/
+                    Strict-Transport-Security: max-age=31536000; includeSubDomains;
+                      preload
+                    X-Content-Type-Options: nosniff
+                    X-Frame-Options: ALLOW-FROM https://pagure.io/
+                    X-Xss-Protection: 1; mode=block
+                  raw: !!binary ""
+                  reason: OK
+                  status_code: 200
+                - __store_indicator: 2
+                  _content:
+                    access_groups:
+                      admin: []
+                      commit: []
+                      ticket: []
+                    access_users:
+                      admin: []
+                      commit: []
+                      owner:
+                      - mfocko
+                      ticket: []
+                    close_status: []
+                    custom_keys: []
+                    date_created: '1569322448'
+                    date_modified: '1569322448'
+                    description: Testing repository for python-ogr package.
+                    fullname: forks/mfocko/ogr-tests
+                    id: 6767
+                    milestones: {}
+                    name: ogr-tests
+                    namespace: null
+                    parent:
+                      access_groups:
+                        admin: []
+                        commit: []
+                        ticket: []
+                      access_users:
+                        admin:
+                        - ttomecek
+                        - jpopelka
+                        - phracek
+                        - jscotka
+                        - dhodovsk
+                        - rpitonak
+                        - lbarczio
+                        - mfocko
+                        commit: []
+                        owner:
+                        - lachmanfrantisek
+                        ticket: []
+                      close_status: []
+                      custom_keys: []
+                      date_created: '1563451694'
+                      date_modified: '1569840228'
+                      description: Testing repository for python-ogr package.
+                      fullname: ogr-tests
+                      id: 6489
+                      milestones: {}
+                      name: ogr-tests
+                      namespace: null
+                      parent: null
+                      priorities: {}
+                      tags: []
+                      url_path: ogr-tests
+                      user:
+                        fullname: "Franti\u0161ek Lachman"
+                        name: lachmanfrantisek
+                    priorities: {}
+                    tags: []
+                    url_path: fork/mfocko/ogr-tests
+                    user:
+                      fullname: Matej Focko
+                      name: mfocko
+                  _next: null
+                  elapsed: 0.209651
+                  encoding: null
+                  headers:
+                    Connection: Keep-Alive
+                    Content-Length: '1514'
+                    Content-Security-Policy: default-src 'self' https:; script-src
+                      'self' 'unsafe-eval' 'unsafe-inline' https://apps.fedoraproject.org;
+                      style-src 'self' 'unsafe-inline' https://apps.fedoraproject.org
+                    Content-Type: application/json
+                    Date: Tue, 08 Oct 2019 19:04:22 GMT
+                    Keep-Alive: timeout=5, max=98
+                    Referrer-Policy: same-origin
+                    Server: Apache/2.4.6 (Red Hat Enterprise Linux) OpenSSL/1.0.2k-fips
+                      mod_wsgi/3.4 Python/2.7.5
+                    Set-Cookie: pagure=eyJfcGVybWFuZW50Ijp0cnVlLCJjc3JmIjp7IiBiIjoiWXpCaE5tVmlaVEU0WmpreE5ERTFOMkZqTnpSbE0yTXlNbVUzTVdWaU5HVmpaR016TldJMlpnPT0ifX0.EH5vNg.RX2skRJthVjhWaWGU1xaBuWiEx0;
+                      Expires=Fri, 08-Nov-2019 19:04:22 GMT; Secure; HttpOnly; Path=/
+                    Strict-Transport-Security: max-age=31536000; includeSubDomains;
+                      preload
+                    X-Content-Type-Options: nosniff
+                    X-Frame-Options: ALLOW-FROM https://pagure.io/
+                    X-Xss-Protection: 1; mode=block
+                  raw: !!binary ""
+                  reason: OK
+                  status_code: 200
+                - __store_indicator: 2
+                  _content:
+                    assignee: null
+                    branch: master
+                    branch_from: master
+                    cached_merge_status: unknown
+                    closed_at: null
+                    closed_by: null
+                    comments: []
+                    commit_start: null
+                    commit_stop: null
+                    date_created: '1570561462'
+                    id: 20
+                    initial_comment: Body of the testing PR.
+                    last_updated: '1570561462'
+                    project:
+                      access_groups:
+                        admin: []
+                        commit: []
+                        ticket: []
+                      access_users:
+                        admin:
+                        - ttomecek
+                        - jpopelka
+                        - phracek
+                        - jscotka
+                        - dhodovsk
+                        - rpitonak
+                        - lbarczio
+                        - mfocko
+                        commit: []
+                        owner:
+                        - lachmanfrantisek
+                        ticket: []
+                      close_status: []
+                      custom_keys: []
+                      date_created: '1563451694'
+                      date_modified: '1569840228'
+                      description: Testing repository for python-ogr package.
+                      fullname: ogr-tests
+                      id: 6489
+                      milestones: {}
+                      name: ogr-tests
+                      namespace: null
+                      parent: null
+                      priorities: {}
+                      tags: []
+                      url_path: ogr-tests
+                      user:
+                        fullname: "Franti\u0161ek Lachman"
+                        name: lachmanfrantisek
+                    remote_git: null
+                    repo_from:
+                      access_groups:
+                        admin: []
+                        commit: []
+                        ticket: []
+                      access_users:
+                        admin: []
+                        commit: []
+                        owner:
+                        - mfocko
+                        ticket: []
+                      close_status: []
+                      custom_keys: []
+                      date_created: '1569322448'
+                      date_modified: '1569322448'
+                      description: Testing repository for python-ogr package.
+                      fullname: forks/mfocko/ogr-tests
+                      id: 6767
+                      milestones: {}
+                      name: ogr-tests
+                      namespace: null
+                      parent:
+                        access_groups:
+                          admin: []
+                          commit: []
+                          ticket: []
+                        access_users:
+                          admin:
+                          - ttomecek
+                          - jpopelka
+                          - phracek
+                          - jscotka
+                          - dhodovsk
+                          - rpitonak
+                          - lbarczio
+                          - mfocko
+                          commit: []
+                          owner:
+                          - lachmanfrantisek
+                          ticket: []
+                        close_status: []
+                        custom_keys: []
+                        date_created: '1563451694'
+                        date_modified: '1569840228'
+                        description: Testing repository for python-ogr package.
+                        fullname: ogr-tests
+                        id: 6489
+                        milestones: {}
+                        name: ogr-tests
+                        namespace: null
+                        parent: null
+                        priorities: {}
+                        tags: []
+                        url_path: ogr-tests
+                        user:
+                          fullname: "Franti\u0161ek Lachman"
+                          name: lachmanfrantisek
+                      priorities: {}
+                      tags: []
+                      url_path: fork/mfocko/ogr-tests
+                      user:
+                        fullname: Matej Focko
+                        name: mfocko
+                    status: Open
+                    tags: []
+                    threshold_reached: null
+                    title: Testing PR
+                    uid: bdc991d6916e4faaaddce937ff5bb932
+                    updated_on: '1570561462'
+                    user:
+                      fullname: Matej Focko
+                      name: mfocko
+                  _next: null
+                  elapsed: 1.205616
+                  encoding: null
+                  headers:
+                    Connection: Keep-Alive
+                    Content-Length: '3159'
+                    Content-Security-Policy: default-src 'self' https:; script-src
+                      'self' 'unsafe-eval' 'unsafe-inline' https://apps.fedoraproject.org;
+                      style-src 'self' 'unsafe-inline' https://apps.fedoraproject.org
+                    Content-Type: application/json
+                    Date: Tue, 08 Oct 2019 19:04:22 GMT
+                    Keep-Alive: timeout=5, max=97
+                    Referrer-Policy: same-origin
+                    Server: Apache/2.4.6 (Red Hat Enterprise Linux) OpenSSL/1.0.2k-fips
+                      mod_wsgi/3.4 Python/2.7.5
+                    Set-Cookie: pagure=eyJfcGVybWFuZW50Ijp0cnVlLCJjc3JmIjp7IiBiIjoiWXpCaE5tVmlaVEU0WmpreE5ERTFOMkZqTnpSbE0yTXlNbVUzTVdWaU5HVmpaR016TldJMlpnPT0ifX0.EH5vNw.ZQkGxEn1g_IT9rusijNMbFls2CE;
+                      Expires=Fri, 08-Nov-2019 19:04:23 GMT; Secure; HttpOnly; Path=/
+                    Strict-Transport-Security: max-age=31536000; includeSubDomains;
+                      preload
+                    X-Content-Type-Options: nosniff
+                    X-Frame-Options: ALLOW-FROM https://pagure.io/
+                    X-Xss-Protection: 1; mode=block
+                  raw: !!binary ""
+                  reason: OK
+                  status_code: 200
+    ogr.services.pagure.user:
+      ogr.services.pagure.service:
+        requests.sessions:
+          requre.objects:
+            requests.sessions:
+              send:
+              - __store_indicator: 2
+                _content:
+                  username: mfocko
                 _next: null
-                elapsed: 1.387301
+                elapsed: 0.553776
                 encoding: null
                 headers:
                   Connection: Keep-Alive
-                  Content-Length: '3231'
+                  Content-Length: '26'
                   Content-Security-Policy: default-src 'self' https:; script-src 'self'
                     'unsafe-eval' 'unsafe-inline' https://apps.fedoraproject.org;
                     style-src 'self' 'unsafe-inline' https://apps.fedoraproject.org
                   Content-Type: application/json
-                  Date: Thu, 03 Oct 2019 15:39:00 GMT
-                  Keep-Alive: timeout=5, max=97
+                  Date: Tue, 08 Oct 2019 19:04:22 GMT
+                  Keep-Alive: timeout=5, max=100
                   Referrer-Policy: same-origin
                   Server: Apache/2.4.6 (Red Hat Enterprise Linux) OpenSSL/1.0.2k-fips
                     mod_wsgi/3.4 Python/2.7.5
-                  Set-Cookie: pagure=eyJfcGVybWFuZW50Ijp0cnVlLCJjc3JmIjp7IiBiIjoiTkRBME0yTmhaRFk1T0dJek5tWTJNelF4WW1KalptWXhNbVl5WXpjelltSTBabVpqWldVMU53PT0ifX0.EHenlQ.A8IaGMhPj16YLi6X8wlCl4A6v70;
-                    Expires=Sun, 03-Nov-2019 15:39:01 GMT; Secure; HttpOnly; Path=/
+                  Set-Cookie: pagure=eyJfcGVybWFuZW50Ijp0cnVlLCJjc3JmIjp7IiBiIjoiWXpCaE5tVmlaVEU0WmpreE5ERTFOMkZqTnpSbE0yTXlNbVUzTVdWaU5HVmpaR016TldJMlpnPT0ifX0.EH5vNg.RX2skRJthVjhWaWGU1xaBuWiEx0;
+                    Expires=Fri, 08-Nov-2019 19:04:22 GMT; Secure; HttpOnly; Path=/
                   Strict-Transport-Security: max-age=31536000; includeSubDomains;
                     preload
                   X-Content-Type-Options: nosniff
@@ -333,35 +368,3 @@ unittest.case:
                 raw: !!binary ""
                 reason: OK
                 status_code: 200
-    ogr.services.pagure:
-      requests.sessions:
-        requre.objects:
-          requests.sessions:
-            send:
-            - __store_indicator: 2
-              _content:
-                username: lachmanfrantisek
-              _next: null
-              elapsed: 7.807922
-              encoding: null
-              headers:
-                Connection: Keep-Alive
-                Content-Length: '36'
-                Content-Security-Policy: default-src 'self' https:; script-src 'self'
-                  'unsafe-eval' 'unsafe-inline' https://apps.fedoraproject.org; style-src
-                  'self' 'unsafe-inline' https://apps.fedoraproject.org
-                Content-Type: application/json
-                Date: Thu, 03 Oct 2019 15:38:59 GMT
-                Keep-Alive: timeout=5, max=100
-                Referrer-Policy: same-origin
-                Server: Apache/2.4.6 (Red Hat Enterprise Linux) OpenSSL/1.0.2k-fips
-                  mod_wsgi/3.4 Python/2.7.5
-                Set-Cookie: pagure=eyJfcGVybWFuZW50Ijp0cnVlLCJjc3JmIjp7IiBiIjoiTkRBME0yTmhaRFk1T0dJek5tWTJNelF4WW1KalptWXhNbVl5WXpjelltSTBabVpqWldVMU53PT0ifX0.EHenkw.77F1t7jc0_bNneB2t0ailXFjZwE;
-                  Expires=Sun, 03-Nov-2019 15:38:59 GMT; Secure; HttpOnly; Path=/
-                Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
-                X-Content-Type-Options: nosniff
-                X-Frame-Options: ALLOW-FROM https://pagure.io/
-                X-Xss-Protection: 1; mode=block
-              raw: !!binary ""
-              reason: OK
-              status_code: 200
