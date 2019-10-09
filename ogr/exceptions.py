@@ -49,10 +49,6 @@ class GitlabAPIException(OgrException):
         self.gitlab_error = gitlab_error
 
 
-class PersistentStorageException(OgrException):
-    """ Mocking Exceptions for persistent storage of objects """
-
-
 class OurPagureRawRequest(OgrException):
     """ Mocking Exceptions for pagure raw request """
 
