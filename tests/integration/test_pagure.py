@@ -334,20 +334,20 @@ class PagureProjectTokenCommands(PagureTests):
         assert issue_comments[0].comment.startswith("regex")
 
     def test_update_pr_info(self):
-        pr_info = self.ogr_project.get_pr_info(pr_id=1)
+        pr_info = self.ogr_project.get_pr_info(pr_id=4)
         orig_title = pr_info.title
         orig_description = pr_info.description
 
         self.ogr_project.update_pr_info(
-            pr_id=1, title="changed", description="changed description"
+            pr_id=4, title="changed", description="changed description"
         )
-        pr_info = self.ogr_project.get_pr_info(pr_id=1)
+        pr_info = self.ogr_project.get_pr_info(pr_id=4)
         assert pr_info.title == "changed"
         assert pr_info.description == "changed description"
 
         self.ogr_project.update_pr_info(
-            pr_id=1, title=orig_title, description=orig_description
+            pr_id=4, title=orig_title, description=orig_description
         )
-        pr_info = self.ogr_project.get_pr_info(pr_id=1)
+        pr_info = self.ogr_project.get_pr_info(pr_id=4)
         assert pr_info.title == orig_title
         assert pr_info.description == orig_description
