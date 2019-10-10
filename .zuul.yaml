@@ -6,49 +6,47 @@
         - ogr-pre-commit
         - ogr-tests-rpm
         - ogr-tests-pip-deps
+        - ogr-reverse-dep-packit-tests
     gate:
       jobs:
         - ogr-pre-commit
         - ogr-tests-rpm
         - ogr-tests-pip-deps
+        - ogr-reverse-dep-packit-tests
+
+- job:
+    name: ogr-parent
+    parent: base
+    extra-vars:
+      with_testing: true
+      ansible_python_interpreter: /usr/bin/python3
+    nodeset:
+      nodes:
+        - name: test-node
+          label: cloud-fedora-30
 
 - job:
     name: ogr-tests-rpm
-    parent: base
+    parent: ogr-parent
     description: Run tests of packit via rpms
     pre-run: files/zuul-install-requirements-rpms.yaml
     run: files/zuul-tests.yaml
-    extra-vars:
-      with_testing: true
-      ansible_python_interpreter: /usr/bin/python3
-    nodeset:
-      nodes:
-        - name: test-node
-          label: cloud-fedora-30
 
 - job:
     name: ogr-tests-pip-deps
-    parent: base
+    parent: ogr-parent
     description: Run tests of packit via pip installed dependencies
     pre-run: files/zuul-install-requirements-pip.yaml
     run: files/zuul-tests.yaml
-    extra-vars:
-      with_testing: true
-      ansible_python_interpreter: /usr/bin/python3
-    nodeset:
-      nodes:
-        - name: test-node
-          label: cloud-fedora-30
-
 
 - job:
     name: ogr-pre-commit
-    parent: base
+    parent: ogr-parent
     description: Run pre-commit
     run: pre-commit-pb.yaml
-    extra-vars:
-      ansible_python_interpreter: /usr/bin/python3
-    nodeset:
-      nodes:
-        - name: test-node
-          label: cloud-fedora-30
+
+- job:
+    name: ogr-reverse-dep-packit-tests
+    parent: ogr-parent
+    description: Run packit tests
+    run: files/zuul-reverse-dep-packit.yaml
