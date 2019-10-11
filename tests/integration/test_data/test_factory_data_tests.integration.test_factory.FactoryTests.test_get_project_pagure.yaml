@@ -1,69 +1,71 @@
 unittest.case:
   tests.integration.test_factory:
-    ogr.services.pagure:
-      requests.sessions:
-        requre.objects:
-          requests.sessions:
-            send:
-            - __store_indicator: 2
-              _content:
-                access_groups:
-                  admin: []
-                  commit: []
-                  ticket: []
-                access_users:
-                  admin:
-                  - jpopelka
-                  - phracek
-                  - rpitonak
-                  - lachmanfrantisek
-                  commit:
-                  - usercont
-                  - packit
-                  owner:
-                  - ttomecek
-                  ticket: []
-                close_status: []
-                custom_keys: []
-                date_created: '1551453513'
-                date_modified: '1564649660'
-                description: The python-ogr package
-                fullname: rpms/python-ogr
-                id: 34476
-                milestones: {}
-                name: python-ogr
-                namespace: rpms
-                parent: null
-                priorities: {}
-                tags: []
-                url_path: rpms/python-ogr
-                user:
-                  fullname: Tomas Tomecek
-                  name: ttomecek
-              _next: null
-              elapsed: 0.805563
-              encoding: null
-              headers:
-                AppTime: D=102088
-                Connection: Keep-Alive
-                Content-Length: '741'
-                Content-Security-Policy: default-src 'self';script-src 'self' 'nonce-QclIgTy3WipCIGS2W2T2c8lx1'
-                  https://apps.fedoraproject.org; style-src 'self' 'nonce-QclIgTy3WipCIGS2W2T2c8lx1';
-                  object-src 'none';base-uri 'self';img-src 'self' https:;
-                Content-Type: application/json
-                Date: Fri, 27 Sep 2019 09:07:53 GMT
-                Keep-Alive: timeout=15, max=500
-                Referrer-Policy: same-origin
-                Server: Apache
-                Set-Cookie: disgit_pagure=eyJfcGVybWFuZW50Ijp0cnVlLCJjc3JmIjp7IiBiIjoiWlRVNVl6a3pNakZtWTJOa09EYzJNMkprWldRMllUbGxNamxrWW1Sa1ltWmpaVFZsTW1JNE1nPT0ifX0.EG9i6Q.rXFrOMoTv1kCNgIQQhhyPaw0bDI;
-                  Expires=Mon, 28-Oct-2019 09:07:53 GMT; Secure; HttpOnly; Path=/
-                Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
-                X-Content-Type-Options: nosniff
-                X-Fedora-AppServer: pkgs02.phx2.fedoraproject.org
-                X-Fedora-ProxyServer: proxy01.phx2.fedoraproject.org
-                X-Fedora-RequestID: XY3RafSdPhS1x2-AGNDpEgAADoc
-                X-Frame-Options: SAMEORIGIN
-                X-Xss-Protection: 1; mode=block
-              raw: !!binary ""
-              reason: OK
-              status_code: 200
+    ogr.services.pagure.project:
+      ogr.services.pagure.service:
+        requests.sessions:
+          requre.objects:
+            requests.sessions:
+              send:
+              - __store_indicator: 2
+                _content:
+                  access_groups:
+                    admin: []
+                    commit: []
+                    ticket: []
+                  access_users:
+                    admin:
+                    - jpopelka
+                    - phracek
+                    - rpitonak
+                    - lachmanfrantisek
+                    commit:
+                    - packit
+                    - usercont
+                    owner:
+                    - ttomecek
+                    ticket: []
+                  close_status: []
+                  custom_keys: []
+                  date_created: '1551453513'
+                  date_modified: '1564649660'
+                  description: The python-ogr package
+                  fullname: rpms/python-ogr
+                  id: 34476
+                  milestones: {}
+                  name: python-ogr
+                  namespace: rpms
+                  parent: null
+                  priorities: {}
+                  tags: []
+                  url_path: rpms/python-ogr
+                  user:
+                    fullname: Tomas Tomecek
+                    name: ttomecek
+                _next: null
+                elapsed: 0.824413
+                encoding: null
+                headers:
+                  AppTime: D=136599
+                  Connection: Keep-Alive
+                  Content-Length: '741'
+                  Content-Security-Policy: default-src 'self';script-src 'self' 'nonce-87kUAongYsrJg4E8WQmRv6JFg'
+                    https://apps.fedoraproject.org; style-src 'self' 'nonce-87kUAongYsrJg4E8WQmRv6JFg';
+                    object-src 'none';base-uri 'self';img-src 'self' https:;
+                  Content-Type: application/json
+                  Date: Mon, 07 Oct 2019 15:04:52 GMT
+                  Keep-Alive: timeout=15, max=500
+                  Referrer-Policy: same-origin
+                  Server: Apache
+                  Set-Cookie: disgit_pagure=eyJfcGVybWFuZW50Ijp0cnVlLCJjc3JmIjp7IiBiIjoiWXpaaU9HRmtZakU0TnpWaFpUWXdaVFptWlRZNFlqQXdZVEkwTVRZNU1UWmxPRGt3TURFNFpBPT0ifX0.EHzllA.jG9lfFz415zydxts7FsGOmKZwH0;
+                    Expires=Thu, 07-Nov-2019 15:04:52 GMT; Secure; HttpOnly; Path=/
+                  Strict-Transport-Security: max-age=31536000; includeSubDomains;
+                    preload
+                  X-Content-Type-Options: nosniff
+                  X-Fedora-AppServer: pkgs02.phx2.fedoraproject.org
+                  X-Fedora-ProxyServer: proxy10.phx2.fedoraproject.org
+                  X-Fedora-RequestID: XZtUFBVrG46v3NegiNVsOQAAC8E
+                  X-Frame-Options: SAMEORIGIN
+                  X-Xss-Protection: 1; mode=block
+                raw: !!binary ""
+                reason: OK
+                status_code: 200

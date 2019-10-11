@@ -1,76 +1,6 @@
 unittest.case:
   tests.integration.test_gitlab:
-    ogr.services.gitlab:
-      gitlab:
-        gitlab.exceptions:
-          gitlab.mixins:
-            gitlab:
-              requre.objects:
-                requests.sessions:
-                  send:
-                  - __store_indicator: 2
-                    _content:
-                      avatar_url: https://secure.gravatar.com/avatar/e1ae3427f994784121371108f12eceb5?s=80&d=identicon
-                      bio: null
-                      can_create_group: true
-                      can_create_project: true
-                      color_scheme_id: 1
-                      confirmed_at: '2019-09-16T14:07:15.993Z'
-                      created_at: '2019-09-16T14:07:16.050Z'
-                      current_sign_in_at: '2019-09-27T08:22:58.253Z'
-                      email: scottyh@post.cz
-                      external: false
-                      extra_shared_runners_minutes_limit: null
-                      id: 4626962
-                      identities:
-                      - extern_uid: '8735467'
-                        provider: github
-                        saml_provider_id: null
-                      last_activity_on: '2019-09-27'
-                      last_sign_in_at: '2019-09-26T08:56:42.015Z'
-                      linkedin: ''
-                      location: null
-                      name: jscotka
-                      organization: null
-                      private_profile: false
-                      projects_limit: 100000
-                      public_email: ''
-                      shared_runners_minutes_limit: null
-                      skype: ''
-                      state: active
-                      theme_id: 1
-                      twitter: ''
-                      two_factor_enabled: false
-                      username: jscotka
-                      web_url: https://gitlab.com/jscotka
-                      website_url: ''
-                    _next: null
-                    elapsed: 1.81204
-                    encoding: null
-                    headers:
-                      Cache-Control: max-age=0, private, must-revalidate
-                      Content-Length: '903'
-                      Content-Type: application/json
-                      Date: Fri, 27 Sep 2019 08:38:37 GMT
-                      Etag: W/"61ff7f2d448fff2d66ab5601c6508447"
-                      GitLab-LB: fe-15-lb-gprd
-                      GitLab-SV: localhost
-                      RateLimit-Limit: '600'
-                      RateLimit-Observed: '1'
-                      RateLimit-Remaining: '599'
-                      RateLimit-Reset: '1569573577'
-                      RateLimit-ResetTime: Fri, 27 Sep 2019 08:39:37 GMT
-                      Referrer-Policy: strict-origin-when-cross-origin
-                      Server: nginx
-                      Strict-Transport-Security: max-age=31536000
-                      Vary: Origin
-                      X-Content-Type-Options: nosniff
-                      X-Frame-Options: SAMEORIGIN
-                      X-Request-Id: hSqHo0udsJ9
-                      X-Runtime: '0.028615'
-                    raw: !!binary ""
-                    reason: OK
-                    status_code: 200
+    ogr.services.gitlab.project:
       gitlab.exceptions:
         gitlab.mixins:
           gitlab:
@@ -94,7 +24,6 @@ unittest.case:
                     auto_devops_enabled: false
                     avatar_url: null
                     build_coverage_regex: null
-                    build_git_strategy: fetch
                     build_timeout: 3600
                     builds_access_level: enabled
                     ci_config_path: null
@@ -109,12 +38,11 @@ unittest.case:
                     forks_count: 3
                     http_url_to_repo: https://gitlab.com/packit-service/ogr-tests.git
                     id: 14233409
-                    import_error: null
                     import_status: none
                     issues_access_level: enabled
                     issues_enabled: true
                     jobs_enabled: true
-                    last_activity_at: '2019-09-26T14:08:03.221Z'
+                    last_activity_at: '2019-09-28T10:46:37.078Z'
                     lfs_enabled: true
                     merge_method: merge
                     merge_requests_access_level: enabled
@@ -133,14 +61,12 @@ unittest.case:
                       web_url: https://gitlab.com/groups/packit-service
                     only_allow_merge_if_all_discussions_are_resolved: false
                     only_allow_merge_if_pipeline_succeeds: false
-                    open_issues_count: 7
+                    open_issues_count: 8
                     packages_enabled: true
                     path: ogr-tests
                     path_with_namespace: packit-service/ogr-tests
                     permissions:
-                      group_access:
-                        access_level: 50
-                        notification_level: 3
+                      group_access: null
                       project_access: null
                     printing_merge_request_link_enabled: true
                     public_jobs: true
@@ -148,7 +74,6 @@ unittest.case:
                     repository_access_level: enabled
                     request_access_enabled: false
                     resolve_outdated_diff_discussions: false
-                    runners_token: VjGdzzwZbsTY37sxUeWL
                     shared_runners_enabled: true
                     shared_with_groups: []
                     snippets_access_level: enabled
@@ -161,35 +86,35 @@ unittest.case:
                     wiki_access_level: enabled
                     wiki_enabled: true
                   _next: null
-                  elapsed: 0.207902
+                  elapsed: 0.306199
                   encoding: null
                   headers:
                     Cache-Control: max-age=0, private, must-revalidate
-                    Content-Length: '2752'
+                    Content-Length: '2626'
                     Content-Type: application/json
-                    Date: Fri, 27 Sep 2019 08:38:38 GMT
-                    Etag: W/"ab7b659e4c978b98b6b749843d10ac6e"
-                    GitLab-LB: fe-15-lb-gprd
+                    Date: Tue, 08 Oct 2019 16:03:05 GMT
+                    Etag: W/"55cdc2baeb034285151da521ba3debe8"
+                    GitLab-LB: fe-13-lb-gprd
                     GitLab-SV: localhost
                     RateLimit-Limit: '600'
                     RateLimit-Observed: '2'
                     RateLimit-Remaining: '598'
-                    RateLimit-Reset: '1569573578'
-                    RateLimit-ResetTime: Fri, 27 Sep 2019 08:39:38 GMT
+                    RateLimit-Reset: '1570550645'
+                    RateLimit-ResetTime: Tue, 08 Oct 2019 16:04:05 GMT
                     Referrer-Policy: strict-origin-when-cross-origin
                     Server: nginx
                     Strict-Transport-Security: max-age=31536000
                     Vary: Origin
                     X-Content-Type-Options: nosniff
                     X-Frame-Options: SAMEORIGIN
-                    X-Request-Id: 4lx0NDEyJW6
-                    X-Runtime: '0.084561'
+                    X-Request-Id: KEi2TriDXb3
+                    X-Runtime: '0.105363'
                   raw: !!binary ""
                   reason: OK
                   status_code: 200
                 - __store_indicator: 2
                   _content:
-                  - can_push: true
+                  - can_push: false
                     commit:
                       author_email: lbarczio@redhat.com
                       author_name: Laura Barcziova
@@ -209,27 +134,27 @@ unittest.case:
                     merged: true
                     name: change
                     protected: false
-                  - can_push: true
+                  - can_push: false
                     commit:
                       author_email: scottyh@post.cz
                       author_name: jscotka
-                      authored_date: '2019-09-26T14:20:34.000+00:00'
-                      committed_date: '2019-09-26T14:20:34.000+00:00'
+                      authored_date: '2019-09-27T08:42:55.000+00:00'
+                      committed_date: '2019-09-27T08:42:55.000+00:00'
                       committer_email: scottyh@post.cz
                       committer_name: jscotka
-                      created_at: '2019-09-26T14:20:34.000+00:00'
-                      id: f6de56d97ec3ec74cd5194e79175162d9f969195
-                      message: Merge branch 'pr-test2' into 'master'
+                      created_at: '2019-09-27T08:42:55.000+00:00'
+                      id: 3d278426b64647aa92fb63c8d7ccdb4d8c4919ff
+                      message: Merge branch 'pr-test3' into 'master'
                       parent_ids: null
-                      short_id: f6de56d9
-                      title: Merge branch 'pr-test2' into 'master'
+                      short_id: 3d278426
+                      title: Merge branch 'pr-test3' into 'master'
                     default: true
                     developers_can_merge: false
                     developers_can_push: false
                     merged: false
                     name: master
                     protected: true
-                  - can_push: true
+                  - can_push: false
                     commit:
                       author_email: lbarczio@redhat.com
                       author_name: Laura Barcziova
@@ -249,7 +174,7 @@ unittest.case:
                     merged: true
                     name: pr-2
                     protected: false
-                  - can_push: true
+                  - can_push: false
                     commit:
                       author_email: lbarczio@redhat.com
                       author_name: Laura Barcziova
@@ -269,7 +194,7 @@ unittest.case:
                     merged: true
                     name: pr-3
                     protected: false
-                  - can_push: true
+                  - can_push: false
                     commit:
                       author_email: scottyh@post.cz
                       author_name: jscotka
@@ -289,7 +214,7 @@ unittest.case:
                     merged: true
                     name: pr-test1
                     protected: false
-                  - can_push: true
+                  - can_push: false
                     commit:
                       author_email: scottyh@post.cz
                       author_name: jscotka
@@ -309,16 +234,36 @@ unittest.case:
                     merged: true
                     name: pr-test2
                     protected: false
+                  - can_push: false
+                    commit:
+                      author_email: scottyh@post.cz
+                      author_name: jscotka
+                      authored_date: '2019-09-27T08:41:42.000+00:00'
+                      committed_date: '2019-09-27T08:41:42.000+00:00'
+                      committer_email: scottyh@post.cz
+                      committer_name: jscotka
+                      created_at: '2019-09-27T08:41:42.000+00:00'
+                      id: 6970eae72f9ecee667183f52880ca76126bd8b38
+                      message: Update README.md
+                      parent_ids: null
+                      short_id: 6970eae7
+                      title: Update README.md
+                    default: false
+                    developers_can_merge: false
+                    developers_can_push: false
+                    merged: true
+                    name: pr-test3
+                    protected: false
                   _next: null
-                  elapsed: 0.253808
+                  elapsed: 0.402672
                   encoding: null
                   headers:
                     Cache-Control: max-age=0, private, must-revalidate
-                    Content-Length: '3400'
+                    Content-Length: '3965'
                     Content-Type: application/json
-                    Date: Fri, 27 Sep 2019 08:38:38 GMT
-                    Etag: W/"98208eb26287fb34e2a8547330f8dce4"
-                    GitLab-LB: fe-15-lb-gprd
+                    Date: Tue, 08 Oct 2019 16:03:06 GMT
+                    Etag: W/"bfca846492d75983aa7d3c2a12ae7e77"
+                    GitLab-LB: fe-13-lb-gprd
                     GitLab-SV: localhost
                     Link: <https://gitlab.com/api/v4/projects/14233409/repository/branches?id=14233409&page=1&per_page=20>;
                       rel="first", <https://gitlab.com/api/v4/projects/14233409/repository/branches?id=14233409&page=1&per_page=20>;
@@ -326,8 +271,8 @@ unittest.case:
                     RateLimit-Limit: '600'
                     RateLimit-Observed: '3'
                     RateLimit-Remaining: '597'
-                    RateLimit-Reset: '1569573578'
-                    RateLimit-ResetTime: Fri, 27 Sep 2019 08:39:38 GMT
+                    RateLimit-Reset: '1570550646'
+                    RateLimit-ResetTime: Tue, 08 Oct 2019 16:04:06 GMT
                     Referrer-Policy: strict-origin-when-cross-origin
                     Server: nginx
                     Strict-Transport-Security: max-age=31536000
@@ -338,10 +283,78 @@ unittest.case:
                     X-Page: '1'
                     X-Per-Page: '20'
                     X-Prev-Page: ''
-                    X-Request-Id: XM8dUmGGMr2
-                    X-Runtime: '0.131030'
-                    X-Total: '6'
+                    X-Request-Id: g9Z6862Wlb8
+                    X-Runtime: '0.186806'
+                    X-Total: '7'
                     X-Total-Pages: '1'
                   raw: !!binary ""
                   reason: OK
                   status_code: 200
+      ogr.services.gitlab.service:
+        gitlab:
+          gitlab.exceptions:
+            gitlab.mixins:
+              gitlab:
+                requre.objects:
+                  requests.sessions:
+                    send:
+                    - __store_indicator: 2
+                      _content:
+                        avatar_url: https://assets.gitlab-static.net/uploads/-/system/user/avatar/375555/avatar.png
+                        bio: ''
+                        can_create_group: true
+                        can_create_project: true
+                        color_scheme_id: 3
+                        confirmed_at: '2018-06-07T08:34:01.593Z'
+                        created_at: '2016-01-15T21:12:31.705Z'
+                        current_sign_in_at: '2019-09-13T12:47:41.919Z'
+                        email: matej.focko@outlook.com
+                        external: false
+                        extra_shared_runners_minutes_limit: null
+                        id: 375555
+                        identities: []
+                        last_activity_on: '2019-09-29'
+                        last_sign_in_at: '2019-08-14T19:31:49.570Z'
+                        linkedin: ''
+                        location: "Ko\u0161ice, Slovakia"
+                        name: Matej Focko
+                        organization: ''
+                        private_profile: false
+                        projects_limit: 100000
+                        public_email: ''
+                        shared_runners_minutes_limit: 2000
+                        skype: ''
+                        state: active
+                        theme_id: 7
+                        twitter: MatejFocko
+                        two_factor_enabled: true
+                        username: mfocko
+                        web_url: https://gitlab.com/mfocko
+                        website_url: ''
+                      _next: null
+                      elapsed: 0.688838
+                      encoding: null
+                      headers:
+                        Cache-Control: max-age=0, private, must-revalidate
+                        Content-Length: '854'
+                        Content-Type: application/json
+                        Date: Tue, 08 Oct 2019 16:03:05 GMT
+                        Etag: W/"583376277b172bb8038c7913e0dd5a7f"
+                        GitLab-LB: fe-13-lb-gprd
+                        GitLab-SV: localhost
+                        RateLimit-Limit: '600'
+                        RateLimit-Observed: '1'
+                        RateLimit-Remaining: '599'
+                        RateLimit-Reset: '1570550645'
+                        RateLimit-ResetTime: Tue, 08 Oct 2019 16:04:05 GMT
+                        Referrer-Policy: strict-origin-when-cross-origin
+                        Server: nginx
+                        Strict-Transport-Security: max-age=31536000
+                        Vary: Origin
+                        X-Content-Type-Options: nosniff
+                        X-Frame-Options: SAMEORIGIN
+                        X-Request-Id: w9IMDkbBSI6
+                        X-Runtime: '0.042418'
+                      raw: !!binary ""
+                      reason: OK
+                      status_code: 200

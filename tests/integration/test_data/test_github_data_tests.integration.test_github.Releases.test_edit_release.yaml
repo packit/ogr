@@ -1,6 +1,6 @@
 unittest.case:
   tests.integration.test_github:
-    ogr.services.github:
+    ogr.services.github.release:
       github.GitRelease:
         github.Requester:
           requests.sessions:
@@ -81,6 +81,7 @@ unittest.case:
                   raw: !!binary ""
                   reason: OK
                   status_code: 200
+    ogr.services.github.project:
       github.MainClass:
         github.Requester:
           requests.sessions:

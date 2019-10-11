@@ -28,8 +28,6 @@ import gitlab
 from gitlab.v4.objects import Project as GitlabObjectsProject
 
 from ogr.abstract import (
-    GitService,
-    GitUser,
     PullRequest,
     Issue,
     Release,
@@ -42,117 +40,20 @@ from ogr.abstract import (
     CommitComment,
 )
 from ogr.exceptions import GitlabAPIException
-from ogr.factory import use_for_service
-from ogr.services.base import BaseGitProject, BaseGitUser
+from ogr.services import gitlab as ogr_gitlab
+from ogr.services.base import BaseGitProject
+from ogr.services.gitlab.release import GitlabRelease
 
 logger = logging.getLogger(__name__)
 
 
-class GitlabRelease(Release):
-    project: "GitlabProject"
-
-    def __init__(
-        self,
-        tag_name: str,
-        url: Optional[str],
-        created_at: str,
-        tarball_url: str,
-        git_tag: GitTag,
-        project: "GitlabProject",
-        raw_release,
-    ) -> None:
-        super().__init__(tag_name, url, created_at, tarball_url, git_tag, project)
-        self.raw_release = raw_release
-
-    @property
-    def title(self):
-        return self.raw_release.name
-
-    @property
-    def body(self):
-        return self.raw_release.description
-
-
-@use_for_service("gitlab")
-class GitlabService(GitService):
-    name = "gitlab"
-
-    def __init__(self, token=None, instance_url=None, ssl_verify=True):
-        super().__init__(token=token)
-        self.instance_url = instance_url or "https://gitlab.com"
-        self.token = token
-        self.ssl_verify = ssl_verify
-        self._gitlab_instance = None
-
-    @property
-    def gitlab_instance(self) -> gitlab.Gitlab:
-        if not self._gitlab_instance:
-            self._gitlab_instance = gitlab.Gitlab(
-                url=self.instance_url,
-                private_token=self.token,
-                ssl_verify=self.ssl_verify,
-            )
-            self._gitlab_instance.auth()
-        return self._gitlab_instance
-
-    @property
-    def user(self) -> GitUser:
-        return GitlabUser(service=self)
-
-    def __str__(self) -> str:
-        token_str = f", token='{self.token}'" if self.token else ""
-        str_result = (
-            f"GitlabService(instance_url='{self.instance_url}'"
-            f"{token_str}, "
-            f"ssl_verify={self.ssl_verify})"
-        )
-        return str_result
-
-    def __eq__(self, o: object) -> bool:
-        if not issubclass(o.__class__, GitlabService):
-            return False
-
-        return (
-            self.token == o.token  # type: ignore
-            and self.instance_url == o.instance_url  # type: ignore
-            and self.ssl_verify == o.ssl_verify  # type: ignore
-        )
-
-    def __hash__(self) -> int:
-        return hash(str(self))
-
-    def get_project(
-        self, repo=None, namespace=None, is_fork=False, **kwargs
-    ) -> "GitlabProject":
-        if is_fork:
-            namespace = self.user.get_username()
-        return GitlabProject(repo=repo, namespace=namespace, service=self, **kwargs)
-
-    def change_token(self, new_token: str) -> None:
-        self.token = new_token
-        self._gitlab_instance = None
-
-    def project_create(self, repo: str, namespace: str = None) -> "GitlabProject":
-        data = {"name": repo}
-        if namespace:
-            try:
-                group = self.gitlab_instance.groups.get(namespace)
-            except gitlab.GitlabGetError:
-                raise GitlabAPIException(f"Group {namespace} not found.")
-            data["namespace_id"] = group.id
-        new_project = self.gitlab_instance.projects.create(data)
-        return GitlabProject(
-            repo=repo, namespace=namespace, service=self, gitlab_repo=new_project
-        )
-
-
 class GitlabProject(BaseGitProject):
-    service: GitlabService
+    service: "ogr_gitlab.GitlabService"
 
     def __init__(
         self,
         repo: str,
-        service: GitlabService,
+        service: "ogr_gitlab.GitlabService",
         namespace: str,
         gitlab_repo=None,
         **unprocess_kwargs,
@@ -775,23 +676,3 @@ class GitlabProject(BaseGitProject):
         :return: str
         """
         return self.gitlab_repo.web_url
-
-
-class GitlabUser(BaseGitUser):
-    service: GitlabService
-
-    def __init__(self, service: GitlabService) -> None:
-        super().__init__(service=service)
-
-    def __str__(self) -> str:
-        return f'Gitlab(username="{self.get_username()}")'
-
-    @property
-    def _gitlab_user(self):
-        return self.service.gitlab_instance.user
-
-    def get_username(self) -> str:
-        return self._gitlab_user.username
-
-    def get_email(self) -> str:
-        return self._gitlab_user.email
