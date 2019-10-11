@@ -21,7 +21,7 @@
 # SOFTWARE.
 
 import logging
-from typing import List
+from typing import List, Optional
 
 import requests
 
@@ -229,3 +229,20 @@ class PagureService(BaseGitService):
     def change_token(self, token: str):
         self._token = token
         self.header = {"Authorization": "token " + self._token}
+
+    def project_create(
+        self,
+        repo: str,
+        namespace: Optional[str] = None,
+        description: Optional[str] = None,
+    ) -> PagureProject:
+        request_url = self.get_api_url("new")
+
+        parameters = {"name": repo, "description": description, "wait": True}
+        if not description:
+            parameters["description"] = repo
+        if namespace:
+            parameters["namespace"] = namespace
+
+        self.call_api(request_url, "POST", data=parameters)
+        return PagureProject(repo=repo, namespace=namespace, service=self)
