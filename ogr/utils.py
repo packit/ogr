@@ -24,11 +24,11 @@ import logging
 import os
 import re
 import subprocess
-from typing import List, Union, Match, Optional
+from typing import List, Union, Match, Optional, TypeVar
 
 import six
 
-from ogr.abstract import PRComment
+from ogr.abstract import PRComment, IssueComment
 from ogr.constant import CLONE_TIMEOUT
 
 logger = logging.getLogger(__name__)
@@ -103,10 +103,22 @@ def fetch_all():
         subprocess.run(["git", "fetch", "--all"], stdout=fd, check=True)
 
 
-def filter_comments(comments: List[PRComment], filter_regex: str) -> List[PRComment]:
-    pattern = re.compile(filter_regex)
+Comment = TypeVar("Comment", IssueComment, PRComment)
+
+
+def filter_comments(
+    comments: List[Comment], filter_regex: str = None, author: str = None
+) -> List[Comment]:
+    pattern = None
+    if filter_regex:
+        pattern = re.compile(filter_regex)
+
     comments = list(
-        filter(lambda comment: bool(pattern.search(comment.comment)), comments)
+        filter(
+            lambda comment: (not pattern or bool(pattern.search(comment.comment)))
+            and (not author or comment.author == author),
+            comments,
+        )
     )
     return comments
 
