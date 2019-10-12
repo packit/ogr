@@ -240,6 +240,19 @@ class Issues(GitlabTests):
         assert labels[0] == "test_lb1"
         assert labels[1] == "test_lb2"
 
+    def test_get_issue_comments_author_regex(self):
+        comments = self.project.get_issue_comments(
+            issue_id=2, filter_regex="2$", author="lbarcziova"
+        )
+        assert len(comments) == 1
+        assert comments[0].comment.startswith("Comment")
+
+    def test_get_issue_comments_author(self):
+        comments = self.project.get_issue_comments(issue_id=2, author="mfocko")
+        assert len(comments) == 2
+        assert comments[0].comment.startswith("let's")
+        assert comments[1].comment.startswith("regex")
+
 
 class PullRequests(GitlabTests):
     def test_pr_list(self):
@@ -316,6 +329,18 @@ class PullRequests(GitlabTests):
         assert len(labels) == 2
         assert labels[0] == "test_lb1"
         assert labels[1] == "test_lb2"
+
+    def test_get_pr_comments_author_regex(self):
+        comments = self.project.get_pr_comments(
+            pr_id=1, filter_regex="test$", author="mfocko"
+        )
+        assert len(comments) == 1
+        assert comments[0].comment.startswith("author")
+
+    def test_get_pr_comments_author(self):
+        comments = self.project.get_pr_comments(pr_id=1, author="mfocko")
+        assert len(comments) == 2
+        assert comments[0].comment.startswith("second")
 
 
 class Tags(GitlabTests):
