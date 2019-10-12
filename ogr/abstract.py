@@ -787,6 +787,14 @@ class GitProject:
         """
         raise NotImplementedError
 
+    def add_to_collaborators(self, username: str):
+        """
+        Add user to collaborators.
+
+        :param username: str
+        """
+        raise NotImplementedError
+
 
 class GitUser:
     def __init__(self, service: GitService) -> None:
