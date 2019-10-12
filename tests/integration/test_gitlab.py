@@ -266,8 +266,8 @@ class PullRequests(GitlabTests):
     def test_get_all_pr_comments(self):
         comments = self.project._get_all_pr_comments(pr_id=1)
         count = len(comments)
-        assert comments[count - 1].comment == "first comment of mergerequest"
-        assert comments[count - 1].author == "lbarcziova"
+        assert comments[0].comment == "first comment of mergerequest"
+        assert comments[0].author == "lbarcziova"
         assert count >= 2
 
     def test_update_pr_info(self):

@@ -461,10 +461,12 @@ class GitlabProject(BaseGitProject):
 
     def _get_all_pr_comments(self, pr_id: int) -> List[PRComment]:
         pr = self.gitlab_repo.mergerequests.get(pr_id)
-        return [
+        comments = [
             self._prcomment_from_gitlab_object(raw_comment)
             for raw_comment in pr.notes.list()
         ]
+        comments.reverse()
+        return comments
 
     def pr_comment(
         self,
