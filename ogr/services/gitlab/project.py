@@ -212,14 +212,10 @@ class GitlabProject(BaseGitProject):
     def _get_all_issue_comments(self, issue_id) -> List["IssueComment"]:
         issue = self.gitlab_repo.issues.get(issue_id)
 
-        comments = [
+        return [
             self._issuecomment_from_gitlab_object(raw_comment)
-            for raw_comment in issue.notes.list()
+            for raw_comment in issue.notes.list(sort="asc")
         ]
-
-        comments.reverse()
-
-        return comments
 
     def issue_close(self, issue_id: int) -> Issue:
         issue = self.gitlab_repo.issues.get(issue_id)
@@ -461,12 +457,10 @@ class GitlabProject(BaseGitProject):
 
     def _get_all_pr_comments(self, pr_id: int) -> List[PRComment]:
         pr = self.gitlab_repo.mergerequests.get(pr_id)
-        comments = [
+        return [
             self._prcomment_from_gitlab_object(raw_comment)
-            for raw_comment in pr.notes.list()
+            for raw_comment in pr.notes.list(sort="asc")
         ]
-        comments.reverse()
-        return comments
 
     def pr_comment(
         self,
