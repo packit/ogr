@@ -28,9 +28,12 @@ class OgrException(Exception):
 class PagureAPIException(OgrException):
     """ Exception related to Pagure API """
 
-    def __init__(self, *args: object, pagure_error: str = None) -> None:
+    def __init__(
+        self, *args: object, pagure_error: str = None, pagure_response: dict = None
+    ) -> None:
         super().__init__(*args)
         self.pagure_error = pagure_error
+        self.pagure_response = pagure_response
 
 
 class GithubAPIException(OgrException):

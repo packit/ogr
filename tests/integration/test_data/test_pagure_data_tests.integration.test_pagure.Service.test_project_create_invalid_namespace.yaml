@@ -1,0 +1,106 @@
+unittest.case:
+  tests.integration.test_pagure:
+    ogr.services.pagure.project:
+      ogr.services.pagure.service:
+        requests.sessions:
+          requre.objects:
+            requests.sessions:
+              send:
+              - __store_indicator: 2
+                _content:
+                  error: Project not found
+                  error_code: ENOPROJECT
+                _next: null
+                elapsed: 0.209005
+                encoding: null
+                headers:
+                  Connection: Keep-Alive
+                  Content-Length: '64'
+                  Content-Security-Policy: default-src 'self' https:; script-src 'self'
+                    'unsafe-eval' 'unsafe-inline' https://apps.fedoraproject.org;
+                    style-src 'self' 'unsafe-inline' https://apps.fedoraproject.org
+                  Content-Type: application/json
+                  Date: Mon, 14 Oct 2019 13:05:37 GMT
+                  Keep-Alive: timeout=5, max=99
+                  Referrer-Policy: same-origin
+                  Server: Apache/2.4.6 (Red Hat Enterprise Linux) OpenSSL/1.0.2k-fips
+                    mod_wsgi/3.4 Python/2.7.5
+                  Set-Cookie: pagure=eyJfcGVybWFuZW50Ijp0cnVlLCJjc3JmIjp7IiBiIjoiTVROaU1HRTBNemN3TjJWbVltWTFaRGd4WXpZeE1XSmpNVGRsT0dFMU9HTm1ZekZqWXpnNU5BPT0ifX0.EIYEIQ.G_CuYQ2d7n-WQnQ9eCLQ0je3NMA;
+                    Expires=Thu, 14-Nov-2019 13:05:37 GMT; Secure; HttpOnly; Path=/
+                  Strict-Transport-Security: max-age=31536000; includeSubDomains;
+                    preload
+                  X-Content-Type-Options: nosniff
+                  X-Frame-Options: ALLOW-FROM https://pagure.io/
+                  X-Xss-Protection: 1; mode=block
+                raw: !!binary ""
+                reason: NOT FOUND
+                status_code: 404
+    ogr.services.pagure.service:
+      ogr.services.pagure.user:
+        ogr.services.pagure.service:
+          requests.sessions:
+            requre.objects:
+              requests.sessions:
+                send:
+                - __store_indicator: 2
+                  _content:
+                    username: mfocko
+                  _next: null
+                  elapsed: 0.571616
+                  encoding: null
+                  headers:
+                    Connection: Keep-Alive
+                    Content-Length: '26'
+                    Content-Security-Policy: default-src 'self' https:; script-src
+                      'self' 'unsafe-eval' 'unsafe-inline' https://apps.fedoraproject.org;
+                      style-src 'self' 'unsafe-inline' https://apps.fedoraproject.org
+                    Content-Type: application/json
+                    Date: Mon, 14 Oct 2019 13:05:36 GMT
+                    Keep-Alive: timeout=5, max=100
+                    Referrer-Policy: same-origin
+                    Server: Apache/2.4.6 (Red Hat Enterprise Linux) OpenSSL/1.0.2k-fips
+                      mod_wsgi/3.4 Python/2.7.5
+                    Set-Cookie: pagure=eyJfcGVybWFuZW50Ijp0cnVlLCJjc3JmIjp7IiBiIjoiTVROaU1HRTBNemN3TjJWbVltWTFaRGd4WXpZeE1XSmpNVGRsT0dFMU9HTm1ZekZqWXpnNU5BPT0ifX0.EIYEIA.HL-foUgBnan6JGt3aNvbi8nTXY4;
+                      Expires=Thu, 14-Nov-2019 13:05:36 GMT; Secure; HttpOnly; Path=/
+                    Strict-Transport-Security: max-age=31536000; includeSubDomains;
+                      preload
+                    X-Content-Type-Options: nosniff
+                    X-Frame-Options: ALLOW-FROM https://pagure.io/
+                    X-Xss-Protection: 1; mode=block
+                  raw: !!binary ""
+                  reason: OK
+                  status_code: 200
+      requests.sessions:
+        requre.objects:
+          requests.sessions:
+            send:
+            - __store_indicator: 2
+              _content:
+                error: Invalid or incomplete input submitted
+                error_code: EINVALIDREQ
+                errors:
+                  namespace:
+                  - Not a valid choice
+              _next: null
+              elapsed: 0.681254
+              encoding: null
+              headers:
+                Connection: close
+                Content-Length: '156'
+                Content-Security-Policy: default-src 'self' https:; script-src 'self'
+                  'unsafe-eval' 'unsafe-inline' https://apps.fedoraproject.org; style-src
+                  'self' 'unsafe-inline' https://apps.fedoraproject.org
+                Content-Type: application/json
+                Date: Mon, 14 Oct 2019 13:05:36 GMT
+                Referrer-Policy: same-origin
+                Server: Apache/2.4.6 (Red Hat Enterprise Linux) OpenSSL/1.0.2k-fips
+                  mod_wsgi/3.4 Python/2.7.5
+                Set-Cookie: pagure=eyJfcGVybWFuZW50Ijp0cnVlLCJjc3JmIjp7IiBiIjoiTVROaU1HRTBNemN3TjJWbVltWTFaRGd4WXpZeE1XSmpNVGRsT0dFMU9HTm1ZekZqWXpnNU5BPT0ifX0.EIYEIA.HL-foUgBnan6JGt3aNvbi8nTXY4;
+                  Expires=Thu, 14-Nov-2019 13:05:36 GMT; Secure; HttpOnly; Path=/
+                Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
+                X-Content-Type-Options: nosniff
+                X-Frame-Options: ALLOW-FROM https://pagure.io/
+                X-Xss-Protection: 1; mode=block
+              raw: !!binary ""
+              reason: BAD REQUEST
+              status_code: 400

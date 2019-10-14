@@ -1,11 +1,13 @@
 import os
 import unittest
 
+import pytest
+
 from requre.storage import PersistentObjectStorage
 
 from ogr import PagureService
 from ogr.abstract import PRStatus, IssueStatus
-from ogr.exceptions import PagureAPIException
+from ogr.exceptions import PagureAPIException, OgrException
 
 DATA_DIR = "test_data"
 PERSISTENT_DATA_PREFIX = os.path.join(
@@ -211,6 +213,15 @@ class Service(PagureTests):
 
         project = self.service.get_project(repo=name, namespace=namespace)
         assert project.exists()
+
+    def test_project_create_invalid_namespace(self):
+        name = "new-ogr-testing-repo"
+        namespace = "nonexisting"
+
+        with pytest.raises(OgrException):
+            self.service.project_create(repo=name, namespace=namespace)
+        project = self.service.get_project(repo=name, namespace=namespace)
+        assert not project.exists()
 
 
 class Issues(PagureTests):
