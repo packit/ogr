@@ -21,11 +21,11 @@
 # SOFTWARE.
 
 import logging
-from typing import List
+from typing import List, Optional
 
 import requests
 
-from ogr.exceptions import PagureAPIException
+from ogr.exceptions import PagureAPIException, OgrException
 from ogr.factory import use_for_service
 from ogr.parsing import parse_git_repo
 from ogr.services.base import BaseGitService
@@ -142,6 +142,7 @@ class PagureService(BaseGitService):
                 raise PagureAPIException(
                     f"Pagure API returned an error when calling `{url}`: {error_msg}",
                     pagure_error=error_msg,
+                    pagure_response=response.json_content,
                 )
             raise PagureAPIException(f"Problem with Pagure API when calling `{url}`")
 
@@ -229,3 +230,30 @@ class PagureService(BaseGitService):
     def change_token(self, token: str):
         self._token = token
         self.header = {"Authorization": "token " + self._token}
+
+    def project_create(
+        self,
+        repo: str,
+        namespace: Optional[str] = None,
+        description: Optional[str] = None,
+    ) -> PagureProject:
+        request_url = self.get_api_url("new")
+
+        parameters = {"name": repo, "description": description, "wait": True}
+        if not description:
+            parameters["description"] = repo
+        if namespace:
+            parameters["namespace"] = namespace
+
+        try:
+            self.call_api(request_url, "POST", data=parameters)
+        except PagureAPIException as ex:
+            if (
+                ex.pagure_response
+                and ex.pagure_response["errors"]["namespace"][0] == "Not a valid choice"
+            ):
+                raise OgrException(
+                    f"Cannot create project in given namespace ({namespace})."
+                )
+            raise ex
+        return PagureProject(repo=repo, namespace=namespace, service=self)

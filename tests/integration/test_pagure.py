@@ -1,11 +1,13 @@
 import os
 import unittest
 
+import pytest
+
 from requre.storage import PersistentObjectStorage
 
 from ogr import PagureService
 from ogr.abstract import PRStatus, IssueStatus
-from ogr.exceptions import PagureAPIException
+from ogr.exceptions import PagureAPIException, OgrException
 
 DATA_DIR = "test_data"
 PERSISTENT_DATA_PREFIX = os.path.join(
@@ -177,6 +179,49 @@ class GenericCommands(PagureTests):
             ).full_repo_name
             == f"fork/{self.user}/Fedora-Infra/ansible"
         )
+
+
+class Service(PagureTests):
+    def test_project_create(self):
+        """
+        Remove https://pagure.io/$USERNAME/new-ogr-testing-repo before data regeneration
+        """
+        name = "new-ogr-testing-repo"
+        project = self.service.get_project(repo=name, namespace=None)
+        assert not project.exists()
+
+        new_project = self.service.project_create(repo=name)
+        assert new_project.exists()
+        assert new_project.repo == name
+
+        project = self.service.get_project(repo=name, namespace=None)
+        assert project.exists()
+
+    def test_project_create_in_the_group(self):
+        """
+        Remove https://pagure.io/packit-service/new-ogr-testing-repo-in-the-group
+        before data regeneration
+        """
+        name = "new-ogr-testing-repo-in-the-group"
+        namespace = "packit-service"
+        project = self.service.get_project(repo=name, namespace=namespace)
+        assert not project.exists()
+
+        new_project = self.service.project_create(repo=name, namespace=namespace)
+        assert new_project.exists()
+        assert new_project.repo == name
+
+        project = self.service.get_project(repo=name, namespace=namespace)
+        assert project.exists()
+
+    def test_project_create_invalid_namespace(self):
+        name = "new-ogr-testing-repo"
+        namespace = "nonexisting"
+
+        with pytest.raises(OgrException):
+            self.service.project_create(repo=name, namespace=namespace)
+        project = self.service.get_project(repo=name, namespace=namespace)
+        assert not project.exists()
 
 
 class Issues(PagureTests):
