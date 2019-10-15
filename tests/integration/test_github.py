@@ -112,13 +112,11 @@ class Comments(GithubTests):
 
     def test_issue_comments(self):
         comments = self.ogr_project.get_issue_comments(194)
-        assert comments
         assert len(comments) == 6
         assert comments[0].comment.startswith("/packit")
 
     def test_issue_comments_reversed(self):
         comments = self.ogr_project.get_issue_comments(194, reverse=True)
-        assert comments
         assert len(comments) == 6
         assert comments[0].comment.startswith("The ")
 
@@ -126,7 +124,6 @@ class Comments(GithubTests):
         comments = self.ogr_project.get_issue_comments(
             194, filter_regex=r".*Fedora package.*"
         )
-        assert comments
         assert len(comments) == 3
         assert "master" in comments[0].comment
 
@@ -134,9 +131,33 @@ class Comments(GithubTests):
         comments = self.ogr_project.get_issue_comments(
             194, reverse=True, filter_regex=".*Fedora package.*"
         )
-        assert comments
         assert len(comments) == 3
         assert "f29" in comments[0].comment
+
+    def test_pr_comments_author_regex(self):
+        comments = self.ogr_project.get_pr_comments(
+            217, filter_regex="^I", author="mfocko"
+        )
+        assert len(comments) == 1
+        assert "API" in comments[0].comment
+
+    def test_pr_comments_author(self):
+        comments = self.ogr_project.get_pr_comments(217, author="lachmanfrantisek")
+        assert len(comments) == 3
+        assert comments[0].comment.endswith("here.")
+
+    def test_issue_comments_author_regex(self):
+        comments = self.ogr_project.get_issue_comments(
+            220, filter_regex=".*API.*", author="lachmanfrantisek"
+        )
+        assert len(comments) == 1
+        assert comments[0].comment.startswith("After")
+
+    def test_issue_comments_author(self):
+        comments = self.ogr_project.get_issue_comments(220, author="mfocko")
+        assert len(comments) == 2
+        assert comments[0].comment.startswith("What")
+        assert comments[1].comment.startswith("Consider")
 
 
 class GenericCommands(GithubTests):

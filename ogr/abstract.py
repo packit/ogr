@@ -451,7 +451,11 @@ class GitProject:
         raise NotImplementedError()
 
     def get_issue_comments(
-        self, issue_id, filter_regex: str = None, reverse: bool = False
+        self,
+        issue_id,
+        filter_regex: str = None,
+        reverse: bool = False,
+        author: str = None,
     ) -> List["IssueComment"]:
         """
         Get list of Issue comments.
@@ -459,6 +463,7 @@ class GitProject:
         :param issue_id: int
         :param filter_regex: filter the comments' content with re.search
         :param reverse: reverse order of comments
+        :param author: filter comments by author
         :return: [IssueComment]
         """
         raise NotImplementedError()
@@ -595,7 +600,11 @@ class GitProject:
         raise NotImplementedError()
 
     def get_pr_comments(
-        self, pr_id: int, filter_regex: str = None, reverse: bool = False
+        self,
+        pr_id: int,
+        filter_regex: str = None,
+        reverse: bool = False,
+        author: str = None,
     ) -> List["PRComment"]:
         """
         Get list of pull-request comments.
@@ -603,6 +612,7 @@ class GitProject:
         :param pr_id: int
         :param filter_regex: filter the comments' content with re.search
         :param reverse: reverse order of comments
+        :param author: filter comments by author
         :return: [PRComment]
         """
         raise NotImplementedError()

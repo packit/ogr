@@ -396,3 +396,28 @@ class PagureProjectTokenCommands(PagureTests):
         pr_info = self.ogr_project.get_pr_info(pr_id=4)
         assert pr_info.title == orig_title
         assert pr_info.description == orig_description
+
+    def test_pr_comments_author_regex(self):
+        comments = self.ogr_project.get_pr_comments(
+            pr_id=4, filter_regex="^regex", author="mfocko"
+        )
+        assert len(comments) == 1
+        assert comments[0].comment.endswith("test")
+
+    def test_pr_comments_author(self):
+        comments = self.ogr_project.get_pr_comments(pr_id=4, author="lachmanfrantisek")
+        assert len(comments) == 0
+
+    def test_issue_comments_author_regex(self):
+        comments = self.ogr_project.get_issue_comments(
+            issue_id=3, filter_regex="^test[s]?$", author="mfocko"
+        )
+        assert len(comments) == 2
+        assert comments[0].comment == "test"
+        assert comments[1].comment == "tests"
+
+    def test_issue_comments_author(self):
+        comments = self.ogr_project.get_issue_comments(
+            issue_id=3, author="lachmanfrantisek"
+        )
+        assert len(comments) == 0

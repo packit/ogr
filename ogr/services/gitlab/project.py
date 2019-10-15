@@ -21,7 +21,6 @@
 # SOFTWARE.
 
 import logging
-import re
 from typing import List, Optional, Dict, Set
 
 import gitlab
@@ -210,23 +209,13 @@ class GitlabProject(BaseGitProject):
             if member.access_level in access_levels
         ]
 
-    def get_issue_comments(
-        self, issue_id, filter_regex: str = None, reverse: bool = False
-    ) -> List["IssueComment"]:
+    def _get_all_issue_comments(self, issue_id) -> List["IssueComment"]:
         issue = self.gitlab_repo.issues.get(issue_id)
-        if not filter_regex:
-            filter_regex = r".*"
 
-        comments = [
+        return [
             self._issuecomment_from_gitlab_object(raw_comment)
-            for raw_comment in issue.notes.list()
-            if re.search(filter_regex, raw_comment.body)
+            for raw_comment in issue.notes.list(sort="asc")
         ]
-
-        if not reverse:
-            comments.reverse()
-
-        return comments
 
     def issue_close(self, issue_id: int) -> Issue:
         issue = self.gitlab_repo.issues.get(issue_id)
@@ -437,13 +426,6 @@ class GitlabProject(BaseGitProject):
         )
         return self._issue_from_gitlab_object(issue)
 
-    def _get_all_issue_comments(self, issue_id: int) -> List[IssueComment]:
-        issue = self.gitlab_repo.issues.get(issue_id)
-        return [
-            self._issuecomment_from_gitlab_object(raw_comment)
-            for raw_comment in issue.notes.list()
-        ]
-
     def issue_comment(self, issue_id: int, body: str) -> IssueComment:
         """
         Create comment on an issue.
@@ -477,7 +459,7 @@ class GitlabProject(BaseGitProject):
         pr = self.gitlab_repo.mergerequests.get(pr_id)
         return [
             self._prcomment_from_gitlab_object(raw_comment)
-            for raw_comment in pr.notes.list()
+            for raw_comment in pr.notes.list(sort="asc")
         ]
 
     def pr_comment(
