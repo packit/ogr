@@ -20,17 +20,32 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-from ogr.services.github.release import GithubRelease
-from ogr.services.github.user import GithubUser
-from ogr.services.github.project import GithubProject
-from ogr.services.github.service import GithubService
-from ogr.services.github.comments import GithubIssueComment, GithubPRComment
+from github import IssueComment as _GithubIssueComment
 
-__all__ = [
-    GithubIssueComment.__name__,
-    GithubPRComment.__name__,
-    GithubRelease.__name__,
-    GithubUser.__name__,
-    GithubProject.__name__,
-    GithubService.__name__,
-]
+from ogr.abstract import IssueComment, PRComment
+
+
+class GithubIssueComment(IssueComment):
+    def __init__(self, raw_comment: _GithubIssueComment) -> None:
+        super().__init__(
+            comment=raw_comment.body,
+            author=raw_comment.user.login,
+            created=raw_comment.created_at,
+            edited=raw_comment.updated_at,
+        )
+
+    def __str__(self) -> str:
+        return "Github" + super().__str__()
+
+
+class GithubPRComment(PRComment):
+    def __init__(self, raw_comment: _GithubIssueComment) -> None:
+        super().__init__(
+            comment=raw_comment.body,
+            author=raw_comment.user.login,
+            created=raw_comment.created_at,
+            edited=raw_comment.updated_at,
+        )
+
+    def __str__(self) -> str:
+        return "Github" + super().__str__()
