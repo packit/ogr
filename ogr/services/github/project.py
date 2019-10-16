@@ -401,7 +401,7 @@ class GithubProject(BaseGitProject):
         commit: str = None,
         filename: str = None,
         row: int = None,
-    ) -> GithubPRComment:
+    ) -> PRComment:
         """
         Create comment on a pull request. If creating pull request review
         comment (bind to specific point in diff), all values need to be filled.
