@@ -20,17 +20,34 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-from ogr.services.pagure.release import PagureRelease
-from ogr.services.pagure.user import PagureUser
-from ogr.services.pagure.project import PagureProject
-from ogr.services.pagure.service import PagureService
-from ogr.services.pagure.comments import PagureIssueComment, PagurePRComment
+import datetime
 
-__all__ = [
-    PagureIssueComment.__name__,
-    PagurePRComment.__name__,
-    PagureRelease.__name__,
-    PagureUser.__name__,
-    PagureProject.__name__,
-    PagureService.__name__,
-]
+from ogr.abstract import IssueComment, PRComment
+
+
+class PagureIssueComment(IssueComment):
+    def __init__(self, raw_comment: dict) -> None:
+        super().__init__(
+            comment=raw_comment["comment"],
+            author=raw_comment["user"]["name"],
+            created=datetime.datetime.fromtimestamp(int(raw_comment["date_created"])),
+            edited=None,
+        )
+
+    def __str__(self) -> str:
+        return "Pagure" + super().__str__()
+
+
+class PagurePRComment(PRComment):
+    def __init__(self, raw_comment) -> None:
+        super().__init__(
+            comment=raw_comment["comment"],
+            author=raw_comment["user"]["name"],
+            created=datetime.datetime.fromtimestamp(int(raw_comment["date_created"])),
+            edited=datetime.datetime.fromtimestamp(int(raw_comment["edited_on"]))
+            if raw_comment["edited_on"]
+            else None,
+        )
+
+    def __str__(self) -> str:
+        return "Pagure" + super().__str__()

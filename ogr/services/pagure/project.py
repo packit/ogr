@@ -44,6 +44,7 @@ from ogr.services.base import BaseGitProject
 from ogr.utils import RequestResponse
 from ogr.services import pagure as ogr_pagure
 from ogr.services.pagure.release import PagureRelease
+from ogr.services.pagure.comments import PagureIssueComment, PagurePRComment
 
 logger = logging.getLogger(__name__)
 
@@ -226,10 +227,7 @@ class PagureProject(BaseGitProject):
 
     def _get_all_issue_comments(self, issue_id: int) -> List[IssueComment]:
         raw_comments = self._call_project_api("issue", str(issue_id))["comments"]
-        return [
-            self._issuecomment_from_pagure_dict(raw_comment)
-            for raw_comment in raw_comments
-        ]
+        return [PagureIssueComment(raw_comment) for raw_comment in raw_comments]
 
     def issue_comment(self, issue_id: int, body: str) -> IssueComment:
         payload = {"comment": body}
@@ -275,11 +273,7 @@ class PagureProject(BaseGitProject):
     def _get_all_pr_comments(self, pr_id: int) -> List[PRComment]:
         raw_comments = self._call_project_api("pull-request", str(pr_id))["comments"]
 
-        parsed_comments = [
-            self._prcomment_from_pagure_dict(comment_dict)
-            for comment_dict in raw_comments
-        ]
-        return parsed_comments
+        return [PagurePRComment(comment_dict) for comment_dict in raw_comments]
 
     @if_readonly(return_function=GitProjectReadOnly.pr_comment)
     def pr_comment(
@@ -480,14 +474,6 @@ class PagureProject(BaseGitProject):
             created=datetime.datetime.fromtimestamp(int(issue_dict["date_created"])),
         )
 
-    def _issuecomment_from_pagure_dict(self, comment_dict: dict) -> IssueComment:
-        return IssueComment(
-            comment=comment_dict["comment"],
-            author=comment_dict["user"]["name"],
-            created=datetime.datetime.fromtimestamp(int(comment_dict["date_created"])),
-            edited=None,
-        )
-
     def _pr_from_pagure_dict(self, pr_dict: dict) -> PullRequest:
         return PullRequest(
             title=pr_dict["title"],
@@ -506,17 +492,6 @@ class PagureProject(BaseGitProject):
             source_branch=pr_dict["branch_from"],
             target_branch=pr_dict["branch"],
             created=datetime.datetime.fromtimestamp(int(pr_dict["date_created"])),
-        )
-
-    @staticmethod
-    def _prcomment_from_pagure_dict(comment_dict: dict) -> PRComment:
-        return PRComment(
-            comment=comment_dict["comment"],
-            author=comment_dict["user"]["name"],
-            created=datetime.datetime.fromtimestamp(int(comment_dict["date_created"])),
-            edited=datetime.datetime.fromtimestamp(int(comment_dict["edited_on"]))
-            if comment_dict["edited_on"]
-            else None,
         )
 
     @staticmethod
