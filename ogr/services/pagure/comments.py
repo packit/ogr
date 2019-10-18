@@ -29,28 +29,38 @@ from ogr.abstract import IssueComment, PRComment
 
 
 class PagureIssueComment(IssueComment):
-    def __init__(self, raw_comment: dict) -> None:
-        super().__init__(
-            comment=raw_comment["comment"],
-            author=raw_comment["user"]["name"],
-            created=datetime.datetime.fromtimestamp(int(raw_comment["date_created"])),
-            edited=None,
-        )
+    def __init__(self, raw_comment: dict = None, **kwargs) -> None:
+        if raw_comment is not None:
+            super().__init__(
+                comment=raw_comment["comment"],
+                author=raw_comment["user"]["name"],
+                created=datetime.datetime.fromtimestamp(
+                    int(raw_comment["date_created"])
+                ),
+                edited=None,
+            )
+        else:
+            super().__init__(**kwargs)
 
     def __str__(self) -> str:
         return "Pagure" + super().__str__()
 
 
 class PagurePRComment(PRComment):
-    def __init__(self, raw_comment) -> None:
-        super().__init__(
-            comment=raw_comment["comment"],
-            author=raw_comment["user"]["name"],
-            created=datetime.datetime.fromtimestamp(int(raw_comment["date_created"])),
-            edited=datetime.datetime.fromtimestamp(int(raw_comment["edited_on"]))
-            if raw_comment["edited_on"]
-            else None,
-        )
+    def __init__(self, raw_comment: dict = None, **kwargs) -> None:
+        if raw_comment is not None:
+            super().__init__(
+                comment=raw_comment["comment"],
+                author=raw_comment["user"]["name"],
+                created=datetime.datetime.fromtimestamp(
+                    int(raw_comment["date_created"])
+                ),
+                edited=datetime.datetime.fromtimestamp(int(raw_comment["edited_on"]))
+                if raw_comment["edited_on"]
+                else None,
+            )
+        else:
+            super().__init__(**kwargs)
 
     def __str__(self) -> str:
         return "Pagure" + super().__str__()

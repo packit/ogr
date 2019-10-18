@@ -234,7 +234,7 @@ class PagureProject(BaseGitProject):
         self._call_project_api(
             "issue", str(issue_id), "comment", data=payload, method="POST"
         )
-        return IssueComment(comment=body, author=self._username)
+        return PagureIssueComment(comment=body, author=self._username)
 
     def create_issue(self, title: str, body: str) -> Issue:
         payload = {"title": title, "issue_content": body}
@@ -296,7 +296,7 @@ class PagureProject(BaseGitProject):
             "pull-request", str(pr_id), "comment", method="POST", data=payload
         )
 
-        return PRComment(comment=body, author=self.service.user.get_username())
+        return PagurePRComment(comment=body, author=self.service.user.get_username())
 
     @if_readonly(return_function=GitProjectReadOnly.pr_close)
     def pr_close(self, pr_id: int) -> PullRequest:

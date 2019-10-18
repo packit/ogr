@@ -29,28 +29,34 @@ from ogr.abstract import IssueComment, PRComment
 
 
 class GithubIssueComment(IssueComment):
-    def __init__(self, raw_comment: _GithubIssueComment) -> None:
-        self.__raw_comment = raw_comment
-        super().__init__(
-            comment=raw_comment.body,
-            author=raw_comment.user.login,
-            created=raw_comment.created_at,
-            edited=raw_comment.updated_at,
-        )
+    def __init__(self, raw_comment: _GithubIssueComment = None, **kwargs) -> None:
+        if raw_comment is not None:
+            self.__raw_comment = raw_comment
+            super().__init__(
+                comment=raw_comment.body,
+                author=raw_comment.user.login,
+                created=raw_comment.created_at,
+                edited=raw_comment.updated_at,
+            )
+        else:
+            super().__init__(**kwargs)
 
     def __str__(self) -> str:
         return "Github" + super().__str__()
 
 
 class GithubPRComment(PRComment):
-    def __init__(self, raw_comment: _GithubIssueComment) -> None:
-        self.__raw_comment = raw_comment
-        super().__init__(
-            comment=raw_comment.body,
-            author=raw_comment.user.login,
-            created=raw_comment.created_at,
-            edited=raw_comment.updated_at,
-        )
+    def __init__(self, raw_comment: _GithubIssueComment = None, **kwargs) -> None:
+        if raw_comment is not None:
+            self.__raw_comment = raw_comment
+            super().__init__(
+                comment=raw_comment.body,
+                author=raw_comment.user.login,
+                created=raw_comment.created_at,
+                edited=raw_comment.updated_at,
+            )
+        else:
+            super().__init__(**kwargs)
 
     def __str__(self) -> str:
         return "Github" + super().__str__()

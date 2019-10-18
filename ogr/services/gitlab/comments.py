@@ -28,28 +28,34 @@ from ogr.abstract import IssueComment, PRComment
 
 
 class GitlabIssueComment(IssueComment):
-    def __init__(self, raw_comment) -> None:
-        self.__raw_comment = raw_comment
-        super().__init__(
-            comment=raw_comment.body,
-            author=raw_comment.author["username"],
-            created=raw_comment.created_at,
-            edited=raw_comment.updated_at,
-        )
+    def __init__(self, raw_comment=None, **kwargs) -> None:
+        if raw_comment is not None:
+            self.__raw_comment = raw_comment
+            super().__init__(
+                comment=raw_comment.body,
+                author=raw_comment.author["username"],
+                created=raw_comment.created_at,
+                edited=raw_comment.updated_at,
+            )
+        else:
+            super().__init__(**kwargs)
 
     def __str__(self) -> str:
         return "Gitlab" + super().__str__()
 
 
 class GitlabPRComment(PRComment):
-    def __init__(self, raw_comment) -> None:
-        self.__raw_comment = raw_comment
-        super().__init__(
-            comment=raw_comment.body,
-            author=raw_comment.author["username"],
-            created=raw_comment.created_at,
-            edited=raw_comment.updated_at,
-        )
+    def __init__(self, raw_comment=None, **kwargs) -> None:
+        if raw_comment is not None:
+            self.__raw_comment = raw_comment
+            super().__init__(
+                comment=raw_comment.body,
+                author=raw_comment.author["username"],
+                created=raw_comment.created_at,
+                edited=raw_comment.updated_at,
+            )
+        else:
+            super().__init__(**kwargs)
 
     def __str__(self) -> str:
         return "Gitlab" + super().__str__()
