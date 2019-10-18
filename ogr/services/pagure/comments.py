@@ -25,6 +25,9 @@ import datetime
 from ogr.abstract import IssueComment, PRComment
 
 
+# TODO: Keep reference to (ogr's) Issue/PR
+
+
 class PagureIssueComment(IssueComment):
     def __init__(self, raw_comment: dict) -> None:
         super().__init__(

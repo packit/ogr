@@ -24,8 +24,12 @@
 from ogr.abstract import IssueComment, PRComment
 
 
+# TODO: Keep reference to (ogr's) Issue/PR
+
+
 class GitlabIssueComment(IssueComment):
     def __init__(self, raw_comment) -> None:
+        self.__raw_comment = raw_comment
         super().__init__(
             comment=raw_comment.body,
             author=raw_comment.author["username"],
@@ -39,6 +43,7 @@ class GitlabIssueComment(IssueComment):
 
 class GitlabPRComment(PRComment):
     def __init__(self, raw_comment) -> None:
+        self.__raw_comment = raw_comment
         super().__init__(
             comment=raw_comment.body,
             author=raw_comment.author["username"],

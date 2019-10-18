@@ -25,8 +25,12 @@ from github import IssueComment as _GithubIssueComment
 from ogr.abstract import IssueComment, PRComment
 
 
+# TODO: Keep reference to (ogr's) Issue/PR
+
+
 class GithubIssueComment(IssueComment):
     def __init__(self, raw_comment: _GithubIssueComment) -> None:
+        self.__raw_comment = raw_comment
         super().__init__(
             comment=raw_comment.body,
             author=raw_comment.user.login,
@@ -40,6 +44,7 @@ class GithubIssueComment(IssueComment):
 
 class GithubPRComment(PRComment):
     def __init__(self, raw_comment: _GithubIssueComment) -> None:
+        self.__raw_comment = raw_comment
         super().__init__(
             comment=raw_comment.body,
             author=raw_comment.user.login,
