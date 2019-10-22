@@ -1,3 +1,4 @@
+# type: ignore
 # MIT License
 #
 # Copyright (c) 2018-2019 Red Hat, Inc.
@@ -69,9 +70,9 @@ class GitlabService(GitService):
             return False
 
         return (
-            self.token == o.token  # type: ignore
-            and self.instance_url == o.instance_url  # type: ignore
-            and self.ssl_verify == o.ssl_verify  # type: ignore
+            self.token == o.token
+            and self.instance_url == o.instance_url
+            and self.ssl_verify == o.ssl_verify
         )
 
     def __hash__(self) -> int:

@@ -1,3 +1,4 @@
+# type: ignore
 # MIT License
 #
 # Copyright (c) 2018-2019 Red Hat, Inc.
@@ -79,11 +80,11 @@ class PagureService(BaseGitService):
             return False
 
         return (
-            self._token == o._token  # type: ignore
-            and self.read_only == o.read_only  # type: ignore
-            and self.instance_url == o.instance_url  # type: ignore
-            and self.insecure == o.insecure  # type: ignore
-            and self.header == o.header  # type: ignore
+            self._token == o._token
+            and self.read_only == o.read_only
+            and self.instance_url == o.instance_url
+            and self.insecure == o.insecure
+            and self.header == o.header
         )
 
     def __hash__(self) -> int:

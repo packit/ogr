@@ -1,3 +1,4 @@
+# type: ignore
 # MIT License
 #
 # Copyright (c) 2018-2019 Red Hat, Inc.
@@ -103,13 +104,13 @@ class GithubService(BaseGitService):
             return False
 
         return (
-            self.token == o.token  # type: ignore
-            and self.read_only == o.read_only  # type: ignore
-            and self.github_app_id == o.github_app_id  # type: ignore
+            self.token == o.token
+            and self.read_only == o.read_only
+            and self.github_app_id == o.github_app_id
             and self._github_app_private_key
-            == o._github_app_private_key  # type: ignore
+            == o._github_app_private_key
             and self.github_app_private_key_path
-            == o.github_app_private_key_path  # type: ignore
+            == o.github_app_private_key_path
         )
 
     def __hash__(self) -> int:

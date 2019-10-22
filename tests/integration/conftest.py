@@ -1,3 +1,4 @@
+# type: ignore
 from os import getenv
 
 import pytest

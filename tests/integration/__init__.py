@@ -1,3 +1,4 @@
+# type: ignore
 from requre.helpers.requests_response import RequestResponseHandling
 from requre.import_system import upgrade_import_system
 

@@ -1,3 +1,4 @@
+# type: ignore
 import pytest
 
 from ogr.parsing import parse_git_repo, RepoUrl
