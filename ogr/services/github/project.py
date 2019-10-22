@@ -51,8 +51,8 @@ from ogr.exceptions import GithubAPIException
 from ogr.read_only import if_readonly, GitProjectReadOnly
 from ogr.services import github as ogr_github
 from ogr.services.base import BaseGitProject
-from ogr.services.github.release import GithubRelease
 from ogr.services.github.comments import GithubIssueComment, GithubPRComment
+from ogr.services.github.release import GithubRelease
 
 logger = logging.getLogger(__name__)
 

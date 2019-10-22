@@ -22,10 +22,12 @@
 
 import datetime
 from enum import IntEnum
-from typing import Optional, Match, List, Dict, Set
+from typing import Optional, Match, List, Dict, Set, TypeVar
 from urllib.request import urlopen
 
 from ogr.parsing import parse_git_repo
+
+AnyComment = TypeVar("AnyComment", bound="Comment")
 
 
 class IssueStatus(IntEnum):
@@ -576,7 +578,7 @@ class GitProject:
         """
         raise NotImplementedError()
 
-    def _get_all_pr_comments(self, pr_id: int) -> List["PRComment"]:
+    def _get_all_pr_comments(self, pr_id: int) -> List[PRComment]:
         """
         Get list of pull-request comments.
 
