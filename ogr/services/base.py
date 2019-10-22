@@ -28,7 +28,6 @@ from ogr.abstract import (
     GitUser,
     AnyComment,
     PRComment,
-    GitUser,
     IssueComment,
 )
 from ogr.exceptions import OgrException
