@@ -29,7 +29,7 @@ from ogr.abstract import IssueComment, PRComment
 # TODO: Keep reference to (ogr's) Issue/PR
 
 
-def datetime_from_timestamp(timestamp: Optional[str]) -> Optional[datetime.datetime]:
+def _datetime_from_timestamp(timestamp: Optional[str]) -> Optional[datetime.datetime]:
     return datetime.datetime.fromtimestamp(int(timestamp)) if timestamp else None
 
 
@@ -37,7 +37,7 @@ class PagureIssueComment(IssueComment):
     def _from_raw_comment(self, raw_comment: dict) -> None:
         self.comment = raw_comment["comment"]
         self.author = raw_comment["user"]["name"]
-        self.created = datetime_from_timestamp(raw_comment["date_created"])
+        self.created = _datetime_from_timestamp(raw_comment["date_created"])
         self.edited = None
 
     def __str__(self) -> str:
@@ -48,8 +48,8 @@ class PagurePRComment(PRComment):
     def _from_raw_comment(self, raw_comment: dict) -> None:
         self.comment = raw_comment["comment"]
         self.author = raw_comment["user"]["name"]
-        self.created = datetime_from_timestamp(raw_comment["date_created"])
-        self.edited = datetime_from_timestamp(raw_comment["edited_on"])
+        self.created = _datetime_from_timestamp(raw_comment["date_created"])
+        self.edited = _datetime_from_timestamp(raw_comment["edited_on"])
 
     def __str__(self) -> str:
         return "Pagure" + super().__str__()
