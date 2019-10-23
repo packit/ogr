@@ -128,9 +128,9 @@ class Comment:
         created: Optional[datetime.datetime] = None,
         edited: Optional[datetime.datetime] = None,
     ) -> None:
-        if raw_comment is not None:
+        if raw_comment:
             self._from_raw_comment(raw_comment)
-        elif comment is not None and author is not None:
+        elif comment and author:
             self.comment = comment
             self.author = author
             self.created = created
