@@ -20,6 +20,8 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
+from typing import Union
+
 from gitlab.v4.objects import ProjectIssueNote, ProjectMergeRequestNote
 
 from ogr.abstract import IssueComment, PRComment
@@ -28,25 +30,22 @@ from ogr.abstract import IssueComment, PRComment
 # TODO: Keep reference to (ogr's) Issue/PR
 
 
-class GitlabIssueComment(IssueComment):
-    def _from_raw_comment(self, raw_comment: ProjectIssueNote) -> None:
+class GitlabCommentParser:
+    def _from_raw_comment(
+        self, raw_comment: Union[ProjectIssueNote, ProjectMergeRequestNote]
+    ) -> None:
         self.__raw_comment = raw_comment
         self.comment = raw_comment.body
         self.author = raw_comment.author["username"]
         self.created = raw_comment.created_at
         self.edited = raw_comment.updated_at
 
+
+class GitlabIssueComment(GitlabCommentParser, IssueComment):
     def __str__(self) -> str:
         return "Gitlab" + super().__str__()
 
 
-class GitlabPRComment(PRComment):
-    def _from_raw_comment(self, raw_comment: ProjectMergeRequestNote) -> None:
-        self.__raw_comment = raw_comment
-        self.comment = raw_comment.body
-        self.author = raw_comment.author["username"]
-        self.created = raw_comment.created_at
-        self.edited = raw_comment.updated_at
-
+class GitlabPRComment(GitlabCommentParser, PRComment):
     def __str__(self) -> str:
         return "Gitlab" + super().__str__()

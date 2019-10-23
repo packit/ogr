@@ -28,7 +28,7 @@ from ogr.abstract import IssueComment, PRComment
 # TODO: Keep reference to (ogr's) Issue/PR
 
 
-class GithubIssueComment(IssueComment):
+class GithubCommentParser:
     def _from_raw_comment(self, raw_comment: _GithubIssueComment) -> None:
         self.__raw_comment = raw_comment
         self.comment = raw_comment.body
@@ -36,17 +36,12 @@ class GithubIssueComment(IssueComment):
         self.created = raw_comment.created_at
         self.edited = raw_comment.updated_at
 
+
+class GithubIssueComment(GithubCommentParser, IssueComment):
     def __str__(self) -> str:
         return "Github" + super().__str__()
 
 
-class GithubPRComment(PRComment):
-    def _from_raw_comment(self, raw_comment: _GithubIssueComment) -> None:
-        self.__raw_comment = raw_comment
-        self.comment = raw_comment.body
-        self.author = raw_comment.user.login
-        self.created = raw_comment.created_at
-        self.edited = raw_comment.updated_at
-
+class GithubPRComment(GithubCommentParser, PRComment):
     def __str__(self) -> str:
         return "Github" + super().__str__()
