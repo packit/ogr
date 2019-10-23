@@ -20,17 +20,34 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-from ogr.services.gitlab.release import GitlabRelease
-from ogr.services.gitlab.user import GitlabUser
-from ogr.services.gitlab.project import GitlabProject
-from ogr.services.gitlab.service import GitlabService
-from ogr.services.gitlab.comments import GitlabIssueComment, GitlabPRComment
+import datetime
+from typing import Optional
 
-__all__ = [
-    GitlabIssueComment.__name__,
-    GitlabPRComment.__name__,
-    GitlabRelease.__name__,
-    GitlabUser.__name__,
-    GitlabProject.__name__,
-    GitlabService.__name__,
-]
+from ogr.abstract import IssueComment, PRComment
+
+
+# TODO: Keep reference to (ogr's) Issue/PR
+
+
+class PagureCommentParser:
+    def _from_raw_comment(self, raw_comment: dict) -> None:
+        self.comment = raw_comment["comment"]
+        self.author = raw_comment["user"]["name"]
+        self.created = self.__datetime_from_timestamp(raw_comment["date_created"])
+        self.edited = self.__datetime_from_timestamp(raw_comment["edited_on"])
+
+    @staticmethod
+    def __datetime_from_timestamp(
+        timestamp: Optional[str]
+    ) -> Optional[datetime.datetime]:
+        return datetime.datetime.fromtimestamp(int(timestamp)) if timestamp else None
+
+
+class PagureIssueComment(PagureCommentParser, IssueComment):
+    def __str__(self) -> str:
+        return "Pagure" + super().__str__()
+
+
+class PagurePRComment(PagureCommentParser, PRComment):
+    def __str__(self) -> str:
+        return "Pagure" + super().__str__()

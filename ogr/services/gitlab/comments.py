@@ -20,17 +20,32 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-from ogr.services.gitlab.release import GitlabRelease
-from ogr.services.gitlab.user import GitlabUser
-from ogr.services.gitlab.project import GitlabProject
-from ogr.services.gitlab.service import GitlabService
-from ogr.services.gitlab.comments import GitlabIssueComment, GitlabPRComment
+from typing import Union
 
-__all__ = [
-    GitlabIssueComment.__name__,
-    GitlabPRComment.__name__,
-    GitlabRelease.__name__,
-    GitlabUser.__name__,
-    GitlabProject.__name__,
-    GitlabService.__name__,
-]
+from gitlab.v4.objects import ProjectIssueNote, ProjectMergeRequestNote
+
+from ogr.abstract import IssueComment, PRComment
+
+
+# TODO: Keep reference to (ogr's) Issue/PR
+
+
+class GitlabCommentParser:
+    def _from_raw_comment(
+        self, raw_comment: Union[ProjectIssueNote, ProjectMergeRequestNote]
+    ) -> None:
+        self.__raw_comment = raw_comment
+        self.comment = raw_comment.body
+        self.author = raw_comment.author["username"]
+        self.created = raw_comment.created_at
+        self.edited = raw_comment.updated_at
+
+
+class GitlabIssueComment(GitlabCommentParser, IssueComment):
+    def __str__(self) -> str:
+        return "Gitlab" + super().__str__()
+
+
+class GitlabPRComment(GitlabCommentParser, PRComment):
+    def __str__(self) -> str:
+        return "Gitlab" + super().__str__()

@@ -26,7 +26,6 @@ from typing import Optional, Dict, List, Set
 import github
 from github import (
     UnknownObjectException,
-    IssueComment as GithubIssueComment,
     Repository,
     CommitComment as GithubCommitComment,
 )
@@ -52,6 +51,7 @@ from ogr.exceptions import GithubAPIException
 from ogr.read_only import if_readonly, GitProjectReadOnly
 from ogr.services import github as ogr_github
 from ogr.services.base import BaseGitProject
+from ogr.services.github.comments import GithubIssueComment, GithubPRComment
 from ogr.services.github.release import GithubRelease
 
 logger = logging.getLogger(__name__)
@@ -272,13 +272,7 @@ class GithubProject(BaseGitProject):
 
     def _get_all_issue_comments(self, issue_id: int) -> List[IssueComment]:
         issue = self.__get_issue(number=issue_id)
-
-        comments = [
-            self._issuecomment_from_github_object(raw_comment)
-            for raw_comment in issue.get_comments()
-        ]
-
-        return comments
+        return [GithubIssueComment(raw_comment) for raw_comment in issue.get_comments()]
 
     def issue_comment(self, issue_id: int, body: str) -> IssueComment:
         """
@@ -290,7 +284,7 @@ class GithubProject(BaseGitProject):
         """
         github_issue = self.__get_issue(number=issue_id)
         comment = github_issue.create_comment(body)
-        return self._issuecomment_from_github_object(comment)
+        return GithubIssueComment(comment)
 
     def create_issue(self, title: str, body: str) -> Issue:
         github_issue = self.github_repo.create_issue(title=title, body=body)
@@ -349,10 +343,7 @@ class GithubProject(BaseGitProject):
 
     def _get_all_pr_comments(self, pr_id: int) -> List[PRComment]:
         pr = self.github_repo.get_pull(number=pr_id)
-        return [
-            self._prcomment_from_github_object(raw_comment)
-            for raw_comment in pr.get_issue_comments()
-        ]
+        return [GithubPRComment(raw_comment) for raw_comment in pr.get_issue_comments()]
 
     def get_sha_from_tag(self, tag_name: str) -> str:
         # TODO: This is ugly. Can we do it better?
@@ -429,7 +420,7 @@ class GithubProject(BaseGitProject):
         else:
             github_commit = self.github_repo.get_commit(commit)
             comment = github_pr.create_comment(body, github_commit, filename, row)
-        return self._prcomment_from_github_object(comment)
+        return GithubPRComment(comment)
 
     @if_readonly(
         return_function=GitProjectReadOnly.commit_comment,
@@ -566,26 +557,6 @@ class GithubProject(BaseGitProject):
             source_branch=github_pr.head.ref,
             target_branch=github_pr.base.ref,
             created=github_pr.created_at,
-        )
-
-    @staticmethod
-    def _issuecomment_from_github_object(
-        raw_comment: GithubIssueComment
-    ) -> IssueComment:
-        return IssueComment(
-            comment=raw_comment.body,
-            author=raw_comment.user.login,
-            created=raw_comment.created_at,
-            edited=raw_comment.updated_at,
-        )
-
-    @staticmethod
-    def _prcomment_from_github_object(raw_comment: GithubIssueComment) -> PRComment:
-        return PRComment(
-            comment=raw_comment.body,
-            author=raw_comment.user.login,
-            created=raw_comment.created_at,
-            edited=raw_comment.updated_at,
         )
 
     def _release_from_github_object(

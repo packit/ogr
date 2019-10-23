@@ -24,11 +24,9 @@ import logging
 import os
 import re
 import subprocess
-from typing import List, Union, Match, Optional, TypeVar
+from typing import List, Union, Match, Optional
 
-import six
-
-from ogr.abstract import PRComment, IssueComment
+from ogr.abstract import AnyComment, Comment
 from ogr.constant import CLONE_TIMEOUT
 
 logger = logging.getLogger(__name__)
@@ -103,12 +101,9 @@ def fetch_all():
         subprocess.run(["git", "fetch", "--all"], stdout=fd, check=True)
 
 
-Comment = TypeVar("Comment", IssueComment, PRComment)
-
-
 def filter_comments(
-    comments: List[Comment], filter_regex: str = None, author: str = None
-) -> List[Comment]:
+    comments: List[AnyComment], filter_regex: str = None, author: str = None
+) -> List[AnyComment]:
     pattern = None
     if filter_regex:
         pattern = re.compile(filter_regex)
@@ -124,7 +119,7 @@ def filter_comments(
 
 
 def search_in_comments(
-    comments: List[Union[str, PRComment]], filter_regex: str
+    comments: List[Union[str, Comment]], filter_regex: str
 ) -> Optional[Match[str]]:
     """
     Find match in pull-request description or comments.
@@ -135,7 +130,7 @@ def search_in_comments(
     """
     pattern = re.compile(filter_regex)
     for comment in comments:
-        if not isinstance(comment, six.string_types):
+        if isinstance(comment, Comment):
             comment = comment.comment
         re_search = pattern.search(comment)
         if re_search:

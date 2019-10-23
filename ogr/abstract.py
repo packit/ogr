@@ -22,10 +22,12 @@
 
 import datetime
 from enum import IntEnum
-from typing import Optional, Match, List, Dict, Set
+from typing import Optional, Match, List, Dict, Set, TypeVar, Any
 from urllib.request import urlopen
 
 from ogr.parsing import parse_git_repo
+
+AnyComment = TypeVar("AnyComment", bound="Comment")
 
 
 class IssueStatus(IntEnum):
@@ -66,30 +68,6 @@ class Issue:
             f"description='{description}', "
             f"author='{self.author}', "
             f"created='{self.created}')"
-        )
-
-
-class IssueComment:
-    def __init__(
-        self,
-        comment: str,
-        author: str,
-        created: Optional[datetime.datetime] = None,
-        edited: Optional[datetime.datetime] = None,
-    ) -> None:
-        self.comment = comment
-        self.author = author
-        self.created = created
-        self.edited = edited
-
-    def __str__(self) -> str:
-        comment = f"{self.comment[:10]}..." if self.comment is not None else "None"
-        return (
-            f"IssueComment("
-            f"comment='{comment}', "
-            f"author='{self.author}', "
-            f"created='{self.created}', "
-            f"edited='{self.edited}')"
         )
 
 
@@ -141,28 +119,48 @@ class PullRequest:
         )
 
 
-class PRComment:
+class Comment:
     def __init__(
         self,
-        comment: str,
-        author: str,
+        raw_comment: Optional[Any] = None,
+        comment: Optional[str] = None,
+        author: Optional[str] = None,
         created: Optional[datetime.datetime] = None,
         edited: Optional[datetime.datetime] = None,
     ) -> None:
-        self.comment = comment
-        self.author = author
-        self.created = created
-        self.edited = edited
+        if raw_comment:
+            self._from_raw_comment(raw_comment)
+        elif comment and author:
+            self.comment = comment
+            self.author = author
+            self.created = created
+            self.edited = edited
+        else:
+            raise ValueError("cannot construct comment without body and author")
 
     def __str__(self) -> str:
         comment = f"{self.comment[:10]}..." if self.comment is not None else "None"
         return (
-            f"PRComment("
+            f"Comment("
             f"comment='{comment}', "
             f"author='{self.author}', "
             f"created='{self.created}', "
             f"edited='{self.edited}')"
         )
+
+    def _from_raw_comment(self, raw_comment: Any) -> None:
+        """Constructs Comment object from raw_comment given from API."""
+        raise NotImplementedError()
+
+
+class IssueComment(Comment):
+    def __str__(self) -> str:
+        return "Issue" + super().__str__()
+
+
+class PRComment(Comment):
+    def __str__(self) -> str:
+        return "PR" + super().__str__()
 
 
 class CommitFlag:
@@ -590,7 +588,7 @@ class GitProject:
         """
         raise NotImplementedError()
 
-    def _get_all_pr_comments(self, pr_id: int) -> List["PRComment"]:
+    def _get_all_pr_comments(self, pr_id: int) -> List[PRComment]:
         """
         Get list of pull-request comments.
 

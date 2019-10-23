@@ -42,6 +42,7 @@ from ogr.exceptions import GitlabAPIException
 from ogr.services import gitlab as ogr_gitlab
 from ogr.services.base import BaseGitProject
 from ogr.services.gitlab.release import GitlabRelease
+from ogr.services.gitlab.comments import GitlabIssueComment, GitlabPRComment
 
 logger = logging.getLogger(__name__)
 
@@ -213,7 +214,7 @@ class GitlabProject(BaseGitProject):
         issue = self.gitlab_repo.issues.get(issue_id)
 
         return [
-            self._issuecomment_from_gitlab_object(raw_comment)
+            GitlabIssueComment(raw_comment)
             for raw_comment in issue.notes.list(sort="asc")
         ]
 
@@ -432,7 +433,7 @@ class GitlabProject(BaseGitProject):
         """
         issue = self.gitlab_repo.issues.get(issue_id)
         comment = issue.notes.create({"body": body})
-        return self._issuecomment_from_gitlab_object(comment)
+        return GitlabIssueComment(comment)
 
     def get_pr_info(self, pr_id: int) -> PullRequest:
         mr = self.gitlab_repo.mergerequests.get(pr_id)
@@ -458,8 +459,7 @@ class GitlabProject(BaseGitProject):
     def _get_all_pr_comments(self, pr_id: int) -> List[PRComment]:
         pr = self.gitlab_repo.mergerequests.get(pr_id)
         return [
-            self._prcomment_from_gitlab_object(raw_comment)
-            for raw_comment in pr.notes.list(sort="asc")
+            GitlabPRComment(raw_comment) for raw_comment in pr.notes.list(sort="asc")
         ]
 
     def pr_comment(
@@ -475,7 +475,7 @@ class GitlabProject(BaseGitProject):
         """
         pr = self.gitlab_repo.issues.get(pr_id)
         comment = pr.notes.create({"body": body})
-        return self._prcomment_from_gitlab_object(comment)
+        return GitlabPRComment(comment)
 
     def get_tags(self) -> List["GitTag"]:
         tags = self.gitlab_repo.tags.list()
@@ -588,15 +588,6 @@ class GitlabProject(BaseGitProject):
         )
 
     @staticmethod
-    def _issuecomment_from_gitlab_object(raw_comment) -> IssueComment:
-        return IssueComment(
-            comment=raw_comment.body,
-            author=raw_comment.author["username"],
-            created=raw_comment.created_at,
-            edited=raw_comment.updated_at,
-        )
-
-    @staticmethod
     def _pr_from_gitlab_object(gitlab_pr) -> PullRequest:
         return PullRequest(
             title=gitlab_pr.title,
@@ -610,15 +601,6 @@ class GitlabProject(BaseGitProject):
             source_branch=gitlab_pr.source_branch,
             target_branch=gitlab_pr.target_branch,
             created=gitlab_pr.created_at,
-        )
-
-    @staticmethod
-    def _prcomment_from_gitlab_object(raw_comment) -> PRComment:
-        return PRComment(
-            comment=raw_comment.body,
-            author=raw_comment.author["username"],
-            created=raw_comment.created_at,
-            edited=raw_comment.updated_at,
         )
 
     @staticmethod

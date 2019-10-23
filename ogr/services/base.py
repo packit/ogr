@@ -20,19 +20,26 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-from typing import List, Optional, Match, Any, TypeVar
+from typing import List, Optional, Match, Any
 
-from ogr.abstract import GitService, GitProject, PRComment, GitUser, IssueComment
+from ogr.abstract import (
+    GitService,
+    GitProject,
+    GitUser,
+    AnyComment,
+    PRComment,
+    IssueComment,
+)
+from ogr.exceptions import OgrException
 from ogr.parsing import parse_git_repo
 from ogr.utils import search_in_comments, filter_comments
-
-
-Comment = TypeVar("Comment", IssueComment, PRComment)
 
 
 class BaseGitService(GitService):
     def get_project_from_url(self, url: str) -> "GitProject":
         repo_url = parse_git_repo(potential_url=url)
+        if not repo_url:
+            raise OgrException(f"Cannot parse project url: '{url}'")
         project = self.get_project(repo=repo_url.repo, namespace=repo_url.namespace)
         return project
 
@@ -50,8 +57,11 @@ class BaseGitProject(GitProject):
 
     @staticmethod
     def __get_comments(
-        comments: List[Comment], filter_regex: str, reverse: bool, author: str
-    ) -> List[Comment]:
+        comments: List[AnyComment],
+        filter_regex: str = None,
+        reverse: bool = False,
+        author: str = None,
+    ) -> List[AnyComment]:
         if reverse:
             comments.reverse()
         if filter_regex or author:
@@ -70,8 +80,9 @@ class BaseGitProject(GitProject):
         :param author: filter comments by author
         :return: [PRComment]
         """
-        all_comments = self._get_all_pr_comments(pr_id=pr_id)
-        return self.__get_comments(all_comments, filter_regex, reverse, author)
+        all_comments: List[PRComment] = self._get_all_pr_comments(pr_id=pr_id)
+        pr_comments = self.__get_comments(all_comments, filter_regex, reverse, author)
+        return pr_comments
 
     def get_issue_comments(
         self,
@@ -89,7 +100,9 @@ class BaseGitProject(GitProject):
         :param author: filter comments by author
         :return: [PRComment]
         """
-        all_comments = self._get_all_issue_comments(issue_id=issue_id)
+        all_comments: List[IssueComment] = self._get_all_issue_comments(
+            issue_id=issue_id
+        )
         return self.__get_comments(all_comments, filter_regex, reverse, author)
 
     def search_in_pr(
