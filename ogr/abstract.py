@@ -22,7 +22,7 @@
 
 import datetime
 from enum import IntEnum
-from typing import Optional, Match, List, Dict, Set, TypeVar
+from typing import Optional, Match, List, Dict, Set, TypeVar, Any
 from urllib.request import urlopen
 
 from ogr.parsing import parse_git_repo
@@ -122,15 +122,21 @@ class PullRequest:
 class Comment:
     def __init__(
         self,
-        comment: str,
-        author: str,
+        raw_comment: Optional[Any] = None,
+        comment: Optional[str] = None,
+        author: Optional[str] = None,
         created: Optional[datetime.datetime] = None,
         edited: Optional[datetime.datetime] = None,
     ) -> None:
-        self.comment = comment
-        self.author = author
-        self.created = created
-        self.edited = edited
+        if raw_comment is not None:
+            self._from_raw_comment(raw_comment)
+        elif comment is not None and author is not None:
+            self.comment = comment
+            self.author = author
+            self.created = created
+            self.edited = edited
+        else:
+            raise ValueError("cannot construct comment without body and author")
 
     def __str__(self) -> str:
         comment = f"{self.comment[:10]}..." if self.comment is not None else "None"
@@ -141,6 +147,10 @@ class Comment:
             f"created='{self.created}', "
             f"edited='{self.edited}')"
         )
+
+    def _from_raw_comment(self, raw_comment: Any) -> None:
+        """Constructs Comment object from raw_comment given from API."""
+        raise NotImplementedError()
 
 
 class IssueComment(Comment):

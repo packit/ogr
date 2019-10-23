@@ -20,6 +20,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
+from gitlab.v4.objects import ProjectIssueNote, ProjectMergeRequestNote
 
 from ogr.abstract import IssueComment, PRComment
 
@@ -28,34 +29,24 @@ from ogr.abstract import IssueComment, PRComment
 
 
 class GitlabIssueComment(IssueComment):
-    def __init__(self, raw_comment=None, **kwargs) -> None:
-        if raw_comment is not None:
-            self.__raw_comment = raw_comment
-            super().__init__(
-                comment=raw_comment.body,
-                author=raw_comment.author["username"],
-                created=raw_comment.created_at,
-                edited=raw_comment.updated_at,
-            )
-        else:
-            super().__init__(**kwargs)
+    def _from_raw_comment(self, raw_comment: ProjectIssueNote) -> None:
+        self.__raw_comment = raw_comment
+        self.comment = raw_comment.body
+        self.author = raw_comment.author["username"]
+        self.created = raw_comment.created_at
+        self.edited = raw_comment.updated_at
 
     def __str__(self) -> str:
         return "Gitlab" + super().__str__()
 
 
 class GitlabPRComment(PRComment):
-    def __init__(self, raw_comment=None, **kwargs) -> None:
-        if raw_comment is not None:
-            self.__raw_comment = raw_comment
-            super().__init__(
-                comment=raw_comment.body,
-                author=raw_comment.author["username"],
-                created=raw_comment.created_at,
-                edited=raw_comment.updated_at,
-            )
-        else:
-            super().__init__(**kwargs)
+    def _from_raw_comment(self, raw_comment: ProjectMergeRequestNote) -> None:
+        self.__raw_comment = raw_comment
+        self.comment = raw_comment.body
+        self.author = raw_comment.author["username"]
+        self.created = raw_comment.created_at
+        self.edited = raw_comment.updated_at
 
     def __str__(self) -> str:
         return "Gitlab" + super().__str__()

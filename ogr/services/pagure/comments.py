@@ -21,6 +21,7 @@
 # SOFTWARE.
 
 import datetime
+from typing import Optional
 
 from ogr.abstract import IssueComment, PRComment
 
@@ -28,39 +29,27 @@ from ogr.abstract import IssueComment, PRComment
 # TODO: Keep reference to (ogr's) Issue/PR
 
 
+def datetime_from_timestamp(timestamp: Optional[str]) -> Optional[datetime.datetime]:
+    return datetime.datetime.fromtimestamp(int(timestamp)) if timestamp else None
+
+
 class PagureIssueComment(IssueComment):
-    def __init__(self, raw_comment: dict = None, **kwargs) -> None:
-        if raw_comment is not None:
-            super().__init__(
-                comment=raw_comment["comment"],
-                author=raw_comment["user"]["name"],
-                created=datetime.datetime.fromtimestamp(
-                    int(raw_comment["date_created"])
-                ),
-                edited=None,
-            )
-        else:
-            super().__init__(**kwargs)
+    def _from_raw_comment(self, raw_comment: dict) -> None:
+        self.comment = raw_comment["comment"]
+        self.author = raw_comment["user"]["name"]
+        self.created = datetime_from_timestamp(raw_comment["date_created"])
+        self.edited = None
 
     def __str__(self) -> str:
         return "Pagure" + super().__str__()
 
 
 class PagurePRComment(PRComment):
-    def __init__(self, raw_comment: dict = None, **kwargs) -> None:
-        if raw_comment is not None:
-            super().__init__(
-                comment=raw_comment["comment"],
-                author=raw_comment["user"]["name"],
-                created=datetime.datetime.fromtimestamp(
-                    int(raw_comment["date_created"])
-                ),
-                edited=datetime.datetime.fromtimestamp(int(raw_comment["edited_on"]))
-                if raw_comment["edited_on"]
-                else None,
-            )
-        else:
-            super().__init__(**kwargs)
+    def _from_raw_comment(self, raw_comment: dict) -> None:
+        self.comment = raw_comment["comment"]
+        self.author = raw_comment["user"]["name"]
+        self.created = datetime_from_timestamp(raw_comment["date_created"])
+        self.edited = datetime_from_timestamp(raw_comment["edited_on"])
 
     def __str__(self) -> str:
         return "Pagure" + super().__str__()
