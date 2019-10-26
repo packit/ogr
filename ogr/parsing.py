@@ -28,11 +28,11 @@ class RepoUrl:
     def __init__(
         self,
         repo: str,
-        namespace: str = None,
-        username: str = None,
+        namespace: Optional[str] = None,
+        username: Optional[str] = None,
         is_fork: bool = False,
-        hostname: str = None,
-        scheme: str = None,
+        hostname: Optional[str] = None,
+        scheme: Optional[str] = None,
     ) -> None:
         self.repo = repo
         self.namespace = namespace
@@ -41,7 +41,7 @@ class RepoUrl:
         self.hostname = hostname
         self.scheme = scheme
 
-    def get_instance_url(self):
+    def get_instance_url(self) -> str:
         scheme = self.scheme or "http"
         return f"{scheme}://{self.hostname}"
 
