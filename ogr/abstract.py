@@ -22,7 +22,7 @@
 
 import datetime
 from enum import IntEnum
-from typing import Optional, Match, List, Dict, Set, TypeVar, Any, NoReturn
+from typing import Optional, Match, List, Dict, Set, TypeVar, Any
 from urllib.request import urlopen
 
 from ogr.parsing import parse_git_repo
@@ -226,11 +226,11 @@ class Release:
         self.project = project
 
     @property
-    def title(self) -> NoReturn:
+    def title(self) -> str:
         raise NotImplementedError()
 
     @property
-    def body(self) -> NoReturn:
+    def body(self) -> str:
         raise NotImplementedError()
 
     def save_archive(self, filename: str) -> None:
@@ -252,7 +252,7 @@ class Release:
             f"tarball_url='{self.tarball_url}')"
         )
 
-    def edit_release(self, name: str, message: str) -> NoReturn:
+    def edit_release(self, name: str, message: str) -> None:
         """
         Edit name and message of a release.
 
