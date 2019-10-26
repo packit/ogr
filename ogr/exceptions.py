@@ -30,7 +30,10 @@ class PagureAPIException(OgrException):
     """ Exception related to Pagure API """
 
     def __init__(
-        self, *args: object, pagure_error: Optional[str] = None, pagure_response: Optional[Dict[str, str]] = None
+        self,
+        *args: object,
+        pagure_error: Optional[str] = None,
+        pagure_response: Optional[Dict[str, str]] = None
     ) -> None:
         super().__init__(*args)
         self.pagure_error = pagure_error
