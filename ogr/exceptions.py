@@ -19,7 +19,7 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
-from typing import Optional, Dict
+from typing import Optional, Dict, Any
 
 
 class OgrException(Exception):
@@ -33,7 +33,7 @@ class PagureAPIException(OgrException):
         self,
         *args: object,
         pagure_error: Optional[str] = None,
-        pagure_response: Optional[Dict[str, str]] = None
+        pagure_response: Optional[Dict[str, Dict[str, Any]]] = None
     ) -> None:
         super().__init__(*args)
         self.pagure_error = pagure_error
