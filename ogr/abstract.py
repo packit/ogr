@@ -268,7 +268,7 @@ class GitService:
     def __init__(self, **_: Any) -> None:
         pass
 
-    def get_project(self, **kwargs: Any) -> NoReturn:
+    def get_project(self, **kwargs: Any) -> "GitProject":
         """
         Get the GitProject instance
 
@@ -450,7 +450,7 @@ class GitProject:
 
     def get_issue_comments(
         self,
-        issue_id,
+        issue_id: int,
         filter_regex: Optional[str] = None,
         reverse: bool = False,
         author: Optional[str] = None,
@@ -495,7 +495,7 @@ class GitProject:
         """
         raise NotImplementedError()
 
-    def get_issue_labels(self, issue_id: int) -> List:
+    def get_issue_labels(self, issue_id: int) -> List[Any]:
         """
         Get list of issue's labels.
 
