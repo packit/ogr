@@ -281,6 +281,7 @@ class GitService:
 
     def get_project_from_url(self, url: str) -> "GitProject":
         repo_url = parse_git_repo(potential_url=url)
+        assert repo_url, f"Failed to return repo for url: {url}"
         project = self.get_project(repo=repo_url.repo, namespace=repo_url.namespace)
         return project
 
@@ -301,7 +302,9 @@ class GitService:
         """
         raise NotImplementedError
 
-    def project_create(self, repo: str, namespace: Optional[str] = None) -> "GitProject":
+    def project_create(
+        self, repo: str, namespace: Optional[str] = None
+    ) -> "GitProject":
         """
         Create a new project.
 
@@ -504,7 +507,7 @@ class GitProject:
         """
         raise NotImplementedError()
 
-    def add_issue_labels(self, issue_id, labels) -> None:
+    def add_issue_labels(self, issue_id: int, labels: List[str]) -> None:
         """
         Add labels the the Issue.
 
@@ -532,7 +535,7 @@ class GitProject:
         raise NotImplementedError()
 
     def update_pr_info(
-        self, pr_id: int, title: str = None, description: str = None
+        self, pr_id: int, title: Optional[str] = None, description: Optional[str] = None
     ) -> PullRequest:
         """
         Update pull-request information.
@@ -561,7 +564,12 @@ class GitProject:
         """
         raise NotImplementedError()
 
-    def get_release(self, identifier=None, name=None, tag_name=None) -> Release:
+    def get_release(
+        self,
+        identifier: Optional[int] = None,
+        name: Optional[str] = None,
+        tag_name: Optional[str] = None,
+    ) -> Release:
         """
         Get a single release
 
@@ -600,9 +608,9 @@ class GitProject:
     def get_pr_comments(
         self,
         pr_id: int,
-        filter_regex: str = None,
+        filter_regex: Optional[str] = None,
         reverse: bool = False,
-        author: str = None,
+        author: Optional[str] = None,
     ) -> List["PRComment"]:
         """
         Get list of pull-request comments.
@@ -660,9 +668,9 @@ class GitProject:
         self,
         pr_id: int,
         body: str,
-        commit: str = None,
-        filename: str = None,
-        row: int = None,
+        commit: Optional[str] = None,
+        filename: Optional[str] = None,
+        row: Optional[int] = None,
     ) -> "PRComment":
         """
         Add new comment to the pull request.
@@ -677,7 +685,11 @@ class GitProject:
         raise NotImplementedError()
 
     def commit_comment(
-        self, commit: str, body: str, filename: str = None, row: int = None
+        self,
+        commit: str,
+        body: str,
+        filename: Optional[str] = None,
+        row: Optional[int] = None,
     ) -> "CommitComment":
         """
         Add new comment to a commit.
@@ -732,7 +744,7 @@ class GitProject:
         """
         raise NotImplementedError()
 
-    def get_pr_labels(self, pr_id: int) -> List:
+    def get_pr_labels(self, pr_id: int) -> List[Any]:
         """
         Get list of pr's labels.
         :pr_id: int
@@ -740,7 +752,7 @@ class GitProject:
         """
         raise NotImplementedError()
 
-    def add_pr_labels(self, pr_id, labels) -> None:
+    def add_pr_labels(self, pr_id: int, labels: List[str]) -> None:
         """
         Add labels the the Pull Request.
 
@@ -761,7 +773,7 @@ class GitProject:
         """
         raise NotImplementedError()
 
-    def change_token(self, new_token: str):
+    def change_token(self, new_token: str) -> None:
         """
         Change an API token.
 
@@ -769,7 +781,7 @@ class GitProject:
         """
         raise NotImplementedError
 
-    def get_file_content(self, path: str, ref="master") -> str:
+    def get_file_content(self, path: str, ref: str = "master") -> str:
         """
         Get a content of the file in the repo.
 
@@ -779,7 +791,7 @@ class GitProject:
         """
         raise NotImplementedError
 
-    def get_forks(self):
+    def get_forks(self) -> List["GitProject"]:
         """
         Get forks of the project.
 
@@ -806,8 +818,8 @@ class GitUser:
     def get_email(self) -> str:
         raise NotImplementedError()
 
-    def get_projects(self):
+    def get_projects(self) -> List["GitProject"]:
         raise NotImplementedError
 
-    def get_forks(self):
+    def get_forks(self) -> List["GitProject"]:
         raise NotImplementedError
