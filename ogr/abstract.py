@@ -22,7 +22,7 @@
 
 import datetime
 from enum import IntEnum
-from typing import Optional, Match, List, Dict, Set, TypeVar, Any
+from typing import Optional, Match, List, Dict, Set, TypeVar, Any, Sequence
 from urllib.request import urlopen
 
 from ogr.parsing import parse_git_repo
@@ -791,7 +791,7 @@ class GitProject:
         """
         raise NotImplementedError
 
-    def get_forks(self) -> List["GitProject"]:
+    def get_forks(self) -> Sequence["GitProject"]:
         """
         Get forks of the project.
 
@@ -818,8 +818,8 @@ class GitUser:
     def get_email(self) -> str:
         raise NotImplementedError()
 
-    def get_projects(self) -> List["GitProject"]:
+    def get_projects(self) -> Sequence["GitProject"]:
         raise NotImplementedError
 
-    def get_forks(self) -> List["GitProject"]:
+    def get_forks(self) -> Sequence["GitProject"]:
         raise NotImplementedError
