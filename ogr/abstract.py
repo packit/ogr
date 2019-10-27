@@ -237,9 +237,8 @@ class Release:
         response = urlopen(self.tarball_url)
         data = response.read()
 
-        file = open(filename, "w")
-        file.write(data)
-        file.close()
+        with open(filename, "wb") as file:
+            file.write(data)
 
     def __str__(self) -> str:
         return (
