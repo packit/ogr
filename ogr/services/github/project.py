@@ -588,7 +588,7 @@ class GithubProject(BaseGitProject):
 
     @staticmethod
     def _commitcomment_from_github_object(
-        raw_commitcoment: GithubCommitComment
+        raw_commitcoment: GithubCommitComment,
     ) -> CommitComment:
         return CommitComment(
             comment=raw_commitcoment.body,

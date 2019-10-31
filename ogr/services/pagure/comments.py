@@ -38,7 +38,7 @@ class PagureCommentParser:
 
     @staticmethod
     def __datetime_from_timestamp(
-        timestamp: Optional[str]
+        timestamp: Optional[str],
     ) -> Optional[datetime.datetime]:
         return datetime.datetime.fromtimestamp(int(timestamp)) if timestamp else None
 
