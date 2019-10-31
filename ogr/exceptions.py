@@ -31,9 +31,9 @@ class PagureAPIException(OgrException):
 
     def __init__(
         self,
-        *args: object,
+        *args: Any,
         pagure_error: Optional[str] = None,
-        pagure_response: Optional[Dict[str, Dict[str, Any]]] = None
+        pagure_response: Optional[Dict[str, Any]] = None
     ) -> None:
         super().__init__(*args)
         self.pagure_error = pagure_error
@@ -43,7 +43,7 @@ class PagureAPIException(OgrException):
 class GithubAPIException(OgrException):
     """ Exception related to Github API """
 
-    def __init__(self, *args: object, github_error: Optional[str] = None) -> None:
+    def __init__(self, *args: Any, github_error: Optional[str] = None) -> None:
         super().__init__(*args)
         self.github_error = github_error
 
@@ -51,7 +51,7 @@ class GithubAPIException(OgrException):
 class GitlabAPIException(OgrException):
     """ Exception related to Gitlab API """
 
-    def __init__(self, *args: object, gitlab_error: Optional[str] = None) -> None:
+    def __init__(self, *args: Any, gitlab_error: Optional[str] = None) -> None:
         super().__init__(*args)
         self.gitlab_error = gitlab_error
 
