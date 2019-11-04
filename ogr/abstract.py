@@ -31,6 +31,50 @@ from ogr.parsing import parse_git_repo
 AnyComment = TypeVar("AnyComment", bound="Comment")
 
 
+class Comment:
+    def __init__(
+        self,
+        raw_comment: Optional[Any] = None,
+        comment: Optional[str] = None,
+        author: Optional[str] = None,
+        created: Optional[datetime.datetime] = None,
+        edited: Optional[datetime.datetime] = None,
+    ) -> None:
+        if raw_comment:
+            self._from_raw_comment(raw_comment)
+        elif comment and author:
+            self.comment = comment
+            self.author = author
+            self.created = created
+            self.edited = edited
+        else:
+            raise ValueError("cannot construct comment without body and author")
+
+    def __str__(self) -> str:
+        comment = f"{self.comment[:10]}..." if self.comment is not None else "None"
+        return (
+            f"Comment("
+            f"comment='{comment}', "
+            f"author='{self.author}', "
+            f"created='{self.created}', "
+            f"edited='{self.edited}')"
+        )
+
+    def _from_raw_comment(self, raw_comment: Any) -> None:
+        """Constructs Comment object from raw_comment given from API."""
+        raise NotImplementedError()
+
+
+class IssueComment(Comment):
+    def __str__(self) -> str:
+        return "Issue" + super().__str__()
+
+
+class PRComment(Comment):
+    def __str__(self) -> str:
+        return "PR" + super().__str__()
+
+
 class IssueStatus(IntEnum):
     open = 1
     closed = 2
@@ -70,6 +114,21 @@ class Issue:
             f"author='{self.author}', "
             f"created='{self.created}')"
         )
+
+    def can_close_issue(self, username: str) -> bool:
+        raise NotImplementedError()
+
+    def issue_comment(self, body: str) -> IssueComment:
+        raise NotImplementedError()
+
+    def close(self) -> None:
+        raise NotImplementedError()
+
+    def get_labels(self) -> List:
+        raise NotImplementedError()
+
+    def add_labels(self, labels: List[str]) -> None:
+        raise NotImplementedError()
 
 
 class PRStatus(IntEnum):
@@ -118,50 +177,6 @@ class PullRequest:
             f"target_branch='{self.target_branch}', "
             f"created='{self.created}'), "
         )
-
-
-class Comment:
-    def __init__(
-        self,
-        raw_comment: Optional[Any] = None,
-        comment: Optional[str] = None,
-        author: Optional[str] = None,
-        created: Optional[datetime.datetime] = None,
-        edited: Optional[datetime.datetime] = None,
-    ) -> None:
-        if raw_comment:
-            self._from_raw_comment(raw_comment)
-        elif comment and author:
-            self.comment = comment
-            self.author = author
-            self.created = created
-            self.edited = edited
-        else:
-            raise ValueError("cannot construct comment without body and author")
-
-    def __str__(self) -> str:
-        comment = f"{self.comment[:10]}..." if self.comment is not None else "None"
-        return (
-            f"Comment("
-            f"comment='{comment}', "
-            f"author='{self.author}', "
-            f"created='{self.created}', "
-            f"edited='{self.edited}')"
-        )
-
-    def _from_raw_comment(self, raw_comment: Any) -> None:
-        """Constructs Comment object from raw_comment given from API."""
-        raise NotImplementedError()
-
-
-class IssueComment(Comment):
-    def __str__(self) -> str:
-        return "Issue" + super().__str__()
-
-
-class PRComment(Comment):
-    def __str__(self) -> str:
-        return "PR" + super().__str__()
 
 
 class CommitFlag:
