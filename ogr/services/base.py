@@ -55,19 +55,6 @@ class BaseGitProject(GitProject):
         """
         return f"{self.namespace}/{self.repo}"
 
-    @staticmethod
-    def __get_comments(
-        comments: List[AnyComment],
-        filter_regex: str = None,
-        reverse: bool = False,
-        author: str = None,
-    ) -> List[AnyComment]:
-        if reverse:
-            comments.reverse()
-        if filter_regex or author:
-            comments = filter_comments(comments, filter_regex, author)
-        return comments
-
     def get_pr_comments(
         self, pr_id, filter_regex: str = None, reverse: bool = False, author: str = None
     ) -> List[PRComment]:
@@ -81,7 +68,7 @@ class BaseGitProject(GitProject):
         :return: [PRComment]
         """
         all_comments: List[PRComment] = self._get_all_pr_comments(pr_id=pr_id)
-        pr_comments = self.__get_comments(all_comments, filter_regex, reverse, author)
+        pr_comments = filter_comments(all_comments, filter_regex, reverse, author)
         return pr_comments
 
     def get_issue_comments(
@@ -103,7 +90,7 @@ class BaseGitProject(GitProject):
         all_comments: List[IssueComment] = self._get_all_issue_comments(
             issue_id=issue_id
         )
-        return self.__get_comments(all_comments, filter_regex, reverse, author)
+        return filter_comments(all_comments, filter_regex, reverse, author)
 
     def search_in_pr(
         self,

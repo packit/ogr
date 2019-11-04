@@ -105,18 +105,23 @@ def filter_comments(
     comments: List[AnyComment],
     filter_regex: Optional[str] = None,
     author: Optional[str] = None,
+    reverse: bool = False,
 ) -> List[AnyComment]:
-    pattern = None
-    if filter_regex:
-        pattern = re.compile(filter_regex)
+    if reverse:
+        comments.reverse()
 
-    comments = list(
-        filter(
-            lambda comment: (not pattern or bool(pattern.search(comment.comment)))
-            and (not author or comment.author == author),
-            comments,
+    if filter_regex or author:
+        pattern = None
+        if filter_regex:
+            pattern = re.compile(filter_regex)
+
+        comments = list(
+            filter(
+                lambda comment: (not pattern or bool(pattern.search(comment.comment)))
+                and (not author or comment.author == author),
+                comments,
+            )
         )
-    )
     return comments
 
 
