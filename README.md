@@ -69,3 +69,8 @@ Run `make prepare-check` before first `make check`.
 # Contribution notes
 
 - Property should not connect to network.
+
+
+# Contribution guidelines
+
+For more info about contributing to our project see [our contribution guide](/CONTRIBUTING.md).
