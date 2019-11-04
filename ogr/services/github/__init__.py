@@ -25,10 +25,12 @@ from ogr.services.github.user import GithubUser
 from ogr.services.github.project import GithubProject
 from ogr.services.github.service import GithubService
 from ogr.services.github.comments import GithubIssueComment, GithubPRComment
+from ogr.services.github.issue import GithubIssue
 
 __all__ = [
     GithubIssueComment.__name__,
     GithubPRComment.__name__,
+    GithubIssue.__name__,
     GithubRelease.__name__,
     GithubUser.__name__,
     GithubProject.__name__,
