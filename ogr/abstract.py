@@ -25,6 +25,7 @@ from enum import IntEnum
 from typing import Optional, Match, List, Dict, Set, TypeVar, Any, Sequence
 from urllib.request import urlopen
 
+from ogr.exceptions import OgrException
 from ogr.parsing import parse_git_repo
 
 AnyComment = TypeVar("AnyComment", bound="Comment")
@@ -280,7 +281,8 @@ class GitService:
 
     def get_project_from_url(self, url: str) -> "GitProject":
         repo_url = parse_git_repo(potential_url=url)
-        assert repo_url, f"Failed to return repo for url: {url}"
+        if not repo_url:
+            raise OgrException(f"Failed to find repository for url: {url}")
         project = self.get_project(repo=repo_url.repo, namespace=repo_url.namespace)
         return project
 
