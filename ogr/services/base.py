@@ -22,14 +22,7 @@
 
 from typing import List, Optional, Match, Any
 
-from ogr.abstract import (
-    GitService,
-    GitProject,
-    GitUser,
-    AnyComment,
-    PRComment,
-    IssueComment,
-)
+from ogr.abstract import GitService, GitProject, GitUser, PRComment, IssueComment
 from ogr.exceptions import OgrException
 from ogr.parsing import parse_git_repo
 from ogr.utils import search_in_comments, filter_comments
