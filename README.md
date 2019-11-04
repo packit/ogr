@@ -72,5 +72,5 @@ Run `make prepare-check` before first `make check`.
 
 
 # Contribution guidelines
--  For more info about contributing to our project see our contribution guide
-*  [CONTRIBUTING.md](/CONTRIBUTING.md)
+
+For more info about contributing to our project see [our contribution guide](/CONTRIBUTING.md).
