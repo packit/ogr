@@ -22,7 +22,7 @@
 
 from typing import List, Optional, Match, Any
 
-from ogr.abstract import GitService, GitProject, GitUser, PRComment, IssueComment
+from ogr.abstract import GitService, GitProject, GitUser, PRComment, IssueComment, Issue
 from ogr.exceptions import OgrException
 from ogr.parsing import parse_git_repo
 from ogr.utils import search_in_comments, filter_comments
@@ -74,16 +74,14 @@ class BaseGitProject(GitProject):
         """
         Get list of issue comments.
 
-        :param pr_id: int
+        :param issue_id: int
         :param filter_regex: filter the comments' content with re.search
         :param reverse: reverse order of comments
         :param author: filter comments by author
-        :return: [PRComment]
+        :return: [IssueComment]
         """
-        all_comments: List[IssueComment] = self._get_all_issue_comments(
-            issue_id=issue_id
-        )
-        return filter_comments(all_comments, filter_regex, reverse, author)
+        # TODO: deprecate
+        return self.get_issue(issue_id).get_comments(filter_regex, reverse, author)
 
     def search_in_pr(
         self,
@@ -114,3 +112,19 @@ class BaseGitProject(GitProject):
 
 class BaseGitUser(GitUser):
     pass
+
+
+class BaseIssue(Issue):
+    def get_comments(
+        self, filter_regex: str = None, reverse: bool = False, author: str = None
+    ) -> List[IssueComment]:
+        """
+        Get list of issue comments.
+
+        :param filter_regex: filter the comments' content with re.search
+        :param reverse: reverse order of comments
+        :param author: filter comments by author
+        :return: [IssueComment]
+        """
+        all_comments: List[IssueComment] = self._get_all_comments()
+        return filter_comments(all_comments, filter_regex, reverse, author)

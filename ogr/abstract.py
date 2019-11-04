@@ -115,13 +115,30 @@ class Issue:
             f"created='{self.created}')"
         )
 
+    def _get_all_comments(self) -> List[IssueComment]:
+        raise NotImplementedError()
+
+    def get_comments(
+        self, filter_regex: str = None, reverse: bool = False, author: str = None
+    ) -> List[IssueComment]:
+        """
+        Get list of issue comments.
+
+        :param pr_id: int
+        :param filter_regex: filter the comments' content with re.search
+        :param reverse: reverse order of comments
+        :param author: filter comments by author
+        :return: [PRComment]
+        """
+        raise NotImplementedError()
+
     def can_close_issue(self, username: str) -> bool:
         raise NotImplementedError()
 
     def issue_comment(self, body: str) -> IssueComment:
         raise NotImplementedError()
 
-    def close(self) -> None:
+    def close(self) -> "Issue":
         raise NotImplementedError()
 
     def get_labels(self) -> List:
@@ -446,6 +463,15 @@ class GitProject:
 
         :param status: IssueStatus enum
         :return: [Issue]
+        """
+        raise NotImplementedError()
+
+    def get_issue(self, issue_id: int) -> "Issue":
+        """
+        Get issue
+
+        :param issue_id: int
+        :return: Issue
         """
         raise NotImplementedError()
 
