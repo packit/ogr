@@ -21,7 +21,7 @@
 # SOFTWARE.
 
 import datetime
-from typing import Optional
+from typing import Optional, Dict, Any
 
 from ogr.abstract import IssueComment, PRComment
 
@@ -30,7 +30,7 @@ from ogr.abstract import IssueComment, PRComment
 
 
 class PagureCommentParser:
-    def _from_raw_comment(self, raw_comment: dict) -> None:
+    def _from_raw_comment(self, raw_comment: Dict[str, Any]) -> None:
         self.comment = raw_comment["comment"]
         self.author = raw_comment["user"]["name"]
         self.created = self.__datetime_from_timestamp(raw_comment["date_created"])
