@@ -24,7 +24,7 @@ import logging
 import os
 import re
 import subprocess
-from typing import List, Union, Match, Optional
+from typing import List, Union, Match, Optional, Dict, Tuple, Any
 
 from ogr.abstract import AnyComment, Comment
 from ogr.constant import CLONE_TIMEOUT
@@ -32,7 +32,7 @@ from ogr.constant import CLONE_TIMEOUT
 logger = logging.getLogger(__name__)
 
 
-def clone_repo_and_cd_inside(repo_name, repo_ssh_url, namespace):
+def clone_repo_and_cd_inside(repo_name: str, repo_ssh_url: str, namespace: str) -> None:
     os.makedirs(namespace, exist_ok=True)
     os.chdir(namespace)
     logger.debug("clone %s", repo_ssh_url)
@@ -50,7 +50,7 @@ def clone_repo_and_cd_inside(repo_name, repo_ssh_url, namespace):
     os.chdir(repo_name)
 
 
-def set_upstream_remote(clone_url, ssh_url, pull_merge_name):
+def set_upstream_remote(clone_url: str, ssh_url: str, pull_merge_name: str) -> None:
     logger.debug("set remote upstream to %s", clone_url)
     try:
         subprocess.run(["git", "remote", "add", "upstream", clone_url], check=True)
@@ -76,7 +76,7 @@ def set_upstream_remote(clone_url, ssh_url, pull_merge_name):
     )
 
 
-def set_origin_remote(ssh_url, pull_merge_name):
+def set_origin_remote(ssh_url: str, pull_merge_name: str) -> None:
     logger.debug("set remote origin to %s", ssh_url)
     subprocess.run(["git", "remote", "set-url", "origin", ssh_url], check=True)
     logger.debug("adding fetch rule to get PRs for origin")
@@ -95,14 +95,16 @@ def set_origin_remote(ssh_url, pull_merge_name):
     )
 
 
-def fetch_all():
+def fetch_all() -> None:
     logger.debug("fetching everything")
     with open("/dev/null", "w") as fd:
         subprocess.run(["git", "fetch", "--all"], stdout=fd, check=True)
 
 
 def filter_comments(
-    comments: List[AnyComment], filter_regex: str = None, author: str = None
+    comments: List[AnyComment],
+    filter_regex: Optional[str] = None,
+    author: Optional[str] = None,
 ) -> List[AnyComment]:
     pattern = None
     if filter_regex:
@@ -144,11 +146,11 @@ class RequestResponse:
         status_code: int,
         ok: bool,
         content: bytes,
-        json: Optional[dict] = None,
-        reason=None,
-        headers: Optional[list] = None,
-        links: Optional[list] = None,
-        exception: Optional[dict] = None,
+        json: Optional[Dict[Any, Any]] = None,
+        reason: Optional[str] = None,
+        headers: Optional[List[Tuple[Any, Any]]] = None,
+        links: Optional[List[str]] = None,
+        exception: Optional[Dict[Any, Any]] = None,
     ) -> None:
         self.status_code = status_code
         self.ok = ok
@@ -164,7 +166,7 @@ class RequestResponse:
             f"RequestResponse("
             f"status_code={self.status_code}, "
             f"ok={self.ok}, "
-            f"content={self.content}, "
+            f"content={self.content.decode()}, "
             f"json={self.json_content}, "
             f"reason={self.reason}, "
             f"headers={self.headers}, "
@@ -186,7 +188,7 @@ class RequestResponse:
             and self.exception == o.exception
         )
 
-    def to_json_format(self) -> dict:
+    def to_json_format(self) -> Dict[str, Any]:
         output = {
             "status_code": self.status_code,
             "ok": self.ok,
@@ -204,5 +206,5 @@ class RequestResponse:
             output["exception"] = self.exception
         return output
 
-    def json(self):
+    def json(self) -> Optional[Dict[Any, Any]]:
         return self.json_content
