@@ -43,6 +43,7 @@ from ogr.services import gitlab as ogr_gitlab
 from ogr.services.base import BaseGitProject
 from ogr.services.gitlab.release import GitlabRelease
 from ogr.services.gitlab.comments import GitlabIssueComment, GitlabPRComment
+from ogr.services.gitlab.issue import GitlabIssue
 
 logger = logging.getLogger(__name__)
 
@@ -176,12 +177,8 @@ class GitlabProject(BaseGitProject):
         )
 
     def can_close_issue(self, username: str, issue: Issue) -> bool:
-        allowed_users = self.who_can_close_issue()
-
-        if username in allowed_users or username == issue.author:
-            return True
-
-        return False
+        # TODO: deprecate
+        return issue.can_close_issue(username)
 
     def can_merge_pr(self, username) -> bool:
         allowed_users = self.who_can_close_issue()
@@ -211,6 +208,7 @@ class GitlabProject(BaseGitProject):
         ]
 
     def _get_all_issue_comments(self, issue_id) -> List["IssueComment"]:
+        # TODO: deprecate
         issue = self.gitlab_repo.issues.get(issue_id)
 
         return [
@@ -219,28 +217,16 @@ class GitlabProject(BaseGitProject):
         ]
 
     def issue_close(self, issue_id: int) -> Issue:
-        issue = self.gitlab_repo.issues.get(issue_id)
-        issue.state_event = "close"
-        issue.save()
-        return self._issue_from_gitlab_object(issue)
+        # TODO: deprecate
+        return self.get_issue(issue_id).close()
 
     def get_issue_labels(self, issue_id: int) -> List[str]:
-        try:
-            issue = self.gitlab_repo.issues.get(issue_id)
-        except gitlab.exceptions.GitlabGetError as ex:
-            logger.error(f"Issue {issue_id} was not found.")
-            raise GitlabAPIException(f"Issue {issue_id} was not found. ", ex)
-        return issue.labels
+        # TODO: deprecate
+        return self.get_issue(issue_id).get_labels()
 
     def add_issue_labels(self, issue_id, labels) -> None:
-        try:
-            issue = self.gitlab_repo.issues.get(issue_id)
-        except gitlab.exceptions.GitlabGetError as ex:
-            logger.error(f"Issue {issue_id} was not found.")
-            raise GitlabAPIException(f"Issue {issue_id} was not found. ", ex)
-        for label in labels:
-            issue.labels.append(label)
-        issue.save()
+        # TODO: deprecate
+        self.get_issue(issue_id).add_labels(labels)
 
     def get_pr_list(self, status: PRStatus = PRStatus.open) -> List["PullRequest"]:
         # Gitlab API has status 'opened', not 'open'
@@ -430,25 +416,31 @@ class GitlabProject(BaseGitProject):
             order_by="updated_at",
             sort="desc",
         )
-        return [self._issue_from_gitlab_object(issue) for issue in issues]
+        return [GitlabIssue(issue, self) for issue in issues]
+
+    def get_issue(self, issue_id: int) -> Issue:
+        try:
+            return GitlabIssue(self.gitlab_repo.issues.get(issue_id), self)
+        except gitlab.exceptions.GitlabGetError as ex:
+            logger.error(f"Issue {issue_id} was not found.")
+            raise GitlabAPIException(f"Issue {issue_id} was not found. ", ex)
 
     def get_issue_info(self, issue_id: int) -> Issue:
-        issue = self.gitlab_repo.issues.get(issue_id)
-        return self._issue_from_gitlab_object(gitlab_issue=issue)
+        # TODO: deprecate
+        return self.get_issue(issue_id)
 
     def create_issue(self, title: str, description: str) -> Issue:
         issue = self.gitlab_repo.issues.create(
             {"title": title, "description": description}
         )
-        return self._issue_from_gitlab_object(issue)
+        return GitlabIssue(issue, self)
 
     def issue_comment(self, issue_id: int, body: str) -> IssueComment:
         """
         Create comment on an issue.
         """
-        issue = self.gitlab_repo.issues.get(issue_id)
-        comment = issue.notes.create({"body": body})
-        return GitlabIssueComment(comment)
+        # TODO: deprecate
+        return self.get_issue(issue_id).issue_comment(body)
 
     def get_pr_info(self, pr_id: int) -> PullRequest:
         mr = self.gitlab_repo.mergerequests.get(pr_id)
@@ -587,20 +579,6 @@ class GitlabProject(BaseGitProject):
         if not color.startswith("#"):
             return "#{}".format(color)
         return color
-
-    @staticmethod
-    def _issue_from_gitlab_object(gitlab_issue) -> Issue:
-        return Issue(
-            title=gitlab_issue.title,
-            id=gitlab_issue.iid,
-            url=gitlab_issue.web_url,
-            description=gitlab_issue.description,
-            status=IssueStatus.open
-            if gitlab_issue.state == "opened"
-            else IssueStatus[gitlab_issue.state],
-            author=gitlab_issue.author["username"],
-            created=gitlab_issue.created_at,
-        )
 
     @staticmethod
     def _pr_from_gitlab_object(gitlab_pr) -> PullRequest:
