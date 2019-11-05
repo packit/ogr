@@ -30,6 +30,8 @@ from ogr.services.pagure.comments import PagureIssueComment
 
 
 class PagureIssue(BaseIssue):
+    project: "ogr_pagure.PagureProject"
+
     def __init__(
         self, raw_issue: Dict[str, Any], project: "ogr_pagure.PagureProject"
     ) -> None:
@@ -43,9 +45,9 @@ class PagureIssue(BaseIssue):
             description=raw_issue["content"],
             author=raw_issue["user"]["name"],
             created=datetime.datetime.fromtimestamp(int(raw_issue["date_created"])),
+            raw_issue=raw_issue,
+            project=project,
         )
-        self.project = project
-        self._raw_issue = raw_issue
 
     def __str__(self) -> str:
         return "Pagure" + super().__str__()
@@ -54,7 +56,7 @@ class PagureIssue(BaseIssue):
         raw_comments = self._raw_issue["comments"]
         return [PagureIssueComment(raw_comment) for raw_comment in raw_comments]
 
-    def issue_comment(self, body: str) -> IssueComment:
+    def comment(self, body: str) -> IssueComment:
         payload = {"comment": body}
         self.project._call_project_api(
             "issue", str(self.id), "comment", data=payload, method="POST"

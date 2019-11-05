@@ -48,9 +48,9 @@ class GithubIssue(BaseIssue):
             description=raw_issue.body,
             author=raw_issue.user.login,
             created=raw_issue.created_at,
+            raw_issue=raw_issue,
+            project=project,
         )
-        self.project = project
-        self._raw_issue = raw_issue
 
     def __str__(self) -> str:
         return "Github" + super().__str__()
@@ -61,7 +61,7 @@ class GithubIssue(BaseIssue):
             for raw_comment in self._raw_issue.get_comments()
         ]
 
-    def issue_comment(self, body: str) -> IssueComment:
+    def comment(self, body: str) -> IssueComment:
         comment = self._raw_issue.create_comment(body)
         return GithubIssueComment(comment)
 

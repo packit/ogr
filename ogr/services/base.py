@@ -129,6 +129,6 @@ class BaseIssue(Issue):
         all_comments: List[IssueComment] = self._get_all_comments()
         return filter_comments(all_comments, filter_regex, reverse, author)
 
-    def can_close_issue(self, username: str) -> bool:
+    def can_close(self, username: str) -> bool:
         allowed_users = self.project.who_can_close_issue()
         return username == self.author or username in allowed_users

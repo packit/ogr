@@ -91,6 +91,8 @@ class Issue:
         description: str,
         author: str,
         created: datetime.datetime,
+        raw_issue: Any,
+        project: "GitProject",
     ) -> None:
         self.title = title
         self.id = id
@@ -99,6 +101,9 @@ class Issue:
         self.description = description
         self.author = author
         self.created = created
+
+        self._raw_issue = raw_issue
+        self.project = project
 
     def __str__(self) -> str:
         description = (
@@ -132,10 +137,10 @@ class Issue:
         """
         raise NotImplementedError()
 
-    def can_close_issue(self, username: str) -> bool:
+    def can_close(self, username: str) -> bool:
         raise NotImplementedError()
 
-    def issue_comment(self, body: str) -> IssueComment:
+    def comment(self, body: str) -> IssueComment:
         raise NotImplementedError()
 
     def close(self) -> "Issue":

@@ -44,9 +44,9 @@ class GitlabIssue(BaseIssue):
             description=raw_issue.description,
             author=raw_issue.author["username"],
             created=raw_issue.created_at,
+            raw_issue=raw_issue,
+            project=project,
         )
-        self.project = project
-        self._raw_issue = raw_issue
 
     def __str__(self) -> str:
         return "Gitlab" + super().__str__()
@@ -57,7 +57,7 @@ class GitlabIssue(BaseIssue):
             for raw_comment in self._raw_issue.notes.list(sort="asc")
         ]
 
-    def issue_comment(self, body: str) -> IssueComment:
+    def comment(self, body: str) -> IssueComment:
         comment = self._raw_issue.notes.create({"body": body})
         return GitlabIssueComment(comment)
 
