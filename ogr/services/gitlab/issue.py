@@ -57,10 +57,6 @@ class GitlabIssue(BaseIssue):
             for raw_comment in self._raw_issue.notes.list(sort="asc")
         ]
 
-    def can_close_issue(self, username: str) -> bool:
-        allowed_users = self.project.who_can_close_issue()
-        return username == self.author or username in allowed_users
-
     def issue_comment(self, body: str) -> IssueComment:
         comment = self._raw_issue.notes.create({"body": body})
         return GitlabIssueComment(comment)

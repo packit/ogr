@@ -54,10 +54,6 @@ class PagureIssue(BaseIssue):
         raw_comments = self._raw_issue["comments"]
         return [PagureIssueComment(raw_comment) for raw_comment in raw_comments]
 
-    def can_close_issue(self, username: str) -> bool:
-        allowed_users = self.project.who_can_close_issue()
-        return username == self.author or username in allowed_users
-
     def issue_comment(self, body: str) -> IssueComment:
         payload = {"comment": body}
         self.project._call_project_api(
