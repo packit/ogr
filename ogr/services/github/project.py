@@ -36,7 +36,6 @@ from github.PullRequest import PullRequest as GithubPullRequest
 
 from ogr.abstract import (
     Issue,
-    IssueComment,
     IssueStatus,
     PullRequest,
     PRComment,
@@ -217,10 +216,6 @@ class GithubProject(BaseGitProject):
     def who_can_merge_pr(self) -> Set[str]:
         return self.__get_collaborators()
 
-    def can_close_issue(self, username: str, issue: Issue) -> bool:
-        # TODO: deprecate
-        return issue.can_close_issue(username)
-
     def can_merge_pr(self, username) -> bool:
         allowed_users = self.who_can_merge_pr()
 
@@ -256,51 +251,9 @@ class GithubProject(BaseGitProject):
         issue = self.github_repo.get_issue(number=issue_id)
         return GithubIssue(issue, self)
 
-    def get_issue_info(self, issue_id: int) -> Issue:
-        # TODO: deprecate
-        return self.get_issue(issue_id)
-
-    def _get_all_issue_comments(self, issue_id: int) -> List[IssueComment]:
-        # TODO: deprecate
-        return self.get_issue(issue_id)._get_all_comments()
-
-    def issue_comment(self, issue_id: int, body: str) -> IssueComment:
-        """
-        Create comment on an issue.
-
-        :param issue_id: int The ID of the issue
-        :param body: str The text of the comment
-        :return: IssueComment
-        """
-        # TODO: deprecate
-        return self.get_issue(issue_id).issue_comment(body)
-
     def create_issue(self, title: str, body: str) -> Issue:
         github_issue = self.github_repo.create_issue(title=title, body=body)
         return GithubIssue(github_issue, self)
-
-    def issue_close(self, issue_id: int) -> Issue:
-        # TODO: deprecate
-        return self.get_issue(issue_id).close()
-
-    def get_issue_labels(self, issue_id: int) -> List[GithubLabel]:
-        """
-        Get list of issue's labels.
-        :issue_id: int
-        :return: [GithubLabel]
-        """
-        # TODO: deprecate
-        return self.get_issue(issue_id).get_labels()
-
-    def add_issue_labels(self, issue_id, labels) -> None:
-        """
-        Add labels the the Issue.
-
-        :param issue_id: int
-        :param labels: [str]
-        """
-        # TODO: deprecate
-        self.get_issue(issue_id).add_labels(labels)
 
     def get_pr_list(self, status: PRStatus = PRStatus.open) -> List[PullRequest]:
         prs = self.github_repo.get_pulls(

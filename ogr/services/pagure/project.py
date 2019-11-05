@@ -25,14 +25,7 @@ import logging
 from typing import List, Optional, Dict, Any, Set
 
 from ogr.abstract import PRStatus, GitTag, CommitFlag, CommitComment
-from ogr.abstract import (
-    PullRequest,
-    PRComment,
-    Issue,
-    IssueStatus,
-    IssueComment,
-    Release,
-)
+from ogr.abstract import PullRequest, PRComment, Issue, IssueStatus, Release
 from ogr.exceptions import (
     OurPagureRawRequest,
     PagureAPIException,
@@ -199,10 +192,6 @@ class PagureProject(BaseGitProject):
         users.update(project["access_users"]["owner"])
         return users
 
-    def can_close_issue(self, username: str, issue: Issue) -> bool:
-        # TODO: deprecate
-        return issue.can_close_issue(username)
-
     def can_merge_pr(self, username) -> bool:
         allowed_users = self.who_can_merge_pr()
         if username in allowed_users:
@@ -220,28 +209,12 @@ class PagureProject(BaseGitProject):
         raw_issue = self._call_project_api("issue", str(issue_id))
         return PagureIssue(raw_issue, self)
 
-    def get_issue_info(self, issue_id: int) -> Issue:
-        # TODO: deprecate
-        return self.get_issue(issue_id)
-
-    def _get_all_issue_comments(self, issue_id: int) -> List[IssueComment]:
-        # TODO: deprecate
-        return self.get_issue(issue_id)._get_all_comments()
-
-    def issue_comment(self, issue_id: int, body: str) -> IssueComment:
-        # TODO: deprecate
-        return self.get_issue(issue_id).issue_comment(body)
-
     def create_issue(self, title: str, body: str) -> Issue:
         payload = {"title": title, "issue_content": body}
         new_issue = self._call_project_api("new_issue", data=payload, method="POST")[
             "issue"
         ]
         return PagureIssue(new_issue, self)
-
-    def issue_close(self, issue_id: int) -> Issue:
-        # TODO: deprecate
-        return self.get_issue(issue_id).close()
 
     def get_pr_list(
         self, status: PRStatus = PRStatus.open, assignee=None, author=None

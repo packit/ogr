@@ -64,25 +64,6 @@ class BaseGitProject(GitProject):
         pr_comments = filter_comments(all_comments, filter_regex, reverse, author)
         return pr_comments
 
-    def get_issue_comments(
-        self,
-        issue_id,
-        filter_regex: str = None,
-        reverse: bool = False,
-        author: str = None,
-    ) -> List[IssueComment]:
-        """
-        Get list of issue comments.
-
-        :param issue_id: int
-        :param filter_regex: filter the comments' content with re.search
-        :param reverse: reverse order of comments
-        :param author: filter comments by author
-        :return: [IssueComment]
-        """
-        # TODO: deprecate
-        return self.get_issue(issue_id).get_comments(filter_regex, reverse, author)
-
     def search_in_pr(
         self,
         pr_id: int,
@@ -108,6 +89,46 @@ class BaseGitProject(GitProject):
                 all_comments.insert(0, description_content)
 
         return search_in_comments(comments=all_comments, filter_regex=filter_regex)
+
+    # Functions to be deprecated
+    def get_issue_comments(
+        self,
+        issue_id,
+        filter_regex: str = None,
+        reverse: bool = False,
+        author: str = None,
+    ) -> List[IssueComment]:
+        """
+        Get list of issue comments.
+
+        :param issue_id: int
+        :param filter_regex: filter the comments' content with re.search
+        :param reverse: reverse order of comments
+        :param author: filter comments by author
+        :return: [IssueComment]
+        """
+        return self.get_issue(issue_id).get_comments(filter_regex, reverse, author)
+
+    def can_close_issue(self, username: str, issue: Issue) -> bool:
+        return issue.can_close(username)
+
+    def get_issue_info(self, issue_id: int) -> Issue:
+        return self.get_issue(issue_id)
+
+    def _get_all_issue_comments(self, issue_id: int) -> List["IssueComment"]:
+        return self.get_issue(issue_id)._get_all_comments()
+
+    def issue_comment(self, issue_id: int, body: str) -> "IssueComment":
+        return self.get_issue(issue_id).comment(body)
+
+    def issue_close(self, issue_id: int) -> Issue:
+        return self.get_issue(issue_id).close()
+
+    def get_issue_labels(self, issue_id: int) -> List[Any]:
+        return self.get_issue(issue_id).get_labels()
+
+    def add_issue_labels(self, issue_id: int, labels: List[str]) -> None:
+        self.get_issue(issue_id).add_labels(labels)
 
 
 class BaseGitUser(GitUser):
