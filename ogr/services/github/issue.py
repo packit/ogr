@@ -25,7 +25,7 @@ from typing import List
 
 from github.Issue import Issue as _GithubIssue
 
-from ogr.abstract import IssueComment, IssueStatus
+from ogr.abstract import Issue, IssueComment, IssueStatus
 from ogr.exceptions import GithubAPIException
 from ogr.services import github as ogr_github
 from ogr.services.base import BaseIssue
@@ -90,7 +90,7 @@ class GithubIssue(BaseIssue):
         comment = self._raw_issue.create_comment(body)
         return GithubIssueComment(comment)
 
-    def close(self) -> "GithubIssue":
+    def close(self) -> "Issue":
         self._raw_issue.edit(state="closed")
         return self
 

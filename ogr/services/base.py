@@ -125,10 +125,10 @@ class BaseGitProject(GitProject):
         return self.get_issue(issue_id).close()
 
     def get_issue_labels(self, issue_id: int) -> List[Any]:
-        return self.get_issue(issue_id).get_labels()
+        return self.get_issue(issue_id).labels
 
     def add_issue_labels(self, issue_id: int, labels: List[str]) -> None:
-        self.get_issue(issue_id).add_labels(labels)
+        self.get_issue(issue_id).add_label(*labels)
 
 
 class BaseGitUser(GitUser):

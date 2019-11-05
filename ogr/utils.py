@@ -104,8 +104,8 @@ def fetch_all() -> None:
 def filter_comments(
     comments: List[AnyComment],
     filter_regex: Optional[str] = None,
-    author: Optional[str] = None,
     reverse: bool = False,
+    author: Optional[str] = None,
 ) -> List[AnyComment]:
     if reverse:
         comments.reverse()

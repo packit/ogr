@@ -23,7 +23,7 @@
 import datetime
 from typing import List
 
-from gitlab.v4.objects import GitlabIssue as _GitlabIssue
+from gitlab.v4.objects import Issue as _GitlabIssue
 
 from ogr.abstract import IssueComment, IssueStatus
 from ogr.services.base import BaseIssue
@@ -46,7 +46,7 @@ class GitlabIssue(BaseIssue):
         return (
             IssueStatus.open
             if self._raw_issue.state == "opened"
-            else IssueStatus[self._raw_issue.status]
+            else IssueStatus[self._raw_issue.state]
         )
 
     @property
