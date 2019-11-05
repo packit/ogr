@@ -22,9 +22,10 @@
 
 import datetime
 from enum import IntEnum
-from typing import Optional, Match, List, Dict, Set, TypeVar, Any
+from typing import Optional, Match, List, Dict, Set, TypeVar, Any, Sequence
 from urllib.request import urlopen
 
+from ogr.exceptions import OgrException
 from ogr.parsing import parse_git_repo
 
 AnyComment = TypeVar("AnyComment", bound="Comment")
@@ -169,9 +170,9 @@ class CommitFlag:
         commit: str,
         state: str,
         context: str,
-        comment: str = None,
-        uid: str = None,
-        url: str = None,
+        comment: Optional[str] = None,
+        uid: Optional[str] = None,
+        url: Optional[str] = None,
     ):
         self.commit = commit
         self.state = state  # Should be enum
@@ -226,20 +227,19 @@ class Release:
         self.project = project
 
     @property
-    def title(self):
+    def title(self) -> str:
         raise NotImplementedError()
 
     @property
-    def body(self):
+    def body(self) -> str:
         raise NotImplementedError()
 
-    def save_archive(self, filename):
+    def save_archive(self, filename: str) -> None:
         response = urlopen(self.tarball_url)
         data = response.read()
 
-        file = open(filename, "w")
-        file.write(data)
-        file.close()
+        with open(filename, "wb") as file:
+            file.write(data)
 
     def __str__(self) -> str:
         return (
@@ -252,7 +252,7 @@ class Release:
             f"tarball_url='{self.tarball_url}')"
         )
 
-    def edit_release(self, name: str, message: str):
+    def edit_release(self, name: str, message: str) -> None:
         """
         Edit name and message of a release.
 
@@ -265,10 +265,10 @@ class Release:
 class GitService:
     instance_url: Optional[str] = None
 
-    def __init__(self, **_):
+    def __init__(self, **_: Any) -> None:
         pass
 
-    def get_project(self, **kwargs) -> "GitProject":
+    def get_project(self, **kwargs: Any) -> "GitProject":
         """
         Get the GitProject instance
 
@@ -281,6 +281,8 @@ class GitService:
 
     def get_project_from_url(self, url: str) -> "GitProject":
         repo_url = parse_git_repo(potential_url=url)
+        if not repo_url:
+            raise OgrException(f"Failed to find repository for url: {url}")
         project = self.get_project(repo=repo_url.repo, namespace=repo_url.namespace)
         return project
 
@@ -301,7 +303,9 @@ class GitService:
         """
         raise NotImplementedError
 
-    def project_create(self, repo: str, namespace: str = None) -> "GitProject":
+    def project_create(
+        self, repo: str, namespace: Optional[str] = None
+    ) -> "GitProject":
         """
         Create a new project.
 
@@ -413,7 +417,7 @@ class GitProject:
         """
         raise NotImplementedError()
 
-    def can_merge_pr(self, username) -> bool:
+    def can_merge_pr(self, username: str) -> bool:
         """
         Check if user have permissions to modify an Pr
         :param username: str
@@ -450,10 +454,10 @@ class GitProject:
 
     def get_issue_comments(
         self,
-        issue_id,
-        filter_regex: str = None,
+        issue_id: int,
+        filter_regex: Optional[str] = None,
         reverse: bool = False,
-        author: str = None,
+        author: Optional[str] = None,
     ) -> List["IssueComment"]:
         """
         Get list of Issue comments.
@@ -495,7 +499,7 @@ class GitProject:
         """
         raise NotImplementedError()
 
-    def get_issue_labels(self, issue_id: int) -> List:
+    def get_issue_labels(self, issue_id: int) -> List[Any]:
         """
         Get list of issue's labels.
 
@@ -504,7 +508,7 @@ class GitProject:
         """
         raise NotImplementedError()
 
-    def add_issue_labels(self, issue_id, labels) -> None:
+    def add_issue_labels(self, issue_id: int, labels: List[str]) -> None:
         """
         Add labels the the Issue.
 
@@ -532,7 +536,7 @@ class GitProject:
         raise NotImplementedError()
 
     def update_pr_info(
-        self, pr_id: int, title: str = None, description: str = None
+        self, pr_id: int, title: Optional[str] = None, description: Optional[str] = None
     ) -> PullRequest:
         """
         Update pull-request information.
@@ -561,7 +565,12 @@ class GitProject:
         """
         raise NotImplementedError()
 
-    def get_release(self, identifier=None, name=None, tag_name=None) -> Release:
+    def get_release(
+        self,
+        identifier: Optional[int] = None,
+        name: Optional[str] = None,
+        tag_name: Optional[str] = None,
+    ) -> Release:
         """
         Get a single release
 
@@ -600,9 +609,9 @@ class GitProject:
     def get_pr_comments(
         self,
         pr_id: int,
-        filter_regex: str = None,
+        filter_regex: Optional[str] = None,
         reverse: bool = False,
-        author: str = None,
+        author: Optional[str] = None,
     ) -> List["PRComment"]:
         """
         Get list of pull-request comments.
@@ -660,9 +669,9 @@ class GitProject:
         self,
         pr_id: int,
         body: str,
-        commit: str = None,
-        filename: str = None,
-        row: int = None,
+        commit: Optional[str] = None,
+        filename: Optional[str] = None,
+        row: Optional[int] = None,
     ) -> "PRComment":
         """
         Add new comment to the pull request.
@@ -677,7 +686,11 @@ class GitProject:
         raise NotImplementedError()
 
     def commit_comment(
-        self, commit: str, body: str, filename: str = None, row: int = None
+        self,
+        commit: str,
+        body: str,
+        filename: Optional[str] = None,
+        row: Optional[int] = None,
     ) -> "CommitComment":
         """
         Add new comment to a commit.
@@ -732,7 +745,7 @@ class GitProject:
         """
         raise NotImplementedError()
 
-    def get_pr_labels(self, pr_id: int) -> List:
+    def get_pr_labels(self, pr_id: int) -> List[Any]:
         """
         Get list of pr's labels.
         :pr_id: int
@@ -740,7 +753,7 @@ class GitProject:
         """
         raise NotImplementedError()
 
-    def add_pr_labels(self, pr_id, labels) -> None:
+    def add_pr_labels(self, pr_id: int, labels: List[str]) -> None:
         """
         Add labels the the Pull Request.
 
@@ -761,7 +774,7 @@ class GitProject:
         """
         raise NotImplementedError()
 
-    def change_token(self, new_token: str):
+    def change_token(self, new_token: str) -> None:
         """
         Change an API token.
 
@@ -769,7 +782,7 @@ class GitProject:
         """
         raise NotImplementedError
 
-    def get_file_content(self, path: str, ref="master") -> str:
+    def get_file_content(self, path: str, ref: str = "master") -> str:
         """
         Get a content of the file in the repo.
 
@@ -779,7 +792,7 @@ class GitProject:
         """
         raise NotImplementedError
 
-    def get_forks(self):
+    def get_forks(self) -> Sequence["GitProject"]:
         """
         Get forks of the project.
 
@@ -806,8 +819,8 @@ class GitUser:
     def get_email(self) -> str:
         raise NotImplementedError()
 
-    def get_projects(self):
+    def get_projects(self) -> Sequence["GitProject"]:
         raise NotImplementedError
 
-    def get_forks(self):
+    def get_forks(self) -> Sequence["GitProject"]:
         raise NotImplementedError
