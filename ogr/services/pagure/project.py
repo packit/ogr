@@ -44,7 +44,8 @@ from ogr.services.base import BaseGitProject
 from ogr.utils import RequestResponse
 from ogr.services import pagure as ogr_pagure
 from ogr.services.pagure.release import PagureRelease
-from ogr.services.pagure.comments import PagureIssueComment, PagurePRComment
+from ogr.services.pagure.comments import PagurePRComment
+from ogr.services.pagure.issue import PagureIssue
 
 logger = logging.getLogger(__name__)
 
@@ -199,13 +200,8 @@ class PagureProject(BaseGitProject):
         return users
 
     def can_close_issue(self, username: str, issue: Issue) -> bool:
-        allowed_users = self.who_can_close_issue()
-        if username in allowed_users:
-            return True
-        if username == issue.author:
-            return True
-
-        return False
+        # TODO: deprecate
+        return issue.can_close_issue(username)
 
     def can_merge_pr(self, username) -> bool:
         allowed_users = self.who_can_merge_pr()
@@ -218,38 +214,34 @@ class PagureProject(BaseGitProject):
         payload = {"status": status.name.capitalize()}
 
         raw_issues = self._call_project_api("issues", params=payload)["issues"]
-        issues = [self._issue_from_pagure_dict(issue_dict) for issue_dict in raw_issues]
-        return issues
+        return [PagureIssue(issue_dict, self) for issue_dict in raw_issues]
+
+    def get_issue(self, issue_id: int) -> Issue:
+        raw_issue = self._call_project_api("issue", str(issue_id))
+        return PagureIssue(raw_issue, self)
 
     def get_issue_info(self, issue_id: int) -> Issue:
-        raw_issue = self._call_project_api("issue", str(issue_id))
-        return self._issue_from_pagure_dict(raw_issue)
+        # TODO: deprecate
+        return self.get_issue(issue_id)
 
     def _get_all_issue_comments(self, issue_id: int) -> List[IssueComment]:
-        raw_comments = self._call_project_api("issue", str(issue_id))["comments"]
-        return [PagureIssueComment(raw_comment) for raw_comment in raw_comments]
+        # TODO: deprecate
+        return self.get_issue(issue_id)._get_all_comments()
 
     def issue_comment(self, issue_id: int, body: str) -> IssueComment:
-        payload = {"comment": body}
-        self._call_project_api(
-            "issue", str(issue_id), "comment", data=payload, method="POST"
-        )
-        return PagureIssueComment(comment=body, author=self._username)
+        # TODO: deprecate
+        return self.get_issue(issue_id).issue_comment(body)
 
     def create_issue(self, title: str, body: str) -> Issue:
         payload = {"title": title, "issue_content": body}
         new_issue = self._call_project_api("new_issue", data=payload, method="POST")[
             "issue"
         ]
-        return self._issue_from_pagure_dict(new_issue)
+        return PagureIssue(new_issue, self)
 
     def issue_close(self, issue_id: int) -> Issue:
-        payload = {"status": "Closed"}
-        self._call_project_api(
-            "issue", str(issue_id), "status", data=payload, method="POST"
-        )
-        issue = self.get_issue_info(issue_id)
-        return issue
+        # TODO: deprecate
+        return self.get_issue(issue_id).close()
 
     def get_pr_list(
         self, status: PRStatus = PRStatus.open, assignee=None, author=None
@@ -460,19 +452,6 @@ class PagureProject(BaseGitProject):
     def get_git_urls(self) -> Dict[str, str]:
         return_value = self._call_project_api("git", "urls")
         return return_value["urls"]
-
-    def _issue_from_pagure_dict(self, issue_dict: dict) -> Issue:
-        return Issue(
-            title=issue_dict["title"],
-            id=issue_dict["id"],
-            status=IssueStatus[issue_dict["status"].lower()],
-            url=self._get_project_url(
-                "issue", str(issue_dict["id"]), add_api_endpoint_part=False
-            ),
-            description=issue_dict["content"],
-            author=issue_dict["user"]["name"],
-            created=datetime.datetime.fromtimestamp(int(issue_dict["date_created"])),
-        )
 
     def _pr_from_pagure_dict(self, pr_dict: dict) -> PullRequest:
         return PullRequest(
