@@ -1,86 +1,5 @@
 unittest.case:
   tests.integration.test_github:
-    ogr.services.github.release:
-      github.GitRelease:
-        github.Requester:
-          requests.sessions:
-            requre.objects:
-              requests.sessions:
-                send:
-                - __store_indicator: 2
-                  _content:
-                    assets: []
-                    assets_url: https://api.github.com/repos/packit-service/hello-world/releases/18553233/assets
-                    author:
-                      avatar_url: https://avatars3.githubusercontent.com/u/49026743?v=4
-                      events_url: https://api.github.com/users/lbarcziova/events{/privacy}
-                      followers_url: https://api.github.com/users/lbarcziova/followers
-                      following_url: https://api.github.com/users/lbarcziova/following{/other_user}
-                      gists_url: https://api.github.com/users/lbarcziova/gists{/gist_id}
-                      gravatar_id: ''
-                      html_url: https://github.com/lbarcziova
-                      id: 49026743
-                      login: lbarcziova
-                      node_id: MDQ6VXNlcjQ5MDI2NzQz
-                      organizations_url: https://api.github.com/users/lbarcziova/orgs
-                      received_events_url: https://api.github.com/users/lbarcziova/received_events
-                      repos_url: https://api.github.com/users/lbarcziova/repos
-                      site_admin: false
-                      starred_url: https://api.github.com/users/lbarcziova/starred{/owner}{/repo}
-                      subscriptions_url: https://api.github.com/users/lbarcziova/subscriptions
-                      type: User
-                      url: https://api.github.com/users/lbarcziova
-                    body: test-changed-changed-changed-changed-changed-changed-changed-changed-changed-changed-changed-changed-changed-changed-changed-changed-changed-changed-changed-changed-changed
-                    created_at: '2019-05-02T19:27:04Z'
-                    draft: false
-                    html_url: https://github.com/packit-service/hello-world/releases/tag/0.1.0
-                    id: 18553233
-                    name: test-changed-changed-changed-changed-changed-changed-changed-changed-changed-changed-changed-changed-changed-changed-changed-changed-changed-changed-changed-changed-changed
-                    node_id: MDc6UmVsZWFzZTE4NTUzMjMz
-                    prerelease: false
-                    published_at: '2019-07-11T13:45:50Z'
-                    tag_name: 0.1.0
-                    tarball_url: https://api.github.com/repos/packit-service/hello-world/tarball/0.1.0
-                    target_commitish: master
-                    upload_url: https://uploads.github.com/repos/packit-service/hello-world/releases/18553233/assets{?name,label}
-                    url: https://api.github.com/repos/packit-service/hello-world/releases/18553233
-                    zipball_url: https://api.github.com/repos/packit-service/hello-world/zipball/0.1.0
-                  _next: null
-                  elapsed: 0.398313
-                  encoding: utf-8
-                  headers:
-                    Access-Control-Allow-Origin: '*'
-                    Access-Control-Expose-Headers: ETag, Link, Location, Retry-After,
-                      X-GitHub-OTP, X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Reset,
-                      X-OAuth-Scopes, X-Accepted-OAuth-Scopes, X-Poll-Interval, X-GitHub-Media-Type
-                    Cache-Control: private, max-age=60, s-maxage=60
-                    Content-Encoding: gzip
-                    Content-Security-Policy: default-src 'none'
-                    Content-Type: application/json; charset=utf-8
-                    Date: Fri, 27 Sep 2019 09:06:52 GMT
-                    ETag: W/"57423a58f4d76aef4fa461148861f3cd"
-                    Referrer-Policy: origin-when-cross-origin, strict-origin-when-cross-origin
-                    Server: GitHub.com
-                    Status: 200 OK
-                    Strict-Transport-Security: max-age=31536000; includeSubdomains;
-                      preload
-                    Transfer-Encoding: chunked
-                    Vary: Accept, Authorization, Cookie, X-GitHub-OTP, Accept-Encoding
-                    X-Accepted-OAuth-Scopes: repo
-                    X-Content-Type-Options: nosniff
-                    X-Frame-Options: deny
-                    X-GitHub-Media-Type: github.v3; format=json
-                    X-GitHub-Request-Id: 8D6A:184E9:12D66FA:16E0365:5D8DD12C
-                    X-OAuth-Scopes: admin:gpg_key, admin:org, admin:org_hook, admin:public_key,
-                      admin:repo_hook, delete_repo, gist, notifications, repo, user,
-                      write:discussion
-                    X-RateLimit-Limit: '5000'
-                    X-RateLimit-Remaining: '3598'
-                    X-RateLimit-Reset: '1569578321'
-                    X-XSS-Protection: 1; mode=block
-                  raw: !!binary ""
-                  reason: OK
-                  status_code: 200
     ogr.services.github.project:
       github.MainClass:
         github.Requester:
@@ -215,7 +134,7 @@ unittest.case:
                     watchers: 0
                     watchers_count: 0
                   _next: null
-                  elapsed: 0.41507
+                  elapsed: 0.2
                   encoding: utf-8
                   headers:
                     Access-Control-Allow-Origin: '*'
@@ -226,8 +145,8 @@ unittest.case:
                     Content-Encoding: gzip
                     Content-Security-Policy: default-src 'none'
                     Content-Type: application/json; charset=utf-8
-                    Date: Fri, 27 Sep 2019 09:06:51 GMT
-                    ETag: W/"514189ed11e2c99c323f649e23ed72b2"
+                    Date: Fri, 01 Nov 2019 13-36-03 GMT
+                    ETag: W/"1e51b8e1c48787a433405211e9e0fe61"
                     Last-Modified: Tue, 17 Sep 2019 09:02:30 GMT
                     Referrer-Policy: origin-when-cross-origin, strict-origin-when-cross-origin
                     Server: GitHub.com
@@ -240,13 +159,13 @@ unittest.case:
                     X-Content-Type-Options: nosniff
                     X-Frame-Options: deny
                     X-GitHub-Media-Type: github.v3; format=json
-                    X-GitHub-Request-Id: 8D6A:184E9:12D669A:16E02F6:5D8DD12B
+                    X-GitHub-Request-Id: 18FB:AA1A:99616C4:B8092CB:5CC15425
                     X-OAuth-Scopes: admin:gpg_key, admin:org, admin:org_hook, admin:public_key,
                       admin:repo_hook, delete_repo, gist, notifications, repo, user,
                       write:discussion
                     X-RateLimit-Limit: '5000'
-                    X-RateLimit-Remaining: '3602'
-                    X-RateLimit-Reset: '1569578321'
+                    X-RateLimit-Remaining: '4972'
+                    X-RateLimit-Reset: '1572953901'
                     X-XSS-Protection: 1; mode=block
                   raw: !!binary ""
                   reason: OK
@@ -692,7 +611,7 @@ unittest.case:
                     url: https://api.github.com/repos/packit-service/hello-world/releases/18553233
                     zipball_url: https://api.github.com/repos/packit-service/hello-world/zipball/0.1.0
                   _next: null
-                  elapsed: 0.301401
+                  elapsed: 0.2
                   encoding: utf-8
                   headers:
                     Access-Control-Allow-Origin: '*'
@@ -703,8 +622,8 @@ unittest.case:
                     Content-Encoding: gzip
                     Content-Security-Policy: default-src 'none'
                     Content-Type: application/json; charset=utf-8
-                    Date: Fri, 27 Sep 2019 09:06:51 GMT
-                    ETag: W/"95f569cb6401b01f15fbc1534604bf7f"
+                    Date: Fri, 01 Nov 2019 13-36-03 GMT
+                    ETag: W/"1e51b8e1c48787a433405211e9e0fe61"
                     Referrer-Policy: origin-when-cross-origin, strict-origin-when-cross-origin
                     Server: GitHub.com
                     Status: 200 OK
@@ -716,13 +635,13 @@ unittest.case:
                     X-Content-Type-Options: nosniff
                     X-Frame-Options: deny
                     X-GitHub-Media-Type: github.v3; format=json
-                    X-GitHub-Request-Id: 8D6A:184E9:12D66B5:16E030D:5D8DD12B
+                    X-GitHub-Request-Id: 18FB:AA1A:99616C4:B8092CB:5CC15425
                     X-OAuth-Scopes: admin:gpg_key, admin:org, admin:org_hook, admin:public_key,
                       admin:repo_hook, delete_repo, gist, notifications, repo, user,
                       write:discussion
                     X-RateLimit-Limit: '5000'
-                    X-RateLimit-Remaining: '3601'
-                    X-RateLimit-Reset: '1569578321'
+                    X-RateLimit-Remaining: '4972'
+                    X-RateLimit-Reset: '1572953901'
                     X-XSS-Protection: 1; mode=block
                   raw: !!binary ""
                   reason: OK
@@ -821,7 +740,7 @@ unittest.case:
                     tarball_url: https://api.github.com/repos/packit-service/hello-world/tarball/0.1.0
                     zipball_url: https://api.github.com/repos/packit-service/hello-world/zipball/0.1.0
                   _next: null
-                  elapsed: 0.493641
+                  elapsed: 0.2
                   encoding: utf-8
                   headers:
                     Access-Control-Allow-Origin: '*'
@@ -832,8 +751,8 @@ unittest.case:
                     Content-Encoding: gzip
                     Content-Security-Policy: default-src 'none'
                     Content-Type: application/json; charset=utf-8
-                    Date: Fri, 27 Sep 2019 09:06:52 GMT
-                    ETag: W/"f3490175e851d576f1b04ece82b74c97"
+                    Date: Fri, 01 Nov 2019 13-36-03 GMT
+                    ETag: W/"1e51b8e1c48787a433405211e9e0fe61"
                     Last-Modified: Tue, 17 Sep 2019 09:02:30 GMT
                     Referrer-Policy: origin-when-cross-origin, strict-origin-when-cross-origin
                     Server: GitHub.com
@@ -846,13 +765,13 @@ unittest.case:
                     X-Content-Type-Options: nosniff
                     X-Frame-Options: deny
                     X-GitHub-Media-Type: github.v3; format=json
-                    X-GitHub-Request-Id: 8D6A:184E9:12D66DD:16E0345:5D8DD12B
+                    X-GitHub-Request-Id: 18FB:AA1A:99616C4:B8092CB:5CC15425
                     X-OAuth-Scopes: admin:gpg_key, admin:org, admin:org_hook, admin:public_key,
                       admin:repo_hook, delete_repo, gist, notifications, repo, user,
                       write:discussion
                     X-RateLimit-Limit: '5000'
-                    X-RateLimit-Remaining: '3599'
-                    X-RateLimit-Reset: '1569578321'
+                    X-RateLimit-Remaining: '4972'
+                    X-RateLimit-Reset: '1572953901'
                     X-XSS-Protection: 1; mode=block
                   raw: !!binary ""
                   reason: OK
@@ -902,7 +821,7 @@ unittest.case:
                     url: https://api.github.com/repos/packit-service/hello-world/releases/18553233
                     zipball_url: https://api.github.com/repos/packit-service/hello-world/zipball/0.1.0
                   _next: null
-                  elapsed: 0.202623
+                  elapsed: 0.2
                   encoding: utf-8
                   headers:
                     Access-Control-Allow-Origin: '*'
@@ -913,8 +832,8 @@ unittest.case:
                     Content-Encoding: gzip
                     Content-Security-Policy: default-src 'none'
                     Content-Type: application/json; charset=utf-8
-                    Date: Fri, 27 Sep 2019 09:06:51 GMT
-                    ETag: W/"923b0d5e9d6736ee9644e1d4d7e2a0bf"
+                    Date: Fri, 01 Nov 2019 13-36-03 GMT
+                    ETag: W/"1e51b8e1c48787a433405211e9e0fe61"
                     Last-Modified: Thu, 26 Sep 2019 14:19:24 GMT
                     Referrer-Policy: origin-when-cross-origin, strict-origin-when-cross-origin
                     Server: GitHub.com
@@ -927,13 +846,94 @@ unittest.case:
                     X-Content-Type-Options: nosniff
                     X-Frame-Options: deny
                     X-GitHub-Media-Type: github.v3; format=json
-                    X-GitHub-Request-Id: 8D6A:184E9:12D66D0:16E032A:5D8DD12B
+                    X-GitHub-Request-Id: 18FB:AA1A:99616C4:B8092CB:5CC15425
                     X-OAuth-Scopes: admin:gpg_key, admin:org, admin:org_hook, admin:public_key,
                       admin:repo_hook, delete_repo, gist, notifications, repo, user,
                       write:discussion
                     X-RateLimit-Limit: '5000'
-                    X-RateLimit-Remaining: '3600'
-                    X-RateLimit-Reset: '1569578321'
+                    X-RateLimit-Remaining: '4972'
+                    X-RateLimit-Reset: '1572953901'
+                    X-XSS-Protection: 1; mode=block
+                  raw: !!binary ""
+                  reason: OK
+                  status_code: 200
+    ogr.services.github.release:
+      github.GitRelease:
+        github.Requester:
+          requests.sessions:
+            requre.objects:
+              requests.sessions:
+                send:
+                - __store_indicator: 2
+                  _content:
+                    assets: []
+                    assets_url: https://api.github.com/repos/packit-service/hello-world/releases/18553233/assets
+                    author:
+                      avatar_url: https://avatars3.githubusercontent.com/u/49026743?v=4
+                      events_url: https://api.github.com/users/lbarcziova/events{/privacy}
+                      followers_url: https://api.github.com/users/lbarcziova/followers
+                      following_url: https://api.github.com/users/lbarcziova/following{/other_user}
+                      gists_url: https://api.github.com/users/lbarcziova/gists{/gist_id}
+                      gravatar_id: ''
+                      html_url: https://github.com/lbarcziova
+                      id: 49026743
+                      login: lbarcziova
+                      node_id: MDQ6VXNlcjQ5MDI2NzQz
+                      organizations_url: https://api.github.com/users/lbarcziova/orgs
+                      received_events_url: https://api.github.com/users/lbarcziova/received_events
+                      repos_url: https://api.github.com/users/lbarcziova/repos
+                      site_admin: false
+                      starred_url: https://api.github.com/users/lbarcziova/starred{/owner}{/repo}
+                      subscriptions_url: https://api.github.com/users/lbarcziova/subscriptions
+                      type: User
+                      url: https://api.github.com/users/lbarcziova
+                    body: test-changed-changed-changed-changed-changed-changed-changed-changed-changed-changed-changed-changed-changed-changed-changed-changed-changed-changed-changed-changed-changed
+                    created_at: '2019-05-02T19:27:04Z'
+                    draft: false
+                    html_url: https://github.com/packit-service/hello-world/releases/tag/0.1.0
+                    id: 18553233
+                    name: test-changed-changed-changed-changed-changed-changed-changed-changed-changed-changed-changed-changed-changed-changed-changed-changed-changed-changed-changed-changed-changed
+                    node_id: MDc6UmVsZWFzZTE4NTUzMjMz
+                    prerelease: false
+                    published_at: '2019-07-11T13:45:50Z'
+                    tag_name: 0.1.0
+                    tarball_url: https://api.github.com/repos/packit-service/hello-world/tarball/0.1.0
+                    target_commitish: master
+                    upload_url: https://uploads.github.com/repos/packit-service/hello-world/releases/18553233/assets{?name,label}
+                    url: https://api.github.com/repos/packit-service/hello-world/releases/18553233
+                    zipball_url: https://api.github.com/repos/packit-service/hello-world/zipball/0.1.0
+                  _next: null
+                  elapsed: 0.2
+                  encoding: utf-8
+                  headers:
+                    Access-Control-Allow-Origin: '*'
+                    Access-Control-Expose-Headers: ETag, Link, Location, Retry-After,
+                      X-GitHub-OTP, X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Reset,
+                      X-OAuth-Scopes, X-Accepted-OAuth-Scopes, X-Poll-Interval, X-GitHub-Media-Type
+                    Cache-Control: private, max-age=60, s-maxage=60
+                    Content-Encoding: gzip
+                    Content-Security-Policy: default-src 'none'
+                    Content-Type: application/json; charset=utf-8
+                    Date: Fri, 01 Nov 2019 13-36-03 GMT
+                    ETag: W/"1e51b8e1c48787a433405211e9e0fe61"
+                    Referrer-Policy: origin-when-cross-origin, strict-origin-when-cross-origin
+                    Server: GitHub.com
+                    Status: 200 OK
+                    Strict-Transport-Security: max-age=31536000; includeSubdomains;
+                      preload
+                    Transfer-Encoding: chunked
+                    Vary: Accept, Authorization, Cookie, X-GitHub-OTP, Accept-Encoding
+                    X-Accepted-OAuth-Scopes: repo
+                    X-Content-Type-Options: nosniff
+                    X-Frame-Options: deny
+                    X-GitHub-Media-Type: github.v3; format=json
+                    X-GitHub-Request-Id: 18FB:AA1A:99616C4:B8092CB:5CC15425
+                    X-OAuth-Scopes: admin:gpg_key, admin:org, admin:org_hook, admin:public_key,
+                      admin:repo_hook, delete_repo, gist, notifications, repo, user,
+                      write:discussion
+                    X-RateLimit-Limit: '5000'
+                    X-RateLimit-Remaining: '4972'
+                    X-RateLimit-Reset: '1572953901'
                     X-XSS-Protection: 1; mode=block
                   raw: !!binary ""
                   reason: OK
