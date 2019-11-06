@@ -82,28 +82,37 @@ class IssueStatus(IntEnum):
 
 
 class Issue:
-    def __init__(
-        self,
-        title: str,
-        id: int,
-        status: IssueStatus,
-        url: str,
-        description: str,
-        author: str,
-        created: datetime.datetime,
-        raw_issue: Any,
-        project: "GitProject",
-    ) -> None:
-        self.title = title
-        self.id = id
-        self.status = status
-        self.url = url
-        self.description = description
-        self.author = author
-        self.created = created
-
+    def __init__(self, raw_issue: Any, project: "GitProject") -> None:
         self._raw_issue = raw_issue
         self.project = project
+
+    @property
+    def title(self) -> str:
+        raise NotImplementedError()
+
+    @property
+    def id(self) -> int:
+        raise NotImplementedError()
+
+    @property
+    def status(self) -> IssueStatus:
+        raise NotImplementedError()
+
+    @property
+    def url(self) -> str:
+        raise NotImplementedError()
+
+    @property
+    def description(self) -> str:
+        raise NotImplementedError()
+
+    @property
+    def author(self) -> str:
+        raise NotImplementedError()
+
+    @property
+    def created(self) -> datetime.datetime:
+        raise NotImplementedError()
 
     def __str__(self) -> str:
         description = (

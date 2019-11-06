@@ -20,33 +20,50 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
+import datetime
 from typing import List
 
 from gitlab.v4.objects import GitlabIssue as _GitlabIssue
 
 from ogr.abstract import IssueComment, IssueStatus
-from ogr.services import gitlab as ogr_gitlab
 from ogr.services.base import BaseIssue
 from ogr.services.gitlab.comments import GitlabIssueComment
 
 
 class GitlabIssue(BaseIssue):
-    def __init__(
-        self, raw_issue: _GitlabIssue, project: "ogr_gitlab.GitlabProject"
-    ) -> None:
-        super().__init__(
-            title=raw_issue.title,
-            id=raw_issue.iid,
-            status=IssueStatus.open
-            if raw_issue.state == "opened"
-            else IssueStatus[raw_issue.state],
-            url=raw_issue.web_url,
-            description=raw_issue.description,
-            author=raw_issue.author["username"],
-            created=raw_issue.created_at,
-            raw_issue=raw_issue,
-            project=project,
+    _raw_issue: _GitlabIssue
+
+    @property
+    def title(self) -> str:
+        return self._raw_issue.title
+
+    @property
+    def id(self) -> int:
+        return self._raw_issue.iid
+
+    @property
+    def status(self) -> IssueStatus:
+        return (
+            IssueStatus.open
+            if self._raw_issue.state == "opened"
+            else IssueStatus[self._raw_issue.status]
         )
+
+    @property
+    def url(self) -> str:
+        return self._raw_issue.web_url
+
+    @property
+    def description(self) -> str:
+        return self._raw_issue.description
+
+    @property
+    def author(self) -> str:
+        return self._raw_issue.author["username"]
+
+    @property
+    def created(self) -> datetime.datetime:
+        return self._raw_issue.created_at
 
     def __str__(self) -> str:
         return "Gitlab" + super().__str__()

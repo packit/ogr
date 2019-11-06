@@ -20,6 +20,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
+import datetime
 from typing import List
 
 from github.Issue import Issue as _GithubIssue
@@ -32,6 +33,8 @@ from ogr.services.github.comments import GithubIssueComment
 
 
 class GithubIssue(BaseIssue):
+    raw_issue: _GithubIssue
+
     def __init__(
         self, raw_issue: _GithubIssue, project: "ogr_github.GithubProject"
     ) -> None:
@@ -40,17 +43,35 @@ class GithubIssue(BaseIssue):
                 f"Requested issue #{raw_issue.number} is a pull request"
             )
 
-        super().__init__(
-            title=raw_issue.title,
-            id=raw_issue.number,
-            status=IssueStatus[raw_issue.state],
-            url=raw_issue.html_url,
-            description=raw_issue.body,
-            author=raw_issue.user.login,
-            created=raw_issue.created_at,
-            raw_issue=raw_issue,
-            project=project,
-        )
+        super().__init__(raw_issue=raw_issue, project=project)
+
+    @property
+    def title(self) -> str:
+        return self._raw_issue.title
+
+    @property
+    def id(self) -> int:
+        return self._raw_issue.number
+
+    @property
+    def status(self) -> IssueStatus:
+        return IssueStatus[self._raw_issue.state]
+
+    @property
+    def url(self) -> str:
+        return self._raw_issue.html_url
+
+    @property
+    def description(self) -> str:
+        return self._raw_issue.body
+
+    @property
+    def author(self) -> str:
+        return self._raw_issue.user.login
+
+    @property
+    def created(self) -> datetime.datetime:
+        return self._raw_issue.created_at
 
     def __str__(self) -> str:
         return "Github" + super().__str__()

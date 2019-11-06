@@ -21,7 +21,7 @@
 # SOFTWARE.
 
 import datetime
-from typing import List, Dict, Any
+from typing import List
 
 from ogr.abstract import IssueComment, IssueStatus
 from ogr.services import pagure as ogr_pagure
@@ -32,22 +32,35 @@ from ogr.services.pagure.comments import PagureIssueComment
 class PagureIssue(BaseIssue):
     project: "ogr_pagure.PagureProject"
 
-    def __init__(
-        self, raw_issue: Dict[str, Any], project: "ogr_pagure.PagureProject"
-    ) -> None:
-        super().__init__(
-            title=raw_issue["title"],
-            id=raw_issue["id"],
-            status=IssueStatus[raw_issue["status"].lower()],
-            url=project._get_project_url(
-                "issue", str(raw_issue["id"]), add_api_endpoint_part=False
-            ),
-            description=raw_issue["content"],
-            author=raw_issue["user"]["name"],
-            created=datetime.datetime.fromtimestamp(int(raw_issue["date_created"])),
-            raw_issue=raw_issue,
-            project=project,
+    @property
+    def title(self) -> str:
+        return self._raw_issue["title"]
+
+    @property
+    def id(self) -> int:
+        return self._raw_issue["id"]
+
+    @property
+    def status(self) -> IssueStatus:
+        return IssueStatus[self._raw_issue["status"].lower()]
+
+    @property
+    def url(self) -> str:
+        return self.project._get_project_url(
+            "issue", str(self.id), add_api_endpoint_part=False
         )
+
+    @property
+    def description(self) -> str:
+        return self._raw_issue["content"]
+
+    @property
+    def author(self) -> str:
+        return self._raw_issue["user"]["name"]
+
+    @property
+    def created(self) -> datetime.datetime:
+        return datetime.datetime.fromtimestamp(int(self._raw_issue["date_created"]))
 
     def __str__(self) -> str:
         return "Pagure" + super().__str__()
