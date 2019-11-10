@@ -362,11 +362,40 @@ class GithubProject(BaseGitProject):
 
     @if_readonly(return_function=GitProjectReadOnly.pr_create)
     def pr_create(
-        self, title: str, body: str, target_branch: str, source_branch: str
+        self,
+        title: str,
+        body: str,
+        target_branch: str,
+        source_branch: str,
+        fork_username: str = None,
     ) -> PullRequest:
-        created_pr = self.github_repo.create_pull(
+        """
+        Create pull-request.
+
+        :param title: str Title of the pull request
+        :param body: str The contents of the pull request
+        :param target_branch: str The name of the branch you want the changes pulled into
+        :param source_branch: str The name of the branch where your changes are implemented
+        :param fork_username: str The username of forked repository
+        :return: PullRequest:
+        """
+
+        github_repo = self.github_repo
+
+        if self.is_fork and fork_username:
+            logger.warning(f"{self.full_repo_name} is fork, ignoring fork_username arg")
+
+        if self.is_fork:
+            source_branch = f"{self.namespace}:{source_branch}"
+            github_repo = self.parent.github_repo
+        elif fork_username:
+            source_branch = f"{fork_username}:{source_branch}"
+
+        created_pr = github_repo.create_pull(
             title=title, body=body, base=target_branch, head=source_branch
         )
+        logger.info(f"PR {created_pr.id} created: {target_branch}<-{source_branch}")
+
         return self._pr_from_github_object(created_pr)
 
     def update_pr_info(
