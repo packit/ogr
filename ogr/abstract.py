@@ -114,6 +114,10 @@ class Issue:
     def created(self) -> datetime.datetime:
         raise NotImplementedError()
 
+    @property
+    def labels(self) -> List:
+        raise NotImplementedError()
+
     def __str__(self) -> str:
         description = (
             f"{self.description[:10]}..." if self.description is not None else "None"
@@ -155,10 +159,7 @@ class Issue:
     def close(self) -> "Issue":
         raise NotImplementedError()
 
-    def get_labels(self) -> List:
-        raise NotImplementedError()
-
-    def add_labels(self, labels: List[str]) -> None:
+    def add_label(self, *labels: str) -> None:
         raise NotImplementedError()
 
 

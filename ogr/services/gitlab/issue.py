@@ -65,6 +65,10 @@ class GitlabIssue(BaseIssue):
     def created(self) -> datetime.datetime:
         return self._raw_issue.created_at
 
+    @property
+    def labels(self) -> List:
+        return self._raw_issue.labels
+
     def __str__(self) -> str:
         return "Gitlab" + super().__str__()
 
@@ -84,10 +88,7 @@ class GitlabIssue(BaseIssue):
         # TODO: update self
         return self
 
-    def get_labels(self) -> List:
-        return self._raw_issue.labels
-
-    def add_labels(self, labels: List[str]) -> None:
+    def add_label(self, *labels: str) -> None:
         for label in labels:
             self._raw_issue.labels.append(label)
         self._raw_issue.save()
