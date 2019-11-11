@@ -395,7 +395,6 @@ class GithubProject(BaseGitProject):
             title=title, body=body, base=target_branch, head=source_branch
         )
         logger.info(f"PR {created_pr.id} created: {target_branch}<-{source_branch}")
-
         return self._pr_from_github_object(created_pr)
 
     def update_pr_info(
