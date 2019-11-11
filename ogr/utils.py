@@ -25,42 +25,44 @@ import os
 import re
 import subprocess
 from typing import List, Union, Match, Optional, Dict, Tuple, Any
+import git
 
 from ogr.abstract import AnyComment, Comment
-from ogr.constant import CLONE_TIMEOUT
 
 logger = logging.getLogger(__name__)
 
 
 def clone_repo_and_cd_inside(repo_name: str, repo_ssh_url: str, namespace: str) -> None:
-    os.makedirs(namespace, exist_ok=True)
-    os.chdir(namespace)
+
     logger.debug("clone %s", repo_ssh_url)
+    try:
+        git.Repo.clone_from(repo_ssh_url, namespace)
+    except git.exc.GitCommandError:
+        logger.error("Clone failed")
 
-    proc = subprocess.run(
-        ["git", "clone", repo_ssh_url], stderr=subprocess.PIPE, timeout=CLONE_TIMEOUT
-    )
-    output = proc.stderr.decode()
-    logger.debug("Clone exited with {} and output: {}".format(proc.returncode, output))
-    if "does not exist" in output:
-        logger.error("Clone failed.")
-        raise Exception("Clone failed")
-
-    # if the repo is already cloned, it's not an issue
-    os.chdir(repo_name)
+    os.chdir(namespace)
 
 
 def set_upstream_remote(clone_url: str, ssh_url: str, pull_merge_name: str) -> None:
     logger.debug("set remote upstream to %s", clone_url)
+    repo = git.Repo()
+
     try:
-        subprocess.run(["git", "remote", "add", "upstream", clone_url], check=True)
-    except subprocess.CalledProcessError:
-        subprocess.run(["git", "remote", "set-url", "upstream", clone_url], check=True)
+        repo.create_remote("upstream", url=clone_url)
+    except git.exc.GitCommandError:
+        for remote in repo.remotes:
+            if remote.name == "upstream":
+                remote.set_url(clone_url)
+                break
+
     try:
-        subprocess.run(["git", "remote", "add", "upstream-w", ssh_url], check=True)
-    except subprocess.CalledProcessError:
-        subprocess.run(["git", "remote", "set-url", "upstream-w", ssh_url], check=True)
-    logger.debug("adding fetch rule to get PRs for upstream")
+        repo.create_remote("upstream-w", url=ssh_url)
+    except git.exc.GitCommandError:
+        for remote in repo.remotes:
+            if remote.name == "upstream-w":
+                remote.set_url(ssh_url)
+                break
+
     subprocess.run(
         [
             "git",
@@ -78,7 +80,14 @@ def set_upstream_remote(clone_url: str, ssh_url: str, pull_merge_name: str) -> N
 
 def set_origin_remote(ssh_url: str, pull_merge_name: str) -> None:
     logger.debug("set remote origin to %s", ssh_url)
-    subprocess.run(["git", "remote", "set-url", "origin", ssh_url], check=True)
+
+    remotes = git.Repo().remotes
+
+    for remote in remotes:
+        if remote.name == "origin":
+            remote.set_url(ssh_url)
+            break
+
     logger.debug("adding fetch rule to get PRs for origin")
     subprocess.run(
         [
@@ -97,8 +106,10 @@ def set_origin_remote(ssh_url: str, pull_merge_name: str) -> None:
 
 def fetch_all() -> None:
     logger.debug("fetching everything")
-    with open("/dev/null", "w") as fd:
-        subprocess.run(["git", "fetch", "--all"], stdout=fd, check=True)
+
+    remotes = git.Repo().remotes
+    for remote in remotes:
+        remote.fetch()
 
 
 def filter_comments(
