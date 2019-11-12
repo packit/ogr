@@ -415,11 +415,14 @@ class PullRequests(GithubTests):
 
     def test_pr_create(self):
         """
-        Requires  packit_service:test_source to be ahead of packit_service:test_target at least by one commit.
+        Requires  packit_service:test_source to be ahead of packit_service:test_target
+        at least by one commit.
         """
 
         def _pr_close(pr_id):
-            """ Temporary function, should be replaced by GithubProject.pr_close(pr_id: int), once implemented """
+            """
+            Temporary function, should be replaced by GithubProject.pr_close(), once implemented
+            """
             pr = self.hello_world_project.github_repo.get_pull(int(pr_id))
             pr.edit(state="closed")
 
