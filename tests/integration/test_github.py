@@ -1,7 +1,6 @@
 import os
 import unittest
 
-
 import pytest
 from github import GithubException, UnknownObjectException
 
@@ -413,6 +412,67 @@ class PullRequests(GithubTests):
         pr_info = self.ogr_project.get_pr_info(pr_id=1)
         assert pr_info.title == orig_title
         assert pr_info.description == orig_description
+
+    def test_pr_create(self):
+        """
+        Requires  packit_service:test_source to be ahead of packit_service:test_target at least by one commit.
+        """
+
+        def _pr_close(pr_id):
+            """ Temporary function, should be replaced by GithubProject.pr_close(pr_id: int), once implemented """
+            pr = self.hello_world_project.github_repo.get_pull(int(pr_id))
+            pr.edit(state="closed")
+
+        pr_upstream_upstream = self.hello_world_project.pr_create(
+            title="upstream <- upstream",
+            body="pull request body",
+            target_branch="test_target",
+            source_branch="test_source",
+        )
+        _pr_close(pr_upstream_upstream.id)
+
+        pr_upstream_forkusername = self.hello_world_project.pr_create(
+            title="upstream <- fork_username:source_branch",
+            body="pull request body",
+            target_branch="test_target",
+            source_branch="test_source",
+            fork_username=self.hello_world_project.service.user.get_username(),
+        )
+        _pr_close(pr_upstream_forkusername.id)
+
+        pr_upstream_fork = self.hello_world_project.get_fork().pr_create(
+            title="upstream <- fork",
+            body="pull request body",
+            target_branch="test_target",
+            source_branch="test_source",
+        )
+        _pr_close(pr_upstream_fork.id)
+
+        pr_upstream_fork_fu_ignored = self.hello_world_project.get_fork().pr_create(
+            title="upstream <- fork (fork_username ignored)",
+            body="pull request body",
+            target_branch="test_target",
+            source_branch="test_source",
+            fork_username=self.hello_world_project.service.user.get_username(),
+        )
+        _pr_close(pr_upstream_fork_fu_ignored.id)
+
+        assert pr_upstream_upstream.title == "upstream <- upstream"
+        assert pr_upstream_upstream.status == PRStatus.open
+
+        assert (
+            pr_upstream_forkusername.title == "upstream <- fork_username:source_branch"
+        )
+        assert pr_upstream_forkusername.status == PRStatus.open
+
+        assert pr_upstream_fork.title == "upstream <- fork"
+        assert pr_upstream_fork.status == PRStatus.open
+
+        assert (
+            pr_upstream_fork_fu_ignored.title
+            == "upstream <- fork (fork_username ignored)"
+        )
+        assert pr_upstream_fork_fu_ignored.status == PRStatus.open
 
     def test_pr_labels(self):
         """
