@@ -37,3 +37,6 @@ remove-response-files-gitlab:
 	rm -rf ./tests/integration/test_data/test_gitlab*
 
 remove-response-files: remove-response-files-github remove-response-files-pagure remove-response-files-gitlab
+
+requre-purge-files:
+	pre-commit run --all-files requre-purge --verbose

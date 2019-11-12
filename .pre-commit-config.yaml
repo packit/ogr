@@ -31,3 +31,7 @@ repos:
     -   id: check-rebase
         args:
         - git://github.com/packit-service/ogr.git
+-   repo: https://github.com/packit-service/requre
+    rev: master
+    hooks:
+    - id: requre-purge
