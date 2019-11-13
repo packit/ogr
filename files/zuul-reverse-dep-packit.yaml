@@ -5,11 +5,4 @@
   - include_tasks: tasks/zuul-project-setup.yaml
   - include_tasks: tasks/generic-dnf-requirements.yaml
   - include_tasks: tasks/rpm-test-deps.yaml
-  - include_tasks: tasks/checkout_packit.yaml
-
-  - name: Run tests
-    command: pytest-3 -v tests
-    args:
-      chdir: '{{ reverse_dir }}'
-    environment:
-      PYTHONPATH: '{{ project_dir }}'
+  - include_tasks: tasks/packit_reverse_dep_test.yaml
