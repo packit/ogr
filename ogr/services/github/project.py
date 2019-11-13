@@ -521,8 +521,17 @@ class GithubProject(BaseGitProject):
         return CommitFlag(commit, status.state, status.context, status.description)
 
     @if_readonly(return_function=GitProjectReadOnly.pr_close)
-    def pr_close(self, pr_id: int) -> PullRequest:
-        raise NotImplementedError
+    def pr_close(self, pr_id: int) -> "PullRequest":
+        """
+        Close the pull-request.
+
+        :param pr_id: int
+        :return:  PullRequest
+        """
+        pr = self.github_repo.get_pull(pr_id)
+        pr.edit(state=PRStatus.closed.name)
+
+        return self._pr_from_github_object(pr)
 
     @if_readonly(return_function=GitProjectReadOnly.pr_merge)
     def pr_merge(self, pr_id: int) -> PullRequest:

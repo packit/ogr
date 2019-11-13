@@ -523,6 +523,20 @@ class PullRequests(GithubTests):
         assert labels[0].name == "test_lb1"
         assert labels[1].name == "test_lb2"
 
+    def test_pr_close(self):
+        gh_project = self.hello_world_project
+        pr = gh_project.pr_create(
+            title="test pr_close",
+            body="pull request body",
+            target_branch="test_target",
+            source_branch="test_source",
+        )
+        gh_project.pr_close(pr.id)
+        pr_check = gh_project.get_pr_info(pr.id)
+
+        assert pr_check.title == "test pr_close"
+        assert pr_check.status == PRStatus.closed
+
 
 class Releases(GithubTests):
     def test_get_release(self):
