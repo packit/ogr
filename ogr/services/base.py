@@ -22,6 +22,8 @@
 
 from typing import List, Optional, Match, Any
 
+from deprecated import deprecated
+
 from ogr.abstract import GitService, GitProject, GitUser, PRComment, IssueComment, Issue
 from ogr.exceptions import OgrException
 from ogr.parsing import parse_git_repo
@@ -90,7 +92,7 @@ class BaseGitProject(GitProject):
 
         return search_in_comments(comments=all_comments, filter_regex=filter_regex)
 
-    # Functions to be deprecated
+    @deprecated("Use methods on Issue objects")
     def get_issue_comments(
         self,
         issue_id,
@@ -98,35 +100,33 @@ class BaseGitProject(GitProject):
         reverse: bool = False,
         author: str = None,
     ) -> List[IssueComment]:
-        """
-        Get list of issue comments.
-
-        :param issue_id: int
-        :param filter_regex: filter the comments' content with re.search
-        :param reverse: reverse order of comments
-        :param author: filter comments by author
-        :return: [IssueComment]
-        """
         return self.get_issue(issue_id).get_comments(filter_regex, reverse, author)
 
+    @deprecated("Use methods on Issue objects")
     def can_close_issue(self, username: str, issue: Issue) -> bool:
         return issue.can_close(username)
 
+    @deprecated("Use methods on Issue objects")
     def get_issue_info(self, issue_id: int) -> Issue:
         return self.get_issue(issue_id)
 
+    @deprecated("Use methods on Issue objects")
     def _get_all_issue_comments(self, issue_id: int) -> List["IssueComment"]:
         return self.get_issue(issue_id)._get_all_comments()
 
+    @deprecated("Use methods on Issue objects")
     def issue_comment(self, issue_id: int, body: str) -> "IssueComment":
         return self.get_issue(issue_id).comment(body)
 
+    @deprecated("Use methods on Issue objects")
     def issue_close(self, issue_id: int) -> Issue:
         return self.get_issue(issue_id).close()
 
+    @deprecated("Use methods on Issue objects")
     def get_issue_labels(self, issue_id: int) -> List[Any]:
         return self.get_issue(issue_id).labels
 
+    @deprecated("Use methods on Issue objects")
     def add_issue_labels(self, issue_id: int, labels: List[str]) -> None:
         self.get_issue(issue_id).add_label(*labels)
 
@@ -139,17 +139,8 @@ class BaseIssue(Issue):
     def get_comments(
         self, filter_regex: str = None, reverse: bool = False, author: str = None
     ) -> List[IssueComment]:
-        """
-        Get list of issue comments.
-
-        :param filter_regex: filter the comments' content with re.search
-        :param reverse: reverse order of comments
-        :param author: filter comments by author
-        :return: [IssueComment]
-        """
         all_comments: List[IssueComment] = self._get_all_comments()
         return filter_comments(all_comments, filter_regex, reverse, author)
 
     def can_close(self, username: str) -> bool:
-        allowed_users = self.project.who_can_close_issue()
-        return username == self.author or username in allowed_users
+        return username == self.author or username in self.project.who_can_close_issue()

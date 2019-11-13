@@ -112,7 +112,6 @@ class GitlabIssue(BaseIssue):
     def close(self) -> "Issue":
         self._raw_issue.state_event = "close"
         self._raw_issue.save()
-        # TODO: update self
         return self
 
     def add_label(self, *labels: str) -> None:
