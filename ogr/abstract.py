@@ -652,7 +652,12 @@ class GitProject:
         raise NotImplementedError()
 
     def pr_create(
-        self, title: str, body: str, target_branch: str, source_branch: str
+        self,
+        title: str,
+        body: str,
+        target_branch: str,
+        source_branch: str,
+        fork_username: str = None,
     ) -> "PullRequest":
         """
         Create a new pull request.
@@ -661,6 +666,7 @@ class GitProject:
         :param body: str
         :param target_branch: str
         :param source_branch: str
+        :param fork_username: str The username of forked repository
         :return: PullRequest
         """
         raise NotImplementedError()

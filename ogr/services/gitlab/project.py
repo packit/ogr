@@ -260,8 +260,23 @@ class GitlabProject(BaseGitProject):
             raise GitlabAPIException(f"Tag {tag_name} was not found.", ex)
 
     def pr_create(
-        self, title: str, body: str, target_branch: str, source_branch: str
+        self,
+        title: str,
+        body: str,
+        target_branch: str,
+        source_branch: str,
+        fork_username: str = None,
     ) -> "PullRequest":
+        """
+        Create pull-request(merge-request in GitLab).
+
+        :param title: str Title of the pull request
+        :param body: str The contents of the pull request
+        :param target_branch: str The name of the branch you want the changes pulled into
+        :param source_branch: str The name of the branch where your changes are implemented
+        :param fork_username: str The username of forked repository
+        :return: PullRequest:
+        """
         mr = self.gitlab_repo.mergerequests.create(
             {
                 "source_branch": source_branch,
