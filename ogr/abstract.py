@@ -292,7 +292,7 @@ class PullRequest:
             f"created='{self.created}'), "
         )
 
-    def update_pr_info(
+    def update_info(
         self, title: Optional[str] = None, description: Optional[str] = None
     ) -> "PullRequest":
         """

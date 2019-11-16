@@ -20,7 +20,6 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-import datetime
 import logging
 from typing import List, Optional, Dict, Any, Set
 
@@ -37,8 +36,9 @@ from ogr.services.base import BaseGitProject
 from ogr.utils import RequestResponse
 from ogr.services import pagure as ogr_pagure
 from ogr.services.pagure.release import PagureRelease
-from ogr.services.pagure.comments import PagurePRComment
 from ogr.services.pagure.issue import PagureIssue
+from ogr.services.pagure.pull_request import PagurePullRequest
+
 
 logger = logging.getLogger(__name__)
 
@@ -219,12 +219,11 @@ class PagureProject(BaseGitProject):
             payload["author"] = author
 
         raw_prs = self._call_project_api("pull-requests", params=payload)["requests"]
-        prs = [self._pr_from_pagure_dict(pr_dict) for pr_dict in raw_prs]
-        return prs
+        return [PagurePullRequest(pr_dict, self) for pr_dict in raw_prs]
 
     def get_pr_info(self, pr_id: int) -> PullRequest:
         raw_pr = self._call_project_api("pull-request", str(pr_id))
-        result = self._pr_from_pagure_dict(raw_pr)
+        result = PagurePullRequest(raw_pr, self)
         return result
 
     def _get_all_pr_comments(self, pr_id: int) -> List[PRComment]:
@@ -304,7 +303,7 @@ class PagureProject(BaseGitProject):
                 "pull-request", "new", method="POST", data=data
             )
 
-        pr_object = self._pr_from_pagure_dict(return_value)
+        pr_object = PagurePullRequest(return_value, self)
         return pr_object
 
     def update_pr_info(
@@ -330,7 +329,7 @@ class PagureProject(BaseGitProject):
                 "pull-request", str(pr_id), method="POST", data=data
             )
             logger.info(f"PR updated.")
-            return self._pr_from_pagure_dict(updated_pr)
+            return PagurePullRequest(updated_pr, self)
         except Exception as ex:
             raise PagureAPIException("there was an error while updating the PR", ex)
 

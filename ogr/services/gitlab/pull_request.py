@@ -33,11 +33,7 @@ from ogr.services.gitlab.comments import GitlabPRComment
 
 class GitlabPullRequest(BasePullRequest):
     _raw_pr: _GitlabMergeRequest
-
-    def __init__(
-        self, raw_pr: _GitlabMergeRequest, project: "ogr_gitlab.GitlabProject"
-    ):
-        super().__init__(raw_pr, project)
+    project: "ogr_gitlab.GitlabProject"
 
     @property
     def title(self) -> str:
@@ -86,7 +82,7 @@ class GitlabPullRequest(BasePullRequest):
     def __str__(self) -> str:
         return "Gitlab" + super().__str__()
 
-    def update_pr_info(
+    def update_info(
         self, title: Optional[str] = None, description: Optional[str] = None
     ) -> "PullRequest":
         if title:

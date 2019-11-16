@@ -31,8 +31,6 @@ from github import (
     CommitComment as GithubCommitComment,
 )
 from github.GitRelease import GitRelease as PyGithubRelease
-from github.Label import Label as GithubLabel
-from github.PullRequest import PullRequest as GithubPullRequest
 
 from ogr.abstract import (
     Issue,
@@ -52,6 +50,7 @@ from ogr.services.base import BaseGitProject
 from ogr.services.github.comments import GithubPRComment
 from ogr.services.github.issue import GithubIssue
 from ogr.services.github.release import GithubRelease
+from ogr.services.github.pull_request import GithubPullRequest
 
 logger = logging.getLogger(__name__)
 
@@ -259,13 +258,13 @@ class GithubProject(BaseGitProject):
                 if not pr.is_merged():  # parse merged PRs
                     prs.remove(pr)
         try:
-            return [self._pr_from_github_object(pr) for pr in prs]
+            return [GithubPullRequest(pr, self) for pr in prs]
         except UnknownObjectException:
             return []
 
     def get_pr_info(self, pr_id: int) -> PullRequest:
         pr = self.github_repo.get_pull(number=pr_id)
-        return self._pr_from_github_object(pr)
+        return GithubPullRequest(pr, self)
 
     def get_all_pr_commits(self, pr_id: int) -> List[str]:
         pr = self.github_repo.get_pull(number=pr_id)
@@ -325,7 +324,7 @@ class GithubProject(BaseGitProject):
             title=title, body=body, base=target_branch, head=source_branch
         )
         logger.info(f"PR {created_pr.id} created: {target_branch}<-{source_branch}")
-        return self._pr_from_github_object(created_pr)
+        return GithubPullRequest(created_pr, self)
 
     def update_pr_info(
         self, pr_id: int, title: str = None, description: str = None
@@ -344,7 +343,7 @@ class GithubProject(BaseGitProject):
         try:
             pr.edit(title=title, body=description)
             logger.info(f"PR updated: {pr.url}")
-            return self._pr_from_github_object(pr)
+            return GithubPullRequest(pr, self)
         except Exception as ex:
             raise GithubAPIException("there was an error while updating the PR", ex)
 
@@ -461,12 +460,12 @@ class GithubProject(BaseGitProject):
         pr = self.github_repo.get_pull(pr_id)
         pr.edit(state=PRStatus.closed.name)
 
-        return self._pr_from_github_object(pr)
+        return GithubPullRequest(pr, self)
 
     @if_readonly(return_function=GitProjectReadOnly.pr_merge)
     def pr_merge(self, pr_id: int) -> PullRequest:
         closed_pr = self.github_repo.get_pull(number=pr_id).merge()
-        return self._pr_from_github_object(closed_pr)
+        return GithubPullRequest(closed_pr, self)
 
     def get_git_urls(self) -> Dict[str, str]:
         return {"git": self.github_repo.clone_url, "ssh": self.github_repo.ssh_url}
@@ -493,22 +492,6 @@ class GithubProject(BaseGitProject):
             ).decoded_content.decode()
         except UnknownObjectException as ex:
             raise FileNotFoundError(f"File '{path}' on {ref} not found", ex)
-
-    @staticmethod
-    def _pr_from_github_object(github_pr: GithubPullRequest) -> PullRequest:
-        return PullRequest(
-            title=github_pr.title,
-            id=github_pr.number,
-            status=PRStatus.merged
-            if github_pr.is_merged()
-            else PRStatus[github_pr.state],
-            url=github_pr.html_url,
-            description=github_pr.body,
-            author=github_pr.user.name,
-            source_branch=github_pr.head.ref,
-            target_branch=github_pr.base.ref,
-            created=github_pr.created_at,
-        )
 
     def _release_from_github_object(
         self, raw_release: PyGithubRelease, git_tag: GitTag

@@ -41,8 +41,8 @@ from ogr.exceptions import GitlabAPIException
 from ogr.services import gitlab as ogr_gitlab
 from ogr.services.base import BaseGitProject
 from ogr.services.gitlab.release import GitlabRelease
-from ogr.services.gitlab.comments import GitlabPRComment
 from ogr.services.gitlab.issue import GitlabIssue
+from ogr.services.gitlab.pull_request import GitlabPullRequest
 
 logger = logging.getLogger(__name__)
 
@@ -209,7 +209,7 @@ class GitlabProject(BaseGitProject):
             order_by="updated_at",
             sort="desc",
         )
-        return [self._pr_from_gitlab_object(mr) for mr in mrs]
+        return [GitlabPullRequest(mr, self) for mr in mrs]
 
     def get_sha_from_tag(self, tag_name: str) -> str:
         try:
@@ -245,7 +245,7 @@ class GitlabProject(BaseGitProject):
                 "description": body,
             }
         )
-        return self._pr_from_gitlab_object(mr)
+        return GitlabPullRequest(mr, self)
 
     def commit_comment(
         self, commit: str, body: str, filename: str = None, row: int = None
@@ -323,12 +323,12 @@ class GitlabProject(BaseGitProject):
         pr = self.gitlab_repo.mergerequests.get(pr_id)
         pr.state_event = "close"
         pr.save()
-        return self._pr_from_gitlab_object(pr)
+        return GitlabPullRequest(pr, self)
 
     def pr_merge(self, pr_id: int) -> "PullRequest":
         pr = self.gitlab_repo.mergerequests.get(pr_id)
         pr.merge()
-        return self._pr_from_gitlab_object(pr)
+        return GitlabPullRequest(pr, self)
 
     def get_pr_labels(self, pr_id: int) -> List[str]:
         try:
@@ -394,7 +394,7 @@ class GitlabProject(BaseGitProject):
 
     def get_pr_info(self, pr_id: int) -> PullRequest:
         mr = self.gitlab_repo.mergerequests.get(pr_id)
-        return self._pr_from_gitlab_object(mr)
+        return GitlabPullRequest(mr, self)
 
     def update_pr_info(
         self, pr_id: int, title: str = None, description: str = None
@@ -407,7 +407,7 @@ class GitlabProject(BaseGitProject):
             pr.description = description
 
         pr.save()
-        return self._pr_from_gitlab_object(pr)
+        return GitlabPullRequest(pr, self)
 
     def get_all_pr_commits(self, pr_id: int) -> List[str]:
         mr = self.gitlab_repo.mergerequests.get(pr_id)
@@ -529,22 +529,6 @@ class GitlabProject(BaseGitProject):
         if not color.startswith("#"):
             return "#{}".format(color)
         return color
-
-    @staticmethod
-    def _pr_from_gitlab_object(gitlab_pr) -> PullRequest:
-        return PullRequest(
-            title=gitlab_pr.title,
-            id=gitlab_pr.iid,
-            status=PRStatus.open
-            if gitlab_pr.state == "opened"
-            else PRStatus[gitlab_pr.state],
-            url=gitlab_pr.web_url,
-            description=gitlab_pr.description,
-            author=gitlab_pr.author["username"],
-            source_branch=gitlab_pr.source_branch,
-            target_branch=gitlab_pr.target_branch,
-            created=gitlab_pr.created_at,
-        )
 
     @staticmethod
     def _commit_status_from_gitlab_object(raw_status) -> CommitFlag:

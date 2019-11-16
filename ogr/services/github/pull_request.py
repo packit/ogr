@@ -39,9 +39,7 @@ logger = logging.getLogger(__name__)
 
 class GithubPullRequest(BasePullRequest):
     _raw_pr: _GithubPullRequest
-
-    def __init__(self, raw_pr: _GithubPullRequest, project: "ogr_github.GithubProject"):
-        super().__init__(raw_pr, project)
+    project: "ogr_github.GithubProject"
 
     @property
     def title(self) -> str:
@@ -90,13 +88,13 @@ class GithubPullRequest(BasePullRequest):
     def __str__(self) -> str:
         return "Github" + super().__str__()
 
-    def update_pr_info(
+    def update_info(
         self, title: Optional[str] = None, description: Optional[str] = None
     ) -> "PullRequest":
         try:
             self._raw_pr.edit(title=title, body=description)
             logger.info(f"PR updated: {self._raw_pr.url}")
-            return self._pr_from_github_object(self._raw_pr)
+            return self
         except Exception as ex:
             raise GithubAPIException("there was an error while updating the PR", ex)
 

@@ -95,7 +95,10 @@ class PagurePullRequest(BasePullRequest):
     def __str__(self) -> str:
         return "Pagure" + super().__str__()
 
-    def update_pr_info(
+    def __call_api(self, *args, **kwargs) -> dict:
+        return self.project._call_project_api("pull-request", self.id, *args, **kwargs)
+
+    def update_info(
         self, title: Optional[str] = None, description: Optional[str] = None
     ) -> "PullRequest":
         try:
@@ -106,9 +109,7 @@ class PagurePullRequest(BasePullRequest):
             if description:
                 data["initial_comment"] = description
 
-            updated_pr = self._call_project_api(
-                "pull-request", self.id, method="POST", data=data
-            )
+            updated_pr = self.__call_api(method="POST", data=data)
             logger.info(f"PR updated.")
 
             self._raw_pr = updated_pr
@@ -142,12 +143,8 @@ class PagurePullRequest(BasePullRequest):
             comment=body, author=self.project.service.user.get_username()
         )
 
-        return PagurePRComment(comment=body, author=self.service.user.get_username())
-
     def close(self) -> "PullRequest":
-        return_value = self._call_project_api(
-            "pull-request", self.id, "close", method="POST"
-        )
+        return_value = self.__call_api("close", method="POST")
 
         if return_value["message"] != "Pull-request closed!":
             raise PagureAPIException(return_value["message"])
@@ -156,9 +153,7 @@ class PagurePullRequest(BasePullRequest):
         return self
 
     def merge(self) -> "PullRequest":
-        return_value = self._call_project_api(
-            "pull-request", self.id, "merge", method="POST"
-        )
+        return_value = self.__call_api("merge", method="POST")
 
         if return_value["message"] != "Changes merged!":
             raise PagureAPIException(return_value["message"])

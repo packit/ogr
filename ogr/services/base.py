@@ -26,9 +26,9 @@ from ogr.abstract import (
     GitService,
     GitProject,
     GitUser,
-    AnyComment,
     PRComment,
     IssueComment,
+    Issue,
     PullRequest,
 )
 from ogr.exceptions import OgrException
@@ -170,15 +170,15 @@ class BaseGitProject(GitProject):
 
 
 class BasePullRequest(PullRequest):
-    def get_comments(self, filter_regex=None, reverse=False, author=None):
-        comments = self._get_all_comments()
-        if reverse:
-            comments.reverse()
-        if filter_regex or author:
-            comments = filter_comments(comments, filter_regex, author)
-        return comments
+    def get_comments(
+        self, filter_regex: str = None, reverse: bool = False, author: str = None
+    ):
+        all_comments = self._get_all_comments()
+        return filter_comments(all_comments, filter_regex, reverse, author)
 
-    def search(self, filter_regex, reverse=False, description=True):
+    def search(
+        self, filter_regex: str, reverse: bool = False, description: bool = True
+    ):
         all_comments: List[Any] = self.get_comments(reverse=reverse)
         if description:
             description_content = self.description
