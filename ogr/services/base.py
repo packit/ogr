@@ -22,7 +22,15 @@
 
 from typing import List, Optional, Match, Any
 
-from ogr.abstract import GitService, GitProject, GitUser, PRComment, IssueComment, Issue
+from ogr.abstract import (
+    GitService,
+    GitProject,
+    GitUser,
+    AnyComment,
+    PRComment,
+    IssueComment,
+    PullRequest,
+)
 from ogr.exceptions import OgrException
 from ogr.parsing import parse_git_repo
 from ogr.utils import search_in_comments, filter_comments, deprecate_and_set_removal
@@ -159,6 +167,27 @@ class BaseGitProject(GitProject):
     )
     def add_issue_labels(self, issue_id: int, labels: List[str]) -> None:
         self.get_issue(issue_id).add_label(*labels)
+
+
+class BasePullRequest(PullRequest):
+    def get_comments(self, filter_regex=None, reverse=False, author=None):
+        comments = self._get_all_comments()
+        if reverse:
+            comments.reverse()
+        if filter_regex or author:
+            comments = filter_comments(comments, filter_regex, author)
+        return comments
+
+    def search(self, filter_regex, reverse=False, description=True):
+        all_comments: List[Any] = self.get_comments(reverse=reverse)
+        if description:
+            description_content = self.description
+            if reverse:
+                all_comments.append(description_content)
+            else:
+                all_comments.insert(0, description_content)
+
+        return search_in_comments(comments=all_comments, filter_regex=filter_regex)
 
 
 class BaseGitUser(GitUser):

@@ -384,12 +384,12 @@ class PullRequest:
         """
         raise NotImplementedError()
 
-    def add_label(self, *label: str) -> None:
+    def add_label(self, *labels: str) -> None:
         """
         Add labels the the Pull Request.
 
         :param pr_id: int
-        :param *label: str
+        :param *labels: str
         """
         raise NotImplementedError()
 
