@@ -418,26 +418,6 @@ class PagureProject(BaseGitProject):
         return_value = self._call_project_api("git", "urls")
         return return_value["urls"]
 
-    def _pr_from_pagure_dict(self, pr_dict: dict) -> PullRequest:
-        return PullRequest(
-            title=pr_dict["title"],
-            id=pr_dict["id"],
-            status=PRStatus[pr_dict["status"].lower()],
-            url="/".join(
-                [
-                    self.service.instance_url,
-                    pr_dict["project"]["url_path"],
-                    "pull-request",
-                    str(pr_dict["id"]),
-                ]
-            ),
-            description=pr_dict["initial_comment"],
-            author=pr_dict["user"]["name"],
-            source_branch=pr_dict["branch_from"],
-            target_branch=pr_dict["branch"],
-            created=datetime.datetime.fromtimestamp(int(pr_dict["date_created"])),
-        )
-
     @staticmethod
     def _commit_status_from_pagure_dict(
         status_dict: dict, uid: str = None
