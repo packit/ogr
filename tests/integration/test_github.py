@@ -413,13 +413,6 @@ class PullRequests(GithubTests):
         assert pr_info.title == orig_title
         assert pr_info.description == orig_description
 
-    def _pr_close_temp(self, pr_id):
-        """
-        Temporary function, should be replaced by GithubProject.pr_close(), once implemented
-        """
-        pr = self.hello_world_project.github_repo.get_pull(int(pr_id))
-        pr.edit(state="closed")
-
     def test_pr_create_upstream_upstream(self):
         """
         Requires  packit_service:test_source to be ahead of packit_service:test_target
@@ -434,7 +427,7 @@ class PullRequests(GithubTests):
             source_branch="test_source",
         )
         pr_opened_after = len(gh_project.get_pr_list(status=PRStatus.open))
-        self._pr_close_temp(pr_upstream_upstream.id)
+        gh_project.pr_close(pr_upstream_upstream.id)
 
         assert pr_upstream_upstream.title == "test: upstream <- upstream"
         assert pr_upstream_upstream.status == PRStatus.open
@@ -456,7 +449,7 @@ class PullRequests(GithubTests):
             fork_username=self.hello_world_project.service.user.get_username(),
         )
         pr_opened_after = len(gh_project.get_pr_list(status=PRStatus.open))
-        self._pr_close_temp(pr_upstream_forkusername.id)
+        gh_project.pr_close(pr_upstream_forkusername.id)
 
         assert (
             pr_upstream_forkusername.title
@@ -480,7 +473,7 @@ class PullRequests(GithubTests):
             source_branch="test_source",
         )
         pr_opened_after = len(gh_project.get_pr_list(status=PRStatus.open))
-        self._pr_close_temp(pr_upstream_fork.id)
+        gh_project.pr_close(pr_upstream_fork.id)
 
         assert pr_upstream_fork.title == "test: upstream <- fork"
         assert pr_upstream_fork.status == PRStatus.open
@@ -501,7 +494,7 @@ class PullRequests(GithubTests):
             fork_username=self.hello_world_project.service.user.get_username(),
         )
         pr_opened_after = len(gh_project.get_pr_list(status=PRStatus.open))
-        self._pr_close_temp(pr_upstream_fork_fu_ignored.id)
+        gh_project.pr_close(pr_upstream_fork_fu_ignored.id)
 
         assert (
             pr_upstream_fork_fu_ignored.title
