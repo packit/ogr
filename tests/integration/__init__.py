@@ -12,7 +12,6 @@ ogr_import_system = (
             "gitlab",
             "github.MainClass",
             "github.Requester",
-            "ogr.services.github_tweak",
         ],
         decorator=RequestResponseHandling.decorator(item_list=[]),
     )

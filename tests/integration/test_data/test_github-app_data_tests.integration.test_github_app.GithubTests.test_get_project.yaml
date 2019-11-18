@@ -170,54 +170,6 @@ unittest.case:
                 send:
                 - __store_indicator: 2
                   _content:
-                    expires_at: '2019-11-01T14:35:53Z'
-                    permissions:
-                      contents: read
-                      issues: write
-                      metadata: read
-                      pull_requests: write
-                      statuses: write
-                    repository_selection: all
-                    token: v1.1cd89d399b8c70f8b88e22cbdaa72abbe5e390db
-                  _next: null
-                  elapsed: 0.2
-                  encoding: utf-8
-                  headers:
-                    Access-Control-Allow-Origin: '*'
-                    Access-Control-Expose-Headers: ETag, Link, Location, Retry-After,
-                      X-GitHub-OTP, X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Reset,
-                      X-OAuth-Scopes, X-Accepted-OAuth-Scopes, X-Poll-Interval, X-GitHub-Media-Type
-                    Cache-Control: public, max-age=60, s-maxage=60
-                    Content-Length: '232'
-                    Content-Security-Policy: default-src 'self';script-src 'self'
-                      'nonce-YqLDC0BS8d7iY8mKO7VtBbIne' https://apps.fedoraproject.org;
-                      style-src 'self' 'nonce-YqLDC0BS8d7iY8mKO7VtBbIne'; object-src
-                      'none';base-uri 'self';img-src 'self' https:;
-                    Content-Type: application/json; charset=utf-8
-                    Date: Fri, 01 Nov 2019 13-36-03 GMT
-                    ETag: W/"1e51b8e1c48787a433405211e9e0fe61"
-                    Referrer-Policy: origin-when-cross-origin, strict-origin-when-cross-origin
-                    Server: GitHub.com
-                    Status: 201 Created
-                    Strict-Transport-Security: max-age=31536000; includeSubdomains;
-                      preload
-                    Vary: Accept, Accept-Encoding
-                    X-Content-Type-Options: nosniff
-                    X-Frame-Options: deny
-                    X-GitHub-Media-Type: github.machine-man-preview; format=json
-                    X-GitHub-Request-Id: 18FB:AA1A:99616C4:B8092CB:5CC15425
-                    X-XSS-Protection: 1; mode=block
-                  raw: !!binary ""
-                  reason: Created
-                  status_code: 201
-      ogr.services.github_tweak:
-        requests.api:
-          requests.sessions:
-            requre.objects:
-              requests.sessions:
-                send:
-                - __store_indicator: 2
-                  _content:
                     access_tokens_url: https://api.github.com/app/installations/1210186/access_tokens
                     account:
                       avatar_url: https://avatars3.githubusercontent.com/u/46870917?v=4
@@ -290,3 +242,45 @@ unittest.case:
                   raw: !!binary ""
                   reason: OK
                   status_code: 200
+                - __store_indicator: 2
+                  _content:
+                    expires_at: '2019-11-01T14:35:53Z'
+                    permissions:
+                      contents: read
+                      issues: write
+                      metadata: read
+                      pull_requests: write
+                      statuses: write
+                    repository_selection: all
+                    token: v1.1cd89d399b8c70f8b88e22cbdaa72abbe5e390db
+                  _next: null
+                  elapsed: 0.2
+                  encoding: utf-8
+                  headers:
+                    Access-Control-Allow-Origin: '*'
+                    Access-Control-Expose-Headers: ETag, Link, Location, Retry-After,
+                      X-GitHub-OTP, X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Reset,
+                      X-OAuth-Scopes, X-Accepted-OAuth-Scopes, X-Poll-Interval, X-GitHub-Media-Type
+                    Cache-Control: public, max-age=60, s-maxage=60
+                    Content-Length: '232'
+                    Content-Security-Policy: default-src 'self';script-src 'self'
+                      'nonce-YqLDC0BS8d7iY8mKO7VtBbIne' https://apps.fedoraproject.org;
+                      style-src 'self' 'nonce-YqLDC0BS8d7iY8mKO7VtBbIne'; object-src
+                      'none';base-uri 'self';img-src 'self' https:;
+                    Content-Type: application/json; charset=utf-8
+                    Date: Fri, 01 Nov 2019 13-36-03 GMT
+                    ETag: W/"1e51b8e1c48787a433405211e9e0fe61"
+                    Referrer-Policy: origin-when-cross-origin, strict-origin-when-cross-origin
+                    Server: GitHub.com
+                    Status: 201 Created
+                    Strict-Transport-Security: max-age=31536000; includeSubdomains;
+                      preload
+                    Vary: Accept, Accept-Encoding
+                    X-Content-Type-Options: nosniff
+                    X-Frame-Options: deny
+                    X-GitHub-Media-Type: github.machine-man-preview; format=json
+                    X-GitHub-Request-Id: 18FB:AA1A:99616C4:B8092CB:5CC15425
+                    X-XSS-Protection: 1; mode=block
+                  raw: !!binary ""
+                  reason: Created
+                  status_code: 201
