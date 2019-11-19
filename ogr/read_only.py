@@ -86,6 +86,66 @@ def if_readonly(
     return decorator_readonly
 
 
+class PullRequestReadOnly(PullRequest):
+    def __init__(
+        self,
+        title: str,
+        description: str,
+        target_branch: str,
+        source_branch: str,
+        id: int,
+        status: PRStatus,
+        url: str,
+        author: str,
+        created: datetime.datetime,
+    ) -> None:
+        self._title = title
+        self._description = description
+        self._target_branch = target_branch
+        self._source_branch = source_branch
+        self._id = id
+        self._status = PRStatus.open
+        self._url = url
+        self._author = author
+        self._created = created
+
+    @property
+    def title(self) -> str:
+        return self._title
+
+    @property
+    def id(self) -> int:
+        return self._id
+
+    @property
+    def status(self) -> PRStatus:
+        return self._status
+
+    @property
+    def url(self) -> str:
+        return self._url
+
+    @property
+    def description(self) -> str:
+        return self._description
+
+    @property
+    def author(self) -> str:
+        return self._author
+
+    @property
+    def source_branch(self) -> str:
+        return self._source_branch
+
+    @property
+    def target_branch(self) -> str:
+        return self._target_branch
+
+    @property
+    def created(self) -> datetime.datetime:
+        return self._created
+
+
 class GitProjectReadOnly:
     id = 1
     author = "ReadOnlyAuthor"
@@ -100,7 +160,7 @@ class GitProjectReadOnly:
         target_branch: str,
         source_branch: str,
     ) -> "PullRequest":
-        output = PullRequest(
+        output = PullRequestReadOnly(
             title=title,
             description=body,
             target_branch=target_branch,
@@ -136,13 +196,13 @@ class GitProjectReadOnly:
     @classmethod
     def pr_close(cls, original_object: Any, pr_id: int) -> "PullRequest":
         pull_request = original_object.get_pr_info(pr_id)
-        pull_request.status = PRStatus.closed
+        pull_request._status = PRStatus.closed
         return pull_request
 
     @classmethod
     def pr_merge(cls, original_object: Any, pr_id: int) -> "PullRequest":
         pull_request = original_object.get_pr_info(pr_id)
-        pull_request.status = PRStatus.merged
+        pull_request._status = PRStatus.merged
         return pull_request
 
     @classmethod
