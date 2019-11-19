@@ -36,7 +36,6 @@ from ogr.abstract import (
     Issue,
     IssueStatus,
     PullRequest,
-    PRComment,
     PRStatus,
     Release,
     CommitComment,
@@ -47,7 +46,6 @@ from ogr.exceptions import GithubAPIException
 from ogr.read_only import if_readonly, GitProjectReadOnly
 from ogr.services import github as ogr_github
 from ogr.services.base import BaseGitProject
-from ogr.services.github.comments import GithubPRComment
 from ogr.services.github.issue import GithubIssue
 from ogr.services.github.release import GithubRelease
 from ogr.services.github.pull_request import GithubPullRequest
@@ -216,12 +214,7 @@ class GithubProject(BaseGitProject):
         return self.__get_collaborators()
 
     def can_merge_pr(self, username) -> bool:
-        allowed_users = self.who_can_merge_pr()
-
-        if username in allowed_users:
-            return True
-
-        return False
+        return username in self.who_can_merge_pr()
 
     def _get_collaborators_with_permission(self) -> dict:
         """
@@ -262,17 +255,9 @@ class GithubProject(BaseGitProject):
         except UnknownObjectException:
             return []
 
-    def get_pr_info(self, pr_id: int) -> PullRequest:
+    def get_pr(self, pr_id: int) -> PullRequest:
         pr = self.github_repo.get_pull(number=pr_id)
         return GithubPullRequest(pr, self)
-
-    def get_all_pr_commits(self, pr_id: int) -> List[str]:
-        pr = self.github_repo.get_pull(number=pr_id)
-        return [commit.sha for commit in pr.get_commits()]
-
-    def _get_all_pr_comments(self, pr_id: int) -> List[PRComment]:
-        pr = self.github_repo.get_pull(number=pr_id)
-        return [GithubPRComment(raw_comment) for raw_comment in pr.get_issue_comments()]
 
     def get_sha_from_tag(self, tag_name: str) -> str:
         # TODO: This is ugly. Can we do it better?
@@ -326,59 +311,6 @@ class GithubProject(BaseGitProject):
         logger.info(f"PR {created_pr.id} created: {target_branch}<-{source_branch}")
         return GithubPullRequest(created_pr, self)
 
-    def update_pr_info(
-        self, pr_id: int, title: str = None, description: str = None
-    ) -> PullRequest:
-        """
-        Update pull-request information.
-
-        :param pr_id: int The ID of the pull request
-        :param title: str The title of the pull request
-        :param description str The description of the pull request
-        :return: PullRequest
-        """
-        pr = self.github_repo.get_pull(number=pr_id)
-        if not pr:
-            raise GithubAPIException("PR was not found.")
-        try:
-            pr.edit(title=title, body=description)
-            logger.info(f"PR updated: {pr.url}")
-            return GithubPullRequest(pr, self)
-        except Exception as ex:
-            raise GithubAPIException("there was an error while updating the PR", ex)
-
-    @if_readonly(
-        return_function=GitProjectReadOnly.pr_comment,
-        log_message="Create Comment to PR",
-    )
-    def pr_comment(
-        self,
-        pr_id: int,
-        body: str,
-        commit: str = None,
-        filename: str = None,
-        row: int = None,
-    ) -> PRComment:
-        """
-        Create comment on a pull request. If creating pull request review
-        comment (bind to specific point in diff), all values need to be filled.
-
-        :param pr_id: int The ID of the pull request
-        :param body: str The text of the comment
-        :param commit: str The SHA of the commit needing a comment.
-        :param filename: str The relative path to the file that necessitates a comment
-        :param row: int The position in the diff where you want to add a review comment
-            see https://developer.github.com/v3/pulls/comments/#create-a-comment for more info
-        :return: PRComment
-        """
-        github_pr = self.github_repo.get_pull(number=pr_id)
-        if not any([commit, filename, row]):
-            comment = github_pr.create_issue_comment(body)
-        else:
-            github_commit = self.github_repo.get_commit(commit)
-            comment = github_pr.create_comment(body, github_commit, filename, row)
-        return GithubPRComment(comment)
-
     @if_readonly(
         return_function=GitProjectReadOnly.commit_comment,
         log_message="Create Comment to commit",
@@ -404,26 +336,6 @@ class GithubProject(BaseGitProject):
             comment = github_commit.create_comment(body=body)
         return self._commitcomment_from_github_object(comment)
 
-    def get_pr_labels(self, pr_id: int) -> List[GithubLabel]:
-        """
-        Get list of pr's labels.
-        :pr_id: int
-        :return: [GithubLabel]
-        """
-        pr = self.github_repo.get_pull(number=pr_id)
-        return list(pr.get_labels())
-
-    def add_pr_labels(self, pr_id, labels) -> None:
-        """
-        Add labels the the Pull Request.
-
-        :param pr_id: int
-        :param labels: [str]
-        """
-        pr = self.github_repo.get_pull(number=pr_id)
-        for label in labels:
-            pr.add_to_labels(label)
-
     @if_readonly(
         return_function=GitProjectReadOnly.set_commit_status,
         log_message="Create a status on a commit",
@@ -448,24 +360,6 @@ class GithubProject(BaseGitProject):
             description = description[:140]
         status = github_commit.create_status(state, target_url, description, context)
         return CommitFlag(commit, status.state, status.context, status.description)
-
-    @if_readonly(return_function=GitProjectReadOnly.pr_close)
-    def pr_close(self, pr_id: int) -> "PullRequest":
-        """
-        Close the pull-request.
-
-        :param pr_id: int
-        :return:  PullRequest
-        """
-        pr = self.github_repo.get_pull(pr_id)
-        pr.edit(state=PRStatus.closed.name)
-
-        return GithubPullRequest(pr, self)
-
-    @if_readonly(return_function=GitProjectReadOnly.pr_merge)
-    def pr_merge(self, pr_id: int) -> PullRequest:
-        closed_pr = self.github_repo.get_pull(number=pr_id).merge()
-        return GithubPullRequest(closed_pr, self)
 
     def get_git_urls(self) -> Dict[str, str]:
         return {"git": self.github_repo.clone_url, "ssh": self.github_repo.ssh_url}

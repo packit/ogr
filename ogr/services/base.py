@@ -33,6 +33,7 @@ from ogr.abstract import (
 )
 from ogr.exceptions import OgrException
 from ogr.parsing import parse_git_repo
+from ogr.read_only import if_readonly, GitProjectReadOnly
 from ogr.utils import search_in_comments, filter_comments, deprecate_and_set_removal
 
 
@@ -56,6 +57,11 @@ class BaseGitProject(GitProject):
         """
         return f"{self.namespace}/{self.repo}"
 
+    @deprecate_and_set_removal(
+        since="0.9.0",
+        remove_in="0.14.0 (or 1.0.0 if it comes sooner)",
+        message="Use methods on PullRequest objects",
+    )
     def get_pr_comments(
         self, pr_id, filter_regex: str = None, reverse: bool = False, author: str = None
     ) -> List[PRComment]:
@@ -68,10 +74,13 @@ class BaseGitProject(GitProject):
         :param author: filter comments by author
         :return: [PRComment]
         """
-        all_comments: List[PRComment] = self._get_all_pr_comments(pr_id=pr_id)
-        pr_comments = filter_comments(all_comments, filter_regex, reverse, author)
-        return pr_comments
+        return self.get_pr(pr_id).get_comments(filter_regex, reverse, author)
 
+    @deprecate_and_set_removal(
+        since="0.9.0",
+        remove_in="0.14.0 (or 1.0.0 if it comes sooner)",
+        message="Use methods on PullRequest objects",
+    )
     def search_in_pr(
         self,
         pr_id: int,
@@ -88,15 +97,94 @@ class BaseGitProject(GitProject):
         :param reverse: reverse order of comments
         :return: re.Match or None
         """
-        all_comments: List[Any] = self.get_pr_comments(pr_id=pr_id, reverse=reverse)
-        if description:
-            description_content = self.get_pr_info(pr_id).description
-            if reverse:
-                all_comments.append(description_content)
-            else:
-                all_comments.insert(0, description_content)
+        return self.get_pr(pr_id).search(filter_regex, reverse, description)
 
-        return search_in_comments(comments=all_comments, filter_regex=filter_regex)
+    @if_readonly(return_function=GitProjectReadOnly.pr_close)
+    @deprecate_and_set_removal(
+        since="0.9.0",
+        remove_in="0.14.0 (or 1.0.0 if it comes sooner)",
+        message="Use methods on PullRequest objects",
+    )
+    def pr_close(self, pr_id: int) -> "PullRequest":
+        return self.get_pr(pr_id).close()
+
+    @if_readonly(return_function=GitProjectReadOnly.pr_merge)
+    @deprecate_and_set_removal(
+        since="0.9.0",
+        remove_in="0.14.0 (or 1.0.0 if it comes sooner)",
+        message="Use methods on PullRequest objects",
+    )
+    def pr_merge(self, pr_id: int) -> "PullRequest":
+        return self.get_pr(pr_id).merge()
+
+    @deprecate_and_set_removal(
+        since="0.9.0",
+        remove_in="0.14.0 (or 1.0.0 if it comes sooner)",
+        message="Use methods on PullRequest objects",
+    )
+    def get_pr_labels(self, pr_id: int) -> List[Any]:
+        return self.get_pr(pr_id).labels
+
+    @deprecate_and_set_removal(
+        since="0.9.0",
+        remove_in="0.14.0 (or 1.0.0 if it comes sooner)",
+        message="Use methods on PullRequest objects",
+    )
+    def add_pr_labels(self, pr_id: int, labels: List[str]) -> None:
+        return self.get_pr(pr_id).add_label(*labels)
+
+    @deprecate_and_set_removal(
+        since="0.9.0",
+        remove_in="0.14.0 (or 1.0.0 if it comes sooner)",
+        message="Use methods on PullRequest objects",
+    )
+    def get_pr_info(self, pr_id: int) -> "PullRequest":
+        return self.get_pr(pr_id)
+
+    @deprecate_and_set_removal(
+        since="0.9.0",
+        remove_in="0.14.0 (or 1.0.0 if it comes sooner)",
+        message="Use methods on PullRequest objects",
+    )
+    def update_pr_info(
+        self, pr_id: int, title: Optional[str] = None, description: Optional[str] = None
+    ) -> "PullRequest":
+        return self.get_pr(pr_id).update_info(title, description)
+
+    @deprecate_and_set_removal(
+        since="0.9.0",
+        remove_in="0.14.0 (or 1.0.0 if it comes sooner)",
+        message="Use methods on PullRequest objects",
+    )
+    def get_all_pr_commits(self, pr_id: int) -> List[str]:
+        return self.get_pr(pr_id).get_all_commits()
+
+    @deprecate_and_set_removal(
+        since="0.9.0",
+        remove_in="0.14.0 (or 1.0.0 if it comes sooner)",
+        message="Use methods on PullRequest objects",
+    )
+    def _get_all_pr_comments(self, pr_id: int) -> List[PRComment]:
+        return self.get_pr(pr_id)._get_all_comments()
+
+    @if_readonly(
+        return_function=GitProjectReadOnly.pr_comment,
+        log_message="Create Comment to PR",
+    )
+    @deprecate_and_set_removal(
+        since="0.9.0",
+        remove_in="0.14.0 (or 1.0.0 if it comes sooner)",
+        message="Use methods on PullRequest objects",
+    )
+    def pr_comment(
+        self,
+        pr_id: int,
+        body: str,
+        commit: str = None,
+        filename: str = None,
+        row: int = None,
+    ) -> PRComment:
+        return self.get_pr(pr_id).comment(body, commit, filename, row)
 
     @deprecate_and_set_removal(
         since="0.9.0",

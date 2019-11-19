@@ -30,7 +30,6 @@ from ogr.abstract import (
     PullRequest,
     Issue,
     Release,
-    PRComment,
     GitTag,
     IssueStatus,
     CommitFlag,
@@ -176,12 +175,7 @@ class GitlabProject(BaseGitProject):
         )
 
     def can_merge_pr(self, username) -> bool:
-        allowed_users = self.who_can_close_issue()
-
-        if username in allowed_users:
-            return True
-
-        return False
+        return username in self.who_can_merge_pr()
 
     def _get_collaborators_with_given_access(
         self, access_levels: List[int]
@@ -319,35 +313,6 @@ class GitlabProject(BaseGitProject):
             for raw_status in raw_statuses
         ]
 
-    def pr_close(self, pr_id: int) -> "PullRequest":
-        pr = self.gitlab_repo.mergerequests.get(pr_id)
-        pr.state_event = "close"
-        pr.save()
-        return GitlabPullRequest(pr, self)
-
-    def pr_merge(self, pr_id: int) -> "PullRequest":
-        pr = self.gitlab_repo.mergerequests.get(pr_id)
-        pr.merge()
-        return GitlabPullRequest(pr, self)
-
-    def get_pr_labels(self, pr_id: int) -> List[str]:
-        try:
-            pr = self.gitlab_repo.mergerequests.get(pr_id)
-        except gitlab.exceptions.GitlabGetError as ex:
-            logger.error(f"PR {pr_id} was not found.")
-            raise GitlabAPIException(f"PR {pr_id} was not found. ", ex)
-        return pr.labels
-
-    def add_pr_labels(self, pr_id, labels) -> None:
-        try:
-            pr = self.gitlab_repo.mergerequests.get(pr_id)
-        except gitlab.exceptions.GitlabGetError as ex:
-            logger.error(f"PR {pr_id} was not found.")
-            raise GitlabAPIException(f"PR {pr_id} was not found. ", ex)
-        for label in labels:
-            pr.labels.append(label)
-        pr.save()
-
     def get_git_urls(self) -> Dict[str, str]:
         return {
             "git": self.gitlab_repo.attributes["http_url_to_repo"],
@@ -392,47 +357,9 @@ class GitlabProject(BaseGitProject):
     def create_issue(self, title: str, description: str) -> Issue:
         return GitlabIssue.create(project=self, title=title, body=description)
 
-    def get_pr_info(self, pr_id: int) -> PullRequest:
+    def get_pr(self, pr_id: int) -> PullRequest:
         mr = self.gitlab_repo.mergerequests.get(pr_id)
         return GitlabPullRequest(mr, self)
-
-    def update_pr_info(
-        self, pr_id: int, title: str = None, description: str = None
-    ) -> PullRequest:
-        pr = self.gitlab_repo.mergerequests.get(pr_id)
-
-        if title:
-            pr.title = title
-        if description:
-            pr.description = description
-
-        pr.save()
-        return GitlabPullRequest(pr, self)
-
-    def get_all_pr_commits(self, pr_id: int) -> List[str]:
-        mr = self.gitlab_repo.mergerequests.get(pr_id)
-        return [commit.id for commit in mr.commits()]
-
-    def _get_all_pr_comments(self, pr_id: int) -> List[PRComment]:
-        pr = self.gitlab_repo.mergerequests.get(pr_id)
-        return [
-            GitlabPRComment(raw_comment) for raw_comment in pr.notes.list(sort="asc")
-        ]
-
-    def pr_comment(
-        self,
-        pr_id: int,
-        body: str,
-        commit: str = None,
-        filename: str = None,
-        row: int = None,
-    ) -> PRComment:
-        """
-        Create comment on an pr.
-        """
-        pr = self.gitlab_repo.issues.get(pr_id)
-        comment = pr.notes.create({"body": body})
-        return GitlabPRComment(comment)
 
     def get_tags(self) -> List["GitTag"]:
         tags = self.gitlab_repo.tags.list()
