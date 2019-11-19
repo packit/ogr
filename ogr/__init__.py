@@ -27,7 +27,6 @@ Module for:
 """
 
 from pkg_resources import get_distribution, DistributionNotFound
-from ogr.services.github_tweak import BetterGithubIntegration
 from ogr.services.github import GithubService
 from ogr.services.pagure import PagureService
 from ogr.services.gitlab import GitlabService
@@ -53,5 +52,4 @@ __all__ = [
     get_service_class.__name__,
     get_service_class_or_none.__name__,
     get_instances_from_dict.__name__,
-    BetterGithubIntegration.__name__,
 ]

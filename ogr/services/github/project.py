@@ -25,6 +25,7 @@ from typing import Optional, Dict, List, Set
 
 import github
 from github import (
+    GithubIntegration,
     UnknownObjectException,
     Repository,
     CommitComment as GithubCommitComment,
@@ -34,7 +35,6 @@ from github.Issue import Issue as GithubIssue
 from github.Label import Label as GithubLabel
 from github.PullRequest import PullRequest as GithubPullRequest
 
-from ogr import BetterGithubIntegration
 from ogr.abstract import (
     Issue,
     IssueComment,
@@ -83,7 +83,7 @@ class GithubProject(BaseGitProject):
     def github_instance(self):
         if not self._github_instance:
             if self.service.github_app_id and self.service.github_app_private_key:
-                integration = BetterGithubIntegration(
+                integration = GithubIntegration(
                     self.service.github_app_id, self.service.github_app_private_key
                 )
                 inst_id = integration.get_installation(

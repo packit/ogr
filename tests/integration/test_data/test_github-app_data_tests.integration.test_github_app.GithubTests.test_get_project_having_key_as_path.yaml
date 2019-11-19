@@ -210,12 +210,6 @@ unittest.case:
                   raw: !!binary ""
                   reason: Created
                   status_code: 201
-      ogr.services.github_tweak:
-        requests.api:
-          requests.sessions:
-            requre.objects:
-              requests.sessions:
-                send:
                 - __store_indicator: 2
                   _content:
                     access_tokens_url: https://api.github.com/app/installations/1210186/access_tokens
