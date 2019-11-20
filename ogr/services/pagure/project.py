@@ -200,21 +200,13 @@ class PagureProject(BaseGitProject):
         return False
 
     def get_issue_list(self, status: IssueStatus = IssueStatus.open) -> List[Issue]:
-        payload = {"status": status.name.capitalize()}
-
-        raw_issues = self._call_project_api("issues", params=payload)["issues"]
-        return [PagureIssue(issue_dict, self) for issue_dict in raw_issues]
+        return PagureIssue.get_list(self, status)
 
     def get_issue(self, issue_id: int) -> Issue:
-        raw_issue = self._call_project_api("issue", str(issue_id))
-        return PagureIssue(raw_issue, self)
+        return PagureIssue.get(self, issue_id)
 
     def create_issue(self, title: str, body: str) -> Issue:
-        payload = {"title": title, "issue_content": body}
-        new_issue = self._call_project_api("new_issue", data=payload, method="POST")[
-            "issue"
-        ]
-        return PagureIssue(new_issue, self)
+        return PagureIssue.create(self, title, body)
 
     def get_pr_list(
         self, status: PRStatus = PRStatus.open, assignee=None, author=None

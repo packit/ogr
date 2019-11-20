@@ -133,6 +133,40 @@ class Issue:
             f"created='{self.created}')"
         )
 
+    @staticmethod
+    def create(project: Any, title: str, body: str) -> "Issue":
+        """
+        Open new Issue.
+
+        :param project: Any
+        :param title: str
+        :param body: str
+        :return: Issue
+        """
+        raise NotImplementedError()
+
+    @staticmethod
+    def get(project: Any, issue_id: int) -> "Issue":
+        """
+        Get issue.
+
+        :param project: Any
+        :param issue_id: int
+        :return: Issue
+        """
+        raise NotImplementedError()
+
+    @staticmethod
+    def get_list(project: Any, status: IssueStatus = IssueStatus.open) -> List["Issue"]:
+        """
+        List of issues.
+
+        :param project: Any
+        :param status: IssueStatus enum
+        :return: [Issue]
+        """
+        raise NotImplementedError()
+
     def _get_all_comments(self) -> List[IssueComment]:
         """
         Get list of issue comments.

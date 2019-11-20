@@ -384,26 +384,13 @@ class GitlabProject(BaseGitProject):
             raise FileNotFoundError(f"File '{path}' on {ref} not found", ex)
 
     def get_issue_list(self, status: IssueStatus = IssueStatus.open) -> List[Issue]:
-        # Gitlab API has status 'opened', not 'open'
-        issues = self.gitlab_repo.issues.list(
-            state=status.name if status != IssueStatus.open else "opened",
-            order_by="updated_at",
-            sort="desc",
-        )
-        return [GitlabIssue(issue, self) for issue in issues]
+        return GitlabIssue.get_list(self, status)
 
     def get_issue(self, issue_id: int) -> Issue:
-        try:
-            return GitlabIssue(self.gitlab_repo.issues.get(issue_id), self)
-        except gitlab.exceptions.GitlabGetError as ex:
-            logger.error(f"Issue {issue_id} was not found.")
-            raise GitlabAPIException(f"Issue {issue_id} was not found. ", ex)
+        return GitlabIssue.get(self, issue_id)
 
     def create_issue(self, title: str, description: str) -> Issue:
-        issue = self.gitlab_repo.issues.create(
-            {"title": title, "description": description}
-        )
-        return GitlabIssue(issue, self)
+        return GitlabIssue.create(self, title, description)
 
     def get_pr_info(self, pr_id: int) -> PullRequest:
         mr = self.gitlab_repo.mergerequests.get(pr_id)

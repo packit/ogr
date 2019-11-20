@@ -237,23 +237,13 @@ class GithubProject(BaseGitProject):
         return collaborators
 
     def get_issue_list(self, status: IssueStatus = IssueStatus.open) -> List[Issue]:
-        issues = self.github_repo.get_issues(
-            state=status.name, sort="updated", direction="desc"
-        )
-        try:
-            return [
-                GithubIssue(issue, self) for issue in issues if not issue.pull_request
-            ]
-        except UnknownObjectException:
-            return []
+        return GithubIssue.get_list(self, status)
 
-    def get_issue(self, issue_id: int) -> GithubIssue:
-        issue = self.github_repo.get_issue(number=issue_id)
-        return GithubIssue(issue, self)
+    def get_issue(self, issue_id: int) -> Issue:
+        return GithubIssue.get(self, issue_id)
 
     def create_issue(self, title: str, body: str) -> Issue:
-        github_issue = self.github_repo.create_issue(title=title, body=body)
-        return GithubIssue(github_issue, self)
+        return GithubIssue.create(self, title, body)
 
     def get_pr_list(self, status: PRStatus = PRStatus.open) -> List[PullRequest]:
         prs = self.github_repo.get_pulls(

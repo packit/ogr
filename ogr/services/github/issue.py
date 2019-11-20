@@ -23,6 +23,7 @@
 import datetime
 from typing import List
 
+from github import UnknownObjectException
 from github.Issue import Issue as _GithubIssue
 
 from ogr.abstract import Issue, IssueComment, IssueStatus
@@ -79,6 +80,32 @@ class GithubIssue(BaseIssue):
 
     def __str__(self) -> str:
         return "Github" + super().__str__()
+
+    @staticmethod
+    def create(project: "ogr_github.GithubProject", title: str, body: str) -> "Issue":
+        github_issue = project.github_repo.create_issue(title=title, body=body)
+        return GithubIssue(github_issue, project)
+
+    @staticmethod
+    def get(project: "ogr_github.GithubProject", issue_id: int) -> "Issue":
+        issue = project.github_repo.get_issue(number=issue_id)
+        return GithubIssue(issue, project)
+
+    @staticmethod
+    def get_list(
+        project: "ogr_github.GithubProject", status: IssueStatus = IssueStatus.open
+    ) -> List["Issue"]:
+        issues = project.github_repo.get_issues(
+            state=status.name, sort="updated", direction="desc"
+        )
+        try:
+            return [
+                GithubIssue(issue, project)
+                for issue in issues
+                if not issue.pull_request
+            ]
+        except UnknownObjectException:
+            return []
 
     def _get_all_comments(self) -> List[IssueComment]:
         return [

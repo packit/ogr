@@ -23,7 +23,7 @@
 import datetime
 from typing import List
 
-from ogr.abstract import IssueComment, IssueStatus
+from ogr.abstract import IssueComment, IssueStatus, Issue
 from ogr.services import pagure as ogr_pagure
 from ogr.services.base import BaseIssue
 from ogr.services.pagure.comments import PagureIssueComment
@@ -64,6 +64,28 @@ class PagureIssue(BaseIssue):
 
     def __str__(self) -> str:
         return "Pagure" + super().__str__()
+
+    @staticmethod
+    def create(project: "ogr_pagure.PagureProject", title: str, body: str) -> "Issue":
+        payload = {"title": title, "issue_content": body}
+        new_issue = project._call_project_api("new_issue", data=payload, method="POST")[
+            "issue"
+        ]
+        return PagureIssue(new_issue, project)
+
+    @staticmethod
+    def get(project: "ogr_pagure.PagureProject", issue_id: int) -> "Issue":
+        raw_issue = project._call_project_api("issue", str(issue_id))
+        return PagureIssue(raw_issue, project)
+
+    @staticmethod
+    def get_list(
+        project: "ogr_pagure.PagureProject", status: IssueStatus = IssueStatus.open
+    ) -> List["Issue"]:
+        payload = {"status": status.name.capitalize()}
+
+        raw_issues = project._call_project_api("issues", params=payload)["issues"]
+        return [PagureIssue(issue_dict, project) for issue_dict in raw_issues]
 
     def _get_all_comments(self) -> List[IssueComment]:
         raw_comments = self._raw_issue["comments"]

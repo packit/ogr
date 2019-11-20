@@ -23,9 +23,12 @@
 import datetime
 from typing import List
 
+import gitlab
 from gitlab.v4.objects import Issue as _GitlabIssue
 
-from ogr.abstract import IssueComment, IssueStatus
+from ogr.abstract import IssueComment, IssueStatus, Issue
+from ogr.exceptions import GitlabAPIException
+from ogr.services import gitlab as ogr_gitlab
 from ogr.services.base import BaseIssue
 from ogr.services.gitlab.comments import GitlabIssueComment
 
@@ -72,6 +75,30 @@ class GitlabIssue(BaseIssue):
     def __str__(self) -> str:
         return "Gitlab" + super().__str__()
 
+    @staticmethod
+    def create(project: "ogr_gitlab.GitlabProject", title: str, body: str) -> "Issue":
+        issue = project.gitlab_repo.issues.create({"title": title, "description": body})
+        return GitlabIssue(issue, project)
+
+    @staticmethod
+    def get(project: "ogr_gitlab.GitlabProject", issue_id: int) -> "Issue":
+        try:
+            return GitlabIssue(project.gitlab_repo.issues.get(issue_id), project)
+        except gitlab.exceptions.GitlabGetError as ex:
+            raise GitlabAPIException(f"Issue {issue_id} was not found. ", ex)
+
+    @staticmethod
+    def get_list(
+        project: "ogr_gitlab.GitlabProject", status: IssueStatus = IssueStatus.open
+    ) -> List["Issue"]:
+        # Gitlab API has status 'opened', not 'open'
+        issues = project.gitlab_repo.issues.list(
+            state=status.name if status != IssueStatus.open else "opened",
+            order_by="updated_at",
+            sort="desc",
+        )
+        return [GitlabIssue(issue, project) for issue in issues]
+
     def _get_all_comments(self) -> List[IssueComment]:
         return [
             GitlabIssueComment(raw_comment)
@@ -82,7 +109,7 @@ class GitlabIssue(BaseIssue):
         comment = self._raw_issue.notes.create({"body": body})
         return GitlabIssueComment(comment)
 
-    def close(self) -> "GitlabIssue":
+    def close(self) -> "Issue":
         self._raw_issue.state_event = "close"
         self._raw_issue.save()
         # TODO: update self
