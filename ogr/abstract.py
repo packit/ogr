@@ -134,6 +134,11 @@ class Issue:
         )
 
     def _get_all_comments(self) -> List[IssueComment]:
+        """
+        Get list of issue comments.
+
+        :return: [IssueComment]
+        """
         raise NotImplementedError()
 
     def get_comments(
@@ -142,24 +147,45 @@ class Issue:
         """
         Get list of issue comments.
 
-        :param pr_id: int
         :param filter_regex: filter the comments' content with re.search
         :param reverse: reverse order of comments
         :param author: filter comments by author
-        :return: [PRComment]
+        :return: [IssueComment]
         """
         raise NotImplementedError()
 
     def can_close(self, username: str) -> bool:
+        """
+        Check if user have permissions to modify an Issue.
+
+        :param username: str
+        :return: true if user can close issue, false otherwise
+        """
         raise NotImplementedError()
 
     def comment(self, body: str) -> IssueComment:
+        """
+        Add new comment to the issue.
+
+        :param body: str
+        :return: IssueComment
+        """
         raise NotImplementedError()
 
     def close(self) -> "Issue":
+        """
+        Close an issue.
+
+        :return: Issue
+        """
         raise NotImplementedError()
 
     def add_label(self, *labels: str) -> None:
+        """
+        Add labels the the Issue.
+
+        :param labels: [str]
+        """
         raise NotImplementedError()
 
 
