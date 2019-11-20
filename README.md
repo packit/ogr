@@ -74,3 +74,7 @@ Run `make prepare-check` before first `make check`.
 # Contribution guidelines
 
 For more info about contributing to our project see [our contribution guide](/CONTRIBUTING.md).
+
+# Deprecation policy
+
+For more info about deprecation policy see [Deprecation policy](https://github.com/packit-service/research/tree/master/deprecation)
