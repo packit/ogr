@@ -269,6 +269,14 @@ class PullRequests(GitlabTests):
         assert pr_info
         assert pr_info.title == "change"
         assert pr_info.description == "description of mergerequest"
+        assert (
+            pr_info.url
+            == "https://gitlab.com/packit-service/ogr-tests/merge_requests/1"
+        )
+        assert (
+            pr_info.diff_url
+            == "https://gitlab.com/packit-service/ogr-tests/merge_requests/1/diffs"
+        )
 
     def test_get_all_pr_commits(self):
         commits = self.project.get_all_pr_commits(pr_id=1)

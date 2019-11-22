@@ -110,6 +110,7 @@ class GitProjectReadOnly:
             url=cls.url,
             author=cls.author,
             created=datetime.datetime.now(),
+            diff_url="/".join([cls.url, "files"]),
         )
         return output
 

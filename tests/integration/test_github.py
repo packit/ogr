@@ -387,6 +387,8 @@ class PullRequests(GithubTests):
         assert pr_info
         assert pr_info.title == "WIP: API"
         assert pr_info.status == PRStatus.merged
+        assert pr_info.url == "https://github.com/packit-service/ogr/pull/1"
+        assert pr_info.diff_url == "https://github.com/packit-service/ogr/pull/1/files"
 
     def test_all_pr_commits(self):
         commits = self.ogr_project.get_all_pr_commits(pr_id=1)

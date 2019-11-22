@@ -263,6 +263,11 @@ class PullRequests(PagureTests):
         assert pr_info
         assert pr_info.title.startswith("Add README file")
         assert pr_info.status == PRStatus.merged
+        assert pr_info.url == "https://pagure.io/ogr-tests/pull-request/1"
+        assert (
+            pr_info.diff_url
+            == "https://pagure.io/ogr-tests/pull-request/1#request_diff"
+        )
 
 
 class Forks(PagureTests):

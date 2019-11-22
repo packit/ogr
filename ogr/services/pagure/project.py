@@ -475,23 +475,20 @@ class PagureProject(BaseGitProject):
         )
 
     def _pr_from_pagure_dict(self, pr_dict: dict) -> PullRequest:
+        url = self._get_project_url(
+            "pull-request", str(pr_dict["id"]), add_api_endpoint_part=False
+        )
         return PullRequest(
             title=pr_dict["title"],
             id=pr_dict["id"],
             status=PRStatus[pr_dict["status"].lower()],
-            url="/".join(
-                [
-                    self.service.instance_url,
-                    pr_dict["project"]["url_path"],
-                    "pull-request",
-                    str(pr_dict["id"]),
-                ]
-            ),
+            url=url,
             description=pr_dict["initial_comment"],
             author=pr_dict["user"]["name"],
             source_branch=pr_dict["branch_from"],
             target_branch=pr_dict["branch"],
             created=datetime.datetime.fromtimestamp(int(pr_dict["date_created"])),
+            diff_url=url + "#request_diff",
         )
 
     @staticmethod

@@ -91,6 +91,7 @@ class PullRequest:
         source_branch: str,
         target_branch: str,
         created: datetime.datetime,
+        diff_url: str,
     ) -> None:
         self.title = title
         self.id = id
@@ -101,6 +102,7 @@ class PullRequest:
         self.source_branch = source_branch
         self.target_branch = target_branch
         self.created = created
+        self.diff_url = diff_url
 
     def __str__(self) -> str:
         description = (
@@ -117,6 +119,7 @@ class PullRequest:
             f"source_branch='{self.source_branch}', "
             f"target_branch='{self.target_branch}', "
             f"created='{self.created}'), "
+            f"diff_url='{self.diff_url}'), "
         )
 
 

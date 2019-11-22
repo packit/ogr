@@ -594,6 +594,7 @@ class GithubProject(BaseGitProject):
             source_branch=github_pr.head.ref,
             target_branch=github_pr.base.ref,
             created=github_pr.created_at,
+            diff_url="/".join([github_pr.html_url, "files"]),
         )
 
     def _release_from_github_object(

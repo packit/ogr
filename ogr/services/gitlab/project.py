@@ -616,6 +616,7 @@ class GitlabProject(BaseGitProject):
             source_branch=gitlab_pr.source_branch,
             target_branch=gitlab_pr.target_branch,
             created=gitlab_pr.created_at,
+            diff_url="/".join([gitlab_pr.web_url, "diffs"]),
         )
 
     @staticmethod
