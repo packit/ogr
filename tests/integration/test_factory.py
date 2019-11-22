@@ -3,6 +3,7 @@ import unittest
 
 from ogr import GithubService, PagureService, get_project, GitlabService
 from requre.storage import PersistentObjectStorage
+from requre.utils import StorageMode
 from ogr.services.github import GithubProject
 from ogr.services.gitlab import GitlabProject
 from ogr.services.pagure import PagureProject
@@ -26,13 +27,19 @@ class FactoryTests(unittest.TestCase):
         )
         PersistentObjectStorage().storage_file = persistent_data_file
 
-        if PersistentObjectStorage().is_write_mode and not self.github_token:
+        if (
+            PersistentObjectStorage().mode == StorageMode.write
+            and not self.github_token
+        ):
             raise EnvironmentError("please set GITHUB_TOKEN env variables")
 
-        if PersistentObjectStorage().is_write_mode and not self.pagure_token:
+        if (
+            PersistentObjectStorage().mode == StorageMode.write
+            and not self.pagure_token
+        ):
             raise EnvironmentError("please set PAGURE_TOKEN env variables")
 
-        if PersistentObjectStorage().is_write_mode and not os.environ.get(
+        if PersistentObjectStorage() == StorageMode.write and not os.environ.get(
             "GITLAB_TOKEN"
         ):
             raise EnvironmentError("please set GITLAB_TOKEN env variables")
