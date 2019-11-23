@@ -32,8 +32,18 @@ from ogr.services.pagure.comments import PagureIssueComment
 class PagureIssue(BaseIssue):
     project: "ogr_pagure.PagureProject"
 
+    def __init__(self, raw_issue, project):
+        super().__init__(raw_issue, project)
+        self.__dirty = False
+
+    def __update(self):
+        if self.__dirty:
+            self.raw_issue = self.project._call_project_api("issue", str(self.id))
+            self.__dirty = False
+
     @property
     def title(self) -> str:
+        self.__update()
         return self._raw_issue["title"]
 
     @property
@@ -42,6 +52,7 @@ class PagureIssue(BaseIssue):
 
     @property
     def status(self) -> IssueStatus:
+        self.__update()
         return IssueStatus[self._raw_issue["status"].lower()]
 
     @property
@@ -52,6 +63,7 @@ class PagureIssue(BaseIssue):
 
     @property
     def description(self) -> str:
+        self.__update()
         return self._raw_issue["content"]
 
     @property
@@ -88,6 +100,7 @@ class PagureIssue(BaseIssue):
         return [PagureIssue(issue_dict, project) for issue_dict in raw_issues]
 
     def _get_all_comments(self) -> List[IssueComment]:
+        self.__update()
         raw_comments = self._raw_issue["comments"]
         return [PagureIssueComment(raw_comment) for raw_comment in raw_comments]
 
@@ -96,6 +109,7 @@ class PagureIssue(BaseIssue):
         self.project._call_project_api(
             "issue", str(self.id), "comment", data=payload, method="POST"
         )
+        self.__dirty = True
         return PagureIssueComment(comment=body, author=self.project._user)
 
     def close(self) -> "PagureIssue":
@@ -103,5 +117,5 @@ class PagureIssue(BaseIssue):
         self.project._call_project_api(
             "issue", str(self.id), "status", data=payload, method="POST"
         )
-        # TODO: update self
+        self.__dirty = True
         return self
