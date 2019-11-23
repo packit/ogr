@@ -253,6 +253,13 @@ class Issues(GitlabTests):
         assert comments[0].comment.startswith("let's")
         assert comments[1].comment.startswith("regex")
 
+    def test_issue_updates(self):
+        issue = self.project.get_issue(issue_id=1)
+        old_comments = issue.get_comments()
+        issue.comment("test comment")
+        new_comments = issue.get_comments()
+        assert len(new_comments) > len(old_comments)
+
 
 class PullRequests(GitlabTests):
     def test_pr_list(self):
