@@ -92,7 +92,7 @@ class BaseGitProject(GitProject):
 
         return search_in_comments(comments=all_comments, filter_regex=filter_regex)
 
-    @deprecated("Use methods on Issue objects")
+    @deprecated("since 0.9.0, will be removed in 1.4.0: Use methods on Issue objects")
     def get_issue_comments(
         self,
         issue_id,
@@ -102,31 +102,31 @@ class BaseGitProject(GitProject):
     ) -> List[IssueComment]:
         return self.get_issue(issue_id).get_comments(filter_regex, reverse, author)
 
-    @deprecated("Use methods on Issue objects")
+    @deprecated("since 0.9.0, will be removed in 1.4.0: Use methods on Issue objects")
     def can_close_issue(self, username: str, issue: Issue) -> bool:
         return issue.can_close(username)
 
-    @deprecated("Use methods on Issue objects")
+    @deprecated("since 0.9.0, will be removed in 1.4.0: Use methods on Issue objects")
     def get_issue_info(self, issue_id: int) -> Issue:
         return self.get_issue(issue_id)
 
-    @deprecated("Use methods on Issue objects")
+    @deprecated("since 0.9.0, will be removed in 1.4.0: Use methods on Issue objects")
     def _get_all_issue_comments(self, issue_id: int) -> List["IssueComment"]:
         return self.get_issue(issue_id)._get_all_comments()
 
-    @deprecated("Use methods on Issue objects")
+    @deprecated("since 0.9.0, will be removed in 1.4.0: Use methods on Issue objects")
     def issue_comment(self, issue_id: int, body: str) -> "IssueComment":
         return self.get_issue(issue_id).comment(body)
 
-    @deprecated("Use methods on Issue objects")
+    @deprecated("since 0.9.0, will be removed in 1.4.0: Use methods on Issue objects")
     def issue_close(self, issue_id: int) -> Issue:
         return self.get_issue(issue_id).close()
 
-    @deprecated("Use methods on Issue objects")
+    @deprecated("since 0.9.0, will be removed in 1.4.0: Use methods on Issue objects")
     def get_issue_labels(self, issue_id: int) -> List[Any]:
         return self.get_issue(issue_id).labels
 
-    @deprecated("Use methods on Issue objects")
+    @deprecated("since 0.9.0, will be removed in 1.4.0: Use methods on Issue objects")
     def add_issue_labels(self, issue_id: int, labels: List[str]) -> None:
         self.get_issue(issue_id).add_label(*labels)
 
