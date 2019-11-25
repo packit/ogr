@@ -22,12 +22,10 @@
 
 from typing import List, Optional, Match, Any
 
-from deprecated import deprecated
-
 from ogr.abstract import GitService, GitProject, GitUser, PRComment, IssueComment, Issue
 from ogr.exceptions import OgrException
 from ogr.parsing import parse_git_repo
-from ogr.utils import search_in_comments, filter_comments
+from ogr.utils import search_in_comments, filter_comments, deprecate
 
 
 class BaseGitService(GitService):
@@ -92,7 +90,11 @@ class BaseGitProject(GitProject):
 
         return search_in_comments(comments=all_comments, filter_regex=filter_regex)
 
-    @deprecated("since 0.9.0, will be removed in 1.4.0: Use methods on Issue objects")
+    @deprecate(
+        since="0.9.0",
+        remove_in="0.14.0 (or 1.0.0 if it comes sooner)",
+        message="Use methods on Issue objects",
+    )
     def get_issue_comments(
         self,
         issue_id,
@@ -102,31 +104,59 @@ class BaseGitProject(GitProject):
     ) -> List[IssueComment]:
         return self.get_issue(issue_id).get_comments(filter_regex, reverse, author)
 
-    @deprecated("since 0.9.0, will be removed in 1.4.0: Use methods on Issue objects")
+    @deprecate(
+        since="0.9.0",
+        remove_in="0.14.0 (or 1.0.0 if it comes sooner)",
+        message="Use methods on Issue objects",
+    )
     def can_close_issue(self, username: str, issue: Issue) -> bool:
         return issue.can_close(username)
 
-    @deprecated("since 0.9.0, will be removed in 1.4.0: Use methods on Issue objects")
+    @deprecate(
+        since="0.9.0",
+        remove_in="0.14.0 (or 1.0.0 if it comes sooner)",
+        message="Use methods on Issue objects",
+    )
     def get_issue_info(self, issue_id: int) -> Issue:
         return self.get_issue(issue_id)
 
-    @deprecated("since 0.9.0, will be removed in 1.4.0: Use methods on Issue objects")
+    @deprecate(
+        since="0.9.0",
+        remove_in="0.14.0 (or 1.0.0 if it comes sooner)",
+        message="Use methods on Issue objects",
+    )
     def _get_all_issue_comments(self, issue_id: int) -> List["IssueComment"]:
         return self.get_issue(issue_id)._get_all_comments()
 
-    @deprecated("since 0.9.0, will be removed in 1.4.0: Use methods on Issue objects")
+    @deprecate(
+        since="0.9.0",
+        remove_in="0.14.0 (or 1.0.0 if it comes sooner)",
+        message="Use methods on Issue objects",
+    )
     def issue_comment(self, issue_id: int, body: str) -> "IssueComment":
         return self.get_issue(issue_id).comment(body)
 
-    @deprecated("since 0.9.0, will be removed in 1.4.0: Use methods on Issue objects")
+    @deprecate(
+        since="0.9.0",
+        remove_in="0.14.0 (or 1.0.0 if it comes sooner)",
+        message="Use methods on Issue objects",
+    )
     def issue_close(self, issue_id: int) -> Issue:
         return self.get_issue(issue_id).close()
 
-    @deprecated("since 0.9.0, will be removed in 1.4.0: Use methods on Issue objects")
+    @deprecate(
+        since="0.9.0",
+        remove_in="0.14.0 (or 1.0.0 if it comes sooner)",
+        message="Use methods on Issue objects",
+    )
     def get_issue_labels(self, issue_id: int) -> List[Any]:
         return self.get_issue(issue_id).labels
 
-    @deprecated("since 0.9.0, will be removed in 1.4.0: Use methods on Issue objects")
+    @deprecate(
+        since="0.9.0",
+        remove_in="0.14.0 (or 1.0.0 if it comes sooner)",
+        message="Use methods on Issue objects",
+    )
     def add_issue_labels(self, issue_id: int, labels: List[str]) -> None:
         self.get_issue(issue_id).add_label(*labels)
 
