@@ -197,13 +197,7 @@ class GitlabProject(BaseGitProject):
         ]
 
     def get_pr_list(self, status: PRStatus = PRStatus.open) -> List["PullRequest"]:
-        # Gitlab API has status 'opened', not 'open'
-        mrs = self.gitlab_repo.mergerequests.list(
-            state=status.name if status != PRStatus.open else "opened",
-            order_by="updated_at",
-            sort="desc",
-        )
-        return [GitlabPullRequest(mr, self) for mr in mrs]
+        return GitlabPullRequest.get_list(self, status)
 
     def get_sha_from_tag(self, tag_name: str) -> str:
         try:
@@ -221,25 +215,9 @@ class GitlabProject(BaseGitProject):
         source_branch: str,
         fork_username: str = None,
     ) -> "PullRequest":
-        """
-        Create pull-request(merge-request in GitLab).
-
-        :param title: str Title of the pull request
-        :param body: str The contents of the pull request
-        :param target_branch: str The name of the branch you want the changes pulled into
-        :param source_branch: str The name of the branch where your changes are implemented
-        :param fork_username: str The username of forked repository
-        :return: PullRequest:
-        """
-        mr = self.gitlab_repo.mergerequests.create(
-            {
-                "source_branch": source_branch,
-                "target_branch": target_branch,
-                "title": title,
-                "description": body,
-            }
+        return GitlabPullRequest.create(
+            self, title, body, target_branch, source_branch, fork_username
         )
-        return GitlabPullRequest(mr, self)
 
     def commit_comment(
         self, commit: str, body: str, filename: str = None, row: int = None
@@ -358,8 +336,7 @@ class GitlabProject(BaseGitProject):
         return GitlabIssue.create(project=self, title=title, body=description)
 
     def get_pr(self, pr_id: int) -> PullRequest:
-        mr = self.gitlab_repo.mergerequests.get(pr_id)
-        return GitlabPullRequest(mr, self)
+        return GitlabPullRequest.get(self, pr_id)
 
     def get_tags(self) -> List["GitTag"]:
         tags = self.gitlab_repo.tags.list()

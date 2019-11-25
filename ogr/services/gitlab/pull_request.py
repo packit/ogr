@@ -82,6 +82,42 @@ class GitlabPullRequest(BasePullRequest):
     def __str__(self) -> str:
         return "Gitlab" + super().__str__()
 
+    @staticmethod
+    def create(
+        project: "ogr_gitlab.GitlabProject",
+        title: str,
+        body: str,
+        target_branch: str,
+        source_branch: str,
+        fork_username: str = None,
+    ) -> "PullRequest":
+        mr = project.gitlab_repo.mergerequests.create(
+            {
+                "source_branch": source_branch,
+                "target_branch": target_branch,
+                "title": title,
+                "description": body,
+            }
+        )
+        return GitlabPullRequest(mr, project)
+
+    @staticmethod
+    def get(project: "ogr_gitlab.GitlabProject", pr_id: int) -> "PullRequest":
+        mr = project.gitlab_repo.mergerequests.get(pr_id)
+        return GitlabPullRequest(mr, project)
+
+    @staticmethod
+    def get_list(
+        project: "ogr_gitlab.GitlabProject", status: PRStatus = PRStatus.open
+    ) -> List["PullRequest"]:
+        # Gitlab API has status 'opened', not 'open'
+        mrs = project.gitlab_repo.mergerequests.list(
+            state=status.name if status != PRStatus.open else "opened",
+            order_by="updated_at",
+            sort="desc",
+        )
+        return [GitlabPullRequest(mr, project) for mr in mrs]
+
     def update_info(
         self, title: Optional[str] = None, description: Optional[str] = None
     ) -> "PullRequest":

@@ -238,26 +238,10 @@ class GithubProject(BaseGitProject):
         return GithubIssue.create(project=self, title=title, body=body)
 
     def get_pr_list(self, status: PRStatus = PRStatus.open) -> List[PullRequest]:
-        prs = self.github_repo.get_pulls(
-            # Github API has no status 'merged', just 'closed'/'opened'/'all'
-            state=status.name if status != PRStatus.merged else "closed",
-            sort="updated",
-            direction="desc",
-        )
-
-        if status == PRStatus.merged:
-            prs = list(prs)  # Github PaginatedList into list()
-            for pr in prs:
-                if not pr.is_merged():  # parse merged PRs
-                    prs.remove(pr)
-        try:
-            return [GithubPullRequest(pr, self) for pr in prs]
-        except UnknownObjectException:
-            return []
+        return GithubPullRequest.get_list(self, status)
 
     def get_pr(self, pr_id: int) -> PullRequest:
-        pr = self.github_repo.get_pull(number=pr_id)
-        return GithubPullRequest(pr, self)
+        return GithubPullRequest.get(self, pr_id)
 
     def get_sha_from_tag(self, tag_name: str) -> str:
         # TODO: This is ugly. Can we do it better?
@@ -283,33 +267,9 @@ class GithubProject(BaseGitProject):
         source_branch: str,
         fork_username: str = None,
     ) -> PullRequest:
-        """
-        Create pull-request.
-
-        :param title: str Title of the pull request
-        :param body: str The contents of the pull request
-        :param target_branch: str The name of the branch you want the changes pulled into
-        :param source_branch: str The name of the branch where your changes are implemented
-        :param fork_username: str The username of forked repository
-        :return: PullRequest:
-        """
-
-        github_repo = self.github_repo
-
-        if self.is_fork and fork_username:
-            logger.warning(f"{self.full_repo_name} is fork, ignoring fork_username arg")
-
-        if self.is_fork:
-            source_branch = f"{self.namespace}:{source_branch}"
-            github_repo = self.parent.github_repo
-        elif fork_username:
-            source_branch = f"{fork_username}:{source_branch}"
-
-        created_pr = github_repo.create_pull(
-            title=title, body=body, base=target_branch, head=source_branch
+        return GithubPullRequest.create(
+            self, title, body, target_branch, source_branch, fork_username
         )
-        logger.info(f"PR {created_pr.id} created: {target_branch}<-{source_branch}")
-        return GithubPullRequest(created_pr, self)
 
     @if_readonly(
         return_function=GitProjectReadOnly.commit_comment,

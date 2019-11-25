@@ -98,6 +98,57 @@ class PagurePullRequest(BasePullRequest):
     def __call_api(self, *args, **kwargs) -> dict:
         return self.project._call_project_api("pull-request", self.id, *args, **kwargs)
 
+    @staticmethod
+    def create(
+        project: "ogr_pagure.PagureProject",
+        title: str,
+        body: str,
+        target_branch: str,
+        source_branch: str,
+        fork_username: str = None,
+    ) -> "PullRequest":
+        data = {
+            "title": title,
+            "branch_to": target_branch,
+            "branch_from": source_branch,
+            "initial_comment": body,
+        }
+
+        caller = project
+        if project.is_fork:
+            data["repo_from"] = project.repo
+            data["repo_from_username"] = project._user
+            data["repo_from_namespace"] = project.namespace
+
+            # running the call from the parent project
+            caller = caller.parent
+
+        response = caller._call_project_api(
+            "pull-request", "new", method="POST", data=data
+        )
+        return PagurePullRequest(response, project)
+
+    @staticmethod
+    def get(project: "ogr_pagure.PagureProject", pr_id: int) -> "PullRequest":
+        raw_pr = project._call_project_api("pull-request", str(pr_id))
+        return PagurePullRequest(raw_pr, project)
+
+    @staticmethod
+    def get_list(
+        project: "ogr_pagure.PagureProject",
+        status: PRStatus = PRStatus.open,
+        assignee=None,
+        author=None,
+    ) -> List["PullRequest"]:
+        payload = {"status": status.name.capitalize()}
+        if assignee is not None:
+            payload["assignee"] = assignee
+        if author is not None:
+            payload["author"] = author
+
+        raw_prs = project._call_project_api("pull-requests", params=payload)["requests"]
+        return [PagurePullRequest(pr_dict, project) for pr_dict in raw_prs]
+
     def update_info(
         self, title: Optional[str] = None, description: Optional[str] = None
     ) -> "PullRequest":

@@ -292,6 +292,50 @@ class PullRequest:
             f"created='{self.created}'), "
         )
 
+    @staticmethod
+    def create(
+        project: Any,
+        title: str,
+        body: str,
+        target_branch: str,
+        source_branch: str,
+        fork_username: str = None,
+    ) -> "PullRequest":
+        """
+        Create a new pull request.
+
+        :param project: Any
+        :param title: str
+        :param body: str
+        :param target_branch: str
+        :param source_branch: str
+        :param fork_username: str The username of forked repository
+        :return: PullRequest
+        """
+        raise NotImplementedError()
+
+    @staticmethod
+    def get(project: Any, pr_id: int) -> "PullRequest":
+        """
+        Get pull request
+
+        :param project: Any
+        :param pr_id: int
+        :return: PullRequest
+        """
+        raise NotImplementedError()
+
+    @staticmethod
+    def get_list(project: Any, status: PRStatus = PRStatus.open) -> List["PullRequest"]:
+        """
+        List of pull requests
+
+        :param project: Any
+        :param status: PRStatus enum
+        :return: [PullRequest]
+        """
+        raise NotImplementedError()
+
     def update_info(
         self, title: Optional[str] = None, description: Optional[str] = None
     ) -> "PullRequest":

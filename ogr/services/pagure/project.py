@@ -207,50 +207,16 @@ class PagureProject(BaseGitProject):
     def get_pr_list(
         self, status: PRStatus = PRStatus.open, assignee=None, author=None
     ) -> List[PullRequest]:
-
-        payload = {"status": status.name.capitalize()}
-        if assignee is not None:
-            payload["assignee"] = assignee
-        if author is not None:
-            payload["author"] = author
-
-        raw_prs = self._call_project_api("pull-requests", params=payload)["requests"]
-        return [PagurePullRequest(pr_dict, self) for pr_dict in raw_prs]
+        return PagurePullRequest.get_list(self, status, assignee, author)
 
     def get_pr(self, pr_id: int) -> PullRequest:
-        raw_pr = self._call_project_api("pull-request", str(pr_id))
-        result = PagurePullRequest(raw_pr, self)
-        return result
+        return PagurePullRequest.get(self, pr_id)
 
     @if_readonly(return_function=GitProjectReadOnly.pr_create)
     def pr_create(
         self, title: str, body: str, target_branch: str, source_branch: str
     ) -> PullRequest:
-
-        data = {
-            "title": title,
-            "branch_to": target_branch,
-            "branch_from": source_branch,
-            "initial_comment": body,
-        }
-
-        if self.is_fork:
-            data["repo_from"] = self.repo
-            data["repo_from_username"] = self._user
-            data["repo_from_namespace"] = self.namespace
-
-            # running the call from the parent project
-            return_value = self.parent._call_project_api(
-                "pull-request", "new", method="POST", data=data
-            )
-
-        else:
-            return_value = self._call_project_api(
-                "pull-request", "new", method="POST", data=data
-            )
-
-        pr_object = PagurePullRequest(return_value, self)
-        return pr_object
+        return PagurePullRequest.create(self, title, body, target_branch, source_branch)
 
     @if_readonly(return_function=GitProjectReadOnly.fork_create)
     def fork_create(self) -> "PagureProject":

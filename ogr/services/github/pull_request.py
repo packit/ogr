@@ -24,6 +24,7 @@ import datetime
 import logging
 from typing import Optional, List
 
+from github import UnknownObjectException
 from github.Label import Label as GithubLabel
 from github.PullRequest import PullRequest as _GithubPullRequest
 
@@ -87,6 +88,60 @@ class GithubPullRequest(BasePullRequest):
 
     def __str__(self) -> str:
         return "Github" + super().__str__()
+
+    @staticmethod
+    def create(
+        project: "ogr_github.GithubProject",
+        title: str,
+        body: str,
+        target_branch: str,
+        source_branch: str,
+        fork_username: str = None,
+    ) -> "PullRequest":
+        github_repo = project.github_repo
+
+        if project.is_fork and fork_username:
+            logger.warning(
+                f"{project.full_repo_name} is fork, ignoring fork_username arg"
+            )
+
+        if project.is_fork:
+            source_branch = f"{project.namespace}:{source_branch}"
+            github_repo = project.parent.github_repo
+        elif fork_username:
+            source_branch = f"{fork_username}:{source_branch}"
+
+        created_pr = github_repo.create_pull(
+            title=title, body=body, base=target_branch, head=source_branch
+        )
+        logger.info(f"PR {created_pr.id} created: {target_branch}<-{source_branch}")
+        return GithubPullRequest(created_pr, project)
+
+    @staticmethod
+    def get(project: "ogr_github.GithubProject", pr_id: int) -> "PullRequest":
+        pr = project.github_repo.get_pull(number=pr_id)
+        return GithubPullRequest(pr, project)
+
+    @staticmethod
+    def get_list(
+        project: "ogr_github.GithubProject", status: PRStatus = PRStatus.open
+    ) -> List["PullRequest"]:
+        prs = project.github_repo.get_pulls(
+            # Github API has no status 'merged', just 'closed'/'opened'/'all'
+            state=status.name if status != PRStatus.merged else "closed",
+            sort="updated",
+            direction="desc",
+        )
+
+        if status == PRStatus.merged:
+            prs = list(prs)  # Github PaginatedList into list()
+            for pr in prs:
+                if not pr.is_merged():  # parse merged PRs
+                    prs.remove(pr)
+        try:
+            return [GithubPullRequest(pr, project) for pr in prs]
+        except UnknownObjectException:
+            return []
 
     def update_info(
         self, title: Optional[str] = None, description: Optional[str] = None
