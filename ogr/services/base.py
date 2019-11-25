@@ -25,7 +25,7 @@ from typing import List, Optional, Match, Any
 from ogr.abstract import GitService, GitProject, GitUser, PRComment, IssueComment, Issue
 from ogr.exceptions import OgrException
 from ogr.parsing import parse_git_repo
-from ogr.utils import search_in_comments, filter_comments, deprecate
+from ogr.utils import search_in_comments, filter_comments, deprecate_and_set_removal
 
 
 class BaseGitService(GitService):
@@ -90,7 +90,7 @@ class BaseGitProject(GitProject):
 
         return search_in_comments(comments=all_comments, filter_regex=filter_regex)
 
-    @deprecate(
+    @deprecate_and_set_removal(
         since="0.9.0",
         remove_in="0.14.0 (or 1.0.0 if it comes sooner)",
         message="Use methods on Issue objects",
@@ -104,7 +104,7 @@ class BaseGitProject(GitProject):
     ) -> List[IssueComment]:
         return self.get_issue(issue_id).get_comments(filter_regex, reverse, author)
 
-    @deprecate(
+    @deprecate_and_set_removal(
         since="0.9.0",
         remove_in="0.14.0 (or 1.0.0 if it comes sooner)",
         message="Use methods on Issue objects",
@@ -112,7 +112,7 @@ class BaseGitProject(GitProject):
     def can_close_issue(self, username: str, issue: Issue) -> bool:
         return issue.can_close(username)
 
-    @deprecate(
+    @deprecate_and_set_removal(
         since="0.9.0",
         remove_in="0.14.0 (or 1.0.0 if it comes sooner)",
         message="Use methods on Issue objects",
@@ -120,7 +120,7 @@ class BaseGitProject(GitProject):
     def get_issue_info(self, issue_id: int) -> Issue:
         return self.get_issue(issue_id)
 
-    @deprecate(
+    @deprecate_and_set_removal(
         since="0.9.0",
         remove_in="0.14.0 (or 1.0.0 if it comes sooner)",
         message="Use methods on Issue objects",
@@ -128,7 +128,7 @@ class BaseGitProject(GitProject):
     def _get_all_issue_comments(self, issue_id: int) -> List["IssueComment"]:
         return self.get_issue(issue_id)._get_all_comments()
 
-    @deprecate(
+    @deprecate_and_set_removal(
         since="0.9.0",
         remove_in="0.14.0 (or 1.0.0 if it comes sooner)",
         message="Use methods on Issue objects",
@@ -136,7 +136,7 @@ class BaseGitProject(GitProject):
     def issue_comment(self, issue_id: int, body: str) -> "IssueComment":
         return self.get_issue(issue_id).comment(body)
 
-    @deprecate(
+    @deprecate_and_set_removal(
         since="0.9.0",
         remove_in="0.14.0 (or 1.0.0 if it comes sooner)",
         message="Use methods on Issue objects",
@@ -144,7 +144,7 @@ class BaseGitProject(GitProject):
     def issue_close(self, issue_id: int) -> Issue:
         return self.get_issue(issue_id).close()
 
-    @deprecate(
+    @deprecate_and_set_removal(
         since="0.9.0",
         remove_in="0.14.0 (or 1.0.0 if it comes sooner)",
         message="Use methods on Issue objects",
@@ -152,7 +152,7 @@ class BaseGitProject(GitProject):
     def get_issue_labels(self, issue_id: int) -> List[Any]:
         return self.get_issue(issue_id).labels
 
-    @deprecate(
+    @deprecate_and_set_removal(
         since="0.9.0",
         remove_in="0.14.0 (or 1.0.0 if it comes sooner)",
         message="Use methods on Issue objects",
