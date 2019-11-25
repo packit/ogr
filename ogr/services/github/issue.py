@@ -87,8 +87,8 @@ class GithubIssue(BaseIssue):
         return GithubIssue(github_issue, project)
 
     @staticmethod
-    def get(project: "ogr_github.GithubProject", issue_id: int) -> "Issue":
-        issue = project.github_repo.get_issue(number=issue_id)
+    def get(project: "ogr_github.GithubProject", id: int) -> "Issue":
+        issue = project.github_repo.get_issue(number=id)
         return GithubIssue(issue, project)
 
     @staticmethod

@@ -86,8 +86,8 @@ class PagureIssue(BaseIssue):
         return PagureIssue(new_issue, project)
 
     @staticmethod
-    def get(project: "ogr_pagure.PagureProject", issue_id: int) -> "Issue":
-        raw_issue = project._call_project_api("issue", str(issue_id))
+    def get(project: "ogr_pagure.PagureProject", id: int) -> "Issue":
+        raw_issue = project._call_project_api("issue", str(id))
         return PagureIssue(raw_issue, project)
 
     @staticmethod

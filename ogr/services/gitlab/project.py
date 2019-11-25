@@ -384,13 +384,13 @@ class GitlabProject(BaseGitProject):
             raise FileNotFoundError(f"File '{path}' on {ref} not found", ex)
 
     def get_issue_list(self, status: IssueStatus = IssueStatus.open) -> List[Issue]:
-        return GitlabIssue.get_list(self, status)
+        return GitlabIssue.get_list(project=self, status=status)
 
     def get_issue(self, issue_id: int) -> Issue:
-        return GitlabIssue.get(self, issue_id)
+        return GitlabIssue.get(project=self, id=issue_id)
 
     def create_issue(self, title: str, description: str) -> Issue:
-        return GitlabIssue.create(self, title, description)
+        return GitlabIssue.create(project=self, title=title, body=description)
 
     def get_pr_info(self, pr_id: int) -> PullRequest:
         mr = self.gitlab_repo.mergerequests.get(pr_id)

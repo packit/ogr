@@ -200,13 +200,13 @@ class PagureProject(BaseGitProject):
         return False
 
     def get_issue_list(self, status: IssueStatus = IssueStatus.open) -> List[Issue]:
-        return PagureIssue.get_list(self, status)
+        return PagureIssue.get_list(project=self, status=status)
 
     def get_issue(self, issue_id: int) -> Issue:
-        return PagureIssue.get(self, issue_id)
+        return PagureIssue.get(project=self, id=issue_id)
 
     def create_issue(self, title: str, body: str) -> Issue:
-        return PagureIssue.create(self, title, body)
+        return PagureIssue.create(project=self, title=title, body=body)
 
     def get_pr_list(
         self, status: PRStatus = PRStatus.open, assignee=None, author=None

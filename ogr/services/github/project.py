@@ -237,13 +237,13 @@ class GithubProject(BaseGitProject):
         return collaborators
 
     def get_issue_list(self, status: IssueStatus = IssueStatus.open) -> List[Issue]:
-        return GithubIssue.get_list(self, status)
+        return GithubIssue.get_list(project=self, status=status)
 
     def get_issue(self, issue_id: int) -> Issue:
-        return GithubIssue.get(self, issue_id)
+        return GithubIssue.get(project=self, id=issue_id)
 
     def create_issue(self, title: str, body: str) -> Issue:
-        return GithubIssue.create(self, title, body)
+        return GithubIssue.create(project=self, title=title, body=body)
 
     def get_pr_list(self, status: PRStatus = PRStatus.open) -> List[PullRequest]:
         prs = self.github_repo.get_pulls(

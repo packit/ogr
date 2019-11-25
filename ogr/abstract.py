@@ -146,12 +146,12 @@ class Issue:
         raise NotImplementedError()
 
     @staticmethod
-    def get(project: Any, issue_id: int) -> "Issue":
+    def get(project: Any, id: int) -> "Issue":
         """
         Get issue.
 
         :param project: Any
-        :param issue_id: int
+        :param id: int
         :return: Issue
         """
         raise NotImplementedError()
