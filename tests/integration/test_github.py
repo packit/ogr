@@ -8,6 +8,7 @@ from ogr import GithubService
 from ogr.abstract import PRStatus, IssueStatus
 from ogr.exceptions import GithubAPIException
 from requre.storage import PersistentObjectStorage
+from requre.utils import StorageMode
 
 DATA_DIR = "test_data"
 PERSISTENT_DATA_PREFIX = os.path.join(
@@ -25,7 +26,7 @@ class GithubTests(unittest.TestCase):
         )
         PersistentObjectStorage().storage_file = persistent_data_file
 
-        if PersistentObjectStorage().is_write_mode and (not self.token):
+        if PersistentObjectStorage().mode == StorageMode.write and (not self.token):
             raise EnvironmentError("please set GITHUB_TOKEN env variables")
 
         self.service = GithubService(token=self.token)

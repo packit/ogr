@@ -5,6 +5,7 @@ from pathlib import Path
 
 from ogr import GithubService
 from requre.storage import PersistentObjectStorage
+from requre.utils import StorageMode
 
 DATA_DIR = "test_data"
 PERSISTENT_DATA_PREFIX = os.path.join(
@@ -36,7 +37,7 @@ class GithubTests(unittest.TestCase):
         )
         PersistentObjectStorage().storage_file = persistent_data_file
 
-        if PersistentObjectStorage().is_write_mode and (
+        if PersistentObjectStorage().mode == StorageMode.write and (
             not self.github_app_id or not self.github_app_private_key_path
         ):
             raise EnvironmentError(

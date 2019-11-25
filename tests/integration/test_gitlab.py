@@ -6,6 +6,7 @@ from gitlab import GitlabGetError
 
 from ogr.exceptions import GitlabAPIException
 from requre.storage import PersistentObjectStorage
+from requre.utils import StorageMode
 from ogr.abstract import PRStatus, IssueStatus
 from ogr.services.gitlab import GitlabService
 
@@ -24,8 +25,7 @@ class GitlabTests(unittest.TestCase):
             PERSISTENT_DATA_PREFIX, f"test_gitlab_data_{test_name}.yaml"
         )
         PersistentObjectStorage().storage_file = persistent_data_file
-
-        if PersistentObjectStorage().is_write_mode and not self.token:
+        if PersistentObjectStorage().mode == StorageMode.write and not self.token:
             raise EnvironmentError("please set GITLAB_TOKEN env variables")
         elif not self.token:
             self.token = "some_token"

@@ -4,6 +4,7 @@ import unittest
 import pytest
 
 from requre.storage import PersistentObjectStorage
+from requre.utils import StorageMode
 
 from ogr import PagureService
 from ogr.abstract import PRStatus, IssueStatus
@@ -25,7 +26,7 @@ class PagureTests(unittest.TestCase):
 
         PersistentObjectStorage().storage_file = self.persistent_data_file
 
-        if PersistentObjectStorage().is_write_mode and (not self.token):
+        if PersistentObjectStorage().mode == StorageMode.write and (not self.token):
             raise EnvironmentError("please set PAGURE_TOKEN env variables")
 
         self.service = PagureService(token=self.token, instance_url="https://pagure.io")
@@ -331,7 +332,7 @@ class PagureProjectTokenCommands(PagureTests):
 
         PersistentObjectStorage().storage_file = self.persistent_data_file
 
-        if PersistentObjectStorage().is_write_mode and (not self.token):
+        if PersistentObjectStorage().mode == StorageMode.write and (not self.token):
             raise EnvironmentError("please set PAGURE_OGR_TEST_TOKEN env variables")
 
         self.service = PagureService(token=self.token, instance_url="https://pagure.io")

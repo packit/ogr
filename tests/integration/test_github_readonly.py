@@ -3,6 +3,7 @@ import unittest
 
 from ogr import GithubService
 from requre.storage import PersistentObjectStorage
+from requre.utils import StorageMode
 
 DATA_DIR = "test_data"
 PERSISTENT_DATA_PREFIX = os.path.join(
@@ -18,7 +19,7 @@ class ReadOnly(unittest.TestCase):
             PERSISTENT_DATA_PREFIX, f"test_github_data_{test_name}.yaml"
         )
         PersistentObjectStorage().storage_file = persistent_data_file
-        if PersistentObjectStorage().is_write_mode and not self.token:
+        if PersistentObjectStorage().mode == StorageMode.write and not self.token:
             raise EnvironmentError("please set GITHUB_TOKEN env variables")
 
         self.service = GithubService(token=self.token, read_only=True)
