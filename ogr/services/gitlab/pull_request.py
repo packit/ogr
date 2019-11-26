@@ -158,6 +158,5 @@ class GitlabPullRequest(BasePullRequest):
         return self
 
     def add_label(self, *labels: str) -> None:
-        for label in labels:
-            self._raw_pr.labels.append(label)
+        self._raw_pr.labels += labels
         self._raw_pr.save()

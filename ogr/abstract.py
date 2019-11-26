@@ -309,7 +309,7 @@ class PullRequest:
         :param body: str
         :param target_branch: str
         :param source_branch: str
-        :param fork_username: str The username of forked repository
+        :param fork_username: str The username/namespace of the forked repository.
         :return: PullRequest
         """
         raise NotImplementedError()
