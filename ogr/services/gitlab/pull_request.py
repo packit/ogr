@@ -102,8 +102,8 @@ class GitlabPullRequest(BasePullRequest):
         return GitlabPullRequest(mr, project)
 
     @staticmethod
-    def get(project: "ogr_gitlab.GitlabProject", pr_id: int) -> "PullRequest":
-        mr = project.gitlab_repo.mergerequests.get(pr_id)
+    def get(project: "ogr_gitlab.GitlabProject", id: int) -> "PullRequest":
+        mr = project.gitlab_repo.mergerequests.get(id)
         return GitlabPullRequest(mr, project)
 
     @staticmethod

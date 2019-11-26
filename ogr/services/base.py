@@ -203,6 +203,27 @@ class BaseGitProject(GitProject):
     @deprecate_and_set_removal(
         since="0.9.0",
         remove_in="0.14.0 (or 1.0.0 if it comes sooner)",
+        message="Use create_pr",
+    )
+    def pr_create(
+        self,
+        title: str,
+        body: str,
+        target_branch: str,
+        source_branch: str,
+        fork_username: str = None,
+    ) -> "PullRequest":
+        return self.create_pr(
+            title=title,
+            body=body,
+            target_branch=target_branch,
+            source_branch=source_branch,
+            fork_username=fork_username,
+        )
+
+    @deprecate_and_set_removal(
+        since="0.9.0",
+        remove_in="0.14.0 (or 1.0.0 if it comes sooner)",
         message="Use methods on Issue objects",
     )
     def can_close_issue(self, username: str, issue: Issue) -> bool:

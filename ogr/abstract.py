@@ -315,12 +315,12 @@ class PullRequest:
         raise NotImplementedError()
 
     @staticmethod
-    def get(project: Any, pr_id: int) -> "PullRequest":
+    def get(project: Any, id: int) -> "PullRequest":
         """
         Get pull request
 
         :param project: Any
-        :param pr_id: int
+        :param id: int
         :return: PullRequest
         """
         raise NotImplementedError()
@@ -944,6 +944,26 @@ class GitProject:
         raise NotImplementedError()
 
     def pr_create(
+        self,
+        title: str,
+        body: str,
+        target_branch: str,
+        source_branch: str,
+        fork_username: str = None,
+    ) -> "PullRequest":
+        """
+        Create a new pull request.
+
+        :param title: str
+        :param body: str
+        :param target_branch: str
+        :param source_branch: str
+        :param fork_username: str The username of forked repository
+        :return: PullRequest
+        """
+        raise NotImplementedError()
+
+    def create_pr(
         self,
         title: str,
         body: str,

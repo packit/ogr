@@ -118,8 +118,8 @@ class GithubPullRequest(BasePullRequest):
         return GithubPullRequest(created_pr, project)
 
     @staticmethod
-    def get(project: "ogr_github.GithubProject", pr_id: int) -> "PullRequest":
-        pr = project.github_repo.get_pull(number=pr_id)
+    def get(project: "ogr_github.GithubProject", id: int) -> "PullRequest":
+        pr = project.github_repo.get_pull(number=id)
         return GithubPullRequest(pr, project)
 
     @staticmethod

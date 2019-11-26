@@ -238,10 +238,10 @@ class GithubProject(BaseGitProject):
         return GithubIssue.create(project=self, title=title, body=body)
 
     def get_pr_list(self, status: PRStatus = PRStatus.open) -> List[PullRequest]:
-        return GithubPullRequest.get_list(self, status)
+        return GithubPullRequest.get_list(project=self, status=status)
 
     def get_pr(self, pr_id: int) -> PullRequest:
-        return GithubPullRequest.get(self, pr_id)
+        return GithubPullRequest.get(project=self, id=pr_id)
 
     def get_sha_from_tag(self, tag_name: str) -> str:
         # TODO: This is ugly. Can we do it better?
@@ -258,8 +258,8 @@ class GithubProject(BaseGitProject):
                 return GitTag(name=tag.name, commit_sha=tag.commit.sha)
         return None
 
-    @if_readonly(return_function=GitProjectReadOnly.pr_create)
-    def pr_create(
+    @if_readonly(return_function=GitProjectReadOnly.create_pr)
+    def create_pr(
         self,
         title: str,
         body: str,
@@ -268,7 +268,12 @@ class GithubProject(BaseGitProject):
         fork_username: str = None,
     ) -> PullRequest:
         return GithubPullRequest.create(
-            self, title, body, target_branch, source_branch, fork_username
+            project=self,
+            title=title,
+            body=body,
+            target_branch=target_branch,
+            source_branch=source_branch,
+            fork_username=fork_username,
         )
 
     @if_readonly(

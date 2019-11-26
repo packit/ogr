@@ -35,6 +35,7 @@ from ogr.abstract import (
     CommitFlag,
 )
 from ogr.constant import DEFAULT_RO_PREFIX_STRING
+from ogr.utils import deprecate_and_set_removal
 
 
 def log_output(
@@ -152,7 +153,29 @@ class GitProjectReadOnly:
     url = "url://ReadOnlyURL"
 
     @classmethod
+    @deprecate_and_set_removal(
+        since="0.9.0",
+        remove_in="0.14.0 (or 1.0.0 if it comes sooner)",
+        message="Use create_pr",
+    )
     def pr_create(
+        cls,
+        original_object: Any,
+        title: str,
+        body: str,
+        target_branch: str,
+        source_branch: str,
+    ) -> "PullRequest":
+        return GitProjectReadOnly.create_pr(
+            original_object=original_object,
+            title=title,
+            body=body,
+            target_branch=target_branch,
+            source_branch=source_branch,
+        )
+
+    @classmethod
+    def create_pr(
         cls,
         original_object: Any,
         title: str,

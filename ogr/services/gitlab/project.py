@@ -197,7 +197,7 @@ class GitlabProject(BaseGitProject):
         ]
 
     def get_pr_list(self, status: PRStatus = PRStatus.open) -> List["PullRequest"]:
-        return GitlabPullRequest.get_list(self, status)
+        return GitlabPullRequest.get_list(project=self, status=status)
 
     def get_sha_from_tag(self, tag_name: str) -> str:
         try:
@@ -207,7 +207,7 @@ class GitlabProject(BaseGitProject):
             logger.error(f"Tag {tag_name} was not found.")
             raise GitlabAPIException(f"Tag {tag_name} was not found.", ex)
 
-    def pr_create(
+    def create_pr(
         self,
         title: str,
         body: str,
@@ -216,7 +216,12 @@ class GitlabProject(BaseGitProject):
         fork_username: str = None,
     ) -> "PullRequest":
         return GitlabPullRequest.create(
-            self, title, body, target_branch, source_branch, fork_username
+            project=self,
+            title=title,
+            body=body,
+            target_branch=target_branch,
+            source_branch=source_branch,
+            fork_username=fork_username,
         )
 
     def commit_comment(
@@ -336,7 +341,7 @@ class GitlabProject(BaseGitProject):
         return GitlabIssue.create(project=self, title=title, body=description)
 
     def get_pr(self, pr_id: int) -> PullRequest:
-        return GitlabPullRequest.get(self, pr_id)
+        return GitlabPullRequest.get(project=self, id=pr_id)
 
     def get_tags(self) -> List["GitTag"]:
         tags = self.gitlab_repo.tags.list()

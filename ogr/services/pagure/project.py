@@ -207,16 +207,24 @@ class PagureProject(BaseGitProject):
     def get_pr_list(
         self, status: PRStatus = PRStatus.open, assignee=None, author=None
     ) -> List[PullRequest]:
-        return PagurePullRequest.get_list(self, status, assignee, author)
+        return PagurePullRequest.get_list(
+            project=self, status=status, assignee=assignee, author=author
+        )
 
     def get_pr(self, pr_id: int) -> PullRequest:
-        return PagurePullRequest.get(self, pr_id)
+        return PagurePullRequest.get(project=self, id=pr_id)
 
-    @if_readonly(return_function=GitProjectReadOnly.pr_create)
-    def pr_create(
+    @if_readonly(return_function=GitProjectReadOnly.create_pr)
+    def create_pr(
         self, title: str, body: str, target_branch: str, source_branch: str
     ) -> PullRequest:
-        return PagurePullRequest.create(self, title, body, target_branch, source_branch)
+        return PagurePullRequest.create(
+            project=self,
+            title=title,
+            body=body,
+            target_branch=target_branch,
+            source_branch=source_branch,
+        )
 
     @if_readonly(return_function=GitProjectReadOnly.fork_create)
     def fork_create(self) -> "PagureProject":
