@@ -352,6 +352,13 @@ class Issues(GithubTests):
         with pytest.raises(GithubAPIException):
             self.ogr_project.add_issue_labels(issue_id=1, labels=["should fail"])
 
+    def test_issue_updates(self):
+        issue = self.hello_world_project.get_issue(issue_id=61)
+        old_comments = issue.get_comments()
+        issue.comment("test comment")
+        new_comments = issue.get_comments()
+        assert len(new_comments) > len(old_comments)
+
 
 class PullRequests(GithubTests):
     def test_pr_list(self):

@@ -31,6 +31,50 @@ from ogr.parsing import parse_git_repo
 AnyComment = TypeVar("AnyComment", bound="Comment")
 
 
+class Comment:
+    def __init__(
+        self,
+        raw_comment: Optional[Any] = None,
+        comment: Optional[str] = None,
+        author: Optional[str] = None,
+        created: Optional[datetime.datetime] = None,
+        edited: Optional[datetime.datetime] = None,
+    ) -> None:
+        if raw_comment:
+            self._from_raw_comment(raw_comment)
+        elif comment and author:
+            self.comment = comment
+            self.author = author
+            self.created = created
+            self.edited = edited
+        else:
+            raise ValueError("cannot construct comment without body and author")
+
+    def __str__(self) -> str:
+        comment = f"{self.comment[:10]}..." if self.comment is not None else "None"
+        return (
+            f"Comment("
+            f"comment='{comment}', "
+            f"author='{self.author}', "
+            f"created='{self.created}', "
+            f"edited='{self.edited}')"
+        )
+
+    def _from_raw_comment(self, raw_comment: Any) -> None:
+        """Constructs Comment object from raw_comment given from API."""
+        raise NotImplementedError()
+
+
+class IssueComment(Comment):
+    def __str__(self) -> str:
+        return "Issue" + super().__str__()
+
+
+class PRComment(Comment):
+    def __str__(self) -> str:
+        return "PR" + super().__str__()
+
+
 class IssueStatus(IntEnum):
     open = 1
     closed = 2
@@ -38,23 +82,41 @@ class IssueStatus(IntEnum):
 
 
 class Issue:
-    def __init__(
-        self,
-        title: str,
-        id: int,
-        status: IssueStatus,
-        url: str,
-        description: str,
-        author: str,
-        created: datetime.datetime,
-    ) -> None:
-        self.title = title
-        self.id = id
-        self.status = status
-        self.url = url
-        self.description = description
-        self.author = author
-        self.created = created
+    def __init__(self, raw_issue: Any, project: "GitProject") -> None:
+        self._raw_issue = raw_issue
+        self.project = project
+
+    @property
+    def title(self) -> str:
+        raise NotImplementedError()
+
+    @property
+    def id(self) -> int:
+        raise NotImplementedError()
+
+    @property
+    def status(self) -> IssueStatus:
+        raise NotImplementedError()
+
+    @property
+    def url(self) -> str:
+        raise NotImplementedError()
+
+    @property
+    def description(self) -> str:
+        raise NotImplementedError()
+
+    @property
+    def author(self) -> str:
+        raise NotImplementedError()
+
+    @property
+    def created(self) -> datetime.datetime:
+        raise NotImplementedError()
+
+    @property
+    def labels(self) -> List:
+        raise NotImplementedError()
 
     def __str__(self) -> str:
         description = (
@@ -70,6 +132,95 @@ class Issue:
             f"author='{self.author}', "
             f"created='{self.created}')"
         )
+
+    @staticmethod
+    def create(project: Any, title: str, body: str) -> "Issue":
+        """
+        Open new Issue.
+
+        :param project: Any
+        :param title: str
+        :param body: str
+        :return: Issue
+        """
+        raise NotImplementedError()
+
+    @staticmethod
+    def get(project: Any, id: int) -> "Issue":
+        """
+        Get issue.
+
+        :param project: Any
+        :param id: int
+        :return: Issue
+        """
+        raise NotImplementedError()
+
+    @staticmethod
+    def get_list(project: Any, status: IssueStatus = IssueStatus.open) -> List["Issue"]:
+        """
+        List of issues.
+
+        :param project: Any
+        :param status: IssueStatus enum
+        :return: [Issue]
+        """
+        raise NotImplementedError()
+
+    def _get_all_comments(self) -> List[IssueComment]:
+        """
+        Get list of issue comments.
+
+        :return: [IssueComment]
+        """
+        raise NotImplementedError()
+
+    def get_comments(
+        self, filter_regex: str = None, reverse: bool = False, author: str = None
+    ) -> List[IssueComment]:
+        """
+        Get list of issue comments.
+
+        :param filter_regex: filter the comments' content with re.search
+        :param reverse: reverse order of comments
+        :param author: filter comments by author
+        :return: [IssueComment]
+        """
+        raise NotImplementedError()
+
+    def can_close(self, username: str) -> bool:
+        """
+        Check if user have permissions to modify an Issue.
+
+        :param username: str
+        :return: true if user can close issue, false otherwise
+        """
+        raise NotImplementedError()
+
+    def comment(self, body: str) -> IssueComment:
+        """
+        Add new comment to the issue.
+
+        :param body: str
+        :return: IssueComment
+        """
+        raise NotImplementedError()
+
+    def close(self) -> "Issue":
+        """
+        Close an issue.
+
+        :return: Issue
+        """
+        raise NotImplementedError()
+
+    def add_label(self, *labels: str) -> None:
+        """
+        Add labels the the Issue.
+
+        :param labels: [str]
+        """
+        raise NotImplementedError()
 
 
 class PRStatus(IntEnum):
@@ -118,50 +269,6 @@ class PullRequest:
             f"target_branch='{self.target_branch}', "
             f"created='{self.created}'), "
         )
-
-
-class Comment:
-    def __init__(
-        self,
-        raw_comment: Optional[Any] = None,
-        comment: Optional[str] = None,
-        author: Optional[str] = None,
-        created: Optional[datetime.datetime] = None,
-        edited: Optional[datetime.datetime] = None,
-    ) -> None:
-        if raw_comment:
-            self._from_raw_comment(raw_comment)
-        elif comment and author:
-            self.comment = comment
-            self.author = author
-            self.created = created
-            self.edited = edited
-        else:
-            raise ValueError("cannot construct comment without body and author")
-
-    def __str__(self) -> str:
-        comment = f"{self.comment[:10]}..." if self.comment is not None else "None"
-        return (
-            f"Comment("
-            f"comment='{comment}', "
-            f"author='{self.author}', "
-            f"created='{self.created}', "
-            f"edited='{self.edited}')"
-        )
-
-    def _from_raw_comment(self, raw_comment: Any) -> None:
-        """Constructs Comment object from raw_comment given from API."""
-        raise NotImplementedError()
-
-
-class IssueComment(Comment):
-    def __str__(self) -> str:
-        return "Issue" + super().__str__()
-
-
-class PRComment(Comment):
-    def __str__(self) -> str:
-        return "PR" + super().__str__()
 
 
 class CommitFlag:
@@ -431,6 +538,15 @@ class GitProject:
 
         :param status: IssueStatus enum
         :return: [Issue]
+        """
+        raise NotImplementedError()
+
+    def get_issue(self, issue_id: int) -> "Issue":
+        """
+        Get issue
+
+        :param issue_id: int
+        :return: Issue
         """
         raise NotImplementedError()
 

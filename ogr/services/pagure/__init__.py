@@ -25,10 +25,12 @@ from ogr.services.pagure.user import PagureUser
 from ogr.services.pagure.project import PagureProject
 from ogr.services.pagure.service import PagureService
 from ogr.services.pagure.comments import PagureIssueComment, PagurePRComment
+from ogr.services.pagure.issue import PagureIssue
 
 __all__ = [
     PagureIssueComment.__name__,
     PagurePRComment.__name__,
+    PagureIssue.__name__,
     PagureRelease.__name__,
     PagureUser.__name__,
     PagureProject.__name__,

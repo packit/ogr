@@ -20,6 +20,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
+from deprecated import deprecated
 import logging
 import os
 import re
@@ -104,19 +105,24 @@ def fetch_all() -> None:
 def filter_comments(
     comments: List[AnyComment],
     filter_regex: Optional[str] = None,
+    reverse: bool = False,
     author: Optional[str] = None,
 ) -> List[AnyComment]:
-    pattern = None
-    if filter_regex:
-        pattern = re.compile(filter_regex)
+    if reverse:
+        comments.reverse()
 
-    comments = list(
-        filter(
-            lambda comment: (not pattern or bool(pattern.search(comment.comment)))
-            and (not author or comment.author == author),
-            comments,
+    if filter_regex or author:
+        pattern = None
+        if filter_regex:
+            pattern = re.compile(filter_regex)
+
+        comments = list(
+            filter(
+                lambda comment: (not pattern or bool(pattern.search(comment.comment)))
+                and (not author or comment.author == author),
+                comments,
+            )
         )
-    )
     return comments
 
 
@@ -138,6 +144,12 @@ def search_in_comments(
         if re_search:
             return re_search
     return None
+
+
+def deprecate_and_set_removal(since, remove_in, message):
+    return deprecated(
+        version=since, reason=f"will be removed in {remove_in}: {message}"
+    )
 
 
 class RequestResponse:

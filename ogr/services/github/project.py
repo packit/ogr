@@ -31,13 +31,11 @@ from github import (
     CommitComment as GithubCommitComment,
 )
 from github.GitRelease import GitRelease as PyGithubRelease
-from github.Issue import Issue as GithubIssue
 from github.Label import Label as GithubLabel
 from github.PullRequest import PullRequest as GithubPullRequest
 
 from ogr.abstract import (
     Issue,
-    IssueComment,
     IssueStatus,
     PullRequest,
     PRComment,
@@ -51,7 +49,8 @@ from ogr.exceptions import GithubAPIException
 from ogr.read_only import if_readonly, GitProjectReadOnly
 from ogr.services import github as ogr_github
 from ogr.services.base import BaseGitProject
-from ogr.services.github.comments import GithubIssueComment, GithubPRComment
+from ogr.services.github.comments import GithubPRComment
+from ogr.services.github.issue import GithubIssue
 from ogr.services.github.release import GithubRelease
 
 logger = logging.getLogger(__name__)
@@ -217,16 +216,6 @@ class GithubProject(BaseGitProject):
     def who_can_merge_pr(self) -> Set[str]:
         return self.__get_collaborators()
 
-    def can_close_issue(self, username: str, issue: Issue) -> bool:
-        allowed_users = self.who_can_close_issue()
-
-        if username in allowed_users:
-            return True
-        if username == issue.author:
-            return True
-
-        return False
-
     def can_merge_pr(self, username) -> bool:
         allowed_users = self.who_can_merge_pr()
 
@@ -248,72 +237,13 @@ class GithubProject(BaseGitProject):
         return collaborators
 
     def get_issue_list(self, status: IssueStatus = IssueStatus.open) -> List[Issue]:
-        issues = self.github_repo.get_issues(
-            state=status.name, sort="updated", direction="desc"
-        )
-        try:
-            return [
-                self._issue_from_github_object(issue)
-                for issue in issues
-                if not issue.pull_request
-            ]
-        except UnknownObjectException:
-            return []
+        return GithubIssue.get_list(project=self, status=status)
 
-    def __get_issue(self, number: int) -> GithubIssue:
-        issue = self.github_repo.get_issue(number=number)
-        if issue.pull_request:
-            raise GithubAPIException(f"Requested issue #{number} is a pull request")
-        return issue
-
-    def get_issue_info(self, issue_id: int) -> Issue:
-        issue = self.__get_issue(number=issue_id)
-        return self._issue_from_github_object(issue)
-
-    def _get_all_issue_comments(self, issue_id: int) -> List[IssueComment]:
-        issue = self.__get_issue(number=issue_id)
-        return [GithubIssueComment(raw_comment) for raw_comment in issue.get_comments()]
-
-    def issue_comment(self, issue_id: int, body: str) -> IssueComment:
-        """
-        Create comment on an issue.
-
-        :param issue_id: int The ID of the issue
-        :param body: str The text of the comment
-        :return: IssueComment
-        """
-        github_issue = self.__get_issue(number=issue_id)
-        comment = github_issue.create_comment(body)
-        return GithubIssueComment(comment)
+    def get_issue(self, issue_id: int) -> Issue:
+        return GithubIssue.get(project=self, id=issue_id)
 
     def create_issue(self, title: str, body: str) -> Issue:
-        github_issue = self.github_repo.create_issue(title=title, body=body)
-        return self._issue_from_github_object(github_issue)
-
-    def issue_close(self, issue_id: int) -> Issue:
-        issue = self.__get_issue(number=issue_id)
-        issue.edit(state="closed")
-        return issue
-
-    def get_issue_labels(self, issue_id: int) -> List[GithubLabel]:
-        """
-        Get list of issue's labels.
-        :issue_id: int
-        :return: [GithubLabel]
-        """
-        issue = self.__get_issue(number=issue_id)
-        return list(issue.get_labels())
-
-    def add_issue_labels(self, issue_id, labels) -> None:
-        """
-        Add labels the the Issue.
-
-        :param issue_id: int
-        :param labels: [str]
-        """
-        issue = self.__get_issue(number=issue_id)
-        for label in labels:
-            issue.add_to_labels(label)
+        return GithubIssue.create(project=self, title=title, body=body)
 
     def get_pr_list(self, status: PRStatus = PRStatus.open) -> List[PullRequest]:
         prs = self.github_repo.get_pulls(
@@ -563,22 +493,6 @@ class GithubProject(BaseGitProject):
             ).decoded_content.decode()
         except UnknownObjectException as ex:
             raise FileNotFoundError(f"File '{path}' on {ref} not found", ex)
-
-    @staticmethod
-    def _issue_from_github_object(github_issue: GithubIssue) -> Issue:
-        if github_issue.pull_request:
-            raise GithubAPIException(
-                f"Requested issue #{github_issue.number} is a pull request"
-            )
-        return Issue(
-            title=github_issue.title,
-            id=github_issue.number,
-            status=IssueStatus[github_issue.state],
-            url=github_issue.html_url,
-            description=github_issue.body,
-            author=github_issue.user.login,
-            created=github_issue.created_at,
-        )
 
     @staticmethod
     def _pr_from_github_object(github_pr: GithubPullRequest) -> PullRequest:

@@ -22,17 +22,10 @@
 
 from typing import List, Optional, Match, Any
 
-from ogr.abstract import (
-    GitService,
-    GitProject,
-    GitUser,
-    AnyComment,
-    PRComment,
-    IssueComment,
-)
+from ogr.abstract import GitService, GitProject, GitUser, PRComment, IssueComment, Issue
 from ogr.exceptions import OgrException
 from ogr.parsing import parse_git_repo
-from ogr.utils import search_in_comments, filter_comments
+from ogr.utils import search_in_comments, filter_comments, deprecate_and_set_removal
 
 
 class BaseGitService(GitService):
@@ -55,19 +48,6 @@ class BaseGitProject(GitProject):
         """
         return f"{self.namespace}/{self.repo}"
 
-    @staticmethod
-    def __get_comments(
-        comments: List[AnyComment],
-        filter_regex: str = None,
-        reverse: bool = False,
-        author: str = None,
-    ) -> List[AnyComment]:
-        if reverse:
-            comments.reverse()
-        if filter_regex or author:
-            comments = filter_comments(comments, filter_regex, author)
-        return comments
-
     def get_pr_comments(
         self, pr_id, filter_regex: str = None, reverse: bool = False, author: str = None
     ) -> List[PRComment]:
@@ -81,29 +61,8 @@ class BaseGitProject(GitProject):
         :return: [PRComment]
         """
         all_comments: List[PRComment] = self._get_all_pr_comments(pr_id=pr_id)
-        pr_comments = self.__get_comments(all_comments, filter_regex, reverse, author)
+        pr_comments = filter_comments(all_comments, filter_regex, reverse, author)
         return pr_comments
-
-    def get_issue_comments(
-        self,
-        issue_id,
-        filter_regex: str = None,
-        reverse: bool = False,
-        author: str = None,
-    ) -> List[IssueComment]:
-        """
-        Get list of issue comments.
-
-        :param pr_id: int
-        :param filter_regex: filter the comments' content with re.search
-        :param reverse: reverse order of comments
-        :param author: filter comments by author
-        :return: [PRComment]
-        """
-        all_comments: List[IssueComment] = self._get_all_issue_comments(
-            issue_id=issue_id
-        )
-        return self.__get_comments(all_comments, filter_regex, reverse, author)
 
     def search_in_pr(
         self,
@@ -131,6 +90,87 @@ class BaseGitProject(GitProject):
 
         return search_in_comments(comments=all_comments, filter_regex=filter_regex)
 
+    @deprecate_and_set_removal(
+        since="0.9.0",
+        remove_in="0.14.0 (or 1.0.0 if it comes sooner)",
+        message="Use methods on Issue objects",
+    )
+    def get_issue_comments(
+        self,
+        issue_id,
+        filter_regex: str = None,
+        reverse: bool = False,
+        author: str = None,
+    ) -> List[IssueComment]:
+        return self.get_issue(issue_id).get_comments(filter_regex, reverse, author)
+
+    @deprecate_and_set_removal(
+        since="0.9.0",
+        remove_in="0.14.0 (or 1.0.0 if it comes sooner)",
+        message="Use methods on Issue objects",
+    )
+    def can_close_issue(self, username: str, issue: Issue) -> bool:
+        return issue.can_close(username)
+
+    @deprecate_and_set_removal(
+        since="0.9.0",
+        remove_in="0.14.0 (or 1.0.0 if it comes sooner)",
+        message="Use methods on Issue objects",
+    )
+    def get_issue_info(self, issue_id: int) -> Issue:
+        return self.get_issue(issue_id)
+
+    @deprecate_and_set_removal(
+        since="0.9.0",
+        remove_in="0.14.0 (or 1.0.0 if it comes sooner)",
+        message="Use methods on Issue objects",
+    )
+    def _get_all_issue_comments(self, issue_id: int) -> List["IssueComment"]:
+        return self.get_issue(issue_id)._get_all_comments()
+
+    @deprecate_and_set_removal(
+        since="0.9.0",
+        remove_in="0.14.0 (or 1.0.0 if it comes sooner)",
+        message="Use methods on Issue objects",
+    )
+    def issue_comment(self, issue_id: int, body: str) -> "IssueComment":
+        return self.get_issue(issue_id).comment(body)
+
+    @deprecate_and_set_removal(
+        since="0.9.0",
+        remove_in="0.14.0 (or 1.0.0 if it comes sooner)",
+        message="Use methods on Issue objects",
+    )
+    def issue_close(self, issue_id: int) -> Issue:
+        return self.get_issue(issue_id).close()
+
+    @deprecate_and_set_removal(
+        since="0.9.0",
+        remove_in="0.14.0 (or 1.0.0 if it comes sooner)",
+        message="Use methods on Issue objects",
+    )
+    def get_issue_labels(self, issue_id: int) -> List[Any]:
+        return self.get_issue(issue_id).labels
+
+    @deprecate_and_set_removal(
+        since="0.9.0",
+        remove_in="0.14.0 (or 1.0.0 if it comes sooner)",
+        message="Use methods on Issue objects",
+    )
+    def add_issue_labels(self, issue_id: int, labels: List[str]) -> None:
+        self.get_issue(issue_id).add_label(*labels)
+
 
 class BaseGitUser(GitUser):
     pass
+
+
+class BaseIssue(Issue):
+    def get_comments(
+        self, filter_regex: str = None, reverse: bool = False, author: str = None
+    ) -> List[IssueComment]:
+        all_comments: List[IssueComment] = self._get_all_comments()
+        return filter_comments(all_comments, filter_regex, reverse, author)
+
+    def can_close(self, username: str) -> bool:
+        return username == self.author or username in self.project.who_can_close_issue()
