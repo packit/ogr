@@ -65,36 +65,36 @@ class Comments(PagureTests):
         pr_comments = self.ogr_project.get_pr_comments(pr_id=4)
         assert pr_comments
         print(pr_comments[0].comment, pr_comments[1].comment, pr_comments[2].comment)
-        assert len(pr_comments) == 3
-        assert pr_comments[0].comment.endswith("1")
+        assert len(pr_comments) == 6
+        assert pr_comments[0].comment.endswith("test")
 
     def test_pr_comments_reversed(self):
         pr_comments = self.ogr_project.get_pr_comments(pr_id=4, reverse=True)
         assert pr_comments
-        assert len(pr_comments) == 3
-        assert pr_comments[2].comment.endswith("1")
+        assert len(pr_comments) == 6
+        assert pr_comments[2].comment.endswith("me")
 
     def test_pr_comments_filter(self):
-        pr_comments = self.ogr_project.get_pr_comments(pr_id=4, filter_regex="1")
+        pr_comments = self.ogr_project.get_pr_comments(pr_id=4, filter_regex="me")
         assert pr_comments
-        assert len(pr_comments) == 1
-        assert pr_comments[0].comment == "PR comment 1"
+        assert len(pr_comments) == 4
+        assert pr_comments[0].comment == "ignored comment"
 
         pr_comments = self.ogr_project.get_pr_comments(
             pr_id=4, filter_regex="PR comment [0-9]*"
         )
         assert pr_comments
         assert len(pr_comments) == 2
-        assert pr_comments[0].comment.endswith("1")
+        assert pr_comments[0].comment.endswith("aaaa")
 
     def test_pr_comments_search(self):
-        comment_match = self.ogr_project.search_in_pr(pr_id=1, filter_regex="New")
+        comment_match = self.ogr_project.search_in_pr(pr_id=4, filter_regex="New")
         assert comment_match
         print(comment_match)
         assert comment_match[0] == "New"
 
         comment_match = self.ogr_project.search_in_pr(
-            pr_id=1, filter_regex="Pull-Request has been merged by [a-z]*"
+            pr_id=4, filter_regex="Pull-Request has been merged by [a-z]*"
         )
         print(comment_match)
         assert comment_match
@@ -260,9 +260,10 @@ class PullRequests(PagureTests):
         assert len(pr_list_default) < len(pr_list)
 
     def test_pr_info(self):
-        pr_info = self.ogr_project.get_pr_info(pr_id=1)
+        pr_info = self.ogr_project.get_pr_info(pr_id=5)
         assert pr_info
-        assert pr_info.title.startswith("Add README file")
+        assert pr_info.title.startswith("Test PR")
+        assert pr_info.description.endswith("merged prs")
         assert pr_info.status == PRStatus.merged
 
 

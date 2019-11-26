@@ -216,7 +216,12 @@ class PagureProject(BaseGitProject):
 
     @if_readonly(return_function=GitProjectReadOnly.create_pr)
     def create_pr(
-        self, title: str, body: str, target_branch: str, source_branch: str
+        self,
+        title: str,
+        body: str,
+        target_branch: str,
+        source_branch: str,
+        fork_username: str = None,
     ) -> PullRequest:
         return PagurePullRequest.create(
             project=self,
