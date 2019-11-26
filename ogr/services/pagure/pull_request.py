@@ -96,7 +96,9 @@ class PagurePullRequest(BasePullRequest):
         return "Pagure" + super().__str__()
 
     def __call_api(self, *args, **kwargs) -> dict:
-        return self.project._call_project_api("pull-request", self.id, *args, **kwargs)
+        return self.project._call_project_api(
+            "pull-request", str(self.id), *args, **kwargs
+        )
 
     @staticmethod
     def create(

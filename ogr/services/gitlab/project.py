@@ -63,6 +63,7 @@ class GitlabProject(BaseGitProject):
             )
         super().__init__(repo, service, namespace)
         self._gitlab_repo = gitlab_repo
+        self.read_only = False
 
     @property
     def gitlab_repo(self) -> GitlabObjectsProject:

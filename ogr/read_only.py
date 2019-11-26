@@ -165,6 +165,7 @@ class GitProjectReadOnly:
         body: str,
         target_branch: str,
         source_branch: str,
+        fork_username: str = None,
     ) -> "PullRequest":
         return GitProjectReadOnly.create_pr(
             original_object=original_object,
@@ -182,6 +183,7 @@ class GitProjectReadOnly:
         body: str,
         target_branch: str,
         source_branch: str,
+        fork_username: str = None,
     ) -> "PullRequest":
         output = PullRequestReadOnly(
             title=title,
