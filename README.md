@@ -78,3 +78,5 @@ For more info about contributing to our project see [our contribution guide](/CO
 # Deprecation policy
 
 For more info about deprecation policy see [Deprecation policy](https://github.com/packit-service/research/tree/master/deprecation)
+
+Test
