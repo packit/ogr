@@ -31,14 +31,11 @@ from github import (
     CommitComment as GithubCommitComment,
 )
 from github.GitRelease import GitRelease as PyGithubRelease
-from github.Label import Label as GithubLabel
-from github.PullRequest import PullRequest as GithubPullRequest
 
 from ogr.abstract import (
     Issue,
     IssueStatus,
     PullRequest,
-    PRComment,
     PRStatus,
     Release,
     CommitComment,
@@ -49,9 +46,9 @@ from ogr.exceptions import GithubAPIException
 from ogr.read_only import if_readonly, GitProjectReadOnly
 from ogr.services import github as ogr_github
 from ogr.services.base import BaseGitProject
-from ogr.services.github.comments import GithubPRComment
 from ogr.services.github.issue import GithubIssue
 from ogr.services.github.release import GithubRelease
+from ogr.services.github.pull_request import GithubPullRequest
 
 logger = logging.getLogger(__name__)
 
@@ -217,12 +214,7 @@ class GithubProject(BaseGitProject):
         return self.__get_collaborators()
 
     def can_merge_pr(self, username) -> bool:
-        allowed_users = self.who_can_merge_pr()
-
-        if username in allowed_users:
-            return True
-
-        return False
+        return username in self.who_can_merge_pr()
 
     def _get_collaborators_with_permission(self) -> dict:
         """
@@ -246,34 +238,10 @@ class GithubProject(BaseGitProject):
         return GithubIssue.create(project=self, title=title, body=body)
 
     def get_pr_list(self, status: PRStatus = PRStatus.open) -> List[PullRequest]:
-        prs = self.github_repo.get_pulls(
-            # Github API has no status 'merged', just 'closed'/'opened'/'all'
-            state=status.name if status != PRStatus.merged else "closed",
-            sort="updated",
-            direction="desc",
-        )
+        return GithubPullRequest.get_list(project=self, status=status)
 
-        if status == PRStatus.merged:
-            prs = list(prs)  # Github PaginatedList into list()
-            for pr in prs:
-                if not pr.is_merged():  # parse merged PRs
-                    prs.remove(pr)
-        try:
-            return [self._pr_from_github_object(pr) for pr in prs]
-        except UnknownObjectException:
-            return []
-
-    def get_pr_info(self, pr_id: int) -> PullRequest:
-        pr = self.github_repo.get_pull(number=pr_id)
-        return self._pr_from_github_object(pr)
-
-    def get_all_pr_commits(self, pr_id: int) -> List[str]:
-        pr = self.github_repo.get_pull(number=pr_id)
-        return [commit.sha for commit in pr.get_commits()]
-
-    def _get_all_pr_comments(self, pr_id: int) -> List[PRComment]:
-        pr = self.github_repo.get_pull(number=pr_id)
-        return [GithubPRComment(raw_comment) for raw_comment in pr.get_issue_comments()]
+    def get_pr(self, pr_id: int) -> PullRequest:
+        return GithubPullRequest.get(project=self, id=pr_id)
 
     def get_sha_from_tag(self, tag_name: str) -> str:
         # TODO: This is ugly. Can we do it better?
@@ -290,8 +258,8 @@ class GithubProject(BaseGitProject):
                 return GitTag(name=tag.name, commit_sha=tag.commit.sha)
         return None
 
-    @if_readonly(return_function=GitProjectReadOnly.pr_create)
-    def pr_create(
+    @if_readonly(return_function=GitProjectReadOnly.create_pr)
+    def create_pr(
         self,
         title: str,
         body: str,
@@ -299,86 +267,14 @@ class GithubProject(BaseGitProject):
         source_branch: str,
         fork_username: str = None,
     ) -> PullRequest:
-        """
-        Create pull-request.
-
-        :param title: str Title of the pull request
-        :param body: str The contents of the pull request
-        :param target_branch: str The name of the branch you want the changes pulled into
-        :param source_branch: str The name of the branch where your changes are implemented
-        :param fork_username: str The username of forked repository
-        :return: PullRequest:
-        """
-
-        github_repo = self.github_repo
-
-        if self.is_fork and fork_username:
-            logger.warning(f"{self.full_repo_name} is fork, ignoring fork_username arg")
-
-        if self.is_fork:
-            source_branch = f"{self.namespace}:{source_branch}"
-            github_repo = self.parent.github_repo
-        elif fork_username:
-            source_branch = f"{fork_username}:{source_branch}"
-
-        created_pr = github_repo.create_pull(
-            title=title, body=body, base=target_branch, head=source_branch
+        return GithubPullRequest.create(
+            project=self,
+            title=title,
+            body=body,
+            target_branch=target_branch,
+            source_branch=source_branch,
+            fork_username=fork_username,
         )
-        logger.info(f"PR {created_pr.id} created: {target_branch}<-{source_branch}")
-        return self._pr_from_github_object(created_pr)
-
-    def update_pr_info(
-        self, pr_id: int, title: str = None, description: str = None
-    ) -> PullRequest:
-        """
-        Update pull-request information.
-
-        :param pr_id: int The ID of the pull request
-        :param title: str The title of the pull request
-        :param description str The description of the pull request
-        :return: PullRequest
-        """
-        pr = self.github_repo.get_pull(number=pr_id)
-        if not pr:
-            raise GithubAPIException("PR was not found.")
-        try:
-            pr.edit(title=title, body=description)
-            logger.info(f"PR updated: {pr.url}")
-            return self._pr_from_github_object(pr)
-        except Exception as ex:
-            raise GithubAPIException("there was an error while updating the PR", ex)
-
-    @if_readonly(
-        return_function=GitProjectReadOnly.pr_comment,
-        log_message="Create Comment to PR",
-    )
-    def pr_comment(
-        self,
-        pr_id: int,
-        body: str,
-        commit: str = None,
-        filename: str = None,
-        row: int = None,
-    ) -> PRComment:
-        """
-        Create comment on a pull request. If creating pull request review
-        comment (bind to specific point in diff), all values need to be filled.
-
-        :param pr_id: int The ID of the pull request
-        :param body: str The text of the comment
-        :param commit: str The SHA of the commit needing a comment.
-        :param filename: str The relative path to the file that necessitates a comment
-        :param row: int The position in the diff where you want to add a review comment
-            see https://developer.github.com/v3/pulls/comments/#create-a-comment for more info
-        :return: PRComment
-        """
-        github_pr = self.github_repo.get_pull(number=pr_id)
-        if not any([commit, filename, row]):
-            comment = github_pr.create_issue_comment(body)
-        else:
-            github_commit = self.github_repo.get_commit(commit)
-            comment = github_pr.create_comment(body, github_commit, filename, row)
-        return GithubPRComment(comment)
 
     @if_readonly(
         return_function=GitProjectReadOnly.commit_comment,
@@ -405,26 +301,6 @@ class GithubProject(BaseGitProject):
             comment = github_commit.create_comment(body=body)
         return self._commitcomment_from_github_object(comment)
 
-    def get_pr_labels(self, pr_id: int) -> List[GithubLabel]:
-        """
-        Get list of pr's labels.
-        :pr_id: int
-        :return: [GithubLabel]
-        """
-        pr = self.github_repo.get_pull(number=pr_id)
-        return list(pr.get_labels())
-
-    def add_pr_labels(self, pr_id, labels) -> None:
-        """
-        Add labels the the Pull Request.
-
-        :param pr_id: int
-        :param labels: [str]
-        """
-        pr = self.github_repo.get_pull(number=pr_id)
-        for label in labels:
-            pr.add_to_labels(label)
-
     @if_readonly(
         return_function=GitProjectReadOnly.set_commit_status,
         log_message="Create a status on a commit",
@@ -449,24 +325,6 @@ class GithubProject(BaseGitProject):
             description = description[:140]
         status = github_commit.create_status(state, target_url, description, context)
         return CommitFlag(commit, status.state, status.context, status.description)
-
-    @if_readonly(return_function=GitProjectReadOnly.pr_close)
-    def pr_close(self, pr_id: int) -> "PullRequest":
-        """
-        Close the pull-request.
-
-        :param pr_id: int
-        :return:  PullRequest
-        """
-        pr = self.github_repo.get_pull(pr_id)
-        pr.edit(state=PRStatus.closed.name)
-
-        return self._pr_from_github_object(pr)
-
-    @if_readonly(return_function=GitProjectReadOnly.pr_merge)
-    def pr_merge(self, pr_id: int) -> PullRequest:
-        closed_pr = self.github_repo.get_pull(number=pr_id).merge()
-        return self._pr_from_github_object(closed_pr)
 
     def get_git_urls(self) -> Dict[str, str]:
         return {"git": self.github_repo.clone_url, "ssh": self.github_repo.ssh_url}
@@ -493,22 +351,6 @@ class GithubProject(BaseGitProject):
             ).decoded_content.decode()
         except UnknownObjectException as ex:
             raise FileNotFoundError(f"File '{path}' on {ref} not found", ex)
-
-    @staticmethod
-    def _pr_from_github_object(github_pr: GithubPullRequest) -> PullRequest:
-        return PullRequest(
-            title=github_pr.title,
-            id=github_pr.number,
-            status=PRStatus.merged
-            if github_pr.is_merged()
-            else PRStatus[github_pr.state],
-            url=github_pr.html_url,
-            description=github_pr.body,
-            author=github_pr.user.name,
-            source_branch=github_pr.head.ref,
-            target_branch=github_pr.base.ref,
-            created=github_pr.created_at,
-        )
 
     def _release_from_github_object(
         self, raw_release: PyGithubRelease, git_tag: GitTag

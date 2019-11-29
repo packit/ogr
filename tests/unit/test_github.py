@@ -2,6 +2,7 @@ import pytest
 from flexmock import flexmock
 
 from ogr.services.github.project import GithubProject
+from ogr.services.github.pull_request import GithubPullRequest
 
 
 @pytest.fixture
@@ -16,6 +17,7 @@ def github_project(mock_github_repo):
     )
     flexmock(github_project)
     flexmock(parent_github_project)
+    flexmock(GithubPullRequest)
 
     github_project.should_receive("github_repo").and_return(mock_github_repo())
     parent_github_project.should_receive("github_repo").and_return(mock_github_repo())
@@ -51,7 +53,7 @@ class TestGithubProject:
     )
     def test_pr_create_is_not_fork(self, github_project, fork_username):
         github_project.should_receive("is_fork").and_return(False)
-        github_project.should_receive("_pr_from_github_object").and_return()
+        GithubPullRequest.should_receive("__init__").and_return()
 
         head = ":".join(filter(None, [fork_username, "master"]))
 
@@ -78,7 +80,7 @@ class TestGithubProject:
     )
     def test_pr_create_is_fork(self, github_project, fork_username):
         github_project.should_receive("is_fork").and_return(True)
-        github_project.should_receive("_pr_from_github_object").and_return()
+        GithubPullRequest.should_receive("__init__").and_return()
 
         github_project.parent.github_repo.should_call("create_pull").with_args(
             title="test_title",

@@ -318,7 +318,7 @@ class PullRequests(GitlabTests):
         """
         Create new PR and update pull request ID to this test before this test
         """
-        pull_request_id = 17
+        pull_request_id = 19
         pr_for_merging = self.project.get_pr_info(pr_id=pull_request_id)
         assert pr_for_merging.status == PRStatus.open
         merged_pr = self.project.pr_merge(pr_id=pull_request_id)

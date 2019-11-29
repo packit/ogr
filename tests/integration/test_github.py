@@ -403,23 +403,17 @@ class PullRequests(GithubTests):
         assert commits[2] == "5d6cc05d30ef0a0d69bb42bdcaad187408a070b0"
 
     def test_update_pr_info(self):
-        pr_info = self.ogr_project.get_pr_info(pr_id=1)
-        orig_title = pr_info.title
-        orig_description = pr_info.description
+        pr = self.hello_world_project.get_pr(pr_id=72)
+        original_title = pr.title
+        original_description = pr.description
 
-        self.ogr_project.update_pr_info(
-            pr_id=1, title="changed", description="changed description"
-        )
-        pr_info = self.ogr_project.get_pr_info(pr_id=1)
-        assert pr_info.title == "changed"
-        assert pr_info.description == "changed description"
+        pr.update_info(title="changed title", description="changed description")
+        assert pr.title == "changed title"
+        assert pr.description == "changed description"
 
-        self.ogr_project.update_pr_info(
-            pr_id=1, title=orig_title, description=orig_description
-        )
-        pr_info = self.ogr_project.get_pr_info(pr_id=1)
-        assert pr_info.title == orig_title
-        assert pr_info.description == orig_description
+        pr.update_info(title=original_title, description=original_description)
+        assert pr.title == original_title
+        assert pr.description == original_description
 
     def test_pr_create_upstream_upstream(self):
         """

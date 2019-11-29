@@ -231,27 +231,49 @@ class PRStatus(IntEnum):
 
 
 class PullRequest:
-    def __init__(
-        self,
-        title: str,
-        id: int,
-        status: PRStatus,
-        url: str,
-        description: str,
-        author: str,
-        source_branch: str,
-        target_branch: str,
-        created: datetime.datetime,
-    ) -> None:
-        self.title = title
-        self.id = id
-        self.status = status
-        self.url = url
-        self.description = description
-        self.author = author
-        self.source_branch = source_branch
-        self.target_branch = target_branch
-        self.created = created
+    def __init__(self, raw_pr: Any, project: "GitProject") -> None:
+        self._raw_pr = raw_pr
+        self.project = project
+
+    @property
+    def title(self) -> str:
+        raise NotImplementedError()
+
+    @property
+    def id(self) -> int:
+        raise NotImplementedError()
+
+    @property
+    def status(self) -> PRStatus:
+        raise NotImplementedError()
+
+    @property
+    def url(self) -> str:
+        raise NotImplementedError()
+
+    @property
+    def description(self) -> str:
+        raise NotImplementedError()
+
+    @property
+    def author(self) -> str:
+        raise NotImplementedError()
+
+    @property
+    def source_branch(self) -> str:
+        raise NotImplementedError()
+
+    @property
+    def target_branch(self) -> str:
+        raise NotImplementedError()
+
+    @property
+    def created(self) -> datetime.datetime:
+        raise NotImplementedError()
+
+    @property
+    def labels(self) -> List[Any]:
+        raise NotImplementedError()
 
     def __str__(self) -> str:
         description = (
@@ -269,6 +291,151 @@ class PullRequest:
             f"target_branch='{self.target_branch}', "
             f"created='{self.created}'), "
         )
+
+    @staticmethod
+    def create(
+        project: Any,
+        title: str,
+        body: str,
+        target_branch: str,
+        source_branch: str,
+        fork_username: str = None,
+    ) -> "PullRequest":
+        """
+        Create a new pull request.
+
+        :param project: Any
+        :param title: str
+        :param body: str
+        :param target_branch: str
+        :param source_branch: str
+        :param fork_username: str The username/namespace of the forked repository.
+        :return: PullRequest
+        """
+        raise NotImplementedError()
+
+    @staticmethod
+    def get(project: Any, id: int) -> "PullRequest":
+        """
+        Get pull request
+
+        :param project: Any
+        :param id: int
+        :return: PullRequest
+        """
+        raise NotImplementedError()
+
+    @staticmethod
+    def get_list(project: Any, status: PRStatus = PRStatus.open) -> List["PullRequest"]:
+        """
+        List of pull requests
+
+        :param project: Any
+        :param status: PRStatus enum
+        :return: [PullRequest]
+        """
+        raise NotImplementedError()
+
+    def update_info(
+        self, title: Optional[str] = None, description: Optional[str] = None
+    ) -> "PullRequest":
+        """
+        Update pull-request information.
+
+        :param title: str The title of the pull request
+        :param description str The description of the pull request
+        :return: PullRequest
+        """
+        raise NotImplementedError()
+
+    def _get_all_comments(self) -> List[PRComment]:
+        """
+        Get list of pull-request comments.
+
+        :param pr_id: int
+        :return: [PRComment]
+        """
+        raise NotImplementedError()
+
+    def get_comments(
+        self,
+        filter_regex: Optional[str] = None,
+        reverse: bool = False,
+        author: Optional[str] = None,
+    ) -> List["PRComment"]:
+        """
+        Get list of pull-request comments.
+
+        :param filter_regex: filter the comments' content with re.search
+        :param reverse: reverse order of comments
+        :param author: filter comments by author
+        :return: [PRComment]
+        """
+        raise NotImplementedError()
+
+    def get_all_commits(self) -> List[str]:
+        """
+        Return list of pull-request commits (sha).
+
+        :return: [str]
+        """
+        raise NotImplementedError()
+
+    def search(
+        self, filter_regex: str, reverse: bool = False, description: bool = True
+    ) -> Optional[Match[str]]:
+        """
+        Find match in pull-request description or comments.
+
+        :param description: bool (search in description?)
+        :param filter_regex: filter the comments' content with re.search
+        :param reverse: reverse order of comments
+        :return: re.Match or None
+        """
+        raise NotImplementedError()
+
+    def comment(
+        self,
+        body: str,
+        commit: Optional[str] = None,
+        filename: Optional[str] = None,
+        row: Optional[int] = None,
+    ) -> "PRComment":
+        """
+        Add new comment to the pull request.
+
+        :param body: str
+        :param commit: str
+        :param filename: str
+        :param row: int
+        :return: PRComment
+        """
+        raise NotImplementedError()
+
+    def close(self) -> "PullRequest":
+        """
+        Close the pull-request.
+
+        :return:  PullRequest
+        """
+        raise NotImplementedError()
+
+    def merge(self) -> "PullRequest":
+        """
+        Merge the pull request.
+
+        :return: PullRequest
+        """
+        raise NotImplementedError()
+
+    def add_label(self, *labels: str) -> None:
+        """
+        Add labels the the Pull Request.
+
+        :param pr_id: int
+        :param *labels: str
+        """
+        raise NotImplementedError()
 
 
 class CommitFlag:
@@ -642,6 +809,15 @@ class GitProject:
         """
         raise NotImplementedError()
 
+    def get_pr(self, pr_id: int) -> "PullRequest":
+        """
+        Get pull request
+
+        :param pr_id: int
+        :return: PullRequest
+        """
+        raise NotImplementedError()
+
     def get_pr_info(self, pr_id: int) -> "PullRequest":
         """
         Get pull request info
@@ -768,6 +944,26 @@ class GitProject:
         raise NotImplementedError()
 
     def pr_create(
+        self,
+        title: str,
+        body: str,
+        target_branch: str,
+        source_branch: str,
+        fork_username: str = None,
+    ) -> "PullRequest":
+        """
+        Create a new pull request.
+
+        :param title: str
+        :param body: str
+        :param target_branch: str
+        :param source_branch: str
+        :param fork_username: str The username of forked repository
+        :return: PullRequest
+        """
+        raise NotImplementedError()
+
+    def create_pr(
         self,
         title: str,
         body: str,

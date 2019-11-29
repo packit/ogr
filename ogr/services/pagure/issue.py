@@ -38,7 +38,7 @@ class PagureIssue(BaseIssue):
 
     def __update(self):
         if self.__dirty:
-            self.raw_issue = self.project._call_project_api("issue", str(self.id))
+            self._raw_issue = self.project._call_project_api("issue", str(self.id))
             self.__dirty = False
 
     @property

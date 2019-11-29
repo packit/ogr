@@ -26,8 +26,10 @@ from ogr.services.github.project import GithubProject
 from ogr.services.github.service import GithubService
 from ogr.services.github.comments import GithubIssueComment, GithubPRComment
 from ogr.services.github.issue import GithubIssue
+from ogr.services.github.pull_request import GithubPullRequest
 
 __all__ = [
+    GithubPullRequest.__name__,
     GithubIssueComment.__name__,
     GithubPRComment.__name__,
     GithubIssue.__name__,

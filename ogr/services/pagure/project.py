@@ -20,12 +20,11 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-import datetime
 import logging
 from typing import List, Optional, Dict, Any, Set
 
 from ogr.abstract import PRStatus, GitTag, CommitFlag, CommitComment
-from ogr.abstract import PullRequest, PRComment, Issue, IssueStatus, Release
+from ogr.abstract import PullRequest, Issue, IssueStatus, Release
 from ogr.exceptions import (
     OurPagureRawRequest,
     PagureAPIException,
@@ -37,8 +36,9 @@ from ogr.services.base import BaseGitProject
 from ogr.utils import RequestResponse
 from ogr.services import pagure as ogr_pagure
 from ogr.services.pagure.release import PagureRelease
-from ogr.services.pagure.comments import PagurePRComment
 from ogr.services.pagure.issue import PagureIssue
+from ogr.services.pagure.pull_request import PagurePullRequest
+
 
 logger = logging.getLogger(__name__)
 
@@ -193,11 +193,7 @@ class PagureProject(BaseGitProject):
         return users
 
     def can_merge_pr(self, username) -> bool:
-        allowed_users = self.who_can_merge_pr()
-        if username in allowed_users:
-            return True
-
-        return False
+        return username in self.who_can_merge_pr()
 
     def get_issue_list(self, status: IssueStatus = IssueStatus.open) -> List[Issue]:
         return PagureIssue.get_list(project=self, status=status)
@@ -211,128 +207,29 @@ class PagureProject(BaseGitProject):
     def get_pr_list(
         self, status: PRStatus = PRStatus.open, assignee=None, author=None
     ) -> List[PullRequest]:
+        return PagurePullRequest.get_list(
+            project=self, status=status, assignee=assignee, author=author
+        )
 
-        payload = {"status": status.name.capitalize()}
-        if assignee is not None:
-            payload["assignee"] = assignee
-        if author is not None:
-            payload["author"] = author
+    def get_pr(self, pr_id: int) -> PullRequest:
+        return PagurePullRequest.get(project=self, id=pr_id)
 
-        raw_prs = self._call_project_api("pull-requests", params=payload)["requests"]
-        prs = [self._pr_from_pagure_dict(pr_dict) for pr_dict in raw_prs]
-        return prs
-
-    def get_pr_info(self, pr_id: int) -> PullRequest:
-        raw_pr = self._call_project_api("pull-request", str(pr_id))
-        result = self._pr_from_pagure_dict(raw_pr)
-        return result
-
-    def _get_all_pr_comments(self, pr_id: int) -> List[PRComment]:
-        raw_comments = self._call_project_api("pull-request", str(pr_id))["comments"]
-
-        return [PagurePRComment(comment_dict) for comment_dict in raw_comments]
-
-    @if_readonly(return_function=GitProjectReadOnly.pr_comment)
-    def pr_comment(
+    @if_readonly(return_function=GitProjectReadOnly.create_pr)
+    def create_pr(
         self,
-        pr_id: int,
+        title: str,
         body: str,
-        commit: str = None,
-        filename: str = None,
-        row: int = None,
-    ) -> PRComment:
-        payload: Dict[str, Any] = {"comment": body}
-        if commit is not None:
-            payload["commit"] = commit
-        if filename is not None:
-            payload["filename"] = filename
-        if row is not None:
-            payload["row"] = row
-
-        self._call_project_api(
-            "pull-request", str(pr_id), "comment", method="POST", data=payload
-        )
-
-        return PagurePRComment(comment=body, author=self.service.user.get_username())
-
-    @if_readonly(return_function=GitProjectReadOnly.pr_close)
-    def pr_close(self, pr_id: int) -> PullRequest:
-        return_value = self._call_project_api(
-            "pull-request", str(pr_id), "close", method="POST"
-        )
-
-        if return_value["message"] != "Pull-request closed!":
-            raise PagureAPIException(return_value["message"])
-
-        return self.get_pr_info(pr_id)
-
-    @if_readonly(return_function=GitProjectReadOnly.pr_merge)
-    def pr_merge(self, pr_id: int) -> PullRequest:
-        return_value = self._call_project_api(
-            "pull-request", str(pr_id), "merge", method="POST"
-        )
-
-        if return_value["message"] != "Changes merged!":
-            raise PagureAPIException(return_value["message"])
-
-        return self.get_pr_info(pr_id)
-
-    @if_readonly(return_function=GitProjectReadOnly.pr_create)
-    def pr_create(
-        self, title: str, body: str, target_branch: str, source_branch: str
+        target_branch: str,
+        source_branch: str,
+        fork_username: str = None,
     ) -> PullRequest:
-
-        data = {
-            "title": title,
-            "branch_to": target_branch,
-            "branch_from": source_branch,
-            "initial_comment": body,
-        }
-
-        if self.is_fork:
-            data["repo_from"] = self.repo
-            data["repo_from_username"] = self._user
-            data["repo_from_namespace"] = self.namespace
-
-            # running the call from the parent project
-            return_value = self.parent._call_project_api(
-                "pull-request", "new", method="POST", data=data
-            )
-
-        else:
-            return_value = self._call_project_api(
-                "pull-request", "new", method="POST", data=data
-            )
-
-        pr_object = self._pr_from_pagure_dict(return_value)
-        return pr_object
-
-    def update_pr_info(
-        self, pr_id: int, title: str = None, description: str = None
-    ) -> PullRequest:
-        """
-        Update pull-request information.
-
-        :param pr_id: int The ID of the pull request
-        :param title: str The title of the pull request
-        :param description str The description of the pull request
-        :return: PullRequest
-        """
-        try:
-            data = {}
-            if title:
-                data["title"] = title
-
-            if description:
-                data["initial_comment"] = description
-
-            updated_pr = self._call_project_api(
-                "pull-request", str(pr_id), method="POST", data=data
-            )
-            logger.info(f"PR updated.")
-            return self._pr_from_pagure_dict(updated_pr)
-        except Exception as ex:
-            raise PagureAPIException("there was an error while updating the PR", ex)
+        return PagurePullRequest.create(
+            project=self,
+            title=title,
+            body=body,
+            target_branch=target_branch,
+            source_branch=source_branch,
+        )
 
     @if_readonly(return_function=GitProjectReadOnly.fork_create)
     def fork_create(self) -> "PagureProject":
@@ -417,26 +314,6 @@ class PagureProject(BaseGitProject):
     def get_git_urls(self) -> Dict[str, str]:
         return_value = self._call_project_api("git", "urls")
         return return_value["urls"]
-
-    def _pr_from_pagure_dict(self, pr_dict: dict) -> PullRequest:
-        return PullRequest(
-            title=pr_dict["title"],
-            id=pr_dict["id"],
-            status=PRStatus[pr_dict["status"].lower()],
-            url="/".join(
-                [
-                    self.service.instance_url,
-                    pr_dict["project"]["url_path"],
-                    "pull-request",
-                    str(pr_dict["id"]),
-                ]
-            ),
-            description=pr_dict["initial_comment"],
-            author=pr_dict["user"]["name"],
-            source_branch=pr_dict["branch_from"],
-            target_branch=pr_dict["branch"],
-            created=datetime.datetime.fromtimestamp(int(pr_dict["date_created"])),
-        )
 
     @staticmethod
     def _commit_status_from_pagure_dict(
