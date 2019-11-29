@@ -155,7 +155,7 @@ class GithubPullRequest(BasePullRequest):
 
     def _get_all_comments(self) -> List[PRComment]:
         return [
-            GithubPRComment(raw_comment)
+            GithubPRComment(parent=self, raw_comment=raw_comment)
             for raw_comment in self._raw_pr.get_issue_comments()
         ]
 
@@ -174,7 +174,7 @@ class GithubPullRequest(BasePullRequest):
         else:
             github_commit = self.project.github_repo.get_commit(commit)
             comment = self._raw_pr.create_comment(body, github_commit, filename, row)
-        return GithubPRComment(comment)
+        return GithubPRComment(parent=self, raw_comment=comment)
 
     def close(self) -> "PullRequest":
         self._raw_pr.edit(state=PRStatus.closed.name)

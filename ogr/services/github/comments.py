@@ -27,9 +27,6 @@ from github import IssueComment as _GithubIssueComment
 from ogr.abstract import IssueComment, PRComment
 
 
-# TODO: Keep reference to (ogr's) Issue/PR
-
-
 class GithubComment:
     def _from_raw_comment(self, raw_comment: _GithubIssueComment) -> None:
         self._raw_comment = raw_comment

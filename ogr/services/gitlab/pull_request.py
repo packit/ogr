@@ -131,7 +131,7 @@ class GitlabPullRequest(BasePullRequest):
 
     def _get_all_comments(self) -> List[PRComment]:
         return [
-            GitlabPRComment(raw_comment)
+            GitlabPRComment(parent=self, raw_comment=raw_comment)
             for raw_comment in self._raw_pr.notes.list(sort="asc")
         ]
 
@@ -146,7 +146,7 @@ class GitlabPullRequest(BasePullRequest):
         row: Optional[int] = None,
     ) -> "PRComment":
         comment = self._raw_pr.notes.create({"body": body})
-        return GitlabPRComment(comment)
+        return GitlabPRComment(parent=self, raw_comment=comment)
 
     def close(self) -> "PullRequest":
         self._raw_pr.state_event = "close"

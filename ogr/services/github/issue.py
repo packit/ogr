@@ -109,13 +109,13 @@ class GithubIssue(BaseIssue):
 
     def _get_all_comments(self) -> List[IssueComment]:
         return [
-            GithubIssueComment(raw_comment)
+            GithubIssueComment(parent=self, raw_comment=raw_comment)
             for raw_comment in self._raw_issue.get_comments()
         ]
 
     def comment(self, body: str) -> IssueComment:
         comment = self._raw_issue.create_comment(body)
-        return GithubIssueComment(comment)
+        return GithubIssueComment(parent=self, raw_comment=comment)
 
     def close(self) -> "Issue":
         self._raw_issue.edit(state="closed")

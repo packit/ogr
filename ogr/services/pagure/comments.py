@@ -26,9 +26,6 @@ from typing import Optional, Dict, Any
 from ogr.abstract import Comment, IssueComment, PRComment
 
 
-# TODO: Keep reference to (ogr's) Issue/PR
-
-
 class PagureComment(Comment):
     def _from_raw_comment(self, raw_comment: Dict[str, Any]) -> None:
         self._comment = raw_comment["comment"]

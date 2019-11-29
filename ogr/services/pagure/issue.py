@@ -102,7 +102,10 @@ class PagureIssue(BaseIssue):
     def _get_all_comments(self) -> List[IssueComment]:
         self.__update()
         raw_comments = self._raw_issue["comments"]
-        return [PagureIssueComment(raw_comment) for raw_comment in raw_comments]
+        return [
+            PagureIssueComment(parent=self, raw_comment=raw_comment)
+            for raw_comment in raw_comments
+        ]
 
     def comment(self, body: str) -> IssueComment:
         payload = {"comment": body}
@@ -110,7 +113,7 @@ class PagureIssue(BaseIssue):
             "issue", str(self.id), "comment", data=payload, method="POST"
         )
         self.__dirty = True
-        return PagureIssueComment(comment=body, author=self.project._user)
+        return PagureIssueComment(parent=self, comment=body, author=self.project._user)
 
     def close(self) -> "PagureIssue":
         payload = {"status": "Closed"}

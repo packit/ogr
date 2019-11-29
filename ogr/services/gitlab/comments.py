@@ -28,9 +28,6 @@ from gitlab.v4.objects import ProjectIssueNote, ProjectMergeRequestNote
 from ogr.abstract import IssueComment, PRComment
 
 
-# TODO: Keep reference to (ogr's) Issue/PR
-
-
 class GitlabComment:
     def _from_raw_comment(
         self, raw_comment: Union[ProjectIssueNote, ProjectMergeRequestNote]

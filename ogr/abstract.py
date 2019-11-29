@@ -35,6 +35,7 @@ class Comment:
     def __init__(
         self,
         raw_comment: Optional[Any] = None,
+        parent: Optional[Any] = None,
         comment: Optional[str] = None,
         author: Optional[str] = None,
         created: Optional[datetime.datetime] = None,
@@ -49,6 +50,8 @@ class Comment:
             self._edited = edited
         else:
             raise ValueError("cannot construct comment without body and author")
+
+        self._parent = parent
 
     def __str__(self) -> str:
         comment = f"{self.comment[:10]}..." if self.comment is not None else "None"
@@ -86,11 +89,19 @@ class Comment:
 
 
 class IssueComment(Comment):
+    @property
+    def issue(self) -> "Issue":
+        return self._parent
+
     def __str__(self) -> str:
         return "Issue" + super().__str__()
 
 
 class PRComment(Comment):
+    @property
+    def pull_request(self) -> "PullRequest":
+        return self._parent
+
     def __str__(self) -> str:
         return "PR" + super().__str__()
 
