@@ -20,6 +20,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
+import datetime
 from typing import Union
 
 from gitlab.v4.objects import ProjectIssueNote, ProjectMergeRequestNote
@@ -30,22 +31,33 @@ from ogr.abstract import IssueComment, PRComment
 # TODO: Keep reference to (ogr's) Issue/PR
 
 
-class GitlabCommentParser:
+class GitlabComment:
     def _from_raw_comment(
         self, raw_comment: Union[ProjectIssueNote, ProjectMergeRequestNote]
     ) -> None:
-        self.__raw_comment = raw_comment
-        self.comment = raw_comment.body
-        self.author = raw_comment.author["username"]
-        self.created = raw_comment.created_at
-        self.edited = raw_comment.updated_at
+        self._raw_comment = raw_comment
+        self._author = raw_comment.author["username"]
+        self._created = raw_comment.created_at
+
+    @property
+    def comment(self) -> str:
+        return self._raw_comment.body
+
+    @comment.setter
+    def comment(self, new_comment: str) -> None:
+        self._raw_comment.body = new_comment
+        self._raw_comment.save()
+
+    @property
+    def edited(self) -> datetime.datetime:
+        return self._raw_comment.updated_at
 
 
-class GitlabIssueComment(GitlabCommentParser, IssueComment):
+class GitlabIssueComment(GitlabComment, IssueComment):
     def __str__(self) -> str:
         return "Gitlab" + super().__str__()
 
 
-class GitlabPRComment(GitlabCommentParser, PRComment):
+class GitlabPRComment(GitlabComment, PRComment):
     def __str__(self) -> str:
         return "Gitlab" + super().__str__()

@@ -159,6 +159,36 @@ class Comments(GithubTests):
         assert comments[0].comment.startswith("What")
         assert comments[1].comment.startswith("Consider")
 
+    def test_issue_comments_updates(self):
+        comments = self.hello_world_project.get_issue_comments(
+            61, filter_regex="comment-update"
+        )
+        assert len(comments) == 1
+        before_comment = comments[0].comment
+        before_edited = comments[0].edited
+
+        comments[0].comment = "see if updating works"
+        assert comments[0].comment == "see if updating works"
+        assert comments[0].edited > before_edited
+
+        comments[0].comment = before_comment
+        assert comments[0].comment == before_comment
+
+    def test_pr_comments_updates(self):
+        comments = self.hello_world_project.get_pr_comments(
+            72, filter_regex="comment updates"
+        )
+        assert len(comments) == 1
+        before_comment = comments[0].comment
+        before_edited = comments[0].edited
+
+        comments[0].comment = "see if updating works"
+        assert comments[0].comment == "see if updating works"
+        assert comments[0].edited > before_edited
+
+        comments[0].comment = before_comment
+        assert comments[0].comment == before_comment
+
 
 class GenericCommands(GithubTests):
     def test_description(self):

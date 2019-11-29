@@ -20,6 +20,8 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
+import datetime
+
 from github import IssueComment as _GithubIssueComment
 
 from ogr.abstract import IssueComment, PRComment
@@ -28,20 +30,30 @@ from ogr.abstract import IssueComment, PRComment
 # TODO: Keep reference to (ogr's) Issue/PR
 
 
-class GithubCommentParser:
+class GithubComment:
     def _from_raw_comment(self, raw_comment: _GithubIssueComment) -> None:
-        self.__raw_comment = raw_comment
-        self.comment = raw_comment.body
-        self.author = raw_comment.user.login
-        self.created = raw_comment.created_at
-        self.edited = raw_comment.updated_at
+        self._raw_comment = raw_comment
+        self._author = raw_comment.user.login
+        self._created = raw_comment.created_at
+
+    @property
+    def comment(self) -> str:
+        return self._raw_comment.body
+
+    @comment.setter
+    def comment(self, new_comment: str) -> None:
+        self._raw_comment.edit(new_comment)
+
+    @property
+    def edited(self) -> datetime.datetime:
+        return self._raw_comment.updated_at
 
 
-class GithubIssueComment(GithubCommentParser, IssueComment):
+class GithubIssueComment(GithubComment, IssueComment):
     def __str__(self) -> str:
         return "Github" + super().__str__()
 
 
-class GithubPRComment(GithubCommentParser, PRComment):
+class GithubPRComment(GithubComment, PRComment):
     def __str__(self) -> str:
         return "Github" + super().__str__()

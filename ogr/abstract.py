@@ -43,10 +43,10 @@ class Comment:
         if raw_comment:
             self._from_raw_comment(raw_comment)
         elif comment and author:
-            self.comment = comment
-            self.author = author
-            self.created = created
-            self.edited = edited
+            self._comment = comment
+            self._author = author
+            self._created = created
+            self._edited = edited
         else:
             raise ValueError("cannot construct comment without body and author")
 
@@ -63,6 +63,26 @@ class Comment:
     def _from_raw_comment(self, raw_comment: Any) -> None:
         """Constructs Comment object from raw_comment given from API."""
         raise NotImplementedError()
+
+    @property
+    def comment(self) -> str:
+        return self._comment
+
+    @comment.setter
+    def comment(self, new_comment: str) -> None:
+        self._comment = new_comment
+
+    @property
+    def author(self) -> str:
+        return self._author
+
+    @property
+    def created(self) -> datetime.datetime:
+        return self._created
+
+    @property
+    def edited(self) -> datetime.datetime:
+        return self._edited
 
 
 class IssueComment(Comment):

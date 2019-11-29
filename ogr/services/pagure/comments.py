@@ -23,18 +23,18 @@
 import datetime
 from typing import Optional, Dict, Any
 
-from ogr.abstract import IssueComment, PRComment
+from ogr.abstract import Comment, IssueComment, PRComment
 
 
 # TODO: Keep reference to (ogr's) Issue/PR
 
 
-class PagureCommentParser:
+class PagureComment(Comment):
     def _from_raw_comment(self, raw_comment: Dict[str, Any]) -> None:
-        self.comment = raw_comment["comment"]
-        self.author = raw_comment["user"]["name"]
-        self.created = self.__datetime_from_timestamp(raw_comment["date_created"])
-        self.edited = self.__datetime_from_timestamp(raw_comment["edited_on"])
+        self._comment = raw_comment["comment"]
+        self._author = raw_comment["user"]["name"]
+        self._created = self.__datetime_from_timestamp(raw_comment["date_created"])
+        self._edited = self.__datetime_from_timestamp(raw_comment["edited_on"])
 
     @staticmethod
     def __datetime_from_timestamp(
@@ -42,12 +42,20 @@ class PagureCommentParser:
     ) -> Optional[datetime.datetime]:
         return datetime.datetime.fromtimestamp(int(timestamp)) if timestamp else None
 
+    @property
+    def comment(self) -> str:
+        return self._comment
 
-class PagureIssueComment(PagureCommentParser, IssueComment):
+    @comment.setter
+    def comment(self, new_comment: str) -> None:
+        raise NotImplementedError()
+
+
+class PagureIssueComment(PagureComment, IssueComment):
     def __str__(self) -> str:
         return "Pagure" + super().__str__()
 
 
-class PagurePRComment(PagureCommentParser, PRComment):
+class PagurePRComment(PagureComment, PRComment):
     def __str__(self) -> str:
         return "Pagure" + super().__str__()

@@ -260,6 +260,19 @@ class Issues(GitlabTests):
         new_comments = issue.get_comments()
         assert len(new_comments) > len(old_comments)
 
+    def test_issue_comments_updates(self):
+        comments = self.project.get_issue_comments(3, filter_regex="to be updated")
+        assert len(comments) == 1
+        before_comment = comments[0].comment
+        before_edited = comments[0].edited
+
+        comments[0].comment = "see if updating works"
+        assert comments[0].comment == "see if updating works"
+        assert comments[0].edited > before_edited
+
+        comments[0].comment = before_comment
+        assert comments[0].comment == before_comment
+
 
 class PullRequests(GitlabTests):
     def test_pr_list(self):
@@ -348,6 +361,19 @@ class PullRequests(GitlabTests):
         comments = self.project.get_pr_comments(pr_id=1, author="mfocko")
         assert len(comments) == 2
         assert comments[0].comment.startswith("second")
+
+    def test_pr_comments_updates(self):
+        comments = self.project.get_pr_comments(19, filter_regex="to be updated")
+        assert len(comments) == 1
+        before_comment = comments[0].comment
+        before_edited = comments[0].edited
+
+        comments[0].comment = "see if updating works"
+        assert comments[0].comment == "see if updating works"
+        assert comments[0].edited > before_edited
+
+        comments[0].comment = before_comment
+        assert comments[0].comment == before_comment
 
 
 class Tags(GitlabTests):
