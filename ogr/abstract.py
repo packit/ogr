@@ -505,19 +505,25 @@ class PullRequest:
 class CommitFlag:
     def __init__(
         self,
-        commit: str,
-        state: str,
-        context: str,
+        raw_commit_flag: Optional[Any] = None,
+        project: Optional["GitProject"] = None,
+        commit: Optional[str] = None,
+        state: Optional[str] = None,
+        context: Optional[str] = None,
         comment: Optional[str] = None,
         uid: Optional[str] = None,
         url: Optional[str] = None,
-    ):
-        self.commit = commit
-        self.state = state  # Should be enum
-        self.context = context
+    ) -> None:
+        if commit and state and context:
+            self.commit = commit
+            self.state = state  # Should be enum
+            self.context = context
+            self.comment = comment
+            self.url = url
+        else:
+            self._raw_commit_flag = raw_commit_flag
         self.uid = uid
-        self.comment = comment
-        self.url = url
+        self.project = project
 
     def __str__(self) -> str:
         return (
@@ -529,6 +535,24 @@ class CommitFlag:
             f"comment='{self.comment}',"
             f"url='{self.url}')"
         )
+
+    def _from_raw_commit_flag(self) -> None:
+        raise NotImplementedError()
+
+    @staticmethod
+    def get(project: Any, commit: str) -> List["CommitFlag"]:
+        raise NotImplementedError()
+
+    @staticmethod
+    def set(
+        project: Any,
+        commit: str,
+        state: str,
+        target_url: str,
+        description: str,
+        context: str,
+    ) -> "CommitFlag":
+        raise NotImplementedError()
 
 
 class CommitComment:
