@@ -42,6 +42,7 @@ from ogr.services.base import BaseGitProject
 from ogr.services.gitlab.release import GitlabRelease
 from ogr.services.gitlab.issue import GitlabIssue
 from ogr.services.gitlab.pull_request import GitlabPullRequest
+from ogr.services.gitlab.flag import GitlabCommitFlag
 
 logger = logging.getLogger(__name__)
 
@@ -264,20 +265,14 @@ class GitlabProject(BaseGitProject):
         :param context: A label to differentiate this status from the status of other systems.
         :return: CommitFlag
         """
-        try:
-            commit_object = self.gitlab_repo.commits.get(commit)
-        except gitlab.exceptions.GitlabGetError:
-            logger.error(f"Commit {commit} was not found.")
-            raise GitlabAPIException(f"Commit {commit} was not found.")
-
-        data_dict = {
-            "state": state,
-            "target_url": target_url,
-            "context": context,
-            "description": description,
-        }
-        raw_status = commit_object.statuses.create(data_dict)
-        return self._commit_status_from_gitlab_object(raw_status)
+        return GitlabCommitFlag.set(
+            project=self,
+            commit=commit,
+            state=state,
+            target_url=target_url,
+            description=description,
+            context=context,
+        )
 
     def get_commit_statuses(self, commit: str) -> List[CommitFlag]:
         """
@@ -285,17 +280,7 @@ class GitlabProject(BaseGitProject):
         :param commit: The SHA of the commit.
         :return: [CommitFlag]
         """
-        try:
-            commit_object = self.gitlab_repo.commits.get(commit)
-        except gitlab.exceptions.GitlabGetError:
-            logger.error(f"Commit {commit} was not found.")
-            raise GitlabAPIException(f"Commit {commit} was not found.")
-
-        raw_statuses = commit_object.statuses.list()
-        return [
-            self._commit_status_from_gitlab_object(raw_status)
-            for raw_status in raw_statuses
-        ]
+        return GitlabCommitFlag.get(project=self, commit=commit)
 
     def get_git_urls(self) -> Dict[str, str]:
         return {
@@ -439,17 +424,6 @@ class GitlabProject(BaseGitProject):
         if not color.startswith("#"):
             return "#{}".format(color)
         return color
-
-    @staticmethod
-    def _commit_status_from_gitlab_object(raw_status) -> CommitFlag:
-        return CommitFlag(
-            commit=raw_status.sha,
-            state=raw_status.status,
-            context=raw_status.name,
-            comment=raw_status.description,
-            uid=raw_status.id,
-            url=raw_status.target_url,
-        )
 
     @staticmethod
     def _commit_comment_from_gitlab_object(raw_comment, commit) -> CommitComment:

@@ -21,7 +21,7 @@
 # SOFTWARE.
 
 import logging
-from typing import List, Optional, Dict, Any, Set
+from typing import List, Optional, Dict, Set
 
 from ogr.abstract import PRStatus, GitTag, CommitFlag, CommitComment
 from ogr.abstract import PullRequest, Issue, IssueStatus, Release
@@ -38,6 +38,7 @@ from ogr.services import pagure as ogr_pagure
 from ogr.services.pagure.release import PagureRelease
 from ogr.services.pagure.issue import PagureIssue
 from ogr.services.pagure.pull_request import PagurePullRequest
+from ogr.services.pagure.flag import PagureCommitFlag
 
 
 logger = logging.getLogger(__name__)
@@ -315,19 +316,6 @@ class PagureProject(BaseGitProject):
         return_value = self._call_project_api("git", "urls")
         return return_value["urls"]
 
-    @staticmethod
-    def _commit_status_from_pagure_dict(
-        status_dict: dict, uid: str = None
-    ) -> CommitFlag:
-        return CommitFlag(
-            commit=status_dict["commit_hash"],
-            comment=status_dict["comment"],
-            state=status_dict["status"],
-            context=status_dict["username"],
-            url=status_dict["url"],
-            uid=uid,
-        )
-
     def change_token(self, new_token: str) -> None:
         """
         Change an API token.
@@ -370,27 +358,19 @@ class PagureProject(BaseGitProject):
         percent: int = None,
         uid: str = None,
     ) -> "CommitFlag":
-        data: Dict[str, Any] = {
-            "username": context,
-            "comment": description,
-            "url": target_url,
-            "status": state,
-        }
-        if percent:
-            data["percent"] = percent
-        if uid:
-            data["uid"] = uid
-
-        response = self._call_project_api("c", commit, "flag", method="POST", data=data)
-        return self._commit_status_from_pagure_dict(
-            response["flag"], uid=response["uid"]
+        return PagureCommitFlag.set(
+            project=self,
+            commit=commit,
+            state=state,
+            target_url=target_url,
+            description=description,
+            context=context,
+            percent=percent,
+            uid=uid,
         )
 
     def get_commit_statuses(self, commit: str) -> List[CommitFlag]:
-        response = self._call_project_api("c", commit, "flag")
-        return [
-            self._commit_status_from_pagure_dict(flag) for flag in response["flags"]
-        ]
+        return PagureCommitFlag.get(project=self, commit=commit)
 
     def get_tags(self) -> List[GitTag]:
         response = self._call_project_api("git", "tags", params={"with_commits": True})

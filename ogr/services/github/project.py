@@ -49,6 +49,7 @@ from ogr.services.base import BaseGitProject
 from ogr.services.github.issue import GithubIssue
 from ogr.services.github.release import GithubRelease
 from ogr.services.github.pull_request import GithubPullRequest
+from ogr.services.github.flag import GithubCommitFlag
 
 logger = logging.getLogger(__name__)
 
@@ -320,11 +321,24 @@ class GithubProject(BaseGitProject):
             github.GithubException
         :return:
         """
-        github_commit = self.github_repo.get_commit(commit)
-        if trim:
-            description = description[:140]
-        status = github_commit.create_status(state, target_url, description, context)
-        return CommitFlag(commit, status.state, status.context, status.description)
+        return GithubCommitFlag.set(
+            project=self,
+            commit=commit,
+            state=state,
+            target_url=target_url,
+            description=description,
+            context=context,
+            trim=trim,
+        )
+
+    def get_commit_statuses(self, commit: str) -> List[CommitFlag]:
+        """
+        Get status of the commit.
+
+        :param commit: str
+        :return: [CommitFlag]
+        """
+        return GithubCommitFlag.get(project=self, commit=commit)
 
     def get_git_urls(self) -> Dict[str, str]:
         return {"git": self.github_repo.clone_url, "ssh": self.github_repo.ssh_url}

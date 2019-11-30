@@ -261,5 +261,4 @@ class GitProjectReadOnly:
     def set_commit_status(
         cls, original_object: Any, commit: str, state: str, context: str
     ) -> "CommitFlag":
-        output = CommitFlag(commit, state, context)
-        return output
+        return CommitFlag(commit=commit, state=state, context=context)
