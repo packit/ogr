@@ -501,6 +501,14 @@ class PullRequest:
         """
         raise NotImplementedError()
 
+    def get_statuses(self) -> List["CommitFlag"]:
+        """
+        Returns statuses for latest commit on pull request.
+
+        :return: [CommitFlag]
+        """
+        raise NotImplementedError()
+
 
 class CommitFlag:
     def __init__(
