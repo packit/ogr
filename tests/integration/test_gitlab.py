@@ -375,6 +375,21 @@ class PullRequests(GitlabTests):
         comments[0].body = before_comment
         assert comments[0].body == before_comment
 
+    def test_pr_status(self):
+        self.project.set_commit_status(
+            commit="59b1a9bab5b5198c619270646410867788685c16",
+            state="success",
+            target_url="https://gitlab.com/packit-service/ogr-tests",
+            description="not failed test",
+            context="test",
+        )
+        pr = self.project.get_pr(pr_id=19)
+
+        statuses = pr.get_statuses()
+        assert statuses
+        assert len(statuses) >= 0
+        assert statuses[-1].state == "success"
+
 
 class Tags(GitlabTests):
     def test_get_tags(self):

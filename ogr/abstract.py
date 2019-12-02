@@ -530,6 +530,7 @@ class CommitFlag:
             self.url = url
         else:
             self._raw_commit_flag = raw_commit_flag
+            self._from_raw_commit_flag()
         self.uid = uid
         self.project = project
 

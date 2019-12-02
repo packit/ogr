@@ -347,7 +347,7 @@ class BasePullRequest(PullRequest):
         return search_in_comments(comments=all_comments, filter_regex=filter_regex)
 
     def get_statuses(self) -> List[CommitFlag]:
-        commit = self.get_all_commits()[0]
+        commit = self.get_all_commits()[-1]
         return self.project.get_commit_statuses(commit)
 
 

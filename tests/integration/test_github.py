@@ -290,6 +290,14 @@ class GenericCommands(GithubTests):
         assert status
         assert status.comment == "testing description"
 
+    def test_get_commit_statuses(self):
+        statuses = self.ogr_project.get_commit_statuses(
+            commit="c891a9e4ac01e6575f3fd66cf1b7db2f52f10128"
+        )
+        assert statuses
+        assert len(statuses) >= 26
+        assert statuses[-1].comment.startswith("Testing the trimming")
+
     def test_set_commit_status_long_description(self):
         long_description = (
             "Testing the trimming of the description after an argument trim "
@@ -561,6 +569,13 @@ class PullRequests(GithubTests):
 
         assert pr_check.title == "test pr_close"
         assert pr_check.status == PRStatus.closed
+
+    def test_pr_status(self):
+        pr = self.ogr_project.get_pr(pr_id=278)
+
+        statuses = pr.get_statuses()
+        assert statuses
+        assert len(statuses) >= 6
 
 
 class Releases(GithubTests):

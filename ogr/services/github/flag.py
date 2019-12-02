@@ -63,4 +63,4 @@ class GithubCommitFlag(CommitFlag):
         if trim:
             description = description[:140]
         status = github_commit.create_status(state, target_url, description, context)
-        return CommitFlag(project=project, raw_commit_flag=status, commit=commit)
+        return GithubCommitFlag(project=project, raw_commit_flag=status, commit=commit)

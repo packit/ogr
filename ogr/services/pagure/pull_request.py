@@ -24,7 +24,7 @@ import datetime
 import logging
 from typing import List, Optional, Dict, Any
 
-from ogr.abstract import PRStatus
+from ogr.abstract import PRStatus, CommitFlag
 from ogr.abstract import PullRequest, PRComment
 from ogr.exceptions import PagureAPIException
 from ogr.services.base import BasePullRequest
@@ -216,3 +216,7 @@ class PagurePullRequest(BasePullRequest):
 
         self.__dirty = True
         return self
+
+    def get_statuses(self) -> List[CommitFlag]:
+        self.__update()
+        return self.project.get_commit_statuses(self._raw_pr["commit_stop"])
