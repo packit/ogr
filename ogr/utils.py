@@ -129,7 +129,7 @@ def filter_comments(
 
         comments = list(
             filter(
-                lambda comment: (not pattern or bool(pattern.search(comment.comment)))
+                lambda comment: (not pattern or bool(pattern.search(comment.body)))
                 and (not author or comment.author == author),
                 comments,
             )
@@ -150,7 +150,7 @@ def search_in_comments(
     pattern = re.compile(filter_regex)
     for comment in comments:
         if isinstance(comment, Comment):
-            comment = comment.comment
+            comment = comment.body
         re_search = pattern.search(comment)
         if re_search:
             return re_search

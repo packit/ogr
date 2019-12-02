@@ -113,7 +113,7 @@ class PagureIssue(BaseIssue):
             "issue", str(self.id), "comment", data=payload, method="POST"
         )
         self.__dirty = True
-        return PagureIssueComment(parent=self, comment=body, author=self.project._user)
+        return PagureIssueComment(parent=self, body=body, author=self.project._user)
 
     def close(self) -> "PagureIssue":
         payload = {"status": "Closed"}

@@ -24,6 +24,7 @@ import datetime
 from enum import IntEnum
 from typing import Optional, Match, List, Dict, Set, TypeVar, Any, Sequence
 from urllib.request import urlopen
+import warnings
 
 from ogr.exceptions import OgrException
 from ogr.parsing import parse_git_repo
@@ -36,15 +37,15 @@ class Comment:
         self,
         raw_comment: Optional[Any] = None,
         parent: Optional[Any] = None,
-        comment: Optional[str] = None,
+        body: Optional[str] = None,
         author: Optional[str] = None,
         created: Optional[datetime.datetime] = None,
         edited: Optional[datetime.datetime] = None,
     ) -> None:
         if raw_comment:
             self._from_raw_comment(raw_comment)
-        elif comment and author:
-            self._comment = comment
+        elif body and author:
+            self._body = body
             self._author = author
             self._created = created
             self._edited = edited
@@ -54,10 +55,10 @@ class Comment:
         self._parent = parent
 
     def __str__(self) -> str:
-        comment = f"{self.comment[:10]}..." if self.comment is not None else "None"
+        body = f"{self.body[:10]}..." if self.body is not None else "None"
         return (
             f"Comment("
-            f"comment='{comment}', "
+            f"comment='{body}', "
             f"author='{self.author}', "
             f"created='{self.created}', "
             f"edited='{self.edited}')"
@@ -68,12 +69,20 @@ class Comment:
         raise NotImplementedError()
 
     @property
-    def comment(self) -> str:
-        return self._comment
+    def comment(self):
+        warnings.warn(
+            "Using deprecated property, that will be removed in 0.14.0"
+            " (or 1.0.0 if it comes sooner). Please use body. "
+        )
+        return self._body
 
-    @comment.setter
-    def comment(self, new_comment: str) -> None:
-        self._comment = new_comment
+    @property
+    def body(self) -> str:
+        return self._body
+
+    @body.setter
+    def body(self, new_body: str) -> None:
+        self._body = new_body
 
     @property
     def author(self) -> str:

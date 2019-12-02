@@ -34,12 +34,12 @@ class GithubComment:
         self._created = raw_comment.created_at
 
     @property
-    def comment(self) -> str:
+    def body(self) -> str:
         return self._raw_comment.body
 
-    @comment.setter
-    def comment(self, new_comment: str) -> None:
-        self._raw_comment.edit(new_comment)
+    @body.setter
+    def body(self, new_body: str) -> None:
+        self._raw_comment.edit(new_body)
 
     @property
     def edited(self) -> datetime.datetime:

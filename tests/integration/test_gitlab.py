@@ -206,25 +206,25 @@ class Issues(GitlabTests):
     def test_get_issue_comments(self):
         comments = self.project.get_issue_comments(issue_id=2)
         assert len(comments) == 5
-        assert comments[0].comment.startswith("Comment")
+        assert comments[0].body.startswith("Comment")
         assert comments[0].author == "lbarcziova"
 
     def test_get_issue_comments_reversed(self):
         comments = self.project.get_issue_comments(issue_id=2, reverse=True)
         assert len(comments) == 5
-        assert comments[0].comment.startswith("regex")
+        assert comments[0].body.startswith("regex")
 
     def test_get_issue_comments_regex(self):
         comments = self.project.get_issue_comments(issue_id=2, filter_regex="regex")
         assert len(comments) == 2
-        assert comments[0].comment.startswith("let's")
+        assert comments[0].body.startswith("let's")
 
     def test_get_issue_comments_regex_reversed(self):
         comments = self.project.get_issue_comments(
             issue_id=2, filter_regex="regex", reverse=True
         )
         assert len(comments) == 2
-        assert comments[0].comment.startswith("regex")
+        assert comments[0].body.startswith("regex")
 
     def test_issue_labels(self):
         """
@@ -245,13 +245,13 @@ class Issues(GitlabTests):
             issue_id=2, filter_regex="2$", author="lbarcziova"
         )
         assert len(comments) == 1
-        assert comments[0].comment.startswith("Comment")
+        assert comments[0].body.startswith("Comment")
 
     def test_get_issue_comments_author(self):
         comments = self.project.get_issue_comments(issue_id=2, author="mfocko")
         assert len(comments) == 2
-        assert comments[0].comment.startswith("let's")
-        assert comments[1].comment.startswith("regex")
+        assert comments[0].body.startswith("let's")
+        assert comments[1].body.startswith("regex")
 
     def test_issue_updates(self):
         issue = self.project.get_issue(issue_id=1)
@@ -263,15 +263,15 @@ class Issues(GitlabTests):
     def test_issue_comments_updates(self):
         comments = self.project.get_issue_comments(3, filter_regex="to be updated")
         assert len(comments) == 1
-        before_comment = comments[0].comment
+        before_comment = comments[0].body
         before_edited = comments[0].edited
 
-        comments[0].comment = "see if updating works"
-        assert comments[0].comment == "see if updating works"
+        comments[0].body = "see if updating works"
+        assert comments[0].body == "see if updating works"
         assert comments[0].edited > before_edited
 
-        comments[0].comment = before_comment
-        assert comments[0].comment == before_comment
+        comments[0].body = before_comment
+        assert comments[0].body == before_comment
 
 
 class PullRequests(GitlabTests):
@@ -299,7 +299,7 @@ class PullRequests(GitlabTests):
     def test_get_all_pr_comments(self):
         comments = self.project._get_all_pr_comments(pr_id=1)
         count = len(comments)
-        assert comments[0].comment == "first comment of mergerequest"
+        assert comments[0].body == "first comment of mergerequest"
         assert comments[0].author == "lbarcziova"
         assert count >= 2
 
@@ -355,25 +355,25 @@ class PullRequests(GitlabTests):
             pr_id=1, filter_regex="test$", author="mfocko"
         )
         assert len(comments) == 1
-        assert comments[0].comment.startswith("author")
+        assert comments[0].body.startswith("author")
 
     def test_get_pr_comments_author(self):
         comments = self.project.get_pr_comments(pr_id=1, author="mfocko")
         assert len(comments) == 2
-        assert comments[0].comment.startswith("second")
+        assert comments[0].body.startswith("second")
 
     def test_pr_comments_updates(self):
         comments = self.project.get_pr_comments(19, filter_regex="to be updated")
         assert len(comments) == 1
-        before_comment = comments[0].comment
+        before_comment = comments[0].body
         before_edited = comments[0].edited
 
-        comments[0].comment = "see if updating works"
-        assert comments[0].comment == "see if updating works"
+        comments[0].body = "see if updating works"
+        assert comments[0].body == "see if updating works"
         assert comments[0].edited > before_edited
 
-        comments[0].comment = before_comment
-        assert comments[0].comment == before_comment
+        comments[0].body = before_comment
+        assert comments[0].body == before_comment
 
 
 class Tags(GitlabTests):

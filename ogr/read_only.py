@@ -212,7 +212,7 @@ class GitProjectReadOnly:
         log_output(pull_request)
         output = PRComment(
             parent=pull_request,
-            comment=body,
+            body=body,
             author=cls.author,
             created=datetime.datetime.now(),
             edited=datetime.datetime.now(),
@@ -239,7 +239,7 @@ class GitProjectReadOnly:
         log_output(issue)
         output = IssueComment(
             parent=issue,
-            comment=body,
+            body=body,
             author=cls.author,
             created=datetime.datetime.now(),
             edited=datetime.datetime.now(),

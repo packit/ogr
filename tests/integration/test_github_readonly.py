@@ -35,8 +35,8 @@ class ReadOnly(unittest.TestCase):
         assert pr_comments
         assert len(pr_comments) == 2
 
-        assert pr_comments[0].comment.endswith("fixed")
-        assert pr_comments[1].comment.startswith("LGTM")
+        assert pr_comments[0].body.endswith("fixed")
+        assert pr_comments[1].body.startswith("LGTM")
 
     def test_create_pr(self):
         pr = self.ogr_project.pr_create(

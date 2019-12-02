@@ -196,7 +196,7 @@ class PagurePullRequest(BasePullRequest):
         self.__call_api("comment", method="POST", data=payload)
         self.__dirty = True
         return PagurePRComment(
-            parent=self, comment=body, author=self.project.service.user.get_username()
+            parent=self, body=body, author=self.project.service.user.get_username()
         )
 
     def close(self) -> "PullRequest":

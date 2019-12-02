@@ -10,25 +10,25 @@ from ogr.utils import filter_comments, search_in_comments
 def comments():
     return [
         PRComment(
-            comment="Abc def ghi.",
+            body="Abc def ghi.",
             author="Mr. Smith",
             created=datetime.datetime(2019, 1, 18, 10, 14, 5),
             edited=datetime.datetime(2019, 1, 18, 10, 18, 5),
         ),
         PRComment(
-            comment="something 12345 different",
+            body="something 12345 different",
             author="Mr. Bean",
             created=datetime.datetime(2019, 1, 18, 10, 14, 5),
             edited=datetime.datetime(2019, 1, 18, 10, 18, 5),
         ),
         PRComment(
-            comment="Just a comment.",
+            body="Just a comment.",
             author="Mr. Doe",
             created=datetime.datetime(2019, 1, 18, 10, 14, 5),
             edited=datetime.datetime(2019, 1, 18, 10, 18, 5),
         ),
         PRComment(
-            comment="Just some notes.",
+            body="Just some notes.",
             author="Mr. Brown",
             created=datetime.datetime(2019, 1, 18, 10, 14, 5),
             edited=datetime.datetime(2019, 1, 18, 10, 18, 5),

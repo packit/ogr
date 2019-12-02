@@ -28,7 +28,7 @@ from ogr.abstract import Comment, IssueComment, PRComment
 
 class PagureComment(Comment):
     def _from_raw_comment(self, raw_comment: Dict[str, Any]) -> None:
-        self._comment = raw_comment["comment"]
+        self._body = raw_comment["comment"]
         self._author = raw_comment["user"]["name"]
         self._created = self.__datetime_from_timestamp(raw_comment["date_created"])
         self._edited = self.__datetime_from_timestamp(raw_comment["edited_on"])
@@ -40,11 +40,11 @@ class PagureComment(Comment):
         return datetime.datetime.fromtimestamp(int(timestamp)) if timestamp else None
 
     @property
-    def comment(self) -> str:
-        return self._comment
+    def body(self) -> str:
+        return self._body
 
-    @comment.setter
-    def comment(self, new_comment: str) -> None:
+    @body.setter
+    def body(self, new_body: str) -> None:
         raise NotImplementedError()
 
 
