@@ -271,45 +271,70 @@ class PRStatus(IntEnum):
 
 
 class PullRequest:
-    def __init__(self, raw_pr: Any, project: "GitProject") -> None:
-        self._raw_pr = raw_pr
-        self.project = project
+    from ogr.utils import deprecate_and_set_removal as _deprecate_and_set_removal
+
+    @_deprecate_and_set_removal(
+        since="0.9.0",
+        remove_in="0.14.0 (or 1.0.0 if it comes sooner)",
+        message="Use PullRequestReadOnly from ogr.read_only",
+    )
+    def __init__(
+        self,
+        title: str,
+        description: str,
+        target_branch: str,
+        source_branch: str,
+        id: int,
+        status: PRStatus,
+        url: str,
+        author: str,
+        created: datetime.datetime,
+    ) -> None:
+        self._title = title
+        self._description = description
+        self._target_branch = target_branch
+        self._source_branch = source_branch
+        self._id = id
+        self._status = PRStatus.open
+        self._url = url
+        self._author = author
+        self._created = created
 
     @property
     def title(self) -> str:
-        raise NotImplementedError()
+        return self._title
 
     @property
     def id(self) -> int:
-        raise NotImplementedError()
+        return self._id
 
     @property
     def status(self) -> PRStatus:
-        raise NotImplementedError()
+        return self._status
 
     @property
     def url(self) -> str:
-        raise NotImplementedError()
+        return self._url
 
     @property
     def description(self) -> str:
-        raise NotImplementedError()
+        return self._description
 
     @property
     def author(self) -> str:
-        raise NotImplementedError()
+        return self._author
 
     @property
     def source_branch(self) -> str:
-        raise NotImplementedError()
+        return self._source_branch
 
     @property
     def target_branch(self) -> str:
-        raise NotImplementedError()
+        return self._target_branch
 
     @property
     def created(self) -> datetime.datetime:
-        raise NotImplementedError()
+        return self._created
 
     @property
     def labels(self) -> List[Any]:

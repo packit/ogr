@@ -20,6 +20,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
+import datetime
 from typing import List, Optional, Match, Any
 
 from ogr.abstract import (
@@ -27,6 +28,7 @@ from ogr.abstract import (
     GitProject,
     GitUser,
     PRComment,
+    PRStatus,
     IssueComment,
     Issue,
     PullRequest,
@@ -279,6 +281,50 @@ class BaseGitProject(GitProject):
 
 
 class BasePullRequest(PullRequest):
+    def __init__(self, raw_pr: Any, project: "GitProject") -> None:
+        self._raw_pr = raw_pr
+        self.project = project
+
+    @property
+    def title(self) -> str:
+        raise NotImplementedError()
+
+    @property
+    def id(self) -> int:
+        raise NotImplementedError()
+
+    @property
+    def status(self) -> PRStatus:
+        raise NotImplementedError()
+
+    @property
+    def url(self) -> str:
+        raise NotImplementedError()
+
+    @property
+    def description(self) -> str:
+        raise NotImplementedError()
+
+    @property
+    def author(self) -> str:
+        raise NotImplementedError()
+
+    @property
+    def source_branch(self) -> str:
+        raise NotImplementedError()
+
+    @property
+    def target_branch(self) -> str:
+        raise NotImplementedError()
+
+    @property
+    def created(self) -> datetime.datetime:
+        raise NotImplementedError()
+
+    @property
+    def labels(self) -> List[Any]:
+        raise NotImplementedError()
+
     def get_comments(
         self, filter_regex: str = None, reverse: bool = False, author: str = None
     ):
