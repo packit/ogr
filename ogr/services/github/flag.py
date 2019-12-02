@@ -24,16 +24,23 @@ from typing import List
 
 from github import UnknownObjectException
 
-from ogr.abstract import CommitFlag
+from ogr.abstract import CommitFlag, CommitStatus
 from ogr.services import github as ogr_github
 
 
 class GithubCommitFlag(CommitFlag):
+    _states = {
+        "pending": CommitStatus.pending,
+        "success": CommitStatus.success,
+        "failure": CommitStatus.failure,
+        "error": CommitStatus.error,
+    }
+
     def __str__(self) -> str:
         return "Github" + super().__str__()
 
     def _from_raw_commit_flag(self):
-        self.state = self._raw_commit_flag.state
+        self.state = self._state_from_str(self._raw_commit_flag.state)
         self.context = self._raw_commit_flag.context
         self.comment = self._raw_commit_flag.description
 
@@ -53,7 +60,7 @@ class GithubCommitFlag(CommitFlag):
     def set(
         project: "ogr_github.GithubProject",
         commit: str,
-        state: str,
+        state: CommitStatus,
         target_url: str,
         description: str,
         context: str,
@@ -62,5 +69,7 @@ class GithubCommitFlag(CommitFlag):
         github_commit = project.github_repo.get_commit(commit)
         if trim:
             description = description[:140]
-        status = github_commit.create_status(state, target_url, description, context)
+        status = github_commit.create_status(
+            state.name, target_url, description, context
+        )
         return GithubCommitFlag(project=project, raw_commit_flag=status, commit=commit)

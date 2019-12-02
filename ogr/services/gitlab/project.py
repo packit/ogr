@@ -35,6 +35,7 @@ from ogr.abstract import (
     CommitFlag,
     PRStatus,
     CommitComment,
+    CommitStatus,
 )
 from ogr.exceptions import GitlabAPIException
 from ogr.services import gitlab as ogr_gitlab
@@ -253,7 +254,12 @@ class GitlabProject(BaseGitProject):
         return self._commit_comment_from_gitlab_object(raw_comment, commit)
 
     def set_commit_status(
-        self, commit: str, state: str, target_url: str, description: str, context: str
+        self,
+        commit: str,
+        state: CommitStatus,
+        target_url: str,
+        description: str,
+        context: str,
     ) -> "CommitFlag":
         """
         Create a status on a commit

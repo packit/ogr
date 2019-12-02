@@ -22,18 +22,26 @@
 
 from typing import List, Dict, Any
 
-from ogr.abstract import CommitFlag
+from ogr.abstract import CommitFlag, CommitStatus
 from ogr.services import pagure as ogr_pagure
 
 
 class PagureCommitFlag(CommitFlag):
+    _states = {
+        "pending": CommitStatus.pending,
+        "success": CommitStatus.success,
+        "failure": CommitStatus.failure,
+        "error": CommitStatus.error,
+        "canceled": CommitStatus.canceled,
+    }
+
     def __str__(self) -> str:
         return "Pagure" + super().__str__()
 
     def _from_raw_commit_flag(self):
         self.commit = self._raw_commit_flag["commit_hash"]
         self.comment = self._raw_commit_flag["comment"]
-        self.state = self._raw_commit_flag["status"]
+        self.state = self._state_from_str(self._raw_commit_flag["status"])
         self.context = self._raw_commit_flag["username"]
         self.url = self._raw_commit_flag["url"]
 
@@ -49,7 +57,7 @@ class PagureCommitFlag(CommitFlag):
     def set(
         project: "ogr_pagure.PagureProject",
         commit: str,
-        state: str,
+        state: CommitStatus,
         target_url: str,
         description: str,
         context: str,
@@ -60,7 +68,7 @@ class PagureCommitFlag(CommitFlag):
             "username": context,
             "comment": description,
             "url": target_url,
-            "status": state,
+            "status": state.name,
         }
         if percent:
             data["percent"] = percent

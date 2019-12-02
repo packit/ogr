@@ -510,13 +510,24 @@ class PullRequest:
         raise NotImplementedError()
 
 
+class CommitStatus(IntEnum):
+    pending = 1
+    success = 2
+    failure = 3
+    error = 4
+    canceled = 5
+    running = 6
+
+
 class CommitFlag:
+    _states: Dict[str, CommitStatus] = dict()
+
     def __init__(
         self,
         raw_commit_flag: Optional[Any] = None,
         project: Optional["GitProject"] = None,
         commit: Optional[str] = None,
-        state: Optional[str] = None,
+        state: Optional[CommitStatus] = None,
         context: Optional[str] = None,
         comment: Optional[str] = None,
         uid: Optional[str] = None,
@@ -524,7 +535,7 @@ class CommitFlag:
     ) -> None:
         if commit and state and context:
             self.commit = commit
-            self.state = state  # Should be enum
+            self.state = state
             self.context = context
             self.comment = comment
             self.url = url
@@ -538,12 +549,17 @@ class CommitFlag:
         return (
             f"CommitFlag("
             f"commit='{self.commit}', "
-            f"state='{self.state}', "
+            f"state='{self.state.name}', "
             f"context='{self.context}', "
             f"uid='{self.uid}',"
             f"comment='{self.comment}',"
             f"url='{self.url}')"
         )
+
+    def _state_from_str(self, state: str) -> CommitStatus:
+        if state not in self._states:
+            raise ValueError("non-existing status")
+        return self._states[state]
 
     def _from_raw_commit_flag(self) -> None:
         raise NotImplementedError()
@@ -556,7 +572,7 @@ class CommitFlag:
     def set(
         project: Any,
         commit: str,
-        state: str,
+        state: CommitStatus,
         target_url: str,
         description: str,
         context: str,
@@ -1119,7 +1135,12 @@ class GitProject:
         raise NotImplementedError()
 
     def set_commit_status(
-        self, commit: str, state: str, target_url: str, description: str, context: str
+        self,
+        commit: str,
+        state: CommitStatus,
+        target_url: str,
+        description: str,
+        context: str,
     ) -> "CommitFlag":
         """
         Create a status on a commit

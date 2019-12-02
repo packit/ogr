@@ -7,7 +7,7 @@ from requre.storage import PersistentObjectStorage
 from requre.utils import StorageMode
 
 from ogr import PagureService
-from ogr.abstract import PRStatus, IssueStatus
+from ogr.abstract import PRStatus, IssueStatus, CommitStatus
 from ogr.exceptions import PagureAPIException, OgrException
 
 DATA_DIR = "test_data"
@@ -427,7 +427,7 @@ class PagureProjectTokenCommands(PagureTests):
     def test_pr_status(self):
         self.ogr_project.set_commit_status(
             commit="360928f7ca08827e8e17cb26851ea57e8d197f87",
-            state="success",
+            state=CommitStatus.success,
             target_url="https://pagure.io/ogr-tests/pull-request/4",
             description="not failed test",
             context="test",
@@ -437,4 +437,4 @@ class PagureProjectTokenCommands(PagureTests):
         statuses = pr.get_statuses()
         assert statuses
         assert len(statuses) >= 0
-        assert statuses[-1].state == "success"
+        assert statuses[-1].state == CommitStatus.success

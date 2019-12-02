@@ -25,7 +25,7 @@ from typing import List
 
 import gitlab
 
-from ogr.abstract import CommitFlag
+from ogr.abstract import CommitFlag, CommitStatus
 from ogr.exceptions import GitlabAPIException
 from ogr.services import gitlab as ogr_gitlab
 
@@ -33,12 +33,24 @@ logger = logging.getLogger(__name__)
 
 
 class GitlabCommitFlag(CommitFlag):
+    _states = {
+        "pending": CommitStatus.pending,
+        "success": CommitStatus.success,
+        "failed": CommitStatus.failure,
+        "canceled": CommitStatus.canceled,
+        "running": CommitStatus.running,
+    }
+
+    @staticmethod
+    def _state_from_enum(state: CommitStatus) -> str:
+        return "failed" if state == CommitStatus.failure else state.name
+
     def __str__(self) -> str:
         return "Gitlab" + super().__str__()
 
     def _from_raw_commit_flag(self):
         self.commit = self._raw_commit_flag.sha
-        self.state = self._raw_commit_flag.status
+        self.state = self._state_from_str(self._raw_commit_flag.status)
         self.context = self._raw_commit_flag.name
         self.comment = self._raw_commit_flag.description
         self.uid = self._raw_commit_flag.id
@@ -62,7 +74,7 @@ class GitlabCommitFlag(CommitFlag):
     def set(
         project: "ogr_gitlab.GitlabProject",
         commit: str,
-        state: str,
+        state: CommitStatus,
         target_url: str,
         description: str,
         context: str,
@@ -74,7 +86,7 @@ class GitlabCommitFlag(CommitFlag):
             raise GitlabAPIException(f"Commit {commit} was not found.")
 
         data_dict = {
-            "state": state,
+            "state": GitlabCommitFlag._state_from_enum(state),
             "target_url": target_url,
             "context": context,
             "description": description,

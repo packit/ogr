@@ -23,7 +23,7 @@
 import logging
 from typing import List, Optional, Dict, Set
 
-from ogr.abstract import PRStatus, GitTag, CommitFlag, CommitComment
+from ogr.abstract import PRStatus, GitTag, CommitFlag, CommitComment, CommitStatus
 from ogr.abstract import PullRequest, Issue, IssueStatus, Release
 from ogr.exceptions import (
     OurPagureRawRequest,
@@ -351,7 +351,7 @@ class PagureProject(BaseGitProject):
     def set_commit_status(
         self,
         commit: str,
-        state: str,
+        state: CommitStatus,
         target_url: str,
         description: str,
         context: str,

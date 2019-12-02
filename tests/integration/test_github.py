@@ -5,7 +5,7 @@ import pytest
 from github import GithubException, UnknownObjectException
 
 from ogr import GithubService
-from ogr.abstract import PRStatus, IssueStatus
+from ogr.abstract import PRStatus, IssueStatus, CommitStatus
 from ogr.exceptions import GithubAPIException
 from requre.storage import PersistentObjectStorage
 from requre.utils import StorageMode
@@ -281,7 +281,7 @@ class GenericCommands(GithubTests):
     def test_set_commit_status(self):
         status = self.ogr_project.set_commit_status(
             commit="c891a9e4ac01e6575f3fd66cf1b7db2f52f10128",
-            state="success",
+            state=CommitStatus.success,
             target_url="https://github.com/packit-service/ogr",
             description="testing description",
             context="test",
@@ -307,7 +307,7 @@ class GenericCommands(GithubTests):
         with pytest.raises(GithubException):
             self.ogr_project.set_commit_status(
                 commit="c891a9e4ac01e6575f3fd66cf1b7db2f52f10128",
-                state="success",
+                state=CommitStatus.success,
                 target_url="https://github.com/packit-service/ogr",
                 description=long_description,
                 context="test",
@@ -315,7 +315,7 @@ class GenericCommands(GithubTests):
 
         status = self.ogr_project.set_commit_status(
             commit="c891a9e4ac01e6575f3fd66cf1b7db2f52f10128",
-            state="success",
+            state=CommitStatus.success,
             target_url="https://github.com/packit-service/ogr",
             description=long_description,
             context="test",
