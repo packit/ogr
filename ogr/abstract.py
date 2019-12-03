@@ -26,6 +26,7 @@ from typing import Optional, Match, List, Dict, Set, TypeVar, Any, Sequence
 from urllib.request import urlopen
 import warnings
 
+from ogr.deprecation import deprecate_and_set_removal
 from ogr.exceptions import OgrException
 from ogr.parsing import parse_git_repo
 
@@ -271,9 +272,7 @@ class PRStatus(IntEnum):
 
 
 class PullRequest:
-    from ogr.utils import deprecate_and_set_removal as _deprecate_and_set_removal
-
-    @_deprecate_and_set_removal(
+    @deprecate_and_set_removal(
         since="0.9.0",
         remove_in="0.14.0 (or 1.0.0 if it comes sooner)",
         message="Use PullRequestReadOnly from ogr.read_only",

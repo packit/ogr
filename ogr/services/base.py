@@ -33,10 +33,11 @@ from ogr.abstract import (
     Issue,
     PullRequest,
 )
+from ogr.deprecation import deprecate_and_set_removal
 from ogr.exceptions import OgrException
 from ogr.parsing import parse_git_repo
 from ogr.read_only import if_readonly, GitProjectReadOnly
-from ogr.utils import search_in_comments, filter_comments, deprecate_and_set_removal
+from ogr.utils import search_in_comments, filter_comments
 
 
 class BaseGitService(GitService):
