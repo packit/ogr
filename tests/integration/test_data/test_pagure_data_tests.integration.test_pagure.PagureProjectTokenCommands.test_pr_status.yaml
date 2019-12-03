@@ -1,0 +1,382 @@
+_requre:
+  key_strategy: StorageKeysInspectFull
+  version_storage_file: 2
+unittest.case:
+  tests.integration.test_pagure:
+    ogr.read_only:
+      ogr.services.pagure.project:
+        ogr.services.pagure.flag:
+          ogr.services.pagure.project:
+            ogr.services.pagure.service:
+              requests.sessions:
+                requre.objects:
+                  requests.sessions:
+                    send:
+                    - metadata:
+                        latency: 0.259122371673584
+                      output:
+                        __store_indicator: 2
+                        _content:
+                          flag:
+                            comment: not failed test
+                            commit_hash: 360928f7ca08827e8e17cb26851ea57e8d197f87
+                            date_created: '1575292824'
+                            date_updated: '1575292824'
+                            percent: null
+                            status: success
+                            url: https://pagure.io/ogr-tests/pull-request/4
+                            user:
+                              default_email: matej.focko@outlook.com
+                              emails:
+                              - matej.focko@outlook.com
+                              fullname: Matej Focko
+                              name: mfocko
+                            username: test
+                          message: Flag added
+                          uid: 9f8a4619df3142f49681e216f6142cdb
+                        _next: null
+                        elapsed: 0.2
+                        encoding: null
+                        headers:
+                          Connection: Keep-Alive
+                          Content-Length: '570'
+                          Content-Security-Policy: default-src 'self';script-src 'self'
+                            'nonce-YqLDC0BS8d7iY8mKO7VtBbIne' https://apps.fedoraproject.org;
+                            style-src 'self' 'nonce-YqLDC0BS8d7iY8mKO7VtBbIne'; object-src
+                            'none';base-uri 'self';img-src 'self' https:;
+                          Content-Type: application/json
+                          Date: Fri, 01 Nov 2019 13-36-03 GMT
+                          Keep-Alive: timeout=5, max=99
+                          Referrer-Policy: same-origin
+                          Server: Apache/2.4.6 (Red Hat Enterprise Linux) OpenSSL/1.0.2k-fips
+                            mod_wsgi/3.4 Python/2.7.5
+                          Set-Cookie: pagure=eyJfcGVybWFuZW50Ijp0cnVlLCJjc3JmIjp7IiBiIjoiWldObE5HTTJaV05oTVRBMk4yVTVNV1k1WTJGaVpXTTNaV1l4TnpFeFltTXpZekF5WVdZMFlRPT0ifX0.EMahGA.uv7Muh7o-c7NZxphvOR6LcKA6Ow;
+                            Expires=Thu, 02-Jan-2020 13:20:24 GMT; Secure; HttpOnly;
+                            Path=/
+                          Strict-Transport-Security: max-age=31536000; includeSubDomains;
+                            preload
+                          X-Content-Type-Options: nosniff
+                          X-Frame-Options: ALLOW-FROM https://pagure.io/
+                          X-Xss-Protection: 1; mode=block
+                        raw: !!binary ""
+                        reason: OK
+                        status_code: 200
+    ogr.services.pagure.project:
+      ogr.services.pagure.pull_request:
+        ogr.services.pagure.project:
+          ogr.services.pagure.service:
+            requests.sessions:
+              requre.objects:
+                requests.sessions:
+                  send:
+                  - metadata:
+                      latency: 0.23538589477539062
+                    output:
+                      __store_indicator: 2
+                      _content:
+                        assignee: null
+                        branch: master
+                        branch_from: testPR
+                        cached_merge_status: CONFLICTS
+                        closed_at: null
+                        closed_by: null
+                        comments:
+                        - comment: regex test
+                          commit: null
+                          date_created: '1570882883'
+                          edited_on: null
+                          editor: null
+                          filename: null
+                          id: 99124
+                          line: null
+                          notification: false
+                          parent: null
+                          reactions: {}
+                          tree: null
+                          user:
+                            fullname: Matej Focko
+                            name: mfocko
+                        - comment: ignored comment
+                          commit: null
+                          date_created: '1570882957'
+                          edited_on: null
+                          editor: null
+                          filename: null
+                          id: 99125
+                          line: null
+                          notification: false
+                          parent: null
+                          reactions: {}
+                          tree: null
+                          user:
+                            fullname: Matej Focko
+                            name: mfocko
+                        - comment: New
+                          commit: null
+                          date_created: '1574778296'
+                          edited_on: null
+                          editor: null
+                          filename: null
+                          id: 103393
+                          line: null
+                          notification: false
+                          parent: null
+                          reactions: {}
+                          tree: null
+                          user:
+                            fullname: Matej Focko
+                            name: mfocko
+                        - comment: Pull-Request has been merged by me
+                          commit: null
+                          date_created: '1574778348'
+                          edited_on: null
+                          editor: null
+                          filename: null
+                          id: 103394
+                          line: null
+                          notification: false
+                          parent: null
+                          reactions: {}
+                          tree: null
+                          user:
+                            fullname: Matej Focko
+                            name: mfocko
+                        - comment: PR comment aaaa
+                          commit: null
+                          date_created: '1574780915'
+                          edited_on: null
+                          editor: null
+                          filename: null
+                          id: 103403
+                          line: null
+                          notification: false
+                          parent: null
+                          reactions: {}
+                          tree: null
+                          user:
+                            fullname: Matej Focko
+                            name: mfocko
+                        - comment: PR comment 10
+                          commit: null
+                          date_created: '1574781247'
+                          edited_on: null
+                          editor: null
+                          filename: null
+                          id: 103404
+                          line: null
+                          notification: false
+                          parent: null
+                          reactions: {}
+                          tree: null
+                          user:
+                            fullname: Matej Focko
+                            name: mfocko
+                        commit_start: 360928f7ca08827e8e17cb26851ea57e8d197f87
+                        commit_stop: 360928f7ca08827e8e17cb26851ea57e8d197f87
+                        date_created: '1570615963'
+                        id: 4
+                        initial_comment: Testing PR
+                        last_updated: '1575290539'
+                        project:
+                          access_groups:
+                            admin: []
+                            commit: []
+                            ticket: []
+                          access_users:
+                            admin:
+                            - jscotka
+                            - lbarczio
+                            - mfocko
+                            commit: []
+                            owner:
+                            - lachmanfrantisek
+                            ticket: []
+                          close_status: []
+                          custom_keys: []
+                          date_created: '1570568389'
+                          date_modified: '1570568529'
+                          description: Testing repository for python-ogr package.
+                          fullname: ogr-tests
+                          id: 6826
+                          milestones: {}
+                          name: ogr-tests
+                          namespace: null
+                          parent: null
+                          priorities: {}
+                          tags: []
+                          url_path: ogr-tests
+                          user:
+                            fullname: "Franti\u0161ek Lachman"
+                            name: lachmanfrantisek
+                        remote_git: null
+                        repo_from:
+                          access_groups:
+                            admin: []
+                            commit: []
+                            ticket: []
+                          access_users:
+                            admin:
+                            - jscotka
+                            - lbarczio
+                            - mfocko
+                            commit: []
+                            owner:
+                            - lachmanfrantisek
+                            ticket: []
+                          close_status: []
+                          custom_keys: []
+                          date_created: '1570568389'
+                          date_modified: '1570568529'
+                          description: Testing repository for python-ogr package.
+                          fullname: ogr-tests
+                          id: 6826
+                          milestones: {}
+                          name: ogr-tests
+                          namespace: null
+                          parent: null
+                          priorities: {}
+                          tags: []
+                          url_path: ogr-tests
+                          user:
+                            fullname: "Franti\u0161ek Lachman"
+                            name: lachmanfrantisek
+                        status: Open
+                        tags: []
+                        threshold_reached: null
+                        title: Useless update of README
+                        uid: b2b290197e6943bab87ce368ff825c81
+                        updated_on: '1574781247'
+                        user:
+                          fullname: Matej Focko
+                          name: mfocko
+                      _next: null
+                      elapsed: 0.2
+                      encoding: null
+                      headers:
+                        Connection: Keep-Alive
+                        Content-Length: '4630'
+                        Content-Security-Policy: default-src 'self';script-src 'self'
+                          'nonce-YqLDC0BS8d7iY8mKO7VtBbIne' https://apps.fedoraproject.org;
+                          style-src 'self' 'nonce-YqLDC0BS8d7iY8mKO7VtBbIne'; object-src
+                          'none';base-uri 'self';img-src 'self' https:;
+                        Content-Type: application/json
+                        Date: Fri, 01 Nov 2019 13-36-03 GMT
+                        Keep-Alive: timeout=5, max=98
+                        Referrer-Policy: same-origin
+                        Server: Apache/2.4.6 (Red Hat Enterprise Linux) OpenSSL/1.0.2k-fips
+                          mod_wsgi/3.4 Python/2.7.5
+                        Set-Cookie: pagure=eyJfcGVybWFuZW50Ijp0cnVlLCJjc3JmIjp7IiBiIjoiWldObE5HTTJaV05oTVRBMk4yVTVNV1k1WTJGaVpXTTNaV1l4TnpFeFltTXpZekF5WVdZMFlRPT0ifX0.EMahGA.uv7Muh7o-c7NZxphvOR6LcKA6Ow;
+                          Expires=Thu, 02-Jan-2020 13:20:24 GMT; Secure; HttpOnly;
+                          Path=/
+                        Strict-Transport-Security: max-age=31536000; includeSubDomains;
+                          preload
+                        X-Content-Type-Options: nosniff
+                        X-Frame-Options: ALLOW-FROM https://pagure.io/
+                        X-Xss-Protection: 1; mode=block
+                      raw: !!binary ""
+                      reason: OK
+                      status_code: 200
+    ogr.services.pagure.pull_request:
+      ogr.services.pagure.project:
+        ogr.services.pagure.flag:
+          ogr.services.pagure.project:
+            ogr.services.pagure.service:
+              requests.sessions:
+                requre.objects:
+                  requests.sessions:
+                    send:
+                    - metadata:
+                        latency: 0.20381665229797363
+                      output:
+                        __store_indicator: 2
+                        _content:
+                          flags:
+                          - comment: not failed test
+                            commit_hash: 360928f7ca08827e8e17cb26851ea57e8d197f87
+                            date_created: '1575292824'
+                            date_updated: '1575292824'
+                            percent: null
+                            status: success
+                            url: https://pagure.io/ogr-tests/pull-request/4
+                            user:
+                              fullname: Matej Focko
+                              name: mfocko
+                            username: test
+                          - comment: not failed test
+                            commit_hash: 360928f7ca08827e8e17cb26851ea57e8d197f87
+                            date_created: '1575292571'
+                            date_updated: '1575292571'
+                            percent: null
+                            status: success
+                            url: https://pagure.io/ogr-tests/pull-request/4
+                            user:
+                              fullname: Matej Focko
+                              name: mfocko
+                            username: test
+                          total_flags: 2
+                        _next: null
+                        elapsed: 0.2
+                        encoding: null
+                        headers:
+                          Connection: Keep-Alive
+                          Content-Length: '849'
+                          Content-Security-Policy: default-src 'self';script-src 'self'
+                            'nonce-YqLDC0BS8d7iY8mKO7VtBbIne' https://apps.fedoraproject.org;
+                            style-src 'self' 'nonce-YqLDC0BS8d7iY8mKO7VtBbIne'; object-src
+                            'none';base-uri 'self';img-src 'self' https:;
+                          Content-Type: application/json
+                          Date: Fri, 01 Nov 2019 13-36-03 GMT
+                          Keep-Alive: timeout=5, max=97
+                          Referrer-Policy: same-origin
+                          Server: Apache/2.4.6 (Red Hat Enterprise Linux) OpenSSL/1.0.2k-fips
+                            mod_wsgi/3.4 Python/2.7.5
+                          Set-Cookie: pagure=eyJfcGVybWFuZW50Ijp0cnVlLCJjc3JmIjp7IiBiIjoiWldObE5HTTJaV05oTVRBMk4yVTVNV1k1WTJGaVpXTTNaV1l4TnpFeFltTXpZekF5WVdZMFlRPT0ifX0.EMahGA.uv7Muh7o-c7NZxphvOR6LcKA6Ow;
+                            Expires=Thu, 02-Jan-2020 13:20:24 GMT; Secure; HttpOnly;
+                            Path=/
+                          Strict-Transport-Security: max-age=31536000; includeSubDomains;
+                            preload
+                          X-Content-Type-Options: nosniff
+                          X-Frame-Options: ALLOW-FROM https://pagure.io/
+                          X-Xss-Protection: 1; mode=block
+                        raw: !!binary ""
+                        reason: OK
+                        status_code: 200
+    ogr.services.pagure.service:
+      ogr.services.pagure.user:
+        ogr.services.pagure.service:
+          requests.sessions:
+            requre.objects:
+              requests.sessions:
+                send:
+                - metadata:
+                    latency: 0.6686537265777588
+                  output:
+                    __store_indicator: 2
+                    _content:
+                      username: mfocko
+                    _next: null
+                    elapsed: 0.2
+                    encoding: null
+                    headers:
+                      Connection: Keep-Alive
+                      Content-Length: '26'
+                      Content-Security-Policy: default-src 'self';script-src 'self'
+                        'nonce-YqLDC0BS8d7iY8mKO7VtBbIne' https://apps.fedoraproject.org;
+                        style-src 'self' 'nonce-YqLDC0BS8d7iY8mKO7VtBbIne'; object-src
+                        'none';base-uri 'self';img-src 'self' https:;
+                      Content-Type: application/json
+                      Date: Fri, 01 Nov 2019 13-36-03 GMT
+                      Keep-Alive: timeout=5, max=100
+                      Referrer-Policy: same-origin
+                      Server: Apache/2.4.6 (Red Hat Enterprise Linux) OpenSSL/1.0.2k-fips
+                        mod_wsgi/3.4 Python/2.7.5
+                      Set-Cookie: pagure=eyJfcGVybWFuZW50Ijp0cnVlLCJjc3JmIjp7IiBiIjoiWldObE5HTTJaV05oTVRBMk4yVTVNV1k1WTJGaVpXTTNaV1l4TnpFeFltTXpZekF5WVdZMFlRPT0ifX0.EMahFw.loNWBX_VoQARFkFN7Cugp3SRkLc;
+                        Expires=Thu, 02-Jan-2020 13:20:23 GMT; Secure; HttpOnly; Path=/
+                      Strict-Transport-Security: max-age=31536000; includeSubDomains;
+                        preload
+                      X-Content-Type-Options: nosniff
+                      X-Frame-Options: ALLOW-FROM https://pagure.io/
+                      X-Xss-Protection: 1; mode=block
+                    raw: !!binary ""
+                    reason: OK
+                    status_code: 200

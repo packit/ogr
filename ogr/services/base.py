@@ -32,6 +32,7 @@ from ogr.abstract import (
     IssueComment,
     Issue,
     PullRequest,
+    CommitFlag,
 )
 from ogr.deprecation import deprecate_and_set_removal
 from ogr.exceptions import OgrException
@@ -344,6 +345,10 @@ class BasePullRequest(PullRequest):
                 all_comments.insert(0, description_content)
 
         return search_in_comments(comments=all_comments, filter_regex=filter_regex)
+
+    def get_statuses(self) -> List[CommitFlag]:
+        commit = self.get_all_commits()[-1]
+        return self.project.get_commit_statuses(commit)
 
 
 class BaseGitUser(GitUser):

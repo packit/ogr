@@ -21,7 +21,7 @@
 # SOFTWARE.
 
 import datetime
-from enum import IntEnum
+from enum import Enum, IntEnum
 from typing import Optional, Match, List, Dict, Set, TypeVar, Any, Sequence
 from urllib.request import urlopen
 import warnings
@@ -501,34 +501,83 @@ class PullRequest:
         """
         raise NotImplementedError()
 
+    def get_statuses(self) -> List["CommitFlag"]:
+        """
+        Returns statuses for latest commit on pull request.
+
+        :return: [CommitFlag]
+        """
+        raise NotImplementedError()
+
+
+class CommitStatus(Enum):
+    pending = 1
+    success = 2
+    failure = 3
+    error = 4
+    canceled = 5
+    running = 6
+
 
 class CommitFlag:
+    _states: Dict[str, CommitStatus] = dict()
+
     def __init__(
         self,
-        commit: str,
-        state: str,
-        context: str,
+        raw_commit_flag: Optional[Any] = None,
+        project: Optional["GitProject"] = None,
+        commit: Optional[str] = None,
+        state: Optional[CommitStatus] = None,
+        context: Optional[str] = None,
         comment: Optional[str] = None,
         uid: Optional[str] = None,
         url: Optional[str] = None,
-    ):
-        self.commit = commit
-        self.state = state  # Should be enum
-        self.context = context
+    ) -> None:
+        if commit and state and context:
+            self.commit = commit
+            self.state = state
+            self.context = context
+            self.comment = comment
+            self.url = url
+        else:
+            self._raw_commit_flag = raw_commit_flag
+            self._from_raw_commit_flag()
         self.uid = uid
-        self.comment = comment
-        self.url = url
+        self.project = project
 
     def __str__(self) -> str:
         return (
             f"CommitFlag("
             f"commit='{self.commit}', "
-            f"state='{self.state}', "
+            f"state='{self.state.name}', "
             f"context='{self.context}', "
             f"uid='{self.uid}',"
             f"comment='{self.comment}',"
             f"url='{self.url}')"
         )
+
+    def _state_from_str(self, state: str) -> CommitStatus:
+        if state not in self._states:
+            raise ValueError("non-existing status")
+        return self._states[state]
+
+    def _from_raw_commit_flag(self) -> None:
+        raise NotImplementedError()
+
+    @staticmethod
+    def get(project: Any, commit: str) -> List["CommitFlag"]:
+        raise NotImplementedError()
+
+    @staticmethod
+    def set(
+        project: Any,
+        commit: str,
+        state: CommitStatus,
+        target_url: str,
+        description: str,
+        context: str,
+    ) -> "CommitFlag":
+        raise NotImplementedError()
 
 
 class CommitComment:
@@ -1086,7 +1135,12 @@ class GitProject:
         raise NotImplementedError()
 
     def set_commit_status(
-        self, commit: str, state: str, target_url: str, description: str, context: str
+        self,
+        commit: str,
+        state: CommitStatus,
+        target_url: str,
+        description: str,
+        context: str,
     ) -> "CommitFlag":
         """
         Create a status on a commit

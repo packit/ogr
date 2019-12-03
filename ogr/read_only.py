@@ -33,6 +33,7 @@ from ogr.abstract import (
     GitProject,
     CommitComment,
     CommitFlag,
+    CommitStatus,
 )
 from ogr.constant import DEFAULT_RO_PREFIX_STRING
 from ogr.deprecation import deprecate_and_set_removal
@@ -259,7 +260,6 @@ class GitProjectReadOnly:
 
     @classmethod
     def set_commit_status(
-        cls, original_object: Any, commit: str, state: str, context: str
+        cls, original_object: Any, commit: str, state: CommitStatus, context: str
     ) -> "CommitFlag":
-        output = CommitFlag(commit, state, context)
-        return output
+        return CommitFlag(commit=commit, state=state, context=context)

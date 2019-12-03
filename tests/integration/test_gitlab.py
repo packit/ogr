@@ -7,7 +7,7 @@ from gitlab import GitlabGetError
 from ogr.exceptions import GitlabAPIException
 from requre.storage import PersistentObjectStorage
 from requre.utils import StorageMode
-from ogr.abstract import PRStatus, IssueStatus
+from ogr.abstract import PRStatus, IssueStatus, CommitStatus
 from ogr.services.gitlab import GitlabService
 
 DATA_DIR = "test_data"
@@ -101,7 +101,7 @@ class GenericCommands(GitlabTests):
         )
         assert isinstance(flags, list)
         assert len(flags) >= 2
-        assert flags[0].state == "success"
+        assert flags[0].state == CommitStatus.success
         assert flags[0].comment == "testing status"
         assert flags[0].context == "default"
 
@@ -111,7 +111,7 @@ class GenericCommands(GitlabTests):
         )
         status = self.project.set_commit_status(
             commit="11b37d913374b14f8519d16c2a2cca3ebc14ac64",
-            state="success",
+            state=CommitStatus.success,
             target_url="https://gitlab.com/packit-service/ogr-tests",
             description="testing status",
             context="test",
@@ -374,6 +374,21 @@ class PullRequests(GitlabTests):
 
         comments[0].body = before_comment
         assert comments[0].body == before_comment
+
+    def test_pr_status(self):
+        self.project.set_commit_status(
+            commit="59b1a9bab5b5198c619270646410867788685c16",
+            state=CommitStatus.success,
+            target_url="https://gitlab.com/packit-service/ogr-tests",
+            description="not failed test",
+            context="test",
+        )
+        pr = self.project.get_pr(pr_id=19)
+
+        statuses = pr.get_statuses()
+        assert statuses
+        assert len(statuses) >= 0
+        assert statuses[-1].state == CommitStatus.success
 
 
 class Tags(GitlabTests):

@@ -5,7 +5,7 @@ import pytest
 from github import GithubException, UnknownObjectException
 
 from ogr import GithubService
-from ogr.abstract import PRStatus, IssueStatus
+from ogr.abstract import PRStatus, IssueStatus, CommitStatus
 from ogr.exceptions import GithubAPIException
 from requre.storage import PersistentObjectStorage
 from requre.utils import StorageMode
@@ -281,7 +281,7 @@ class GenericCommands(GithubTests):
     def test_set_commit_status(self):
         status = self.ogr_project.set_commit_status(
             commit="c891a9e4ac01e6575f3fd66cf1b7db2f52f10128",
-            state="success",
+            state=CommitStatus.success,
             target_url="https://github.com/packit-service/ogr",
             description="testing description",
             context="test",
@@ -289,6 +289,14 @@ class GenericCommands(GithubTests):
         )
         assert status
         assert status.comment == "testing description"
+
+    def test_get_commit_statuses(self):
+        statuses = self.ogr_project.get_commit_statuses(
+            commit="c891a9e4ac01e6575f3fd66cf1b7db2f52f10128"
+        )
+        assert statuses
+        assert len(statuses) >= 26
+        assert statuses[-1].comment.startswith("Testing the trimming")
 
     def test_set_commit_status_long_description(self):
         long_description = (
@@ -299,7 +307,7 @@ class GenericCommands(GithubTests):
         with pytest.raises(GithubException):
             self.ogr_project.set_commit_status(
                 commit="c891a9e4ac01e6575f3fd66cf1b7db2f52f10128",
-                state="success",
+                state=CommitStatus.success,
                 target_url="https://github.com/packit-service/ogr",
                 description=long_description,
                 context="test",
@@ -307,7 +315,7 @@ class GenericCommands(GithubTests):
 
         status = self.ogr_project.set_commit_status(
             commit="c891a9e4ac01e6575f3fd66cf1b7db2f52f10128",
-            state="success",
+            state=CommitStatus.success,
             target_url="https://github.com/packit-service/ogr",
             description=long_description,
             context="test",
@@ -561,6 +569,13 @@ class PullRequests(GithubTests):
 
         assert pr_check.title == "test pr_close"
         assert pr_check.status == PRStatus.closed
+
+    def test_pr_status(self):
+        pr = self.ogr_project.get_pr(pr_id=278)
+
+        statuses = pr.get_statuses()
+        assert statuses
+        assert len(statuses) >= 6
 
 
 class Releases(GithubTests):
