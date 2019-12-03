@@ -64,28 +64,28 @@ class Comments(PagureTests):
     def test_pr_comments(self):
         pr_comments = self.ogr_project.get_pr_comments(pr_id=4)
         assert pr_comments
-        print(pr_comments[0].comment, pr_comments[1].comment, pr_comments[2].comment)
+        print(pr_comments[0].body, pr_comments[1].body, pr_comments[2].body)
         assert len(pr_comments) == 6
-        assert pr_comments[0].comment.endswith("test")
+        assert pr_comments[0].body.endswith("test")
 
     def test_pr_comments_reversed(self):
         pr_comments = self.ogr_project.get_pr_comments(pr_id=4, reverse=True)
         assert pr_comments
         assert len(pr_comments) == 6
-        assert pr_comments[2].comment.endswith("me")
+        assert pr_comments[2].body.endswith("me")
 
     def test_pr_comments_filter(self):
         pr_comments = self.ogr_project.get_pr_comments(pr_id=4, filter_regex="me")
         assert pr_comments
         assert len(pr_comments) == 4
-        assert pr_comments[0].comment == "ignored comment"
+        assert pr_comments[0].body == "ignored comment"
 
         pr_comments = self.ogr_project.get_pr_comments(
             pr_id=4, filter_regex="PR comment [0-9]*"
         )
         assert pr_comments
         assert len(pr_comments) == 2
-        assert pr_comments[0].comment.endswith("aaaa")
+        assert pr_comments[0].body.endswith("aaaa")
 
     def test_pr_comments_search(self):
         comment_match = self.ogr_project.search_in_pr(pr_id=4, filter_regex="New")
@@ -352,8 +352,8 @@ class PagureProjectTokenCommands(PagureTests):
         issue_comments = self.ogr_project._get_all_issue_comments(issue_id=3)
         assert issue_comments
         assert len(issue_comments) == 4
-        assert issue_comments[0].comment.startswith("test")
-        assert issue_comments[1].comment.startswith("tests")
+        assert issue_comments[0].body.startswith("test")
+        assert issue_comments[1].body.startswith("tests")
 
     def test_issue_info(self):
         issue_info = self.ogr_project.get_issue_info(issue_id=2)
@@ -364,21 +364,21 @@ class PagureProjectTokenCommands(PagureTests):
     def test_issue_comments_reversed(self):
         issue_comments = self.ogr_project.get_issue_comments(issue_id=3, reverse=True)
         assert len(issue_comments) == 4
-        assert issue_comments[0].comment.startswith("regex")
+        assert issue_comments[0].body.startswith("regex")
 
     def test_issue_comments_regex(self):
         issue_comments = self.ogr_project.get_issue_comments(
             issue_id=3, filter_regex="regex"
         )
         assert len(issue_comments) == 2
-        assert issue_comments[0].comment.startswith("let's")
+        assert issue_comments[0].body.startswith("let's")
 
     def test_issue_comments_regex_reversed(self):
         issue_comments = self.ogr_project.get_issue_comments(
             issue_id=3, filter_regex="regex", reverse=True
         )
         assert len(issue_comments) == 2
-        assert issue_comments[0].comment.startswith("regex")
+        assert issue_comments[0].body.startswith("regex")
 
     def test_update_pr_info(self):
         pr_info = self.ogr_project.get_pr_info(pr_id=4)
@@ -404,7 +404,7 @@ class PagureProjectTokenCommands(PagureTests):
             pr_id=4, filter_regex="^regex", author="mfocko"
         )
         assert len(comments) == 1
-        assert comments[0].comment.endswith("test")
+        assert comments[0].body.endswith("test")
 
     def test_pr_comments_author(self):
         comments = self.ogr_project.get_pr_comments(pr_id=4, author="lachmanfrantisek")
@@ -415,8 +415,8 @@ class PagureProjectTokenCommands(PagureTests):
             issue_id=3, filter_regex="^test[s]?$", author="mfocko"
         )
         assert len(comments) == 2
-        assert comments[0].comment == "test"
-        assert comments[1].comment == "tests"
+        assert comments[0].body == "test"
+        assert comments[1].body == "tests"
 
     def test_issue_comments_author(self):
         comments = self.ogr_project.get_issue_comments(

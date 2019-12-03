@@ -173,7 +173,10 @@ class PagurePullRequest(BasePullRequest):
     def _get_all_comments(self) -> List[PRComment]:
         self.__update()
         raw_comments = self._raw_pr["comments"]
-        return [PagurePRComment(comment_dict) for comment_dict in raw_comments]
+        return [
+            PagurePRComment(parent=self, raw_comment=comment_dict)
+            for comment_dict in raw_comments
+        ]
 
     def comment(
         self,
@@ -193,7 +196,7 @@ class PagurePullRequest(BasePullRequest):
         self.__call_api("comment", method="POST", data=payload)
         self.__dirty = True
         return PagurePRComment(
-            comment=body, author=self.project.service.user.get_username()
+            parent=self, body=body, author=self.project.service.user.get_username()
         )
 
     def close(self) -> "PullRequest":

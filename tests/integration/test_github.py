@@ -77,27 +77,27 @@ class Comments(GithubTests):
         assert pr_comments
         assert len(pr_comments) == 2
 
-        assert pr_comments[0].comment.endswith("fixed")
-        assert pr_comments[1].comment.startswith("LGTM")
+        assert pr_comments[0].body.endswith("fixed")
+        assert pr_comments[1].body.startswith("LGTM")
 
     def test_pr_comments_reversed(self):
         pr_comments = self.ogr_project.get_pr_comments(9, reverse=True)
         assert pr_comments
         assert len(pr_comments) == 2
-        assert pr_comments[0].comment.startswith("LGTM")
+        assert pr_comments[0].body.startswith("LGTM")
 
     def test_pr_comments_filter(self):
         pr_comments = self.ogr_project.get_pr_comments(9, filter_regex="fixed")
         assert pr_comments
         assert len(pr_comments) == 1
-        assert pr_comments[0].comment.startswith("@TomasTomecek")
+        assert pr_comments[0].body.startswith("@TomasTomecek")
 
         pr_comments = self.ogr_project.get_pr_comments(
             9, filter_regex="LGTM, nicely ([a-z]*)"
         )
         assert pr_comments
         assert len(pr_comments) == 1
-        assert pr_comments[0].comment.endswith("done!")
+        assert pr_comments[0].body.endswith("done!")
 
     def test_pr_comments_search(self):
         comment_match = self.ogr_project.search_in_pr(9, filter_regex="LGTM")
@@ -113,51 +113,81 @@ class Comments(GithubTests):
     def test_issue_comments(self):
         comments = self.ogr_project.get_issue_comments(194)
         assert len(comments) == 6
-        assert comments[0].comment.startswith("/packit")
+        assert comments[0].body.startswith("/packit")
 
     def test_issue_comments_reversed(self):
         comments = self.ogr_project.get_issue_comments(194, reverse=True)
         assert len(comments) == 6
-        assert comments[0].comment.startswith("The ")
+        assert comments[0].body.startswith("The ")
 
     def test_issue_comments_regex(self):
         comments = self.ogr_project.get_issue_comments(
             194, filter_regex=r".*Fedora package.*"
         )
         assert len(comments) == 3
-        assert "master" in comments[0].comment
+        assert "master" in comments[0].body
 
     def test_issue_comments_regex_reversed(self):
         comments = self.ogr_project.get_issue_comments(
             194, reverse=True, filter_regex=".*Fedora package.*"
         )
         assert len(comments) == 3
-        assert "f29" in comments[0].comment
+        assert "f29" in comments[0].body
 
     def test_pr_comments_author_regex(self):
         comments = self.ogr_project.get_pr_comments(
             217, filter_regex="^I", author="mfocko"
         )
         assert len(comments) == 1
-        assert "API" in comments[0].comment
+        assert "API" in comments[0].body
 
     def test_pr_comments_author(self):
         comments = self.ogr_project.get_pr_comments(217, author="lachmanfrantisek")
         assert len(comments) == 3
-        assert comments[0].comment.endswith("here.")
+        assert comments[0].body.endswith("here.")
 
     def test_issue_comments_author_regex(self):
         comments = self.ogr_project.get_issue_comments(
             220, filter_regex=".*API.*", author="lachmanfrantisek"
         )
         assert len(comments) == 1
-        assert comments[0].comment.startswith("After")
+        assert comments[0].body.startswith("After")
 
     def test_issue_comments_author(self):
         comments = self.ogr_project.get_issue_comments(220, author="mfocko")
         assert len(comments) == 2
-        assert comments[0].comment.startswith("What")
-        assert comments[1].comment.startswith("Consider")
+        assert comments[0].body.startswith("What")
+        assert comments[1].body.startswith("Consider")
+
+    def test_issue_comments_updates(self):
+        comments = self.hello_world_project.get_issue_comments(
+            61, filter_regex="comment-update"
+        )
+        assert len(comments) == 1
+        before_comment = comments[0].body
+        before_edited = comments[0].edited
+
+        comments[0].body = "see if updating works"
+        assert comments[0].body == "see if updating works"
+        assert comments[0].edited > before_edited
+
+        comments[0].body = before_comment
+        assert comments[0].body == before_comment
+
+    def test_pr_comments_updates(self):
+        comments = self.hello_world_project.get_pr_comments(
+            72, filter_regex="comment updates"
+        )
+        assert len(comments) == 1
+        before_comment = comments[0].body
+        before_edited = comments[0].edited
+
+        comments[0].body = "see if updating works"
+        assert comments[0].body == "see if updating works"
+        assert comments[0].edited > before_edited
+
+        comments[0].body = before_comment
+        assert comments[0].body == before_comment
 
 
 class GenericCommands(GithubTests):

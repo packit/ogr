@@ -211,7 +211,8 @@ class GitProjectReadOnly:
         pull_request = original_object.get_pr_info(pr_id)
         log_output(pull_request)
         output = PRComment(
-            comment=body,
+            parent=pull_request,
+            body=body,
             author=cls.author,
             created=datetime.datetime.now(),
             edited=datetime.datetime.now(),
@@ -237,7 +238,8 @@ class GitProjectReadOnly:
         issue = original_object.get_issue_info(issue_id)
         log_output(issue)
         output = IssueComment(
-            comment=body,
+            parent=issue,
+            body=body,
             author=cls.author,
             created=datetime.datetime.now(),
             edited=datetime.datetime.now(),

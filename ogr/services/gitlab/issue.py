@@ -101,13 +101,13 @@ class GitlabIssue(BaseIssue):
 
     def _get_all_comments(self) -> List[IssueComment]:
         return [
-            GitlabIssueComment(raw_comment)
+            GitlabIssueComment(parent=self, raw_comment=raw_comment)
             for raw_comment in self._raw_issue.notes.list(sort="asc")
         ]
 
     def comment(self, body: str) -> IssueComment:
         comment = self._raw_issue.notes.create({"body": body})
-        return GitlabIssueComment(comment)
+        return GitlabIssueComment(parent=self, raw_comment=comment)
 
     def close(self) -> "Issue":
         self._raw_issue.state_event = "close"
