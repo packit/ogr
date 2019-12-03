@@ -21,7 +21,7 @@
 # SOFTWARE.
 
 import datetime
-from enum import IntEnum
+from enum import Enum, IntEnum
 from typing import Optional, Match, List, Dict, Set, TypeVar, Any, Sequence
 from urllib.request import urlopen
 import warnings
@@ -510,7 +510,7 @@ class PullRequest:
         raise NotImplementedError()
 
 
-class CommitStatus(IntEnum):
+class CommitStatus(Enum):
     pending = 1
     success = 2
     failure = 3
