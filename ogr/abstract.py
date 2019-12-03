@@ -75,7 +75,7 @@ class Comment:
             "Using deprecated property, that will be removed in 0.14.0"
             " (or 1.0.0 if it comes sooner). Please use body. "
         )
-        return self._body
+        return self.body
 
     @property
     def body(self) -> str:
