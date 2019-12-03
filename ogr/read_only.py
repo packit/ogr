@@ -35,7 +35,7 @@ from ogr.abstract import (
     CommitFlag,
 )
 from ogr.constant import DEFAULT_RO_PREFIX_STRING
-from ogr.utils import deprecate_and_set_removal
+from ogr.deprecation import deprecate_and_set_removal
 
 
 def log_output(
