@@ -22,7 +22,7 @@
 
 import datetime
 from enum import Enum, IntEnum
-from typing import Optional, Match, List, Dict, Set, TypeVar, Any, Sequence
+from typing import Optional, Match, List, Dict, Set, TypeVar, Any, Sequence, Union
 from urllib.request import urlopen
 import warnings
 
@@ -1137,7 +1137,7 @@ class GitProject:
     def set_commit_status(
         self,
         commit: str,
-        state: CommitStatus,
+        state: Union[CommitStatus, str],
         target_url: str,
         description: str,
         context: str,

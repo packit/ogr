@@ -21,7 +21,7 @@
 # SOFTWARE.
 
 import logging
-from typing import List, Optional, Dict, Set
+from typing import List, Optional, Dict, Set, Union
 
 import gitlab
 from gitlab.v4.objects import Project as GitlabObjectsProject
@@ -256,7 +256,7 @@ class GitlabProject(BaseGitProject):
     def set_commit_status(
         self,
         commit: str,
-        state: CommitStatus,
+        state: Union[CommitStatus, str],
         target_url: str,
         description: str,
         context: str,
