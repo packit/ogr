@@ -19,8 +19,8 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
-
-from typing import List
+import warnings
+from typing import List, Union
 
 from github import UnknownObjectException
 
@@ -60,12 +60,20 @@ class GithubCommitFlag(CommitFlag):
     def set(
         project: "ogr_github.GithubProject",
         commit: str,
-        state: CommitStatus,
+        state: Union[CommitStatus, str],
         target_url: str,
         description: str,
         context: str,
         trim: bool = False,
     ) -> "CommitFlag":
+
+        if isinstance(state, str):
+            warnings.warn(
+                "Using the string representation of commit states, that will be removed in 0.14.0"
+                " (or 1.0.0 if it comes sooner). Please use CommitStatus enum instead. "
+            )
+            state = GithubCommitFlag._states[state]
+
         github_commit = project.github_repo.get_commit(commit)
         if trim:
             description = description[:140]

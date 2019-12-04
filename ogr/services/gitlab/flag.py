@@ -21,7 +21,8 @@
 # SOFTWARE.
 
 import logging
-from typing import List
+import warnings
+from typing import List, Union
 
 import gitlab
 
@@ -74,11 +75,18 @@ class GitlabCommitFlag(CommitFlag):
     def set(
         project: "ogr_gitlab.GitlabProject",
         commit: str,
-        state: CommitStatus,
+        state: Union[CommitStatus, str],
         target_url: str,
         description: str,
         context: str,
     ) -> "CommitFlag":
+        if isinstance(state, str):
+            warnings.warn(
+                "Using the string representation of commit states, that will be removed in 0.14.0"
+                " (or 1.0.0 if it comes sooner). Please use CommitStatus enum instead. "
+            )
+            state = GitlabCommitFlag._states[state]
+
         try:
             commit_object = project.gitlab_repo.commits.get(commit)
         except gitlab.exceptions.GitlabGetError:
