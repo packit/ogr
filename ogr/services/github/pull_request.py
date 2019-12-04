@@ -23,6 +23,7 @@
 import datetime
 import logging
 from typing import Optional, List
+import warnings
 
 from github import UnknownObjectException
 from github.Label import Label as GithubLabel
@@ -52,10 +53,13 @@ class GithubPullRequest(BasePullRequest):
 
     @property
     def status(self) -> PRStatus:
+        if self._raw_pr.is_merged():
+            return PRStatus.merged
+
         return (
-            PRStatus.merged
-            if self._raw_pr.is_merged()
-            else PRStatus[self._raw_pr.state]
+            PRStatus[self._raw_pr.state]
+            if self._raw_pr.state != "open"
+            else PRStatus.opened
         )
 
     @property
@@ -124,11 +128,25 @@ class GithubPullRequest(BasePullRequest):
 
     @staticmethod
     def get_list(
-        project: "ogr_github.GithubProject", status: PRStatus = PRStatus.open
+        project: "ogr_github.GithubProject", status: PRStatus = PRStatus.opened
     ) -> List["PullRequest"]:
+        if status == PRStatus.open:
+            warnings.warn(
+                "Using deprecated constant, that will be removed in 0.14.0"
+                "(or 1.0.0 if it comes sooner). Please use opened.",
+                DeprecationWarning,
+            )
+            status = PRStatus.opened
+
+        state = status.name
+        if status == PRStatus.merged:
+            state = "closed"
+        elif status == PRStatus.opened:
+            state = "open"
+
         prs = project.github_repo.get_pulls(
             # Github API has no status 'merged', just 'closed'/'opened'/'all'
-            state=status.name if status != PRStatus.merged else "closed",
+            state=state,
             sort="updated",
             direction="desc",
         )

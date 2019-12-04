@@ -265,7 +265,8 @@ class Issue:
 
 
 class PRStatus(IntEnum):
-    open = 1
+    opened = 1
+    open = opened
     closed = 2
     merged = 3
     all = 4

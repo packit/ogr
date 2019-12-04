@@ -22,6 +22,7 @@
 
 import datetime
 from typing import List, Optional
+import warnings
 
 from gitlab.v4.objects import MergeRequest as _GitlabMergeRequest
 
@@ -45,11 +46,7 @@ class GitlabPullRequest(BasePullRequest):
 
     @property
     def status(self) -> PRStatus:
-        return (
-            PRStatus.open
-            if self._raw_pr.state == "opened"
-            else PRStatus[self._raw_pr.state]
-        )
+        return PRStatus[self._raw_pr.state]
 
     @property
     def url(self) -> str:
@@ -108,13 +105,18 @@ class GitlabPullRequest(BasePullRequest):
 
     @staticmethod
     def get_list(
-        project: "ogr_gitlab.GitlabProject", status: PRStatus = PRStatus.open
+        project: "ogr_gitlab.GitlabProject", status: PRStatus = PRStatus.opened
     ) -> List["PullRequest"]:
-        # Gitlab API has status 'opened', not 'open'
+        if status == PRStatus.open:
+            warnings.warn(
+                "Using deprecated constant, that will be removed in 0.14.0"
+                "(or 1.0.0 if it comes sooner). Please use opened.",
+                DeprecationWarning,
+            )
+            status = PRStatus.opened
+
         mrs = project.gitlab_repo.mergerequests.list(
-            state=status.name if status != PRStatus.open else "opened",
-            order_by="updated_at",
-            sort="desc",
+            state=status.name, order_by="updated_at", sort="desc"
         )
         return [GitlabPullRequest(mr, project) for mr in mrs]
 

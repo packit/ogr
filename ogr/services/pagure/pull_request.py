@@ -23,6 +23,7 @@
 import datetime
 import logging
 from typing import List, Optional, Dict, Any
+import warnings
 
 from ogr.abstract import PRStatus, CommitFlag
 from ogr.abstract import PullRequest, PRComment
@@ -58,7 +59,8 @@ class PagurePullRequest(BasePullRequest):
     @property
     def status(self) -> PRStatus:
         self.__update()
-        return PRStatus[self._raw_pr["status"].lower()]
+        state = self._raw_pr["status"].lower()
+        return PRStatus[state] if state != "open" else PRStatus.opened
 
     @property
     def url(self) -> str:
@@ -138,11 +140,20 @@ class PagurePullRequest(BasePullRequest):
     @staticmethod
     def get_list(
         project: "ogr_pagure.PagureProject",
-        status: PRStatus = PRStatus.open,
+        status: PRStatus = PRStatus.opened,
         assignee=None,
         author=None,
     ) -> List["PullRequest"]:
-        payload = {"status": status.name.capitalize()}
+        if status == PRStatus.open:
+            warnings.warn(
+                "Using deprecated constant, that will be removed in 0.14.0"
+                "(or 1.0.0 if it comes sooner). Please use opened.",
+                DeprecationWarning,
+            )
+            status = PRStatus.opened
+
+        state = status.name.capitalize() if status != PRStatus.opened else "OPEN"
+        payload = {"status": state}
         if assignee is not None:
             payload["assignee"] = assignee
         if author is not None:
