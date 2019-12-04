@@ -22,6 +22,7 @@
 
 import datetime
 from typing import List
+import warnings
 
 import gitlab
 from gitlab.v4.objects import Issue as _GitlabIssue
@@ -46,11 +47,7 @@ class GitlabIssue(BaseIssue):
 
     @property
     def status(self) -> IssueStatus:
-        return (
-            IssueStatus.open
-            if self._raw_issue.state == "opened"
-            else IssueStatus[self._raw_issue.state]
-        )
+        return IssueStatus[self._raw_issue.state]
 
     @property
     def url(self) -> str:
@@ -91,11 +88,16 @@ class GitlabIssue(BaseIssue):
     def get_list(
         project: "ogr_gitlab.GitlabProject", status: IssueStatus = IssueStatus.open
     ) -> List["Issue"]:
-        # Gitlab API has status 'opened', not 'open'
+        if status == IssueStatus.open:
+            warnings.warn(
+                "Using deprecated constant, that will be removed in 0.14.0"
+                "(or 1.0.0 if it comes sooner). Please use opened.",
+                DeprecationWarning,
+            )
+            status = IssueStatus.opened
+
         issues = project.gitlab_repo.issues.list(
-            state=status.name if status != IssueStatus.open else "opened",
-            order_by="updated_at",
-            sort="desc",
+            state=status.name, order_by="updated_at", sort="desc"
         )
         return [GitlabIssue(issue, project) for issue in issues]
 

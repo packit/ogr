@@ -22,6 +22,7 @@
 
 import datetime
 from typing import List
+import warnings
 
 from github import UnknownObjectException
 from github.Issue import Issue as _GithubIssue
@@ -56,7 +57,11 @@ class GithubIssue(BaseIssue):
 
     @property
     def status(self) -> IssueStatus:
-        return IssueStatus[self._raw_issue.state]
+        return (
+            IssueStatus[self._raw_issue.state]
+            if self._raw_issue.state != "open"
+            else IssueStatus.opened
+        )
 
     @property
     def url(self) -> str:
@@ -93,10 +98,20 @@ class GithubIssue(BaseIssue):
 
     @staticmethod
     def get_list(
-        project: "ogr_github.GithubProject", status: IssueStatus = IssueStatus.open
+        project: "ogr_github.GithubProject", status: IssueStatus = IssueStatus.opened
     ) -> List["Issue"]:
+        if status == IssueStatus.open:
+            warnings.warn(
+                "Using deprecated constant, that will be removed in 0.14.0"
+                "(or 1.0.0 if it comes sooner). Please use opened.",
+                DeprecationWarning,
+            )
+            status = IssueStatus.opened
+
         issues = project.github_repo.get_issues(
-            state=status.name, sort="updated", direction="desc"
+            state=status.name if status != IssueStatus.opened else "open",
+            sort="updated",
+            direction="desc",
         )
         try:
             return [

@@ -22,6 +22,7 @@
 
 import datetime
 from typing import List
+import warnings
 
 from ogr.abstract import IssueComment, IssueStatus, Issue
 from ogr.services import pagure as ogr_pagure
@@ -53,7 +54,8 @@ class PagureIssue(BaseIssue):
     @property
     def status(self) -> IssueStatus:
         self.__update()
-        return IssueStatus[self._raw_issue["status"].lower()]
+        state = self._raw_issue["status"].lower()
+        return IssueStatus[state] if state != "open" else IssueStatus.opened
 
     @property
     def url(self) -> str:
@@ -92,9 +94,18 @@ class PagureIssue(BaseIssue):
 
     @staticmethod
     def get_list(
-        project: "ogr_pagure.PagureProject", status: IssueStatus = IssueStatus.open
+        project: "ogr_pagure.PagureProject", status: IssueStatus = IssueStatus.opened
     ) -> List["Issue"]:
-        payload = {"status": status.name.capitalize()}
+        if status == IssueStatus.open:
+            warnings.warn(
+                "Using deprecated constant, that will be removed in 0.14.0"
+                "(or 1.0.0 if it comes sooner). Please use opened.",
+                DeprecationWarning,
+            )
+            status = IssueStatus.opened
+
+        state = status.name.capitalize() if status != IssueStatus.opened else "OPEN"
+        payload = {"status": state}
 
         raw_issues = project._call_project_api("issues", params=payload)["issues"]
         return [PagureIssue(issue_dict, project) for issue_dict in raw_issues]

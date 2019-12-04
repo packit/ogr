@@ -117,7 +117,8 @@ class PRComment(Comment):
 
 
 class IssueStatus(IntEnum):
-    open = 1
+    opened = 1
+    open = opened
     closed = 2
     all = 3
 
