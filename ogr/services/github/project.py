@@ -21,7 +21,7 @@
 # SOFTWARE.
 
 import logging
-from typing import Optional, Dict, List, Set
+from typing import Optional, Dict, List, Set, Union
 
 import github
 from github import (
@@ -41,15 +41,16 @@ from ogr.abstract import (
     CommitComment,
     GitTag,
     CommitFlag,
+    CommitStatus,
 )
 from ogr.exceptions import GithubAPIException
 from ogr.read_only import if_readonly, GitProjectReadOnly
 from ogr.services import github as ogr_github
 from ogr.services.base import BaseGitProject
-from ogr.services.github.issue import GithubIssue
-from ogr.services.github.release import GithubRelease
-from ogr.services.github.pull_request import GithubPullRequest
 from ogr.services.github.flag import GithubCommitFlag
+from ogr.services.github.issue import GithubIssue
+from ogr.services.github.pull_request import GithubPullRequest
+from ogr.services.github.release import GithubRelease
 
 logger = logging.getLogger(__name__)
 
@@ -307,7 +308,13 @@ class GithubProject(BaseGitProject):
         log_message="Create a status on a commit",
     )
     def set_commit_status(
-        self, commit, state, target_url, description, context, trim=False
+        self,
+        commit: str,
+        state: Union[CommitStatus, str],
+        target_url: str,
+        description: str,
+        context: str,
+        trim: bool = False,
     ):
         """
         Create a status on a commit

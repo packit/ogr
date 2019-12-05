@@ -79,7 +79,12 @@ class GitlabCommitFlag(CommitFlag):
         target_url: str,
         description: str,
         context: str,
+        trim: bool = False,
     ) -> "CommitFlag":
+
+        if trim:
+            description = description[:140]
+
         if isinstance(state, str):
             warnings.warn(
                 "Using the string representation of commit states, that will be removed in 0.14.0"
