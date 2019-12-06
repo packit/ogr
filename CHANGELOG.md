@@ -1,3 +1,20 @@
+# 0.9.0
+
+## New Features
+
+* General restructure of the classes thanks to the
+[Red Hat Open Source Contest](https://research.redhat.com/red-hat-open-source-contest/)
+project done by @mfocko.
+    * Classes are better linked together.
+    * Functionality is moved to the classes from the `GitProject` classes.
+    * You can now use the properties (setters) to modify objects.
+    * Old behaviour should work as before, but will raise deprecation warnings.
+
+## Fixes
+
+* Creating of the GitHub pull-requests from the forked repository was fixed. (@sakalosj)
+
+
 # 0.8.0
 
 ## New Features
