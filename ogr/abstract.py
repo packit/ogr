@@ -21,10 +21,10 @@
 # SOFTWARE.
 
 import datetime
+import warnings
 from enum import Enum, IntEnum
 from typing import Optional, Match, List, Dict, Set, TypeVar, Any, Sequence, Union
 from urllib.request import urlopen
-import warnings
 
 from ogr.deprecation import deprecate_and_set_removal
 from ogr.exceptions import OgrException
@@ -1141,6 +1141,7 @@ class GitProject:
         target_url: str,
         description: str,
         context: str,
+        trim: bool = False,
     ) -> "CommitFlag":
         """
         Create a status on a commit
@@ -1150,6 +1151,7 @@ class GitProject:
         :param target_url: The target URL to associate with this status.
         :param description: A short description of the status
         :param context: A label to differentiate this status from the status of other systems.
+        :param trim: Whether to trim the description to 140 characters
         :return:
         """
         raise NotImplementedError()

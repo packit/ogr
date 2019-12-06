@@ -62,6 +62,7 @@ class PagureCommitFlag(CommitFlag):
         description: str,
         context: str,
         percent: int = None,
+        trim: bool = False,
         uid: str = None,
     ) -> "CommitFlag":
 
@@ -71,6 +72,9 @@ class PagureCommitFlag(CommitFlag):
                 " (or 1.0.0 if it comes sooner). Please use CommitStatus enum instead. "
             )
             state = PagureCommitFlag._states[state]
+
+        if trim:
+            description = description[:140]
 
         data: Dict[str, Any] = {
             "username": context,

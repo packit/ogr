@@ -40,10 +40,10 @@ from ogr.abstract import (
 from ogr.exceptions import GitlabAPIException
 from ogr.services import gitlab as ogr_gitlab
 from ogr.services.base import BaseGitProject
-from ogr.services.gitlab.release import GitlabRelease
+from ogr.services.gitlab.flag import GitlabCommitFlag
 from ogr.services.gitlab.issue import GitlabIssue
 from ogr.services.gitlab.pull_request import GitlabPullRequest
-from ogr.services.gitlab.flag import GitlabCommitFlag
+from ogr.services.gitlab.release import GitlabRelease
 
 logger = logging.getLogger(__name__)
 
@@ -260,6 +260,7 @@ class GitlabProject(BaseGitProject):
         target_url: str,
         description: str,
         context: str,
+        trim: bool = False,
     ) -> "CommitFlag":
         """
         Create a status on a commit
@@ -269,6 +270,7 @@ class GitlabProject(BaseGitProject):
         :param target_url: The target URL to associate with this status.
         :param description: A short description of the status
         :param context: A label to differentiate this status from the status of other systems.
+        :param trim: Whether to trim the description to 140 characters
         :return: CommitFlag
         """
         return GitlabCommitFlag.set(
@@ -278,6 +280,7 @@ class GitlabProject(BaseGitProject):
             target_url=target_url,
             description=description,
             context=context,
+            trim=trim,
         )
 
     def get_commit_statuses(self, commit: str) -> List[CommitFlag]:

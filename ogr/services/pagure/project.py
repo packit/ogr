@@ -32,14 +32,13 @@ from ogr.exceptions import (
     OperationNotSupported,
 )
 from ogr.read_only import if_readonly, GitProjectReadOnly
-from ogr.services.base import BaseGitProject
-from ogr.utils import RequestResponse
 from ogr.services import pagure as ogr_pagure
-from ogr.services.pagure.release import PagureRelease
+from ogr.services.base import BaseGitProject
+from ogr.services.pagure.flag import PagureCommitFlag
 from ogr.services.pagure.issue import PagureIssue
 from ogr.services.pagure.pull_request import PagurePullRequest
-from ogr.services.pagure.flag import PagureCommitFlag
-
+from ogr.services.pagure.release import PagureRelease
+from ogr.utils import RequestResponse
 
 logger = logging.getLogger(__name__)
 
@@ -357,6 +356,7 @@ class PagureProject(BaseGitProject):
         context: str,
         percent: int = None,
         uid: str = None,
+        trim: bool = False,
     ) -> "CommitFlag":
         return PagureCommitFlag.set(
             project=self,
@@ -366,6 +366,7 @@ class PagureProject(BaseGitProject):
             description=description,
             context=context,
             percent=percent,
+            trim=trim,
             uid=uid,
         )
 
