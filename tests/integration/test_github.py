@@ -230,7 +230,7 @@ class GenericCommands(GithubTests):
     def test_get_files(self):
         files = self.ogr_project.get_files()
         assert files
-        assert len(files) >= 20
+        assert len(files) >= 10
         assert ".git_archival.txt:" in files
 
     def test_nonexisting_file(self):

@@ -1230,10 +1230,14 @@ class GitProject:
         """
         raise NotImplementedError
 
-    def get_files(self, ref: str = "master") -> List[str]:
+    def get_files(
+        self, ref: str = "master", filter_regex: str = None, recursive: bool = False
+    ) -> List[str]:
         """
-        Get files of the project.
-
+        Get a list of file paths of the repo.
+        :param ref: branch or commit (defaults to master)
+        :param filter_regex: filter the paths with re.search
+        :param recursive: whether to return only top directory files or all files recursively
         :return: [str]
         """
         raise NotImplementedError
