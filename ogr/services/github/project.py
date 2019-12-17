@@ -380,6 +380,26 @@ class GithubProject(BaseGitProject):
         except UnknownObjectException as ex:
             raise FileNotFoundError(f"File '{path}' on {ref} not found", ex)
 
+    def get_files(self, ref: str = "master") -> List[str]:
+        """
+        Get files of the project.
+
+        :return: [str]
+        """
+        files = []
+        contents = self.github_repo.get_contents(path="", ref=ref)
+
+        while contents:
+            file_content = contents.pop(0)
+            if file_content.type == "dir":
+                contents.extend(
+                    self.github_repo.get_contents(path=file_content.path, ref=ref)
+                )
+            else:
+                files.append(file_content.path)
+
+        return files
+
     def _release_from_github_object(
         self, raw_release: PyGithubRelease, git_tag: GitTag
     ) -> GithubRelease:

@@ -326,6 +326,19 @@ class GitlabProject(BaseGitProject):
         except gitlab.exceptions.GitlabGetError as ex:
             raise FileNotFoundError(f"File '{path}' on {ref} not found", ex)
 
+    def get_files(self, ref: str = "master") -> List[str]:
+        """
+        Get files of the project.
+
+        :return: [str]
+        """
+        return [
+            file["path"]
+            for file in self.gitlab_repo.repository_tree(
+                ref=ref, recursive=True, all=True
+            )
+        ]
+
     def get_issue_list(self, status: IssueStatus = IssueStatus.open) -> List[Issue]:
         return GitlabIssue.get_list(project=self, status=status)
 

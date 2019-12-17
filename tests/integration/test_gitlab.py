@@ -54,6 +54,11 @@ class GenericCommands(GitlabTests):
         assert file_content
         assert "Testing repository for python-ogr package." in file_content
 
+    def test_get_files(self):
+        files = self.project.get_files()
+        assert files >= 1
+        assert "README.md" in files
+
     def test_nonexisting_file(self):
         with self.assertRaises(FileNotFoundError):
             self.project.get_file_content(".blablabla_nonexisting_file")

@@ -1230,6 +1230,14 @@ class GitProject:
         """
         raise NotImplementedError
 
+    def get_files(self, ref: str = "master") -> List[str]:
+        """
+        Get files of the project.
+
+        :return: [str]
+        """
+        raise NotImplementedError
+
     def get_forks(self) -> Sequence["GitProject"]:
         """
         Get forks of the project.
