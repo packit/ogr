@@ -273,6 +273,25 @@ class Issues(GitlabTests):
         comments[0].body = before_comment
         assert comments[0].body == before_comment
 
+    def test_setters(self):
+        issue = self.project.get_issue(issue_id=1)
+
+        old_title = issue.title
+        issue.title = "test title"
+        assert issue.title != old_title
+        assert issue.title == "test title"
+
+        issue.title = old_title
+        assert issue.title == old_title
+
+        old_description = issue.description
+        issue.description = "test description"
+        assert issue.description != old_description
+        assert issue.description == "test description"
+
+        issue.description = old_description
+        assert issue.description == old_description
+
 
 class PullRequests(GitlabTests):
     def test_pr_list(self):
@@ -389,6 +408,25 @@ class PullRequests(GitlabTests):
         assert statuses
         assert len(statuses) >= 0
         assert statuses[-1].state == CommitStatus.success
+
+    def test_setters(self):
+        pr = self.project.get_pr(pr_id=1)
+
+        old_title = pr.title
+        pr.title = "test title"
+        assert pr.title != old_title
+        assert pr.title == "test title"
+
+        pr.title = old_title
+        assert pr.title == old_title
+
+        old_description = pr.description
+        pr.description = "test description"
+        assert pr.description != old_description
+        assert pr.description == "test description"
+
+        pr.description = old_description
+        assert pr.description == old_description
 
 
 class Tags(GitlabTests):
