@@ -50,6 +50,10 @@ class GithubIssue(BaseIssue):
     def title(self) -> str:
         return self._raw_issue.title
 
+    @title.setter
+    def title(self, new_title: str) -> None:
+        self._raw_issue.edit(title=new_title)
+
     @property
     def id(self) -> int:
         return self._raw_issue.number
@@ -65,6 +69,10 @@ class GithubIssue(BaseIssue):
     @property
     def description(self) -> str:
         return self._raw_issue.body
+
+    @description.setter
+    def description(self, new_description: str) -> None:
+        self._raw_issue.edit(body=new_description)
 
     @property
     def author(self) -> str:
