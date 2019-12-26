@@ -82,7 +82,7 @@ class PagurePullRequest(BasePullRequest):
 
     @description.setter
     def description(self, new_description: str) -> None:
-        self.update_info(title=self.title, description=new_description)
+        self.update_info(description=new_description)
 
     @property
     def author(self) -> str:
@@ -164,9 +164,8 @@ class PagurePullRequest(BasePullRequest):
     ) -> "PullRequest":
         try:
             data = {}
-            if title:
-                data["title"] = title
 
+            data["title"] = title if title else self.title
             if description:
                 data["initial_comment"] = description
 
