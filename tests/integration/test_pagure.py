@@ -219,7 +219,18 @@ class Service(PagureTests):
         name = "new-ogr-testing-repo"
         namespace = "nonexisting"
 
-        with pytest.raises(OgrException):
+        with pytest.raises(OgrException, match=r".*Namespace doesn't exist.*"):
+            self.service.project_create(repo=name, namespace=namespace)
+        project = self.service.get_project(repo=name, namespace=namespace)
+        assert not project.exists()
+
+    def test_project_create_unauthorized_namespace(self):
+        name = "new-ogr-testing-repo"
+        namespace = "fedora-magazine"
+
+        with pytest.raises(
+            OgrException, match=r".*Cannot create project in given namespace.*"
+        ):
             self.service.project_create(repo=name, namespace=namespace)
         project = self.service.get_project(repo=name, namespace=namespace)
         assert not project.exists()

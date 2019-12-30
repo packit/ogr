@@ -231,6 +231,27 @@ class PagureService(BaseGitService):
         self._token = token
         self.header = {"Authorization": "token " + self._token}
 
+    def __handle_project_create_fail(
+        self, exception: PagureAPIException, namespace: str
+    ) -> None:
+        if (
+            exception.pagure_response
+            and exception.pagure_response["errors"]["namespace"][0]
+            == "Not a valid choice"
+        ):
+            request_url = self.get_api_url("group", namespace)
+
+            try:
+                self.call_api(request_url, data={"projects": False})
+            except PagureAPIException:
+                raise OgrException(f"Namespace doesn't exist ({namespace}).")
+
+            raise OgrException(
+                f"Cannot create project in given namespace (permissions)."
+            )
+
+        raise exception
+
     def project_create(
         self,
         repo: str,
@@ -248,12 +269,5 @@ class PagureService(BaseGitService):
         try:
             self.call_api(request_url, "POST", data=parameters)
         except PagureAPIException as ex:
-            if (
-                ex.pagure_response
-                and ex.pagure_response["errors"]["namespace"][0] == "Not a valid choice"
-            ):
-                raise OgrException(
-                    f"Cannot create project in given namespace ({namespace})."
-                )
-            raise ex
+            self.__handle_project_create_fail(ex, namespace)
         return PagureProject(repo=repo, namespace=namespace, service=self)
