@@ -46,6 +46,10 @@ class GithubPullRequest(BasePullRequest):
     def title(self) -> str:
         return self._raw_pr.title
 
+    @title.setter
+    def title(self, new_title: str) -> None:
+        self._raw_pr.edit(title=new_title)
+
     @property
     def id(self) -> int:
         return self._raw_pr.number
@@ -65,6 +69,10 @@ class GithubPullRequest(BasePullRequest):
     @property
     def description(self) -> str:
         return self._raw_pr.body
+
+    @description.setter
+    def description(self, new_description: str) -> None:
+        self._raw_pr.edit(body=new_description)
 
     @property
     def author(self) -> str:

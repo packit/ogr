@@ -410,6 +410,25 @@ class PagureProjectTokenCommands(PagureTests):
         assert pr_info.title == orig_title
         assert pr_info.description == orig_description
 
+    def test_pr_setters(self):
+        pr = self.ogr_project.get_pr(pr_id=6)
+
+        old_title = pr.title
+        pr.title = "test title"
+        assert pr.title != old_title
+        assert pr.title == "test title"
+
+        pr.title = old_title
+        assert pr.title == old_title
+
+        old_description = pr.description
+        pr.description = "test description"
+        assert pr.description != old_description
+        assert pr.description == "test description"
+
+        pr.description = old_description
+        assert pr.description == old_description
+
     def test_pr_comments_author_regex(self):
         comments = self.ogr_project.get_pr_comments(
             pr_id=4, filter_regex="^regex", author="mfocko"

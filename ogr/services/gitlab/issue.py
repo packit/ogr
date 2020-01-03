@@ -40,6 +40,11 @@ class GitlabIssue(BaseIssue):
     def title(self) -> str:
         return self._raw_issue.title
 
+    @title.setter
+    def title(self, new_title: str) -> None:
+        self._raw_issue.title = new_title
+        self._raw_issue.save()
+
     @property
     def id(self) -> int:
         return self._raw_issue.iid
@@ -59,6 +64,11 @@ class GitlabIssue(BaseIssue):
     @property
     def description(self) -> str:
         return self._raw_issue.description
+
+    @description.setter
+    def description(self, new_description: str) -> None:
+        self._raw_issue.description = new_description
+        self._raw_issue.save()
 
     @property
     def author(self) -> str:

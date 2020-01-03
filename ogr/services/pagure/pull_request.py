@@ -51,6 +51,10 @@ class PagurePullRequest(BasePullRequest):
         self.__update()
         return self._raw_pr["title"]
 
+    @title.setter
+    def title(self, new_title: str) -> None:
+        self.update_info(title=new_title)
+
     @property
     def id(self) -> int:
         return self._raw_pr["id"]
@@ -75,6 +79,10 @@ class PagurePullRequest(BasePullRequest):
     def description(self) -> str:
         self.__update()
         return self._raw_pr["initial_comment"]
+
+    @description.setter
+    def description(self, new_description: str) -> None:
+        self.update_info(description=new_description)
 
     @property
     def author(self) -> str:
@@ -156,9 +164,8 @@ class PagurePullRequest(BasePullRequest):
     ) -> "PullRequest":
         try:
             data = {}
-            if title:
-                data["title"] = title
 
+            data["title"] = title if title else self.title
             if description:
                 data["initial_comment"] = description
 

@@ -39,6 +39,11 @@ class GitlabPullRequest(BasePullRequest):
     def title(self) -> str:
         return self._raw_pr.title
 
+    @title.setter
+    def title(self, new_title: str) -> None:
+        self._raw_pr.title = new_title
+        self._raw_pr.save()
+
     @property
     def id(self) -> int:
         return self._raw_pr.iid
@@ -58,6 +63,11 @@ class GitlabPullRequest(BasePullRequest):
     @property
     def description(self) -> str:
         return self._raw_pr.description
+
+    @description.setter
+    def description(self, new_description: str) -> None:
+        self._raw_pr.description = new_description
+        self._raw_pr.save()
 
     @property
     def author(self) -> str:

@@ -397,6 +397,25 @@ class Issues(GithubTests):
         new_comments = issue.get_comments()
         assert len(new_comments) > len(old_comments)
 
+    def test_setters(self):
+        issue = self.hello_world_project.get_issue(issue_id=61)
+
+        old_title = issue.title
+        issue.title = "test title"
+        assert issue.title != old_title
+        assert issue.title == "test title"
+
+        issue.title = old_title
+        assert issue.title == old_title
+
+        old_description = issue.description
+        issue.description = "test description"
+        assert issue.description != old_description
+        assert issue.description == "test description"
+
+        issue.description = old_description
+        assert issue.description == old_description
+
 
 class PullRequests(GithubTests):
     def test_pr_list(self):
@@ -576,6 +595,25 @@ class PullRequests(GithubTests):
         statuses = pr.get_statuses()
         assert statuses
         assert len(statuses) >= 6
+
+    def test_setters(self):
+        pr = self.hello_world_project.get_pr(pr_id=72)
+
+        old_title = pr.title
+        pr.title = "test title"
+        assert pr.title != old_title
+        assert pr.title == "test title"
+
+        pr.title = old_title
+        assert pr.title == old_title
+
+        old_description = pr.description
+        pr.description = "test description"
+        assert pr.description != old_description
+        assert pr.description == "test description"
+
+        pr.description = old_description
+        assert pr.description == old_description
 
 
 class Releases(GithubTests):
