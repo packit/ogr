@@ -515,3 +515,6 @@ class GithubProject(BaseGitProject):
         :return: str
         """
         return self.github_repo.html_url
+
+    def get_tags(self) -> List["GitTag"]:
+        return [GitTag(tag.name, tag.commit.sha) for tag in self.github_repo.get_tags()]
