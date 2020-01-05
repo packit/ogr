@@ -24,6 +24,7 @@ class GitlabTests(unittest.TestCase):
         persistent_data_file = os.path.join(
             PERSISTENT_DATA_PREFIX, f"test_gitlab_data_{test_name}.yaml"
         )
+        PersistentObjectStorage().mode = StorageMode.default
         PersistentObjectStorage().storage_file = persistent_data_file
         if PersistentObjectStorage().mode == StorageMode.write and not self.token:
             raise EnvironmentError("please set GITLAB_TOKEN env variables")

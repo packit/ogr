@@ -24,6 +24,7 @@ class GithubTests(unittest.TestCase):
         persistent_data_file = os.path.join(
             PERSISTENT_DATA_PREFIX, f"test_github_data_{test_name}.yaml"
         )
+        PersistentObjectStorage().mode = StorageMode.default
         PersistentObjectStorage().storage_file = persistent_data_file
 
         if PersistentObjectStorage().mode == StorageMode.write and (not self.token):
@@ -692,9 +693,7 @@ class Forks(GithubTests):
         fork_description = self.ogr_fork.get_description()
         assert fork_description
 
-    @unittest.skip(
-        "not working with yaml file because it  check exception within setup"
-    )
+    @unittest.skip("not working with yaml file because it check exception within setup")
     def test_nonexisting_fork(self):
         self.ogr_nonexisting_fork = self.service.get_project(
             repo="omfeprkfmwpefmwpefkmwpeofjwepof", is_fork=True
@@ -733,7 +732,11 @@ class Forks(GithubTests):
 
         old_forks = self.not_forked_project.service.user.get_forks()
 
-        self.not_forked_project.fork_create()
+        forked_project = self.not_forked_project.fork_create()
+        assert (
+            forked_project.namespace == forked_project.github_instance.get_user().login
+        )
+        assert forked_project.repo == "fed-to-brew"
 
         assert self.not_forked_project.get_fork().get_description()
         assert self.not_forked_project.is_forked()
