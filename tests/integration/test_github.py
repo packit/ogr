@@ -259,6 +259,22 @@ class GenericCommands(GithubTests):
     def test_get_tag_from_nonexisting_tag_name(self):
         assert not self.ogr_project.get_tag_from_tag_name("future")
 
+    def test_get_tags(self):
+        tags = self.ogr_project.get_tags()
+
+        names = {f"0.{i}.0" for i in range(1, 10)}
+        names.update({"0.0.1", "0.0.2", "0.0.3", "0.3.1"})
+        assert names <= set(map(lambda tag: tag.name, tags))
+
+        commits = {
+            "ef947cd637f5fa0c28ffca71798d9e61b24880d8",
+            "64a9207afbb83c1e20659ddecd1e07303ad1ddf2",
+            "29ca3caefc781b4b41245df3e01086ffa4b4639e",
+            "059d21080a7849acff4626b6e0ec61830d537ac4",
+            "088158211481a025a20f3abe716359624615b66e",
+        }
+        assert commits < set(map(lambda tag: tag.commit_sha, tags))
+
     def test_get_owners(self):
         owners = self.ogr_project.get_owners()
         assert ["packit-service"] == owners
