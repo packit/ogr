@@ -24,6 +24,7 @@ class PagureTests(unittest.TestCase):
             PERSISTENT_DATA_PREFIX, f"test_pagure_data_{test_name}.yaml"
         )
 
+        PersistentObjectStorage().mode = StorageMode.default
         PersistentObjectStorage().storage_file = self.persistent_data_file
 
         if PersistentObjectStorage().mode == StorageMode.write and (not self.token):

@@ -359,8 +359,15 @@ class GithubProject(BaseGitProject):
         :return: fork GithubProject instance
         """
         gh_user = self.github_instance.get_user()
-        fork = gh_user.create_fork(self.github_repo)
-        return GithubProject("", self.service, "", github_repo=fork)
+        fork: Repository = gh_user.create_fork(self.github_repo)
+        project = GithubProject(
+            repo=None, service=self.service, namespace=None, github_repo=fork
+        )
+        # we're doing this nonsense b/c you can rename a repo and
+        # github would then return the new name
+        project.repo = project.github_repo.name
+        project.namespace = project.github_repo.owner.login
+        return project
 
     def change_token(self, new_token: str):
         raise NotImplementedError
