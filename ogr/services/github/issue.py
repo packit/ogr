@@ -21,7 +21,7 @@
 # SOFTWARE.
 
 import datetime
-from typing import List
+from typing import List, Optional
 
 from github import UnknownObjectException
 from github.Issue import Issue as _GithubIssue
@@ -101,11 +101,18 @@ class GithubIssue(BaseIssue):
 
     @staticmethod
     def get_list(
-        project: "ogr_github.GithubProject", status: IssueStatus = IssueStatus.open
+        project: "ogr_github.GithubProject",
+        status: IssueStatus = IssueStatus.open,
+        author: Optional[str] = None,
+        assignee: Optional[str] = None,
     ) -> List["Issue"]:
-        issues = project.github_repo.get_issues(
-            state=status.name, sort="updated", direction="desc"
-        )
+        parameters = {"state": status.name, "sort": "updated", "direction": "desc"}
+        if author:
+            parameters["creator"] = author
+        if assignee:
+            parameters["assignee"] = assignee
+
+        issues = project.github_repo.get_issues(**parameters)
         try:
             return [
                 GithubIssue(issue, project)

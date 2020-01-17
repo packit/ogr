@@ -21,7 +21,7 @@
 # SOFTWARE.
 
 import datetime
-from typing import List
+from typing import List, Optional
 
 from ogr.abstract import IssueComment, IssueStatus, Issue
 from ogr.services import pagure as ogr_pagure
@@ -92,9 +92,16 @@ class PagureIssue(BaseIssue):
 
     @staticmethod
     def get_list(
-        project: "ogr_pagure.PagureProject", status: IssueStatus = IssueStatus.open
+        project: "ogr_pagure.PagureProject",
+        status: IssueStatus = IssueStatus.open,
+        author: Optional[str] = None,
+        assignee: Optional[str] = None,
     ) -> List["Issue"]:
         payload = {"status": status.name.capitalize()}
+        if author:
+            payload["author"] = author
+        if assignee:
+            payload["assignee"] = assignee
 
         raw_issues = project._call_project_api("issues", params=payload)["issues"]
         return [PagureIssue(issue_dict, project) for issue_dict in raw_issues]
