@@ -186,6 +186,26 @@ class Issues(GitlabTests):
         assert issue_list
         assert len(issue_list) >= 1
 
+    def test_get_issue_list_author(self):
+        issue_list = self.project.get_issue_list(
+            status=IssueStatus.all, author="mfocko"
+        )
+        assert issue_list
+        assert len(issue_list) >= 5
+
+    def test_get_issue_list_nonexisting_author(self):
+        issue_list = self.project.get_issue_list(
+            status=IssueStatus.all, author="xyzidontexist"
+        )
+        assert len(issue_list) == 0
+
+    def test_get_issue_list_assignee(self):
+        issue_list = self.project.get_issue_list(
+            status=IssueStatus.all, assignee="mfocko"
+        )
+        assert issue_list
+        assert len(issue_list) >= 3
+
     def test_issue_info(self):
         issue_info = self.project.get_issue_info(issue_id=1)
         assert issue_info
