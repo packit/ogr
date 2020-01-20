@@ -56,7 +56,13 @@ class GenericCommands(GitlabTests):
 
     def test_get_files(self):
         files = self.project.get_files()
-        assert files >= 1
+        assert files
+        assert len(files) >= 1
+        assert "README.md" in files
+
+        files = self.project.get_files(filter_regex=".*.md")
+        assert files
+        assert len(files) >= 1
         assert "README.md" in files
 
     def test_nonexisting_file(self):
