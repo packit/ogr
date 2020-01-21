@@ -44,6 +44,7 @@ from ogr.services.gitlab.flag import GitlabCommitFlag
 from ogr.services.gitlab.issue import GitlabIssue
 from ogr.services.gitlab.pull_request import GitlabPullRequest
 from ogr.services.gitlab.release import GitlabRelease
+from ogr.utils import filter_paths
 
 logger = logging.getLogger(__name__)
 
@@ -325,6 +326,28 @@ class GitlabProject(BaseGitProject):
             return str(file.decode())
         except gitlab.exceptions.GitlabGetError as ex:
             raise FileNotFoundError(f"File '{path}' on {ref} not found", ex)
+
+    def get_files(
+        self, ref: str = "master", filter_regex: str = None, recursive: bool = False
+    ) -> List[str]:
+        """
+        Get a list of file paths of the repo.
+        :param ref: branch or commit (defaults to master)
+        :param filter_regex: filter the paths with re.search
+        :param recursive: whether to return only top directory files or all files recursively
+        :return: [str]
+        """
+        paths = [
+            file_dict["path"]
+            for file_dict in self.gitlab_repo.repository_tree(
+                ref=ref, recursive=recursive, all=True
+            )
+            if file_dict["type"] != "tree"
+        ]
+        if filter_regex:
+            paths = filter_paths(paths, filter_regex)
+
+        return paths
 
     def get_issue_list(self, status: IssueStatus = IssueStatus.open) -> List[Issue]:
         return GitlabIssue.get_list(project=self, status=status)

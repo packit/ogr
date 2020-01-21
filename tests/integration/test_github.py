@@ -227,6 +227,17 @@ class GenericCommands(GithubTests):
         assert isinstance(file_content, str)
         assert "ref-names:" in file_content
 
+    def test_get_files(self):
+        files = self.ogr_project.get_files()
+        assert files
+        assert len(files) >= 10
+        assert ".git_archival.txt" in files
+
+        files = self.ogr_project.get_files(filter_regex=".*.spec")
+        assert files
+        assert len(files) >= 1
+        assert "python-ogr.spec" in files
+
     def test_nonexisting_file(self):
         with self.assertRaises(FileNotFoundError):
             self.ogr_project.get_file_content(".blablabla_nonexisting_file")

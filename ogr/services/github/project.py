@@ -51,6 +51,7 @@ from ogr.services.github.flag import GithubCommitFlag
 from ogr.services.github.issue import GithubIssue
 from ogr.services.github.pull_request import GithubPullRequest
 from ogr.services.github.release import GithubRelease
+from ogr.utils import filter_paths
 
 logger = logging.getLogger(__name__)
 
@@ -379,6 +380,41 @@ class GithubProject(BaseGitProject):
             ).decoded_content.decode()
         except UnknownObjectException as ex:
             raise FileNotFoundError(f"File '{path}' on {ref} not found", ex)
+
+    def get_files(
+        self, ref: str = "master", filter_regex: str = None, recursive: bool = False
+    ) -> List[str]:
+        """
+        Get a list of file paths of the repo.
+        :param ref: branch or commit (defaults to master)
+        :param filter_regex: filter the paths with re.search
+        :param recursive: whether to return only top directory files or all files recursively
+        :return: [str]
+        """
+        paths = []
+        contents = self.github_repo.get_contents(path="", ref=ref)
+
+        if recursive:
+            while contents:
+                file_content = contents.pop(0)
+                if file_content.type == "dir":
+                    contents.extend(
+                        self.github_repo.get_contents(path=file_content.path, ref=ref)
+                    )
+                else:
+                    paths.append(file_content.path)
+
+        else:
+            paths = [
+                file_content.path
+                for file_content in contents
+                if file_content.type != "dir"
+            ]
+
+        if filter_regex:
+            paths = filter_paths(paths, filter_regex)
+
+        return paths
 
     def _release_from_github_object(
         self, raw_release: PyGithubRelease, git_tag: GitTag

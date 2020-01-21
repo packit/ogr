@@ -224,3 +224,17 @@ class RequestResponse:
 
     def json(self) -> Optional[Dict[Any, Any]]:
         return self.json_content
+
+
+def filter_paths(paths: List[str], filter_regex: str) -> List[str]:
+    """
+    Find match in paths.
+    :param paths:
+    :param filter_regex:
+    :return: [str]
+    """
+    pattern = re.compile(filter_regex)
+    paths = list(
+        filter(lambda path: (not pattern or bool(pattern.search(path))), paths)
+    )
+    return paths
