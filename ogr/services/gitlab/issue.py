@@ -21,7 +21,7 @@
 # SOFTWARE.
 
 import datetime
-from typing import List
+from typing import List, Optional
 
 import gitlab
 from gitlab.v4.objects import Issue as _GitlabIssue
@@ -99,14 +99,23 @@ class GitlabIssue(BaseIssue):
 
     @staticmethod
     def get_list(
-        project: "ogr_gitlab.GitlabProject", status: IssueStatus = IssueStatus.open
+        project: "ogr_gitlab.GitlabProject",
+        status: IssueStatus = IssueStatus.open,
+        author: Optional[str] = None,
+        assignee: Optional[str] = None,
     ) -> List["Issue"]:
         # Gitlab API has status 'opened', not 'open'
-        issues = project.gitlab_repo.issues.list(
-            state=status.name if status != IssueStatus.open else "opened",
-            order_by="updated_at",
-            sort="desc",
-        )
+        parameters = {
+            "state": status.name if status != IssueStatus.open else "opened",
+            "order_by": "updated_at",
+            "sort": "desc",
+        }
+        if author:
+            parameters["author_username"] = author
+        if assignee:
+            parameters["assignee_username"] = assignee
+
+        issues = project.gitlab_repo.issues.list(**parameters)
         return [GitlabIssue(issue, project) for issue in issues]
 
     def _get_all_comments(self) -> List[IssueComment]:

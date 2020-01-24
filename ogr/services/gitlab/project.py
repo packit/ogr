@@ -349,8 +349,15 @@ class GitlabProject(BaseGitProject):
 
         return paths
 
-    def get_issue_list(self, status: IssueStatus = IssueStatus.open) -> List[Issue]:
-        return GitlabIssue.get_list(project=self, status=status)
+    def get_issue_list(
+        self,
+        status: IssueStatus = IssueStatus.open,
+        author: Optional[str] = None,
+        assignee: Optional[str] = None,
+    ) -> List[Issue]:
+        return GitlabIssue.get_list(
+            project=self, status=status, author=author, assignee=assignee
+        )
 
     def get_issue(self, issue_id: int) -> Issue:
         return GitlabIssue.get(project=self, id=issue_id)

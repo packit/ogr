@@ -246,6 +246,26 @@ class Issues(PagureTests):
         assert issue_list
         assert len(issue_list) >= 2
 
+    def test_issue_list_author(self):
+        issue_list = self.ogr_project.get_issue_list(
+            status=IssueStatus.all, author="mfocko"
+        )
+        assert issue_list
+        assert len(issue_list) >= 3
+
+    def test_issue_list_nonexisting_author(self):
+        issue_list = self.ogr_project.get_issue_list(
+            status=IssueStatus.all, author="xyzidontexist"
+        )
+        assert len(issue_list) == 0
+
+    def test_issue_list_assignee(self):
+        issue_list = self.ogr_project.get_issue_list(
+            status=IssueStatus.all, assignee="mfocko"
+        )
+        assert issue_list
+        assert len(issue_list) == 1
+
 
 class PullRequests(PagureTests):
     def test_pr_create(self):

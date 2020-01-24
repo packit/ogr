@@ -231,8 +231,15 @@ class GithubProject(BaseGitProject):
             collaborators[user.login] = permission
         return collaborators
 
-    def get_issue_list(self, status: IssueStatus = IssueStatus.open) -> List[Issue]:
-        return GithubIssue.get_list(project=self, status=status)
+    def get_issue_list(
+        self,
+        status: IssueStatus = IssueStatus.open,
+        author: Optional[str] = None,
+        assignee: Optional[str] = None,
+    ) -> List[Issue]:
+        return GithubIssue.get_list(
+            project=self, status=status, author=author, assignee=assignee
+        )
 
     def get_issue(self, issue_id: int) -> Issue:
         return GithubIssue.get(project=self, id=issue_id)

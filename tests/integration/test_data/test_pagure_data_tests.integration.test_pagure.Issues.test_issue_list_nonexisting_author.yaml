@@ -1,0 +1,126 @@
+_requre:
+  DataTypes: 1
+  key_strategy: StorageKeysInspectFull
+  version_storage_file: 2
+unittest.case:
+  tests.integration.test_pagure:
+    ogr.services.pagure.project:
+      ogr.services.pagure.issue:
+        ogr.services.pagure.project:
+          ogr.services.pagure.service:
+            requests.sessions:
+              requre.objects:
+                requests.sessions:
+                  send:
+                  - metadata:
+                      latency: 0.24431586265563965
+                      module_call_list:
+                      - unittest.case
+                      - tests.integration.test_pagure
+                      - ogr.services.pagure.project
+                      - ogr.services.pagure.issue
+                      - ogr.services.pagure.project
+                      - ogr.services.pagure.service
+                      - requests.sessions
+                      - requre.objects
+                      - requests.sessions
+                      - send
+                    output:
+                      __store_indicator: 2
+                      _content:
+                        args:
+                          assignee: null
+                          author: xyzidontexist
+                          milestones: []
+                          no_stones: null
+                          order: null
+                          priority: null
+                          since: null
+                          status: All
+                          tags: []
+                        issues: []
+                        pagination:
+                          first: https://pagure.io/api/0/ogr-tests/issues?status=All&per_page=20&page=1&author=xyzidontexist
+                          last: https://pagure.io/api/0/ogr-tests/issues?status=All&per_page=20&page=0&author=xyzidontexist
+                          next: null
+                          page: 1
+                          pages: 0
+                          per_page: 20
+                          prev: null
+                        total_issues: 0
+                      _next: null
+                      elapsed: 0.2
+                      encoding: null
+                      headers:
+                        Connection: Keep-Alive
+                        Content-Length: '574'
+                        Content-Security-Policy: default-src 'self';script-src 'self'
+                          'nonce-YqLDC0BS8d7iY8mKO7VtBbIne' https://apps.fedoraproject.org;
+                          style-src 'self' 'nonce-YqLDC0BS8d7iY8mKO7VtBbIne'; object-src
+                          'none';base-uri 'self';img-src 'self' https:;
+                        Content-Type: application/json
+                        Date: Fri, 01 Nov 2019 13-36-03 GMT
+                        Keep-Alive: timeout=5, max=99
+                        Referrer-Policy: same-origin
+                        Server: Apache/2.4.6 (Red Hat Enterprise Linux) OpenSSL/1.0.2k-fips
+                          mod_wsgi/3.4 Python/2.7.5
+                        Set-Cookie: pagure=eyJfcGVybWFuZW50Ijp0cnVlLCJjc3JmIjp7IiBiIjoiWmpZNFlXUTVOMlk0WmpkaVptTXpPREZoTVdWak56TmhOemxoTW1ZeE16bGtNMlEyWm1NNVl3PT0ifX0.EQNQZw.Iat69BzRCc5VY9DEf-ahnDPh9fw;
+                          Expires=Mon, 17-Feb-2020 14:04:23 GMT; Secure; HttpOnly;
+                          Path=/
+                        Strict-Transport-Security: max-age=31536000; includeSubDomains;
+                          preload
+                        X-Content-Type-Options: nosniff
+                        X-Frame-Options: ALLOW-FROM https://pagure.io/
+                        X-Xss-Protection: 1; mode=block
+                      raw: !!binary ""
+                      reason: OK
+                      status_code: 200
+    ogr.services.pagure.service:
+      ogr.services.pagure.user:
+        ogr.services.pagure.service:
+          requests.sessions:
+            requre.objects:
+              requests.sessions:
+                send:
+                - metadata:
+                    latency: 1.2575595378875732
+                    module_call_list:
+                    - unittest.case
+                    - tests.integration.test_pagure
+                    - ogr.services.pagure.service
+                    - ogr.services.pagure.user
+                    - ogr.services.pagure.service
+                    - requests.sessions
+                    - requre.objects
+                    - requests.sessions
+                    - send
+                  output:
+                    __store_indicator: 2
+                    _content:
+                      username: mfocko
+                    _next: null
+                    elapsed: 0.2
+                    encoding: null
+                    headers:
+                      Connection: Keep-Alive
+                      Content-Length: '26'
+                      Content-Security-Policy: default-src 'self';script-src 'self'
+                        'nonce-YqLDC0BS8d7iY8mKO7VtBbIne' https://apps.fedoraproject.org;
+                        style-src 'self' 'nonce-YqLDC0BS8d7iY8mKO7VtBbIne'; object-src
+                        'none';base-uri 'self';img-src 'self' https:;
+                      Content-Type: application/json
+                      Date: Fri, 01 Nov 2019 13-36-03 GMT
+                      Keep-Alive: timeout=5, max=100
+                      Referrer-Policy: same-origin
+                      Server: Apache/2.4.6 (Red Hat Enterprise Linux) OpenSSL/1.0.2k-fips
+                        mod_wsgi/3.4 Python/2.7.5
+                      Set-Cookie: pagure=eyJfcGVybWFuZW50Ijp0cnVlLCJjc3JmIjp7IiBiIjoiWmpZNFlXUTVOMlk0WmpkaVptTXpPREZoTVdWak56TmhOemxoTW1ZeE16bGtNMlEyWm1NNVl3PT0ifX0.EQNQZg.TmsyWe0CNGORpPgpMAh9DQBtNiM;
+                        Expires=Mon, 17-Feb-2020 14:04:22 GMT; Secure; HttpOnly; Path=/
+                      Strict-Transport-Security: max-age=31536000; includeSubDomains;
+                        preload
+                      X-Content-Type-Options: nosniff
+                      X-Frame-Options: ALLOW-FROM https://pagure.io/
+                      X-Xss-Protection: 1; mode=block
+                    raw: !!binary ""
+                    reason: OK
+                    status_code: 200

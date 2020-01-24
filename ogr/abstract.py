@@ -198,12 +198,19 @@ class Issue:
         raise NotImplementedError()
 
     @staticmethod
-    def get_list(project: Any, status: IssueStatus = IssueStatus.open) -> List["Issue"]:
+    def get_list(
+        project: Any,
+        status: IssueStatus = IssueStatus.open,
+        author: Optional[str] = None,
+        assignee: Optional[str] = None,
+    ) -> List["Issue"]:
         """
         List of issues.
 
         :param project: Any
         :param status: IssueStatus enum
+        :param author: str username of author
+        :param assignee: str username of assignee
         :return: [Issue]
         """
         raise NotImplementedError()
@@ -812,11 +819,18 @@ class GitProject:
         """
         raise NotImplementedError()
 
-    def get_issue_list(self, status: IssueStatus = IssueStatus.open) -> List["Issue"]:
+    def get_issue_list(
+        self,
+        status: IssueStatus = IssueStatus.open,
+        author: Optional[str] = None,
+        assignee: Optional[str] = None,
+    ) -> List["Issue"]:
         """
         List of issues (dics)
 
         :param status: IssueStatus enum
+        :param author: str username of author
+        :param assignee: str username of assignee
         :return: [Issue]
         """
         raise NotImplementedError()
