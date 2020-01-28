@@ -1,3 +1,18 @@
+# 0.10.0
+
+## New Features
+
+* Listing of the issues now supports filtering by author/assignee.
+* It is now possible to list files in the remote repository.
+* Github project class have a `get_tags` method.
+* Issue and pull-request can be edited via properties.
+
+## Fixes
+
+* Fork of the repository contains correct name and namespace after the forking.
+* Pagure's `project_create*` was improved.
+
+
 # 0.9.0
 
 ## New Features
