@@ -500,6 +500,7 @@ class PullRequests(GithubTests):
         assert pr_info
         assert pr_info.title == "WIP: API"
         assert pr_info.status == PRStatus.merged
+        assert pr_info.author == "lachmanfrantisek"
 
     def test_all_pr_commits(self):
         commits = self.ogr_project.get_all_pr_commits(pr_id=1)
