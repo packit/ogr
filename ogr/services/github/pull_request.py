@@ -76,7 +76,7 @@ class GithubPullRequest(BasePullRequest):
 
     @property
     def author(self) -> str:
-        return self._raw_pr.user.name
+        return self._raw_pr.user.login
 
     @property
     def source_branch(self) -> str:
