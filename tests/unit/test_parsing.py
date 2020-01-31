@@ -68,8 +68,8 @@ from ogr.parsing import parse_git_repo, RepoUrl
                 username=None,
                 namespace="namespace",
                 scheme="https",
-                hostname="host.name"
-            )
+                hostname="host.name",
+            ),
         ),
     ],
 )
