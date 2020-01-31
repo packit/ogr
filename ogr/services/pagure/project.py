@@ -208,8 +208,10 @@ class PagureProject(BaseGitProject):
     def get_issue(self, issue_id: int) -> Issue:
         return PagureIssue.get(project=self, id=issue_id)
 
-    def create_issue(self, title: str, body: str) -> Issue:
-        return PagureIssue.create(project=self, title=title, body=body)
+    def create_issue(
+        self, title: str, body: str, labels: Optional[List[str]] = None
+    ) -> Issue:
+        return PagureIssue.create(project=self, title=title, body=body, labels=labels)
 
     def get_pr_list(
         self, status: PRStatus = PRStatus.open, assignee=None, author=None
