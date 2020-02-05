@@ -5,7 +5,6 @@
 ![PyPI - Python Version](https://img.shields.io/pypi/pyversions/ogr.svg)
 ![PyPI - Status](https://img.shields.io/pypi/status/ogr.svg)
 
-
 Library for one API for many git forges. (e.g. GitHub, GitLab, Pagure).
 
 ## Currently supported git forges:
@@ -65,11 +64,9 @@ You can use the same API for other forges, you just need to replace `GithubServi
 
 Run `make prepare-check` before first `make check`.
 
-
 # Contribution notes
 
 - Property should not connect to network.
-
 
 # Contribution guidelines
 
