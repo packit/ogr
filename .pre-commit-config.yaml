@@ -3,35 +3,43 @@
 # pre-commit install
 
 repos:
--   repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v2.1.0
-    hooks:
-    - id: check-added-large-files
-    - id: check-ast
-    - id: check-merge-conflict
-    - id: check-yaml
-    - id: detect-private-key
-    - id: end-of-file-fixer
-    - id: trailing-whitespace
-    - id: flake8
-      args: [--max-line-length=100]
--   repo: https://github.com/ambv/black
+  - repo: https://github.com/psf/black
     rev: stable
     hooks:
-    - id: black
-      language_version: python3.6
--   repo: https://github.com/pre-commit/mirrors-mypy
-    rev: v0.670
+      - id: black
+        language_version: python3.6
+  - repo: https://github.com/prettier/prettier
+    rev: 1.19.1
     hooks:
-    -   id: mypy
+      - id: prettier
+        exclude: tests/integration/test_data/*
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v2.5.0
+    hooks:
+      - id: check-added-large-files
+      - id: check-ast
+      - id: check-merge-conflict
+      - id: check-yaml
+      - id: detect-private-key
+      - id: end-of-file-fixer
+      - id: trailing-whitespace
+  - repo: https://gitlab.com/pycqa/flake8
+    rev: 3.7.9
+    hooks:
+      - id: flake8
+        args: [--max-line-length=100]
+  - repo: https://github.com/pre-commit/mirrors-mypy
+    rev: v0.761
+    hooks:
+      - id: mypy
         args: [--no-strict-optional, --ignore-missing-imports]
--   repo: https://github.com/packit-service/pre-commit-hooks
+  - repo: https://github.com/packit-service/pre-commit-hooks
     rev: master
     hooks:
-    -   id: check-rebase
+      - id: check-rebase
         args:
-        - git://github.com/packit-service/ogr.git
--   repo: https://github.com/packit-service/requre
+          - git://github.com/packit-service/ogr.git
+  - repo: https://github.com/packit-service/requre
     rev: master
     hooks:
-    - id: requre-purge
+      - id: requre-purge

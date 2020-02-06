@@ -2,7 +2,7 @@
 - name: Check if we are not breaking packit
   hosts: all
   tasks:
-  - include_tasks: tasks/zuul-project-setup.yaml
-  - include_tasks: tasks/generic-dnf-requirements.yaml
-  - include_tasks: tasks/rpm-test-deps.yaml
-  - include_tasks: tasks/packit_reverse_dep_test.yaml
+    - include_tasks: tasks/zuul-project-setup.yaml
+    - include_tasks: tasks/generic-dnf-requirements.yaml
+    - include_tasks: tasks/rpm-test-deps.yaml
+    - include_tasks: tasks/packit_reverse_dep_test.yaml
