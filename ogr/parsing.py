@@ -90,6 +90,10 @@ def parse_git_repo(potential_url: str) -> Optional[RepoUrl]:
     if not potential_url:
         return None
 
+    # Remove trailing '/' from 1-7 to ensure parsing works as expected.
+    if potential_url[-1] == "/":
+        potential_url = potential_url.rstrip("/")
+
     # transform 4-6 to a URL-like string, so that we can handle it together with 1-3
     if "@" in potential_url:
         split = potential_url.split("@")
