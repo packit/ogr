@@ -74,12 +74,23 @@ class PagureIssue(BaseIssue):
     def created(self) -> datetime.datetime:
         return datetime.datetime.fromtimestamp(int(self._raw_issue["date_created"]))
 
+    @property
+    def labels(self) -> List[str]:
+        return self._raw_issue["tags"]
+
     def __str__(self) -> str:
         return "Pagure" + super().__str__()
 
     @staticmethod
-    def create(project: "ogr_pagure.PagureProject", title: str, body: str) -> "Issue":
+    def create(
+        project: "ogr_pagure.PagureProject",
+        title: str,
+        body: str,
+        labels: Optional[List[str]] = None,
+    ) -> "Issue":
         payload = {"title": title, "issue_content": body}
+        if labels is not None:
+            payload["tag"] = ",".join(labels)
         new_issue = project._call_project_api("new_issue", data=payload, method="POST")[
             "issue"
         ]
