@@ -363,6 +363,7 @@ class PagureProjectTokenCommands(PagureTests):
             PERSISTENT_DATA_PREFIX, f"test_pagure_data_{test_name}.yaml"
         )
 
+        PersistentObjectStorage().mode = StorageMode.default
         PersistentObjectStorage().storage_file = self.persistent_data_file
 
         if PersistentObjectStorage().mode == StorageMode.write and (not self.token):
@@ -489,3 +490,7 @@ class PagureProjectTokenCommands(PagureTests):
         assert statuses
         assert len(statuses) >= 0
         assert statuses[-1].state == CommitStatus.success
+
+    def test_is_private(self):
+        self.service.instance_url = "https://src.fedoraproject.org"
+        assert not self.ogr_project.is_private()

@@ -724,6 +724,14 @@ class GitProject:
         self.repo = repo
         self.namespace = namespace
 
+    def is_private(self) -> bool:
+        """
+        Is this repo private (accessible only by users with permissions)
+
+        :return: if yes, return True
+        """
+        raise NotImplementedError()
+
     def is_forked(self) -> bool:
         """
         Is this repo forked by the authenticated user?

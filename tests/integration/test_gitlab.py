@@ -172,6 +172,14 @@ class GenericCommands(GitlabTests):
         assert self.project.can_merge_pr("lachmanfrantisek")
         assert not self.project.can_merge_pr("not_existing_user")
 
+    def test_is_private(self):
+        # when regenerating this test with your gitlab token, use your own private repository
+        private_project = self.service.get_project(namespace="dhodovsk", repo="bekacky")
+        assert private_project.is_private()
+
+    def test_is_not_private(self):
+        assert not self.project.is_private()
+
 
 class Issues(GitlabTests):
     """

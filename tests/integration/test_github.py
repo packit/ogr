@@ -359,6 +359,16 @@ class GenericCommands(GithubTests):
     def test_full_repo_name(self):
         assert self.ogr_project.full_repo_name == "packit-service/ogr"
 
+    def test_is_not_private(self):
+        # when regenerating this test with your gitlab token, use your own private repository
+        private_project = self.service.get_project(
+            namespace="dhodovsk", repo="playground"
+        )
+        assert private_project.is_private()
+
+    def test_is_private(self):
+        assert not self.ogr_project.is_private()
+
 
 class Issues(GithubTests):
     def test_issue_list(self):

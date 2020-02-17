@@ -22,6 +22,7 @@
 
 import logging
 from typing import List, Optional, Dict, Set
+from urllib.parse import urlparse
 
 from ogr.abstract import PRStatus, GitTag, CommitFlag, CommitComment, CommitStatus
 from ogr.abstract import PullRequest, Issue, IssueStatus, Release
@@ -290,6 +291,20 @@ class PagureProject(BaseGitProject):
     def exists(self):
         response = self._call_project_api_raw()
         return response.ok
+
+    def is_private(self) -> bool:
+        """
+        Is this repo private? (accessible only by users with granted access)
+
+        :return: if yes, return True
+        """
+        host = urlparse(self.service.instance_url).hostname
+        if host in ["src.fedoraproject.org", "pagure.io"]:
+            # private repositories are not allowed in src.fedoraproject.org or pagure.io
+            return False
+        raise NotImplementedError(
+            f"is_private is not implemented for {self.service.instance_url}"
+        )
 
     def is_forked(self) -> bool:
         """
