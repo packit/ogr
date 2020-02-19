@@ -132,6 +132,14 @@ class GithubProject(BaseGitProject):
             logger.debug(f"Project {self.repo}/{user_login} does not exist: {ex}")
             return None
 
+    def is_private(self) -> bool:
+        """
+        Is this repo private? (accessible only by users with granted access)
+
+        :return: if yes, return True
+        """
+        return self.github_repo.private
+
     def is_forked(self) -> bool:
         """
         Is this repo forked by the authenticated user?

@@ -1,0 +1,59 @@
+_requre:
+  DataTypes: 1
+  key_strategy: StorageKeysInspectFull
+  version_storage_file: 2
+unittest.case:
+  tests.integration.test_pagure:
+    ogr.services.pagure.service:
+      ogr.services.pagure.user:
+        ogr.services.pagure.service:
+          requests.sessions:
+            requre.objects:
+              requests.sessions:
+                send:
+                - metadata:
+                    latency: 0.6878747940063477
+                    module_call_list:
+                    - unittest.case
+                    - tests.integration.test_pagure
+                    - ogr.services.pagure.service
+                    - ogr.services.pagure.user
+                    - ogr.services.pagure.service
+                    - requests.sessions
+                    - requre.objects
+                    - requests.sessions
+                    - send
+                  output:
+                    __store_indicator: 2
+                    _content:
+                      username: dhodovsk
+                    _next: null
+                    elapsed: 0.2
+                    encoding: null
+                    headers:
+                      Connection: Keep-Alive
+                      Date: Fri, 01 Nov 2019 13-36-03 GMT
+                      Keep-Alive: timeout=15, max=500
+                      Referrer-Policy: same-origin
+                      Server: Apache
+                      Strict-Transport-Security: max-age=31536000; includeSubDomains;
+                        preload
+                      X-Content-Type-Options: nosniff
+                      X-Fedora-ProxyServer: proxy01.phx2.fedoraproject.org
+                      X-Fedora-RequestID: XcFVKMi@EiqyqRlV7q32fgBBBkM
+                      X-Frame-Options: SAMEORIGIN
+                      X-Xss-Protection: 1; mode=block
+                      apptime: D=102669
+                      content-length: '28'
+                      content-security-policy: default-src 'self';script-src 'self'
+                        'nonce-9sHotOKnYQNQPY5sMeMR5dCqL' https://apps.fedoraproject.org
+                        https://mdapi.fedoraproject.org; style-src 'self' 'nonce-9sHotOKnYQNQPY5sMeMR5dCqL';
+                        object-src 'none';base-uri 'self';img-src 'self' https:;connect-src
+                        'self' https://pdc.fedoraproject.org;
+                      content-type: application/json
+                      set-cookie: disgit_pagure=eyJfcGVybWFuZW50Ijp0cnVlLCJjc3JmIjp7IiBiIjoiWVdFME5UWTNOV0U1WldJM1lXVm1PVGd4T1RsbVpHTXpObUkxTURJM09EZzNObVl6TUdRNVpBPT0ifX0.ESxBxg.BjZqxAa0q310ZEQKXlb79Y_e0BY;
+                        Expires=Thu, 19-Mar-2020 15:24:54 GMT; Secure; HttpOnly; Path=/
+                      x-fedora-appserver: pkgs02.phx2.fedoraproject.org
+                    raw: !!binary ""
+                    reason: OK
+                    status_code: 200
