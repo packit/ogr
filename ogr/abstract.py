@@ -282,7 +282,8 @@ class PullRequest:
     @deprecate_and_set_removal(
         since="0.9.0",
         remove_in="0.14.0 (or 1.0.0 if it comes sooner)",
-        message="Use PullRequestReadOnly from ogr.read_only",
+        message="Use PullRequestReadOnly from ogr.read_only to use a static and offline "
+        "representation of the pull-request. The subclasses of this class are not static anymore.",
     )
     def __init__(
         self,
