@@ -291,6 +291,10 @@ class BasePullRequest(PullRequest):
     def title(self) -> str:
         raise NotImplementedError()
 
+    @title.setter
+    def title(self, new_title: str) -> None:
+        raise NotImplementedError()
+
     @property
     def id(self) -> int:
         raise NotImplementedError()
@@ -306,6 +310,10 @@ class BasePullRequest(PullRequest):
     @property
     def description(self) -> str:
         raise NotImplementedError()
+
+    @description.setter
+    def description(self, new_description: str) -> None:
+        raise NotImplementedError
 
     @property
     def author(self) -> str:

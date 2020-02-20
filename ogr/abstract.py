@@ -311,6 +311,10 @@ class PullRequest:
     def title(self) -> str:
         return self._title
 
+    @title.setter
+    def title(self, new_title: str) -> None:
+        raise NotImplementedError()
+
     @property
     def id(self) -> int:
         return self._id
@@ -326,6 +330,10 @@ class PullRequest:
     @property
     def description(self) -> str:
         return self._description
+
+    @description.setter
+    def description(self, new_description: str) -> None:
+        raise NotImplementedError
 
     @property
     def author(self) -> str:
