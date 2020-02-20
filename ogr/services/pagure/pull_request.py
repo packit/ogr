@@ -27,8 +27,8 @@ from typing import List, Optional, Dict, Any
 from ogr.abstract import PRStatus, CommitFlag
 from ogr.abstract import PullRequest, PRComment
 from ogr.exceptions import PagureAPIException
-from ogr.services.base import BasePullRequest
 from ogr.services import pagure as ogr_pagure
+from ogr.services.base import BasePullRequest
 from ogr.services.pagure.comments import PagurePRComment
 
 logger = logging.getLogger(__name__)
@@ -99,6 +99,10 @@ class PagurePullRequest(BasePullRequest):
     @property
     def created(self) -> datetime.datetime:
         return datetime.datetime.fromtimestamp(int(self._raw_pr["date_created"]))
+
+    @property
+    def diff_url(self) -> str:
+        return f"{self.url}#request_diff"
 
     def __str__(self) -> str:
         return "Pagure" + super().__str__()

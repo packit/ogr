@@ -89,6 +89,10 @@ class GitlabPullRequest(BasePullRequest):
     def labels(self) -> List[str]:
         return self._raw_pr.labels
 
+    @property
+    def diff_url(self) -> str:
+        return f"{self._raw_pr.web_url}/diffs"
+
     def __str__(self) -> str:
         return "Gitlab" + super().__str__()
 
