@@ -81,10 +81,15 @@ def get_project(
     :return: GitProject using the matching implementation
     """
     kls = get_service_class(url=url, service_mapping_update=service_mapping_update)
+    repo_url = parse_git_repo(url)
 
     if custom_instances:
         for service_inst in custom_instances:
-            if isinstance(service_inst, kls) and service_inst.instance_url in url:
+            si_repo_url = parse_git_repo(service_inst.instance_url)
+            if (
+                isinstance(service_inst, kls)
+                and si_repo_url.hostname == repo_url.hostname
+            ):
                 service = service_inst
                 break
         else:
