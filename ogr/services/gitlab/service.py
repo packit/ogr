@@ -25,8 +25,8 @@ import gitlab
 from ogr.abstract import GitService, GitUser
 from ogr.exceptions import GitlabAPIException
 from ogr.factory import use_for_service
-from ogr.services.gitlab.user import GitlabUser
 from ogr.services.gitlab.project import GitlabProject
+from ogr.services.gitlab.user import GitlabUser
 
 
 @use_for_service("gitlab")
@@ -56,11 +56,14 @@ class GitlabService(GitService):
         return GitlabUser(service=self)
 
     def __str__(self) -> str:
-        token_str = f", token='{self.token}'" if self.token else ""
+        token_str = (
+            f", token='{self.token[:1]}***{self.token[-1:]}'" if self.token else ""
+        )
+        ssl_str = f", ssl_verify=False" if not self.ssl_verify else ""
         str_result = (
             f"GitlabService(instance_url='{self.instance_url}'"
-            f"{token_str}, "
-            f"ssl_verify={self.ssl_verify})"
+            f"{token_str}"
+            f"{ssl_str})"
         )
         return str_result
 

@@ -29,9 +29,9 @@ from ogr.exceptions import PagureAPIException, OgrException
 from ogr.factory import use_for_service
 from ogr.parsing import parse_git_repo
 from ogr.services.base import BaseGitService
-from ogr.utils import RequestResponse
 from ogr.services.pagure.project import PagureProject
 from ogr.services.pagure.user import PagureUser
+from ogr.utils import RequestResponse
 
 logger = logging.getLogger(__name__)
 
@@ -65,12 +65,17 @@ class PagureService(BaseGitService):
         self.header = {"Authorization": "token " + self._token} if self._token else {}
 
     def __str__(self) -> str:
-        token_str = f", token='{self._token}'" if self._token else ""
+        token_str = (
+            f", token='{self._token[:1]}***{self._token[-1:]}'" if self._token else ""
+        )
+        insecure_str = f", insecure=True" if self.insecure else ""
+        readonly_str = f", read_only=True" if self.read_only else ""
+
         str_result = (
             f"PagureService(instance_url='{self.instance_url}'"
-            f"{token_str}, "
-            f"read_only={self.read_only}, "
-            f"insecure={self.insecure})"
+            f"{token_str}"
+            f"{readonly_str}"
+            f"{insecure_str})"
         )
         return str_result
 
