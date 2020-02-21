@@ -244,9 +244,10 @@ class GithubProject(BaseGitProject):
         status: IssueStatus = IssueStatus.open,
         author: Optional[str] = None,
         assignee: Optional[str] = None,
+        labels: Optional[List[str]] = None,
     ) -> List[Issue]:
         return GithubIssue.get_list(
-            project=self, status=status, author=author, assignee=assignee
+            project=self, status=status, author=author, assignee=assignee, labels=labels
         )
 
     def get_issue(self, issue_id: int) -> Issue:

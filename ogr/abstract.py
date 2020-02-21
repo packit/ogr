@@ -203,6 +203,7 @@ class Issue:
         status: IssueStatus = IssueStatus.open,
         author: Optional[str] = None,
         assignee: Optional[str] = None,
+        labels: Optional[List[str]] = None,
     ) -> List["Issue"]:
         """
         List of issues.
@@ -211,6 +212,7 @@ class Issue:
         :param status: IssueStatus enum
         :param author: str username of author
         :param assignee: str username of assignee
+        :param labels: List[str] list of labels
         :return: [Issue]
         """
         raise NotImplementedError()
@@ -846,6 +848,7 @@ class GitProject:
         status: IssueStatus = IssueStatus.open,
         author: Optional[str] = None,
         assignee: Optional[str] = None,
+        labels: Optional[List[str]] = None,
     ) -> List["Issue"]:
         """
         List of issues (dics)
@@ -853,6 +856,7 @@ class GitProject:
         :param status: IssueStatus enum
         :param author: str username of author
         :param assignee: str username of assignee
+        :param labels: List[str] list of labels
         :return: [Issue]
         """
         raise NotImplementedError()

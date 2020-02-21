@@ -21,7 +21,7 @@
 # SOFTWARE.
 
 import datetime
-from typing import List, Optional
+from typing import List, Optional, Dict, Union
 
 from github import UnknownObjectException
 from github.Issue import Issue as _GithubIssue
@@ -105,12 +105,19 @@ class GithubIssue(BaseIssue):
         status: IssueStatus = IssueStatus.open,
         author: Optional[str] = None,
         assignee: Optional[str] = None,
+        labels: Optional[List[str]] = None,
     ) -> List["Issue"]:
-        parameters = {"state": status.name, "sort": "updated", "direction": "desc"}
+        parameters: Dict[str, Union[str, List[str]]] = {
+            "state": status.name,
+            "sort": "updated",
+            "direction": "desc",
+        }
         if author:
             parameters["creator"] = author
         if assignee:
             parameters["assignee"] = assignee
+        if labels:
+            parameters["labels"] = labels
 
         issues = project.github_repo.get_issues(**parameters)
         try:
