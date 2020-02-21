@@ -30,8 +30,8 @@ from ogr.abstract import GitUser
 from ogr.exceptions import GithubAPIException
 from ogr.factory import use_for_service
 from ogr.services.base import BaseGitService
-from ogr.services.github.user import GithubUser
 from ogr.services.github.project import GithubProject
+from ogr.services.github.user import GithubUser
 
 
 @use_for_service("github.com")
@@ -77,12 +77,17 @@ class GithubService(BaseGitService):
         return None
 
     def __str__(self) -> str:
-        token_str = f", token='{self.token}'" if self.token else ""
+        token_str = (
+            f", token='{self.token[:1]}***{self.token[-1:]}'" if self.token else ""
+        )
         github_app_id_str = (
-            f", github_app_id='{self.github_app_id}'" if self.github_app_id else ""
+            f", github_app_id='{self.github_app_id[:1]}***{self.github_app_id[-1:]}'"
+            if self.github_app_id
+            else ""
         )
         github_app_private_key_str = (
-            f", github_app_private_key='{self._github_app_private_key}'"
+            f", github_app_private_key"
+            f"='{self._github_app_private_key[:1]}***{self._github_app_private_key[-1:]}'"
             if self._github_app_private_key
             else ""
         )
@@ -91,12 +96,21 @@ class GithubService(BaseGitService):
             if self.github_app_private_key_path
             else ""
         )
-        str_result = (
-            f"GithubService(read_only={self.read_only}"
-            f"{token_str}{github_app_id_str}"
-            f"{github_app_private_key_str}{github_app_private_key_path_str})"
+
+        readonly_str = f", read_only=True" if self.read_only else ""
+        arguments = (
+            f"{token_str}"
+            f"{github_app_id_str}"
+            f"{github_app_private_key_str}"
+            f"{github_app_private_key_path_str}"
+            f"{readonly_str}"
         )
-        return str_result
+
+        if arguments:
+            # remove the first '- '
+            arguments = arguments[2:]
+
+        return f"GithubService({arguments})"
 
     def __eq__(self, o: object) -> bool:
         if not issubclass(o.__class__, GithubService):
