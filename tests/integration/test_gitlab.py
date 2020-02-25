@@ -1,6 +1,4 @@
 import os
-import unittest
-
 import pytest
 from gitlab import GitlabGetError
 
@@ -9,25 +7,15 @@ from requre.storage import PersistentObjectStorage
 from requre.utils import StorageMode
 from ogr.abstract import PRStatus, IssueStatus, CommitStatus
 from ogr.services.gitlab import GitlabService
+from requre import RequreTestCase
 
-DATA_DIR = "test_data"
-PERSISTENT_DATA_PREFIX = os.path.join(
-    os.path.dirname(os.path.realpath(__file__)), DATA_DIR
-)
-
-
-class GitlabTests(unittest.TestCase):
+class GitlabTests(RequreTestCase):
     def setUp(self):
+        super().setUp()
         self.token = os.environ.get("GITLAB_TOKEN")
-        test_name = self.id() or "all"
 
-        persistent_data_file = os.path.join(
-            PERSISTENT_DATA_PREFIX, f"test_gitlab_data_{test_name}.yaml"
-        )
-        PersistentObjectStorage().mode = StorageMode.default
-        PersistentObjectStorage().storage_file = persistent_data_file
         if PersistentObjectStorage().mode == StorageMode.write and not self.token:
-            raise EnvironmentError("please set GITLAB_TOKEN env variables")
+            raise EnvironmentError("You are in Requre write mode, please set GITLAB_TOKEN env variables")
         elif not self.token:
             self.token = "some_token"
 
@@ -38,9 +26,6 @@ class GitlabTests(unittest.TestCase):
         self.project = self.service.get_project(
             repo="ogr-tests", namespace="packit-service"
         )
-
-    def tearDown(self):
-        PersistentObjectStorage().dump()
 
 
 class GenericCommands(GitlabTests):

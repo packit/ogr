@@ -1,16 +1,11 @@
 import os
 import tempfile
-import unittest
 from pathlib import Path
 
 from ogr import GithubService
 from requre.storage import PersistentObjectStorage
 from requre.utils import StorageMode
-
-DATA_DIR = "test_data"
-PERSISTENT_DATA_PREFIX = os.path.join(
-    os.path.dirname(os.path.realpath(__file__)), DATA_DIR
-)
+from requre import RequreTestCase
 
 TESTING_PRIVATE_KEY = str(
     """-----BEGIN RSA PRIVATE """ + "KEY-----\n"
@@ -25,27 +20,18 @@ TESTING_PRIVATE_KEY = str(
 )
 
 
-class GithubTests(unittest.TestCase):
+class GithubTests(RequreTestCase):
     def setUp(self):
+        super().setUp()
         self.github_app_id = os.environ.get("GITHUB_APP_ID")
         self.github_app_private_key_path = os.environ.get("GITHUB_APP_PRIVATE_KEY_PATH")
-
-        test_name = self.id() or "all"
-
-        persistent_data_file = os.path.join(
-            PERSISTENT_DATA_PREFIX, f"test_github-app_data_{test_name}.yaml"
-        )
-        PersistentObjectStorage().storage_file = persistent_data_file
 
         if PersistentObjectStorage().mode == StorageMode.write and (
             not self.github_app_id or not self.github_app_private_key_path
         ):
             raise EnvironmentError(
-                "please set GITHUB_APP_ID GITHUB_APP_PRIVATE_KEY_PATH env variables"
+                "You are in Requre write mode, please set GITHUB_APP_ID GITHUB_APP_PRIVATE_KEY_PATH env variables"
             )
-
-    def tearDown(self):
-        PersistentObjectStorage().dump()
 
     def test_private_key(self):
         service = GithubService(
