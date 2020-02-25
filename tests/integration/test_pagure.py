@@ -10,14 +10,15 @@ from ogr.abstract import PRStatus, IssueStatus, CommitStatus
 from ogr.exceptions import PagureAPIException, OgrException
 
 
-
 class PagureTests(RequreTestCase):
     def setUp(self):
         super().setUp()
         self.token = os.environ.get("PAGURE_TOKEN")
 
         if PersistentObjectStorage().mode == StorageMode.write and (not self.token):
-            raise EnvironmentError("You are in Requre write mode, please set PAGURE_TOKEN env variables")
+            raise EnvironmentError(
+                "You are in Requre write mode, please set PAGURE_TOKEN env variables"
+            )
 
         self.service = PagureService(token=self.token, instance_url="https://pagure.io")
         self._user = None

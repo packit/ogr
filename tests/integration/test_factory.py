@@ -18,11 +18,17 @@ class FactoryTests(RequreTestCase):
 
         if PersistentObjectStorage().mode == StorageMode.write:
             if not self.github_token:
-                raise EnvironmentError("You are in requre write mode, please set GITHUB_TOKEN env variables")
+                raise EnvironmentError(
+                    "You are in requre write mode, please set GITHUB_TOKEN env variables"
+                )
             if not self.pagure_token:
-                raise EnvironmentError("You are in requre write mode, please set PAGURE_TOKEN env variables")
+                raise EnvironmentError(
+                    "You are in requre write mode, please set PAGURE_TOKEN env variables"
+                )
             if not os.environ.get("GITLAB_TOKEN"):
-                raise EnvironmentError("You are in requre write mode, please set GITLAB_TOKEN env variables")
+                raise EnvironmentError(
+                    "You are in requre write mode, please set GITLAB_TOKEN env variables"
+                )
 
         self.github_service = GithubService(token=self.github_token)
         self.pagure_service = PagureService(token=self.pagure_token)

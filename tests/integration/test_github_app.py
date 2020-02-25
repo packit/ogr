@@ -30,7 +30,8 @@ class GithubTests(RequreTestCase):
             not self.github_app_id or not self.github_app_private_key_path
         ):
             raise EnvironmentError(
-                "You are in Requre write mode, please set GITHUB_APP_ID GITHUB_APP_PRIVATE_KEY_PATH env variables"
+                "You are in Requre write mode, please set"
+                "GITHUB_APP_ID GITHUB_APP_PRIVATE_KEY_PATH env variables"
             )
 
     def test_private_key(self):

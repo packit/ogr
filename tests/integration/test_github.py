@@ -17,7 +17,9 @@ class GithubTests(RequreTestCase):
         super().setUp()
         self.token = os.environ.get("GITHUB_TOKEN")
         if PersistentObjectStorage().mode == StorageMode.write and (not self.token):
-            raise EnvironmentError("You are in Requre write mode, please set proper GITHUB_TOKEN env variables")
+            raise EnvironmentError(
+                "You are in Requre write mode, please set proper GITHUB_TOKEN env variables"
+            )
 
         self.service = GithubService(token=self.token)
         self._ogr_project = None

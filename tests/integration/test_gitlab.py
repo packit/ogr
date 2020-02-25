@@ -9,13 +9,16 @@ from ogr.abstract import PRStatus, IssueStatus, CommitStatus
 from ogr.services.gitlab import GitlabService
 from requre import RequreTestCase
 
+
 class GitlabTests(RequreTestCase):
     def setUp(self):
         super().setUp()
         self.token = os.environ.get("GITLAB_TOKEN")
 
         if PersistentObjectStorage().mode == StorageMode.write and not self.token:
-            raise EnvironmentError("You are in Requre write mode, please set GITLAB_TOKEN env variables")
+            raise EnvironmentError(
+                "You are in Requre write mode, please set GITLAB_TOKEN env variables"
+            )
         elif not self.token:
             self.token = "some_token"
 
