@@ -1,34 +1,24 @@
 import os
-import unittest
-
 import pytest
 
 from requre.storage import PersistentObjectStorage
 from requre.utils import StorageMode
+from requre import RequreTestCase
 
 from ogr import PagureService
 from ogr.abstract import PRStatus, IssueStatus, CommitStatus
 from ogr.exceptions import PagureAPIException, OgrException
 
-DATA_DIR = "test_data"
-PERSISTENT_DATA_PREFIX = os.path.join(
-    os.path.dirname(os.path.realpath(__file__)), DATA_DIR
-)
 
-
-class PagureTests(unittest.TestCase):
+class PagureTests(RequreTestCase):
     def setUp(self):
+        super().setUp()
         self.token = os.environ.get("PAGURE_TOKEN")
-        test_name = self.id() or "all"
-        self.persistent_data_file = os.path.join(
-            PERSISTENT_DATA_PREFIX, f"test_pagure_data_{test_name}.yaml"
-        )
-
-        PersistentObjectStorage().mode = StorageMode.default
-        PersistentObjectStorage().storage_file = self.persistent_data_file
 
         if PersistentObjectStorage().mode == StorageMode.write and (not self.token):
-            raise EnvironmentError("please set PAGURE_TOKEN env variables")
+            raise EnvironmentError(
+                "You are in Requre write mode, please set PAGURE_TOKEN env variables"
+            )
 
         self.service = PagureService(token=self.token, instance_url="https://pagure.io")
         self._user = None
@@ -56,9 +46,6 @@ class PagureTests(unittest.TestCase):
                 namespace=None, repo="ogr-tests", username=self.user, is_fork=True
             )
         return self._ogr_fork
-
-    def tearDown(self):
-        PersistentObjectStorage().dump()
 
 
 class Comments(PagureTests):
@@ -357,14 +344,8 @@ class Forks(PagureTests):
 
 class PagureProjectTokenCommands(PagureTests):
     def setUp(self):
+        super().setUp()
         self.token = os.environ.get("PAGURE_OGR_TEST_TOKEN")
-        test_name = self.id() or "all"
-        self.persistent_data_file = os.path.join(
-            PERSISTENT_DATA_PREFIX, f"test_pagure_data_{test_name}.yaml"
-        )
-
-        PersistentObjectStorage().mode = StorageMode.default
-        PersistentObjectStorage().storage_file = self.persistent_data_file
 
         if PersistentObjectStorage().mode == StorageMode.write and (not self.token):
             raise EnvironmentError("please set PAGURE_OGR_TEST_TOKEN env variables")

@@ -1,34 +1,24 @@
 import os
-import unittest
 
 from ogr import GithubService
 from requre.storage import PersistentObjectStorage
 from requre.utils import StorageMode
-
-DATA_DIR = "test_data"
-PERSISTENT_DATA_PREFIX = os.path.join(
-    os.path.dirname(os.path.realpath(__file__)), DATA_DIR
-)
+from requre import RequreTestCase
 
 
-class ReadOnly(unittest.TestCase):
+class ReadOnly(RequreTestCase):
     def setUp(self):
+        super().setUp()
         self.token = os.environ.get("GITHUB_TOKEN")
-        test_name = self.id() or "all"
-        persistent_data_file = os.path.join(
-            PERSISTENT_DATA_PREFIX, f"test_github_data_{test_name}.yaml"
-        )
-        PersistentObjectStorage().storage_file = persistent_data_file
         if PersistentObjectStorage().mode == StorageMode.write and not self.token:
-            raise EnvironmentError("please set GITHUB_TOKEN env variables")
+            raise EnvironmentError(
+                "You are in Requre write mode, please set GITHUB_TOKEN env variables"
+            )
 
         self.service = GithubService(token=self.token, read_only=True)
         self.ogr_project = self.service.get_project(
             namespace="packit-service", repo="ogr"
         )
-
-    def tearDown(self):
-        PersistentObjectStorage().dump()
 
     def test_pr_comments(self):
         pr_comments = self.ogr_project.get_pr_comments(9)
