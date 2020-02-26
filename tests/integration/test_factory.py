@@ -1,11 +1,13 @@
 import os
-from ogr import GithubService, PagureService, get_project, GitlabService
+
+from requre import RequreTestCase
 from requre.storage import PersistentObjectStorage
 from requre.utils import StorageMode
+
+from ogr import GithubService, PagureService, get_project, GitlabService
 from ogr.services.github import GithubProject
 from ogr.services.gitlab import GitlabProject
 from ogr.services.pagure import PagureProject
-from requre import RequreTestCase
 
 
 class FactoryTests(RequreTestCase):
@@ -42,12 +44,15 @@ class FactoryTests(RequreTestCase):
         ]
 
     def test_get_project_github(self):
-        project = get_project(
-            url="https://github.com/packit-service/ogr",
-            custom_instances=self.custom_instances,
-        )
-        assert isinstance(project, GithubProject)
-        assert project.github_repo
+        # unittest + pytest is a no-no for fixtures/parametrize
+        urls = [
+            "https://github.com/packit-service/ogr",
+            "git@github.com:TomasTomecek/speaks.git",
+        ]
+        for url in urls:
+            project = get_project(url=url, custom_instances=self.custom_instances)
+            assert isinstance(project, GithubProject)
+            assert project.github_repo
 
     def test_get_project_pagure(self):
         project = get_project(
