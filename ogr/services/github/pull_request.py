@@ -34,7 +34,6 @@ from ogr.services import github as ogr_github
 from ogr.services.base import BasePullRequest
 from ogr.services.github.comments import GithubPRComment
 
-
 logger = logging.getLogger(__name__)
 
 
@@ -93,6 +92,10 @@ class GithubPullRequest(BasePullRequest):
     @property
     def labels(self) -> List[GithubLabel]:
         return list(self._raw_pr.get_labels())
+
+    @property
+    def diff_url(self) -> str:
+        return f"{self._raw_pr.html_url}/files"
 
     def __str__(self) -> str:
         return "Github" + super().__str__()

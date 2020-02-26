@@ -1,6 +1,5 @@
 import os
 import pytest
-
 from requre.storage import PersistentObjectStorage
 from requre.utils import StorageMode
 from requre import RequreTestCase
@@ -284,6 +283,11 @@ class PullRequests(PagureTests):
         assert pr_info.title.startswith("Test PR")
         assert pr_info.description.endswith("merged prs")
         assert pr_info.status == PRStatus.merged
+        assert pr_info.url == "https://pagure.io/ogr-tests/pull-request/5"
+        assert (
+            pr_info.diff_url
+            == "https://pagure.io/ogr-tests/pull-request/5#request_diff"
+        )
 
 
 class Forks(PagureTests):

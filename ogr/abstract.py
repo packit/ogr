@@ -311,6 +311,10 @@ class PullRequest:
     def title(self) -> str:
         return self._title
 
+    @title.setter
+    def title(self, new_title: str) -> None:
+        raise NotImplementedError()
+
     @property
     def id(self) -> int:
         return self._id
@@ -326,6 +330,10 @@ class PullRequest:
     @property
     def description(self) -> str:
         return self._description
+
+    @description.setter
+    def description(self, new_description: str) -> None:
+        raise NotImplementedError
 
     @property
     def author(self) -> str:
@@ -347,6 +355,10 @@ class PullRequest:
     def labels(self) -> List[Any]:
         raise NotImplementedError()
 
+    @property
+    def diff_url(self) -> str:
+        raise NotImplementedError()
+
     def __str__(self) -> str:
         description = (
             f"{self.description[:10]}..." if self.description is not None else "None"
@@ -357,6 +369,7 @@ class PullRequest:
             f"id={self.id}, "
             f"status='{self.status.name}', "
             f"url='{self.url}', "
+            f"diff_url='{self.diff_url}', "
             f"description='{description}', "
             f"author='{self.author}', "
             f"source_branch='{self.source_branch}', "
