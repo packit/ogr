@@ -106,10 +106,11 @@ class GitlabIssue(BaseIssue):
         labels: Optional[List[str]] = None,
     ) -> List["Issue"]:
         # Gitlab API has status 'opened', not 'open'
-        parameters: Dict[str, Union[str, List[str]]] = {
+        parameters: Dict[str, Union[str, List[str], bool]] = {
             "state": status.name if status != IssueStatus.open else "opened",
             "order_by": "updated_at",
             "sort": "desc",
+            "all": True,
         }
         if author:
             parameters["author_username"] = author
