@@ -21,7 +21,7 @@
 # SOFTWARE.
 
 import datetime
-from typing import List, Optional
+from typing import List, Optional, Dict, Union
 
 import gitlab
 from gitlab.v4.objects import Issue as _GitlabIssue
@@ -103,17 +103,21 @@ class GitlabIssue(BaseIssue):
         status: IssueStatus = IssueStatus.open,
         author: Optional[str] = None,
         assignee: Optional[str] = None,
+        labels: Optional[List[str]] = None,
     ) -> List["Issue"]:
         # Gitlab API has status 'opened', not 'open'
-        parameters = {
+        parameters: Dict[str, Union[str, List[str], bool]] = {
             "state": status.name if status != IssueStatus.open else "opened",
             "order_by": "updated_at",
             "sort": "desc",
+            "all": True,
         }
         if author:
             parameters["author_username"] = author
         if assignee:
             parameters["assignee_username"] = assignee
+        if labels:
+            parameters["labels"] = labels
 
         issues = project.gitlab_repo.issues.list(**parameters)
         return [GitlabIssue(issue, project) for issue in issues]

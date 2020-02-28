@@ -252,6 +252,13 @@ class Issues(PagureTests):
         assert issue_list
         assert len(issue_list) == 1
 
+    def test_issue_list_labels(self):
+        issue_list = self.ogr_project.get_issue_list(
+            status=IssueStatus.all, labels=["test_label"]
+        )
+        assert issue_list
+        assert len(issue_list) == 1
+
 
 class PullRequests(PagureTests):
     def test_pr_create(self):

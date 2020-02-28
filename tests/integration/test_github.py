@@ -396,6 +396,13 @@ class Issues(GithubTests):
         assert issue_list
         assert len(issue_list) >= 10
 
+    def test_issue_list_labels(self):
+        issue_list = self.ogr_project.get_issue_list(
+            status=IssueStatus.all, labels=["Pagure"]
+        )
+        assert issue_list
+        assert len(issue_list) >= 42
+
     def test_issue_info(self):
         issue_info = self.ogr_project.get_issue_info(issue_id=4)
         assert issue_info

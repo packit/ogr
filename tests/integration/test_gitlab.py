@@ -1,13 +1,14 @@
 import os
+
 import pytest
 from gitlab import GitlabGetError
+from requre import RequreTestCase
 from requre.storage import PersistentObjectStorage
 from requre.utils import StorageMode
 
 from ogr.abstract import PRStatus, IssueStatus, CommitStatus
 from ogr.exceptions import GitlabAPIException
 from ogr.services.gitlab import GitlabService
-from requre import RequreTestCase
 
 
 class GitlabTests(RequreTestCase):
@@ -267,6 +268,13 @@ class Issues(GitlabTests):
         assert len(labels) == 2
         assert labels[0] == "test_lb1"
         assert labels[1] == "test_lb2"
+
+    def test_issue_list_labels(self):
+        issue_list = self.project.get_issue_list(
+            status=IssueStatus.all, labels=["testing-label-for-test-issue-list-labels"]
+        )
+        assert issue_list
+        assert len(issue_list) == 33
 
     def test_get_issue_comments_author_regex(self):
         comments = self.project.get_issue_comments(
