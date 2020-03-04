@@ -43,6 +43,8 @@ class GithubCommitFlag(CommitFlag):
         self.state = self._state_from_str(self._raw_commit_flag.state)
         self.context = self._raw_commit_flag.context
         self.comment = self._raw_commit_flag.description
+        self.url = self._raw_commit_flag.target_url
+        self.uid = self._raw_commit_flag.id
 
     @staticmethod
     def get(project: "ogr_github.GithubProject", commit: str) -> List["CommitFlag"]:
@@ -50,7 +52,9 @@ class GithubCommitFlag(CommitFlag):
 
         try:
             return [
-                GithubCommitFlag(raw_commit_flag=raw_status, project=project)
+                GithubCommitFlag(
+                    raw_commit_flag=raw_status, project=project, commit=commit
+                )
                 for raw_status in statuses
             ]
         except UnknownObjectException:

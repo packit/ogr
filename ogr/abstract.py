@@ -556,8 +556,11 @@ class CommitFlag:
         uid: Optional[str] = None,
         url: Optional[str] = None,
     ) -> None:
+        self.uid = uid
+        self.project = project
+        self.commit = commit
+
         if commit and state and context:
-            self.commit = commit
             self.state = state
             self.context = context
             self.comment = comment
@@ -565,8 +568,6 @@ class CommitFlag:
         else:
             self._raw_commit_flag = raw_commit_flag
             self._from_raw_commit_flag()
-        self.uid = uid
-        self.project = project
 
     def __str__(self) -> str:
         return (

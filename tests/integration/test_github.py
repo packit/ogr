@@ -3,13 +3,13 @@ import unittest
 
 import pytest
 from github import GithubException, UnknownObjectException
+from requre import RequreTestCase
+from requre.storage import PersistentObjectStorage
+from requre.utils import StorageMode
 
 from ogr import GithubService
 from ogr.abstract import PRStatus, IssueStatus, CommitStatus
 from ogr.exceptions import GithubAPIException
-from requre.storage import PersistentObjectStorage
-from requre.utils import StorageMode
-from requre import RequreTestCase
 
 
 class GithubTests(RequreTestCase):
@@ -307,12 +307,17 @@ class GenericCommands(GithubTests):
         assert status.comment == "testing description"
 
     def test_get_commit_statuses(self):
-        statuses = self.ogr_project.get_commit_statuses(
-            commit="c891a9e4ac01e6575f3fd66cf1b7db2f52f10128"
-        )
+        commit = "c891a9e4ac01e6575f3fd66cf1b7db2f52f10128"
+        statuses = self.ogr_project.get_commit_statuses(commit=commit)
         assert statuses
         assert len(statuses) >= 26
-        assert statuses[-1].comment.startswith("Testing the trimming")
+        last_flag = statuses[-1]
+        assert last_flag.comment.startswith("Testing the trimming")
+        assert last_flag.url == "https://github.com/packit-service/ogr"
+        assert last_flag.commit == commit
+        assert last_flag.state == CommitStatus.success
+        assert last_flag.context == "test"
+        assert last_flag.uid
 
     def test_set_commit_status_long_description(self):
         long_description = (
