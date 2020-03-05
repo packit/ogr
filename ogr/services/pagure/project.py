@@ -300,11 +300,12 @@ class PagureProject(BaseGitProject):
         :return: if yes, return True
         """
         host = urlparse(self.service.instance_url).hostname
-        if host in ["src.fedoraproject.org", "pagure.io"]:
-            # private repositories are not allowed in src.fedoraproject.org or pagure.io
+        if host in ["src.fedoraproject.org", "pagure.io", "src.stg.fedoraproject.org"]:
+            # private repositories are not allowed on generally used pagure instances
             return False
         raise NotImplementedError(
-            f"is_private is not implemented for {self.service.instance_url}"
+            f"is_private is not implemented for {self.service.instance_url}."
+            f"Please open issue in https://github.com/packit-service/ogr"
         )
 
     def is_forked(self) -> bool:
