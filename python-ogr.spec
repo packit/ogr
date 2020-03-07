@@ -1,16 +1,13 @@
-# created by pyp2rpm-3.3.2
-%global pypi_name ogr
+%global srcname ogr
 
-%{?python_enable_dependency_generator}
-
-Name:           python-%{pypi_name}
-Version:        0.10.0
+Name:           python-%{srcname}
+Version:        0.11.0
 Release:        1%{?dist}
 Summary:        One API for multiple git forges
 
 License:        MIT
 URL:            https://github.com/packit-service/ogr
-Source0:        https://files.pythonhosted.org/packages/source/o/%{pypi_name}/%{pypi_name}-%{version}.tar.gz
+Source0:        %{pypi_source}
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
@@ -21,18 +18,18 @@ BuildRequires:  python3dist(setuptools-scm-git-archive)
 %description
 One Git library to Rule!
 
-%package -n     python3-%{pypi_name}
+%package -n     python3-%{srcname}
 Summary:        %{summary}
-%{?python_provide:%python_provide python3-%{pypi_name}}
+%{?python_provide:%python_provide python3-%{srcname}}
 
-%description -n python3-%{pypi_name}
+%description -n python3-%{srcname}
 One Git library to Rule!
 
 
 %prep
-%autosetup -n %{pypi_name}-%{version}
+%autosetup -n %{srcname}-%{version}
 # Remove bundled egg-info
-rm -rf %{pypi_name}.egg-info
+rm -rf %{srcname}.egg-info
 
 
 %build
@@ -43,14 +40,17 @@ rm -rf %{pypi_name}.egg-info
 %py3_install
 
 
-%files -n python3-%{pypi_name}
+%files -n python3-%{srcname}
 %license LICENSE
 %doc README.md
-%{python3_sitelib}/%{pypi_name}
-%{python3_sitelib}/%{pypi_name}-%{version}-py?.?.egg-info
+%{python3_sitelib}/%{srcname}
+%{python3_sitelib}/%{srcname}-%{version}-py?.?.egg-info
 
 
 %changelog
+* Sat Mar 07 2020 Jiri Popelka <jpopelka@redhat.com> - 0.11.0-1
+- New upstream release 0.11.0
+
 * Tue Jan 28 2020 Frantisek Lachman <flachman@redhat.com> - 0.10.0-1
 - New upstream release 0.10.0
 
