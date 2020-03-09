@@ -1,3 +1,18 @@
+# 0.11.0
+
+## New Features
+
+- Creating of Pagure issues now supports tags. (@cverna)
+- Project issues can now be filtered by labels. (@cverna)
+- GitProject has new is_private() method. (@dhodovsk)
+- Tokens & keys are now obfuscated in logs. (@lachmanfrantisek)
+- PR classes now have diff_url property. (@pawelkopka)
+
+## Fixes
+
+- Trailing slash from URLs is now removed before parsing. (@nickcannariato)
+- Getting of projects defined with SSH URLs is fixed. (@TomasTomecek)
+
 # 0.10.0
 
 ## New Features
