@@ -28,14 +28,14 @@
 - job:
     name: ogr-tests-rpm
     parent: ogr-parent
-    description: Run tests of packit via rpms
+    description: Run tests of ogr via rpms
     pre-run: files/zuul-install-requirements-rpms.yaml
     run: files/zuul-tests.yaml
 
 - job:
     name: ogr-tests-pip-deps
     parent: ogr-parent
-    description: Run tests of packit via pip installed dependencies
+    description: Run tests of ogr via pip installed dependencies
     pre-run: files/zuul-install-requirements-pip.yaml
     run: files/zuul-tests.yaml
 
