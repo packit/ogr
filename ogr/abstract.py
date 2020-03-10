@@ -728,7 +728,7 @@ class GitService:
 
 
 class GitProject:
-    def __init__(self, repo: str, service: GitService, namespace: str) -> None:
+    def __init__(self, repo: str, service: GitService, namespac: str) -> None:
         """
         :param repo: name of the project
         :param service: GitService instance
@@ -739,7 +739,7 @@ class GitProject:
         """
         self.service = service
         self.repo = repo
-        self.namespace = namespace
+        self.namespace = namespac
 
     def is_private(self) -> bool:
         """
