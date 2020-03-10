@@ -17,6 +17,12 @@
   command: ansible-playbook -e "ansible_python_interpreter=/usr/bin/python3" -v -c local -i localhost, files/zuul-install-requirements-pip.yaml
   args:
     chdir: "{{ reverse_dir }}"
+
+- name: Install ogr from {{ project_dir }}
+  pip:
+    name: "{{ project_dir }}"
+  become: true
+
 - name: install and run basic packit tests via ansible playbooks
   command: ansible-playbook -e "ansible_python_interpreter=/usr/bin/python3" -v -c local -i localhost, files/zuul-tests.yaml
   args:
