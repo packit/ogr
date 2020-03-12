@@ -1,0 +1,9 @@
+---
+- name: install and run basic packit tests via ansible playbooks
+  command: ansible-playbook -e "ansible_python_interpreter=/usr/bin/python3" -v -c local -i localhost, files/zuul-tests.yaml
+  args:
+    chdir: "{{ reverse_dir }}"
+- name: install and run packit tests with session recording via ansible playbooks
+  command: ansible-playbook -e "ansible_python_interpreter=/usr/bin/python3" -v -c local -i localhost, files/zuul-tests-session-recording.yaml
+  args:
+    chdir: "{{ reverse_dir }}"

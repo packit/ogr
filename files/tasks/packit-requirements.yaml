@@ -1,0 +1,5 @@
+---
+- name: install packit dependencies via ansible playbooks
+  command: ansible-playbook -e "ansible_python_interpreter=/usr/bin/python3" -v -c local -i localhost, files/zuul-install-requirements-pip.yaml
+  args:
+    chdir: "{{ reverse_dir }}"
