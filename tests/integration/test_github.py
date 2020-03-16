@@ -285,6 +285,9 @@ class GenericCommands(GithubTests):
 
         issue = self.ogr_project.get_issue_info(4)
         assert self.ogr_project.can_close_issue("lachmanfrantisek", issue)
+
+    def test_issue_permissions_cant_close(self):
+        issue = self.ogr_project.get_issue_info(4)
         assert not self.ogr_project.can_close_issue("unknown_user", issue)
 
     def test_pr_permissions(self):
