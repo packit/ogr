@@ -43,7 +43,7 @@ from ogr.abstract import (
     CommitFlag,
     CommitStatus,
 )
-from ogr.exceptions import GithubAPIException
+from ogr.exceptions import GithubAPIException, OgrException
 from ogr.read_only import if_readonly, GitProjectReadOnly
 from ogr.services import github as ogr_github
 from ogr.services.base import BaseGitProject
@@ -88,6 +88,11 @@ class GithubProject(BaseGitProject):
                 inst_id = integration.get_installation(
                     self.namespace, self.repo
                 ).id.value
+                if not inst_id:
+                    raise OgrException(
+                        f"No installation ID provided for {self.namespace}/{self.repo}: "
+                        "please make sure that you provided correct credentials of your GitHub app."
+                    )
                 inst_auth = integration.get_access_token(inst_id)
                 self._github_instance = github.Github(login_or_token=inst_auth.token)
             else:
