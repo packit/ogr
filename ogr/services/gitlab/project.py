@@ -443,13 +443,22 @@ class GitlabProject(BaseGitProject):
 
         :return: [GitlabProject]
         """
+        try:
+            forks = self.gitlab_repo.forks.list()
+        except KeyError:
+            # > item = self._data[self._current]
+            # > KeyError: 0
+            # looks like some API weirdness
+            raise OperationNotSupported(
+                "Please upgrade python-gitlab to a newer version."
+            )
         fork_objects = [
             GitlabProject(
                 repo=fork.path,
                 namespace=fork.namespace["full_path"],
                 service=self.service,
             )
-            for fork in self.gitlab_repo.forks.list()
+            for fork in forks
         ]
         return fork_objects
 

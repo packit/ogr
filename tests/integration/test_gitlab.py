@@ -594,7 +594,10 @@ class Forks(GitlabTests):
         """
         Remove https://gitlab.com/$USERNAME/ogr-tests before data regeneration
         """
-        not_existing_fork = self.project.get_fork(create=False)
+        try:
+            not_existing_fork = self.project.get_fork(create=False)
+        except OperationNotSupported:
+            self.skipTest("This python-gitlab malfunctions on listing forks.")
         assert not not_existing_fork
         assert not self.project.is_forked()
 
