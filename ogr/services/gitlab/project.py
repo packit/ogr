@@ -202,11 +202,17 @@ class GitlabProject(BaseGitProject):
             50 => Owner access
         :return: List of usernames
         """
-        return [
-            member.username
-            for member in self.gitlab_repo.members.all(all=True)
-            if member.access_level in access_levels
-        ]
+        response = []
+        for member in self.gitlab_repo.members.all(all=True):
+            if isinstance(member, dict):
+                access_level = member["access_level"]
+                username = member["username"]
+            else:
+                access_level = member.access_level
+                username = member.username
+            if access_level in access_levels:
+                response.append(username)
+        return response
 
     def get_pr_list(self, status: PRStatus = PRStatus.open) -> List["PullRequest"]:
         return GitlabPullRequest.get_list(project=self, status=status)
