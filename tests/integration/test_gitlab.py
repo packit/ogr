@@ -7,7 +7,7 @@ from requre.storage import PersistentObjectStorage
 from requre.utils import StorageMode
 
 from ogr.abstract import PRStatus, IssueStatus, CommitStatus
-from ogr.exceptions import GitlabAPIException
+from ogr.exceptions import GitlabAPIException, OperationNotSupported
 from ogr.services.gitlab import GitlabService
 
 
@@ -488,7 +488,10 @@ class Tags(GitlabTests):
 
 class Releases(GitlabTests):
     def test_create_release(self):
-        releases_before = self.project.get_releases()
+        try:
+            releases_before = self.project.get_releases()
+        except OperationNotSupported:
+            self.skipTest("This version of python-gitlab does not support releases.")
         version_list = releases_before[0].tag_name.rsplit(".", 1)
         increased = ".".join([version_list[0], str(int(version_list[1]) + 1)])
         count_before = len(releases_before)
@@ -505,7 +508,10 @@ class Releases(GitlabTests):
         assert count_before + 1 == count_after
 
     def test_get_releases(self):
-        releases = self.project.get_releases()
+        try:
+            releases = self.project.get_releases()
+        except OperationNotSupported:
+            self.skipTest("This version of python-gitlab does not support releases.")
         assert releases
         count = len(releases)
         assert count >= 1
@@ -514,7 +520,10 @@ class Releases(GitlabTests):
         assert releases[-1].body == "testing release"
 
     def test_get_latest_release(self):
-        release = self.project.get_releases()[0]
+        try:
+            release = self.project.get_releases()[0]
+        except OperationNotSupported:
+            self.skipTest("This version of python-gitlab does not support releases.")
         latest_release = self.project.get_latest_release()
         assert latest_release.title == release.title
         assert latest_release.tag_name == release.tag_name
@@ -585,7 +594,10 @@ class Forks(GitlabTests):
         """
         Remove https://gitlab.com/$USERNAME/ogr-tests before data regeneration
         """
-        not_existing_fork = self.project.get_fork(create=False)
+        try:
+            not_existing_fork = self.project.get_fork(create=False)
+        except OperationNotSupported:
+            self.skipTest("This python-gitlab malfunctions on listing forks.")
         assert not not_existing_fork
         assert not self.project.is_forked()
 

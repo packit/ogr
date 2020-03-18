@@ -12,10 +12,9 @@
       - python3-tox
     state: present
   become: true
-- name: Install latest twine for sake of check command
+- name: Install requre from git master
   pip:
     name:
-      - twine # we need newest twine, b/c of the check command
-      - readme_renderer[md]
+      - git+https://github.com/packit-service/requre.git
     state: latest
   become: true

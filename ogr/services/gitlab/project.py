@@ -37,7 +37,7 @@ from ogr.abstract import (
     CommitComment,
     CommitStatus,
 )
-from ogr.exceptions import GitlabAPIException
+from ogr.exceptions import GitlabAPIException, OperationNotSupported
 from ogr.services import gitlab as ogr_gitlab
 from ogr.services.base import BaseGitProject
 from ogr.services.gitlab.flag import GitlabCommitFlag
@@ -202,11 +202,17 @@ class GitlabProject(BaseGitProject):
             50 => Owner access
         :return: List of usernames
         """
-        return [
-            member.username
-            for member in self.gitlab_repo.members.all(all=True)
-            if member.access_level in access_levels
-        ]
+        response = []
+        for member in self.gitlab_repo.members.all(all=True):
+            if isinstance(member, dict):
+                access_level = member["access_level"]
+                username = member["username"]
+            else:
+                access_level = member.access_level
+                username = member.username
+            if access_level in access_levels:
+                response.append(username)
+        return response
 
     def get_pr_list(self, status: PRStatus = PRStatus.open) -> List["PullRequest"]:
         return GitlabPullRequest.get_list(project=self, status=status)
@@ -386,6 +392,10 @@ class GitlabProject(BaseGitProject):
         return GitTag(name=git_tag.name, commit_sha=git_tag.commit["id"])
 
     def get_releases(self) -> List[Release]:
+        if not hasattr(self.gitlab_repo, "releases"):
+            raise OperationNotSupported(
+                "This version of python-gitlab does not support release, please upgrade."
+            )
         releases = self.gitlab_repo.releases.list()
         return [
             self._release_from_gitlab_object(
@@ -433,13 +443,22 @@ class GitlabProject(BaseGitProject):
 
         :return: [GitlabProject]
         """
+        try:
+            forks = self.gitlab_repo.forks.list()
+        except KeyError:
+            # > item = self._data[self._current]
+            # > KeyError: 0
+            # looks like some API weirdness
+            raise OperationNotSupported(
+                "Please upgrade python-gitlab to a newer version."
+            )
         fork_objects = [
             GitlabProject(
                 repo=fork.path,
                 namespace=fork.namespace["full_path"],
                 service=self.service,
             )
-            for fork in self.gitlab_repo.forks.list()
+            for fork in forks
         ]
         return fork_objects
 
