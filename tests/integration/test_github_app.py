@@ -2,6 +2,11 @@ import os
 import tempfile
 from pathlib import Path
 
+import pytest
+from ogr.exceptions import OgrException
+
+from ogr.services.github.project import GithubProject
+
 from ogr import GithubService
 from requre.storage import PersistentObjectStorage
 from requre.utils import StorageMode
@@ -30,7 +35,7 @@ class GithubTests(RequreTestCase):
             not self.github_app_id or not self.github_app_private_key_path
         ):
             raise EnvironmentError(
-                "You are in Requre write mode, please set"
+                "You are in Requre write mode, please set "
                 "GITHUB_APP_ID GITHUB_APP_PRIVATE_KEY_PATH env variables"
             )
 
@@ -79,3 +84,16 @@ class GithubTests(RequreTestCase):
         finally:
             if not self.github_app_private_key_path:
                 Path(github_app_private_key_path).unlink()
+
+    def test_github_proj_no_app_creds(self):
+        service = GithubService(
+            github_app_id="123", github_app_private_key=TESTING_PRIVATE_KEY
+        )
+        project = GithubProject(
+            repo="packit", service=service, namespace="packit-service"
+        )
+        with pytest.raises(OgrException) as exc:
+            assert project.github_instance
+        mes = str(exc.value)
+        assert "No installation ID provided for packit-service/packit" in mes
+        assert "make sure that you provided correct credentials" in mes
