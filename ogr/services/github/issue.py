@@ -117,7 +117,9 @@ class GithubIssue(BaseIssue):
         if assignee:
             parameters["assignee"] = assignee
         if labels:
-            parameters["labels"] = labels
+            parameters["labels"] = [
+                project.github_repo.get_label(label) for label in labels
+            ]
 
         issues = project.github_repo.get_issues(**parameters)
         try:
