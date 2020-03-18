@@ -37,7 +37,7 @@ from ogr.abstract import (
     CommitComment,
     CommitStatus,
 )
-from ogr.exceptions import GitlabAPIException
+from ogr.exceptions import GitlabAPIException, OperationNotSupported
 from ogr.services import gitlab as ogr_gitlab
 from ogr.services.base import BaseGitProject
 from ogr.services.gitlab.flag import GitlabCommitFlag
@@ -392,6 +392,10 @@ class GitlabProject(BaseGitProject):
         return GitTag(name=git_tag.name, commit_sha=git_tag.commit["id"])
 
     def get_releases(self) -> List[Release]:
+        if not hasattr(self.gitlab_repo, "releases"):
+            raise OperationNotSupported(
+                "This version of python-gitlab does not support release, please upgrade."
+            )
         releases = self.gitlab_repo.releases.list()
         return [
             self._release_from_gitlab_object(
