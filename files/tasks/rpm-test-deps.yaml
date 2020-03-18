@@ -12,10 +12,3 @@
       - python3-tox
     state: present
   become: true
-- name: Install latest twine for sake of check command
-  pip:
-    name:
-      - twine # we need newest twine, b/c of the check command
-      - readme_renderer[md]
-    state: latest
-  become: true
