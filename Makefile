@@ -10,7 +10,9 @@ prepare-check:
 	sudo dnf install python3-tox python36
 
 check:
-	tox
+	@#`python3 -m pytest` doesn't work here b/c the way requre overrides import system:
+	@#`AttributeError: module 'importlib_metadata' has no attribute 'distributions'
+	PYTHONPATH=$(CURDIR) PYTHONDONTWRITEBYTECODE=1 pytest-3 --verbose --showlocals $(TEST_TARGET)
 
 shell:
 	podman run --rm -ti -v $(CURDIR):/src:Z -w /src $(OGR_IMAGE) bash

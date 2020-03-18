@@ -12,3 +12,9 @@
       - python3-tox
     state: present
   become: true
+- name: Install requre from git master
+  pip:
+    name:
+      - git+https://github.com/packit-service/requre.git
+    state: latest
+  become: true
