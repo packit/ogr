@@ -21,7 +21,7 @@
 # SOFTWARE.
 
 import datetime
-from typing import List, Optional, Dict, Union
+from typing import List, Optional, Dict, Union, Any, cast
 
 from ogr.abstract import IssueComment, IssueStatus, Issue
 from ogr.services import pagure as ogr_pagure
@@ -108,8 +108,12 @@ class PagureIssue(BaseIssue):
         author: Optional[str] = None,
         assignee: Optional[str] = None,
         labels: Optional[List[str]] = None,
+        max_issues: Optional[int] = 1000,
     ) -> List["Issue"]:
-        payload: Dict[str, Union[str, List[str]]] = {"status": status.name.capitalize()}
+        payload: Dict[str, Union[str, List[str], int]] = {
+            "status": status.name.capitalize(),
+            "page": 1,
+        }
         if author:
             payload["author"] = author
         if assignee:
@@ -117,7 +121,22 @@ class PagureIssue(BaseIssue):
         if labels:
             payload["tags"] = labels
 
-        raw_issues = project._call_project_api("issues", params=payload)["issues"]
+        raw_issues: List[Any] = []
+        remain = max_issues
+
+        while remain > 0:
+            per_page = min(100, remain)
+            payload["per_page"] = per_page
+
+            next_issues = project._call_project_api("issues", params=payload)["issues"]
+            if next_issues:
+                raw_issues += next_issues
+                remain -= len(next_issues)
+            if len(next_issues) < per_page:
+                break
+
+            payload["page"] = cast(int, payload["page"]) + 1
+
         return [PagureIssue(issue_dict, project) for issue_dict in raw_issues]
 
     def _get_all_comments(self) -> List[IssueComment]:
