@@ -726,6 +726,12 @@ class GitService:
         """
         raise NotImplementedError()
 
+    @property
+    def hostname(self) -> str:
+        service_repo_url = parse_git_repo(self.instance_url)
+        hostname = service_repo_url.hostname
+        return hostname
+
 
 class GitProject:
     def __init__(self, repo: str, service: GitService, namespace: str) -> None:
