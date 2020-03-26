@@ -65,6 +65,10 @@ def use_for_service(service: str, _func=None):
     return decorator_cover(_func)
 
 
+def add_service_mapping(service: str, service_class):
+    _SERVICE_MAPPING[service] = service_class
+
+
 def get_project(
     url,
     service_mapping_update: Dict[str, Type[GitService]] = None,
