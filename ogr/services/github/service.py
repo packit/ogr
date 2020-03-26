@@ -166,3 +166,10 @@ class GithubService(BaseGitService):
             service=self,
             github_repo=new_repo,
         )
+
+    @property
+    def hostname(self) -> str:
+        service_repo_url = parse_git_repo(self.instance_url)
+        hostname = service_repo_url.hostname
+        return hostname
+
