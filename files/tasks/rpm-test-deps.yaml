@@ -16,6 +16,7 @@
 - name: Install requre from git master
   pip:
     name:
+      - flexmock
       - git+https://github.com/packit-service/requre.git
     state: latest
   become: true

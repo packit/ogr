@@ -25,24 +25,6 @@ def github_project(mock_github_repo):
     return github_project
 
 
-@pytest.fixture
-def mock_pull_request():
-    def mock_pull_request_factory(id):
-        mock = flexmock(id=id)
-        return mock
-
-    return mock_pull_request_factory
-
-
-@pytest.fixture
-def mock_github_repo(mock_pull_request):
-    def mock_github_repo_factory():
-        mock = flexmock(create_pull=mock_pull_request(42))
-        return mock
-
-    return mock_github_repo_factory
-
-
 class TestGithubProject:
     @pytest.mark.parametrize(
         "fork_username",
