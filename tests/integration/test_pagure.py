@@ -295,6 +295,7 @@ class PullRequests(PagureTests):
             pr_info.diff_url
             == "https://pagure.io/ogr-tests/pull-request/5#request_diff"
         )
+        assert pr_info.head_commit == "517121273b142293807606dbd7a2e0f514b21cc8"
 
 
 class Forks(PagureTests):
