@@ -361,6 +361,10 @@ class PullRequest:
     def diff_url(self) -> str:
         raise NotImplementedError()
 
+    @property
+    def head_commit(self) -> str:
+        raise NotImplementedError
+
     def __str__(self) -> str:
         description = (
             f"{self.description[:10]}..." if self.description is not None else "None"
