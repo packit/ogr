@@ -1,18 +1,14 @@
 # 0.11.1
 
-* unnecessry pip/rpm install removed
-* add last_commit property to Pagure project
-* github: raise when we didn't obtain install id
-* whitespace: put space b/w words
-* invoke tests directly with pytest
-* gitlab,get_forks: p-gitlab can't process server's response
-* raise OperationNotSupported when gitlab doesn't support releases
-* zuul: don't install twine, we don't need it in CI
-* gitlab.members.all() turned into dict
-* github.repo.get_issues wants GithubLabel, not str
-* split test_issue_permissions into two
-* Fix and refactor packit rev-dep tests
-* Fix the descriptions in playbooks
+## New Features
+
+- Added head_commit property to PagurePullrequest. (@jsakalos)
+
+## Fixes
+
+- Packit rev-dep tests were refactored. (@lbarcziova)
+- Descriptions in playbooks were fixed. (@lbarcziova)
+- GitHubProject raises exception in case of missing install id . (@ttomecek)
 
 # 0.11.0
 
