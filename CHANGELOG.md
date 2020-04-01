@@ -1,3 +1,15 @@
+# 0.11.1
+
+## New Features
+
+- Added head_commit property to PagurePullrequest. (@jsakalos)
+
+## Fixes
+
+- Packit rev-dep tests were refactored. (@lbarcziova)
+- Descriptions in playbooks were fixed. (@lbarcziova)
+- GitHubProject raises exception in case of missing install id . (@ttomecek)
+
 # 0.11.0
 
 ## New Features
