@@ -1,5 +1,6 @@
 import os
 import unittest
+from datetime import datetime
 
 import pytest
 from github import GithubException, UnknownObjectException
@@ -321,6 +322,12 @@ class GenericCommands(GithubTests):
         assert last_flag.state == CommitStatus.success
         assert last_flag.context == "test"
         assert last_flag.uid
+        assert last_flag.created == datetime(
+            year=2019, month=9, day=19, hour=12, minute=21, second=6
+        )
+        assert last_flag.edited == datetime(
+            year=2019, month=9, day=19, hour=12, minute=21, second=6
+        )
 
     def test_set_commit_status_long_description(self):
         long_description = (

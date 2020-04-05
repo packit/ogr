@@ -19,6 +19,7 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
+import datetime
 import warnings
 from typing import List, Union
 
@@ -85,3 +86,11 @@ class GithubCommitFlag(CommitFlag):
             state.name, target_url, description, context
         )
         return GithubCommitFlag(project=project, raw_commit_flag=status, commit=commit)
+
+    @property
+    def created(self) -> datetime.datetime:
+        return self._raw_commit_flag.created_at
+
+    @property
+    def edited(self) -> datetime.datetime:
+        return self._raw_commit_flag.updated_at

@@ -581,7 +581,9 @@ class CommitFlag:
             f"context='{self.context}', "
             f"uid='{self.uid}',"
             f"comment='{self.comment}',"
-            f"url='{self.url}')"
+            f"url='{self.url}'"
+            f"created='{self.created}'"
+            f"edited='{self.edited}')"
         )
 
     def _state_from_str(self, state: str) -> CommitStatus:
@@ -605,6 +607,14 @@ class CommitFlag:
         description: str,
         context: str,
     ) -> "CommitFlag":
+        raise NotImplementedError()
+
+    @property
+    def created(self) -> datetime.datetime:
+        raise NotImplementedError()
+
+    @property
+    def edited(self) -> datetime.datetime:
         raise NotImplementedError()
 
 

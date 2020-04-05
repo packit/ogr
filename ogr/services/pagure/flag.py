@@ -20,7 +20,9 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 import warnings
+import datetime
 from typing import List, Dict, Any, Union
+
 
 from ogr.abstract import CommitFlag, CommitStatus
 from ogr.services import pagure as ogr_pagure
@@ -92,4 +94,16 @@ class PagureCommitFlag(CommitFlag):
         )
         return PagureCommitFlag(
             project=project, raw_commit_flag=response["flag"], uid=response["uid"]
+        )
+
+    @property
+    def created(self) -> datetime.datetime:
+        return datetime.datetime.fromtimestamp(
+            int(self._raw_commit_flag["date_created"])
+        )
+
+    @property
+    def edited(self) -> datetime.datetime:
+        return datetime.datetime.fromtimestamp(
+            int(self._raw_commit_flag["date_updated"])
         )
