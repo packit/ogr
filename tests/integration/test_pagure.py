@@ -250,11 +250,6 @@ class Issues(PagureTests):
         assert issue_list
         assert len(issue_list) >= 400
 
-    def test_issue_list_max(self):
-        issue_list = self.long_issues_project.get_issue_list(max_issues=150)
-        assert issue_list
-        assert len(issue_list) <= 150
-
     def test_issue_list_author(self):
         issue_list = self.ogr_project.get_issue_list(
             status=IssueStatus.all, author="mfocko"

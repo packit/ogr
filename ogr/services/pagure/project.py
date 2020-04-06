@@ -202,7 +202,6 @@ class PagureProject(BaseGitProject):
         author: Optional[str] = None,
         assignee: Optional[str] = None,
         labels: Optional[List[str]] = None,
-        max_issues: Optional[int] = 1000,
     ) -> List[Issue]:
         return PagureIssue.get_list(
             project=self,
@@ -210,7 +209,6 @@ class PagureProject(BaseGitProject):
             author=author,
             assignee=assignee,
             labels=labels,
-            max_issues=max_issues,
         )
 
     def get_issue(self, issue_id: int) -> Issue:

@@ -108,11 +108,11 @@ class PagureIssue(BaseIssue):
         author: Optional[str] = None,
         assignee: Optional[str] = None,
         labels: Optional[List[str]] = None,
-        max_issues: Optional[int] = 1000,
     ) -> List["Issue"]:
         payload: Dict[str, Union[str, List[str], int]] = {
             "status": status.name.capitalize(),
             "page": 1,
+            "per_page": 100,
         }
         if author:
             payload["author"] = author
@@ -122,19 +122,12 @@ class PagureIssue(BaseIssue):
             payload["tags"] = labels
 
         raw_issues: List[Any] = []
-        remain = max_issues
 
-        while remain > 0:
-            per_page = min(100, remain)
-            payload["per_page"] = per_page
-
-            next_issues = project._call_project_api("issues", params=payload)["issues"]
-            if next_issues:
-                raw_issues += next_issues
-                remain -= len(next_issues)
-            if len(next_issues) < per_page:
+        while True:
+            issues_info = project._call_project_api("issues", params=payload)
+            raw_issues += issues_info["issues"]
+            if not issues_info["pagination"]["next"]:
                 break
-
             payload["page"] = cast(int, payload["page"]) + 1
 
         return [PagureIssue(issue_dict, project) for issue_dict in raw_issues]
