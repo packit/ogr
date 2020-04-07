@@ -3,6 +3,7 @@ import pytest
 from requre.storage import PersistentObjectStorage
 from requre.utils import StorageMode
 from requre import RequreTestCase
+from vcr import use_cassette
 
 from ogr import PagureService
 from ogr.abstract import PRStatus, IssueStatus, CommitStatus
@@ -487,3 +488,17 @@ class PagureProjectTokenCommands(PagureTests):
     def test_is_private(self):
         self.service.instance_url = "https://src.fedoraproject.org"
         assert not self.ogr_project.is_private()
+
+
+@use_cassette()
+def test_token_is_none_then_set():
+    instance_url = "https://src.stg.fedoraproject.org"
+    s = PagureService(token=None, instance_url=instance_url)
+    with pytest.raises(PagureAPIException) as exc:
+        s.user.get_username()
+    assert "Invalid or expired token" in str(exc)
+
+    token = os.environ.get("PAGURE_TOKEN", "asdqwe")
+
+    s2 = PagureService(token=token, instance_url=instance_url)
+    assert s2.user.get_username()

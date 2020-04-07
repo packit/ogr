@@ -1,0 +1,105 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '0'
+      User-Agent:
+      - python-requests/2.22.0
+    method: POST
+    uri: https://src.stg.fedoraproject.org/api/0/-/whoami
+  response:
+    body:
+      string: "{\n  \"error\": \"Invalid or expired token. Please visit https://src.stg.fedoraproject.org/settings#nav-api-tab
+        to get or renew your API token.\", \n  \"error_code\": \"EINVALIDTOK\"\n}"
+    headers:
+      Connection:
+      - Keep-Alive
+      Date:
+      - Tue, 07 Apr 2020 08:59:41 GMT
+      Keep-Alive:
+      - timeout=15, max=500
+      Referrer-Policy:
+      - same-origin
+      Server:
+      - Apache
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+      X-Content-Type-Options:
+      - nosniff
+      X-Fedora-ProxyServer:
+      - proxy01.stg.phx2.fedoraproject.org
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Xss-Protection:
+      - 1; mode=block
+      apptime:
+      - D=67812
+      content-length:
+      - '174'
+      content-type:
+      - application/json
+      x-fedora-appserver:
+      - pkgs01.stg.phx2.fedoraproject.org
+    status:
+      code: 401
+      message: UNAUTHORIZED
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Authorization:
+      - token asdqwe
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '0'
+      User-Agent:
+      - python-requests/2.22.0
+    method: POST
+    uri: https://src.stg.fedoraproject.org/api/0/-/whoami
+  response:
+    body:
+      string: "{\n  \"username\": \"ttomecek\"\n}"
+    headers:
+      Connection:
+      - Keep-Alive
+      Date:
+      - Tue, 07 Apr 2020 08:59:43 GMT
+      Keep-Alive:
+      - timeout=15, max=500
+      Referrer-Policy:
+      - same-origin
+      Server:
+      - Apache
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+      X-Content-Type-Options:
+      - nosniff
+      X-Fedora-ProxyServer:
+      - proxy01.stg.phx2.fedoraproject.org
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Xss-Protection:
+      - 1; mode=block
+      apptime:
+      - D=139583
+      content-length:
+      - '28'
+      content-type:
+      - application/json
+      x-fedora-appserver:
+      - pkgs01.stg.phx2.fedoraproject.org
+    status:
+      code: 200
+      message: OK
+version: 1
