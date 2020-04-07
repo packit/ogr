@@ -224,6 +224,19 @@ class Service(PagureTests):
 
 
 class Issues(PagureTests):
+    def setUp(self):
+        super().setUp()
+        self._long_issues_project = None
+
+    @property
+    def long_issues_project(self):
+        if not self._long_issues_project:
+            self._long_issues_project = self.service.get_project(
+                repo="pagure", namespace=None
+            )
+
+        return self._long_issues_project
+
     def test_issue_list(self):
         issue_list = self.ogr_project.get_issue_list()
         assert isinstance(issue_list, list)
@@ -231,6 +244,11 @@ class Issues(PagureTests):
         issue_list = self.ogr_project.get_issue_list(status=IssueStatus.all)
         assert issue_list
         assert len(issue_list) >= 2
+
+    def test_issue_list_paginated(self):
+        issue_list = self.long_issues_project.get_issue_list()
+        assert issue_list
+        assert len(issue_list) >= 400
 
     def test_issue_list_author(self):
         issue_list = self.ogr_project.get_issue_list(

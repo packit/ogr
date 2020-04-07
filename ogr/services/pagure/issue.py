@@ -21,7 +21,7 @@
 # SOFTWARE.
 
 import datetime
-from typing import List, Optional, Dict, Union
+from typing import List, Optional, Dict, Union, Any, cast
 
 from ogr.abstract import IssueComment, IssueStatus, Issue
 from ogr.services import pagure as ogr_pagure
@@ -109,7 +109,11 @@ class PagureIssue(BaseIssue):
         assignee: Optional[str] = None,
         labels: Optional[List[str]] = None,
     ) -> List["Issue"]:
-        payload: Dict[str, Union[str, List[str]]] = {"status": status.name.capitalize()}
+        payload: Dict[str, Union[str, List[str], int]] = {
+            "status": status.name.capitalize(),
+            "page": 1,
+            "per_page": 100,
+        }
         if author:
             payload["author"] = author
         if assignee:
@@ -117,7 +121,15 @@ class PagureIssue(BaseIssue):
         if labels:
             payload["tags"] = labels
 
-        raw_issues = project._call_project_api("issues", params=payload)["issues"]
+        raw_issues: List[Any] = []
+
+        while True:
+            issues_info = project._call_project_api("issues", params=payload)
+            raw_issues += issues_info["issues"]
+            if not issues_info["pagination"]["next"]:
+                break
+            payload["page"] = cast(int, payload["page"]) + 1
+
         return [PagureIssue(issue_dict, project) for issue_dict in raw_issues]
 
     def _get_all_comments(self) -> List[IssueComment]:
