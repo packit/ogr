@@ -36,6 +36,7 @@ from ogr.abstract import (
     PRStatus,
     CommitComment,
     CommitStatus,
+    AccessLevel,
 )
 from ogr.exceptions import GitlabAPIException, OperationNotSupported
 from ogr.services import gitlab as ogr_gitlab
@@ -213,6 +214,33 @@ class GitlabProject(BaseGitProject):
             if access_level in access_levels:
                 response.append(username)
         return response
+
+    def add_user(self, user: str, access_level: AccessLevel):
+        """
+        AccessLevel.pull => Guest access
+        AccessLevel.triage => Reporter access
+        AccessLevel.push => Developer access
+        AccessLevel.admin => Maintainer access
+        AccessLevel.maintain => Owner access # Only valid for groups
+        """
+        access_dict = {
+            AccessLevel.pull: gitlab.GUEST_ACCESS,
+            AccessLevel.triage: gitlab.REPORTER_ACCESS,
+            AccessLevel.push: gitlab.DEVELOPER_ACCESS,
+            AccessLevel.admin: gitlab.MAINTAINER_ACCESS,
+            AccessLevel.maintain: gitlab.OWNER_ACCESS,
+        }
+        try:
+            user_id = self.service.gitlab_instance.users.list(username=user)[0].id
+        except Exception as e:
+            raise GitlabAPIException(f"User {user} not found", e)
+        try:
+            self.gitlab_repo.members.create(
+                {"user_id": user_id, "access_level": access_dict[access_level]}
+            )
+        except Exception as e:
+            raise GitlabAPIException(f"User {user} already exists", e)
+        return None
 
     def get_pr_list(self, status: PRStatus = PRStatus.open) -> List["PullRequest"]:
         return GitlabPullRequest.get_list(project=self, status=status)

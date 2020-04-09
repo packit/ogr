@@ -642,6 +642,14 @@ class GitTag:
         return f"GitTag(name={self.name}, commit_sha={self.commit_sha})"
 
 
+class AccessLevel(IntEnum):
+    pull = 1
+    triage = 2
+    push = 3
+    admin = 4
+    maintain = 5
+
+
 class Release:
     def __init__(
         self,
@@ -865,6 +873,16 @@ class GitProject:
         :return: true if user can close PR, false otherwise
         """
         raise NotImplementedError()
+
+    def add_user(self, user: str, access_level: AccessLevel) -> None:
+        """
+        Add User
+
+        :param user: str
+        :param access_level: AccessLevel enum
+        :return: None
+        """
+        raise NotImplementedError
 
     def get_issue_list(
         self,
