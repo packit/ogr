@@ -1,0 +1,131 @@
+_requre:
+  DataTypes: 1
+  key_strategy: StorageKeysInspectFull
+  version_storage_file: 2
+unittest.case:
+  tests.integration.test_pagure:
+    ogr.services.pagure.user:
+      ogr.services.pagure.service:
+        requests.sessions:
+          requre.objects:
+            requests.sessions:
+              send:
+              - metadata:
+                  latency: 0.6853442192077637
+                  module_call_list:
+                  - unittest.case
+                  - tests.integration.test_pagure
+                  - ogr.services.pagure.user
+                  - ogr.services.pagure.service
+                  - requests.sessions
+                  - requre.objects
+                  - requests.sessions
+                  - send
+                output:
+                  __store_indicator: 2
+                  _content:
+                    error: Invalid or expired token. Please visit https://pagure.io/settings#nav-api-tab
+                      to get or renew your API token.
+                    error_code: EINVALIDTOK
+                  _next: null
+                  elapsed: 0.2
+                  encoding: null
+                  headers:
+                    Connection: Keep-Alive
+                    Content-Length: '157'
+                    Content-Security-Policy: default-src 'self';script-src 'self'
+                      'nonce-YqLDC0BS8d7iY8mKO7VtBbIne' https://apps.fedoraproject.org;
+                      style-src 'self' 'nonce-YqLDC0BS8d7iY8mKO7VtBbIne'; object-src
+                      'none';base-uri 'self';img-src 'self' https:;
+                    Content-Type: application/json
+                    Date: Fri, 01 Nov 2019 13-36-03 GMT
+                    Keep-Alive: timeout=5, max=100
+                    Referrer-Policy: same-origin
+                    Server: Apache/2.4.6 (Red Hat Enterprise Linux) OpenSSL/1.0.2k-fips
+                      mod_wsgi/3.4 Python/2.7.5
+                    Strict-Transport-Security: max-age=31536000; includeSubDomains;
+                      preload
+                    X-Content-Type-Options: nosniff
+                    X-Frame-Options: ALLOW-FROM https://pagure.io/
+                    X-Xss-Protection: 1; mode=block
+                  raw: !!binary ""
+                  reason: UNAUTHORIZED
+                  status_code: 401
+              - metadata:
+                  latency: 0.21990966796875
+                  module_call_list:
+                  - unittest.case
+                  - tests.integration.test_pagure
+                  - ogr.services.pagure.user
+                  - ogr.services.pagure.service
+                  - requests.sessions
+                  - requre.objects
+                  - requests.sessions
+                  - send
+                output:
+                  __store_indicator: 2
+                  _content:
+                    username: ttomecek
+                  _next: null
+                  elapsed: 0.2
+                  encoding: null
+                  headers:
+                    Connection: Keep-Alive
+                    Content-Length: '28'
+                    Content-Security-Policy: default-src 'self';script-src 'self'
+                      'nonce-YqLDC0BS8d7iY8mKO7VtBbIne' https://apps.fedoraproject.org;
+                      style-src 'self' 'nonce-YqLDC0BS8d7iY8mKO7VtBbIne'; object-src
+                      'none';base-uri 'self';img-src 'self' https:;
+                    Content-Type: application/json
+                    Date: Fri, 01 Nov 2019 13-36-03 GMT
+                    Keep-Alive: timeout=5, max=99
+                    Referrer-Policy: same-origin
+                    Server: Apache/2.4.6 (Red Hat Enterprise Linux) OpenSSL/1.0.2k-fips
+                      mod_wsgi/3.4 Python/2.7.5
+                    Strict-Transport-Security: max-age=31536000; includeSubDomains;
+                      preload
+                    X-Content-Type-Options: nosniff
+                    X-Frame-Options: ALLOW-FROM https://pagure.io/
+                    X-Xss-Protection: 1; mode=block
+                  raw: !!binary ""
+                  reason: OK
+                  status_code: 200
+              - metadata:
+                  latency: 0.21304678916931152
+                  module_call_list:
+                  - unittest.case
+                  - tests.integration.test_pagure
+                  - ogr.services.pagure.user
+                  - ogr.services.pagure.service
+                  - requests.sessions
+                  - requre.objects
+                  - requests.sessions
+                  - send
+                output:
+                  __store_indicator: 2
+                  _content:
+                    username: ttomecek
+                  _next: null
+                  elapsed: 0.2
+                  encoding: null
+                  headers:
+                    Connection: Keep-Alive
+                    Content-Length: '28'
+                    Content-Security-Policy: default-src 'self';script-src 'self'
+                      'nonce-YqLDC0BS8d7iY8mKO7VtBbIne' https://apps.fedoraproject.org;
+                      style-src 'self' 'nonce-YqLDC0BS8d7iY8mKO7VtBbIne'; object-src
+                      'none';base-uri 'self';img-src 'self' https:;
+                    Content-Type: application/json
+                    Date: Fri, 01 Nov 2019 13-36-03 GMT
+                    Keep-Alive: timeout=5, max=98
+                    Referrer-Policy: same-origin
+                    Server: Apache/2.4.6 (Red Hat Enterprise Linux) OpenSSL/1.0.2k-fips
+                      mod_wsgi/3.4 Python/2.7.5
+                    Strict-Transport-Security: max-age=31536000; includeSubDomains;
+                      preload
+                    X-Content-Type-Options: nosniff
+                    X-Frame-Options: ALLOW-FROM https://pagure.io/
+                    X-Xss-Protection: 1; mode=block
+                  raw: !!binary ""
+                  reason: OK
+                  status_code: 200

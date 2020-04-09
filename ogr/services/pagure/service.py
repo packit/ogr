@@ -144,12 +144,12 @@ class PagureService(BaseGitService):
             logger.error(response.json_content)
             if "error" in response.json_content:
                 error_msg = response.json_content["error"]
-                error_msg_ext = response.json_content["errors"]
+                error_msg_ext = response.json_content.get("errors", "")
+                msg = f"Pagure API returned an error when calling `{url}`: {error_msg}"
+                if error_msg_ext:
+                    msg += f" - {error_msg_ext}"
                 raise PagureAPIException(
-                    f"Pagure API returned an error when calling `{url}`: "
-                    f"{error_msg} - {error_msg_ext}",
-                    pagure_error=error_msg,
-                    pagure_response=response.json_content,
+                    msg, pagure_error=error_msg, pagure_response=response.json_content,
                 )
             raise PagureAPIException(f"Problem with Pagure API when calling `{url}`")
 
