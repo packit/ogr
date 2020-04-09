@@ -375,7 +375,7 @@ class Forks(PagureTests):
 class PagureProjectTokenCommands(PagureTests):
     def setUp(self):
         super().setUp()
-        self.token = os.environ.get("PAGURE_OGR_TEST_TOKEN")
+        self.token = os.environ.get("PAGURE_OGR_TEST_TOKEN", "")
 
         if PersistentObjectStorage().mode == StorageMode.write and (not self.token):
             raise EnvironmentError("please set PAGURE_OGR_TEST_TOKEN env variables")
@@ -505,3 +505,16 @@ class PagureProjectTokenCommands(PagureTests):
     def test_is_private(self):
         self.service.instance_url = "https://src.fedoraproject.org"
         assert not self.ogr_project.is_private()
+
+    def test_token_is_none_then_set(self):
+        token = self.service._token
+        self.service.change_token("")
+        try:
+            with pytest.raises(PagureAPIException) as exc:
+                self.service.user.get_username()
+            assert "Invalid or expired token" in str(exc)
+        finally:
+            self.service.change_token(token)
+
+        self.service.user.get_username()
+        self.service.user.get_username()  # 2nd identical call
