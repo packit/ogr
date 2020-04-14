@@ -22,6 +22,7 @@
 
 import logging
 import warnings
+import datetime
 from typing import List, Union
 
 import gitlab
@@ -106,3 +107,15 @@ class GitlabCommitFlag(CommitFlag):
         }
         raw_status = commit_object.statuses.create(data_dict)
         return GitlabCommitFlag(raw_commit_flag=raw_status, project=project)
+
+    @property
+    def created(self) -> datetime.datetime:
+        return datetime.datetime.strptime(
+            self._raw_commit_flag.created_at, "%Y-%m-%dT%H:%M:%S.%fZ"
+        )
+
+    @property
+    def edited(self) -> datetime.datetime:
+        # Gitlab edited not implemented
+        # https://github.com/packit-service/ogr/issues/344
+        raise NotImplementedError()

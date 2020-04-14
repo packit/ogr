@@ -1,4 +1,5 @@
 import os
+from datetime import datetime
 
 import pytest
 from gitlab import GitlabGetError
@@ -105,6 +106,15 @@ class GenericCommands(GitlabTests):
         assert flags[0].state == CommitStatus.success
         assert flags[0].comment == "testing status"
         assert flags[0].context == "default"
+        assert flags[0].created == datetime(
+            year=2019,
+            month=9,
+            day=18,
+            hour=14,
+            minute=16,
+            second=48,
+            microsecond=424000,
+        )
 
     def test_set_commit_status(self):
         old_statuses = self.project.get_commit_statuses(

@@ -1,4 +1,6 @@
 import os
+from datetime import datetime
+
 import pytest
 from requre.storage import PersistentObjectStorage
 from requre.utils import StorageMode
@@ -501,6 +503,12 @@ class PagureProjectTokenCommands(PagureTests):
         assert statuses
         assert len(statuses) >= 0
         assert statuses[-1].state == CommitStatus.success
+        assert statuses[-1].created == datetime(
+            year=2019, month=12, day=2, hour=13, minute=16, second=11
+        )
+        assert statuses[-1].edited == datetime(
+            year=2019, month=12, day=2, hour=13, minute=16, second=11
+        )
 
     def test_is_private(self):
         self.service.instance_url = "https://src.fedoraproject.org"
