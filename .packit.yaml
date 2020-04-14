@@ -11,7 +11,7 @@ jobs:
   - job: propose_downstream
     trigger: release
     metadata:
-      dist-git-branch: fedora-all
+      dist_git_branch: fedora-all
   - job: copr_build
     trigger: pull_request
     metadata:
