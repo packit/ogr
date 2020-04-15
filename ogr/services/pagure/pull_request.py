@@ -22,9 +22,9 @@
 
 import datetime
 import logging
-from typing import List, Optional, Dict, Any
+from typing import List, Optional, Dict, Any, Union
 
-from ogr.abstract import PRStatus, CommitFlag
+from ogr.abstract import PRStatus, CommitFlag, CommitStatus
 from ogr.abstract import PullRequest, PRComment
 from ogr.exceptions import PagureAPIException
 from ogr.services import pagure as ogr_pagure
@@ -235,3 +235,43 @@ class PagurePullRequest(BasePullRequest):
     def get_statuses(self) -> List[CommitFlag]:
         self.__update()
         return self.project.get_commit_statuses(self._raw_pr["commit_stop"])
+
+    def set_flag(
+        self,
+        username: str,
+        comment: str,
+        url: str,
+        status: Optional[CommitStatus] = None,
+        percent: Optional[int] = None,
+        uid: Optional[str] = None,
+    ) -> dict:
+        """
+        Set a flag on a pull-request to display results or status of CI tasks.
+
+        See "Flag a pull-request" at
+
+            https://pagure.io/api/0/#pull_requests-tab
+
+        for a full description of the parameters.
+
+        :param username: The name of the application to be presented to users
+                         on the pull request page.
+        :param comment: A short message summarizing the presented results.
+        :param url: A URL to the result of this flag.
+        :param status: The status to be displayed for this flag.
+        :param percent: A percentage of completion compared to the goal.
+        :param uid: A unique identifier used to identify a flag on the pull-request.
+        :return: dict with the response received from Pagure.
+        """
+        data: Dict[str, Union[str, int]] = {
+            "username": username,
+            "comment": comment,
+            "url": url,
+        }
+        if status is not None:
+            data["status"] = status.name
+        if percent is not None:
+            data["percent"] = percent
+        if uid is not None:
+            data["uid"] = uid
+        return self.__call_api("flag", method="POST", data=data)

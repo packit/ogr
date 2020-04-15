@@ -317,6 +317,18 @@ class PullRequests(PagureTests):
         )
         assert pr_info.head_commit == "517121273b142293807606dbd7a2e0f514b21cc8"
 
+    def test_set_pr_flag(self):
+        # https://pagure.io/ogr-tests/pull-request/6
+        pr = self.ogr_project.get_pr(pr_id=6)
+        response = pr.set_flag(
+            username="packit/build",
+            comment="A simple RPM build.",
+            url="https://packit.dev",
+            status=CommitStatus.success,
+            uid="553fa0c52d0367d778458af022ac8a9d",
+        )
+        assert response["uid"] == "553fa0c52d0367d778458af022ac8a9d"
+
 
 class Forks(PagureTests):
     def test_fork(self):
