@@ -105,7 +105,7 @@ class PagurePullRequest(BasePullRequest):
         return f"{self.url}#request_diff"
 
     @property
-    def head_commit(self):
+    def head_commit(self) -> str:
         return self._raw_pr["commit_stop"]
 
     def __str__(self) -> str:
