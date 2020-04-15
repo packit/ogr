@@ -38,6 +38,8 @@ logger = logging.getLogger(__name__)
 
 @use_for_service("pagure")
 @use_for_service("src.fedoraproject.org")
+@use_for_service("git.stg.centos.org")
+@use_for_service("git.centos.org")
 class PagureService(BaseGitService):
     def __init__(
         self,
