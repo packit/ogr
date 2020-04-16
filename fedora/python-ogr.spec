@@ -1,7 +1,7 @@
 %global srcname ogr
 
 Name:           python-%{srcname}
-Version:        0.11.1
+Version:        0.11.2
 Release:        %{?autorel}%{!?autorel:1}
 Summary:        One API for multiple git forges
 
@@ -27,7 +27,7 @@ One Git library to Rule!
 
 
 %prep
-%autosetup -n ogr-0.11.1
+%autosetup -n ogr-0.11.2
 # Remove bundled egg-info
 rm -rf %{srcname}.egg-info
 
