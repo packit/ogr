@@ -1,0 +1,254 @@
+_requre:
+  DataTypes: 1
+  key_strategy: StorageKeysInspectFull
+  version_storage_file: 2
+unittest.case:
+  tests.integration.test_pagure:
+    ogr.services.pagure.project:
+      ogr.services.pagure.pull_request:
+        ogr.services.pagure.project:
+          ogr.services.pagure.service:
+            requests.sessions:
+              requre.objects:
+                requests.sessions:
+                  send:
+                  - metadata:
+                      latency: 0.3334352970123291
+                      module_call_list:
+                      - unittest.case
+                      - tests.integration.test_pagure
+                      - ogr.services.pagure.project
+                      - ogr.services.pagure.pull_request
+                      - ogr.services.pagure.project
+                      - ogr.services.pagure.service
+                      - requests.sessions
+                      - requre.objects
+                      - requests.sessions
+                      - send
+                    output:
+                      __store_indicator: 2
+                      _content:
+                        assignee: null
+                        branch: master
+                        branch_from: master
+                        cached_merge_status: NO_CHANGE
+                        closed_at: null
+                        closed_by: null
+                        comments: []
+                        commit_start: null
+                        commit_stop: null
+                        date_created: '1574795470'
+                        id: 6
+                        initial_comment: ''
+                        last_updated: '1584525653'
+                        project:
+                          access_groups:
+                            admin: []
+                            commit: []
+                            ticket: []
+                          access_users:
+                            admin:
+                            - lbarczio
+                            - jscotka
+                            - mfocko
+                            commit: []
+                            owner:
+                            - lachmanfrantisek
+                            ticket: []
+                          close_status: []
+                          custom_keys: []
+                          date_created: '1570568389'
+                          date_modified: '1570568529'
+                          description: Testing repository for python-ogr package.
+                          fullname: ogr-tests
+                          id: 6826
+                          milestones: {}
+                          name: ogr-tests
+                          namespace: null
+                          parent: null
+                          priorities: {}
+                          tags: []
+                          url_path: ogr-tests
+                          user:
+                            fullname: "Franti\u0161ek Lachman"
+                            name: lachmanfrantisek
+                        remote_git: null
+                        repo_from:
+                          access_groups:
+                            admin: []
+                            commit: []
+                            ticket: []
+                          access_users:
+                            admin: []
+                            commit: []
+                            owner:
+                            - mfocko
+                            ticket: []
+                          close_status: []
+                          custom_keys: []
+                          date_created: '1570604926'
+                          date_modified: '1570604926'
+                          description: Testing repository for python-ogr package.
+                          fullname: forks/mfocko/ogr-tests
+                          id: 6828
+                          milestones: {}
+                          name: ogr-tests
+                          namespace: null
+                          parent:
+                            access_groups:
+                              admin: []
+                              commit: []
+                              ticket: []
+                            access_users:
+                              admin:
+                              - lbarczio
+                              - jscotka
+                              - mfocko
+                              commit: []
+                              owner:
+                              - lachmanfrantisek
+                              ticket: []
+                            close_status: []
+                            custom_keys: []
+                            date_created: '1570568389'
+                            date_modified: '1570568529'
+                            description: Testing repository for python-ogr package.
+                            fullname: ogr-tests
+                            id: 6826
+                            milestones: {}
+                            name: ogr-tests
+                            namespace: null
+                            parent: null
+                            priorities: {}
+                            tags: []
+                            url_path: ogr-tests
+                            user:
+                              fullname: "Franti\u0161ek Lachman"
+                              name: lachmanfrantisek
+                          priorities: {}
+                          tags: []
+                          url_path: fork/mfocko/ogr-tests
+                          user:
+                            fullname: Matej Focko
+                            name: mfocko
+                        status: Open
+                        tags: []
+                        threshold_reached: null
+                        title: Testing PR
+                        uid: bd3715fe3a024a1785928c3e06ca95f9
+                        updated_on: '1574795470'
+                        user:
+                          fullname: Matej Focko
+                          name: mfocko
+                      _next: null
+                      elapsed: 0.2
+                      encoding: null
+                      headers:
+                        Connection: Keep-Alive
+                        Content-Length: '2929'
+                        Content-Type: application/json
+                        Date: Fri, 01 Nov 2019 13-36-03 GMT
+                        Keep-Alive: timeout=5, max=99
+                        Referrer-Policy: same-origin
+                        X-Content-Type-Options: nosniff
+                        X-Frame-Options: ALLOW-FROM https://pagure.io/
+                        X-Xss-Protection: 1; mode=block
+                      raw: !!binary ""
+                      reason: OK
+                      status_code: 200
+    ogr.services.pagure.pull_request:
+      ogr.services.pagure.project:
+        ogr.services.pagure.service:
+          requests.sessions:
+            requre.objects:
+              requests.sessions:
+                send:
+                - metadata:
+                    latency: 1.201664686203003
+                    module_call_list:
+                    - unittest.case
+                    - tests.integration.test_pagure
+                    - ogr.services.pagure.pull_request
+                    - ogr.services.pagure.project
+                    - ogr.services.pagure.service
+                    - requests.sessions
+                    - requre.objects
+                    - requests.sessions
+                    - send
+                  output:
+                    __store_indicator: 2
+                    _content:
+                      avatar_url: https://seccdn.libravatar.org/avatar/e4723abffcb6147c91d323ebf3a88b957065cdf16d46b75cb98d17cf0bb9c48f?s=30&d=retro
+                      flag:
+                        comment: A simple RPM build.
+                        date_created: '1586961752'
+                        date_updated: '1586961752'
+                        percent: null
+                        pull_request_uid: bd3715fe3a024a1785928c3e06ca95f9
+                        status: success
+                        url: https://packit.dev
+                        user:
+                          default_email: hcsomort@redhat.com
+                          emails:
+                          - hcsomort@redhat.com
+                          fullname: "Hunor Csomort\xE1ni"
+                          name: csomh
+                        username: packit/build
+                      message: Flag added
+                      uid: 553fa0c52d0367d778458af022ac8a9d
+                      user: csomh
+                    _next: null
+                    elapsed: 0.2
+                    encoding: null
+                    headers:
+                      Connection: Keep-Alive
+                      Content-Length: '775'
+                      Content-Type: application/json
+                      Date: Fri, 01 Nov 2019 13-36-03 GMT
+                      Keep-Alive: timeout=5, max=98
+                      Referrer-Policy: same-origin
+                      X-Content-Type-Options: nosniff
+                      X-Frame-Options: ALLOW-FROM https://pagure.io/
+                      X-Xss-Protection: 1; mode=block
+                    raw: !!binary ""
+                    reason: OK
+                    status_code: 200
+    ogr.services.pagure.service:
+      ogr.services.pagure.user:
+        ogr.services.pagure.service:
+          requests.sessions:
+            requre.objects:
+              requests.sessions:
+                send:
+                - metadata:
+                    latency: 0.8595902919769287
+                    module_call_list:
+                    - unittest.case
+                    - tests.integration.test_pagure
+                    - ogr.services.pagure.service
+                    - ogr.services.pagure.user
+                    - ogr.services.pagure.service
+                    - requests.sessions
+                    - requre.objects
+                    - requests.sessions
+                    - send
+                  output:
+                    __store_indicator: 2
+                    _content:
+                      username: csomh
+                    _next: null
+                    elapsed: 0.2
+                    encoding: null
+                    headers:
+                      Connection: Keep-Alive
+                      Content-Length: '25'
+                      Content-Type: application/json
+                      Date: Fri, 01 Nov 2019 13-36-03 GMT
+                      Keep-Alive: timeout=5, max=100
+                      Referrer-Policy: same-origin
+                      X-Content-Type-Options: nosniff
+                      X-Frame-Options: ALLOW-FROM https://pagure.io/
+                      X-Xss-Protection: 1; mode=block
+                    raw: !!binary ""
+                    reason: OK
+                    status_code: 200
