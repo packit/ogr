@@ -1,3 +1,26 @@
+# 0.11.2
+
+## New Features
+
+- A new method to set flags on Pagure PRs was added. (@csomh)
+  - It is Pagure-specific.
+  - Other git-forges does not have that and use commit flags instead.
+- CommitFlag now has created/edited properties. (@TomasJani)
+
+## Minor
+
+- Pagure service is used for CentOS prod/stg instances by default. (@jsakalos)
+- We now forward the specific errors from the pagure API. (@TomasTomecek)
+
+## Fixes
+
+- Pagination of PR comments on Pagure was fixed. (@AdarLavi)
+
+## Internals
+
+- Tests were remove from the zuul gating pipeline. (@lbarcziova)
+- We now use rpmautospec for generating changelogs in Fedora. (@TomasTomecek)
+
 # 0.11.1
 
 ## New Features
