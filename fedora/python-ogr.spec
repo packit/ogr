@@ -27,7 +27,7 @@ One Git library to Rule!
 
 
 %prep
-%autosetup -n ogr-0.11.2
+%autosetup -n %{srcname}-%{version}
 # Remove bundled egg-info
 rm -rf %{srcname}.egg-info
 
