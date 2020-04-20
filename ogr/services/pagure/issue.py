@@ -101,7 +101,9 @@ class PagureIssue(BaseIssue):
                 else self.description,
             }
 
-            updated_issue = self.project._call_project_api("issue", str(self.id), method="POST", data=data)
+            updated_issue = self.project._call_project_api(
+                "issue", str(self.id), method="POST", data=data
+            )
             self._raw_issue = updated_issue["issue"]
         except Exception as ex:
             raise PagureAPIException("there was an error while updating the issue", ex)

@@ -438,6 +438,26 @@ class PagureProjectTokenCommands(PagureTests):
         assert len(issue_comments) == 2
         assert issue_comments[0].body.startswith("regex")
 
+    def test_issue_update_title(self):
+        issue = self.ogr_project.get_issue(3)
+        old_title, old_description = issue.title, issue.description
+
+        issue.title = "testing title"
+        assert (issue.title, issue.description) == ("testing title", old_description)
+
+        issue.title = old_title
+        assert (issue.title, issue.description) == (old_title, old_description)
+
+    def test_issue_update_description(self):
+        issue = self.ogr_project.get_issue(3)
+        old_title, old_description = issue.title, issue.description
+
+        issue.description = "testing description"
+        assert (issue.title, issue.description) == (old_title, "testing description")
+
+        issue.description = old_description
+        assert (issue.title, issue.description) == (old_title, old_description)
+
     def test_update_pr_info(self):
         pr_info = self.ogr_project.get_pr_info(pr_id=4)
         orig_title = pr_info.title
