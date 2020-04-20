@@ -24,6 +24,7 @@ import datetime
 from typing import List, Optional, Dict, Union, Any, cast
 
 from ogr.abstract import IssueComment, IssueStatus, Issue
+from ogr.exceptions import PagureAPIException
 from ogr.services import pagure as ogr_pagure
 from ogr.services.base import BaseIssue
 from ogr.services.pagure.comments import PagureIssueComment
@@ -46,6 +47,10 @@ class PagureIssue(BaseIssue):
         self.__update()
         return self._raw_issue["title"]
 
+    @title.setter
+    def title(self, new_title: str) -> None:
+        self.__update_info(title=new_title)
+
     @property
     def id(self) -> int:
         return self._raw_issue["id"]
@@ -66,6 +71,10 @@ class PagureIssue(BaseIssue):
         self.__update()
         return self._raw_issue["content"]
 
+    @description.setter
+    def description(self, new_description: str) -> None:
+        self.__update_info(description=new_description)
+
     @property
     def author(self) -> str:
         return self._raw_issue["user"]["name"]
@@ -80,6 +89,24 @@ class PagureIssue(BaseIssue):
 
     def __str__(self) -> str:
         return "Pagure" + super().__str__()
+
+    def __update_info(
+        self, title: Optional[str] = None, description: Optional[str] = None
+    ) -> None:
+        try:
+            data = {
+                "title": title if title is not None else self.title,
+                "issue_content": description
+                if description is not None
+                else self.description,
+            }
+
+            updated_issue = self.project._call_project_api(
+                "issue", str(self.id), method="POST", data=data
+            )
+            self._raw_issue = updated_issue["issue"]
+        except Exception as ex:
+            raise PagureAPIException("there was an error while updating the issue", ex)
 
     @staticmethod
     def create(
