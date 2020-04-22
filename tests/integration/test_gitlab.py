@@ -39,6 +39,13 @@ class GenericCommands(GitlabTests):
         assert branches
         assert "master" in branches
 
+    def test_branches_pagination(self):
+        # in time of writing tests using gnuwget/wget2 (28 branches)
+        wget_project = self.service.get_project(repo="wget2", namespace="gnuwget")
+        branches = wget_project.get_branches()
+        assert branches
+        assert len(branches) > 20
+
     def test_get_file(self):
         file_content = self.project.get_file_content("README.md")
         assert file_content
@@ -528,6 +535,16 @@ class Releases(GitlabTests):
         assert releases[-1].title == "test"
         assert releases[-1].tag_name == "0.1.0"
         assert releases[-1].body == "testing release"
+
+    def test_get_releases_pagination(self):
+        # in time of writing tests using graphviz/graphviz (60 releases)
+        graphviz = self.service.get_project(repo="graphviz", namespace="graphviz")
+        try:
+            releases = graphviz.get_releases()
+        except OperationNotSupported:
+            self.skipTest("This version of python-gitlab does not support releases.")
+        assert releases
+        assert len(releases) > 20
 
     def test_get_latest_release(self):
         try:
