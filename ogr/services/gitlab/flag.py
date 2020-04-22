@@ -66,7 +66,7 @@ class GitlabCommitFlag(CommitFlag):
             logger.error(f"Commit {commit} was not found.")
             raise GitlabAPIException(f"Commit {commit} was not found.")
 
-        raw_statuses = commit_object.statuses.list()
+        raw_statuses = commit_object.statuses.list(all=True)
         return [
             GitlabCommitFlag(raw_commit_flag=raw_status, project=project)
             for raw_status in raw_statuses

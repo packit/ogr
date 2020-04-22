@@ -1,0 +1,965 @@
+_requre:
+  DataTypes: 1
+  key_strategy: StorageKeysInspectFull
+  version_storage_file: 2
+unittest.case:
+  tests.integration.test_gitlab:
+    ogr.services.gitlab.project:
+      gitlab.exceptions:
+        gitlab.mixins:
+          gitlab:
+            requre.objects:
+              requests.sessions:
+                send:
+                - metadata:
+                    latency: 0.2989082336425781
+                    module_call_list:
+                    - unittest.case
+                    - tests.integration.test_gitlab
+                    - ogr.services.gitlab.project
+                    - gitlab.exceptions
+                    - gitlab.mixins
+                    - gitlab
+                    - requre.objects
+                    - requests.sessions
+                    - send
+                  output:
+                    __store_indicator: 2
+                    _content:
+                      _links:
+                        events: https://gitlab.com/api/v4/projects/3163647/events
+                        issues: https://gitlab.com/api/v4/projects/3163647/issues
+                        labels: https://gitlab.com/api/v4/projects/3163647/labels
+                        members: https://gitlab.com/api/v4/projects/3163647/members
+                        merge_requests: https://gitlab.com/api/v4/projects/3163647/merge_requests
+                        repo_branches: https://gitlab.com/api/v4/projects/3163647/repository/branches
+                        self: https://gitlab.com/api/v4/projects/3163647
+                      approvals_before_merge: 1
+                      archived: false
+                      auto_cancel_pending_pipelines: enabled
+                      auto_devops_deploy_strategy: continuous
+                      auto_devops_enabled: false
+                      autoclose_referenced_issues: true
+                      avatar_url: null
+                      build_coverage_regex: '^\slines\.{6}: (\d+.\d%) \(\d+ of \d+
+                        lines\)'
+                      build_timeout: 3600
+                      builds_access_level: enabled
+                      can_create_merge_request_in: true
+                      ci_config_path: ''
+                      ci_default_git_depth: null
+                      container_registry_enabled: true
+                      created_at: '2017-04-22T20:56:58.929Z'
+                      creator_id: 267665
+                      default_branch: master
+                      description: Clone of the GNU Wget2 repository for collaboration
+                        via GitLab
+                      emails_disabled: false
+                      empty_repo: false
+                      external_authorization_classification_label: ''
+                      forking_access_level: enabled
+                      forks_count: 82
+                      http_url_to_repo: https://gitlab.com/gnuwget/wget2.git
+                      id: 3163647
+                      import_status: finished
+                      issues_access_level: enabled
+                      issues_enabled: true
+                      jobs_enabled: true
+                      last_activity_at: '2020-04-22T11:49:16.336Z'
+                      lfs_enabled: true
+                      marked_for_deletion_at: null
+                      marked_for_deletion_on: null
+                      merge_method: ff
+                      merge_requests_access_level: enabled
+                      merge_requests_enabled: true
+                      mirror: false
+                      name: wget2
+                      name_with_namespace: Wget / wget2
+                      namespace:
+                        avatar_url: /uploads/-/system/group/avatar/1530779/wget-logo2.png
+                        full_path: gnuwget
+                        id: 1530779
+                        kind: group
+                        name: Wget
+                        parent_id: null
+                        path: gnuwget
+                        web_url: https://gitlab.com/groups/gnuwget
+                      only_allow_merge_if_all_discussions_are_resolved: true
+                      only_allow_merge_if_pipeline_succeeds: true
+                      open_issues_count: 99
+                      packages_enabled: false
+                      pages_access_level: enabled
+                      path: wget2
+                      path_with_namespace: gnuwget/wget2
+                      permissions:
+                        group_access: null
+                        project_access: null
+                      printing_merge_request_link_enabled: true
+                      public_jobs: true
+                      readme_url: https://gitlab.com/gnuwget/wget2/-/blob/master/README.md
+                      remove_source_branch_after_merge: null
+                      repository_access_level: enabled
+                      request_access_enabled: true
+                      resolve_outdated_diff_discussions: false
+                      service_desk_address: null
+                      service_desk_enabled: false
+                      shared_runners_enabled: true
+                      shared_with_groups: []
+                      snippets_access_level: enabled
+                      snippets_enabled: true
+                      ssh_url_to_repo: git@gitlab.com:gnuwget/wget2.git
+                      star_count: 161
+                      suggestion_commit_message: null
+                      tag_list: []
+                      visibility: public
+                      web_url: https://gitlab.com/gnuwget/wget2
+                      wiki_access_level: enabled
+                      wiki_enabled: true
+                    _next: null
+                    elapsed: 0.2
+                    encoding: null
+                    headers:
+                      CF-Cache-Status: DYNAMIC
+                      CF-RAY: 587f69ca0922cba0-VIE
+                      Cache-Control: max-age=0, private, must-revalidate
+                      Connection: keep-alive
+                      Content-Encoding: gzip
+                      Content-Type: application/json
+                      Date: Fri, 01 Nov 2019 13-36-03 GMT
+                      Etag: W/"260820cdad7ee1377d1488d6854f7fa0"
+                      Expect-CT: max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
+                      GitLab-LB: fe-04-lb-gprd
+                      GitLab-SV: localhost
+                      RateLimit-Limit: '600'
+                      RateLimit-Observed: '1'
+                      RateLimit-Remaining: '599'
+                      RateLimit-Reset: '1587559286'
+                      RateLimit-ResetTime: Wed, 22 Apr 2020 12:41:26 GMT
+                      Referrer-Policy: strict-origin-when-cross-origin
+                      Server: cloudflare
+                      Strict-Transport-Security: max-age=31536000
+                      Transfer-Encoding: chunked
+                      Vary: Origin
+                      X-Content-Type-Options: nosniff
+                      X-Frame-Options: SAMEORIGIN
+                      X-Request-Id: Y6LHnkwr1e3
+                      X-Runtime: '0.078393'
+                      cf-request-id: 02438072490000cba0788a6200000001
+                    raw: !!binary ""
+                    reason: OK
+                    status_code: 200
+                - metadata:
+                    latency: 0.49645137786865234
+                    module_call_list:
+                    - unittest.case
+                    - tests.integration.test_gitlab
+                    - ogr.services.gitlab.project
+                    - gitlab.exceptions
+                    - gitlab.mixins
+                    - gitlab
+                    - requre.objects
+                    - requests.sessions
+                    - send
+                  output:
+                    __store_indicator: 2
+                    _content:
+                    - can_push: false
+                      commit:
+                        author_email: anikethgireesh@gmail.com
+                        author_name: Aniketh Gireesh
+                        authored_date: '2019-03-29T15:50:38.000+00:00'
+                        committed_date: '2019-03-29T16:03:35.000+00:00'
+                        committer_email: darnir@gnu.org
+                        committer_name: Darshit Shah
+                        created_at: '2019-03-29T16:03:35.000+00:00'
+                        id: 6f3814f417439d2b3888fdd7d60290ddd78cd194
+                        message: Add Last-Modified and Content-Type to CSV stats
+                        parent_ids: null
+                        short_id: 6f3814f4
+                        title: Add Last-Modified and Content-Type to CSV stats
+                        web_url: https://gitlab.com/gnuwget/wget2/-/commit/6f3814f417439d2b3888fdd7d60290ddd78cd194
+                      default: false
+                      developers_can_merge: false
+                      developers_can_push: false
+                      merged: false
+                      name: Aniketh01/wget2-add_Last-Modified
+                      protected: false
+                    - can_push: false
+                      commit:
+                        author_email: tim.ruehsen@gmx.de
+                        author_name: "Tim R\xFChsen"
+                        authored_date: '2020-04-12T17:31:22.000+00:00'
+                        committed_date: '2020-04-12T17:31:22.000+00:00'
+                        committer_email: tim.ruehsen@gmx.de
+                        committer_name: "Tim R\xFChsen"
+                        created_at: '2020-04-12T17:31:22.000+00:00'
+                        id: 61b2095dbf33874c93b54176569b119850483de6
+                        message: Fix warning when converting void * to function pointer
+                        parent_ids: null
+                        short_id: 61b2095d
+                        title: Fix warning when converting void * to function pointer
+                        web_url: https://gitlab.com/gnuwget/wget2/-/commit/61b2095dbf33874c93b54176569b119850483de6
+                      default: false
+                      developers_can_merge: false
+                      developers_can_push: false
+                      merged: false
+                      name: aschwab1
+                      protected: false
+                    - can_push: false
+                      commit:
+                        author_email: tim.ruehsen@gmx.de
+                        author_name: "Tim R\xFChsen"
+                        authored_date: '2017-04-13T15:02:40.000+00:00'
+                        committed_date: '2017-04-13T15:02:40.000+00:00'
+                        committer_email: tim.ruehsen@gmx.de
+                        committer_name: "Tim R\xFChsen"
+                        created_at: '2017-04-13T15:02:40.000+00:00'
+                        id: c52e093bca759125127d29a2bcd7dd2731452891
+                        message: '* src/job.c (job_validate_file): Fix --chunk-size
+                          for partially existing files'
+                        parent_ids: null
+                        short_id: c52e093b
+                        title: '* src/job.c (job_validate_file): Fix --chunk-size
+                          for partially existing files'
+                        web_url: https://gitlab.com/gnuwget/wget2/-/commit/c52e093bca759125127d29a2bcd7dd2731452891
+                      default: false
+                      developers_can_merge: false
+                      developers_can_push: false
+                      merged: false
+                      name: chunk-size
+                      protected: false
+                    - can_push: false
+                      commit:
+                        author_email: tim.ruehsen@gmx.de
+                        author_name: "Tim R\xFChsen"
+                        authored_date: '2020-03-17T14:21:04.000+00:00'
+                        committed_date: '2020-03-17T15:49:35.000+00:00'
+                        committer_email: tim.ruehsen@gmx.de
+                        committer_name: "Tim R\xFChsen"
+                        created_at: '2020-03-17T15:49:35.000+00:00'
+                        id: cfdb75096443e8435cffb9c0f36fad92eaf048e7
+                        message: '* libwget/dns_cache.c (wget_dns_cache_add): Fix
+                          bitwise to logical OR (cppcheck)'
+                        parent_ids: null
+                        short_id: cfdb7509
+                        title: '* libwget/dns_cache.c (wget_dns_cache_add): Fix bitwise
+                          to logical OR (cppcheck)'
+                        web_url: https://gitlab.com/gnuwget/wget2/-/commit/cfdb75096443e8435cffb9c0f36fad92eaf048e7
+                      default: false
+                      developers_can_merge: false
+                      developers_can_push: false
+                      merged: true
+                      name: coverity-scan
+                      protected: false
+                    - can_push: false
+                      commit:
+                        author_email: tim.ruehsen@gmx.de
+                        author_name: "Tim R\xFChsen"
+                        authored_date: '2016-12-26T21:26:24.000+00:00'
+                        committed_date: '2017-01-25T09:33:59.000+00:00'
+                        committer_email: tim.ruehsen@gmx.de
+                        committer_name: "Tim R\xFChsen"
+                        created_at: '2017-01-25T09:33:59.000+00:00'
+                        id: 5b7f015bd6dfde5bcef593bee83a715bab5a1753
+                        message: Add initial debian/ files
+                        parent_ids: null
+                        short_id: 5b7f015b
+                        title: Add initial debian/ files
+                        web_url: https://gitlab.com/gnuwget/wget2/-/commit/5b7f015bd6dfde5bcef593bee83a715bab5a1753
+                      default: false
+                      developers_can_merge: false
+                      developers_can_push: false
+                      merged: false
+                      name: debian
+                      protected: false
+                    - can_push: false
+                      commit:
+                        author_email: kumarmallikarjuna1@gmail.com
+                        author_name: Kumar Mallikarjuna
+                        authored_date: '2019-07-27T13:35:27.000+00:00'
+                        committed_date: '2019-07-29T19:17:25.000+00:00'
+                        committer_email: tim.ruehsen@gmx.de
+                        committer_name: "Tim R\xFChsen"
+                        created_at: '2019-07-29T19:17:25.000+00:00'
+                        id: 633353c10c6afe917f86062708bb9d5f4ca635ea
+                        message: '* tests/libtest.c: Resolved tests failure due to
+                          OCSP'
+                        parent_ids: null
+                        short_id: 633353c1
+                        title: '* tests/libtest.c: Resolved tests failure due to OCSP'
+                        web_url: https://gitlab.com/gnuwget/wget2/-/commit/633353c10c6afe917f86062708bb9d5f4ca635ea
+                      default: false
+                      developers_can_merge: false
+                      developers_can_push: false
+                      merged: false
+                      name: gsoc-http2-testsuite
+                      protected: true
+                    - can_push: false
+                      commit:
+                        author_email: kumarmallikarjuna1@gmail.com
+                        author_name: Kumar Mallikarjuna
+                        authored_date: '2019-07-23T09:07:47.000+00:00'
+                        committed_date: '2019-07-23T17:20:14.000+00:00'
+                        committer_email: kumarmallikarjuna1@gmail.com
+                        committer_name: Kumar Mallikarjuna
+                        created_at: '2019-07-23T17:20:14.000+00:00'
+                        id: 45795637b91767cab1dca5a8d76126e3fcbc7526
+                        message: '* tests/certs/ocsp/README.md: Added README for generating
+                          generating certificates and responses'
+                        parent_ids: null
+                        short_id: '45795637'
+                        title: '* tests/certs/ocsp/README.md: Added README for generating
+                          generating certificates and responses'
+                        web_url: https://gitlab.com/gnuwget/wget2/-/commit/45795637b91767cab1dca5a8d76126e3fcbc7526
+                      default: false
+                      developers_can_merge: false
+                      developers_can_push: false
+                      merged: true
+                      name: gsoc-ocsp-responder
+                      protected: true
+                    - can_push: false
+                      commit:
+                        author_email: kumarmallikarjuna1@gmail.com
+                        author_name: Kumar Mallikarjuna
+                        authored_date: '2019-07-24T11:26:20.000+00:00'
+                        committed_date: '2019-07-24T11:55:44.000+00:00'
+                        committer_email: kumarmallikarjuna1@gmail.com
+                        committer_name: Kumar Mallikarjuna
+                        created_at: '2019-07-24T11:55:44.000+00:00'
+                        id: 2f1b89958c80c4b47633883aa19cb7a358aed55f
+                        message: '* tests/certs/ocsp/README.md: Added README for generating
+                          generating certificates and response'
+                        parent_ids: null
+                        short_id: 2f1b8995
+                        title: '* tests/certs/ocsp/README.md: Added README for generating
+                          generating certificates and response'
+                        web_url: https://gitlab.com/gnuwget/wget2/-/commit/2f1b89958c80c4b47633883aa19cb7a358aed55f
+                      default: false
+                      developers_can_merge: false
+                      developers_can_push: false
+                      merged: true
+                      name: gsoc-ocsp-stapling
+                      protected: true
+                    - can_push: false
+                      commit:
+                        author_email: rootkea@gmail.com
+                        author_name: Avinash Sonawane
+                        authored_date: '2017-09-02T08:00:28.000+00:00'
+                        committed_date: '2017-09-02T08:00:28.000+00:00'
+                        committer_email: rootkea@gmail.com
+                        committer_name: Avinash Sonawane
+                        created_at: '2017-09-02T08:00:28.000+00:00'
+                        id: 2d5321125c68fb7c43dbaa5550b013b817eea293
+                        message: Use context variable instead of local static variable
+                        parent_ids: null
+                        short_id: 2d532112
+                        title: Use context variable instead of local static variable
+                        web_url: https://gitlab.com/gnuwget/wget2/-/commit/2d5321125c68fb7c43dbaa5550b013b817eea293
+                      default: false
+                      developers_can_merge: false
+                      developers_can_push: false
+                      merged: false
+                      name: gsoc-rootkea
+                      protected: true
+                    - can_push: false
+                      commit:
+                        author_email: a@juaristi.eus
+                        author_name: Ander Juaristi
+                        authored_date: '2018-05-18T10:08:20.000+00:00'
+                        committed_date: '2018-05-18T10:08:20.000+00:00'
+                        committer_email: a@juaristi.eus
+                        committer_name: Ander Juaristi
+                        created_at: '2018-05-18T10:08:20.000+00:00'
+                        id: 0531ad36390c8ee35ed365b00a9802db6e273edf
+                        message: 'dns.c: Initial import'
+                        parent_ids: null
+                        short_id: 0531ad36
+                        title: 'dns.c: Initial import'
+                        web_url: https://gitlab.com/gnuwget/wget2/-/commit/0531ad36390c8ee35ed365b00a9802db6e273edf
+                      default: false
+                      developers_can_merge: false
+                      developers_can_push: false
+                      merged: false
+                      name: gsoc18-doh-ajuaristi
+                      protected: false
+                    - can_push: false
+                      commit:
+                        author_email: tim.ruehsen@gmx.de
+                        author_name: "Tim R\xFChsen"
+                        authored_date: '2020-04-22T11:45:35.000+00:00'
+                        committed_date: '2020-04-22T11:49:08.000+00:00'
+                        committer_email: tim.ruehsen@gmx.de
+                        committer_name: "Tim R\xFChsen"
+                        created_at: '2020-04-22T11:49:08.000+00:00'
+                        id: cb20de8e01e3a79f2818e7e8012cadfcbd58df35
+                        message: Remove CR and LF from URLs
+                        parent_ids: null
+                        short_id: cb20de8e
+                        title: Remove CR and LF from URLs
+                        web_url: https://gitlab.com/gnuwget/wget2/-/commit/cb20de8e01e3a79f2818e7e8012cadfcbd58df35
+                      default: true
+                      developers_can_merge: false
+                      developers_can_push: false
+                      merged: false
+                      name: master
+                      protected: true
+                    - can_push: false
+                      commit:
+                        author_email: tim.ruehsen@gmx.de
+                        author_name: "Tim R\xFChsen"
+                        authored_date: '2017-05-16T19:31:32.000+00:00'
+                        committed_date: '2017-05-16T19:31:32.000+00:00'
+                        committer_email: tim.ruehsen@gmx.de
+                        committer_name: "Tim R\xFChsen"
+                        created_at: '2017-05-16T19:31:32.000+00:00'
+                        id: 4f557e8121aafeddc3825ce1ca16613ef8706bff
+                        message: Mew test test-redirection-loop
+                        parent_ids: null
+                        short_id: 4f557e81
+                        title: Mew test test-redirection-loop
+                        web_url: https://gitlab.com/gnuwget/wget2/-/commit/4f557e8121aafeddc3825ce1ca16613ef8706bff
+                      default: false
+                      developers_can_merge: false
+                      developers_can_push: false
+                      merged: false
+                      name: test-redirection-loop
+                      protected: false
+                    - can_push: false
+                      commit:
+                        author_email: tim.ruehsen@gmx.de
+                        author_name: "Tim R\xFChsen"
+                        authored_date: '2017-05-16T19:31:32.000+00:00'
+                        committed_date: '2017-12-18T21:00:41.000+00:00'
+                        committer_email: tim.ruehsen@gmx.de
+                        committer_name: "Tim R\xFChsen"
+                        created_at: '2017-12-18T21:00:41.000+00:00'
+                        id: b93e702a313b3acb137b6a2c2b5a22e6ce364a2c
+                        message: Mew test test-redirection-loop
+                        parent_ids: null
+                        short_id: b93e702a
+                        title: Mew test test-redirection-loop
+                        web_url: https://gitlab.com/gnuwget/wget2/-/commit/b93e702a313b3acb137b6a2c2b5a22e6ce364a2c
+                      default: false
+                      developers_can_merge: false
+                      developers_can_push: false
+                      merged: false
+                      name: test-redirection-loop2
+                      protected: false
+                    - can_push: false
+                      commit:
+                        author_email: dalmemail@gmail.com
+                        author_name: DalmeGNU
+                        authored_date: '2018-09-27T22:15:23.000+00:00'
+                        committed_date: '2018-10-09T17:26:31.000+00:00'
+                        committer_email: tim.ruehsen@gmx.de
+                        committer_name: "Tim R\xFChsen"
+                        created_at: '2018-10-09T17:26:31.000+00:00'
+                        id: 74eb6f38d561afc043c7a7c459a00a3cfa58dc4a
+                        message: '* benchmarks/benchmark.sh: Change paths to wget
+                          & curl binaries'
+                        parent_ids: null
+                        short_id: 74eb6f38
+                        title: '* benchmarks/benchmark.sh: Change paths to wget &
+                          curl binaries'
+                        web_url: https://gitlab.com/gnuwget/wget2/-/commit/74eb6f38d561afc043c7a7c459a00a3cfa58dc4a
+                      default: false
+                      developers_can_merge: false
+                      developers_can_push: false
+                      merged: false
+                      name: tmp-benchmarks
+                      protected: false
+                    - can_push: false
+                      commit:
+                        author_email: tim.ruehsen@gmx.de
+                        author_name: "Tim R\xFChsen"
+                        authored_date: '2017-05-28T19:11:01.000+00:00'
+                        committed_date: '2017-12-17T16:26:00.000+00:00'
+                        committer_email: tim.ruehsen@gmx.de
+                        committer_name: "Tim R\xFChsen"
+                        created_at: '2017-12-17T16:26:00.000+00:00'
+                        id: bb9663fe5b458368ea60b04a1c9b73301b25c5ba
+                        message: '* tests/test.c: More code coverage for wget_buffer_printf()'
+                        parent_ids: null
+                        short_id: bb9663fe
+                        title: '* tests/test.c: More code coverage for wget_buffer_printf()'
+                        web_url: https://gitlab.com/gnuwget/wget2/-/commit/bb9663fe5b458368ea60b04a1c9b73301b25c5ba
+                      default: false
+                      developers_can_merge: false
+                      developers_can_push: false
+                      merged: false
+                      name: tmp-buffer-printf
+                      protected: false
+                    - can_push: false
+                      commit:
+                        author_email: tim.ruehsen@gmx.de
+                        author_name: "Tim R\xFChsen"
+                        authored_date: '2020-02-10T19:49:00.000+00:00'
+                        committed_date: '2020-02-10T19:49:00.000+00:00'
+                        committer_email: tim.ruehsen@gmx.de
+                        committer_name: "Tim R\xFChsen"
+                        created_at: '2020-02-10T19:49:00.000+00:00'
+                        id: 886796a939c2cee5f54d625aec9cfcde7589a82b
+                        message: '* .gitlab-ci.yml: Reduce BUILJOBS to nproc + 1'
+                        parent_ids: null
+                        short_id: 886796a9
+                        title: '* .gitlab-ci.yml: Reduce BUILJOBS to nproc + 1'
+                        web_url: https://gitlab.com/gnuwget/wget2/-/commit/886796a939c2cee5f54d625aec9cfcde7589a82b
+                      default: false
+                      developers_can_merge: false
+                      developers_can_push: false
+                      merged: false
+                      name: tmp-ci-speedup
+                      protected: false
+                    - can_push: false
+                      commit:
+                        author_email: dalmemail@gmail.com
+                        author_name: DalmeGNU
+                        authored_date: '2020-03-25T12:16:34.000+00:00'
+                        committed_date: '2020-03-25T12:16:34.000+00:00'
+                        committer_email: dalmemail@gmail.com
+                        committer_name: DalmeGNU
+                        created_at: '2020-03-25T12:16:34.000+00:00'
+                        id: 8bfa3eb4709fb02b8b1d857e75b10aa8739c54e4
+                        message: Resolve DNS for URLs added on add_url() [skip ci]
+                        parent_ids: null
+                        short_id: 8bfa3eb4
+                        title: Resolve DNS for URLs added on add_url() [skip ci]
+                        web_url: https://gitlab.com/gnuwget/wget2/-/commit/8bfa3eb4709fb02b8b1d857e75b10aa8739c54e4
+                      default: false
+                      developers_can_merge: false
+                      developers_can_push: false
+                      merged: false
+                      name: tmp-dns-resolver
+                      protected: false
+                    - can_push: false
+                      commit:
+                        author_email: anikethgireesh@gmail.com
+                        author_name: Aniketh01
+                        authored_date: '2018-10-15T07:52:26.000+00:00'
+                        committed_date: '2018-10-15T07:52:26.000+00:00'
+                        committer_email: anikethgireesh@gmail.com
+                        committer_name: Aniketh01
+                        created_at: '2018-10-15T07:52:26.000+00:00'
+                        id: 507d858dfe7324dca2f9caa46f02ddd1fc6988ca
+                        message: Fixed compiler warnings with a harmless type cast
+                        parent_ids: null
+                        short_id: 507d858d
+                        title: Fixed compiler warnings with a harmless type cast
+                        web_url: https://gitlab.com/gnuwget/wget2/-/commit/507d858dfe7324dca2f9caa46f02ddd1fc6988ca
+                      default: false
+                      developers_can_merge: false
+                      developers_can_push: false
+                      merged: false
+                      name: tmp-doh
+                      protected: false
+                    - can_push: false
+                      commit:
+                        author_email: tim.ruehsen@gmx.de
+                        author_name: "Tim R\xFChsen"
+                        authored_date: '2020-02-26T12:25:42.000+00:00'
+                        committed_date: '2020-03-07T13:06:59.000+00:00'
+                        committer_email: tim.ruehsen@gmx.de
+                        committer_name: "Tim R\xFChsen"
+                        created_at: '2020-03-07T13:06:59.000+00:00'
+                        id: 20841106a05bca29116ce97e716fa137af2da01c
+                        message: Add DoH (DNS over HTTPS) example [skip ci]
+                        parent_ids: null
+                        short_id: '20841106'
+                        title: Add DoH (DNS over HTTPS) example [skip ci]
+                        web_url: https://gitlab.com/gnuwget/wget2/-/commit/20841106a05bca29116ce97e716fa137af2da01c
+                      default: false
+                      developers_can_merge: false
+                      developers_can_push: false
+                      merged: false
+                      name: tmp-doh-example
+                      protected: false
+                    - can_push: false
+                      commit:
+                        author_email: tim.ruehsen@gmx.de
+                        author_name: "Tim R\xFChsen"
+                        authored_date: '2018-04-10T15:14:31.000+00:00'
+                        committed_date: '2018-05-02T08:27:13.000+00:00'
+                        committer_email: tim.ruehsen@gmx.de
+                        committer_name: "Tim R\xFChsen"
+                        created_at: '2018-05-02T08:27:13.000+00:00'
+                        id: 47bac2ed972c5bee344c1cea159a22cd7f711dc0
+                        message: Add -X/--exclude-directories
+                        parent_ids: null
+                        short_id: 47bac2ed
+                        title: Add -X/--exclude-directories
+                        web_url: https://gitlab.com/gnuwget/wget2/-/commit/47bac2ed972c5bee344c1cea159a22cd7f711dc0
+                      default: false
+                      developers_can_merge: false
+                      developers_can_push: false
+                      merged: false
+                      name: tmp-exclude-directories
+                      protected: false
+                    _next: null
+                    elapsed: 0.2
+                    encoding: null
+                    headers:
+                      CF-Cache-Status: DYNAMIC
+                      CF-RAY: 587f69cc1fc4cba0-VIE
+                      Cache-Control: max-age=0, private, must-revalidate
+                      Connection: keep-alive
+                      Content-Encoding: gzip
+                      Content-Type: application/json
+                      Date: Fri, 01 Nov 2019 13-36-03 GMT
+                      Etag: W/"b9a4156a2024468c9910d025744c2a02"
+                      Expect-CT: max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
+                      GitLab-LB: fe-03-lb-gprd
+                      GitLab-SV: localhost
+                      Link: <https://gitlab.com/api/v4/projects/3163647/repository/branches?id=3163647&page=2&per_page=20>;
+                        rel="next", <https://gitlab.com/api/v4/projects/3163647/repository/branches?id=3163647&page=1&per_page=20>;
+                        rel="first", <https://gitlab.com/api/v4/projects/3163647/repository/branches?id=3163647&page=2&per_page=20>;
+                        rel="last"
+                      RateLimit-Limit: '600'
+                      RateLimit-Observed: '1'
+                      RateLimit-Remaining: '599'
+                      RateLimit-Reset: '1587559286'
+                      RateLimit-ResetTime: Wed, 22 Apr 2020 12:41:26 GMT
+                      Referrer-Policy: strict-origin-when-cross-origin
+                      Server: cloudflare
+                      Strict-Transport-Security: max-age=31536000
+                      Transfer-Encoding: chunked
+                      Vary: Accept-Encoding, Origin
+                      X-Content-Type-Options: nosniff
+                      X-Frame-Options: SAMEORIGIN
+                      X-Next-Page: '2'
+                      X-Page: '1'
+                      X-Per-Page: '20'
+                      X-Prev-Page: ''
+                      X-Request-Id: O6VWh6ca526
+                      X-Runtime: '0.212457'
+                      X-Total: '28'
+                      X-Total-Pages: '2'
+                      cf-request-id: 024380738b0000cba0788ee200000001
+                    raw: !!binary ""
+                    reason: OK
+                    status_code: 200
+                - metadata:
+                    latency: 0.6080152988433838
+                    module_call_list:
+                    - unittest.case
+                    - tests.integration.test_gitlab
+                    - ogr.services.gitlab.project
+                    - gitlab.exceptions
+                    - gitlab.mixins
+                    - gitlab
+                    - requre.objects
+                    - requests.sessions
+                    - send
+                  output:
+                    __store_indicator: 2
+                    _content:
+                    - can_push: false
+                      commit:
+                        author_email: a@juaristi.eus
+                        author_name: Ander Juaristi
+                        authored_date: '2017-09-02T18:42:38.000+00:00'
+                        committed_date: '2017-09-02T18:42:38.000+00:00'
+                        committer_email: a@juaristi.eus
+                        committer_name: Ander Juaristi
+                        created_at: '2017-09-02T18:42:38.000+00:00'
+                        id: 9fa87e4b3435ebd04081d8641d95a960cc0e4527
+                        message: 'HTTP high level API: initial import'
+                        parent_ids: null
+                        short_id: 9fa87e4b
+                        title: 'HTTP high level API: initial import'
+                        web_url: https://gitlab.com/gnuwget/wget2/-/commit/9fa87e4b3435ebd04081d8641d95a960cc0e4527
+                      default: false
+                      developers_can_merge: false
+                      developers_can_push: false
+                      merged: false
+                      name: tmp-http-highlevel
+                      protected: false
+                    - can_push: false
+                      commit:
+                        author_email: darnir@gnu.org
+                        author_name: Darshit Shah
+                        authored_date: '2018-05-01T13:03:34.000+00:00'
+                        committed_date: '2018-05-01T13:03:34.000+00:00'
+                        committer_email: darnir@gnu.org
+                        committer_name: Darshit Shah
+                        created_at: '2018-05-01T13:03:34.000+00:00'
+                        id: d9e302c1671477b99e3f78defda6bf2b5417f3a3
+                        message: '* src/wget_options.h: Add the const qualifier to
+                          valid options'
+                        parent_ids: null
+                        short_id: d9e302c1
+                        title: '* src/wget_options.h: Add the const qualifier to valid
+                          options'
+                        web_url: https://gitlab.com/gnuwget/wget2/-/commit/d9e302c1671477b99e3f78defda6bf2b5417f3a3
+                      default: false
+                      developers_can_merge: false
+                      developers_can_push: false
+                      merged: false
+                      name: tmp-options-cleanup
+                      protected: false
+                    - can_push: false
+                      commit:
+                        author_email: tim.ruehsen@gmx.de
+                        author_name: "Tim R\xFChsen"
+                        authored_date: '2018-10-09T10:28:22.000+00:00'
+                        committed_date: '2018-10-09T10:28:22.000+00:00'
+                        committer_email: tim.ruehsen@gmx.de
+                        committer_name: "Tim R\xFChsen"
+                        created_at: '2018-10-09T10:28:22.000+00:00'
+                        id: b9f93597801df7a418e73a22f70c7121805b28fc
+                        message: '* tests/test-include-and-exclude-directories.c:
+                          Use double quote'
+                        parent_ids: null
+                        short_id: b9f93597
+                        title: '* tests/test-include-and-exclude-directories.c: Use
+                          double quote'
+                        web_url: https://gitlab.com/gnuwget/wget2/-/commit/b9f93597801df7a418e73a22f70c7121805b28fc
+                      default: false
+                      developers_can_merge: false
+                      developers_can_push: false
+                      merged: false
+                      name: tmp-slash-win
+                      protected: false
+                    - can_push: false
+                      commit:
+                        author_email: rohfle@gmail.com
+                        author_name: Rohan Fletcher
+                        authored_date: '2020-02-03T17:51:54.000+00:00'
+                        committed_date: '2020-02-15T19:20:32.000+00:00'
+                        committer_email: tim.ruehsen@gmx.de
+                        committer_name: "Tim R\xFChsen"
+                        created_at: '2020-02-15T19:20:32.000+00:00'
+                        id: bbb263b553dce231d562b903f28322074650f069
+                        message: '* libwget/http.c (wget_http_get_response_cb): calculate
+                          length_inconsistent for http2 responses'
+                        parent_ids: null
+                        short_id: bbb263b5
+                        title: '* libwget/http.c (wget_http_get_response_cb): calculate
+                          length_inconsistent for http2 responses'
+                        web_url: https://gitlab.com/gnuwget/wget2/-/commit/bbb263b553dce231d562b903f28322074650f069
+                      default: false
+                      developers_can_merge: false
+                      developers_can_push: false
+                      merged: false
+                      name: tmp-test-interrupt-response-http2
+                      protected: false
+                    - can_push: false
+                      commit:
+                        author_email: darnir@gnu.org
+                        author_name: Darshit Shah
+                        authored_date: '2018-05-01T15:21:25.000+00:00'
+                        committed_date: '2018-05-01T15:21:34.000+00:00'
+                        committer_email: darnir@gnu.org
+                        committer_name: Darshit Shah
+                        created_at: '2018-05-01T15:21:34.000+00:00'
+                        id: 4a1490e4a6d069f1010df08a757d35e59365aa57
+                        message: Initial run with indent on wget.h
+                        parent_ids: null
+                        short_id: 4a1490e4
+                        title: Initial run with indent on wget.h
+                        web_url: https://gitlab.com/gnuwget/wget2/-/commit/4a1490e4a6d069f1010df08a757d35e59365aa57
+                      default: false
+                      developers_can_merge: false
+                      developers_can_push: false
+                      merged: false
+                      name: use-gnu-indent
+                      protected: false
+                    - can_push: false
+                      commit:
+                        author_email: a@juaristi.eus
+                        author_name: Ander Juaristi
+                        authored_date: '2019-08-25T17:19:02.000+00:00'
+                        committed_date: '2019-08-25T17:19:02.000+00:00'
+                        committer_email: a@juaristi.eus
+                        committer_name: Ander Juaristi
+                        created_at: '2019-08-25T17:19:02.000+00:00'
+                        id: 88d281afd32e14b63b82046116d8ef556b82d5eb
+                        message: 'wget2 interactive: initial import [ci skip]'
+                        parent_ids: null
+                        short_id: 88d281af
+                        title: 'wget2 interactive: initial import [ci skip]'
+                        web_url: https://gitlab.com/gnuwget/wget2/-/commit/88d281afd32e14b63b82046116d8ef556b82d5eb
+                      default: false
+                      developers_can_merge: false
+                      developers_can_push: false
+                      merged: false
+                      name: wget2-interactive
+                      protected: false
+                    - can_push: false
+                      commit:
+                        author_email: a@juaristi.eus
+                        author_name: Ander Juaristi
+                        authored_date: '2020-01-27T19:33:14.000+00:00'
+                        committed_date: '2020-01-27T19:34:45.000+00:00'
+                        committer_email: a@juaristi.eus
+                        committer_name: Ander Juaristi
+                        created_at: '2020-01-27T19:34:45.000+00:00'
+                        id: fa59040f0a16bcd29f7d672db31bba780d3659fd
+                        message: 'OpenSSL: OCSP stapling [skip ci]'
+                        parent_ids: null
+                        short_id: fa59040f
+                        title: 'OpenSSL: OCSP stapling [skip ci]'
+                        web_url: https://gitlab.com/gnuwget/wget2/-/commit/fa59040f0a16bcd29f7d672db31bba780d3659fd
+                      default: false
+                      developers_can_merge: false
+                      developers_can_push: false
+                      merged: false
+                      name: wget2-openssl-ajuaristi-ocsp
+                      protected: false
+                    - can_push: false
+                      commit:
+                        author_email: a@juaristi.eus
+                        author_name: Ander Juaristi
+                        authored_date: '2019-08-22T08:55:19.000+00:00'
+                        committed_date: '2019-09-10T14:03:22.000+00:00'
+                        committer_email: tim.ruehsen@gmx.de
+                        committer_name: "Tim R\xFChsen"
+                        created_at: '2019-09-10T14:03:22.000+00:00'
+                        id: 9336166960524456bdc73a7e88d4f31bab7c745c
+                        message: 'OpenSSL: TFO staging [ci skip]'
+                        parent_ids: null
+                        short_id: '93361669'
+                        title: 'OpenSSL: TFO staging [ci skip]'
+                        web_url: https://gitlab.com/gnuwget/wget2/-/commit/9336166960524456bdc73a7e88d4f31bab7c745c
+                      default: false
+                      developers_can_merge: false
+                      developers_can_push: false
+                      merged: false
+                      name: wget2-openssl-ajuaristi-rebased
+                      protected: false
+                    _next: null
+                    elapsed: 0.2
+                    encoding: null
+                    headers:
+                      CF-Cache-Status: DYNAMIC
+                      CF-RAY: 587f69cf2995cba0-VIE
+                      Cache-Control: max-age=0, private, must-revalidate
+                      Connection: keep-alive
+                      Content-Encoding: gzip
+                      Content-Type: application/json
+                      Date: Fri, 01 Nov 2019 13-36-03 GMT
+                      Etag: W/"4aa981789d5676d5ca8be9733eade350"
+                      Expect-CT: max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
+                      GitLab-LB: fe-01-lb-gprd
+                      GitLab-SV: localhost
+                      Link: <https://gitlab.com/api/v4/projects/3163647/repository/branches?id=3163647&page=1&per_page=20>;
+                        rel="prev", <https://gitlab.com/api/v4/projects/3163647/repository/branches?id=3163647&page=1&per_page=20>;
+                        rel="first", <https://gitlab.com/api/v4/projects/3163647/repository/branches?id=3163647&page=2&per_page=20>;
+                        rel="last"
+                      RateLimit-Limit: '600'
+                      RateLimit-Observed: '2'
+                      RateLimit-Remaining: '598'
+                      RateLimit-Reset: '1587559287'
+                      RateLimit-ResetTime: Wed, 22 Apr 2020 12:41:27 GMT
+                      Referrer-Policy: strict-origin-when-cross-origin
+                      Server: cloudflare
+                      Strict-Transport-Security: max-age=31536000
+                      Transfer-Encoding: chunked
+                      Vary: Origin
+                      X-Content-Type-Options: nosniff
+                      X-Frame-Options: SAMEORIGIN
+                      X-Next-Page: ''
+                      X-Page: '2'
+                      X-Per-Page: '20'
+                      X-Prev-Page: '1'
+                      X-Request-Id: TcLDKvmea09
+                      X-Runtime: '0.118213'
+                      X-Total: '28'
+                      X-Total-Pages: '2'
+                      cf-request-id: 024380757b0000cba078923200000001
+                    raw: !!binary ""
+                    reason: OK
+                    status_code: 200
+      ogr.services.gitlab.service:
+        gitlab:
+          gitlab.exceptions:
+            gitlab.mixins:
+              gitlab:
+                requre.objects:
+                  requests.sessions:
+                    send:
+                    - metadata:
+                        latency: 0.41922903060913086
+                        module_call_list:
+                        - unittest.case
+                        - tests.integration.test_gitlab
+                        - ogr.services.gitlab.project
+                        - ogr.services.gitlab.service
+                        - gitlab
+                        - gitlab.exceptions
+                        - gitlab.mixins
+                        - gitlab
+                        - requre.objects
+                        - requests.sessions
+                        - send
+                      output:
+                        __store_indicator: 2
+                        _content:
+                          avatar_url: https://assets.gitlab-static.net/uploads/-/system/user/avatar/375555/avatar.png
+                          bio: ''
+                          can_create_group: true
+                          can_create_project: true
+                          color_scheme_id: 4
+                          confirmed_at: '2018-06-07T08:34:01.593Z'
+                          created_at: '2016-01-15T21:12:31.705Z'
+                          current_sign_in_at: '2020-04-22T11:44:25.029Z'
+                          email: matej.focko@outlook.com
+                          external: false
+                          extra_shared_runners_minutes_limit: null
+                          id: 375555
+                          identities: []
+                          job_title: ''
+                          last_activity_on: '2020-04-22'
+                          last_sign_in_at: '2020-04-19T14:53:06.287Z'
+                          linkedin: ''
+                          location: "Ko\u0161ice, Slovakia"
+                          name: Matej Focko
+                          organization: ''
+                          private_profile: false
+                          projects_limit: 100000
+                          public_email: ''
+                          shared_runners_minutes_limit: 2000
+                          skype: ''
+                          state: active
+                          theme_id: 7
+                          twitter: MatejFocko
+                          two_factor_enabled: true
+                          username: mfocko
+                          web_url: https://gitlab.com/mfocko
+                          website_url: ''
+                          work_information: null
+                        _next: null
+                        elapsed: 0.2
+                        encoding: null
+                        headers:
+                          CF-Cache-Status: DYNAMIC
+                          CF-RAY: 587f69c82b15cba0-VIE
+                          Cache-Control: max-age=0, private, must-revalidate
+                          Connection: keep-alive
+                          Content-Encoding: gzip
+                          Content-Type: application/json
+                          Date: Fri, 01 Nov 2019 13-36-03 GMT
+                          Etag: W/"21f0350f34a7799f24e32f7799ac4ea0"
+                          Expect-CT: max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
+                          GitLab-LB: fe-22-lb-gprd
+                          GitLab-SV: localhost
+                          RateLimit-Limit: '600'
+                          RateLimit-Observed: '1'
+                          RateLimit-Remaining: '599'
+                          RateLimit-Reset: '1587559285'
+                          RateLimit-ResetTime: Wed, 22 Apr 2020 12:41:25 GMT
+                          Referrer-Policy: strict-origin-when-cross-origin
+                          Server: cloudflare
+                          Set-Cookie: __cfduid=dd03efd73f16956e2272531be615735851587559225;
+                            expires=Fri, 22-May-20 12:40:25 GMT; path=/; domain=.gitlab.com;
+                            HttpOnly; SameSite=Lax; Secure
+                          Strict-Transport-Security: max-age=31536000
+                          Transfer-Encoding: chunked
+                          Vary: Origin
+                          X-Content-Type-Options: nosniff
+                          X-Frame-Options: SAMEORIGIN
+                          X-Request-Id: ev2QV9DOXk8
+                          X-Runtime: '0.025973'
+                          cf-request-id: 02438071150000cba078881200000001
+                        raw: !!binary ""
+                        reason: OK
+                        status_code: 200

@@ -332,7 +332,7 @@ class GitlabProject(BaseGitProject):
         self.service.change_token(new_token)
 
     def get_branches(self) -> List[str]:
-        return [branch.name for branch in self.gitlab_repo.branches.list()]
+        return [branch.name for branch in self.gitlab_repo.branches.list(all=True)]
 
     def get_file_content(self, path, ref="master") -> str:
         try:
@@ -396,7 +396,7 @@ class GitlabProject(BaseGitProject):
             raise OperationNotSupported(
                 "This version of python-gitlab does not support release, please upgrade."
             )
-        releases = self.gitlab_repo.releases.list()
+        releases = self.gitlab_repo.releases.list(all=True)
         return [
             self._release_from_gitlab_object(
                 raw_release=release,
