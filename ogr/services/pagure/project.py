@@ -65,7 +65,10 @@ class PagureProject(BaseGitProject):
         self.namespace = namespace
 
     def __str__(self) -> str:
-        return f'PagureProject(namespace="{self.namespace}", repo="{self.repo}")'
+        fork_info = ""
+        if self._is_fork:
+            fork_info = f', username="{self._username}", is_fork={self._is_fork}'
+        return f'PagureProject(namespace="{self.namespace}", repo="{self.repo}"{fork_info})'
 
     def __eq__(self, o: object) -> bool:
         if not isinstance(o, PagureProject):

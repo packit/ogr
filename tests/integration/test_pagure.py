@@ -346,6 +346,11 @@ class Forks(PagureTests):
         urls = fork.get_git_urls()
         assert "{username}" not in urls["ssh"]
 
+    def test_fork_in_str(self):
+        str_representation = str(self.ogr_fork)
+        assert 'username="' in str_representation
+        assert "is_fork=True" in str_representation
+
     def test_nonexisting_fork(self):
         ogr_project_non_existing_fork = self.service.get_project(
             namespace=None,
