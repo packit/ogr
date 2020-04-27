@@ -20,7 +20,11 @@ One Git library to Rule!
 
 %package -n     python3-%{srcname}
 Summary:        %{summary}
+
+# https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_provides
+%if 0%{?fedora} < 33
 %{?python_provide:%python_provide python3-%{srcname}}
+%endif
 
 %description -n python3-%{srcname}
 One Git library to Rule!
