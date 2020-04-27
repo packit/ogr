@@ -1,7 +1,7 @@
 %global srcname ogr
 
 Name:           python-%{srcname}
-Version:        0.11.2
+Version:        0.11.3
 Release:        1%{?dist}
 Summary:        One API for multiple git forges
 

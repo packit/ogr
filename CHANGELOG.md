@@ -1,3 +1,18 @@
+# 0.11.3
+
+## New Features
+
+- You can now set a title and a description for PagureIssue.
+
+## Fixes
+
+- GitLab classes can now process more than 20 objects (ogr now plays well with the GitLab's pagination mechanism).
+- ogr no longer uses backticks in error messages related to Pagure (so they can be displayed nicely in markdown formatting).
+
+## Internals
+
+- Since [rpmautospec](https://docs.pagure.org/Fedora-Infra.rpmautospec/principle.html) is deployed in staging environment only, we have reverted the related changes.
+
 # 0.11.2
 
 ## New Features
