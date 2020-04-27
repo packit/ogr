@@ -33,7 +33,8 @@ from ogr.services.gitlab.comments import GitlabPRComment
 
 class GitlabPullRequest(BasePullRequest):
     _raw_pr: _GitlabMergeRequest
-    project: "ogr_gitlab.GitlabProject"
+    _target_project: "ogr_gitlab.GitlabProject"
+    _source_project: "ogr_gitlab.GitlabProject" = None
 
     @property
     def title(self) -> str:
@@ -97,8 +98,14 @@ class GitlabPullRequest(BasePullRequest):
     def head_commit(self) -> str:
         return self._raw_pr.sha
 
+    @property
     def source_project(self) -> "ogr_gitlab.GitlabProject":
-        raise NotImplementedError()
+        if self._source_project is None:
+            source_project_id = self._raw_pr.attributes["source_project_id"]
+            self._source_project = self._target_project.service.get_project(
+                iid=source_project_id
+            )
+        return self._source_project
 
     def __str__(self) -> str:
         return "Gitlab" + super().__str__()

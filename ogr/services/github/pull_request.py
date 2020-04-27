@@ -39,7 +39,8 @@ logger = logging.getLogger(__name__)
 
 class GithubPullRequest(BasePullRequest):
     _raw_pr: _GithubPullRequest
-    project: "ogr_github.GithubProject"
+    _target_project: "ogr_github.GithubProject"
+    _source_project: "ogr_github.GithubProject" = None
 
     @property
     def title(self) -> str:
@@ -101,8 +102,19 @@ class GithubPullRequest(BasePullRequest):
     def head_commit(self) -> str:
         return self._raw_pr.head.sha
 
+    @property
     def source_project(self) -> "ogr_github.GithubProject":
-        raise NotImplementedError()
+        if self._source_project is None:
+            src_github_repo = self._raw_pr.head.repo
+
+            self._source_project = ogr_github.GithubProject(
+                repo=src_github_repo.name,
+                service=self._target_project.service,
+                namespace=src_github_repo.owner.login,
+                github_repo=src_github_repo,
+                read_only=self._target_project.service.read_only,
+            )
+        return self._source_project
 
     def __str__(self) -> str:
         return "Github" + super().__str__()
@@ -190,7 +202,7 @@ class GithubPullRequest(BasePullRequest):
         if not any([commit, filename, row]):
             comment = self._raw_pr.create_issue_comment(body)
         else:
-            github_commit = self.project.github_repo.get_commit(commit)
+            github_commit = self._target_project.github_repo.get_commit(commit)
             comment = self._raw_pr.create_comment(body, github_commit, filename, row)
         return GithubPRComment(parent=self, raw_comment=comment)
 

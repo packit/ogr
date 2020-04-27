@@ -81,8 +81,17 @@ class GitlabService(GitService):
         return hash(str(self))
 
     def get_project(
-        self, repo=None, namespace=None, is_fork=False, **kwargs
+        self, repo=None, namespace=None, is_fork=False, iid=None, **kwargs
     ) -> "GitlabProject":
+        if iid is not None:
+            gitlab_repo = self.gitlab_instance.projects.get(iid)
+            return GitlabProject(
+                repo=gitlab_repo.attributes["path"],
+                namespace=gitlab_repo.attributes["namespace"]["full_path"],
+                service=self,
+                gitlab_repo=gitlab_repo,
+            )
+
         if is_fork:
             namespace = self.user.get_username()
         return GitlabProject(repo=repo, namespace=namespace, service=self, **kwargs)
