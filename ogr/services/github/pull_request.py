@@ -101,6 +101,9 @@ class GithubPullRequest(BasePullRequest):
     def head_commit(self) -> str:
         return self._raw_pr.head.sha
 
+    def source_project(self) -> "ogr_github.GithubProject":
+        raise NotImplementedError()
+
     def __str__(self) -> str:
         return "Github" + super().__str__()
 

@@ -108,6 +108,10 @@ class PagurePullRequest(BasePullRequest):
     def head_commit(self) -> str:
         return self._raw_pr["commit_stop"]
 
+    @property
+    def source_project(self) -> "ogr_pagure.PagureProject":
+        raise NotImplementedError()
+
     def __str__(self) -> str:
         return "Pagure" + super().__str__()
 

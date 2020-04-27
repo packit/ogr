@@ -97,6 +97,9 @@ class GitlabPullRequest(BasePullRequest):
     def head_commit(self) -> str:
         return self._raw_pr.sha
 
+    def source_project(self) -> "ogr_gitlab.GitlabProject":
+        raise NotImplementedError()
+
     def __str__(self) -> str:
         return "Gitlab" + super().__str__()
 

@@ -22,6 +22,7 @@
 
 import datetime
 from typing import List, Optional, Match, Any
+import warnings
 
 from ogr.abstract import (
     GitService,
@@ -285,7 +286,7 @@ class BaseGitProject(GitProject):
 class BasePullRequest(PullRequest):
     def __init__(self, raw_pr: Any, project: "GitProject") -> None:
         self._raw_pr = raw_pr
-        self.project = project
+        self._target_project = project
 
     @property
     def title(self) -> str:
@@ -334,6 +335,18 @@ class BasePullRequest(PullRequest):
     @property
     def labels(self) -> List[Any]:
         raise NotImplementedError()
+
+    @property
+    def target_project(self) -> "GitProject":
+        return self._target_project
+
+    @property
+    def project(self) -> "GitProject":
+        warnings.warn(
+            "Using deprecated property, that will be removed in 0.16.0"
+            " (or 1.0.0 if it comes sooner). Please use target_project."
+        )
+        return self.target_project
 
     def get_comments(
         self, filter_regex: str = None, reverse: bool = False, author: str = None
