@@ -503,6 +503,48 @@ class PullRequests(GitlabTests):
             == "59b1a9bab5b5198c619270646410867788685c16"
         )
 
+    def test_source_project_upstream_branch(self):
+        pr = self.project.get_pr(23)
+        source_project = pr.source_project
+        assert source_project.namespace == "packit-service"
+        assert source_project.repo == "ogr-tests"
+
+    def test_source_project_upstream_fork(self):
+        pr = self.project.get_pr(22)
+        source_project = pr.source_project
+        assert source_project.namespace == "mfocko"
+        assert source_project.repo == "ogr-tests"
+
+    def test_source_project_fork_fork(self):
+        project = self.service.get_project(repo="ogr-tests", namespace="mfocko")
+        pr = project.get_pr(1)
+        source_project = pr.source_project
+        assert source_project.namespace == "mfocko"
+        assert source_project.repo == "ogr-tests"
+
+    def test_source_project_other_fork_fork(self):
+        project = self.service.get_project(
+            repo="ogr-tests", namespace="lachmanfrantisek"
+        )
+        pr = project.get_pr(1)
+        source_project = pr.source_project
+        assert source_project.namespace == "mfocko"
+        assert source_project.repo == "ogr-tests"
+
+    def test_source_project_renamed_fork(self):
+        pr = self.project.get_pr(24)
+        source_project = pr.source_project
+        assert source_project.namespace == "mfocko"
+        assert source_project.repo == "definitely-not-ogr-tests"
+
+    def test_source_project_renamed_upstream(self):
+        pr = self.service.get_project(
+            repo="old-ogr-testing-repo-in-the-group", namespace="packit-service"
+        ).get_pr(1)
+        source_project = pr.source_project
+        assert source_project.namespace == "mfocko"
+        assert source_project.repo == "new-ogr-testing-repo-in-the-group"
+
 
 class Tags(GitlabTests):
     def test_get_tags(self):

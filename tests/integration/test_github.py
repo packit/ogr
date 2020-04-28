@@ -700,6 +700,48 @@ class PullRequests(GithubTests):
             == "7cf6d0cbeca285ecbeb19a0067cb243783b3c768"
         )
 
+    def test_source_project_upstream_branch(self):
+        pr = self.hello_world_project.get_pr(72)
+        source_project = pr.source_project
+        assert source_project.namespace == "packit-service"
+        assert source_project.repo == "hello-world"
+
+    def test_source_project_upstream_fork(self):
+        pr = self.hello_world_project.get_pr(111)
+        source_project = pr.source_project
+        assert source_project.namespace == "lbarcziova"
+        assert source_project.repo == "hello-world"
+
+    def test_source_project_fork_fork(self):
+        project = self.service.get_project(repo="hello-world", namespace="mfocko")
+        pr = project.get_pr(1)
+        source_project = pr.source_project
+        assert source_project.namespace == "mfocko"
+        assert source_project.repo == "hello-world"
+
+    def test_source_project_other_fork_fork(self):
+        project = self.service.get_project(
+            repo="hello-world", namespace="lachmanfrantisek"
+        )
+        pr = project.get_pr(1)
+        source_project = pr.source_project
+        assert source_project.namespace == "mfocko"
+        assert source_project.repo == "hello-world"
+
+    def test_source_project_renamed_fork(self):
+        pr = self.hello_world_project.get_pr(113)
+        source_project = pr.source_project
+        assert source_project.namespace == "mfocko"
+        assert source_project.repo == "bye-world"
+
+    def test_source_project_renamed_upstream(self):
+        pr = self.service.get_project(
+            repo="not-potential-spoon", namespace="packit-service"
+        ).get_pr(1)
+        source_project = pr.source_project
+        assert source_project.namespace == "mfocko"
+        assert source_project.repo == "potential-spoon"
+
 
 class Releases(GithubTests):
     def test_get_release(self):
