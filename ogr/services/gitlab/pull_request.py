@@ -101,9 +101,8 @@ class GitlabPullRequest(BasePullRequest):
     @property
     def source_project(self) -> "ogr_gitlab.GitlabProject":
         if self._source_project is None:
-            source_project_id = self._raw_pr.attributes["source_project_id"]
-            self._source_project = self._target_project.service.get_project(
-                iid=source_project_id
+            self._source_project = self._target_project.service.get_project_from_project_id(
+                self._raw_pr.attributes["source_project_id"]
             )
         return self._source_project
 

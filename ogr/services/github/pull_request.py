@@ -105,15 +105,10 @@ class GithubPullRequest(BasePullRequest):
     @property
     def source_project(self) -> "ogr_github.GithubProject":
         if self._source_project is None:
-            src_github_repo = self._raw_pr.head.repo
-
-            self._source_project = ogr_github.GithubProject(
-                repo=src_github_repo.name,
-                service=self._target_project.service,
-                namespace=src_github_repo.owner.login,
-                github_repo=src_github_repo,
-                read_only=self._target_project.service.read_only,
+            self._source_project = self._target_project.service.get_project_from_github_repository(
+                self._raw_pr.head.repo
             )
+
         return self._source_project
 
     def __str__(self) -> str:
