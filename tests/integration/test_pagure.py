@@ -329,6 +329,16 @@ class PullRequests(PagureTests):
         )
         assert response["uid"] == "553fa0c52d0367d778458af022ac8a9d"
 
+    def test_head_commit(self):
+        assert (
+            self.ogr_project.get_pr(4).head_commit
+            == "1b491a6718ca39c249e4e15a1b9d74fb2ff9d90a"
+        )
+        assert (
+            self.ogr_project.get_pr(5).head_commit
+            == "517121273b142293807606dbd7a2e0f514b21cc8"
+        )
+
 
 class Forks(PagureTests):
     def test_fork(self):

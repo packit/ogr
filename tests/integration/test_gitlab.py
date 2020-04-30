@@ -489,6 +489,20 @@ class PullRequests(GitlabTests):
         pr.description = old_description
         assert pr.description == old_description
 
+    def test_head_commit(self):
+        assert (
+            self.project.get_pr(12).head_commit
+            == "2543f1728c7e1c2b8772d0dc11dc8b1870f4db60"
+        )
+        assert (
+            self.project.get_pr(1).head_commit
+            == "d490ec67dd98f69dfdc1732b98bb3189f0e0aace"
+        )
+        assert (
+            self.project.get_pr(19).head_commit
+            == "59b1a9bab5b5198c619270646410867788685c16"
+        )
+
 
 class Tags(GitlabTests):
     def test_get_tags(self):

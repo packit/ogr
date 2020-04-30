@@ -686,6 +686,20 @@ class PullRequests(GithubTests):
         pr.description = old_description
         assert pr.description == old_description
 
+    def test_head_commit(self):
+        assert (
+            self.hello_world_project.get_pr(111).head_commit
+            == "1abb19255a7c1bec7ffcae2487f022b23175af2b"
+        )
+        assert (
+            self.hello_world_project.get_pr(112).head_commit
+            == "9ab13fa4b4944510022730708045f42aea106cef"
+        )
+        assert (
+            self.hello_world_project.get_pr(113).head_commit
+            == "7cf6d0cbeca285ecbeb19a0067cb243783b3c768"
+        )
+
 
 class Releases(GithubTests):
     def test_get_release(self):
