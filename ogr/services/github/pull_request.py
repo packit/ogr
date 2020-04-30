@@ -97,6 +97,10 @@ class GithubPullRequest(BasePullRequest):
     def diff_url(self) -> str:
         return f"{self._raw_pr.html_url}/files"
 
+    @property
+    def head_commit(self) -> str:
+        return self._raw_pr.head.sha
+
     def __str__(self) -> str:
         return "Github" + super().__str__()
 

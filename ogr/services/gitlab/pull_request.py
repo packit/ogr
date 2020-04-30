@@ -93,6 +93,10 @@ class GitlabPullRequest(BasePullRequest):
     def diff_url(self) -> str:
         return f"{self._raw_pr.web_url}/diffs"
 
+    @property
+    def head_commit(self) -> str:
+        return self._raw_pr.sha
+
     def __str__(self) -> str:
         return "Gitlab" + super().__str__()
 
