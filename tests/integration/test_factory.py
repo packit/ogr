@@ -13,7 +13,7 @@ from ogr.services.pagure import PagureProject
 class FactoryTests(RequreTestCase):
     def setUp(self):
         super().setUp()
-        print(self.get_datafile_filename())
+        print(PersistentObjectStorage().storage_file)
         self.github_token = os.environ.get("GITHUB_TOKEN")
         self.pagure_token = os.environ.get("PAGURE_TOKEN")
         self.gitlab_token = os.environ.get("GITLAB_TOKEN") or "some_token"
