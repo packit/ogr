@@ -339,6 +339,19 @@ class PullRequests(PagureTests):
             == "517121273b142293807606dbd7a2e0f514b21cc8"
         )
 
+    def test_source_project_upstream_branch(self):
+        pr = self.ogr_project.get_pr(4)
+        source_project = pr.source_project
+        assert source_project.namespace is None
+        assert source_project.repo == "ogr-tests"
+
+    def test_source_project_upstream_fork(self):
+        pr = self.ogr_project.get_pr(6)
+        source_project = pr.source_project
+        assert source_project.namespace is None
+        assert source_project.repo == "ogr-tests"
+        assert source_project.full_repo_name == "fork/mfocko/ogr-tests"
+
 
 class Forks(PagureTests):
     def test_fork(self):

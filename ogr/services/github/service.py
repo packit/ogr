@@ -142,6 +142,17 @@ class GithubService(BaseGitService):
             **kwargs,
         )
 
+    def get_project_from_github_repository(
+        self, github_repo: github.Repository.Repository
+    ) -> "GithubProject":
+        return GithubProject(
+            repo=github_repo.name,
+            namespace=github_repo.owner.login,
+            github_repo=github_repo,
+            service=self,
+            read_only=self.read_only,
+        )
+
     @property
     def user(self) -> GitUser:
         return GithubUser(service=self)

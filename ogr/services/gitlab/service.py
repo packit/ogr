@@ -87,6 +87,15 @@ class GitlabService(GitService):
             namespace = self.user.get_username()
         return GitlabProject(repo=repo, namespace=namespace, service=self, **kwargs)
 
+    def get_project_from_project_id(self, iid: int) -> "GitlabProject":
+        gitlab_repo = self.gitlab_instance.projects.get(iid)
+        return GitlabProject(
+            repo=gitlab_repo.attributes["path"],
+            namespace=gitlab_repo.attributes["namespace"]["full_path"],
+            service=self,
+            gitlab_repo=gitlab_repo,
+        )
+
     def change_token(self, new_token: str) -> None:
         self.token = new_token
         self._gitlab_instance = None

@@ -35,7 +35,8 @@ logger = logging.getLogger(__name__)
 
 
 class PagurePullRequest(BasePullRequest):
-    project: "ogr_pagure.PagureProject"
+    _target_project: "ogr_pagure.PagureProject"
+    _source_project: "ogr_pagure.PagureProject" = None
 
     def __init__(self, raw_pr, project):
         super().__init__(raw_pr, project)
@@ -108,11 +109,30 @@ class PagurePullRequest(BasePullRequest):
     def head_commit(self) -> str:
         return self._raw_pr["commit_stop"]
 
+    @property
+    def source_project(self) -> "ogr_pagure.PagureProject":
+        if self._source_project is None:
+            source = self._raw_pr["repo_from"]
+            source_project_info = {
+                "repo": source["name"],
+                "namespace": source["namespace"],
+            }
+
+            if source["parent"] is not None:
+                source_project_info["is_fork"] = True
+                source_project_info["username"] = source["user"]["name"]
+
+            self._source_project = self._target_project.service.get_project(
+                **source_project_info
+            )
+
+        return self._source_project
+
     def __str__(self) -> str:
         return "Pagure" + super().__str__()
 
     def __call_api(self, *args, **kwargs) -> dict:
-        return self.project._call_project_api(
+        return self._target_project._call_project_api(
             "pull-request", str(self.id), *args, **kwargs
         )
 
