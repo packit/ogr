@@ -63,7 +63,7 @@ class TestGithubProject:
         github_project.parent.github_repo.should_call("create_pull").never()
         github_project.github_repo.should_call("create_pull").once()
 
-        github_project.pr_create(
+        github_project.create_pr(
             title="test_title",
             body="test_content",
             target_branch="master",
@@ -72,11 +72,7 @@ class TestGithubProject:
         )
 
     @pytest.mark.parametrize(
-        "fork_username",
-        [
-            pytest.param("test_fork_username", id="fork_username_set"),
-            pytest.param(None, id="fork_username_None"),
-        ],
+        "fork_username", [pytest.param("test_fork_username", id="fork_username_set")],
     )
     def test_pr_create_is_fork(self, github_project, fork_username):
         github_project.should_receive("is_fork").and_return(True)
@@ -87,11 +83,12 @@ class TestGithubProject:
             body="test_content",
             base="master",
             head=f"{github_project}:master",
+            fork_username=fork_username,
         )
-        github_project.parent.github_repo.should_call("create_pull").once()
-        github_project.github_repo.should_call("create_pull").never()
+        github_project.parent.github_repo.should_call("create_pull").never()
+        github_project.github_repo.should_call("create_pull").once()
 
-        github_project.pr_create(
+        github_project.create_pr(
             title="test_title",
             body="test_content",
             target_branch="master",

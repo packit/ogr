@@ -123,14 +123,16 @@ class GithubPullRequest(BasePullRequest):
         source_branch: str,
         fork_username: str = None,
     ) -> "PullRequest":
+        """
+        The default behavior is the pull request is made to the immediate parent repository
+        if the repository is a forked repository.
+        If you want to create a pull request to the forked repo, please pass
+        the `fork_username` parameter.
+        """
         github_repo = project.github_repo
 
-        if project.is_fork and fork_username:
-            logger.warning(
-                f"{project.full_repo_name} is fork, ignoring fork_username arg"
-            )
-
-        if project.is_fork:
+        if project.is_fork and fork_username is None:
+            logger.warning(f"{project.full_repo_name} is fork, ignoring fork_repo.")
             source_branch = f"{project.namespace}:{source_branch}"
             github_repo = project.parent.github_repo
         elif fork_username:
