@@ -303,7 +303,13 @@ class PagureProject(BaseGitProject):
         :return: if yes, return True
         """
         host = urlparse(self.service.instance_url).hostname
-        if host in ["src.fedoraproject.org", "pagure.io", "src.stg.fedoraproject.org"]:
+        if host in [
+            "git.centos.org",
+            "git.stg.centos.org",
+            "pagure.io",
+            "src.fedoraproject.org",
+            "src.stg.fedoraproject.org",
+        ]:
             # private repositories are not allowed on generally used pagure instances
             return False
         raise NotImplementedError(
