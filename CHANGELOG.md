@@ -7,7 +7,7 @@
 
 ## Minor
 
-- Add git.centos.org to the instances that does not have private repositories. (@csomh)
+- Add git.centos.org to the instances that do not have private repositories. (@csomh)
 
 ## Fixes
 
