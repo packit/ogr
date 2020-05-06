@@ -1,3 +1,18 @@
+# 0.12.0
+
+## New Features
+
+- PullRequest now has `source_project`/`target_project` (read-only) properties. (@mfocko)
+- GitHub and GitLab now have `head_commit` on PullRequests implemented as well. (@mfocko)
+
+## Minor
+
+- Add git.centos.org to the instances that do not have private repositories. (@csomh)
+
+## Fixes
+
+- Creating PRs to fork now work on GitHub. (@saisankargochhayat)
+
 # 0.11.3
 
 ## New Features
