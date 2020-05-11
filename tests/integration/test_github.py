@@ -9,7 +9,7 @@ from requre.storage import PersistentObjectStorage
 from requre.utils import StorageMode
 
 from ogr import GithubService
-from ogr.abstract import PRStatus, IssueStatus, CommitStatus
+from ogr.abstract import PRStatus, IssueStatus, CommitStatus, AccessLevel
 from ogr.exceptions import GithubAPIException
 
 
@@ -181,6 +181,10 @@ class Comments(GithubTests):
 
 
 class GenericCommands(GithubTests):
+    def test_add_user(self):
+        project = self.service.get_project(repo="clynica", namespace="Beauth")
+        project.add_user("lachmanfrantisek", AccessLevel.pull)
+
     def test_description(self):
         description = self.ogr_project.get_description()
         assert description.startswith("One Git library to Rule")

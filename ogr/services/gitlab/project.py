@@ -215,7 +215,7 @@ class GitlabProject(BaseGitProject):
                 response.append(username)
         return response
 
-    def add_user(self, user: str, access_level: AccessLevel):
+    def add_user(self, user: str, access_level: AccessLevel) -> None:
         """
         AccessLevel.pull => Guest access
         AccessLevel.triage => Reporter access
@@ -240,7 +240,6 @@ class GitlabProject(BaseGitProject):
             )
         except Exception as e:
             raise GitlabAPIException(f"User {user} already exists", e)
-        return None
 
     def get_pr_list(self, status: PRStatus = PRStatus.open) -> List["PullRequest"]:
         return GitlabPullRequest.get_list(project=self, status=status)

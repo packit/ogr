@@ -180,7 +180,7 @@ class GithubProject(BaseGitProject):
     def get_description(self) -> str:
         return self.github_repo.description
 
-    def add_user(self, user: str, access_level: AccessLevel):
+    def add_user(self, user: str, access_level: AccessLevel) -> None:
         """
         AccessLevel.pull => Pull
         AccessLevel.triage => Triage
@@ -204,8 +204,6 @@ class GithubProject(BaseGitProject):
 
         if invitation is None:
             raise GithubAPIException("User already added")
-
-        return None
 
     def get_fork(self, create: bool = True) -> Optional["GithubProject"]:
         """

@@ -1,0 +1,376 @@
+_requre:
+  DataTypes: 1
+  key_strategy: StorageKeysInspectFull
+  version_storage_file: 2
+unittest.case:
+  tests.integration.test_gitlab:
+    ogr.services.gitlab.project:
+      gitlab.exceptions:
+        gitlab.mixins:
+          gitlab:
+            requre.objects:
+              requests.sessions:
+                send:
+                - metadata:
+                    latency: 0.46038031578063965
+                    module_call_list:
+                    - unittest.case
+                    - tests.integration.test_gitlab
+                    - ogr.services.gitlab.project
+                    - gitlab.exceptions
+                    - gitlab.mixins
+                    - gitlab
+                    - requre.objects
+                    - requests.sessions
+                    - send
+                  output:
+                    __store_indicator: 2
+                    _content:
+                    - avatar_url: https://assets.gitlab-static.net/uploads/-/system/user/avatar/433670/avatar.png
+                      id: 433670
+                      name: "Franti\u0161ek Lachman"
+                      state: active
+                      username: lachmanfrantisek
+                      web_url: https://gitlab.com/lachmanfrantisek
+                    _next: null
+                    elapsed: 0.2
+                    encoding: null
+                    headers:
+                      CF-Cache-Status: DYNAMIC
+                      CF-RAY: 5917d7c3d9337a33-DXB
+                      Cache-Control: max-age=0, private, must-revalidate
+                      Connection: keep-alive
+                      Content-Encoding: gzip
+                      Content-Type: application/json
+                      Date: Fri, 01 Nov 2019 13-36-03 GMT
+                      Etag: W/"ac19c1f93f2624d7ea40887da46a673b"
+                      Expect-CT: max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
+                      GitLab-LB: fe-06-lb-gprd
+                      GitLab-SV: localhost
+                      Link: <https://gitlab.com/api/v4/users?active=false&blocked=false&external=false&page=1&per_page=20&skip_ldap=false&username=lachmanfrantisek&with_custom_attributes=false>;
+                        rel="first", <https://gitlab.com/api/v4/users?active=false&blocked=false&external=false&page=1&per_page=20&skip_ldap=false&username=lachmanfrantisek&with_custom_attributes=false>;
+                        rel="last"
+                      RateLimit-Limit: '600'
+                      RateLimit-Observed: '2'
+                      RateLimit-Remaining: '598'
+                      RateLimit-Reset: '1589157626'
+                      RateLimit-ResetTime: Mon, 11 May 2020 00:40:26 GMT
+                      Referrer-Policy: strict-origin-when-cross-origin
+                      Server: cloudflare
+                      Strict-Transport-Security: max-age=31536000
+                      Transfer-Encoding: chunked
+                      Vary: Origin
+                      X-Content-Type-Options: nosniff
+                      X-Frame-Options: SAMEORIGIN
+                      X-Next-Page: ''
+                      X-Page: '1'
+                      X-Per-Page: '20'
+                      X-Prev-Page: ''
+                      X-Request-Id: TH3HtTQtwH3
+                      X-Runtime: '0.025663'
+                      X-Total: '1'
+                      X-Total-Pages: '1'
+                      cf-request-id: 02a2c52e6200007a331985c200000001
+                    raw: !!binary ""
+                    reason: OK
+                    status_code: 200
+                - metadata:
+                    latency: 0.5337495803833008
+                    module_call_list:
+                    - unittest.case
+                    - tests.integration.test_gitlab
+                    - ogr.services.gitlab.project
+                    - gitlab.exceptions
+                    - gitlab.mixins
+                    - gitlab
+                    - requre.objects
+                    - requests.sessions
+                    - send
+                  output:
+                    __store_indicator: 2
+                    _content:
+                      _links:
+                        events: https://gitlab.com/api/v4/projects/18032222/events
+                        issues: https://gitlab.com/api/v4/projects/18032222/issues
+                        labels: https://gitlab.com/api/v4/projects/18032222/labels
+                        members: https://gitlab.com/api/v4/projects/18032222/members
+                        merge_requests: https://gitlab.com/api/v4/projects/18032222/merge_requests
+                        repo_branches: https://gitlab.com/api/v4/projects/18032222/repository/branches
+                        self: https://gitlab.com/api/v4/projects/18032222
+                      approvals_before_merge: 0
+                      archived: false
+                      auto_cancel_pending_pipelines: enabled
+                      auto_devops_deploy_strategy: continuous
+                      auto_devops_enabled: false
+                      autoclose_referenced_issues: true
+                      avatar_url: null
+                      build_coverage_regex: null
+                      build_git_strategy: fetch
+                      build_timeout: 3600
+                      builds_access_level: enabled
+                      can_create_merge_request_in: true
+                      ci_config_path: null
+                      ci_default_git_depth: 50
+                      container_expiration_policy:
+                        cadence: 7d
+                        enabled: true
+                        keep_n: null
+                        name_regex: null
+                        name_regex_keep: null
+                        next_run_at: '2020-05-14T17:50:21.490Z'
+                        older_than: null
+                      container_registry_enabled: true
+                      created_at: '2020-04-09T14:14:07.208Z'
+                      creator_id: 5647360
+                      default_branch: master
+                      description: Hehehehe
+                      emails_disabled: null
+                      empty_repo: false
+                      external_authorization_classification_label: ''
+                      forking_access_level: enabled
+                      forks_count: 0
+                      http_url_to_repo: https://gitlab.com/testing-packit/hello-there.git
+                      id: 18032222
+                      import_error: null
+                      import_status: none
+                      issues_access_level: enabled
+                      issues_enabled: true
+                      jobs_enabled: true
+                      last_activity_at: '2020-04-09T15:38:15.878Z'
+                      lfs_enabled: true
+                      marked_for_deletion_at: null
+                      marked_for_deletion_on: null
+                      merge_method: merge
+                      merge_requests_access_level: enabled
+                      merge_requests_enabled: true
+                      mirror: false
+                      name: Hello there
+                      name_with_namespace: Testing packit / Hello there
+                      namespace:
+                        avatar_url: null
+                        full_path: testing-packit
+                        id: 7641334
+                        kind: group
+                        name: Testing packit
+                        parent_id: null
+                        path: testing-packit
+                        web_url: https://gitlab.com/groups/testing-packit
+                      only_allow_merge_if_all_discussions_are_resolved: false
+                      only_allow_merge_if_pipeline_succeeds: false
+                      open_issues_count: 0
+                      packages_enabled: true
+                      pages_access_level: enabled
+                      path: hello-there
+                      path_with_namespace: testing-packit/hello-there
+                      permissions:
+                        group_access:
+                          access_level: 50
+                          notification_level: 3
+                        project_access: null
+                      printing_merge_request_link_enabled: true
+                      public_jobs: true
+                      readme_url: https://gitlab.com/testing-packit/hello-there/-/blob/master/README.md
+                      remove_source_branch_after_merge: true
+                      repository_access_level: enabled
+                      request_access_enabled: true
+                      resolve_outdated_diff_discussions: false
+                      runners_token: PsFFD1himVBRjSCsMdFh
+                      service_desk_address: incoming+testing-packit-hello-there-18032222-issue-@incoming.gitlab.com
+                      service_desk_enabled: true
+                      shared_runners_enabled: true
+                      shared_with_groups: []
+                      snippets_access_level: enabled
+                      snippets_enabled: true
+                      ssh_url_to_repo: git@gitlab.com:testing-packit/hello-there.git
+                      star_count: 0
+                      suggestion_commit_message: null
+                      tag_list: []
+                      visibility: public
+                      web_url: https://gitlab.com/testing-packit/hello-there
+                      wiki_access_level: enabled
+                      wiki_enabled: true
+                    _next: null
+                    elapsed: 0.2
+                    encoding: null
+                    headers:
+                      CF-Cache-Status: DYNAMIC
+                      CF-RAY: 5917d7c6cc0b7a33-DXB
+                      Cache-Control: max-age=0, private, must-revalidate
+                      Connection: keep-alive
+                      Content-Encoding: gzip
+                      Content-Type: application/json
+                      Date: Fri, 01 Nov 2019 13-36-03 GMT
+                      Etag: W/"3ed1262f115840ce218d104a80922228"
+                      Expect-CT: max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
+                      GitLab-LB: fe-09-lb-gprd
+                      GitLab-SV: localhost
+                      RateLimit-Limit: '600'
+                      RateLimit-Observed: '3'
+                      RateLimit-Remaining: '597'
+                      RateLimit-Reset: '1589157626'
+                      RateLimit-ResetTime: Mon, 11 May 2020 00:40:26 GMT
+                      Referrer-Policy: strict-origin-when-cross-origin
+                      Server: cloudflare
+                      Strict-Transport-Security: max-age=31536000
+                      Transfer-Encoding: chunked
+                      Vary: Origin
+                      X-Content-Type-Options: nosniff
+                      X-Frame-Options: SAMEORIGIN
+                      X-Request-Id: 8XcDFb2L3q1
+                      X-Runtime: '0.080892'
+                      cf-request-id: 02a2c5303800007a331988a200000001
+                    raw: !!binary ""
+                    reason: OK
+                    status_code: 200
+                - metadata:
+                    latency: 0.5596702098846436
+                    module_call_list:
+                    - unittest.case
+                    - tests.integration.test_gitlab
+                    - ogr.services.gitlab.project
+                    - gitlab.exceptions
+                    - gitlab.mixins
+                    - gitlab
+                    - requre.objects
+                    - requests.sessions
+                    - send
+                  output:
+                    __store_indicator: 2
+                    _content:
+                      access_level: 40
+                      avatar_url: https://assets.gitlab-static.net/uploads/-/system/user/avatar/433670/avatar.png
+                      expires_at: '2019-11-01T14:35:53Z'
+                      id: 433670
+                      name: "Franti\u0161ek Lachman"
+                      state: active
+                      username: lachmanfrantisek
+                      web_url: https://gitlab.com/lachmanfrantisek
+                    _next: null
+                    elapsed: 0.2
+                    encoding: null
+                    headers:
+                      CF-Cache-Status: DYNAMIC
+                      CF-RAY: 5917d7ca2eab7a33-DXB
+                      Cache-Control: max-age=0, private, must-revalidate
+                      Connection: keep-alive
+                      Content-Length: '267'
+                      Content-Type: application/json
+                      Date: Fri, 01 Nov 2019 13-36-03 GMT
+                      Etag: W/"f66fb012cb4cffb285174980b72892c4"
+                      Expect-CT: max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
+                      GitLab-LB: fe-07-lb-gprd
+                      GitLab-SV: localhost
+                      RateLimit-Limit: '600'
+                      RateLimit-Observed: '4'
+                      RateLimit-Remaining: '596'
+                      RateLimit-Reset: '1589157627'
+                      RateLimit-ResetTime: Mon, 11 May 2020 00:40:27 GMT
+                      Referrer-Policy: strict-origin-when-cross-origin
+                      Server: cloudflare
+                      Strict-Transport-Security: max-age=31536000
+                      Vary: Origin
+                      X-Content-Type-Options: nosniff
+                      X-Frame-Options: SAMEORIGIN
+                      X-Request-Id: J4cs3FMj416
+                      X-Runtime: '0.222671'
+                      cf-request-id: 02a2c5325b00007a33198a8200000001
+                    raw: !!binary ""
+                    reason: Created
+                    status_code: 201
+      ogr.services.gitlab.service:
+        gitlab:
+          gitlab.exceptions:
+            gitlab.mixins:
+              gitlab:
+                requre.objects:
+                  requests.sessions:
+                    send:
+                    - metadata:
+                        latency: 5.877529144287109
+                        module_call_list:
+                        - unittest.case
+                        - tests.integration.test_gitlab
+                        - ogr.services.gitlab.project
+                        - ogr.services.gitlab.service
+                        - gitlab
+                        - gitlab.exceptions
+                        - gitlab.mixins
+                        - gitlab
+                        - requre.objects
+                        - requests.sessions
+                        - send
+                      output:
+                        __store_indicator: 2
+                        _content:
+                          avatar_url: https://assets.gitlab-static.net/uploads/-/system/user/avatar/5647360/avatar.png
+                          bio: ''
+                          can_create_group: true
+                          can_create_project: true
+                          color_scheme_id: 1
+                          confirmed_at: '2020-03-19T21:52:09.146Z'
+                          created_at: '2020-03-19T21:52:09.216Z'
+                          current_sign_in_at: '2020-05-10T15:57:50.497Z'
+                          email: spapinwar@gmail.com
+                          external: false
+                          extra_shared_runners_minutes_limit: null
+                          id: 5647360
+                          identities:
+                          - extern_uid: '22324802'
+                            provider: github
+                            saml_provider_id: null
+                          job_title: ''
+                          last_activity_on: '2020-05-11'
+                          last_sign_in_at: '2020-05-09T14:22:20.164Z'
+                          linkedin: ''
+                          location: ''
+                          name: Shreyas Papinwar
+                          organization: ''
+                          private_profile: false
+                          projects_limit: 100000
+                          public_email: ''
+                          shared_runners_minutes_limit: null
+                          skype: shreyas.papinwar
+                          state: active
+                          theme_id: 1
+                          twitter: '@spapinwar'
+                          two_factor_enabled: false
+                          username: shreyaspapi
+                          web_url: https://gitlab.com/shreyaspapi
+                          website_url: https://shreyasp.me
+                          work_information: null
+                        _next: null
+                        elapsed: 0.2
+                        encoding: null
+                        headers:
+                          CF-Cache-Status: DYNAMIC
+                          CF-RAY: 5917d7c0ef247a33-DXB
+                          Cache-Control: max-age=0, private, must-revalidate
+                          Connection: keep-alive
+                          Content-Encoding: gzip
+                          Content-Type: application/json
+                          Date: Fri, 01 Nov 2019 13-36-03 GMT
+                          Etag: W/"dbdb9cab167c1c7afd678c909bd36262"
+                          Expect-CT: max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
+                          GitLab-LB: fe-01-lb-gprd
+                          GitLab-SV: localhost
+                          RateLimit-Limit: '600'
+                          RateLimit-Observed: '1'
+                          RateLimit-Remaining: '599'
+                          RateLimit-Reset: '1589157625'
+                          RateLimit-ResetTime: Mon, 11 May 2020 00:40:25 GMT
+                          Referrer-Policy: strict-origin-when-cross-origin
+                          Server: cloudflare
+                          Set-Cookie: __cfduid=d4c32e01e3f3dd418855dbb0f094ab55a1589157565;
+                            expires=Wed, 10-Jun-20 00:39:25 GMT; path=/; domain=.gitlab.com;
+                            HttpOnly; SameSite=Lax; Secure
+                          Strict-Transport-Security: max-age=31536000
+                          Transfer-Encoding: chunked
+                          Vary: Origin
+                          X-Content-Type-Options: nosniff
+                          X-Frame-Options: SAMEORIGIN
+                          X-Request-Id: 6Ns3Nnzdig1
+                          X-Runtime: '0.024977'
+                          cf-request-id: 02a2c52c9200007a3319843200000001
+                        raw: !!binary ""
+                        reason: OK
+                        status_code: 200

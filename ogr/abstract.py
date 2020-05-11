@@ -876,9 +876,9 @@ class GitProject:
 
     def add_user(self, user: str, access_level: AccessLevel) -> None:
         """
-        Add User
+        Add user to project.
 
-        :param user: str
+        :param user: str username
         :param access_level: AccessLevel enum
         :return: None
         """

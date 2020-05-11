@@ -360,7 +360,7 @@ class PagureProject(BaseGitProject):
         return_value = self._call_project_api("git", "urls")
         return return_value["urls"]
 
-    def add_user(self, user: str, access_level: AccessLevel):
+    def add_user(self, user: str, access_level: AccessLevel) -> None:
         """
         AccessLevel.pull => ticket
         AccessLevel.triage => ticket
@@ -384,8 +384,6 @@ class PagureProject(BaseGitProject):
 
         if response.status_code == 401:
             raise PagureAPIException(f"You are not allowed to modify ACL's")
-
-        return None
 
     def change_token(self, new_token: str) -> None:
         """
