@@ -7,7 +7,7 @@ from requre import RequreTestCase
 from requre.storage import PersistentObjectStorage
 from requre.utils import StorageMode
 
-from ogr.abstract import PRStatus, IssueStatus, CommitStatus
+from ogr.abstract import PRStatus, IssueStatus, CommitStatus, AccessLevel
 from ogr.exceptions import GitlabAPIException, OperationNotSupported
 from ogr.services.gitlab import GitlabService
 
@@ -34,6 +34,13 @@ class GitlabTests(RequreTestCase):
 
 
 class GenericCommands(GitlabTests):
+    def test_add_user(self):
+        project = self.service.get_project(
+            repo="hello-there", namespace="testing-packit"
+        )
+
+        project.add_user("lachmanfrantisek", AccessLevel.admin)
+
     def test_branches(self):
         branches = self.project.get_branches()
         assert branches

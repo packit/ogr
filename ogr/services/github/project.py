@@ -42,6 +42,7 @@ from ogr.abstract import (
     GitTag,
     CommitFlag,
     CommitStatus,
+    AccessLevel,
 )
 from ogr.exceptions import GithubAPIException, OgrException
 from ogr.read_only import if_readonly, GitProjectReadOnly
@@ -178,6 +179,31 @@ class GithubProject(BaseGitProject):
 
     def get_description(self) -> str:
         return self.github_repo.description
+
+    def add_user(self, user: str, access_level: AccessLevel) -> None:
+        """
+        AccessLevel.pull => Pull
+        AccessLevel.triage => Triage
+        AccessLevel.push => Push
+        AccessLevel.admin => Admin
+        AccessLevel.maintain => Maintain
+        """
+        access_dict = {
+            AccessLevel.pull: "Pull",
+            AccessLevel.triage: "Triage",
+            AccessLevel.push: "Push",
+            AccessLevel.admin: "Admin",
+            AccessLevel.maintain: "Maintain",
+        }
+        try:
+            invitation = self.github_repo.add_to_collaborators(
+                user, permission=access_dict[access_level]
+            )
+        except Exception:
+            raise GithubAPIException("User {user} not found")
+
+        if invitation is None:
+            raise GithubAPIException("User already added")
 
     def get_fork(self, create: bool = True) -> Optional["GithubProject"]:
         """

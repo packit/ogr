@@ -7,7 +7,7 @@ from requre.utils import StorageMode
 from requre import RequreTestCase
 
 from ogr import PagureService
-from ogr.abstract import PRStatus, IssueStatus, CommitStatus
+from ogr.abstract import PRStatus, IssueStatus, CommitStatus, AccessLevel
 from ogr.exceptions import PagureAPIException, OgrException
 
 
@@ -91,6 +91,10 @@ class Comments(PagureTests):
 
 
 class GenericCommands(PagureTests):
+    def test_add_user(self):
+        project = self.service.get_project(repo="hello-112111", namespace="testing",)
+        project.add_user("lachmanfrantisek", AccessLevel.admin)
+
     def test_description(self):
         description = self.ogr_project.get_description()
         assert description.startswith("Testing repository for python-ogr package")

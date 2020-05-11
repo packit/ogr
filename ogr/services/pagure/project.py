@@ -24,8 +24,18 @@ import logging
 from typing import List, Optional, Dict, Set
 from urllib.parse import urlparse
 
-from ogr.abstract import PRStatus, GitTag, CommitFlag, CommitComment, CommitStatus
-from ogr.abstract import PullRequest, Issue, IssueStatus, Release
+from ogr.abstract import (
+    PRStatus,
+    GitTag,
+    CommitFlag,
+    CommitComment,
+    CommitStatus,
+    PullRequest,
+    Issue,
+    IssueStatus,
+    Release,
+    AccessLevel,
+)
 from ogr.exceptions import (
     OurPagureRawRequest,
     PagureAPIException,
@@ -349,6 +359,31 @@ class PagureProject(BaseGitProject):
     def get_git_urls(self) -> Dict[str, str]:
         return_value = self._call_project_api("git", "urls")
         return return_value["urls"]
+
+    def add_user(self, user: str, access_level: AccessLevel) -> None:
+        """
+        AccessLevel.pull => ticket
+        AccessLevel.triage => ticket
+        AccessLevel.push => commit
+        AccessLevel.admin => commit
+        AccessLevel.maintain => admin
+        """
+        access_dict = {
+            AccessLevel.pull: "ticket",
+            AccessLevel.triage: "ticket",
+            AccessLevel.push: "commit",
+            AccessLevel.admin: "commit",
+            AccessLevel.maintain: "admin",
+        }
+        response = self._call_project_api_raw(
+            "git",
+            "modifyacls",
+            method="POST",
+            data={"user_type": "user", "name": user, "acl": access_dict[access_level]},
+        )
+
+        if response.status_code == 401:
+            raise PagureAPIException(f"You are not allowed to modify ACL's")
 
     def change_token(self, new_token: str) -> None:
         """
