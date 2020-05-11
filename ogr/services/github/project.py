@@ -59,6 +59,8 @@ logger = logging.getLogger(__name__)
 
 class GithubProject(BaseGitProject):
     service: "ogr_github.GithubService"
+    # Permission levels that can merge PRs
+    CAN_MERGE_PERMS = ["admin", "write"]
 
     def __init__(
         self,
@@ -245,7 +247,7 @@ class GithubProject(BaseGitProject):
 
         usernames = []
         for login, permission in collaborators.items():
-            if permission in ["admin", "write"]:
+            if permission in self.CAN_MERGE_PERMS:
                 usernames.append(login)
 
         return set(usernames)
@@ -257,7 +259,10 @@ class GithubProject(BaseGitProject):
         return self.__get_collaborators()
 
     def can_merge_pr(self, username) -> bool:
-        return username in self.who_can_merge_pr()
+        return (
+            self.github_repo.get_collaborator_permission(username)
+            in self.CAN_MERGE_PERMS
+        )
 
     def _get_collaborators_with_permission(self) -> dict:
         """
