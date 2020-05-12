@@ -300,7 +300,9 @@ class GenericCommands(GithubTests):
         assert "lachmanfrantisek" in users
 
         assert self.ogr_project.can_merge_pr("lachmanfrantisek")
-        assert not self.ogr_project.can_merge_pr("unknown_user")
+        # can_merge_pr() requires an existing user,
+        # otherwise the GitHub API fails with 'not a user'
+        assert not self.ogr_project.can_merge_pr("torvalds")
 
     def test_set_commit_status(self):
         status = self.ogr_project.set_commit_status(
