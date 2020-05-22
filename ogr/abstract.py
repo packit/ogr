@@ -362,6 +362,10 @@ class PullRequest:
         raise NotImplementedError()
 
     @property
+    def patch(self) -> bytes:
+        raise NotImplementedError()
+
+    @property
     def head_commit(self) -> str:
         raise NotImplementedError
 

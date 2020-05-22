@@ -356,6 +356,12 @@ class PullRequests(PagureTests):
         assert source_project.repo == "ogr-tests"
         assert source_project.full_repo_name == "fork/mfocko/ogr-tests"
 
+    def test_pr_patch(self):
+        pr = self.ogr_project.get_pr(5)
+        patch = pr.patch
+        assert isinstance(patch, bytes)
+        assert "\nDate: Nov 26 2019 19:01:46 +0000\n" in patch.decode()
+
 
 class Forks(PagureTests):
     def test_fork(self):

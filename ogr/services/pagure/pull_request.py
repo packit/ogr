@@ -106,6 +106,17 @@ class PagurePullRequest(BasePullRequest):
         return f"{self.url}#request_diff"
 
     @property
+    def patch(self) -> bytes:
+        request_response = self._target_project._call_project_api_raw(
+            "pull-request", f"{self.id}.patch", add_api_endpoint_part=False
+        )
+        if request_response.status_code != 200:
+            raise PagureAPIException(
+                f"Cannot get patch from {self.url}.patch because {request_response.reason}."
+            )
+        return request_response.content
+
+    @property
     def head_commit(self) -> str:
         return self._raw_pr["commit_stop"]
 
