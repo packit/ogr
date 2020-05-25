@@ -157,6 +157,29 @@ def test_get_service_class_not_found(url, mapping):
                 service=GitlabService(instance_url="https://gitlab.gnome.org"),
             ),
         ),
+        (
+            "https://src.stg.fedoraproject.org/rpms/python-dockerpty.git",
+            None,
+            [PagureService(instance_url="https://src.stg.fedoraproject.org")],
+            PagureProject(
+                repo="python-dockerpty",
+                namespace="rpms",
+                service=PagureService(instance_url="https://src.stg.fedoraproject.org"),
+            ),
+        ),
+        (
+            "https://src.fedoraproject.org/rpms/python-dockerpty.git",
+            None,
+            [
+                PagureService(instance_url="https://src.stg.fedoraproject.org"),
+                PagureService(instance_url="https://src.fedoraproject.org"),
+            ],
+            PagureProject(
+                repo="python-dockerpty",
+                namespace="rpms",
+                service=PagureService(instance_url="https://src.fedoraproject.org"),
+            ),
+        ),
     ],
 )
 def test_get_project(url, mapping, instances, result):
