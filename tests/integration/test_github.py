@@ -639,6 +639,26 @@ class PullRequests(GithubTests):
         assert pr_upstream_fork_fu_ignored.status == PRStatus.open
         assert pr_opened_after == pr_opened_before + 1
 
+    def test_pr_create_fork_other_fork(self):
+        fork_project = self.service.get_project(namespace="mfocko", repo="hello-world")
+        other_fork_project = self.service.get_project(
+            namespace="lachmanfrantisek", repo="hello-world"
+        )
+        pr_opened_before = len(other_fork_project.get_pr_list(status=PRStatus.open))
+        opened_pr = fork_project.pr_create(
+            title="test: other_fork(master) <- fork",
+            body="pull request body",
+            target_branch="master",
+            source_branch="test_source",
+            fork_username="lachmanfrantisek",
+        )
+        pr_opened_after = len(other_fork_project.get_pr_list(status=PRStatus.open))
+        other_fork_project.pr_close(opened_pr.id)
+
+        assert opened_pr.title == "test: other_fork(master) <- fork"
+        assert opened_pr.status == PRStatus.open
+        assert pr_opened_after == pr_opened_before + 1
+
     def test_pr_labels(self):
         """
         Remove the labels from this pr before regenerating the response files:

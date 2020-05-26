@@ -27,6 +27,7 @@ from typing import Optional, List
 from github import UnknownObjectException
 from github.Label import Label as GithubLabel
 from github.PullRequest import PullRequest as _GithubPullRequest
+from github.Repository import Repository as _GithubRepository
 
 from ogr.abstract import PRComment, PRStatus, PullRequest
 from ogr.exceptions import GithubAPIException
@@ -137,12 +138,25 @@ class GithubPullRequest(BasePullRequest):
             github_repo = project.parent.github_repo
         elif fork_username:
             source_branch = f"{fork_username}:{source_branch}"
+            if fork_username != project.namespace and project.parent is not None:
+                github_repo = GithubPullRequest.__get_fork(
+                    fork_username, project.parent.github_repo
+                )
 
         created_pr = github_repo.create_pull(
             title=title, body=body, base=target_branch, head=source_branch
         )
         logger.info(f"PR {created_pr.id} created: {target_branch}<-{source_branch}")
         return GithubPullRequest(created_pr, project)
+
+    @staticmethod
+    def __get_fork(fork_username: str, repo: _GithubRepository) -> _GithubRepository:
+        forks = list(
+            filter(lambda fork: fork.owner.login == fork_username, repo.get_forks())
+        )
+        if not forks:
+            raise GithubAPIException("Requested fork doesn't exist")
+        return forks[0]
 
     @staticmethod
     def get(project: "ogr_github.GithubProject", id: int) -> "PullRequest":

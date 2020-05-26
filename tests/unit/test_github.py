@@ -8,7 +8,7 @@ from ogr.services.github.pull_request import GithubPullRequest
 @pytest.fixture
 def github_project(mock_github_repo):
     github_project = GithubProject(
-        repo="test_repo", service="test_service", namespace="test_namespace"
+        repo="test_repo", service="test_service", namespace="fork_username"
     )
     parent_github_project = GithubProject(
         repo="test_parent_repo",
@@ -47,7 +47,7 @@ class TestGithubProject:
     @pytest.mark.parametrize(
         "fork_username",
         [
-            pytest.param("test_fork_username", id="fork_username_set"),
+            pytest.param("fork_username", id="fork_username_set"),
             pytest.param(None, id="fork_username_None"),
         ],
     )
@@ -72,7 +72,7 @@ class TestGithubProject:
         )
 
     @pytest.mark.parametrize(
-        "fork_username", [pytest.param("test_fork_username", id="fork_username_set")],
+        "fork_username", [pytest.param("fork_username", id="fork_username_set")],
     )
     def test_pr_create_is_fork(self, github_project, fork_username):
         github_project.should_receive("is_fork").and_return(True)
