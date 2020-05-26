@@ -80,7 +80,12 @@ def get_project(
     :param kwargs: arguments forwarded to __init__ of the matching service
     :return: GitProject using the matching implementation
     """
-    kls = get_service_class(url=url, service_mapping_update=service_mapping_update)
+    mapping = service_mapping_update.copy() if service_mapping_update else {}
+    custom_instances = custom_instances or []
+    for instance in custom_instances:
+        mapping[instance.instance_url] = instance.__class__
+
+    kls = get_service_class(url=url, service_mapping_update=mapping)
     repo_url = parse_git_repo(url)
 
     if custom_instances:
