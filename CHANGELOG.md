@@ -1,3 +1,24 @@
+# 0.12.1
+
+## New Features
+
+- PullRequest can now be created also between two different forks of
+  a project. (@mfocko)
+- Pull requests have now property - patch (Pagure). (@jpopelka)
+- You can now add collaborators with specific privileges on github and
+  gitlab projects. (@shreyaspapi)
+
+## Minor
+
+- When telling if a user can merge PRs in a GitHub repo, ogr asks GitHub
+  for the user's permission on the repo instead of checking if the user is
+  in the list of collaborators. (@csomh)
+
+## Fixes
+
+- Get project will now correctly use the service instance class for custom
+  service instances. (@lachmanfrantisek)
+
 # 0.12.0
 
 ## New Features
