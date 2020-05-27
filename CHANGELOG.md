@@ -16,7 +16,7 @@
 
 ## Fixes
 
-- Get project will now correctly use the service instance class for custom
+- `get_project()` will now correctly use the service instance class for custom.
   service instances. (@lachmanfrantisek)
 
 # 0.12.0
