@@ -4,7 +4,7 @@
 
 - PullRequest can now be created also between two different forks of
   a project. (@mfocko)
-- Pull requests have now property - patch (Pagure). (@jpopelka)
+- PullRequests have a `patch` property now when working with Pagure. (@jpopelka)
 - You can now add collaborators with specific privileges on github and
   gitlab projects. (@shreyaspapi)
 
