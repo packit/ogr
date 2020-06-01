@@ -119,6 +119,14 @@ class GitlabPullRequest(BasePullRequest):
         source_branch: str,
         fork_username: str = None,
     ) -> "PullRequest":
+        """
+        How to create PR:
+        -  upstream -> upstream - call on upstream, fork_username unset
+        -  fork -> upstream - call on fork, fork_username unset
+           also can call on upstream with fork_username, not supported way of using
+        -  fork -> fork - call on fork, fork_username set
+        -  fork -> other_fork - call on fork, fork_username set to other_fork owner
+        """
         repo = project.gitlab_repo
         parameters = {
             "source_branch": source_branch,
@@ -131,8 +139,15 @@ class GitlabPullRequest(BasePullRequest):
         if project.is_fork and (
             fork_username is None or fork_username == project.namespace
         ):
+            # handles fork -> upstream (called on fork)
+            # handles fork -> fork
             target_id = project.parent.gitlab_repo.attributes["id"]
         elif fork_username and fork_username != project.namespace:
+            # handles fork -> upstream
+            #   (username of fork owner specified by fork_username)
+            # handles fork -> other_fork
+            #   (username of other_fork owner specified by fork_username)
+
             other_project = GitlabPullRequest.__get_fork(
                 fork_username, project if project.parent is None else project.parent,
             )
@@ -141,6 +156,7 @@ class GitlabPullRequest(BasePullRequest):
             if project.parent is None:
                 target_id = repo.attributes["id"]
                 repo = other_project.gitlab_repo
+        # otherwise handles PR from the same project to same project
 
         if target_id is not None:
             parameters["target_project_id"] = target_id
