@@ -1,21 +1,21 @@
 # Compatibility table for services
 
 Methods/properties not listed in here are implemented for all services.
-In case of an error, please report with issue.
+In case you find any error, please [create a new issue](https://github.com/packit-service/ogr/issues/new).
 
 ## Comments
 
 ### `IssueComment`
 
-|               | GitHub | GitLab | Pagure |
-| ------------- | :----: | :----: | :----: |
-| `body`-setter |   ✔    |   ✔    |   ✘    |
+|                  | GitHub | GitLab | Pagure |
+| ---------------- | :----: | :----: | :----: |
+| `body` (get/set) |  ✔/✔   |  ✔/✔   |  ✔/✘   |
 
 ### `PRComment`
 
-|               | GitHub | GitLab | Pagure |
-| ------------- | :----: | :----: | :----: |
-| `body`-setter |   ✔    |   ✔    |   ✘    |
+|                  | GitHub | GitLab | Pagure |
+| ---------------- | :----: | :----: | :----: |
+| `body` (get/set) |  ✔/✔   |  ✔/✔   |  ✔/✘   |
 
 ## Issue
 
@@ -29,15 +29,15 @@ In case of an error, please report with issue.
 | ----------------- | :----: | :----: | :----: |
 | `add_label`       |   ✔    |   ✔    |   ✘    |
 | `get_all_commits` |   ✔    |   ✔    |   ✘    |
-| `labels`-getter   |   ✔    |   ✔    |   ✘    |
+| `labels`          |   ✔    |   ✔    |   ✘    |
 | `patch`           |   ✘    |   ✘    |   ✔    |
 
 ## Release
 
-|                | GitHub | GitLab |          Pagure          |
-| -------------- | :----: | :----: | :----------------------: |
-| `edit_release` |   ✔    |   ✘    |            ✘             |
-| `body`-getter  |   ✔    |   ✔    | ✘ (returns empty string) |
+|                   | GitHub | GitLab |          Pagure          |
+| ----------------- | :----: | :----: | :----------------------: |
+| `edit_release`    |   ✔    |   ✘    |            ✘             |
+| `body` (only get) |   ✔    |   ✔    | ✘ (returns empty string) |
 
 ## Commit flag
 
