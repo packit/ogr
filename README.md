@@ -53,6 +53,11 @@ This will output:
 
 You can use the same API for other forges, you just need to replace `GithubService` with `PagureService`.
 
+## Supported functionality
+
+For more info on functionality that _is not_ supported in all services the same way
+see [compatibility tables](COMPATIBILITY.md).
+
 ## Requirements
 
 ### Makefile
