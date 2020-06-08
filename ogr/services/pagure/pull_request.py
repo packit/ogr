@@ -267,6 +267,9 @@ class PagurePullRequest(BasePullRequest):
         self.__update()
         return self.project.get_commit_statuses(self._raw_pr["commit_stop"])
 
+    def get_flags(self) -> List[Dict]:
+        return self.__call_api("flag", method="GET")["flags"]
+
     def set_flag(
         self,
         username: str,

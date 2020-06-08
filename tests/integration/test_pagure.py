@@ -321,6 +321,18 @@ class PullRequests(PagureTests):
         )
         assert pr_info.head_commit == "517121273b142293807606dbd7a2e0f514b21cc8"
 
+    def test_get_pr_flags(self):
+        pr = self.ogr_project.get_pr(pr_id=6)
+        flags = pr.get_flags()
+        assert len(flags) == 1
+        flag = flags[0]
+        assert flag["username"] == "packit/build"
+        assert flag["comment"] == "A simple RPM build."
+        assert flag["url"] == "https://packit.dev"
+        assert flag["percent"] is None
+        assert flag["status"] == CommitStatus.success.name
+        assert flag["pull_request_uid"] == "bd3715fe3a024a1785928c3e06ca95f9"
+
     def test_set_pr_flag(self):
         # https://pagure.io/ogr-tests/pull-request/6
         pr = self.ogr_project.get_pr(pr_id=6)
