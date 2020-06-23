@@ -3,13 +3,13 @@
     name: packit-service/ogr
     check:
       jobs:
-        - ogr-pre-commit
+        - pre-commit
         - ogr-tests-rpm
         - ogr-tests-pip-deps
         - ogr-reverse-dep-packit-tests
     gate:
       jobs:
-        - ogr-pre-commit
+        - pre-commit
 
 - job:
     name: ogr-parent
@@ -35,12 +35,6 @@
     description: Run tests of ogr via pip installed dependencies
     pre-run: files/zuul-install-requirements-pip.yaml
     run: files/zuul-tests.yaml
-
-- job:
-    name: ogr-pre-commit
-    parent: ogr-parent
-    description: Run pre-commit
-    run: files/zuul-pre-commit.yaml
 
 - job:
     name: ogr-reverse-dep-packit-tests
