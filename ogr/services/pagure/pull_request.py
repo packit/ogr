@@ -209,7 +209,7 @@ class PagurePullRequest(BasePullRequest):
                 data["initial_comment"] = description
 
             updated_pr = self.__call_api(method="POST", data=data)
-            logger.info(f"PR updated.")
+            logger.info("PR updated.")
 
             self._raw_pr = updated_pr
             return self

@@ -70,8 +70,8 @@ class PagureService(BaseGitService):
         token_str = (
             f", token='{self._token[:1]}***{self._token[-1:]}'" if self._token else ""
         )
-        insecure_str = f", insecure=True" if self.insecure else ""
-        readonly_str = f", read_only=True" if self.read_only else ""
+        insecure_str = ", insecure=True" if self.insecure else ""
+        readonly_str = ", read_only=True" if self.read_only else ""
 
         str_result = (
             f"PagureService(instance_url='{self.instance_url}'"
@@ -256,7 +256,7 @@ class PagureService(BaseGitService):
                 raise OgrException(f"Namespace doesn't exist ({namespace}).")
 
             raise OgrException(
-                f"Cannot create project in given namespace (permissions)."
+                "Cannot create project in given namespace (permissions)."
             )
 
         raise exception
