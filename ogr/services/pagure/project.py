@@ -383,7 +383,7 @@ class PagureProject(BaseGitProject):
         )
 
         if response.status_code == 401:
-            raise PagureAPIException(f"You are not allowed to modify ACL's")
+            raise PagureAPIException("You are not allowed to modify ACL's")
 
     def change_token(self, new_token: str) -> None:
         """

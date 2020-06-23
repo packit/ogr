@@ -59,7 +59,7 @@ class GitlabService(GitService):
         token_str = (
             f", token='{self.token[:1]}***{self.token[-1:]}'" if self.token else ""
         )
-        ssl_str = f", ssl_verify=False" if not self.ssl_verify else ""
+        ssl_str = ", ssl_verify=False" if not self.ssl_verify else ""
         str_result = (
             f"GitlabService(instance_url='{self.instance_url}'"
             f"{token_str}"

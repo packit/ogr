@@ -241,7 +241,7 @@ class GithubProject(BaseGitProject):
             collaborators = self._get_collaborators_with_permission()
         except github.GithubException:
             logger.debug(
-                f"Current Github token must have push access to view repository permissions."
+                "Current Github token must have push access to view repository permissions."
             )
             return set()
 
@@ -514,7 +514,7 @@ class GithubProject(BaseGitProject):
         :param labels: [str]
         :return: int - number of added labels
         """
-        current_label_names = [l.name for l in list(self.github_repo.get_labels())]
+        current_label_names = [la.name for la in list(self.github_repo.get_labels())]
         changes = 0
         for label in labels:
             if label.name not in current_label_names:

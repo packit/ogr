@@ -97,7 +97,7 @@ class GithubService(BaseGitService):
             else ""
         )
 
-        readonly_str = f", read_only=True" if self.read_only else ""
+        readonly_str = ", read_only=True" if self.read_only else ""
         arguments = (
             f"{token_str}"
             f"{github_app_id_str}"
