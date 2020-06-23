@@ -12,33 +12,22 @@
         - pre-commit
 
 - job:
-    name: ogr-parent
-    parent: base
-    extra-vars:
-      with_testing: true
-      ansible_python_interpreter: /usr/bin/python3
-    nodeset:
-      nodes:
-        - name: test-node
-          label: cloud-fedora-31
-
-- job:
     name: ogr-tests-rpm
-    parent: ogr-parent
+    parent: base
     description: Run tests of ogr via rpms
     pre-run: files/zuul-install-requirements-rpms.yaml
     run: files/zuul-tests.yaml
 
 - job:
     name: ogr-tests-pip-deps
-    parent: ogr-parent
+    parent: base
     description: Run tests of ogr via pip installed dependencies
     pre-run: files/zuul-install-requirements-pip.yaml
     run: files/zuul-tests.yaml
 
 - job:
     name: ogr-reverse-dep-packit-tests
-    parent: ogr-parent
+    parent: base
     description: Run packit tests
     required-projects:
       - github.com/packit-service/packit
