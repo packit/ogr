@@ -26,6 +26,7 @@ from typing import List, Optional
 from gitlab.v4.objects import MergeRequest as _GitlabMergeRequest
 
 from ogr.abstract import PullRequest, PRComment, PRStatus
+from ogr.exceptions import GitlabAPIException
 from ogr.services import gitlab as ogr_gitlab
 from ogr.services.base import BasePullRequest
 from ogr.services.gitlab.comments import GitlabPRComment
@@ -118,15 +119,72 @@ class GitlabPullRequest(BasePullRequest):
         source_branch: str,
         fork_username: str = None,
     ) -> "PullRequest":
-        mr = project.gitlab_repo.mergerequests.create(
-            {
-                "source_branch": source_branch,
-                "target_branch": target_branch,
-                "title": title,
-                "description": body,
-            }
-        )
+        """
+        How to create PR:
+        -  upstream -> upstream - call on upstream, fork_username unset
+        -  fork -> upstream - call on fork, fork_username unset
+           also can call on upstream with fork_username, not supported way of using
+        -  fork -> fork - call on fork, fork_username set
+        -  fork -> other_fork - call on fork, fork_username set to other_fork owner
+        """
+        repo = project.gitlab_repo
+        parameters = {
+            "source_branch": source_branch,
+            "target_branch": target_branch,
+            "title": title,
+            "description": body,
+        }
+        target_id = None
+
+        if project.is_fork and (
+            fork_username is None or fork_username == project.namespace
+        ):
+            # handles fork -> upstream (called on fork)
+            # handles fork -> fork
+            target_id = project.parent.gitlab_repo.attributes["id"]
+        elif fork_username and fork_username != project.namespace:
+            # handles fork -> upstream
+            #   (username of fork owner specified by fork_username)
+            # handles fork -> other_fork
+            #   (username of other_fork owner specified by fork_username)
+
+            other_project = GitlabPullRequest.__get_fork(
+                fork_username, project if project.parent is None else project.parent,
+            )
+
+            target_id = other_project.gitlab_repo.attributes["id"]
+            if project.parent is None:
+                target_id = repo.attributes["id"]
+                repo = other_project.gitlab_repo
+        # otherwise handles PR from the same project to same project
+
+        if target_id is not None:
+            parameters["target_project_id"] = target_id
+
+        mr = repo.mergerequests.create(parameters)
         return GitlabPullRequest(mr, project)
+
+    @staticmethod
+    def __get_fork(
+        fork_username: str, project: "ogr_gitlab.GitlabProject"
+    ) -> "ogr_gitlab.GitlabProject":
+        """
+        Returns project of a requested user. Internal method, in case the fork
+        doesn't exist, raises GitlabAPIException.
+
+        :param fork_username: username of a user that owns requested fork
+        :param project: project to search forks of
+        :return: requested fork
+        """
+        forks = list(
+            filter(
+                lambda fork: fork.gitlab_repo.namespace["full_path"] == fork_username,
+                project.get_forks(),
+            )
+        )
+        if not forks:
+            raise GitlabAPIException("Requested fork doesn't exist")
+        return forks[0]
 
     @staticmethod
     def get(project: "ogr_gitlab.GitlabProject", id: int) -> "PullRequest":

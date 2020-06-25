@@ -552,6 +552,92 @@ class PullRequests(GitlabTests):
         assert source_project.namespace == "mfocko"
         assert source_project.repo == "new-ogr-testing-repo-in-the-group"
 
+    def test_create_pr_upstream_upstream(self):
+        prs_before = len(self.project.get_pr_list(status=PRStatus.open))
+        pr_upstream_upstream = self.project.create_pr(
+            title="test PR: upstream -> upstream",
+            body="test description",
+            target_branch="master",
+            source_branch="test-branch1",
+        )
+        assert pr_upstream_upstream.title == "test PR: upstream -> upstream"
+        assert pr_upstream_upstream.status == PRStatus.open
+
+        prs_after = len(self.project.get_pr_list(status=PRStatus.open))
+        self.project.pr_close(pr_upstream_upstream.id)
+        assert prs_after == prs_before + 1
+
+    def test_create_pr_upstream_forkusername(self):
+        prs_before = len(self.project.get_pr_list(status=PRStatus.open))
+        pr_upstream_forkusername = self.project.create_pr(
+            title="test PR: fork:one-more-branch -> upstream",
+            body="test description",
+            target_branch="master",
+            source_branch="one-more-branch",
+            fork_username=self.project.service.user.get_username(),
+        )
+        assert (
+            pr_upstream_forkusername.title
+            == "test PR: fork:one-more-branch -> upstream"
+        )
+        assert pr_upstream_forkusername.status == PRStatus.open
+        assert pr_upstream_forkusername.source_project == self.project.get_fork()
+
+        prs_after = len(self.project.get_pr_list(status=PRStatus.open))
+        self.project.pr_close(pr_upstream_forkusername.id)
+        assert prs_after == prs_before + 1
+
+    def test_create_pr_upstream_fork(self):
+        prs_before = len(self.project.get_pr_list(status=PRStatus.open))
+        pr_upstream_fork = self.project.get_fork().create_pr(
+            title="test PR: fork -> upstream",
+            body="test description",
+            target_branch="master",
+            source_branch="one-more-branch",
+        )
+        assert pr_upstream_fork.title == "test PR: fork -> upstream"
+        assert pr_upstream_fork.status == PRStatus.open
+
+        prs_after = len(self.project.get_pr_list(status=PRStatus.open))
+        self.project.pr_close(pr_upstream_fork.id)
+        assert prs_after == prs_before + 1
+
+    def test_create_pr_fork_fu_ignored(self):
+        prs_before = len(self.project.get_pr_list(status=PRStatus.open))
+        pr_upstream_fork = self.project.get_fork().create_pr(
+            title="test PR: fork -> upstream (user ignored)",
+            body="test description",
+            target_branch="master",
+            source_branch="one-more-branch",
+            fork_username=self.project.service.user.get_username(),
+        )
+        assert pr_upstream_fork.title == "test PR: fork -> upstream (user ignored)"
+        assert pr_upstream_fork.status == PRStatus.open
+
+        prs_after = len(self.project.get_pr_list(status=PRStatus.open))
+        self.project.pr_close(pr_upstream_fork.id)
+        assert prs_after == prs_before + 1
+
+    def test_create_pr_fork_other_fork(self):
+        other_fork = self.service.get_project(
+            repo="ogr-tests", namespace="lachmanfrantisek",
+        )
+
+        prs_before = len(other_fork.get_pr_list(status=PRStatus.open))
+        pr_fork_fork = self.project.get_fork().create_pr(
+            title="test PR: fork -> other_fork",
+            body="test description",
+            target_branch="master",
+            source_branch="one-more-branch",
+            fork_username="lachmanfrantisek",
+        )
+        assert pr_fork_fork.title == "test PR: fork -> other_fork"
+        assert pr_fork_fork.status == PRStatus.open
+
+        prs_after = len(other_fork.get_pr_list(status=PRStatus.open))
+        self.project.pr_close(pr_fork_fork.id)
+        assert prs_after == prs_before + 1
+
 
 class Tags(GitlabTests):
     def test_get_tags(self):
