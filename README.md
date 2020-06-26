@@ -10,6 +10,7 @@ Library for one API for many git forges. (e.g. GitHub, GitLab, Pagure).
 ## Currently supported git forges:
 
 - GitHub
+- GitLab
 - Pagure
 
 ## Usage
@@ -57,6 +58,44 @@ You can use the same API for other forges, you just need to replace `GithubServi
 
 For more info on functionality that _is not_ supported in all services the same way
 see [compatibility tables](COMPATIBILITY.md).
+
+## Installation
+
+On Fedora:
+
+```
+$ dnf install python3-ogr
+```
+
+You can also use our [`packit-releases` Copr repository](https://copr.fedorainfracloud.org/coprs/packit/packit-releases/)
+(contains also released versions of [OGR](https://github.com/packit-service/ogr)):
+
+```
+$ dnf copr enable packit/packit-releases
+$ dnf install python3-ogr
+```
+
+Or from PyPI:
+
+```
+$ pip3 install --user ogr
+```
+
+You can also install OGR from `master` branch, if you are brave enough:
+
+You can use our [`packit-master` Copr repository](https://copr.fedorainfracloud.org/coprs/packit/packit-master/)
+(contains `master` version of [ogr](https://github.com/packit-service/ogr)):
+
+```
+$ dnf copr enable packit/packit-master
+$ dnf install python3-ogr
+```
+
+Or
+
+```
+$ pip3 install --user git+https://github.com/packit-service/ogr.git
+```
 
 ## Requirements
 
