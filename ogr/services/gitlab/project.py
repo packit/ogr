@@ -364,7 +364,7 @@ class GitlabProject(BaseGitProject):
     def get_file_content(self, path, ref="master") -> str:
         try:
             file = self.gitlab_repo.files.get(file_path=path, ref=ref)
-            return str(file.decode())
+            return file.decode().decode()
         except gitlab.exceptions.GitlabGetError as ex:
             raise FileNotFoundError(f"File '{path}' on {ref} not found", ex)
 
