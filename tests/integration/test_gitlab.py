@@ -34,6 +34,15 @@ class GitlabTests(RequreTestCase):
 
 
 class GenericCommands(GitlabTests):
+    def test_get_file_content(self):
+        file = self.project.get_file_content(
+            path="README.md", ref="b8e18207cfdad954f1b3a96db34d0706b272e6cf"
+        )
+        assert (
+            file == "# ogr-tests\n\nTesting repository for python-ogr package. | "
+            "https://github.com/packit-service/ogr\n\ntest1\ntest2\n"
+        )
+
     def test_add_user(self):
         project = self.service.get_project(
             repo="hello-there", namespace="testing-packit"
