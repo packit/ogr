@@ -1,3 +1,8 @@
+# 0.12.2
+
+- GitlabPullRequest creates PRs in compliance with documentation. (@mfocko)
+- GitlabProject.get_file_content() returns string instead of bytes. (@shreyaspapi)
+
 # 0.12.1
 
 ## New Features
