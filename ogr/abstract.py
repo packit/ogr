@@ -728,8 +728,7 @@ class GitService:
         repo_url = parse_git_repo(potential_url=url)
         if not repo_url:
             raise OgrException(f"Failed to find repository for url: {url}")
-        project = self.get_project(repo=repo_url.repo, namespace=repo_url.namespace)
-        return project
+        return self.get_project(repo=repo_url.repo, namespace=repo_url.namespace)
 
     @property
     def user(self) -> "GitUser":

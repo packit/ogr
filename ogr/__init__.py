@@ -21,28 +21,26 @@
 # SOFTWARE.
 
 """
-Module for:
-- simplifying the python work with git
-- introduce one api for multiple git services (github/gitlab/pagure)
+Module providing one api for multiple git services (github/gitlab/pagure)
 """
 
 from pkg_resources import get_distribution, DistributionNotFound
-from ogr.services.github import GithubService
-from ogr.services.pagure import PagureService
-from ogr.services.gitlab import GitlabService
+
 from ogr.factory import (
     get_project,
     get_service_class,
     get_service_class_or_none,
     get_instances_from_dict,
 )
+from ogr.services.github import GithubService
+from ogr.services.gitlab import GitlabService
+from ogr.services.pagure import PagureService
 
 try:
     __version__ = get_distribution(__name__).version
 except DistributionNotFound:
     # package is not installed
     pass
-
 
 __all__ = [
     GithubService.__name__,

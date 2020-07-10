@@ -202,9 +202,8 @@ class PagurePullRequest(BasePullRequest):
         self, title: Optional[str] = None, description: Optional[str] = None
     ) -> "PullRequest":
         try:
-            data = {}
+            data = {"title": title if title else self.title}
 
-            data["title"] = title if title else self.title
             if description:
                 data["initial_comment"] = description
 

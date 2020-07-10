@@ -22,8 +22,8 @@
 
 from typing import List
 
-from ogr.services.base import BaseGitUser
 from ogr.services import pagure as ogr_pagure
+from ogr.services.base import BaseGitUser
 from ogr.services.pagure.project import PagureProject
 
 
@@ -46,7 +46,7 @@ class PagureUser(BaseGitUser):
         user_url = self.service.get_api_url("user", self.get_username())
         raw_projects = self.service.call_api(user_url)["repos"]
 
-        project_objects = [
+        return [
             PagureProject(
                 repo=project["name"],
                 namespace=project["namespace"],
@@ -54,13 +54,12 @@ class PagureUser(BaseGitUser):
             )
             for project in raw_projects
         ]
-        return project_objects
 
     def get_forks(self) -> List["PagureProject"]:
         user_url = self.service.get_api_url("user", self.get_username())
         raw_forks = self.service.call_api(user_url)["forks"]
 
-        fork_objects = [
+        return [
             PagureProject(
                 repo=fork["name"],
                 namespace=fork["namespace"],
@@ -69,4 +68,3 @@ class PagureUser(BaseGitUser):
             )
             for fork in raw_forks
         ]
-        return fork_objects
