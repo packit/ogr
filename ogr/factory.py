@@ -105,8 +105,7 @@ def get_project(
     else:
         repo_url = parse_git_repo(potential_url=url)
         service = kls(instance_url=repo_url.get_instance_url(), **kwargs)
-    project = service.get_project_from_url(url=url)
-    return project
+    return service.get_project_from_url(url=url)
 
 
 def get_service_class_or_none(

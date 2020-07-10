@@ -125,10 +125,9 @@ class PagureProject(BaseGitProject):
             add_fork_part=add_fork_part,
         )
 
-        return_value = self.service.call_api(
+        return self.service.call_api(
             url=request_url, method=method, params=params, data=data
         )
-        return return_value
 
     def _call_project_api_raw(
         self,
@@ -156,27 +155,24 @@ class PagureProject(BaseGitProject):
             add_fork_part=add_fork_part,
         )
 
-        return_value = self.service.call_api_raw(
+        return self.service.call_api_raw(
             url=request_url, method=method, params=params, data=data
         )
-        return return_value
 
     def _get_project_url(self, *args, add_fork_part=True, add_api_endpoint_part=True):
         additional_parts = []
         if self._is_fork and add_fork_part:
             additional_parts += ["fork", self._user]
-        request_url = self.service.get_api_url(
+        return self.service.get_api_url(
             *additional_parts,
             self.namespace,
             self.repo,
             *args,
             add_api_endpoint_part=add_api_endpoint_part,
         )
-        return request_url
 
     def get_project_info(self):
-        return_value = self._call_project_api(method="GET")
-        return return_value
+        return self._call_project_api(method="GET")
 
     def get_branches(self) -> List[str]:
         return_value = self._call_project_api("git", "branches", method="GET")
@@ -445,15 +441,11 @@ class PagureProject(BaseGitProject):
 
     def get_tags(self) -> List[GitTag]:
         response = self._call_project_api("git", "tags", params={"with_commits": True})
-        tags = [GitTag(name=n, commit_sha=c) for n, c in response["tags"].items()]
-        return tags
+        return [GitTag(name=n, commit_sha=c) for n, c in response["tags"].items()]
 
     def get_tags_dict(self) -> Dict[str, GitTag]:
         response = self._call_project_api("git", "tags", params={"with_commits": True})
-        tags_dict = {
-            n: GitTag(name=n, commit_sha=c) for n, c in response["tags"].items()
-        }
-        return tags_dict
+        return {n: GitTag(name=n, commit_sha=c) for n, c in response["tags"].items()}
 
     def get_releases(self) -> List[Release]:
         # git tag for Pagure is shown as Release in Pagure UI
@@ -480,7 +472,7 @@ class PagureProject(BaseGitProject):
         projects_response = self.service.call_api(
             url=forks_url, params={"fork": True, "pattern": self.repo}
         )
-        fork_objects = [
+        return [
             PagureProject(
                 repo=fork["name"],
                 namespace=fork["namespace"],
@@ -490,7 +482,6 @@ class PagureProject(BaseGitProject):
             )
             for fork in projects_response["projects"]
         ]
-        return fork_objects
 
     def get_web_url(self) -> str:
         """

@@ -586,11 +586,10 @@ class GithubProject(BaseGitProject):
 
         :return: [PagureProject]
         """
-        fork_objects = [
+        return [
             self.service.get_project_from_github_repository(fork)
             for fork in self.github_repo.get_forks()
         ]
-        return fork_objects
 
     def get_web_url(self) -> str:
         """

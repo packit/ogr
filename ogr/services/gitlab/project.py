@@ -479,7 +479,7 @@ class GitlabProject(BaseGitProject):
             raise OperationNotSupported(
                 "Please upgrade python-gitlab to a newer version."
             )
-        fork_objects = [
+        return [
             GitlabProject(
                 repo=fork.path,
                 namespace=fork.namespace["full_path"],
@@ -487,7 +487,6 @@ class GitlabProject(BaseGitProject):
             )
             for fork in forks
         ]
-        return fork_objects
 
     def update_labels(self, labels):
         """

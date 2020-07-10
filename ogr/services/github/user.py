@@ -73,5 +73,4 @@ class GithubUser(BaseGitUser):
         ]
 
     def get_forks(self) -> List["ogr_github.GithubProject"]:
-        forks = [project for project in self.get_projects() if project.github_repo.fork]
-        return forks
+        return [project for project in self.get_projects() if project.github_repo.fork]

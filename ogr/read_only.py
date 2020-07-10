@@ -194,7 +194,7 @@ class GitProjectReadOnly:
         source_branch: str,
         fork_username: str = None,
     ) -> "PullRequest":
-        output = PullRequestReadOnly(
+        return PullRequestReadOnly(
             title=title,
             description=body,
             target_branch=target_branch,
@@ -205,7 +205,6 @@ class GitProjectReadOnly:
             author=cls.author,
             created=datetime.datetime.now(),
         )
-        return output
 
     @classmethod
     def pr_comment(
@@ -219,14 +218,13 @@ class GitProjectReadOnly:
     ) -> "PRComment":
         pull_request = original_object.get_pr_info(pr_id)
         log_output(pull_request)
-        output = PRComment(
+        return PRComment(
             parent=pull_request,
             body=body,
             author=cls.author,
             created=datetime.datetime.now(),
             edited=datetime.datetime.now(),
         )
-        return output
 
     @classmethod
     def pr_close(cls, original_object: Any, pr_id: int) -> "PullRequest":
@@ -246,14 +244,13 @@ class GitProjectReadOnly:
     ) -> "IssueComment":
         issue = original_object.get_issue_info(issue_id)
         log_output(issue)
-        output = IssueComment(
+        return IssueComment(
             parent=issue,
             body=body,
             author=cls.author,
             created=datetime.datetime.now(),
             edited=datetime.datetime.now(),
         )
-        return output
 
     @classmethod
     def fork_create(cls, original_object: Any) -> "GitProject":
@@ -263,8 +260,7 @@ class GitProjectReadOnly:
     def commit_comment(
         cls, original_object: Any, commit: str, body: str
     ) -> "CommitComment":
-        output = CommitComment(sha=commit, comment=body, author=cls.author)
-        return output
+        return CommitComment(sha=commit, comment=body, author=cls.author)
 
     @classmethod
     def set_commit_status(
