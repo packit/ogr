@@ -151,4 +151,4 @@ def filter_paths(paths: List[str], filter_regex: str) -> List[str]:
     :return: [str]
     """
     pattern = re.compile(filter_regex)
-    return list(filter(lambda path: (not pattern or bool(pattern.search(path))), paths))
+    return [path for path in paths if (not pattern or bool(pattern.search(path)))]
