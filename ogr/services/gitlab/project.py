@@ -241,6 +241,12 @@ class GitlabProject(BaseGitProject):
         except Exception as e:
             raise GitlabAPIException(f"User {user} already exists", e)
 
+    def request_access(self) -> None:
+        try:
+            self.gitlab_repo.accessrequests.create({})
+        except gitlab.exceptions.GitlabCreateError as e:
+            raise GitlabAPIException("Unable to request access", e)
+
     def get_pr_list(self, status: PRStatus = PRStatus.open) -> List["PullRequest"]:
         return GitlabPullRequest.get_list(project=self, status=status)
 

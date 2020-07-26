@@ -885,7 +885,18 @@ class GitProject:
         :param access_level: AccessLevel enum
         :return: None
         """
-        raise NotImplementedError
+        raise NotImplementedError()
+
+    def request_access(self) -> None:
+        """
+        Access request will be sent to the project,
+        you cannot specifically ask for role.
+        The selection of the role and approval needs to be
+        done by the user with maintainer/admin rights.
+
+        :return: None
+        """
+        raise NotImplementedError()
 
     def add_group(self, group: str, access_level: AccessLevel) -> None:
         """

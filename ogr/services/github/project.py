@@ -207,6 +207,9 @@ class GithubProject(BaseGitProject):
         if invitation is None:
             raise GithubAPIException("User already added")
 
+    def request_access(self):
+        raise NotImplementedError("Not possible on GitHub")
+
     def get_fork(self, create: bool = True) -> Optional["GithubProject"]:
         """
         Provide GithubProject instance of a fork of this project.
