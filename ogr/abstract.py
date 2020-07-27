@@ -887,6 +887,16 @@ class GitProject:
         """
         raise NotImplementedError
 
+    def add_group(self, group: str, access_level: AccessLevel) -> None:
+        """
+        Add group to project.
+
+        :param group: str group name
+        :param access_level: AccessLevel enum
+        :return: None
+        """
+        raise NotImplementedError
+
     def get_issue_list(
         self,
         status: IssueStatus = IssueStatus.open,
