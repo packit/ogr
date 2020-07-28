@@ -364,6 +364,21 @@ class PagureProject(BaseGitProject):
         AccessLevel.admin => commit
         AccessLevel.maintain => admin
         """
+        self.add_user_or_group(user, access_level, "user")
+
+    def add_group(self, group: str, access_level: AccessLevel):
+        """
+        AccessLevel.pull => ticket
+        AccessLevel.triage => ticket
+        AccessLevel.push => commit
+        AccessLevel.admin => commit
+        AccessLevel.maintain => admin
+        """
+        self.add_user_or_group(group, access_level, "group")
+
+    def add_user_or_group(
+        self, user: str, access_level: AccessLevel, user_type
+    ) -> None:
         access_dict = {
             AccessLevel.pull: "ticket",
             AccessLevel.triage: "ticket",
@@ -375,7 +390,11 @@ class PagureProject(BaseGitProject):
             "git",
             "modifyacls",
             method="POST",
-            data={"user_type": "user", "name": user, "acl": access_dict[access_level]},
+            data={
+                "user_type": user_type,
+                "name": user,
+                "acl": access_dict[access_level],
+            },
         )
 
         if response.status_code == 401:

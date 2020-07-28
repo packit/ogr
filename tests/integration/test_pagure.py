@@ -95,6 +95,10 @@ class GenericCommands(PagureTests):
         project = self.service.get_project(repo="hello-112111", namespace="testing",)
         project.add_user("lachmanfrantisek", AccessLevel.admin)
 
+    def test_add_group(self):
+        project = self.service.get_project(repo="hello-112111", namespace="testing",)
+        project.add_group("packit-test-group", AccessLevel.admin)
+
     def test_description(self):
         description = self.ogr_project.get_description()
         assert description.startswith("Testing repository for python-ogr package")
