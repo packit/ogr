@@ -90,7 +90,12 @@ class GithubIssue(BaseIssue):
         return "Github" + super().__str__()
 
     @staticmethod
-    def create(project: "ogr_github.GithubProject", title: str, body: str) -> "Issue":
+    def create(
+        project: "ogr_github.GithubProject",
+        title: str,
+        body: str,
+        private: Optional[bool] = None,
+    ) -> "Issue":
         github_issue = project.github_repo.create_issue(title=title, body=body)
         return GithubIssue(github_issue, project)
 

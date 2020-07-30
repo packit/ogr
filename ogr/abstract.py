@@ -132,6 +132,10 @@ class Issue:
         raise NotImplementedError()
 
     @property
+    def private(self) -> bool:
+        raise NotImplementedError()
+
+    @property
     def id(self) -> int:
         raise NotImplementedError()
 
@@ -175,7 +179,9 @@ class Issue:
         )
 
     @staticmethod
-    def create(project: Any, title: str, body: str) -> "Issue":
+    def create(
+        project: Any, title: str, body: str, private: Optional[bool] = None
+    ) -> "Issue":
         """
         Open new Issue.
 
@@ -981,12 +987,17 @@ class GitProject:
         """
         raise NotImplementedError()
 
-    def create_issue(self, title: str, body: str) -> Issue:
+    def create_issue(
+        self, title: str, body: str, private: Optional[bool] = None,
+    ) -> Issue:
         """
         Open new Issue.
+        Private issues are only supported by Gitlab and Pagure.
 
         :param title: str
         :param body: str
+        :param private: bool
+        :param labels: [str]
         :return: Issue
         """
         raise NotImplementedError()

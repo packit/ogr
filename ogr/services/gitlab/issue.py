@@ -50,6 +50,10 @@ class GitlabIssue(BaseIssue):
         return self._raw_issue.iid
 
     @property
+    def private(self) -> bool:
+        return self._raw_issue.confidential
+
+    @property
     def status(self) -> IssueStatus:
         return (
             IssueStatus.open
@@ -86,8 +90,14 @@ class GitlabIssue(BaseIssue):
         return "Gitlab" + super().__str__()
 
     @staticmethod
-    def create(project: "ogr_gitlab.GitlabProject", title: str, body: str) -> "Issue":
-        issue = project.gitlab_repo.issues.create({"title": title, "description": body})
+    def create(
+        project: "ogr_gitlab.GitlabProject",
+        title: str,
+        body: str,
+        private: Optional[bool] = None,
+    ) -> "Issue":
+        data = {"title": title, "description": body}
+        issue = project.gitlab_repo.issues.create(data, confidential=private)
         return GitlabIssue(issue, project)
 
     @staticmethod

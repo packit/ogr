@@ -52,6 +52,11 @@ class PagureIssue(BaseIssue):
         self.__update_info(title=new_title)
 
     @property
+    def private(self) -> bool:
+        self.__update()
+        return self._raw_issue["private"]
+
+    @property
     def id(self) -> int:
         return self._raw_issue["id"]
 
@@ -113,11 +118,11 @@ class PagureIssue(BaseIssue):
         project: "ogr_pagure.PagureProject",
         title: str,
         body: str,
-        labels: Optional[List[str]] = None,
+        private: Optional[bool] = None,
     ) -> "Issue":
         payload = {"title": title, "issue_content": body}
-        if labels is not None:
-            payload["tag"] = ",".join(labels)
+        if private:
+            payload["private"] = "true"
         new_issue = project._call_project_api("new_issue", data=payload, method="POST")[
             "issue"
         ]

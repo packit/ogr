@@ -301,7 +301,11 @@ class GithubProject(BaseGitProject):
     def get_issue(self, issue_id: int) -> Issue:
         return GithubIssue.get(project=self, id=issue_id)
 
-    def create_issue(self, title: str, body: str) -> Issue:
+    def create_issue(
+        self, title: str, body: str, private: Optional[bool] = None,
+    ) -> Issue:
+        if private:
+            raise NotImplementedError("Private issues are not supported by Github")
         return GithubIssue.create(project=self, title=title, body=body)
 
     def get_pr_list(self, status: PRStatus = PRStatus.open) -> List[PullRequest]:
