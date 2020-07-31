@@ -205,6 +205,9 @@ class PagureProject(BaseGitProject):
     def can_merge_pr(self, username) -> bool:
         return username in self.who_can_merge_pr()
 
+    def request_access(self):
+        raise NotImplementedError("Not possible on Pagure")
+
     def get_issue_list(
         self,
         status: IssueStatus = IssueStatus.open,

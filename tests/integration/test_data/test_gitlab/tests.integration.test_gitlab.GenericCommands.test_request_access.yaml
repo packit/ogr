@@ -1,0 +1,351 @@
+_requre:
+  DataTypes: 1
+  key_strategy: StorageKeysInspectFull
+  version_storage_file: 2
+unittest.case:
+  tests.integration.test_gitlab:
+    ogr.services.gitlab.project:
+      gitlab.exceptions:
+        gitlab.mixins:
+          gitlab:
+            requre.objects:
+              requre.cassette:
+                requests.sessions:
+                  send:
+                  - metadata:
+                      latency: 0.9828228950500488
+                      module_call_list:
+                      - unittest.case
+                      - tests.integration.test_gitlab
+                      - ogr.services.gitlab.project
+                      - gitlab.exceptions
+                      - gitlab.mixins
+                      - gitlab
+                      - requre.objects
+                      - requre.cassette
+                      - requests.sessions
+                      - send
+                    output:
+                      __store_indicator: 2
+                      _content:
+                        _links:
+                          events: https://gitlab.com/api/v4/projects/19978385/events
+                          issues: https://gitlab.com/api/v4/projects/19978385/issues
+                          labels: https://gitlab.com/api/v4/projects/19978385/labels
+                          members: https://gitlab.com/api/v4/projects/19978385/members
+                          merge_requests: https://gitlab.com/api/v4/projects/19978385/merge_requests
+                          repo_branches: https://gitlab.com/api/v4/projects/19978385/repository/branches
+                          self: https://gitlab.com/api/v4/projects/19978385
+                        allow_merge_on_skipped_pipeline: null
+                        approvals_before_merge: 0
+                        archived: false
+                        auto_cancel_pending_pipelines: enabled
+                        auto_devops_deploy_strategy: continuous
+                        auto_devops_enabled: false
+                        autoclose_referenced_issues: true
+                        avatar_url: null
+                        build_coverage_regex: null
+                        build_timeout: 3600
+                        builds_access_level: enabled
+                        can_create_merge_request_in: true
+                        ci_config_path: ''
+                        ci_default_git_depth: 50
+                        compliance_frameworks: []
+                        container_expiration_policy:
+                          cadence: 1d
+                          enabled: true
+                          keep_n: 10
+                          name_regex: null
+                          name_regex_keep: null
+                          next_run_at: '2020-07-27T06:55:06.886Z'
+                          older_than: 90d
+                        container_registry_enabled: true
+                        created_at: '2020-07-15T21:56:11.880Z'
+                        creator_id: 6427598
+                        default_branch: master
+                        description: The most progressive command-line tool in the
+                          world.
+                        emails_disabled: null
+                        empty_repo: false
+                        external_authorization_classification_label: ''
+                        forked_from_project:
+                          avatar_url: null
+                          created_at: '2020-06-08T14:32:37.622Z'
+                          default_branch: master
+                          description: The most progressive command-line tool in the
+                            world.
+                          forks_count: 2
+                          http_url_to_repo: https://gitlab.com/packit-service/hello-world.git
+                          id: 19258958
+                          last_activity_at: '2020-07-25T15:52:05.683Z'
+                          name: hello-world
+                          name_with_namespace: packit-service / hello-world
+                          namespace:
+                            avatar_url: /uploads/-/system/group/avatar/6032704/packit-logo.png
+                            full_path: packit-service
+                            id: 6032704
+                            kind: group
+                            name: packit-service
+                            parent_id: null
+                            path: packit-service
+                            web_url: https://gitlab.com/groups/packit-service
+                          path: hello-world
+                          path_with_namespace: packit-service/hello-world
+                          readme_url: https://gitlab.com/packit-service/hello-world/-/blob/master/README.md
+                          ssh_url_to_repo: git@gitlab.com:packit-service/hello-world.git
+                          star_count: 0
+                          tag_list: []
+                          web_url: https://gitlab.com/packit-service/hello-world
+                        forking_access_level: enabled
+                        forks_count: 0
+                        http_url_to_repo: https://gitlab.com/shreyaspapitest/hello-world.git
+                        id: 19978385
+                        import_status: finished
+                        issues_access_level: enabled
+                        issues_enabled: true
+                        jobs_enabled: true
+                        last_activity_at: '2020-07-16T00:46:14.520Z'
+                        lfs_enabled: true
+                        marked_for_deletion_at: null
+                        marked_for_deletion_on: null
+                        merge_method: merge
+                        merge_requests_access_level: enabled
+                        merge_requests_enabled: true
+                        mirror: false
+                        name: hello-world
+                        name_with_namespace: Shreyas Papinwar / hello-world
+                        namespace:
+                          avatar_url: https://secure.gravatar.com/avatar/0f319929d4fc0461c0faa43d65778d45?s=80&d=identicon
+                          full_path: shreyaspapitest
+                          id: 8570561
+                          kind: user
+                          name: Shreyas Papinwar
+                          parent_id: null
+                          path: shreyaspapitest
+                          web_url: https://gitlab.com/shreyaspapitest
+                        only_allow_merge_if_all_discussions_are_resolved: false
+                        only_allow_merge_if_pipeline_succeeds: false
+                        open_issues_count: 0
+                        owner:
+                          avatar_url: https://secure.gravatar.com/avatar/0f319929d4fc0461c0faa43d65778d45?s=80&d=identicon
+                          id: 6427598
+                          name: Shreyas Papinwar
+                          state: active
+                          username: shreyaspapitest
+                          web_url: https://gitlab.com/shreyaspapitest
+                        packages_enabled: true
+                        pages_access_level: enabled
+                        path: hello-world
+                        path_with_namespace: shreyaspapitest/hello-world
+                        permissions:
+                          group_access: null
+                          project_access: null
+                        printing_merge_request_link_enabled: true
+                        public_jobs: true
+                        readme_url: https://gitlab.com/shreyaspapitest/hello-world/-/blob/master/README.md
+                        remove_source_branch_after_merge: true
+                        repository_access_level: enabled
+                        request_access_enabled: true
+                        resolve_outdated_diff_discussions: false
+                        service_desk_address: incoming+shreyaspapitest-hello-world-19978385-issue-@incoming.gitlab.com
+                        service_desk_enabled: true
+                        shared_runners_enabled: true
+                        shared_with_groups: []
+                        snippets_access_level: enabled
+                        snippets_enabled: true
+                        ssh_url_to_repo: git@gitlab.com:shreyaspapitest/hello-world.git
+                        star_count: 0
+                        suggestion_commit_message: null
+                        tag_list: []
+                        visibility: public
+                        web_url: https://gitlab.com/shreyaspapitest/hello-world
+                        wiki_access_level: enabled
+                        wiki_enabled: true
+                      _next: null
+                      elapsed: 0.2
+                      encoding: null
+                      headers:
+                        CF-Cache-Status: DYNAMIC
+                        CF-RAY: 5b90a4edda098a71-BOM
+                        Cache-Control: max-age=0, private, must-revalidate
+                        Connection: keep-alive
+                        Content-Encoding: gzip
+                        Content-Type: application/json
+                        Date: Fri, 01 Nov 2019 13-36-03 GMT
+                        Etag: W/"479a33565195e07f909fb617b2381e43"
+                        Expect-CT: max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
+                        GitLab-LB: fe-08-lb-gprd
+                        GitLab-SV: localhost
+                        RateLimit-Limit: '600'
+                        RateLimit-Observed: '2'
+                        RateLimit-Remaining: '598'
+                        RateLimit-Reset: '1595793030'
+                        RateLimit-ResetTime: Sun, 26 Jul 2020 19:50:30 GMT
+                        Referrer-Policy: strict-origin-when-cross-origin
+                        Server: cloudflare
+                        Strict-Transport-Security: max-age=31536000
+                        Transfer-Encoding: chunked
+                        Vary: Accept-Encoding, Origin
+                        X-Content-Type-Options: nosniff
+                        X-Frame-Options: SAMEORIGIN
+                        X-Request-Id: H4LS29Kmoza
+                        X-Runtime: '0.089906'
+                        cf-request-id: 042e4568a300008a71b3322200000001
+                      raw: !!binary ""
+                      reason: OK
+                      status_code: 200
+                  - metadata:
+                      latency: 1.037867784500122
+                      module_call_list:
+                      - unittest.case
+                      - tests.integration.test_gitlab
+                      - ogr.services.gitlab.project
+                      - gitlab.exceptions
+                      - gitlab.mixins
+                      - gitlab
+                      - requre.objects
+                      - requre.cassette
+                      - requests.sessions
+                      - send
+                    output:
+                      __store_indicator: 2
+                      _content:
+                        avatar_url: https://assets.gitlab-static.net/uploads/-/system/user/avatar/5647360/avatar.png
+                        id: 5647360
+                        name: Shreyas Papinwar
+                        requested_at: '2020-07-26T19:49:31.633Z'
+                        state: active
+                        username: shreyaspapi
+                        web_url: https://gitlab.com/shreyaspapi
+                      _next: null
+                      elapsed: 0.2
+                      encoding: null
+                      headers:
+                        CF-Cache-Status: DYNAMIC
+                        CF-RAY: 5b90a4f40aac8a71-BOM
+                        Cache-Control: max-age=0, private, must-revalidate
+                        Connection: keep-alive
+                        Content-Length: '263'
+                        Content-Type: application/json
+                        Date: Fri, 01 Nov 2019 13-36-03 GMT
+                        Etag: W/"26208607286d85b2deeed8dde8b427c7"
+                        Expect-CT: max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
+                        GitLab-LB: fe-03-lb-gprd
+                        GitLab-SV: localhost
+                        RateLimit-Limit: '600'
+                        RateLimit-Observed: '3'
+                        RateLimit-Remaining: '597'
+                        RateLimit-Reset: '1595793031'
+                        RateLimit-ResetTime: Sun, 26 Jul 2020 19:50:31 GMT
+                        Referrer-Policy: strict-origin-when-cross-origin
+                        Server: cloudflare
+                        Strict-Transport-Security: max-age=31536000
+                        Vary: Origin
+                        X-Content-Type-Options: nosniff
+                        X-Frame-Options: SAMEORIGIN
+                        X-Request-Id: msmWovBu1P7
+                        X-Runtime: '0.105865'
+                        cf-request-id: 042e456c8800008a71b332b200000001
+                      raw: !!binary ""
+                      reason: Created
+                      status_code: 201
+      ogr.services.gitlab.service:
+        gitlab:
+          gitlab.exceptions:
+            gitlab.mixins:
+              gitlab:
+                requre.objects:
+                  requre.cassette:
+                    requests.sessions:
+                      send:
+                      - metadata:
+                          latency: 1.0292651653289795
+                          module_call_list:
+                          - unittest.case
+                          - tests.integration.test_gitlab
+                          - ogr.services.gitlab.project
+                          - ogr.services.gitlab.service
+                          - gitlab
+                          - gitlab.exceptions
+                          - gitlab.mixins
+                          - gitlab
+                          - requre.objects
+                          - requre.cassette
+                          - requests.sessions
+                          - send
+                        output:
+                          __store_indicator: 2
+                          _content:
+                            avatar_url: https://assets.gitlab-static.net/uploads/-/system/user/avatar/5647360/avatar.png
+                            bio: ''
+                            bio_html: ''
+                            can_create_group: true
+                            can_create_project: true
+                            color_scheme_id: 1
+                            confirmed_at: '2020-03-19T21:52:09.146Z'
+                            created_at: '2020-03-19T21:52:09.216Z'
+                            current_sign_in_at: '2020-07-26T19:33:35.503Z'
+                            email: spapinwar@gmail.com
+                            external: false
+                            extra_shared_runners_minutes_limit: null
+                            id: 5647360
+                            identities:
+                            - extern_uid: '22324802'
+                              provider: github
+                              saml_provider_id: null
+                            job_title: ''
+                            last_activity_on: '2020-07-26'
+                            last_sign_in_at: '2020-07-25T14:35:07.317Z'
+                            linkedin: ''
+                            location: ''
+                            name: Shreyas Papinwar
+                            organization: ''
+                            private_profile: false
+                            projects_limit: 100000
+                            public_email: ''
+                            shared_runners_minutes_limit: null
+                            skype: shreyas.papinwar
+                            state: active
+                            theme_id: 1
+                            twitter: '@spapinwar'
+                            two_factor_enabled: false
+                            username: shreyaspapi
+                            web_url: https://gitlab.com/shreyaspapi
+                            website_url: https://shreyasp.me
+                            work_information: null
+                          _next: null
+                          elapsed: 0.2
+                          encoding: null
+                          headers:
+                            CF-Cache-Status: DYNAMIC
+                            CF-RAY: 5b90a4e7d97b8a71-BOM
+                            Cache-Control: max-age=0, private, must-revalidate
+                            Connection: keep-alive
+                            Content-Encoding: gzip
+                            Content-Type: application/json
+                            Date: Fri, 01 Nov 2019 13-36-03 GMT
+                            Etag: W/"b2397221d75f40abb57d0159ab4ce3e4"
+                            Expect-CT: max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
+                            GitLab-LB: fe-09-lb-gprd
+                            GitLab-SV: localhost
+                            RateLimit-Limit: '600'
+                            RateLimit-Observed: '1'
+                            RateLimit-Remaining: '599'
+                            RateLimit-Reset: '1595793029'
+                            RateLimit-ResetTime: Sun, 26 Jul 2020 19:50:29 GMT
+                            Referrer-Policy: strict-origin-when-cross-origin
+                            Server: cloudflare
+                            Set-Cookie: __cfduid=d161ed4788eca5c97d205535ab024a4e21595792968;
+                              expires=Tue, 25-Aug-20 19:49:28 GMT; path=/; domain=.gitlab.com;
+                              HttpOnly; SameSite=Lax; Secure
+                            Strict-Transport-Security: max-age=31536000
+                            Transfer-Encoding: chunked
+                            Vary: Accept-Encoding, Origin
+                            X-Content-Type-Options: nosniff
+                            X-Frame-Options: SAMEORIGIN
+                            X-Request-Id: BgoOc8syeQ9
+                            X-Runtime: '0.024145'
+                            cf-request-id: 042e4564e600008a71b331c200000001
+                          raw: !!binary ""
+                          reason: OK
+                          status_code: 200

@@ -43,6 +43,13 @@ class GenericCommands(GitlabTests):
             "https://github.com/packit-service/ogr\n\ntest1\ntest2\n"
         )
 
+    def test_request_access(self):
+        project = self.service.get_project(
+            repo="hello-world", namespace="shreyaspapitest"
+        )
+
+        project.request_access()
+
     def test_add_user(self):
         project = self.service.get_project(
             repo="hello-there", namespace="testing-packit"
