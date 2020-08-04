@@ -31,16 +31,14 @@ class GithubTests(RequreTestCase):
     @property
     def ogr_project(self):
         if not self._ogr_project:
-            self._ogr_project = self.service.get_project(
-                namespace="packit-service", repo="ogr"
-            )
+            self._ogr_project = self.service.get_project(namespace="packit", repo="ogr")
         return self._ogr_project
 
     @property
     def ogr_fork(self):
         if not self._ogr_fork:
             self._ogr_fork = self.service.get_project(
-                namespace="packit-service", repo="ogr", is_fork=True
+                namespace="packit", repo="ogr", is_fork=True
             )
         return self._ogr_fork
 
@@ -48,7 +46,7 @@ class GithubTests(RequreTestCase):
     def hello_world_project(self):
         if not self._hello_world_project:
             self._hello_world_project = self.service.get_project(
-                namespace="packit-service", repo="hello-world"
+                namespace="packit", repo="hello-world"
             )
         return self._hello_world_project
 
@@ -200,8 +198,8 @@ class GenericCommands(GithubTests):
         assert len(urls) == 2
         assert "git" in urls
         assert "ssh" in urls
-        assert urls["git"] == "https://github.com/packit-service/ogr.git"
-        assert urls["ssh"].endswith("git@github.com:packit-service/ogr.git")
+        assert urls["git"] == "https://github.com/packit/ogr.git"
+        assert urls["ssh"].endswith("git@github.com:packit/ogr.git")
 
     def test_username(self):
         # changed to check just lenght, because it is based who regenerated data files
@@ -226,17 +224,17 @@ class GenericCommands(GithubTests):
         assert len(files) >= 10
         assert ".git_archival.txt" in files
 
-        files = self.ogr_project.get_files(filter_regex=".*.spec")
+        files = self.ogr_project.get_files(filter_regex=".*.spec", recursive=True)
         assert files
         assert len(files) >= 1
-        assert "python-ogr.spec" in files
+        assert any("python-ogr.spec" in f for f in files)
 
     def test_nonexisting_file(self):
         with self.assertRaises(FileNotFoundError):
             self.ogr_project.get_file_content(".blablabla_nonexisting_file")
 
     def test_parent_project(self):
-        assert self.ogr_fork.parent.namespace == "packit-service"
+        assert self.ogr_fork.parent.namespace == "packit"
         assert self.ogr_fork.parent.repo == "ogr"
 
     @unittest.skip("get_commit_flags not implemented")
@@ -282,7 +280,7 @@ class GenericCommands(GithubTests):
 
     def test_get_owners(self):
         owners = self.ogr_project.get_owners()
-        assert ["packit-service"] == owners
+        assert ["packit"] == owners
 
     def test_issue_permissions(self):
         users = self.ogr_project.who_can_close_issue()
@@ -308,7 +306,7 @@ class GenericCommands(GithubTests):
         status = self.ogr_project.set_commit_status(
             commit="c891a9e4ac01e6575f3fd66cf1b7db2f52f10128",
             state=CommitStatus.success,
-            target_url="https://github.com/packit-service/ogr",
+            target_url="https://github.com/packit/ogr",
             description="testing description",
             context="test",
             trim=True,
@@ -338,14 +336,14 @@ class GenericCommands(GithubTests):
     def test_set_commit_status_long_description(self):
         long_description = (
             "Testing the trimming of the description after an argument trim "
-            "is added. The argument defaults to False, but in packit-service the"
+            "is added. The argument defaults to False, but in packit the"
             " argument trim is set to True."
         )
         with pytest.raises(GithubException):
             self.ogr_project.set_commit_status(
                 commit="c891a9e4ac01e6575f3fd66cf1b7db2f52f10128",
                 state=CommitStatus.success,
-                target_url="https://github.com/packit-service/ogr",
+                target_url="https://github.com/packit/ogr",
                 description=long_description,
                 context="test",
             )
@@ -353,7 +351,7 @@ class GenericCommands(GithubTests):
         status = self.ogr_project.set_commit_status(
             commit="c891a9e4ac01e6575f3fd66cf1b7db2f52f10128",
             state=CommitStatus.success,
-            target_url="https://github.com/packit-service/ogr",
+            target_url="https://github.com/packit/ogr",
             description=long_description,
             context="test",
             trim=True,
@@ -363,16 +361,16 @@ class GenericCommands(GithubTests):
 
     def test_get_web_url(self):
         url = self.ogr_project.get_web_url()
-        assert url == "https://github.com/packit-service/ogr"
+        assert url == "https://github.com/packit/ogr"
 
     def test_full_repo_name(self):
-        assert self.ogr_project.full_repo_name == "packit-service/ogr"
+        assert self.ogr_project.full_repo_name == "packit/ogr"
 
     def test_is_not_private(self):
-        # when regenerating this test with your gitlab token, use your own private repository
-        private_project = self.service.get_project(
-            namespace="dhodovsk", repo="playground"
-        )
+        # The repository bellow needs to be a private repository which can be
+        # accessed by the user who's GITHUB_TOKEN is used for
+        # test regeneration.
+        private_project = self.service.get_project(namespace="csomh", repo="playground")
         assert private_project.is_private()
 
     def test_is_private(self):
@@ -433,7 +431,7 @@ class Issues(GithubTests):
     def test_issue_labels(self):
         """
         Remove the labels from this issue before regenerating the response files:
-        https://github.com/packit-service/ogr/issues/4
+        https://github.com/packit/ogr/issues/4
         """
         labels = self.ogr_project.get_issue_labels(issue_id=4)
 
@@ -527,8 +525,8 @@ class PullRequests(GithubTests):
         assert pr_info.title == "WIP: API"
         assert pr_info.status == PRStatus.merged
         assert pr_info.author == "lachmanfrantisek"
-        assert pr_info.url == "https://github.com/packit-service/ogr/pull/1"
-        assert pr_info.diff_url == "https://github.com/packit-service/ogr/pull/1/files"
+        assert pr_info.url == "https://github.com/packit/ogr/pull/1"
+        assert pr_info.diff_url == "https://github.com/packit/ogr/pull/1/files"
 
     def test_all_pr_commits(self):
         commits = self.ogr_project.get_all_pr_commits(pr_id=1)
@@ -662,7 +660,7 @@ class PullRequests(GithubTests):
     def test_pr_labels(self):
         """
         Remove the labels from this pr before regenerating the response files:
-        https://github.com/packit-service/ogr/pull/1
+        https://github.com/packit/ogr/pull/1
         """
         labels = self.ogr_project.get_pr_labels(pr_id=1)
         assert not labels
@@ -729,6 +727,7 @@ class PullRequests(GithubTests):
     def test_source_project_upstream_branch(self):
         pr = self.hello_world_project.get_pr(72)
         source_project = pr.source_project
+        # The namespace was 'packit-service' when this PR was opened.
         assert source_project.namespace == "packit-service"
         assert source_project.repo == "hello-world"
 
@@ -762,7 +761,7 @@ class PullRequests(GithubTests):
 
     def test_source_project_renamed_upstream(self):
         pr = self.service.get_project(
-            repo="not-potential-spoon", namespace="packit-service"
+            repo="not-potential-spoon", namespace="packit"
         ).get_pr(1)
         source_project = pr.source_project
         assert source_project.namespace == "mfocko"
@@ -905,11 +904,11 @@ class Service(GithubTests):
 
     def test_project_create_in_the_group(self):
         """
-        Remove https://github.com/packit-service/repo_created_for_test_in_group
+        Remove https://github.com/packit/repo_created_for_test_in_group
         repository before regeneration
         """
         name_of_the_repo = "repo_created_for_test_in_group"
-        namespace_of_the_repo = "packit-service"
+        namespace_of_the_repo = "packit"
         project = self.service.get_project(
             repo=name_of_the_repo, namespace=namespace_of_the_repo
         )

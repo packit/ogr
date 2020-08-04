@@ -1,6 +1,5 @@
 ---
 - project:
-    name: packit-service/ogr
     check:
       jobs:
         - pre-commit
@@ -30,5 +29,5 @@
     parent: base
     description: Run packit tests
     required-projects:
-      - github.com/packit-service/packit
+      - github.com/packit/packit
     run: files/zuul-reverse-dep-packit.yaml

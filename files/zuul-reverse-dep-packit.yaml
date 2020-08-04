@@ -3,7 +3,7 @@
   hosts: all
   tasks:
     - set_fact:
-        reverse_dir: "{{ ansible_user_dir }}/{{ zuul.projects['github.com/packit-service/packit'].src_dir }}"
+        reverse_dir: "{{ ansible_user_dir }}/{{ zuul.projects['github.com/packit/packit'].src_dir }}"
     - include_tasks: tasks/zuul-project-setup.yaml
     - include_tasks: tasks/generic-dnf-requirements.yaml
     - include_tasks: tasks/rpm-test-deps.yaml

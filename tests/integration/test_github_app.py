@@ -64,7 +64,7 @@ class GithubTests(RequreTestCase):
             github_app_id=self.github_app_id or "123",
             github_app_private_key=github_app_private_key,
         )
-        project = self.service.get_project(namespace="packit-service", repo="ogr")
+        project = self.service.get_project(namespace="packit", repo="ogr")
         assert project
         assert project.github_repo
 
@@ -78,7 +78,7 @@ class GithubTests(RequreTestCase):
                 github_app_id=self.github_app_id or "123",
                 github_app_private_key_path=github_app_private_key_path,
             )
-            project = self.service.get_project(namespace="packit-service", repo="ogr")
+            project = self.service.get_project(namespace="packit", repo="ogr")
             assert project
             assert project.github_repo
         finally:
@@ -89,11 +89,9 @@ class GithubTests(RequreTestCase):
         service = GithubService(
             github_app_id="123", github_app_private_key=TESTING_PRIVATE_KEY
         )
-        project = GithubProject(
-            repo="packit", service=service, namespace="packit-service"
-        )
+        project = GithubProject(repo="packit", service=service, namespace="packit")
         with pytest.raises(OgrException) as exc:
             assert project.github_instance
         mes = str(exc.value)
-        assert "No installation ID provided for packit-service/packit" in mes
+        assert "No installation ID provided for packit/packit" in mes
         assert "make sure that you provided correct credentials" in mes

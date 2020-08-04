@@ -46,7 +46,7 @@ class FactoryTests(RequreTestCase):
     def test_get_project_github(self):
         # unittest + pytest is a no-no for fixtures/parametrize
         urls = [
-            "https://github.com/packit-service/ogr",
+            "https://github.com/packit/ogr",
             "git@github.com:TomasTomecek/speaks.git",
         ]
         for url in urls:

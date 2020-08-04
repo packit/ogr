@@ -578,10 +578,10 @@ class PagureProjectTokenCommands(PagureTests):
         assert len(statuses) >= 0
         assert statuses[-1].state == CommitStatus.success
         assert statuses[-1].created == datetime(
-            year=2019, month=12, day=2, hour=13, minute=16, second=11
+            year=2019, month=12, day=2, hour=13, minute=16, second=11,
         )
         assert statuses[-1].edited == datetime(
-            year=2019, month=12, day=2, hour=13, minute=16, second=11
+            year=2019, month=12, day=2, hour=13, minute=16, second=11,
         )
 
     def test_is_private(self):
