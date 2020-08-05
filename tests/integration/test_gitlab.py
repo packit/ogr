@@ -253,11 +253,30 @@ class Issues(GitlabTests):
         """
         see class comment in case of fail
         """
+        labels = ["label1", "label2"]
         issue_title = f"New Issue {self.random_str}"
         issue_desc = f"Description for issue {self.random_str}"
-        issue = self.project.create_issue(title=issue_title, description=issue_desc)
+        issue = self.project.create_issue(
+            title=issue_title, body=issue_desc, labels=labels
+        )
+
         assert issue.title == issue_title
         assert issue.description == issue_desc
+        for issue_label, label in zip(issue.labels, labels):
+            assert issue_label.name == label
+
+    def test_create_private_issue(self):
+        """
+        see class comment in case of fail
+        """
+        issue_title = f"New Confidential Issue {self.random_str}"
+        issue_desc = f"Description for issue {self.random_str}"
+        issue = self.project.create_issue(
+            title=issue_title, body=issue_desc, private=True
+        )
+        assert issue.title == issue_title
+        assert issue.description == issue_desc
+        assert issue.private
 
     def test_close_issue(self):
         """
@@ -265,7 +284,7 @@ class Issues(GitlabTests):
         """
         issue = self.project.create_issue(
             title=f"Close issue {self.random_str}",
-            description=f"Description for issue for closing {self.random_str}",
+            body=f"Description for issue for closing {self.random_str}",
         )
         issue_for_closing = self.project.get_issue_info(issue_id=issue.id)
         assert issue_for_closing.status == IssueStatus.open

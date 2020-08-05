@@ -287,6 +287,20 @@ class Issues(PagureTests):
         assert issue_list
         assert len(issue_list) == 1
 
+    def test_create_issue(self):
+        title = "This is an issue"
+        description = "Example of Issue description"
+        labels = ["label1", "label2"]
+        project = self.service.get_project(repo="hello-112111", namespace="testing",)
+        issue = project.create_issue(
+            title=title, body=description, private=True, labels=labels
+        )
+        assert issue.title == title
+        assert issue.description == description
+        assert issue.private
+        for issue_label, label in zip(issue.labels, labels):
+            assert issue_label.name == label
+
 
 class PullRequests(PagureTests):
     def test_pr_create(self):
