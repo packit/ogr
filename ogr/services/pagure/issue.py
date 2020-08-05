@@ -119,8 +119,11 @@ class PagureIssue(BaseIssue):
         title: str,
         body: str,
         private: Optional[bool] = None,
+        labels: Optional[List[str]] = None,
     ) -> "Issue":
         payload = {"title": title, "issue_content": body}
+        if labels is not None:
+            payload["tag"] = ",".join(labels)
         if private:
             payload["private"] = "true"
         new_issue = project._call_project_api("new_issue", data=payload, method="POST")[

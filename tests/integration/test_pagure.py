@@ -290,11 +290,16 @@ class Issues(PagureTests):
     def test_create_issue(self):
         title = "This is an issue"
         description = "Example of Issue description"
-        project = self.service.get_project(repo="hello-112111", namespace="testing")
-        issue = project.create_issue(title=title, body=description, private=True)
+        labels = ["label1", "label2"]
+        project = self.service.get_project(repo="hello-112111", namespace="testing",)
+        issue = project.create_issue(
+            title=title, body=description, private=True, labels=labels
+        )
         assert issue.title == title
         assert issue.description == description
         assert issue.private
+        for issue_label, label in zip(issue.labels, labels):
+            assert issue_label.name == label
 
 
 class PullRequests(PagureTests):

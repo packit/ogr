@@ -398,10 +398,13 @@ class Issues(GithubTests):
     def test_create_issue(self):
         title = "This is an issue"
         description = "Example of Issue description"
+        labels = ["label1", "label2"]
         project = self.service.get_project(namespace="shreyaspapi", repo="test")
-        issue = project.create_issue(title=title, body=description)
+        issue = project.create_issue(title=title, body=description, labels=labels)
         assert issue.title == title
         assert issue.description == description
+        for issue_label, label in zip(issue.labels, labels):
+            assert issue_label.name == label
 
         with self.assertRaises(NotImplementedError):
             project.create_issue(title=title, body=description, private=True)

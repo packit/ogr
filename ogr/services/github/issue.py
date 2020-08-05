@@ -95,8 +95,11 @@ class GithubIssue(BaseIssue):
         title: str,
         body: str,
         private: Optional[bool] = None,
+        labels: Optional[List[str]] = None,
     ) -> "Issue":
-        github_issue = project.github_repo.create_issue(title=title, body=body)
+        github_issue = project.github_repo.create_issue(
+            title=title, body=body, labels=labels
+        )
         return GithubIssue(github_issue, project)
 
     @staticmethod

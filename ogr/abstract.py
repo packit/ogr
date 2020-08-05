@@ -988,7 +988,11 @@ class GitProject:
         raise NotImplementedError()
 
     def create_issue(
-        self, title: str, body: str, private: Optional[bool] = None,
+        self,
+        title: str,
+        body: str,
+        private: Optional[bool] = None,
+        labels: Optional[List[str]] = None,
     ) -> Issue:
         """
         Open new Issue.

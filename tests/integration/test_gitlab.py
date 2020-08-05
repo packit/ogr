@@ -253,12 +253,17 @@ class Issues(GitlabTests):
         """
         see class comment in case of fail
         """
+        labels = ["label1", "label2"]
         issue_title = f"New Issue {self.random_str}"
         issue_desc = f"Description for issue {self.random_str}"
-        issue = self.project.create_issue(title=issue_title, body=issue_desc)
+        issue = self.project.create_issue(
+            title=issue_title, body=issue_desc, labels=labels
+        )
 
         assert issue.title == issue_title
         assert issue.description == issue_desc
+        for issue_label, label in zip(issue.labels, labels):
+            assert issue_label.name == label
 
     def test_create_private_issue(self):
         """

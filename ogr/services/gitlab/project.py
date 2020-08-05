@@ -411,9 +411,15 @@ class GitlabProject(BaseGitProject):
         return GitlabIssue.get(project=self, id=issue_id)
 
     def create_issue(
-        self, title: str, body: str, private: Optional[bool] = None,
+        self,
+        title: str,
+        body: str,
+        private: Optional[bool] = None,
+        labels: Optional[List[str]] = None,
     ) -> Issue:
-        return GitlabIssue.create(project=self, title=title, body=body, private=private)
+        return GitlabIssue.create(
+            project=self, title=title, body=body, private=private, labels=labels
+        )
 
     def get_pr(self, pr_id: int) -> PullRequest:
         return GitlabPullRequest.get(project=self, id=pr_id)

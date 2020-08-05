@@ -95,8 +95,11 @@ class GitlabIssue(BaseIssue):
         title: str,
         body: str,
         private: Optional[bool] = None,
+        labels: Optional[List[str]] = None,
     ) -> "Issue":
         data = {"title": title, "description": body}
+        if labels:
+            data["labels"] = ",".join(labels)
         issue = project.gitlab_repo.issues.create(data, confidential=private)
         return GitlabIssue(issue, project)
 
