@@ -1,3 +1,12 @@
+# 0.13.0
+
+## New Features
+
+- Ogr now supports creating private issues for GitLab (known as
+  confidential issues) and Pagure.
+- Access to GitLab project can be requested via `GitProject.request_access` method.
+- You can now add a group to Pagure project.
+
 # 0.12.2
 
 - GitlabPullRequest creates PRs in compliance with documentation. (@mfocko)
