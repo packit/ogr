@@ -1394,3 +1394,20 @@ class GitUser:
 
     def get_forks(self) -> Sequence["GitProject"]:
         raise NotImplementedError
+
+
+class GithubTokenManager:
+    """
+    Represents a token manager for authentication via GitHubApp.
+    """
+
+    def get_instance(self, repo: str, namespace: str) -> Any:
+        """
+        Returns GitHub instance for a requested repository,
+        authenticated using GitHub App
+
+        :param repo: name of the repository
+        :param namespace: namespace of the repository
+        :return: instance of github.Github
+        """
+        raise NotImplementedError()

@@ -26,11 +26,12 @@ from typing import Type
 import github
 from github import UnknownObjectException
 
-from ogr.abstract import GitUser
-from ogr.exceptions import GithubAPIException, OgrException
+from ogr.abstract import GitUser, GithubTokenManager
+from ogr.exceptions import GithubAPIException
 from ogr.factory import use_for_service
 from ogr.services.base import BaseGitService
 from ogr.services.github.project import GithubProject
+from ogr.services.github.token_managers import OgrGithubTokenManager
 from ogr.services.github.user import GithubUser
 
 
@@ -47,6 +48,7 @@ class GithubService(BaseGitService):
         github_app_id: str = None,
         github_app_private_key: str = None,
         github_app_private_key_path: str = None,
+        token_manager: GithubTokenManager = None,
         **_,
     ):
         super().__init__()
@@ -59,6 +61,8 @@ class GithubService(BaseGitService):
 
         self.github = github.Github(login_or_token=self.token)
         self.read_only = read_only
+
+        self._token_manager = token_manager
 
     @property
     def github_app_private_key(self):
@@ -75,6 +79,12 @@ class GithubService(BaseGitService):
             return Path(self.github_app_private_key_path).read_text()
 
         return None
+
+    @property
+    def token_manager(self) -> GithubTokenManager:
+        if self._token_manager is None:
+            self._token_manager = OgrGithubTokenManager(self)
+        return self._token_manager
 
     def __str__(self) -> str:
         token_str = (
@@ -179,26 +189,7 @@ class GithubService(BaseGitService):
         )
 
     def get_github_instance(self, repo: str, namespace: str) -> github.Github:
-        if not (self.github_app_id and self.github_app_private_key):
-            # if not authenticating as a GitHub app
-            return self.github
-
-        integration = github.GithubIntegration(
-            self.github_app_id, self.github_app_private_key
-        )
-        inst_id = integration.get_installation(namespace, repo).id
-        # PyGithub<1.52 returned an object for id, with a value attribute,
-        # which was None or an ID.
-        # This was changed in:
-        # https://github.com/PyGithub/PyGithub/commit/61808da15e8e3bcb660acd0e7947326a4a6c0c7a#diff-b8f1ee87df332916352809a397ea259aL54
-        # 'id' is now None or an ID.
-        inst_id = (
-            inst_id if isinstance(inst_id, int) or inst_id is None else inst_id.value
-        )
-        if not inst_id:
-            raise OgrException(
-                f"No installation ID provided for {namespace}/{repo}: "
-                "please make sure that you provided correct credentials of your GitHub app."
-            )
-        inst_auth = integration.get_access_token(inst_id)
-        return github.Github(login_or_token=inst_auth.token)
+        if self.github_app_id and self.github_app_private_key:
+            # authenticating as a GitHub app
+            return self.token_manager.get_instance(repo, namespace)
+        return self.github
