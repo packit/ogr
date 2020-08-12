@@ -265,6 +265,10 @@ class Issues(GitlabTests):
         for issue_label, label in zip(issue.labels, labels):
             assert issue_label.name == label
 
+        issue2 = self.project.create_issue(title=issue_title, body=issue_desc)
+        assert issue2.title == issue_title
+        assert issue2.description == issue_desc
+
     def test_create_private_issue(self):
         """
         see class comment in case of fail

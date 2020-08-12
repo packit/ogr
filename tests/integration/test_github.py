@@ -409,6 +409,14 @@ class Issues(GithubTests):
         with self.assertRaises(NotImplementedError):
             project.create_issue(title=title, body=description, private=True)
 
+    def test_issue_without_label(self):
+        project = self.service.get_project(namespace="shreyaspapi", repo="test")
+        title = "This is an issue"
+        description = "Example of Issue description"
+        issue = project.create_issue(title=title, body=description)
+        assert issue.title == title
+        assert issue.description == description
+
     def test_issue_list_author(self):
         issue_list = self.ogr_project.get_issue_list(
             status=IssueStatus.all, author="mfocko"

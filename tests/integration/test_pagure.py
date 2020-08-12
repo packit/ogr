@@ -291,7 +291,7 @@ class Issues(PagureTests):
         title = "This is an issue"
         description = "Example of Issue description"
         labels = ["label1", "label2"]
-        project = self.service.get_project(repo="hello-112111", namespace="testing",)
+        project = self.service.get_project(repo="hello-112111", namespace="testing")
         issue = project.create_issue(
             title=title, body=description, private=True, labels=labels
         )
@@ -299,7 +299,15 @@ class Issues(PagureTests):
         assert issue.description == description
         assert issue.private
         for issue_label, label in zip(issue.labels, labels):
-            assert issue_label.name == label
+            assert issue_label == label
+
+    def test_issue_without_label(self):
+        title = "This is an issue"
+        description = "Example of Issue description"
+        project = self.service.get_project(repo="hello-112111", namespace="testing")
+        issue = project.create_issue(title=title, body=description)
+        assert issue.title == title
+        assert issue.description == description
 
 
 class PullRequests(PagureTests):
