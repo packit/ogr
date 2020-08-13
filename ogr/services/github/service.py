@@ -188,8 +188,8 @@ class GithubService(BaseGitService):
             github_repo=new_repo,
         )
 
-    def get_github_instance(self, repo: str, namespace: str) -> github.Github:
+    def get_github_instance(self, namespace: str, repo: str) -> github.Github:
         if self.github_app_id and self.github_app_private_key:
             # authenticating as a GitHub app
-            return self.token_manager.get_instance(repo, namespace)
+            return self.token_manager.get_instance(namespace, repo)
         return self.github

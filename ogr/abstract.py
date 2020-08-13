@@ -1401,13 +1401,13 @@ class GithubTokenManager:
     Represents a token manager for authentication via GitHubApp.
     """
 
-    def get_instance(self, repo: str, namespace: str) -> Any:
+    def get_instance(self, namespace: str, repo: str) -> Any:
         """
         Returns GitHub instance for a requested repository,
         authenticated using GitHub App
 
-        :param repo: name of the repository
         :param namespace: namespace of the repository
+        :param repo: name of the repository
         :return: instance of github.Github
         """
         raise NotImplementedError()
