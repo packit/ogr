@@ -14,7 +14,7 @@ unittest.case:
                   requests.sessions:
                     send:
                     - metadata:
-                        latency: 1.4438090324401855
+                        latency: 0.7640080451965332
                         module_call_list:
                         - unittest.case
                         - tests.integration.test_gitlab
@@ -31,10 +31,10 @@ unittest.case:
                         __store_indicator: 2
                         _content:
                           _links:
-                            award_emoji: https://gitlab.com/api/v4/projects/14233409/issues/61/award_emoji
-                            notes: https://gitlab.com/api/v4/projects/14233409/issues/61/notes
+                            award_emoji: https://gitlab.com/api/v4/projects/14233409/issues/62/award_emoji
+                            notes: https://gitlab.com/api/v4/projects/14233409/issues/62/notes
                             project: https://gitlab.com/api/v4/projects/14233409
-                            self: https://gitlab.com/api/v4/projects/14233409/issues/61
+                            self: https://gitlab.com/api/v4/projects/14233409/issues/62
                           assignee: null
                           assignees: []
                           author:
@@ -48,23 +48,23 @@ unittest.case:
                           closed_at: null
                           closed_by: null
                           confidential: false
-                          created_at: '2020-07-30T21:25:04.755Z'
+                          created_at: '2020-08-12T20:36:50.586Z'
                           description: Description for issue abcde
                           discussion_locked: null
                           downvotes: 0
                           due_date: null
                           has_tasks: false
-                          id: 69247536
-                          iid: 61
+                          id: 69776088
+                          iid: 62
                           labels: []
                           merge_requests_count: 0
                           milestone: null
                           moved_to_id: null
                           project_id: 14233409
                           references:
-                            full: packit-service/ogr-tests#61
-                            relative: '#61'
-                            short: '#61'
+                            full: packit-service/ogr-tests#62
+                            relative: '#62'
+                            short: '#62'
                           state: opened
                           subscribed: true
                           task_completion_status:
@@ -76,40 +76,140 @@ unittest.case:
                             time_estimate: 0
                             total_time_spent: 0
                           title: New Issue abcde
-                          updated_at: '2020-07-30T21:25:04.755Z'
+                          updated_at: '2020-08-12T20:36:50.586Z'
                           upvotes: 0
                           user_notes_count: 0
-                          web_url: https://gitlab.com/packit-service/ogr-tests/-/issues/61
+                          web_url: https://gitlab.com/packit-service/ogr-tests/-/issues/62
                           weight: null
                         _next: null
                         elapsed: 0.2
                         encoding: null
                         headers:
                           CF-Cache-Status: DYNAMIC
-                          CF-RAY: 5bb2266b0dbd8a77-BOM
+                          CF-RAY: 5c1cfda5ea0b8a53-BOM
                           Cache-Control: max-age=0, private, must-revalidate
                           Connection: keep-alive
                           Content-Length: '1371'
                           Content-Type: application/json
                           Date: Fri, 01 Nov 2019 13-36-03 GMT
-                          Etag: W/"4e977ca09b70d79f326740e17a157783"
+                          Etag: W/"cb4d05dae69a1cfecd802dad8e1707da"
                           Expect-CT: max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
-                          GitLab-LB: fe-09-lb-gprd
+                          GitLab-LB: fe-02-lb-gprd
                           GitLab-SV: localhost
                           RateLimit-Limit: '600'
                           RateLimit-Observed: '3'
                           RateLimit-Remaining: '597'
-                          RateLimit-Reset: '1596144364'
-                          RateLimit-ResetTime: Thu, 30 Jul 2020 21:26:04 GMT
+                          RateLimit-Reset: '1597264670'
+                          RateLimit-ResetTime: Wed, 12 Aug 2020 20:37:50 GMT
                           Referrer-Policy: strict-origin-when-cross-origin
                           Server: cloudflare
                           Strict-Transport-Security: max-age=31536000
                           Vary: Origin
                           X-Content-Type-Options: nosniff
                           X-Frame-Options: SAMEORIGIN
-                          X-Request-Id: 7NAxzNPcs05
-                          X-Runtime: '0.398148'
-                          cf-request-id: 04433656e000008a777a263200000001
+                          X-Request-Id: PEpayN0sAV7
+                          X-Runtime: '0.335223'
+                          cf-request-id: 0485fcdbb300008a53d5ac6200000001
+                        raw: !!binary ""
+                        reason: Created
+                        status_code: 201
+                    - metadata:
+                        latency: 0.6303277015686035
+                        module_call_list:
+                        - unittest.case
+                        - tests.integration.test_gitlab
+                        - ogr.services.gitlab.project
+                        - ogr.services.gitlab.issue
+                        - gitlab.exceptions
+                        - gitlab.mixins
+                        - gitlab
+                        - requre.objects
+                        - requre.cassette
+                        - requests.sessions
+                        - send
+                      output:
+                        __store_indicator: 2
+                        _content:
+                          _links:
+                            award_emoji: https://gitlab.com/api/v4/projects/14233409/issues/63/award_emoji
+                            notes: https://gitlab.com/api/v4/projects/14233409/issues/63/notes
+                            project: https://gitlab.com/api/v4/projects/14233409
+                            self: https://gitlab.com/api/v4/projects/14233409/issues/63
+                          assignee: null
+                          assignees: []
+                          author:
+                            avatar_url: https://assets.gitlab-static.net/uploads/-/system/user/avatar/5647360/avatar.png
+                            id: 5647360
+                            name: Shreyas Papinwar
+                            state: active
+                            username: shreyaspapi
+                            web_url: https://gitlab.com/shreyaspapi
+                          blocking_issues_count: null
+                          closed_at: null
+                          closed_by: null
+                          confidential: false
+                          created_at: '2020-08-12T20:36:51.381Z'
+                          description: Description for issue abcde
+                          discussion_locked: null
+                          downvotes: 0
+                          due_date: null
+                          has_tasks: false
+                          id: 69776090
+                          iid: 63
+                          labels: []
+                          merge_requests_count: 0
+                          milestone: null
+                          moved_to_id: null
+                          project_id: 14233409
+                          references:
+                            full: packit-service/ogr-tests#63
+                            relative: '#63'
+                            short: '#63'
+                          state: opened
+                          subscribed: true
+                          task_completion_status:
+                            completed_count: 0
+                            count: 0
+                          time_stats:
+                            human_time_estimate: null
+                            human_total_time_spent: null
+                            time_estimate: 0
+                            total_time_spent: 0
+                          title: New Issue abcde
+                          updated_at: '2020-08-12T20:36:51.381Z'
+                          upvotes: 0
+                          user_notes_count: 0
+                          web_url: https://gitlab.com/packit-service/ogr-tests/-/issues/63
+                          weight: null
+                        _next: null
+                        elapsed: 0.2
+                        encoding: null
+                        headers:
+                          CF-Cache-Status: DYNAMIC
+                          CF-RAY: 5c1cfdaaca708a53-BOM
+                          Cache-Control: max-age=0, private, must-revalidate
+                          Connection: keep-alive
+                          Content-Length: '1371'
+                          Content-Type: application/json
+                          Date: Fri, 01 Nov 2019 13-36-03 GMT
+                          Etag: W/"f3407ade6ae7176274563f003bfe800e"
+                          Expect-CT: max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
+                          GitLab-LB: fe-11-lb-gprd
+                          GitLab-SV: localhost
+                          RateLimit-Limit: '600'
+                          RateLimit-Observed: '4'
+                          RateLimit-Remaining: '596'
+                          RateLimit-Reset: '1597264671'
+                          RateLimit-ResetTime: Wed, 12 Aug 2020 20:37:51 GMT
+                          Referrer-Policy: strict-origin-when-cross-origin
+                          Server: cloudflare
+                          Strict-Transport-Security: max-age=31536000
+                          Vary: Origin
+                          X-Content-Type-Options: nosniff
+                          X-Frame-Options: SAMEORIGIN
+                          X-Request-Id: Vc4u6KKcBc8
+                          X-Runtime: '0.301425'
+                          cf-request-id: 0485fcdebf00008a53d5ac9200000001
                         raw: !!binary ""
                         reason: Created
                         status_code: 201
@@ -122,7 +222,7 @@ unittest.case:
                     requests.sessions:
                       send:
                       - metadata:
-                          latency: 0.9949979782104492
+                          latency: 0.5075719356536865
                           module_call_list:
                           - unittest.case
                           - tests.integration.test_gitlab
@@ -178,7 +278,7 @@ unittest.case:
                             issues_access_level: enabled
                             issues_enabled: true
                             jobs_enabled: true
-                            last_activity_at: '2020-07-30T12:08:46.083Z'
+                            last_activity_at: '2020-07-30T21:25:04.838Z'
                             lfs_enabled: true
                             marked_for_deletion_at: null
                             marked_for_deletion_on: null
@@ -199,7 +299,7 @@ unittest.case:
                               web_url: https://gitlab.com/groups/packit-service
                             only_allow_merge_if_all_discussions_are_resolved: false
                             only_allow_merge_if_pipeline_succeeds: false
-                            open_issues_count: 42
+                            open_issues_count: 43
                             packages_enabled: true
                             pages_access_level: enabled
                             path: ogr-tests
@@ -233,21 +333,21 @@ unittest.case:
                           encoding: null
                           headers:
                             CF-Cache-Status: DYNAMIC
-                            CF-RAY: 5bb22664ac328a77-BOM
+                            CF-RAY: 5c1cfda2a9be8a53-BOM
                             Cache-Control: max-age=0, private, must-revalidate
                             Connection: keep-alive
                             Content-Encoding: gzip
                             Content-Type: application/json
                             Date: Fri, 01 Nov 2019 13-36-03 GMT
-                            Etag: W/"e5d5a2e94f876fd4dc8e636b2b1dacdb"
+                            Etag: W/"e751b04aa34c59ae007fe7a3c6a51146"
                             Expect-CT: max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
-                            GitLab-LB: fe-05-lb-gprd
+                            GitLab-LB: fe-12-lb-gprd
                             GitLab-SV: localhost
                             RateLimit-Limit: '600'
                             RateLimit-Observed: '2'
                             RateLimit-Remaining: '598'
-                            RateLimit-Reset: '1596144363'
-                            RateLimit-ResetTime: Thu, 30 Jul 2020 21:26:03 GMT
+                            RateLimit-Reset: '1597264670'
+                            RateLimit-ResetTime: Wed, 12 Aug 2020 20:37:50 GMT
                             Referrer-Policy: strict-origin-when-cross-origin
                             Server: cloudflare
                             Strict-Transport-Security: max-age=31536000
@@ -255,9 +355,9 @@ unittest.case:
                             Vary: Accept-Encoding, Origin
                             X-Content-Type-Options: nosniff
                             X-Frame-Options: SAMEORIGIN
-                            X-Request-Id: A3Xa4xdBFo9
-                            X-Runtime: '0.080131'
-                            cf-request-id: 04433652ed00008a777a24f200000001
+                            X-Request-Id: pIMU3oV3NVa
+                            X-Runtime: '0.160677'
+                            cf-request-id: 0485fcd9ac00008a53d5ac0200000001
                           raw: !!binary ""
                           reason: OK
                           status_code: 200
@@ -271,7 +371,7 @@ unittest.case:
                         requests.sessions:
                           send:
                           - metadata:
-                              latency: 1.2211172580718994
+                              latency: 0.5715339183807373
                               module_call_list:
                               - unittest.case
                               - tests.integration.test_gitlab
@@ -298,7 +398,7 @@ unittest.case:
                                 color_scheme_id: 1
                                 confirmed_at: '2020-03-19T21:52:09.146Z'
                                 created_at: '2020-03-19T21:52:09.216Z'
-                                current_sign_in_at: '2020-07-28T17:30:30.204Z'
+                                current_sign_in_at: '2020-08-07T07:09:35.100Z'
                                 email: spapinwar@gmail.com
                                 external: false
                                 extra_shared_runners_minutes_limit: null
@@ -308,8 +408,8 @@ unittest.case:
                                   provider: github
                                   saml_provider_id: null
                                 job_title: ''
-                                last_activity_on: '2020-07-30'
-                                last_sign_in_at: '2020-07-27T07:48:44.184Z'
+                                last_activity_on: '2020-08-12'
+                                last_sign_in_at: '2020-08-05T01:50:36.281Z'
                                 linkedin: ''
                                 location: ''
                                 name: Shreyas Papinwar
@@ -332,34 +432,34 @@ unittest.case:
                               encoding: null
                               headers:
                                 CF-Cache-Status: DYNAMIC
-                                CF-RAY: 5bb2265d9b3f8a77-BOM
+                                CF-RAY: 5c1cfd9f99738a53-BOM
                                 Cache-Control: max-age=0, private, must-revalidate
                                 Connection: keep-alive
                                 Content-Encoding: gzip
                                 Content-Type: application/json
                                 Date: Fri, 01 Nov 2019 13-36-03 GMT
-                                Etag: W/"a07f19254da3515f57d00da499843a13"
+                                Etag: W/"618b06d05ef147f4867ca1f7b175e3c3"
                                 Expect-CT: max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
-                                GitLab-LB: fe-01-lb-gprd
+                                GitLab-LB: fe-05-lb-gprd
                                 GitLab-SV: localhost
                                 RateLimit-Limit: '600'
                                 RateLimit-Observed: '1'
                                 RateLimit-Remaining: '599'
-                                RateLimit-Reset: '1596144362'
-                                RateLimit-ResetTime: Thu, 30 Jul 2020 21:26:02 GMT
+                                RateLimit-Reset: '1597264669'
+                                RateLimit-ResetTime: Wed, 12 Aug 2020 20:37:49 GMT
                                 Referrer-Policy: strict-origin-when-cross-origin
                                 Server: cloudflare
-                                Set-Cookie: __cfduid=d9147d7f42987545634684d6388e4e3fb1596144301;
-                                  expires=Sat, 29-Aug-20 21:25:01 GMT; path=/; domain=.gitlab.com;
+                                Set-Cookie: __cfduid=d2a7619af1798a21e9eafe6ec575d1c801597264609;
+                                  expires=Fri, 11-Sep-20 20:36:49 GMT; path=/; domain=.gitlab.com;
                                   HttpOnly; SameSite=Lax; Secure
                                 Strict-Transport-Security: max-age=31536000
                                 Transfer-Encoding: chunked
                                 Vary: Accept-Encoding, Origin
                                 X-Content-Type-Options: nosniff
                                 X-Frame-Options: SAMEORIGIN
-                                X-Request-Id: LO3RqRzyWIa
-                                X-Runtime: '0.030304'
-                                cf-request-id: 0443364e7d00008a777a241200000001
+                                X-Request-Id: M5vYUDkz411
+                                X-Runtime: '0.057342'
+                                cf-request-id: 0485fcd7bd00008a53d5abd200000001
                               raw: !!binary ""
                               reason: OK
                               status_code: 200
