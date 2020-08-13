@@ -329,7 +329,7 @@ class PagureProject(BaseGitProject):
             return False
         raise NotImplementedError(
             f"is_private is not implemented for {self.service.instance_url}."
-            f"Please open issue in https://github.com/packit-service/ogr"
+            f"Please open issue in https://github.com/packit/ogr"
         )
 
     def is_forked(self) -> bool:

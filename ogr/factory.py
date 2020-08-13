@@ -74,7 +74,7 @@ def get_project(
     """
     Return the project for the given url.
 
-    :param url: str (url of the project, e.g. "https://github.com/packit-service/ogr")
+    :param url: str (url of the project, e.g. "https://github.com/packit/ogr")
     :param service_mapping_update: custom mapping from  service url (str) to service class
     :param custom_instances: list of instances that will be used when creating a project instance
     :param kwargs: arguments forwarded to __init__ of the matching service
@@ -114,7 +114,7 @@ def get_service_class_or_none(
     """
     Get the matching service class from the url.
 
-    :param url: str (url of the project, e.g. "https://github.com/packit-service/ogr")
+    :param url: str (url of the project, e.g. "https://github.com/packit/ogr")
     :param service_mapping_update: custom mapping from  service url (str) to service class
     :return: Matched class (subclass of GitService) or None
     """
@@ -136,7 +136,7 @@ def get_service_class(
     """
     Get the matching service class from the url.
 
-    :param url: str (url of the project, e.g. "https://github.com/packit-service/ogr")
+    :param url: str (url of the project, e.g. "https://github.com/packit/ogr")
     :param service_mapping_update: custom mapping from  service url (str) to service class
     :return: Matched class (subclass of GitService)
     """

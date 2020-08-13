@@ -6,7 +6,7 @@ Release:        1%{?dist}
 Summary:        One API for multiple git forges
 
 License:        MIT
-URL:            https://github.com/packit-service/ogr
+URL:            https://github.com/packit/ogr
 Source0:        %{pypi_source}
 BuildArch:      noarch
 

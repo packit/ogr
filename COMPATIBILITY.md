@@ -1,7 +1,7 @@
 # Compatibility table for services
 
 Methods/properties not listed in here are implemented for all services.
-In case you find any error, please [create a new issue](https://github.com/packit-service/ogr/issues/new).
+In case you find any error, please [create a new issue](https://github.com/packit/ogr/issues/new).
 
 ## Comments
 

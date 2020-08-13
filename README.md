@@ -70,7 +70,7 @@ $ dnf install python3-ogr
 ```
 
 You can also use our [`packit-releases` Copr repository](https://copr.fedorainfracloud.org/coprs/packit/packit-releases/)
-(contains also released versions of [OGR](https://github.com/packit-service/ogr)):
+(contains also released versions of [OGR](https://github.com/packit/ogr)):
 
 ```
 $ dnf copr enable packit/packit-releases
@@ -86,7 +86,7 @@ $ pip3 install --user ogr
 You can also install OGR from `master` branch, if you are brave enough:
 
 You can use our [`packit-master` Copr repository](https://copr.fedorainfracloud.org/coprs/packit/packit-master/)
-(contains `master` version of [ogr](https://github.com/packit-service/ogr)):
+(contains `master` version of [ogr](https://github.com/packit/ogr)):
 
 ```
 $ dnf copr enable packit/packit-master
@@ -96,7 +96,7 @@ $ dnf install python3-ogr
 Or
 
 ```
-$ pip3 install --user git+https://github.com/packit-service/ogr.git
+$ pip3 install --user git+https://github.com/packit/ogr.git
 ```
 
 ## Requirements
@@ -120,4 +120,4 @@ For more info about contributing to our project see [our contribution guide](/CO
 
 # Deprecation policy
 
-For more info about deprecation policy see [Deprecation policy](https://github.com/packit-service/research/tree/master/deprecation)
+For more info about deprecation policy see [Deprecation policy](https://github.com/packit/research/tree/master/deprecation)
