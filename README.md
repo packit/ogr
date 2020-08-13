@@ -15,6 +15,8 @@ Library for one API for many git forges. (e.g. GitHub, GitLab, Pagure).
 
 ## Usage
 
+For examples of how to use `ogr` see [Jupyter examples](examples).
+
 ### GitHub
 
 This snippet shows how to obtain all releases for certain GitHub project using ogr.
