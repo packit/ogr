@@ -1,1866 +1,1149 @@
 _requre:
-  key_strategy: StorageKeysInspectFull
+  DataTypes: 1
+  key_strategy: StorageKeysInspectSimple
   version_storage_file: 2
-unittest.case:
-  tests.integration.test_gitlab:
-    deprecated.classic:
-      ogr.services.base:
-        ogr.services.gitlab.project:
-          ogr.services.gitlab.pull_request:
-            gitlab.exceptions:
-              gitlab.mixins:
-                gitlab:
-                  requre.objects:
-                    requests.sessions:
-                      send:
-                      - metadata:
-                          latency: 1.0102453231811523
-                        output:
-                          __store_indicator: 2
-                          _content:
-                            approvals_before_merge: 0
-                            assignee: null
-                            assignees: []
-                            author:
-                              avatar_url: https://secure.gravatar.com/avatar/9c8d9a288151a8e563547e082c591f2a?s=80&d=identicon
-                              id: 4594931
-                              name: "Laura Barcziov\xE1"
-                              state: active
-                              username: lbarcziova
-                              web_url: https://gitlab.com/lbarcziova
-                            blocking_discussions_resolved: true
-                            changes_count: '1'
-                            closed_at: null
-                            closed_by: null
-                            created_at: '2019-09-10T14:03:24.365Z'
-                            description: description of mergerequest
-                            diff_refs:
-                              base_sha: 24c86d0704694f686329b2ea636c5b7522cfdc40
-                              head_sha: d490ec67dd98f69dfdc1732b98bb3189f0e0aace
-                              start_sha: 24c86d0704694f686329b2ea636c5b7522cfdc40
-                            discussion_locked: null
-                            downvotes: 0
-                            first_deployed_to_production_at: null
-                            force_remove_source_branch: false
-                            has_conflicts: false
-                            head_pipeline: null
-                            id: 36948617
-                            iid: 1
-                            labels:
-                            - test_lb1
-                            - test_lb2
-                            latest_build_finished_at: null
-                            latest_build_started_at: null
-                            merge_commit_sha: 101a42bbbe174d04b465d49caf274dc3b4defeca
-                            merge_error: null
-                            merge_status: can_be_merged
-                            merge_when_pipeline_succeeds: false
-                            merged_at: '2019-09-11T08:55:32.822Z'
-                            merged_by:
-                              avatar_url: https://secure.gravatar.com/avatar/9c8d9a288151a8e563547e082c591f2a?s=80&d=identicon
-                              id: 4594931
-                              name: "Laura Barcziov\xE1"
-                              state: active
-                              username: lbarcziova
-                              web_url: https://gitlab.com/lbarcziova
-                            milestone: null
-                            pipeline: null
-                            project_id: 14233409
-                            reference: '!1'
-                            sha: d490ec67dd98f69dfdc1732b98bb3189f0e0aace
-                            should_remove_source_branch: null
-                            source_branch: change
-                            source_project_id: 14233409
-                            squash: false
-                            squash_commit_sha: null
-                            state: merged
-                            subscribed: true
-                            target_branch: master
-                            target_project_id: 14233409
-                            task_completion_status:
-                              completed_count: 0
-                              count: 0
-                            time_stats:
-                              human_time_estimate: null
-                              human_total_time_spent: null
-                              time_estimate: 0
-                              total_time_spent: 0
-                            title: change
-                            updated_at: '2019-10-12T12:05:03.451Z'
-                            upvotes: 0
-                            user:
-                              can_merge: true
-                            user_notes_count: 3
-                            web_url: https://gitlab.com/packit-service/ogr-tests/merge_requests/1
-                            work_in_progress: false
-                          _next: null
-                          elapsed: 0.2
-                          encoding: null
-                          headers:
-                            Cache-Control: max-age=0, private, must-revalidate
-                            Content-Length: '2073'
-                            Content-Type: application/json
-                            Date: Fri, 01 Nov 2019 13-36-03 GMT
-                            Etag: W/"c42b6c1c20e3b92a07a28a982acd6acf"
-                            GitLab-LB: fe-22-lb-gprd
-                            GitLab-SV: localhost
-                            RateLimit-Limit: '600'
-                            RateLimit-Observed: '26'
-                            RateLimit-Remaining: '574'
-                            RateLimit-Reset: '1574794409'
-                            RateLimit-ResetTime: Tue, 26 Nov 2019 18:53:29 GMT
-                            Referrer-Policy: strict-origin-when-cross-origin
-                            Server: nginx
-                            Strict-Transport-Security: max-age=31536000
-                            Vary: Origin
-                            X-Content-Type-Options: nosniff
-                            X-Frame-Options: SAMEORIGIN
-                            X-Request-Id: ZGfwHhOUVu8
-                            X-Runtime: '0.116254'
-                          raw: !!binary ""
-                          reason: OK
-                          status_code: 200
-                      - metadata:
-                          latency: 0.22822856903076172
-                        output:
-                          __store_indicator: 2
-                          _content:
-                            approvals_before_merge: 0
-                            assignee: null
-                            assignees: []
-                            author:
-                              avatar_url: https://secure.gravatar.com/avatar/9c8d9a288151a8e563547e082c591f2a?s=80&d=identicon
-                              id: 4594931
-                              name: "Laura Barcziov\xE1"
-                              state: active
-                              username: lbarcziova
-                              web_url: https://gitlab.com/lbarcziova
-                            blocking_discussions_resolved: true
-                            changes_count: '1'
-                            closed_at: null
-                            closed_by: null
-                            created_at: '2019-09-10T14:03:24.365Z'
-                            description: description of mergerequest
-                            diff_refs:
-                              base_sha: 24c86d0704694f686329b2ea636c5b7522cfdc40
-                              head_sha: d490ec67dd98f69dfdc1732b98bb3189f0e0aace
-                              start_sha: 24c86d0704694f686329b2ea636c5b7522cfdc40
-                            discussion_locked: null
-                            downvotes: 0
-                            first_deployed_to_production_at: null
-                            force_remove_source_branch: false
-                            has_conflicts: false
-                            head_pipeline: null
-                            id: 36948617
-                            iid: 1
-                            labels:
-                            - test_lb1
-                            - test_lb2
-                            latest_build_finished_at: null
-                            latest_build_started_at: null
-                            merge_commit_sha: 101a42bbbe174d04b465d49caf274dc3b4defeca
-                            merge_error: null
-                            merge_status: can_be_merged
-                            merge_when_pipeline_succeeds: false
-                            merged_at: '2019-09-11T08:55:32.822Z'
-                            merged_by:
-                              avatar_url: https://secure.gravatar.com/avatar/9c8d9a288151a8e563547e082c591f2a?s=80&d=identicon
-                              id: 4594931
-                              name: "Laura Barcziov\xE1"
-                              state: active
-                              username: lbarcziova
-                              web_url: https://gitlab.com/lbarcziova
-                            milestone: null
-                            pipeline: null
-                            project_id: 14233409
-                            reference: '!1'
-                            sha: d490ec67dd98f69dfdc1732b98bb3189f0e0aace
-                            should_remove_source_branch: null
-                            source_branch: change
-                            source_project_id: 14233409
-                            squash: false
-                            squash_commit_sha: null
-                            state: merged
-                            subscribed: true
-                            target_branch: master
-                            target_project_id: 14233409
-                            task_completion_status:
-                              completed_count: 0
-                              count: 0
-                            time_stats:
-                              human_time_estimate: null
-                              human_total_time_spent: null
-                              time_estimate: 0
-                              total_time_spent: 0
-                            title: change
-                            updated_at: '2019-10-12T12:05:03.451Z'
-                            upvotes: 0
-                            user:
-                              can_merge: true
-                            user_notes_count: 3
-                            web_url: https://gitlab.com/packit-service/ogr-tests/merge_requests/1
-                            work_in_progress: false
-                          _next: null
-                          elapsed: 0.2
-                          encoding: null
-                          headers:
-                            Cache-Control: max-age=0, private, must-revalidate
-                            Content-Length: '2073'
-                            Content-Type: application/json
-                            Date: Fri, 01 Nov 2019 13-36-03 GMT
-                            Etag: W/"c42b6c1c20e3b92a07a28a982acd6acf"
-                            GitLab-LB: fe-22-lb-gprd
-                            GitLab-SV: localhost
-                            RateLimit-Limit: '600'
-                            RateLimit-Observed: '27'
-                            RateLimit-Remaining: '573'
-                            RateLimit-Reset: '1574794410'
-                            RateLimit-ResetTime: Tue, 26 Nov 2019 18:53:30 GMT
-                            Referrer-Policy: strict-origin-when-cross-origin
-                            Server: nginx
-                            Strict-Transport-Security: max-age=31536000
-                            Vary: Origin
-                            X-Content-Type-Options: nosniff
-                            X-Frame-Options: SAMEORIGIN
-                            X-Request-Id: HinbVqJb7v2
-                            X-Runtime: '0.103588'
-                          raw: !!binary ""
-                          reason: OK
-                          status_code: 200
-                      - metadata:
-                          latency: 0.3047356605529785
-                        output:
-                          __store_indicator: 2
-                          _content:
-                            approvals_before_merge: 0
-                            assignee: null
-                            assignees: []
-                            author:
-                              avatar_url: https://secure.gravatar.com/avatar/9c8d9a288151a8e563547e082c591f2a?s=80&d=identicon
-                              id: 4594931
-                              name: "Laura Barcziov\xE1"
-                              state: active
-                              username: lbarcziova
-                              web_url: https://gitlab.com/lbarcziova
-                            blocking_discussions_resolved: true
-                            changes_count: '1'
-                            closed_at: null
-                            closed_by: null
-                            created_at: '2019-09-10T14:03:24.365Z'
-                            description: changed description
-                            diff_refs:
-                              base_sha: 24c86d0704694f686329b2ea636c5b7522cfdc40
-                              head_sha: d490ec67dd98f69dfdc1732b98bb3189f0e0aace
-                              start_sha: 24c86d0704694f686329b2ea636c5b7522cfdc40
-                            discussion_locked: null
-                            downvotes: 0
-                            first_deployed_to_production_at: null
-                            force_remove_source_branch: false
-                            has_conflicts: false
-                            head_pipeline: null
-                            id: 36948617
-                            iid: 1
-                            labels:
-                            - test_lb1
-                            - test_lb2
-                            latest_build_finished_at: null
-                            latest_build_started_at: null
-                            merge_commit_sha: 101a42bbbe174d04b465d49caf274dc3b4defeca
-                            merge_error: null
-                            merge_status: can_be_merged
-                            merge_when_pipeline_succeeds: false
-                            merged_at: '2019-09-11T08:55:32.822Z'
-                            merged_by:
-                              avatar_url: https://secure.gravatar.com/avatar/9c8d9a288151a8e563547e082c591f2a?s=80&d=identicon
-                              id: 4594931
-                              name: "Laura Barcziov\xE1"
-                              state: active
-                              username: lbarcziova
-                              web_url: https://gitlab.com/lbarcziova
-                            milestone: null
-                            pipeline: null
-                            project_id: 14233409
-                            reference: '!1'
-                            sha: d490ec67dd98f69dfdc1732b98bb3189f0e0aace
-                            should_remove_source_branch: null
-                            source_branch: change
-                            source_project_id: 14233409
-                            squash: false
-                            squash_commit_sha: null
-                            state: merged
-                            subscribed: true
-                            target_branch: master
-                            target_project_id: 14233409
-                            task_completion_status:
-                              completed_count: 0
-                              count: 0
-                            time_stats:
-                              human_time_estimate: null
-                              human_total_time_spent: null
-                              time_estimate: 0
-                              total_time_spent: 0
-                            title: change
-                            updated_at: '2019-11-26T18:52:30.282Z'
-                            upvotes: 0
-                            user:
-                              can_merge: true
-                            user_notes_count: 3
-                            web_url: https://gitlab.com/packit-service/ogr-tests/merge_requests/1
-                            work_in_progress: false
-                          _next: null
-                          elapsed: 0.2
-                          encoding: null
-                          headers:
-                            Cache-Control: max-age=0, private, must-revalidate
-                            Content-Length: '2065'
-                            Content-Type: application/json
-                            Date: Fri, 01 Nov 2019 13-36-03 GMT
-                            Etag: W/"f31eebcb12339a1994f4a0f0ee589e48"
-                            GitLab-LB: fe-22-lb-gprd
-                            GitLab-SV: localhost
-                            RateLimit-Limit: '600'
-                            RateLimit-Observed: '29'
-                            RateLimit-Remaining: '571'
-                            RateLimit-Reset: '1574794410'
-                            RateLimit-ResetTime: Tue, 26 Nov 2019 18:53:30 GMT
-                            Referrer-Policy: strict-origin-when-cross-origin
-                            Server: nginx
-                            Strict-Transport-Security: max-age=31536000
-                            Vary: Origin
-                            X-Content-Type-Options: nosniff
-                            X-Frame-Options: SAMEORIGIN
-                            X-Request-Id: kUhd1VcyUw
-                            X-Runtime: '0.157238'
-                          raw: !!binary ""
-                          reason: OK
-                          status_code: 200
-                      - metadata:
-                          latency: 0.4021484851837158
-                        output:
-                          __store_indicator: 2
-                          _content:
-                            approvals_before_merge: 0
-                            assignee: null
-                            assignees: []
-                            author:
-                              avatar_url: https://secure.gravatar.com/avatar/9c8d9a288151a8e563547e082c591f2a?s=80&d=identicon
-                              id: 4594931
-                              name: "Laura Barcziov\xE1"
-                              state: active
-                              username: lbarcziova
-                              web_url: https://gitlab.com/lbarcziova
-                            blocking_discussions_resolved: true
-                            changes_count: '1'
-                            closed_at: null
-                            closed_by: null
-                            created_at: '2019-09-10T14:03:24.365Z'
-                            description: changed description
-                            diff_refs:
-                              base_sha: 24c86d0704694f686329b2ea636c5b7522cfdc40
-                              head_sha: d490ec67dd98f69dfdc1732b98bb3189f0e0aace
-                              start_sha: 24c86d0704694f686329b2ea636c5b7522cfdc40
-                            discussion_locked: null
-                            downvotes: 0
-                            first_deployed_to_production_at: null
-                            force_remove_source_branch: false
-                            has_conflicts: false
-                            head_pipeline: null
-                            id: 36948617
-                            iid: 1
-                            labels:
-                            - test_lb1
-                            - test_lb2
-                            latest_build_finished_at: null
-                            latest_build_started_at: null
-                            merge_commit_sha: 101a42bbbe174d04b465d49caf274dc3b4defeca
-                            merge_error: null
-                            merge_status: can_be_merged
-                            merge_when_pipeline_succeeds: false
-                            merged_at: '2019-09-11T08:55:32.822Z'
-                            merged_by:
-                              avatar_url: https://secure.gravatar.com/avatar/9c8d9a288151a8e563547e082c591f2a?s=80&d=identicon
-                              id: 4594931
-                              name: "Laura Barcziov\xE1"
-                              state: active
-                              username: lbarcziova
-                              web_url: https://gitlab.com/lbarcziova
-                            milestone: null
-                            pipeline: null
-                            project_id: 14233409
-                            reference: '!1'
-                            sha: d490ec67dd98f69dfdc1732b98bb3189f0e0aace
-                            should_remove_source_branch: null
-                            source_branch: change
-                            source_project_id: 14233409
-                            squash: false
-                            squash_commit_sha: null
-                            state: merged
-                            subscribed: true
-                            target_branch: master
-                            target_project_id: 14233409
-                            task_completion_status:
-                              completed_count: 0
-                              count: 0
-                            time_stats:
-                              human_time_estimate: null
-                              human_total_time_spent: null
-                              time_estimate: 0
-                              total_time_spent: 0
-                            title: change
-                            updated_at: '2019-11-26T18:52:30.282Z'
-                            upvotes: 0
-                            user:
-                              can_merge: true
-                            user_notes_count: 3
-                            web_url: https://gitlab.com/packit-service/ogr-tests/merge_requests/1
-                            work_in_progress: false
-                          _next: null
-                          elapsed: 0.2
-                          encoding: null
-                          headers:
-                            Cache-Control: max-age=0, private, must-revalidate
-                            Content-Length: '2065'
-                            Content-Type: application/json
-                            Date: Fri, 01 Nov 2019 13-36-03 GMT
-                            Etag: W/"f31eebcb12339a1994f4a0f0ee589e48"
-                            GitLab-LB: fe-22-lb-gprd
-                            GitLab-SV: localhost
-                            RateLimit-Limit: '600'
-                            RateLimit-Observed: '30'
-                            RateLimit-Remaining: '570'
-                            RateLimit-Reset: '1574794411'
-                            RateLimit-ResetTime: Tue, 26 Nov 2019 18:53:31 GMT
-                            Referrer-Policy: strict-origin-when-cross-origin
-                            Server: nginx
-                            Strict-Transport-Security: max-age=31536000
-                            Vary: Origin
-                            X-Content-Type-Options: nosniff
-                            X-Frame-Options: SAMEORIGIN
-                            X-Request-Id: bDzQxkbiNS
-                            X-Runtime: '0.228740'
-                          raw: !!binary ""
-                          reason: OK
-                          status_code: 200
-                      - metadata:
-                          latency: 0.3974475860595703
-                        output:
-                          __store_indicator: 2
-                          _content:
-                            approvals_before_merge: 0
-                            assignee: null
-                            assignees: []
-                            author:
-                              avatar_url: https://secure.gravatar.com/avatar/9c8d9a288151a8e563547e082c591f2a?s=80&d=identicon
-                              id: 4594931
-                              name: "Laura Barcziov\xE1"
-                              state: active
-                              username: lbarcziova
-                              web_url: https://gitlab.com/lbarcziova
-                            blocking_discussions_resolved: true
-                            changes_count: '1'
-                            closed_at: null
-                            closed_by: null
-                            created_at: '2019-09-10T14:03:24.365Z'
-                            description: description of mergerequest
-                            diff_refs:
-                              base_sha: 24c86d0704694f686329b2ea636c5b7522cfdc40
-                              head_sha: d490ec67dd98f69dfdc1732b98bb3189f0e0aace
-                              start_sha: 24c86d0704694f686329b2ea636c5b7522cfdc40
-                            discussion_locked: null
-                            downvotes: 0
-                            first_deployed_to_production_at: null
-                            force_remove_source_branch: false
-                            has_conflicts: false
-                            head_pipeline: null
-                            id: 36948617
-                            iid: 1
-                            labels:
-                            - test_lb1
-                            - test_lb2
-                            latest_build_finished_at: null
-                            latest_build_started_at: null
-                            merge_commit_sha: 101a42bbbe174d04b465d49caf274dc3b4defeca
-                            merge_error: null
-                            merge_status: can_be_merged
-                            merge_when_pipeline_succeeds: false
-                            merged_at: '2019-09-11T08:55:32.822Z'
-                            merged_by:
-                              avatar_url: https://secure.gravatar.com/avatar/9c8d9a288151a8e563547e082c591f2a?s=80&d=identicon
-                              id: 4594931
-                              name: "Laura Barcziov\xE1"
-                              state: active
-                              username: lbarcziova
-                              web_url: https://gitlab.com/lbarcziova
-                            milestone: null
-                            pipeline: null
-                            project_id: 14233409
-                            reference: '!1'
-                            sha: d490ec67dd98f69dfdc1732b98bb3189f0e0aace
-                            should_remove_source_branch: null
-                            source_branch: change
-                            source_project_id: 14233409
-                            squash: false
-                            squash_commit_sha: null
-                            state: merged
-                            subscribed: true
-                            target_branch: master
-                            target_project_id: 14233409
-                            task_completion_status:
-                              completed_count: 0
-                              count: 0
-                            time_stats:
-                              human_time_estimate: null
-                              human_total_time_spent: null
-                              time_estimate: 0
-                              total_time_spent: 0
-                            title: change
-                            updated_at: '2019-11-26T18:52:31.490Z'
-                            upvotes: 0
-                            user:
-                              can_merge: true
-                            user_notes_count: 3
-                            web_url: https://gitlab.com/packit-service/ogr-tests/merge_requests/1
-                            work_in_progress: false
-                          _next: null
-                          elapsed: 0.2
-                          encoding: null
-                          headers:
-                            Cache-Control: max-age=0, private, must-revalidate
-                            Content-Length: '2073'
-                            Content-Type: application/json
-                            Date: Fri, 01 Nov 2019 13-36-03 GMT
-                            Etag: W/"93553ca01fb304abb77b4443ab2a86d2"
-                            GitLab-LB: fe-22-lb-gprd
-                            GitLab-SV: localhost
-                            RateLimit-Limit: '600'
-                            RateLimit-Observed: '32'
-                            RateLimit-Remaining: '568'
-                            RateLimit-Reset: '1574794412'
-                            RateLimit-ResetTime: Tue, 26 Nov 2019 18:53:32 GMT
-                            Referrer-Policy: strict-origin-when-cross-origin
-                            Server: nginx
-                            Strict-Transport-Security: max-age=31536000
-                            Vary: Origin
-                            X-Content-Type-Options: nosniff
-                            X-Frame-Options: SAMEORIGIN
-                            X-Request-Id: A3LJanyvtZ5
-                            X-Runtime: '0.184209'
-                          raw: !!binary ""
-                          reason: OK
-                          status_code: 200
-            ogr.services.gitlab.project:
-              gitlab.exceptions:
-                gitlab.mixins:
-                  gitlab:
-                    requre.objects:
-                      requests.sessions:
-                        send:
-                        - metadata:
-                            latency: 0.2035832405090332
-                          output:
-                            __store_indicator: 2
-                            _content:
-                              _links:
-                                events: https://gitlab.com/api/v4/projects/14233409/events
-                                issues: https://gitlab.com/api/v4/projects/14233409/issues
-                                labels: https://gitlab.com/api/v4/projects/14233409/labels
-                                members: https://gitlab.com/api/v4/projects/14233409/members
-                                merge_requests: https://gitlab.com/api/v4/projects/14233409/merge_requests
-                                repo_branches: https://gitlab.com/api/v4/projects/14233409/repository/branches
-                                self: https://gitlab.com/api/v4/projects/14233409
-                              approvals_before_merge: 0
-                              archived: false
-                              auto_cancel_pending_pipelines: enabled
-                              auto_devops_deploy_strategy: continuous
-                              auto_devops_enabled: false
-                              avatar_url: null
-                              build_coverage_regex: null
-                              build_git_strategy: fetch
-                              build_timeout: 3600
-                              builds_access_level: enabled
-                              ci_config_path: null
-                              ci_default_git_depth: 50
-                              container_registry_enabled: true
-                              created_at: '2019-09-10T10:28:09.946Z'
-                              creator_id: 433670
-                              default_branch: master
-                              description: Testing repository for python-ogr package.  |  https://github.com/packit-service/ogr
-                              empty_repo: false
-                              external_authorization_classification_label: ''
-                              forks_count: 4
-                              http_url_to_repo: https://gitlab.com/packit-service/ogr-tests.git
-                              id: 14233409
-                              import_error: null
-                              import_status: none
-                              issues_access_level: enabled
-                              issues_enabled: true
-                              jobs_enabled: true
-                              last_activity_at: '2019-11-26T18:52:20.460Z'
-                              lfs_enabled: true
-                              merge_method: merge
-                              merge_requests_access_level: enabled
-                              merge_requests_enabled: true
-                              mirror: false
-                              name: ogr-tests
-                              name_with_namespace: packit-service / ogr-tests
-                              namespace:
-                                avatar_url: /uploads/-/system/group/avatar/6032704/packit-logo.png
-                                full_path: packit-service
-                                id: 6032704
-                                kind: group
-                                name: packit-service
-                                parent_id: null
-                                path: packit-service
-                                web_url: https://gitlab.com/groups/packit-service
-                              only_allow_merge_if_all_discussions_are_resolved: false
-                              only_allow_merge_if_pipeline_succeeds: false
-                              open_issues_count: 10
-                              packages_enabled: true
-                              path: ogr-tests
-                              path_with_namespace: packit-service/ogr-tests
-                              permissions:
-                                group_access:
-                                  access_level: 40
-                                  notification_level: 3
-                                project_access: null
-                              printing_merge_request_link_enabled: true
-                              public_jobs: true
-                              readme_url: https://gitlab.com/packit-service/ogr-tests/blob/master/README.md
-                              remove_source_branch_after_merge: null
-                              repository_access_level: enabled
-                              request_access_enabled: false
-                              resolve_outdated_diff_discussions: false
-                              runners_token: VjGdzzwZbsTY37sxUeWL
-                              shared_runners_enabled: true
-                              shared_with_groups: []
-                              snippets_access_level: enabled
-                              snippets_enabled: true
-                              ssh_url_to_repo: git@gitlab.com:packit-service/ogr-tests.git
-                              star_count: 0
-                              tag_list: []
-                              visibility: public
-                              web_url: https://gitlab.com/packit-service/ogr-tests
-                              wiki_access_level: enabled
-                              wiki_enabled: true
-                            _next: null
-                            elapsed: 0.2
-                            encoding: null
-                            headers:
-                              Cache-Control: max-age=0, private, must-revalidate
-                              Content-Length: '2793'
-                              Content-Type: application/json
-                              Date: Fri, 01 Nov 2019 13-36-03 GMT
-                              Etag: W/"8188186982d7466a0432001bb13cc420"
-                              GitLab-LB: fe-22-lb-gprd
-                              GitLab-SV: localhost
-                              RateLimit-Limit: '600'
-                              RateLimit-Observed: '25'
-                              RateLimit-Remaining: '575'
-                              RateLimit-Reset: '1574794408'
-                              RateLimit-ResetTime: Tue, 26 Nov 2019 18:53:28 GMT
-                              Referrer-Policy: strict-origin-when-cross-origin
-                              Server: nginx
-                              Strict-Transport-Security: max-age=31536000
-                              Vary: Origin
-                              X-Content-Type-Options: nosniff
-                              X-Frame-Options: SAMEORIGIN
-                              X-Request-Id: qmzST2Nwsq1
-                              X-Runtime: '0.082644'
-                            raw: !!binary ""
-                            reason: OK
-                            status_code: 200
-              ogr.services.gitlab.service:
-                gitlab:
-                  gitlab.exceptions:
-                    gitlab.mixins:
-                      gitlab:
-                        requre.objects:
-                          requests.sessions:
-                            send:
-                            - metadata:
-                                latency: 0.7045490741729736
-                              output:
-                                __store_indicator: 2
-                                _content:
-                                  avatar_url: https://assets.gitlab-static.net/uploads/-/system/user/avatar/375555/avatar.png
-                                  bio: ''
-                                  can_create_group: true
-                                  can_create_project: true
-                                  color_scheme_id: 3
-                                  confirmed_at: '2018-06-07T08:34:01.593Z'
-                                  created_at: '2016-01-15T21:12:31.705Z'
-                                  current_sign_in_at: '2019-11-25T12:32:42.708Z'
-                                  email: matej.focko@outlook.com
-                                  external: false
-                                  extra_shared_runners_minutes_limit: null
-                                  id: 375555
-                                  identities: []
-                                  last_activity_on: '2019-11-25'
-                                  last_sign_in_at: '2019-11-20T19:38:03.103Z'
-                                  linkedin: ''
-                                  location: "Ko\u0161ice, Slovakia"
-                                  name: Matej Focko
-                                  organization: ''
-                                  private_profile: false
-                                  projects_limit: 100000
-                                  public_email: ''
-                                  shared_runners_minutes_limit: 2000
-                                  skype: ''
-                                  state: active
-                                  theme_id: 7
-                                  twitter: MatejFocko
-                                  two_factor_enabled: true
-                                  username: mfocko
-                                  web_url: https://gitlab.com/mfocko
-                                  website_url: ''
-                                _next: null
-                                elapsed: 0.2
-                                encoding: null
-                                headers:
-                                  Cache-Control: max-age=0, private, must-revalidate
-                                  Content-Length: '854'
-                                  Content-Type: application/json
-                                  Date: Fri, 01 Nov 2019 13-36-03 GMT
-                                  Etag: W/"a3b167b2ce852a2f8d68aa598d5a3e8f"
-                                  GitLab-LB: fe-22-lb-gprd
-                                  GitLab-SV: localhost
-                                  RateLimit-Limit: '600'
-                                  RateLimit-Observed: '24'
-                                  RateLimit-Remaining: '576'
-                                  RateLimit-Reset: '1574794408'
-                                  RateLimit-ResetTime: Tue, 26 Nov 2019 18:53:28 GMT
-                                  Referrer-Policy: strict-origin-when-cross-origin
-                                  Server: nginx
-                                  Strict-Transport-Security: max-age=31536000
-                                  Vary: Origin
-                                  X-Content-Type-Options: nosniff
-                                  X-Frame-Options: SAMEORIGIN
-                                  X-Request-Id: Rn5RFs6vWR4
-                                  X-Runtime: '0.032247'
-                                raw: !!binary ""
-                                reason: OK
-                                status_code: 200
-        ogr.services.gitlab.pull_request:
-          gitlab.mixins:
-            gitlab.exceptions:
-              gitlab.mixins:
-                gitlab:
-                  requre.objects:
-                    requests.sessions:
-                      send:
-                      - metadata:
-                          latency: 0.47188401222229004
-                        output:
-                          __store_indicator: 2
-                          _content:
-                            approvals_before_merge: 0
-                            assignee: null
-                            assignees: []
-                            author:
-                              avatar_url: https://secure.gravatar.com/avatar/9c8d9a288151a8e563547e082c591f2a?s=80&d=identicon
-                              id: 4594931
-                              name: "Laura Barcziov\xE1"
-                              state: active
-                              username: lbarcziova
-                              web_url: https://gitlab.com/lbarcziova
-                            blocking_discussions_resolved: true
-                            changes_count: '1'
-                            closed_at: null
-                            closed_by: null
-                            created_at: '2019-09-10T14:03:24.365Z'
-                            description: changed description
-                            diff_refs:
-                              base_sha: 24c86d0704694f686329b2ea636c5b7522cfdc40
-                              head_sha: d490ec67dd98f69dfdc1732b98bb3189f0e0aace
-                              start_sha: 24c86d0704694f686329b2ea636c5b7522cfdc40
-                            discussion_locked: null
-                            downvotes: 0
-                            first_deployed_to_production_at: null
-                            force_remove_source_branch: false
-                            has_conflicts: false
-                            head_pipeline: null
-                            id: 36948617
-                            iid: 1
-                            labels:
-                            - test_lb1
-                            - test_lb2
-                            latest_build_finished_at: null
-                            latest_build_started_at: null
-                            merge_commit_sha: 101a42bbbe174d04b465d49caf274dc3b4defeca
-                            merge_error: null
-                            merge_status: can_be_merged
-                            merge_when_pipeline_succeeds: false
-                            merged_at: '2019-09-11T08:55:32.822Z'
-                            merged_by:
-                              avatar_url: https://secure.gravatar.com/avatar/9c8d9a288151a8e563547e082c591f2a?s=80&d=identicon
-                              id: 4594931
-                              name: "Laura Barcziov\xE1"
-                              state: active
-                              username: lbarcziova
-                              web_url: https://gitlab.com/lbarcziova
-                            milestone: null
-                            pipeline: null
-                            project_id: 14233409
-                            reference: '!1'
-                            sha: d490ec67dd98f69dfdc1732b98bb3189f0e0aace
-                            should_remove_source_branch: null
-                            source_branch: change
-                            source_project_id: 14233409
-                            squash: false
-                            squash_commit_sha: null
-                            state: merged
-                            subscribed: true
-                            target_branch: master
-                            target_project_id: 14233409
-                            task_completion_status:
-                              completed_count: 0
-                              count: 0
-                            time_stats:
-                              human_time_estimate: null
-                              human_total_time_spent: null
-                              time_estimate: 0
-                              total_time_spent: 0
-                            title: change
-                            updated_at: '2019-11-26T18:52:30.282Z'
-                            upvotes: 0
-                            user:
-                              can_merge: true
-                            user_notes_count: 3
-                            web_url: https://gitlab.com/packit-service/ogr-tests/merge_requests/1
-                            work_in_progress: false
-                          _next: null
-                          elapsed: 0.2
-                          encoding: null
-                          headers:
-                            Cache-Control: max-age=0, private, must-revalidate
-                            Content-Length: '2065'
-                            Content-Type: application/json
-                            Date: Fri, 01 Nov 2019 13-36-03 GMT
-                            Etag: W/"f31eebcb12339a1994f4a0f0ee589e48"
-                            GitLab-LB: fe-22-lb-gprd
-                            GitLab-SV: localhost
-                            RateLimit-Limit: '600'
-                            RateLimit-Observed: '28'
-                            RateLimit-Remaining: '572'
-                            RateLimit-Reset: '1574794410'
-                            RateLimit-ResetTime: Tue, 26 Nov 2019 18:53:30 GMT
-                            Referrer-Policy: strict-origin-when-cross-origin
-                            Server: nginx
-                            Strict-Transport-Security: max-age=31536000
-                            Vary: Origin
-                            X-Content-Type-Options: nosniff
-                            X-Frame-Options: SAMEORIGIN
-                            X-Request-Id: a6r4HXYoq47
-                            X-Runtime: '0.298893'
-                          raw: !!binary ""
-                          reason: OK
-                          status_code: 200
-                      - metadata:
-                          latency: 0.5097837448120117
-                        output:
-                          __store_indicator: 2
-                          _content:
-                            approvals_before_merge: 0
-                            assignee: null
-                            assignees: []
-                            author:
-                              avatar_url: https://secure.gravatar.com/avatar/9c8d9a288151a8e563547e082c591f2a?s=80&d=identicon
-                              id: 4594931
-                              name: "Laura Barcziov\xE1"
-                              state: active
-                              username: lbarcziova
-                              web_url: https://gitlab.com/lbarcziova
-                            blocking_discussions_resolved: true
-                            changes_count: '1'
-                            closed_at: null
-                            closed_by: null
-                            created_at: '2019-09-10T14:03:24.365Z'
-                            description: description of mergerequest
-                            diff_refs:
-                              base_sha: 24c86d0704694f686329b2ea636c5b7522cfdc40
-                              head_sha: d490ec67dd98f69dfdc1732b98bb3189f0e0aace
-                              start_sha: 24c86d0704694f686329b2ea636c5b7522cfdc40
-                            discussion_locked: null
-                            downvotes: 0
-                            first_deployed_to_production_at: null
-                            force_remove_source_branch: false
-                            has_conflicts: false
-                            head_pipeline: null
-                            id: 36948617
-                            iid: 1
-                            labels:
-                            - test_lb1
-                            - test_lb2
-                            latest_build_finished_at: null
-                            latest_build_started_at: null
-                            merge_commit_sha: 101a42bbbe174d04b465d49caf274dc3b4defeca
-                            merge_error: null
-                            merge_status: can_be_merged
-                            merge_when_pipeline_succeeds: false
-                            merged_at: '2019-09-11T08:55:32.822Z'
-                            merged_by:
-                              avatar_url: https://secure.gravatar.com/avatar/9c8d9a288151a8e563547e082c591f2a?s=80&d=identicon
-                              id: 4594931
-                              name: "Laura Barcziov\xE1"
-                              state: active
-                              username: lbarcziova
-                              web_url: https://gitlab.com/lbarcziova
-                            milestone: null
-                            pipeline: null
-                            project_id: 14233409
-                            reference: '!1'
-                            sha: d490ec67dd98f69dfdc1732b98bb3189f0e0aace
-                            should_remove_source_branch: null
-                            source_branch: change
-                            source_project_id: 14233409
-                            squash: false
-                            squash_commit_sha: null
-                            state: merged
-                            subscribed: true
-                            target_branch: master
-                            target_project_id: 14233409
-                            task_completion_status:
-                              completed_count: 0
-                              count: 0
-                            time_stats:
-                              human_time_estimate: null
-                              human_total_time_spent: null
-                              time_estimate: 0
-                              total_time_spent: 0
-                            title: change
-                            updated_at: '2019-11-26T18:52:31.490Z'
-                            upvotes: 0
-                            user:
-                              can_merge: true
-                            user_notes_count: 3
-                            web_url: https://gitlab.com/packit-service/ogr-tests/merge_requests/1
-                            work_in_progress: false
-                          _next: null
-                          elapsed: 0.2
-                          encoding: null
-                          headers:
-                            Cache-Control: max-age=0, private, must-revalidate
-                            Content-Length: '2073'
-                            Content-Type: application/json
-                            Date: Fri, 01 Nov 2019 13-36-03 GMT
-                            Etag: W/"93553ca01fb304abb77b4443ab2a86d2"
-                            GitLab-LB: fe-22-lb-gprd
-                            GitLab-SV: localhost
-                            RateLimit-Limit: '600'
-                            RateLimit-Observed: '31'
-                            RateLimit-Remaining: '569'
-                            RateLimit-Reset: '1574794411'
-                            RateLimit-ResetTime: Tue, 26 Nov 2019 18:53:31 GMT
-                            Referrer-Policy: strict-origin-when-cross-origin
-                            Server: nginx
-                            Strict-Transport-Security: max-age=31536000
-                            Vary: Origin
-                            X-Content-Type-Options: nosniff
-                            X-Frame-Options: SAMEORIGIN
-                            X-Request-Id: yEwcQ28uAs7
-                            X-Runtime: '0.304633'
-                          raw: !!binary ""
-                          reason: OK
-                          status_code: 200
-    ogr.services.gitlab.project:
-      gitlab.exceptions:
-        gitlab.mixins:
-          gitlab:
-            requre.objects:
-              requests.sessions:
-                send:
-                - __store_indicator: 2
-                  _content:
-                    _links:
-                      events: https://gitlab.com/api/v4/projects/14233409/events
-                      issues: https://gitlab.com/api/v4/projects/14233409/issues
-                      labels: https://gitlab.com/api/v4/projects/14233409/labels
-                      members: https://gitlab.com/api/v4/projects/14233409/members
-                      merge_requests: https://gitlab.com/api/v4/projects/14233409/merge_requests
-                      repo_branches: https://gitlab.com/api/v4/projects/14233409/repository/branches
-                      self: https://gitlab.com/api/v4/projects/14233409
-                    approvals_before_merge: 0
-                    archived: false
-                    auto_cancel_pending_pipelines: enabled
-                    auto_devops_deploy_strategy: continuous
-                    auto_devops_enabled: false
-                    avatar_url: null
-                    build_coverage_regex: null
-                    build_git_strategy: fetch
-                    build_timeout: 3600
-                    builds_access_level: enabled
-                    ci_config_path: null
-                    ci_default_git_depth: 50
-                    container_registry_enabled: true
-                    created_at: '2019-09-10T10:28:09.946Z'
-                    creator_id: 433670
-                    default_branch: master
-                    description: Testing repository for python-ogr package.  |  https://github.com/packit-service/ogr
-                    empty_repo: false
-                    external_authorization_classification_label: ''
-                    forks_count: 3
-                    http_url_to_repo: https://gitlab.com/packit-service/ogr-tests.git
-                    id: 14233409
-                    import_error: null
-                    import_status: none
-                    issues_access_level: enabled
-                    issues_enabled: true
-                    jobs_enabled: true
-                    last_activity_at: '2019-09-27T08:38:40.439Z'
-                    lfs_enabled: true
-                    merge_method: merge
-                    merge_requests_access_level: enabled
-                    merge_requests_enabled: true
-                    mirror: false
-                    name: ogr-tests
-                    name_with_namespace: packit-service / ogr-tests
-                    namespace:
-                      avatar_url: /uploads/-/system/group/avatar/6032704/packit-logo.png
-                      full_path: packit-service
-                      id: 6032704
-                      kind: group
-                      name: packit-service
-                      parent_id: null
-                      path: packit-service
-                      web_url: https://gitlab.com/groups/packit-service
-                    only_allow_merge_if_all_discussions_are_resolved: false
-                    only_allow_merge_if_pipeline_succeeds: false
-                    open_issues_count: 8
-                    packages_enabled: true
-                    path: ogr-tests
-                    path_with_namespace: packit-service/ogr-tests
-                    permissions:
-                      group_access:
-                        access_level: 50
-                        notification_level: 3
-                      project_access: null
-                    printing_merge_request_link_enabled: true
-                    public_jobs: true
-                    readme_url: https://gitlab.com/packit-service/ogr-tests/blob/master/README.md
-                    repository_access_level: enabled
-                    request_access_enabled: false
-                    resolve_outdated_diff_discussions: false
-                    runners_token: VjGdzzwZbsTY37sxUeWL
-                    shared_runners_enabled: true
-                    shared_with_groups: []
-                    snippets_access_level: enabled
-                    snippets_enabled: true
-                    ssh_url_to_repo: git@gitlab.com:packit-service/ogr-tests.git
-                    star_count: 0
-                    tag_list: []
-                    visibility: public
-                    web_url: https://gitlab.com/packit-service/ogr-tests
-                    wiki_access_level: enabled
-                    wiki_enabled: true
-                  _next: null
-                  elapsed: 0.2
-                  encoding: null
-                  headers:
-                    Cache-Control: max-age=0, private, must-revalidate
-                    Content-Length: '2752'
-                    Content-Type: application/json
-                    Date: Fri, 01 Nov 2019 13-36-03 GMT
-                    Etag: W/"579d6ea2e56a8cad8fa461ea66ed42af"
-                    GitLab-LB: fe-22-lb-gprd
-                    GitLab-SV: localhost
-                    RateLimit-Limit: '600'
-                    RateLimit-Observed: '89'
-                    RateLimit-Remaining: '511'
-                    RateLimit-Reset: '1569573655'
-                    RateLimit-ResetTime: Fri, 27 Sep 2019 08:40:55 GMT
-                    Referrer-Policy: strict-origin-when-cross-origin
-                    Server: nginx
-                    Strict-Transport-Security: max-age=31536000
-                    Vary: Origin
-                    X-Content-Type-Options: nosniff
-                    X-Frame-Options: SAMEORIGIN
-                    X-Request-Id: Le8SHp38qL5
-                    X-Runtime: '0.083669'
-                  raw: !!binary ""
-                  reason: OK
-                  status_code: 200
-                - __store_indicator: 2
-                  _content:
-                    approvals_before_merge: 0
-                    assignee: null
-                    assignees: []
-                    author:
-                      avatar_url: https://secure.gravatar.com/avatar/9c8d9a288151a8e563547e082c591f2a?s=80&d=identicon
-                      id: 4594931
-                      name: "Laura Barcziov\xE1"
-                      state: active
-                      username: lbarcziova
-                      web_url: https://gitlab.com/lbarcziova
-                    changes_count: '1'
-                    closed_at: null
-                    closed_by: null
-                    created_at: '2019-09-10T14:03:24.365Z'
-                    description: description of mergerequest
-                    diff_refs:
-                      base_sha: 24c86d0704694f686329b2ea636c5b7522cfdc40
-                      head_sha: d490ec67dd98f69dfdc1732b98bb3189f0e0aace
-                      start_sha: 24c86d0704694f686329b2ea636c5b7522cfdc40
-                    discussion_locked: null
-                    downvotes: 0
-                    first_deployed_to_production_at: null
-                    force_remove_source_branch: false
-                    head_pipeline: null
-                    id: 36948617
-                    iid: 1
-                    labels:
-                    - test_lb1
-                    - test_lb2
-                    latest_build_finished_at: null
-                    latest_build_started_at: null
-                    merge_commit_sha: 101a42bbbe174d04b465d49caf274dc3b4defeca
-                    merge_error: null
-                    merge_status: can_be_merged
-                    merge_when_pipeline_succeeds: false
-                    merged_at: '2019-09-11T08:55:32.822Z'
-                    merged_by:
-                      avatar_url: https://secure.gravatar.com/avatar/9c8d9a288151a8e563547e082c591f2a?s=80&d=identicon
-                      id: 4594931
-                      name: "Laura Barcziov\xE1"
-                      state: active
-                      username: lbarcziova
-                      web_url: https://gitlab.com/lbarcziova
-                    milestone: null
-                    pipeline: null
-                    project_id: 14233409
-                    reference: '!1'
-                    sha: d490ec67dd98f69dfdc1732b98bb3189f0e0aace
-                    should_remove_source_branch: null
-                    source_branch: change
-                    source_project_id: 14233409
-                    squash: false
-                    state: merged
-                    subscribed: true
-                    target_branch: master
-                    target_project_id: 14233409
-                    task_completion_status:
-                      completed_count: 0
-                      count: 0
-                    time_stats:
-                      human_time_estimate: null
-                      human_total_time_spent: null
-                      time_estimate: 0
-                      total_time_spent: 0
-                    title: change
-                    updated_at: '2019-09-27T08:39:49.173Z'
-                    upvotes: 0
-                    user:
-                      can_merge: true
-                    user_notes_count: 1
-                    web_url: https://gitlab.com/packit-service/ogr-tests/merge_requests/1
-                    work_in_progress: false
-                  _next: null
-                  elapsed: 0.2
-                  encoding: null
-                  headers:
-                    Cache-Control: max-age=0, private, must-revalidate
-                    Content-Length: '1989'
-                    Content-Type: application/json
-                    Date: Fri, 01 Nov 2019 13-36-03 GMT
-                    Etag: W/"f031292149590809e049ea334fae0e52"
-                    GitLab-LB: fe-22-lb-gprd
-                    GitLab-SV: localhost
-                    RateLimit-Limit: '600'
-                    RateLimit-Observed: '89'
-                    RateLimit-Remaining: '510'
-                    RateLimit-Reset: '1569573655'
-                    RateLimit-ResetTime: Fri, 27 Sep 2019 08:40:55 GMT
-                    Referrer-Policy: strict-origin-when-cross-origin
-                    Server: nginx
-                    Strict-Transport-Security: max-age=31536000
-                    Vary: Origin
-                    X-Content-Type-Options: nosniff
-                    X-Frame-Options: SAMEORIGIN
-                    X-Request-Id: PZTegSslqka
-                    X-Runtime: '0.115292'
-                  raw: !!binary ""
-                  reason: OK
-                  status_code: 200
-                - __store_indicator: 2
-                  _content:
-                    approvals_before_merge: 0
-                    assignee: null
-                    assignees: []
-                    author:
-                      avatar_url: https://secure.gravatar.com/avatar/9c8d9a288151a8e563547e082c591f2a?s=80&d=identicon
-                      id: 4594931
-                      name: "Laura Barcziov\xE1"
-                      state: active
-                      username: lbarcziova
-                      web_url: https://gitlab.com/lbarcziova
-                    changes_count: '1'
-                    closed_at: null
-                    closed_by: null
-                    created_at: '2019-09-10T14:03:24.365Z'
-                    description: description of mergerequest
-                    diff_refs:
-                      base_sha: 24c86d0704694f686329b2ea636c5b7522cfdc40
-                      head_sha: d490ec67dd98f69dfdc1732b98bb3189f0e0aace
-                      start_sha: 24c86d0704694f686329b2ea636c5b7522cfdc40
-                    discussion_locked: null
-                    downvotes: 0
-                    first_deployed_to_production_at: null
-                    force_remove_source_branch: false
-                    head_pipeline: null
-                    id: 36948617
-                    iid: 1
-                    labels:
-                    - test_lb1
-                    - test_lb2
-                    latest_build_finished_at: null
-                    latest_build_started_at: null
-                    merge_commit_sha: 101a42bbbe174d04b465d49caf274dc3b4defeca
-                    merge_error: null
-                    merge_status: can_be_merged
-                    merge_when_pipeline_succeeds: false
-                    merged_at: '2019-09-11T08:55:32.822Z'
-                    merged_by:
-                      avatar_url: https://secure.gravatar.com/avatar/9c8d9a288151a8e563547e082c591f2a?s=80&d=identicon
-                      id: 4594931
-                      name: "Laura Barcziov\xE1"
-                      state: active
-                      username: lbarcziova
-                      web_url: https://gitlab.com/lbarcziova
-                    milestone: null
-                    pipeline: null
-                    project_id: 14233409
-                    reference: '!1'
-                    sha: d490ec67dd98f69dfdc1732b98bb3189f0e0aace
-                    should_remove_source_branch: null
-                    source_branch: change
-                    source_project_id: 14233409
-                    squash: false
-                    state: merged
-                    subscribed: true
-                    target_branch: master
-                    target_project_id: 14233409
-                    task_completion_status:
-                      completed_count: 0
-                      count: 0
-                    time_stats:
-                      human_time_estimate: null
-                      human_total_time_spent: null
-                      time_estimate: 0
-                      total_time_spent: 0
-                    title: change
-                    updated_at: '2019-09-27T08:39:49.173Z'
-                    upvotes: 0
-                    user:
-                      can_merge: true
-                    user_notes_count: 1
-                    web_url: https://gitlab.com/packit-service/ogr-tests/merge_requests/1
-                    work_in_progress: false
-                  _next: null
-                  elapsed: 0.2
-                  encoding: null
-                  headers:
-                    Cache-Control: max-age=0, private, must-revalidate
-                    Content-Length: '1989'
-                    Content-Type: application/json
-                    Date: Fri, 01 Nov 2019 13-36-03 GMT
-                    Etag: W/"f031292149590809e049ea334fae0e52"
-                    GitLab-LB: fe-22-lb-gprd
-                    GitLab-SV: localhost
-                    RateLimit-Limit: '600'
-                    RateLimit-Observed: '90'
-                    RateLimit-Remaining: '510'
-                    RateLimit-Reset: '1569573655'
-                    RateLimit-ResetTime: Fri, 27 Sep 2019 08:40:55 GMT
-                    Referrer-Policy: strict-origin-when-cross-origin
-                    Server: nginx
-                    Strict-Transport-Security: max-age=31536000
-                    Vary: Origin
-                    X-Content-Type-Options: nosniff
-                    X-Frame-Options: SAMEORIGIN
-                    X-Request-Id: FNh8eimj81a
-                    X-Runtime: '0.117246'
-                  raw: !!binary ""
-                  reason: OK
-                  status_code: 200
-                - __store_indicator: 2
-                  _content:
-                    approvals_before_merge: 0
-                    assignee: null
-                    assignees: []
-                    author:
-                      avatar_url: https://secure.gravatar.com/avatar/9c8d9a288151a8e563547e082c591f2a?s=80&d=identicon
-                      id: 4594931
-                      name: "Laura Barcziov\xE1"
-                      state: active
-                      username: lbarcziova
-                      web_url: https://gitlab.com/lbarcziova
-                    changes_count: '1'
-                    closed_at: null
-                    closed_by: null
-                    created_at: '2019-09-10T14:03:24.365Z'
-                    description: changed description
-                    diff_refs:
-                      base_sha: 24c86d0704694f686329b2ea636c5b7522cfdc40
-                      head_sha: d490ec67dd98f69dfdc1732b98bb3189f0e0aace
-                      start_sha: 24c86d0704694f686329b2ea636c5b7522cfdc40
-                    discussion_locked: null
-                    downvotes: 0
-                    first_deployed_to_production_at: null
-                    force_remove_source_branch: false
-                    head_pipeline: null
-                    id: 36948617
-                    iid: 1
-                    labels:
-                    - test_lb1
-                    - test_lb2
-                    latest_build_finished_at: null
-                    latest_build_started_at: null
-                    merge_commit_sha: 101a42bbbe174d04b465d49caf274dc3b4defeca
-                    merge_error: null
-                    merge_status: can_be_merged
-                    merge_when_pipeline_succeeds: false
-                    merged_at: '2019-09-11T08:55:32.822Z'
-                    merged_by:
-                      avatar_url: https://secure.gravatar.com/avatar/9c8d9a288151a8e563547e082c591f2a?s=80&d=identicon
-                      id: 4594931
-                      name: "Laura Barcziov\xE1"
-                      state: active
-                      username: lbarcziova
-                      web_url: https://gitlab.com/lbarcziova
-                    milestone: null
-                    pipeline: null
-                    project_id: 14233409
-                    reference: '!1'
-                    sha: d490ec67dd98f69dfdc1732b98bb3189f0e0aace
-                    should_remove_source_branch: null
-                    source_branch: change
-                    source_project_id: 14233409
-                    squash: false
-                    state: merged
-                    subscribed: true
-                    target_branch: master
-                    target_project_id: 14233409
-                    task_completion_status:
-                      completed_count: 0
-                      count: 0
-                    time_stats:
-                      human_time_estimate: null
-                      human_total_time_spent: null
-                      time_estimate: 0
-                      total_time_spent: 0
-                    title: change
-                    updated_at: '2019-09-27T08:39:55.900Z'
-                    upvotes: 0
-                    user:
-                      can_merge: true
-                    user_notes_count: 1
-                    web_url: https://gitlab.com/packit-service/ogr-tests/merge_requests/1
-                    work_in_progress: false
-                  _next: null
-                  elapsed: 0.2
-                  encoding: null
-                  headers:
-                    Cache-Control: max-age=0, private, must-revalidate
-                    Content-Length: '1981'
-                    Content-Type: application/json
-                    Date: Fri, 01 Nov 2019 13-36-03 GMT
-                    Etag: W/"4a3ac8233c0fd3aac78afa68cc537db6"
-                    GitLab-LB: fe-22-lb-gprd
-                    GitLab-SV: localhost
-                    RateLimit-Limit: '600'
-                    RateLimit-Observed: '91'
-                    RateLimit-Remaining: '509'
-                    RateLimit-Reset: '1569573656'
-                    RateLimit-ResetTime: Fri, 27 Sep 2019 08:40:56 GMT
-                    Referrer-Policy: strict-origin-when-cross-origin
-                    Server: nginx
-                    Strict-Transport-Security: max-age=31536000
-                    Vary: Origin
-                    X-Content-Type-Options: nosniff
-                    X-Frame-Options: SAMEORIGIN
-                    X-Request-Id: eX3rLZ6Hqy2
-                    X-Runtime: '0.132195'
-                  raw: !!binary ""
-                  reason: OK
-                  status_code: 200
-                - __store_indicator: 2
-                  _content:
-                    approvals_before_merge: 0
-                    assignee: null
-                    assignees: []
-                    author:
-                      avatar_url: https://secure.gravatar.com/avatar/9c8d9a288151a8e563547e082c591f2a?s=80&d=identicon
-                      id: 4594931
-                      name: "Laura Barcziov\xE1"
-                      state: active
-                      username: lbarcziova
-                      web_url: https://gitlab.com/lbarcziova
-                    changes_count: '1'
-                    closed_at: null
-                    closed_by: null
-                    created_at: '2019-09-10T14:03:24.365Z'
-                    description: changed description
-                    diff_refs:
-                      base_sha: 24c86d0704694f686329b2ea636c5b7522cfdc40
-                      head_sha: d490ec67dd98f69dfdc1732b98bb3189f0e0aace
-                      start_sha: 24c86d0704694f686329b2ea636c5b7522cfdc40
-                    discussion_locked: null
-                    downvotes: 0
-                    first_deployed_to_production_at: null
-                    force_remove_source_branch: false
-                    head_pipeline: null
-                    id: 36948617
-                    iid: 1
-                    labels:
-                    - test_lb1
-                    - test_lb2
-                    latest_build_finished_at: null
-                    latest_build_started_at: null
-                    merge_commit_sha: 101a42bbbe174d04b465d49caf274dc3b4defeca
-                    merge_error: null
-                    merge_status: can_be_merged
-                    merge_when_pipeline_succeeds: false
-                    merged_at: '2019-09-11T08:55:32.822Z'
-                    merged_by:
-                      avatar_url: https://secure.gravatar.com/avatar/9c8d9a288151a8e563547e082c591f2a?s=80&d=identicon
-                      id: 4594931
-                      name: "Laura Barcziov\xE1"
-                      state: active
-                      username: lbarcziova
-                      web_url: https://gitlab.com/lbarcziova
-                    milestone: null
-                    pipeline: null
-                    project_id: 14233409
-                    reference: '!1'
-                    sha: d490ec67dd98f69dfdc1732b98bb3189f0e0aace
-                    should_remove_source_branch: null
-                    source_branch: change
-                    source_project_id: 14233409
-                    squash: false
-                    state: merged
-                    subscribed: true
-                    target_branch: master
-                    target_project_id: 14233409
-                    task_completion_status:
-                      completed_count: 0
-                      count: 0
-                    time_stats:
-                      human_time_estimate: null
-                      human_total_time_spent: null
-                      time_estimate: 0
-                      total_time_spent: 0
-                    title: change
-                    updated_at: '2019-09-27T08:39:55.900Z'
-                    upvotes: 0
-                    user:
-                      can_merge: true
-                    user_notes_count: 1
-                    web_url: https://gitlab.com/packit-service/ogr-tests/merge_requests/1
-                    work_in_progress: false
-                  _next: null
-                  elapsed: 0.2
-                  encoding: null
-                  headers:
-                    Cache-Control: max-age=0, private, must-revalidate
-                    Content-Length: '1981'
-                    Content-Type: application/json
-                    Date: Fri, 01 Nov 2019 13-36-03 GMT
-                    Etag: W/"4a3ac8233c0fd3aac78afa68cc537db6"
-                    GitLab-LB: fe-22-lb-gprd
-                    GitLab-SV: localhost
-                    RateLimit-Limit: '600'
-                    RateLimit-Observed: '92'
-                    RateLimit-Remaining: '508'
-                    RateLimit-Reset: '1569573656'
-                    RateLimit-ResetTime: Fri, 27 Sep 2019 08:40:56 GMT
-                    Referrer-Policy: strict-origin-when-cross-origin
-                    Server: nginx
-                    Strict-Transport-Security: max-age=31536000
-                    Vary: Origin
-                    X-Content-Type-Options: nosniff
-                    X-Frame-Options: SAMEORIGIN
-                    X-Request-Id: Ot3Is23v8O2
-                    X-Runtime: '0.104563'
-                  raw: !!binary ""
-                  reason: OK
-                  status_code: 200
-                - __store_indicator: 2
-                  _content:
-                    approvals_before_merge: 0
-                    assignee: null
-                    assignees: []
-                    author:
-                      avatar_url: https://secure.gravatar.com/avatar/9c8d9a288151a8e563547e082c591f2a?s=80&d=identicon
-                      id: 4594931
-                      name: "Laura Barcziov\xE1"
-                      state: active
-                      username: lbarcziova
-                      web_url: https://gitlab.com/lbarcziova
-                    changes_count: '1'
-                    closed_at: null
-                    closed_by: null
-                    created_at: '2019-09-10T14:03:24.365Z'
-                    description: description of mergerequest
-                    diff_refs:
-                      base_sha: 24c86d0704694f686329b2ea636c5b7522cfdc40
-                      head_sha: d490ec67dd98f69dfdc1732b98bb3189f0e0aace
-                      start_sha: 24c86d0704694f686329b2ea636c5b7522cfdc40
-                    discussion_locked: null
-                    downvotes: 0
-                    first_deployed_to_production_at: null
-                    force_remove_source_branch: false
-                    head_pipeline: null
-                    id: 36948617
-                    iid: 1
-                    labels:
-                    - test_lb1
-                    - test_lb2
-                    latest_build_finished_at: null
-                    latest_build_started_at: null
-                    merge_commit_sha: 101a42bbbe174d04b465d49caf274dc3b4defeca
-                    merge_error: null
-                    merge_status: can_be_merged
-                    merge_when_pipeline_succeeds: false
-                    merged_at: '2019-09-11T08:55:32.822Z'
-                    merged_by:
-                      avatar_url: https://secure.gravatar.com/avatar/9c8d9a288151a8e563547e082c591f2a?s=80&d=identicon
-                      id: 4594931
-                      name: "Laura Barcziov\xE1"
-                      state: active
-                      username: lbarcziova
-                      web_url: https://gitlab.com/lbarcziova
-                    milestone: null
-                    pipeline: null
-                    project_id: 14233409
-                    reference: '!1'
-                    sha: d490ec67dd98f69dfdc1732b98bb3189f0e0aace
-                    should_remove_source_branch: null
-                    source_branch: change
-                    source_project_id: 14233409
-                    squash: false
-                    state: merged
-                    subscribed: true
-                    target_branch: master
-                    target_project_id: 14233409
-                    task_completion_status:
-                      completed_count: 0
-                      count: 0
-                    time_stats:
-                      human_time_estimate: null
-                      human_total_time_spent: null
-                      time_estimate: 0
-                      total_time_spent: 0
-                    title: change
-                    updated_at: '2019-09-27T08:39:57.087Z'
-                    upvotes: 0
-                    user:
-                      can_merge: true
-                    user_notes_count: 1
-                    web_url: https://gitlab.com/packit-service/ogr-tests/merge_requests/1
-                    work_in_progress: false
-                  _next: null
-                  elapsed: 0.2
-                  encoding: null
-                  headers:
-                    Cache-Control: max-age=0, private, must-revalidate
-                    Content-Length: '1989'
-                    Content-Type: application/json
-                    Date: Fri, 01 Nov 2019 13-36-03 GMT
-                    Etag: W/"3ff2b37ef9fe1483d87a06c6ce7cde72"
-                    GitLab-LB: fe-22-lb-gprd
-                    GitLab-SV: localhost
-                    RateLimit-Limit: '600'
-                    RateLimit-Observed: '92'
-                    RateLimit-Remaining: '507'
-                    RateLimit-Reset: '1569573657'
-                    RateLimit-ResetTime: Fri, 27 Sep 2019 08:40:57 GMT
-                    Referrer-Policy: strict-origin-when-cross-origin
-                    Server: nginx
-                    Strict-Transport-Security: max-age=31536000
-                    Vary: Origin
-                    X-Content-Type-Options: nosniff
-                    X-Frame-Options: SAMEORIGIN
-                    X-Request-Id: lTFAqXLrTN5
-                    X-Runtime: '0.413264'
-                  raw: !!binary ""
-                  reason: OK
-                  status_code: 200
-      gitlab.mixins:
-        gitlab.exceptions:
-          gitlab.mixins:
-            gitlab:
-              requre.objects:
-                requests.sessions:
-                  send:
-                  - __store_indicator: 2
-                    _content:
-                      approvals_before_merge: 0
-                      assignee: null
-                      assignees: []
-                      author:
-                        avatar_url: https://secure.gravatar.com/avatar/9c8d9a288151a8e563547e082c591f2a?s=80&d=identicon
-                        id: 4594931
-                        name: "Laura Barcziov\xE1"
-                        state: active
-                        username: lbarcziova
-                        web_url: https://gitlab.com/lbarcziova
-                      changes_count: '1'
-                      closed_at: null
-                      closed_by: null
-                      created_at: '2019-09-10T14:03:24.365Z'
-                      description: changed description
-                      diff_refs:
-                        base_sha: 24c86d0704694f686329b2ea636c5b7522cfdc40
-                        head_sha: d490ec67dd98f69dfdc1732b98bb3189f0e0aace
-                        start_sha: 24c86d0704694f686329b2ea636c5b7522cfdc40
-                      discussion_locked: null
-                      downvotes: 0
-                      first_deployed_to_production_at: null
-                      force_remove_source_branch: false
-                      head_pipeline: null
-                      id: 36948617
-                      iid: 1
-                      labels:
-                      - test_lb1
-                      - test_lb2
-                      latest_build_finished_at: null
-                      latest_build_started_at: null
-                      merge_commit_sha: 101a42bbbe174d04b465d49caf274dc3b4defeca
-                      merge_error: null
-                      merge_status: can_be_merged
-                      merge_when_pipeline_succeeds: false
-                      merged_at: '2019-09-11T08:55:32.822Z'
-                      merged_by:
-                        avatar_url: https://secure.gravatar.com/avatar/9c8d9a288151a8e563547e082c591f2a?s=80&d=identicon
-                        id: 4594931
-                        name: "Laura Barcziov\xE1"
-                        state: active
-                        username: lbarcziova
-                        web_url: https://gitlab.com/lbarcziova
-                      milestone: null
-                      pipeline: null
-                      project_id: 14233409
-                      reference: '!1'
-                      sha: d490ec67dd98f69dfdc1732b98bb3189f0e0aace
-                      should_remove_source_branch: null
-                      source_branch: change
-                      source_project_id: 14233409
-                      squash: false
-                      state: merged
-                      subscribed: true
-                      target_branch: master
-                      target_project_id: 14233409
-                      task_completion_status:
-                        completed_count: 0
-                        count: 0
-                      time_stats:
-                        human_time_estimate: null
-                        human_total_time_spent: null
-                        time_estimate: 0
-                        total_time_spent: 0
-                      title: change
-                      updated_at: '2019-09-27T08:39:55.900Z'
-                      upvotes: 0
-                      user:
-                        can_merge: true
-                      user_notes_count: 1
-                      web_url: https://gitlab.com/packit-service/ogr-tests/merge_requests/1
-                      work_in_progress: false
-                    _next: null
-                    elapsed: 0.2
-                    encoding: null
-                    headers:
-                      Cache-Control: max-age=0, private, must-revalidate
-                      Content-Length: '1981'
-                      Content-Type: application/json
-                      Date: Fri, 01 Nov 2019 13-36-03 GMT
-                      Etag: W/"4a3ac8233c0fd3aac78afa68cc537db6"
-                      GitLab-LB: fe-22-lb-gprd
-                      GitLab-SV: localhost
-                      RateLimit-Limit: '600'
-                      RateLimit-Observed: '90'
-                      RateLimit-Remaining: '509'
-                      RateLimit-Reset: '1569573656'
-                      RateLimit-ResetTime: Fri, 27 Sep 2019 08:40:56 GMT
-                      Referrer-Policy: strict-origin-when-cross-origin
-                      Server: nginx
-                      Strict-Transport-Security: max-age=31536000
-                      Vary: Origin
-                      X-Content-Type-Options: nosniff
-                      X-Frame-Options: SAMEORIGIN
-                      X-Request-Id: n864P2D3R86
-                      X-Runtime: '0.312149'
-                    raw: !!binary ""
-                    reason: OK
-                    status_code: 200
-                  - __store_indicator: 2
-                    _content:
-                      approvals_before_merge: 0
-                      assignee: null
-                      assignees: []
-                      author:
-                        avatar_url: https://secure.gravatar.com/avatar/9c8d9a288151a8e563547e082c591f2a?s=80&d=identicon
-                        id: 4594931
-                        name: "Laura Barcziov\xE1"
-                        state: active
-                        username: lbarcziova
-                        web_url: https://gitlab.com/lbarcziova
-                      changes_count: '1'
-                      closed_at: null
-                      closed_by: null
-                      created_at: '2019-09-10T14:03:24.365Z'
-                      description: description of mergerequest
-                      diff_refs:
-                        base_sha: 24c86d0704694f686329b2ea636c5b7522cfdc40
-                        head_sha: d490ec67dd98f69dfdc1732b98bb3189f0e0aace
-                        start_sha: 24c86d0704694f686329b2ea636c5b7522cfdc40
-                      discussion_locked: null
-                      downvotes: 0
-                      first_deployed_to_production_at: null
-                      force_remove_source_branch: false
-                      head_pipeline: null
-                      id: 36948617
-                      iid: 1
-                      labels:
-                      - test_lb1
-                      - test_lb2
-                      latest_build_finished_at: null
-                      latest_build_started_at: null
-                      merge_commit_sha: 101a42bbbe174d04b465d49caf274dc3b4defeca
-                      merge_error: null
-                      merge_status: can_be_merged
-                      merge_when_pipeline_succeeds: false
-                      merged_at: '2019-09-11T08:55:32.822Z'
-                      merged_by:
-                        avatar_url: https://secure.gravatar.com/avatar/9c8d9a288151a8e563547e082c591f2a?s=80&d=identicon
-                        id: 4594931
-                        name: "Laura Barcziov\xE1"
-                        state: active
-                        username: lbarcziova
-                        web_url: https://gitlab.com/lbarcziova
-                      milestone: null
-                      pipeline: null
-                      project_id: 14233409
-                      reference: '!1'
-                      sha: d490ec67dd98f69dfdc1732b98bb3189f0e0aace
-                      should_remove_source_branch: null
-                      source_branch: change
-                      source_project_id: 14233409
-                      squash: false
-                      state: merged
-                      subscribed: true
-                      target_branch: master
-                      target_project_id: 14233409
-                      task_completion_status:
-                        completed_count: 0
-                        count: 0
-                      time_stats:
-                        human_time_estimate: null
-                        human_total_time_spent: null
-                        time_estimate: 0
-                        total_time_spent: 0
-                      title: change
-                      updated_at: '2019-09-27T08:39:57.087Z'
-                      upvotes: 0
-                      user:
-                        can_merge: true
-                      user_notes_count: 1
-                      web_url: https://gitlab.com/packit-service/ogr-tests/merge_requests/1
-                      work_in_progress: false
-                    _next: null
-                    elapsed: 0.2
-                    encoding: null
-                    headers:
-                      Cache-Control: max-age=0, private, must-revalidate
-                      Content-Length: '1989'
-                      Content-Type: application/json
-                      Date: Fri, 01 Nov 2019 13-36-03 GMT
-                      Etag: W/"3ff2b37ef9fe1483d87a06c6ce7cde72"
-                      GitLab-LB: fe-22-lb-gprd
-                      GitLab-SV: localhost
-                      RateLimit-Limit: '600'
-                      RateLimit-Observed: '92'
-                      RateLimit-Remaining: '508'
-                      RateLimit-Reset: '1569573657'
-                      RateLimit-ResetTime: Fri, 27 Sep 2019 08:40:57 GMT
-                      Referrer-Policy: strict-origin-when-cross-origin
-                      Server: nginx
-                      Strict-Transport-Security: max-age=31536000
-                      Vary: Origin
-                      X-Content-Type-Options: nosniff
-                      X-Frame-Options: SAMEORIGIN
-                      X-Request-Id: cXrft9TNIN
-                      X-Runtime: '0.241763'
-                    raw: !!binary ""
-                    reason: OK
-                    status_code: 200
-      ogr.services.gitlab.service:
-        gitlab:
-          gitlab.exceptions:
-            gitlab.mixins:
-              gitlab:
-                requre.objects:
-                  requests.sessions:
-                    send:
-                    - __store_indicator: 2
-                      _content:
-                        avatar_url: https://secure.gravatar.com/avatar/e1ae3427f994784121371108f12eceb5?s=80&d=identicon
-                        bio: null
-                        can_create_group: true
-                        can_create_project: true
-                        color_scheme_id: 1
-                        confirmed_at: '2019-09-16T14:07:15.993Z'
-                        created_at: '2019-09-16T14:07:16.050Z'
-                        current_sign_in_at: '2019-09-27T08:22:58.253Z'
-                        email: scottyh@post.cz
-                        external: false
-                        extra_shared_runners_minutes_limit: null
-                        id: 4626962
-                        identities:
-                        - extern_uid: '8735467'
-                          provider: github
-                          saml_provider_id: null
-                        last_activity_on: '2019-09-27'
-                        last_sign_in_at: '2019-09-26T08:56:42.015Z'
-                        linkedin: ''
-                        location: null
-                        name: jscotka
-                        organization: null
-                        private_profile: false
-                        projects_limit: 100000
-                        public_email: ''
-                        shared_runners_minutes_limit: null
-                        skype: ''
-                        state: active
-                        theme_id: 1
-                        twitter: ''
-                        two_factor_enabled: false
-                        username: jscotka
-                        web_url: https://gitlab.com/jscotka
-                        website_url: ''
-                      _next: null
-                      elapsed: 0.2
-                      encoding: null
-                      headers:
-                        Cache-Control: max-age=0, private, must-revalidate
-                        Content-Length: '903'
-                        Content-Type: application/json
-                        Date: Fri, 01 Nov 2019 13-36-03 GMT
-                        Etag: W/"61ff7f2d448fff2d66ab5601c6508447"
-                        GitLab-LB: fe-22-lb-gprd
-                        GitLab-SV: localhost
-                        RateLimit-Limit: '600'
-                        RateLimit-Observed: '88'
-                        RateLimit-Remaining: '512'
-                        RateLimit-Reset: '1569573654'
-                        RateLimit-ResetTime: Fri, 27 Sep 2019 08:40:54 GMT
-                        Referrer-Policy: strict-origin-when-cross-origin
-                        Server: nginx
-                        Strict-Transport-Security: max-age=31536000
-                        Vary: Origin
-                        X-Content-Type-Options: nosniff
-                        X-Frame-Options: SAMEORIGIN
-                        X-Request-Id: C7BF9A5t9U6
-                        X-Runtime: '0.025496'
-                      raw: !!binary ""
-                      reason: OK
-                      status_code: 200
+requests.sessions:
+  send:
+    GET:
+      https://gitlab.com/api/v4/projects/14233409/merge_requests/1:
+      - metadata:
+          latency: 0.28888559341430664
+          module_call_list:
+          - unittest.case
+          - requre.online_replacing
+          - tests.integration.test_gitlab
+          - wrapt.wrappers
+          - deprecated.classic
+          - ogr.services.base
+          - ogr.services.gitlab.project
+          - ogr.services.gitlab.pull_request
+          - gitlab.exceptions
+          - gitlab.mixins
+          - gitlab
+          - requre.objects
+          - requre.cassette
+          - requests.sessions
+          - send
+        output:
+          __store_indicator: 2
+          _content:
+            approvals_before_merge: 0
+            assignee: null
+            assignees: []
+            author:
+              avatar_url: https://secure.gravatar.com/avatar/9c8d9a288151a8e563547e082c591f2a?s=80&d=identicon
+              id: 4594931
+              name: "Laura Barcziov\xE1"
+              state: active
+              username: lbarcziova
+              web_url: https://gitlab.com/lbarcziova
+            blocking_discussions_resolved: true
+            changes_count: '1'
+            closed_at: null
+            closed_by: null
+            created_at: '2019-09-10T14:03:24.365Z'
+            description: description of mergerequest
+            diff_refs:
+              base_sha: 24c86d0704694f686329b2ea636c5b7522cfdc40
+              head_sha: d490ec67dd98f69dfdc1732b98bb3189f0e0aace
+              start_sha: 24c86d0704694f686329b2ea636c5b7522cfdc40
+            discussion_locked: null
+            downvotes: 0
+            first_contribution: false
+            first_deployed_to_production_at: null
+            force_remove_source_branch: false
+            has_conflicts: false
+            head_pipeline: null
+            id: 36948617
+            iid: 1
+            labels:
+            - test_lb1
+            - test_lb2
+            latest_build_finished_at: null
+            latest_build_started_at: null
+            merge_commit_sha: 101a42bbbe174d04b465d49caf274dc3b4defeca
+            merge_error: null
+            merge_status: can_be_merged
+            merge_when_pipeline_succeeds: false
+            merged_at: '2019-09-11T08:55:32.822Z'
+            merged_by:
+              avatar_url: https://secure.gravatar.com/avatar/9c8d9a288151a8e563547e082c591f2a?s=80&d=identicon
+              id: 4594931
+              name: "Laura Barcziov\xE1"
+              state: active
+              username: lbarcziova
+              web_url: https://gitlab.com/lbarcziova
+            milestone: null
+            pipeline: null
+            project_id: 14233409
+            reference: '!1'
+            references:
+              full: packit-service/ogr-tests!1
+              relative: '!1'
+              short: '!1'
+            sha: d490ec67dd98f69dfdc1732b98bb3189f0e0aace
+            should_remove_source_branch: null
+            source_branch: change
+            source_project_id: 14233409
+            squash: false
+            squash_commit_sha: null
+            state: merged
+            subscribed: true
+            target_branch: master
+            target_project_id: 14233409
+            task_completion_status:
+              completed_count: 0
+              count: 0
+            time_stats:
+              human_time_estimate: null
+              human_total_time_spent: null
+              time_estimate: 0
+              total_time_spent: 0
+            title: change
+            updated_at: '2020-08-24T08:44:54.300Z'
+            upvotes: 0
+            user:
+              can_merge: true
+            user_notes_count: 3
+            web_url: https://gitlab.com/packit-service/ogr-tests/-/merge_requests/1
+            work_in_progress: false
+          _next: null
+          elapsed: 0.2
+          encoding: null
+          headers:
+            CF-Cache-Status: DYNAMIC
+            CF-RAY: 5c7bcb84ced4d6d1-FRA
+            Cache-Control: max-age=0, private, must-revalidate
+            Connection: keep-alive
+            Content-Encoding: gzip
+            Content-Type: application/json
+            Date: Fri, 01 Nov 2019 13-36-03 GMT
+            Etag: W/"b6b2496bc454a17e7304d15608f678d3"
+            Expect-CT: max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
+            GitLab-LB: fe-07-lb-gprd
+            GitLab-SV: api-01-sv-gprd
+            Referrer-Policy: strict-origin-when-cross-origin
+            Server: cloudflare
+            Strict-Transport-Security: max-age=31536000
+            Transfer-Encoding: chunked
+            Vary: Accept-Encoding, Origin
+            X-Content-Type-Options: nosniff
+            X-Frame-Options: SAMEORIGIN
+            X-Request-Id: 6SpufEqRVW6
+            X-Runtime: '0.116709'
+            cf-request-id: 04c13d86ff0000d6d1deaa7200000001
+          raw: !!binary ""
+          reason: OK
+          status_code: 200
+      - metadata:
+          latency: 0.3031003475189209
+          module_call_list:
+          - unittest.case
+          - requre.online_replacing
+          - tests.integration.test_gitlab
+          - wrapt.wrappers
+          - deprecated.classic
+          - ogr.services.base
+          - ogr.services.gitlab.project
+          - ogr.services.gitlab.pull_request
+          - gitlab.exceptions
+          - gitlab.mixins
+          - gitlab
+          - requre.objects
+          - requre.cassette
+          - requests.sessions
+          - send
+        output:
+          __store_indicator: 2
+          _content:
+            approvals_before_merge: 0
+            assignee: null
+            assignees: []
+            author:
+              avatar_url: https://secure.gravatar.com/avatar/9c8d9a288151a8e563547e082c591f2a?s=80&d=identicon
+              id: 4594931
+              name: "Laura Barcziov\xE1"
+              state: active
+              username: lbarcziova
+              web_url: https://gitlab.com/lbarcziova
+            blocking_discussions_resolved: true
+            changes_count: '1'
+            closed_at: null
+            closed_by: null
+            created_at: '2019-09-10T14:03:24.365Z'
+            description: description of mergerequest
+            diff_refs:
+              base_sha: 24c86d0704694f686329b2ea636c5b7522cfdc40
+              head_sha: d490ec67dd98f69dfdc1732b98bb3189f0e0aace
+              start_sha: 24c86d0704694f686329b2ea636c5b7522cfdc40
+            discussion_locked: null
+            downvotes: 0
+            first_contribution: false
+            first_deployed_to_production_at: null
+            force_remove_source_branch: false
+            has_conflicts: false
+            head_pipeline: null
+            id: 36948617
+            iid: 1
+            labels:
+            - test_lb1
+            - test_lb2
+            latest_build_finished_at: null
+            latest_build_started_at: null
+            merge_commit_sha: 101a42bbbe174d04b465d49caf274dc3b4defeca
+            merge_error: null
+            merge_status: can_be_merged
+            merge_when_pipeline_succeeds: false
+            merged_at: '2019-09-11T08:55:32.822Z'
+            merged_by:
+              avatar_url: https://secure.gravatar.com/avatar/9c8d9a288151a8e563547e082c591f2a?s=80&d=identicon
+              id: 4594931
+              name: "Laura Barcziov\xE1"
+              state: active
+              username: lbarcziova
+              web_url: https://gitlab.com/lbarcziova
+            milestone: null
+            pipeline: null
+            project_id: 14233409
+            reference: '!1'
+            references:
+              full: packit-service/ogr-tests!1
+              relative: '!1'
+              short: '!1'
+            sha: d490ec67dd98f69dfdc1732b98bb3189f0e0aace
+            should_remove_source_branch: null
+            source_branch: change
+            source_project_id: 14233409
+            squash: false
+            squash_commit_sha: null
+            state: merged
+            subscribed: true
+            target_branch: master
+            target_project_id: 14233409
+            task_completion_status:
+              completed_count: 0
+              count: 0
+            time_stats:
+              human_time_estimate: null
+              human_total_time_spent: null
+              time_estimate: 0
+              total_time_spent: 0
+            title: change
+            updated_at: '2020-08-24T08:44:54.300Z'
+            upvotes: 0
+            user:
+              can_merge: true
+            user_notes_count: 3
+            web_url: https://gitlab.com/packit-service/ogr-tests/-/merge_requests/1
+            work_in_progress: false
+          _next: null
+          elapsed: 0.2
+          encoding: null
+          headers:
+            CF-Cache-Status: DYNAMIC
+            CF-RAY: 5c7bcb86ab71d6d1-FRA
+            Cache-Control: max-age=0, private, must-revalidate
+            Connection: keep-alive
+            Content-Encoding: gzip
+            Content-Type: application/json
+            Date: Fri, 01 Nov 2019 13-36-03 GMT
+            Etag: W/"b6b2496bc454a17e7304d15608f678d3"
+            Expect-CT: max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
+            GitLab-LB: fe-03-lb-gprd
+            GitLab-SV: api-06-sv-gprd
+            Referrer-Policy: strict-origin-when-cross-origin
+            Server: cloudflare
+            Strict-Transport-Security: max-age=31536000
+            Transfer-Encoding: chunked
+            Vary: Accept-Encoding, Origin
+            X-Content-Type-Options: nosniff
+            X-Frame-Options: SAMEORIGIN
+            X-Request-Id: jLKeiGSskC2
+            X-Runtime: '0.107006'
+            cf-request-id: 04c13d88290000d6d1deabd200000001
+          raw: !!binary ""
+          reason: OK
+          status_code: 200
+      - metadata:
+          latency: 0.5078349113464355
+          module_call_list:
+          - unittest.case
+          - requre.online_replacing
+          - tests.integration.test_gitlab
+          - wrapt.wrappers
+          - deprecated.classic
+          - ogr.services.base
+          - ogr.services.gitlab.project
+          - ogr.services.gitlab.pull_request
+          - gitlab.exceptions
+          - gitlab.mixins
+          - gitlab
+          - requre.objects
+          - requre.cassette
+          - requests.sessions
+          - send
+        output:
+          __store_indicator: 2
+          _content:
+            approvals_before_merge: 0
+            assignee: null
+            assignees: []
+            author:
+              avatar_url: https://secure.gravatar.com/avatar/9c8d9a288151a8e563547e082c591f2a?s=80&d=identicon
+              id: 4594931
+              name: "Laura Barcziov\xE1"
+              state: active
+              username: lbarcziova
+              web_url: https://gitlab.com/lbarcziova
+            blocking_discussions_resolved: true
+            changes_count: '1'
+            closed_at: null
+            closed_by: null
+            created_at: '2019-09-10T14:03:24.365Z'
+            description: changed description
+            diff_refs:
+              base_sha: 24c86d0704694f686329b2ea636c5b7522cfdc40
+              head_sha: d490ec67dd98f69dfdc1732b98bb3189f0e0aace
+              start_sha: 24c86d0704694f686329b2ea636c5b7522cfdc40
+            discussion_locked: null
+            downvotes: 0
+            first_contribution: false
+            first_deployed_to_production_at: null
+            force_remove_source_branch: false
+            has_conflicts: false
+            head_pipeline: null
+            id: 36948617
+            iid: 1
+            labels:
+            - test_lb1
+            - test_lb2
+            latest_build_finished_at: null
+            latest_build_started_at: null
+            merge_commit_sha: 101a42bbbe174d04b465d49caf274dc3b4defeca
+            merge_error: null
+            merge_status: can_be_merged
+            merge_when_pipeline_succeeds: false
+            merged_at: '2019-09-11T08:55:32.822Z'
+            merged_by:
+              avatar_url: https://secure.gravatar.com/avatar/9c8d9a288151a8e563547e082c591f2a?s=80&d=identicon
+              id: 4594931
+              name: "Laura Barcziov\xE1"
+              state: active
+              username: lbarcziova
+              web_url: https://gitlab.com/lbarcziova
+            milestone: null
+            pipeline: null
+            project_id: 14233409
+            reference: '!1'
+            references:
+              full: packit-service/ogr-tests!1
+              relative: '!1'
+              short: '!1'
+            sha: d490ec67dd98f69dfdc1732b98bb3189f0e0aace
+            should_remove_source_branch: null
+            source_branch: change
+            source_project_id: 14233409
+            squash: false
+            squash_commit_sha: null
+            state: merged
+            subscribed: true
+            target_branch: master
+            target_project_id: 14233409
+            task_completion_status:
+              completed_count: 0
+              count: 0
+            time_stats:
+              human_time_estimate: null
+              human_total_time_spent: null
+              time_estimate: 0
+              total_time_spent: 0
+            title: change
+            updated_at: '2020-08-24T08:45:04.896Z'
+            upvotes: 0
+            user:
+              can_merge: true
+            user_notes_count: 3
+            web_url: https://gitlab.com/packit-service/ogr-tests/-/merge_requests/1
+            work_in_progress: false
+          _next: null
+          elapsed: 0.2
+          encoding: null
+          headers:
+            CF-Cache-Status: DYNAMIC
+            CF-RAY: 5c7bcb8bc821d6d1-FRA
+            Cache-Control: max-age=0, private, must-revalidate
+            Connection: keep-alive
+            Content-Encoding: gzip
+            Content-Type: application/json
+            Date: Fri, 01 Nov 2019 13-36-03 GMT
+            Etag: W/"5217ba89f0c01961fa0e6d5cea9c9657"
+            Expect-CT: max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
+            GitLab-LB: fe-09-lb-gprd
+            GitLab-SV: api-06-sv-gprd
+            Referrer-Policy: strict-origin-when-cross-origin
+            Server: cloudflare
+            Strict-Transport-Security: max-age=31536000
+            Transfer-Encoding: chunked
+            Vary: Accept-Encoding, Origin
+            X-Content-Type-Options: nosniff
+            X-Frame-Options: SAMEORIGIN
+            X-Request-Id: lmF2ki6WO36
+            X-Runtime: '0.256486'
+            cf-request-id: 04c13d8b5b0000d6d1deaf6200000001
+          raw: !!binary ""
+          reason: OK
+          status_code: 200
+      - metadata:
+          latency: 0.3969728946685791
+          module_call_list:
+          - unittest.case
+          - requre.online_replacing
+          - tests.integration.test_gitlab
+          - wrapt.wrappers
+          - deprecated.classic
+          - ogr.services.base
+          - ogr.services.gitlab.project
+          - ogr.services.gitlab.pull_request
+          - gitlab.exceptions
+          - gitlab.mixins
+          - gitlab
+          - requre.objects
+          - requre.cassette
+          - requests.sessions
+          - send
+        output:
+          __store_indicator: 2
+          _content:
+            approvals_before_merge: 0
+            assignee: null
+            assignees: []
+            author:
+              avatar_url: https://secure.gravatar.com/avatar/9c8d9a288151a8e563547e082c591f2a?s=80&d=identicon
+              id: 4594931
+              name: "Laura Barcziov\xE1"
+              state: active
+              username: lbarcziova
+              web_url: https://gitlab.com/lbarcziova
+            blocking_discussions_resolved: true
+            changes_count: '1'
+            closed_at: null
+            closed_by: null
+            created_at: '2019-09-10T14:03:24.365Z'
+            description: changed description
+            diff_refs:
+              base_sha: 24c86d0704694f686329b2ea636c5b7522cfdc40
+              head_sha: d490ec67dd98f69dfdc1732b98bb3189f0e0aace
+              start_sha: 24c86d0704694f686329b2ea636c5b7522cfdc40
+            discussion_locked: null
+            downvotes: 0
+            first_contribution: false
+            first_deployed_to_production_at: null
+            force_remove_source_branch: false
+            has_conflicts: false
+            head_pipeline: null
+            id: 36948617
+            iid: 1
+            labels:
+            - test_lb1
+            - test_lb2
+            latest_build_finished_at: null
+            latest_build_started_at: null
+            merge_commit_sha: 101a42bbbe174d04b465d49caf274dc3b4defeca
+            merge_error: null
+            merge_status: can_be_merged
+            merge_when_pipeline_succeeds: false
+            merged_at: '2019-09-11T08:55:32.822Z'
+            merged_by:
+              avatar_url: https://secure.gravatar.com/avatar/9c8d9a288151a8e563547e082c591f2a?s=80&d=identicon
+              id: 4594931
+              name: "Laura Barcziov\xE1"
+              state: active
+              username: lbarcziova
+              web_url: https://gitlab.com/lbarcziova
+            milestone: null
+            pipeline: null
+            project_id: 14233409
+            reference: '!1'
+            references:
+              full: packit-service/ogr-tests!1
+              relative: '!1'
+              short: '!1'
+            sha: d490ec67dd98f69dfdc1732b98bb3189f0e0aace
+            should_remove_source_branch: null
+            source_branch: change
+            source_project_id: 14233409
+            squash: false
+            squash_commit_sha: null
+            state: merged
+            subscribed: true
+            target_branch: master
+            target_project_id: 14233409
+            task_completion_status:
+              completed_count: 0
+              count: 0
+            time_stats:
+              human_time_estimate: null
+              human_total_time_spent: null
+              time_estimate: 0
+              total_time_spent: 0
+            title: change
+            updated_at: '2020-08-24T08:45:04.896Z'
+            upvotes: 0
+            user:
+              can_merge: true
+            user_notes_count: 3
+            web_url: https://gitlab.com/packit-service/ogr-tests/-/merge_requests/1
+            work_in_progress: false
+          _next: null
+          elapsed: 0.2
+          encoding: null
+          headers:
+            CF-Cache-Status: DYNAMIC
+            CF-RAY: 5c7bcb8f0881d6d1-FRA
+            Cache-Control: max-age=0, private, must-revalidate
+            Connection: keep-alive
+            Content-Encoding: gzip
+            Content-Type: application/json
+            Date: Fri, 01 Nov 2019 13-36-03 GMT
+            Etag: W/"5217ba89f0c01961fa0e6d5cea9c9657"
+            Expect-CT: max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
+            GitLab-LB: fe-12-lb-gprd
+            GitLab-SV: api-18-sv-gprd
+            Referrer-Policy: strict-origin-when-cross-origin
+            Server: cloudflare
+            Strict-Transport-Security: max-age=31536000
+            Transfer-Encoding: chunked
+            Vary: Accept-Encoding, Origin
+            X-Content-Type-Options: nosniff
+            X-Frame-Options: SAMEORIGIN
+            X-Request-Id: YOOnjsfoGJ1
+            X-Runtime: '0.106007'
+            cf-request-id: 04c13d8d650000d6d1deb1a200000001
+          raw: !!binary ""
+          reason: OK
+          status_code: 200
+      - metadata:
+          latency: 0.5004894733428955
+          module_call_list:
+          - unittest.case
+          - requre.online_replacing
+          - tests.integration.test_gitlab
+          - wrapt.wrappers
+          - deprecated.classic
+          - ogr.services.base
+          - ogr.services.gitlab.project
+          - ogr.services.gitlab.pull_request
+          - gitlab.exceptions
+          - gitlab.mixins
+          - gitlab
+          - requre.objects
+          - requre.cassette
+          - requests.sessions
+          - send
+        output:
+          __store_indicator: 2
+          _content:
+            approvals_before_merge: 0
+            assignee: null
+            assignees: []
+            author:
+              avatar_url: https://secure.gravatar.com/avatar/9c8d9a288151a8e563547e082c591f2a?s=80&d=identicon
+              id: 4594931
+              name: "Laura Barcziov\xE1"
+              state: active
+              username: lbarcziova
+              web_url: https://gitlab.com/lbarcziova
+            blocking_discussions_resolved: true
+            changes_count: '1'
+            closed_at: null
+            closed_by: null
+            created_at: '2019-09-10T14:03:24.365Z'
+            description: description of mergerequest
+            diff_refs:
+              base_sha: 24c86d0704694f686329b2ea636c5b7522cfdc40
+              head_sha: d490ec67dd98f69dfdc1732b98bb3189f0e0aace
+              start_sha: 24c86d0704694f686329b2ea636c5b7522cfdc40
+            discussion_locked: null
+            downvotes: 0
+            first_contribution: false
+            first_deployed_to_production_at: null
+            force_remove_source_branch: false
+            has_conflicts: false
+            head_pipeline: null
+            id: 36948617
+            iid: 1
+            labels:
+            - test_lb1
+            - test_lb2
+            latest_build_finished_at: null
+            latest_build_started_at: null
+            merge_commit_sha: 101a42bbbe174d04b465d49caf274dc3b4defeca
+            merge_error: null
+            merge_status: can_be_merged
+            merge_when_pipeline_succeeds: false
+            merged_at: '2019-09-11T08:55:32.822Z'
+            merged_by:
+              avatar_url: https://secure.gravatar.com/avatar/9c8d9a288151a8e563547e082c591f2a?s=80&d=identicon
+              id: 4594931
+              name: "Laura Barcziov\xE1"
+              state: active
+              username: lbarcziova
+              web_url: https://gitlab.com/lbarcziova
+            milestone: null
+            pipeline: null
+            project_id: 14233409
+            reference: '!1'
+            references:
+              full: packit-service/ogr-tests!1
+              relative: '!1'
+              short: '!1'
+            sha: d490ec67dd98f69dfdc1732b98bb3189f0e0aace
+            should_remove_source_branch: null
+            source_branch: change
+            source_project_id: 14233409
+            squash: false
+            squash_commit_sha: null
+            state: merged
+            subscribed: true
+            target_branch: master
+            target_project_id: 14233409
+            task_completion_status:
+              completed_count: 0
+              count: 0
+            time_stats:
+              human_time_estimate: null
+              human_total_time_spent: null
+              time_estimate: 0
+              total_time_spent: 0
+            title: change
+            updated_at: '2020-08-24T08:45:06.341Z'
+            upvotes: 0
+            user:
+              can_merge: true
+            user_notes_count: 3
+            web_url: https://gitlab.com/packit-service/ogr-tests/-/merge_requests/1
+            work_in_progress: false
+          _next: null
+          elapsed: 0.2
+          encoding: null
+          headers:
+            CF-Cache-Status: DYNAMIC
+            CF-RAY: 5c7bcb94c84dd6d1-FRA
+            Cache-Control: max-age=0, private, must-revalidate
+            Connection: keep-alive
+            Content-Encoding: gzip
+            Content-Type: application/json
+            Date: Fri, 01 Nov 2019 13-36-03 GMT
+            Etag: W/"440a3390dc50172b21e781e74abb72a9"
+            Expect-CT: max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
+            GitLab-LB: fe-12-lb-gprd
+            GitLab-SV: api-09-sv-gprd
+            Referrer-Policy: strict-origin-when-cross-origin
+            Server: cloudflare
+            Strict-Transport-Security: max-age=31536000
+            Transfer-Encoding: chunked
+            Vary: Accept-Encoding, Origin
+            X-Content-Type-Options: nosniff
+            X-Frame-Options: SAMEORIGIN
+            X-Request-Id: Yh1EfAqtAm1
+            X-Runtime: '0.225731'
+            cf-request-id: 04c13d90fc0000d6d1deb58200000001
+          raw: !!binary ""
+          reason: OK
+          status_code: 200
+      https://gitlab.com/api/v4/projects/packit-service%2Fogr-tests:
+      - metadata:
+          latency: 0.29303884506225586
+          module_call_list:
+          - unittest.case
+          - requre.online_replacing
+          - tests.integration.test_gitlab
+          - wrapt.wrappers
+          - deprecated.classic
+          - ogr.services.base
+          - ogr.services.gitlab.project
+          - ogr.services.gitlab.pull_request
+          - ogr.services.gitlab.project
+          - gitlab.exceptions
+          - gitlab.mixins
+          - gitlab
+          - requre.objects
+          - requre.cassette
+          - requests.sessions
+          - send
+        output:
+          __store_indicator: 2
+          _content:
+            _links:
+              events: https://gitlab.com/api/v4/projects/14233409/events
+              issues: https://gitlab.com/api/v4/projects/14233409/issues
+              labels: https://gitlab.com/api/v4/projects/14233409/labels
+              members: https://gitlab.com/api/v4/projects/14233409/members
+              merge_requests: https://gitlab.com/api/v4/projects/14233409/merge_requests
+              repo_branches: https://gitlab.com/api/v4/projects/14233409/repository/branches
+              self: https://gitlab.com/api/v4/projects/14233409
+            allow_merge_on_skipped_pipeline: null
+            approvals_before_merge: 0
+            archived: false
+            auto_cancel_pending_pipelines: enabled
+            auto_devops_deploy_strategy: continuous
+            auto_devops_enabled: false
+            autoclose_referenced_issues: true
+            avatar_url: null
+            build_coverage_regex: null
+            build_git_strategy: fetch
+            build_timeout: 3600
+            builds_access_level: enabled
+            can_create_merge_request_in: true
+            ci_config_path: null
+            ci_default_git_depth: 50
+            compliance_frameworks: []
+            container_registry_enabled: true
+            created_at: '2019-09-10T10:28:09.946Z'
+            creator_id: 433670
+            default_branch: master
+            description: Testing repository for python-ogr package.  |  https://github.com/packit-service/ogr
+            emails_disabled: null
+            empty_repo: false
+            external_authorization_classification_label: ''
+            forking_access_level: enabled
+            forks_count: 4
+            http_url_to_repo: https://gitlab.com/packit-service/ogr-tests.git
+            id: 14233409
+            import_error: null
+            import_status: none
+            issues_access_level: enabled
+            issues_enabled: true
+            jobs_enabled: true
+            last_activity_at: '2020-08-24T08:16:55.691Z'
+            lfs_enabled: true
+            marked_for_deletion_at: null
+            marked_for_deletion_on: null
+            merge_method: merge
+            merge_requests_access_level: enabled
+            merge_requests_enabled: true
+            mirror: false
+            name: ogr-tests
+            name_with_namespace: packit-service / ogr-tests
+            namespace:
+              avatar_url: /uploads/-/system/group/avatar/6032704/packit-logo.png
+              full_path: packit-service
+              id: 6032704
+              kind: group
+              name: packit-service
+              parent_id: null
+              path: packit-service
+              web_url: https://gitlab.com/groups/packit-service
+            only_allow_merge_if_all_discussions_are_resolved: false
+            only_allow_merge_if_pipeline_succeeds: false
+            open_issues_count: 49
+            packages_enabled: true
+            pages_access_level: enabled
+            path: ogr-tests
+            path_with_namespace: packit-service/ogr-tests
+            permissions:
+              group_access:
+                access_level: 50
+                notification_level: 3
+              project_access: null
+            printing_merge_request_link_enabled: true
+            public_jobs: true
+            readme_url: https://gitlab.com/packit-service/ogr-tests/-/blob/master/README.md
+            remove_source_branch_after_merge: null
+            repository_access_level: enabled
+            request_access_enabled: false
+            resolve_outdated_diff_discussions: false
+            runners_token: VjGdzzwZbsTY37sxUeWL
+            service_desk_address: incoming+packit-service-ogr-tests-14233409-issue-@incoming.gitlab.com
+            service_desk_enabled: true
+            shared_runners_enabled: true
+            shared_with_groups: []
+            snippets_access_level: enabled
+            snippets_enabled: true
+            ssh_url_to_repo: git@gitlab.com:packit-service/ogr-tests.git
+            star_count: 0
+            suggestion_commit_message: null
+            tag_list: []
+            visibility: public
+            web_url: https://gitlab.com/packit-service/ogr-tests
+            wiki_access_level: enabled
+            wiki_enabled: true
+          _next: null
+          elapsed: 0.2
+          encoding: null
+          headers:
+            CF-Cache-Status: DYNAMIC
+            CF-RAY: 5c7bcb82da1ed6d1-FRA
+            Cache-Control: max-age=0, private, must-revalidate
+            Connection: keep-alive
+            Content-Encoding: gzip
+            Content-Type: application/json
+            Date: Fri, 01 Nov 2019 13-36-03 GMT
+            Etag: W/"aa6e5dd3f91f4d24ba76c74fd76b197d"
+            Expect-CT: max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
+            GitLab-LB: fe-06-lb-gprd
+            GitLab-SV: api-18-sv-gprd
+            Referrer-Policy: strict-origin-when-cross-origin
+            Server: cloudflare
+            Strict-Transport-Security: max-age=31536000
+            Transfer-Encoding: chunked
+            Vary: Accept-Encoding, Origin
+            X-Content-Type-Options: nosniff
+            X-Frame-Options: SAMEORIGIN
+            X-Request-Id: c4zDzI62Kl6
+            X-Runtime: '0.076827'
+            cf-request-id: 04c13d85cb0000d6d1dea91200000001
+          raw: !!binary ""
+          reason: OK
+          status_code: 200
+      https://gitlab.com/api/v4/user:
+      - metadata:
+          latency: 0.7322916984558105
+          module_call_list:
+          - unittest.case
+          - requre.online_replacing
+          - tests.integration.test_gitlab
+          - wrapt.wrappers
+          - deprecated.classic
+          - ogr.services.base
+          - ogr.services.gitlab.project
+          - ogr.services.gitlab.pull_request
+          - ogr.services.gitlab.project
+          - ogr.services.gitlab.service
+          - gitlab
+          - gitlab.exceptions
+          - gitlab.mixins
+          - gitlab
+          - requre.objects
+          - requre.cassette
+          - requests.sessions
+          - send
+        output:
+          __store_indicator: 2
+          _content:
+            avatar_url: https://secure.gravatar.com/avatar/e1ae3427f994784121371108f12eceb5?s=80&d=identicon
+            bio: ''
+            bio_html: ''
+            can_create_group: true
+            can_create_project: true
+            color_scheme_id: 1
+            confirmed_at: '2019-09-16T14:07:15.993Z'
+            created_at: '2019-09-16T14:07:16.050Z'
+            current_sign_in_at: '2020-08-21T12:43:01.530Z'
+            email: scottyh@post.cz
+            external: false
+            extra_shared_runners_minutes_limit: null
+            id: 4626962
+            identities:
+            - extern_uid: '8735467'
+              provider: github
+              saml_provider_id: null
+            job_title: ''
+            last_activity_on: '2020-08-24'
+            last_sign_in_at: '2020-07-30T13:14:34.957Z'
+            linkedin: ''
+            location: null
+            name: jscotka
+            organization: null
+            private_profile: false
+            projects_limit: 100000
+            public_email: ''
+            shared_runners_minutes_limit: null
+            skype: ''
+            state: active
+            theme_id: 1
+            twitter: ''
+            two_factor_enabled: false
+            username: jscotka
+            web_url: https://gitlab.com/jscotka
+            website_url: ''
+            work_information: null
+          _next: null
+          elapsed: 0.2
+          encoding: null
+          headers:
+            CF-Cache-Status: DYNAMIC
+            CF-RAY: 5c7bcb7ec802d6d1-FRA
+            Cache-Control: max-age=0, private, must-revalidate
+            Connection: keep-alive
+            Content-Encoding: gzip
+            Content-Type: application/json
+            Date: Fri, 01 Nov 2019 13-36-03 GMT
+            Etag: W/"9a28ab27b4a03f0ca6932942f5f532ab"
+            Expect-CT: max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
+            GitLab-LB: fe-12-lb-gprd
+            GitLab-SV: api-15-sv-gprd
+            Referrer-Policy: strict-origin-when-cross-origin
+            Server: cloudflare
+            Set-Cookie: __cfduid=db1d5771bff8baf9220310617492281641598258703; expires=Wed,
+              23-Sep-20 08:45:03 GMT; path=/; domain=.gitlab.com; HttpOnly; SameSite=Lax;
+              Secure
+            Strict-Transport-Security: max-age=31536000
+            Transfer-Encoding: chunked
+            Vary: Accept-Encoding, Origin
+            X-Content-Type-Options: nosniff
+            X-Frame-Options: SAMEORIGIN
+            X-Request-Id: ZJzeqsTBw75
+            X-Runtime: '0.027095'
+            cf-request-id: 04c13d83380000d6d1dea6b200000001
+          raw: !!binary ""
+          reason: OK
+          status_code: 200
+    PUT:
+      https://gitlab.com/api/v4/projects/14233409/merge_requests/1:
+      - metadata:
+          latency: 0.4985785484313965
+          module_call_list:
+          - unittest.case
+          - requre.online_replacing
+          - tests.integration.test_gitlab
+          - wrapt.wrappers
+          - deprecated.classic
+          - ogr.services.base
+          - ogr.services.gitlab.pull_request
+          - gitlab.mixins
+          - gitlab.exceptions
+          - gitlab.mixins
+          - gitlab
+          - requre.objects
+          - requre.cassette
+          - requests.sessions
+          - send
+        output:
+          __store_indicator: 2
+          _content:
+            approvals_before_merge: 0
+            assignee: null
+            assignees: []
+            author:
+              avatar_url: https://secure.gravatar.com/avatar/9c8d9a288151a8e563547e082c591f2a?s=80&d=identicon
+              id: 4594931
+              name: "Laura Barcziov\xE1"
+              state: active
+              username: lbarcziova
+              web_url: https://gitlab.com/lbarcziova
+            blocking_discussions_resolved: true
+            changes_count: '1'
+            closed_at: null
+            closed_by: null
+            created_at: '2019-09-10T14:03:24.365Z'
+            description: changed description
+            diff_refs:
+              base_sha: 24c86d0704694f686329b2ea636c5b7522cfdc40
+              head_sha: d490ec67dd98f69dfdc1732b98bb3189f0e0aace
+              start_sha: 24c86d0704694f686329b2ea636c5b7522cfdc40
+            discussion_locked: null
+            downvotes: 0
+            first_deployed_to_production_at: null
+            force_remove_source_branch: false
+            has_conflicts: false
+            head_pipeline: null
+            id: 36948617
+            iid: 1
+            labels:
+            - test_lb1
+            - test_lb2
+            latest_build_finished_at: null
+            latest_build_started_at: null
+            merge_commit_sha: 101a42bbbe174d04b465d49caf274dc3b4defeca
+            merge_error: null
+            merge_status: can_be_merged
+            merge_when_pipeline_succeeds: false
+            merged_at: '2019-09-11T08:55:32.822Z'
+            merged_by:
+              avatar_url: https://secure.gravatar.com/avatar/9c8d9a288151a8e563547e082c591f2a?s=80&d=identicon
+              id: 4594931
+              name: "Laura Barcziov\xE1"
+              state: active
+              username: lbarcziova
+              web_url: https://gitlab.com/lbarcziova
+            milestone: null
+            pipeline: null
+            project_id: 14233409
+            reference: '!1'
+            references:
+              full: packit-service/ogr-tests!1
+              relative: '!1'
+              short: '!1'
+            sha: d490ec67dd98f69dfdc1732b98bb3189f0e0aace
+            should_remove_source_branch: null
+            source_branch: change
+            source_project_id: 14233409
+            squash: false
+            squash_commit_sha: null
+            state: merged
+            subscribed: true
+            target_branch: master
+            target_project_id: 14233409
+            task_completion_status:
+              completed_count: 0
+              count: 0
+            time_stats:
+              human_time_estimate: null
+              human_total_time_spent: null
+              time_estimate: 0
+              total_time_spent: 0
+            title: change
+            updated_at: '2020-08-24T08:45:04.896Z'
+            upvotes: 0
+            user:
+              can_merge: true
+            user_notes_count: 3
+            web_url: https://gitlab.com/packit-service/ogr-tests/-/merge_requests/1
+            work_in_progress: false
+          _next: null
+          elapsed: 0.2
+          encoding: null
+          headers:
+            CF-Cache-Status: DYNAMIC
+            CF-RAY: 5c7bcb88a883d6d1-FRA
+            Cache-Control: max-age=0, private, must-revalidate
+            Connection: keep-alive
+            Content-Encoding: gzip
+            Content-Type: application/json
+            Date: Fri, 01 Nov 2019 13-36-03 GMT
+            Etag: W/"c4e16e104ee03accaec41db9a0bbc539"
+            Expect-CT: max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
+            GitLab-LB: fe-01-lb-gprd
+            GitLab-SV: api-13-sv-gprd
+            Referrer-Policy: strict-origin-when-cross-origin
+            Server: cloudflare
+            Strict-Transport-Security: max-age=31536000
+            Transfer-Encoding: chunked
+            Vary: Accept-Encoding, Origin
+            X-Content-Type-Options: nosniff
+            X-Frame-Options: SAMEORIGIN
+            X-Request-Id: glgGBJSJnP1
+            X-Runtime: '0.286021'
+            cf-request-id: 04c13d89640000d6d1deacc200000001
+          raw: !!binary ""
+          reason: OK
+          status_code: 200
+      - metadata:
+          latency: 0.5077433586120605
+          module_call_list:
+          - unittest.case
+          - requre.online_replacing
+          - tests.integration.test_gitlab
+          - wrapt.wrappers
+          - deprecated.classic
+          - ogr.services.base
+          - ogr.services.gitlab.pull_request
+          - gitlab.mixins
+          - gitlab.exceptions
+          - gitlab.mixins
+          - gitlab
+          - requre.objects
+          - requre.cassette
+          - requests.sessions
+          - send
+        output:
+          __store_indicator: 2
+          _content:
+            approvals_before_merge: 0
+            assignee: null
+            assignees: []
+            author:
+              avatar_url: https://secure.gravatar.com/avatar/9c8d9a288151a8e563547e082c591f2a?s=80&d=identicon
+              id: 4594931
+              name: "Laura Barcziov\xE1"
+              state: active
+              username: lbarcziova
+              web_url: https://gitlab.com/lbarcziova
+            blocking_discussions_resolved: true
+            changes_count: '1'
+            closed_at: null
+            closed_by: null
+            created_at: '2019-09-10T14:03:24.365Z'
+            description: description of mergerequest
+            diff_refs:
+              base_sha: 24c86d0704694f686329b2ea636c5b7522cfdc40
+              head_sha: d490ec67dd98f69dfdc1732b98bb3189f0e0aace
+              start_sha: 24c86d0704694f686329b2ea636c5b7522cfdc40
+            discussion_locked: null
+            downvotes: 0
+            first_deployed_to_production_at: null
+            force_remove_source_branch: false
+            has_conflicts: false
+            head_pipeline: null
+            id: 36948617
+            iid: 1
+            labels:
+            - test_lb1
+            - test_lb2
+            latest_build_finished_at: null
+            latest_build_started_at: null
+            merge_commit_sha: 101a42bbbe174d04b465d49caf274dc3b4defeca
+            merge_error: null
+            merge_status: can_be_merged
+            merge_when_pipeline_succeeds: false
+            merged_at: '2019-09-11T08:55:32.822Z'
+            merged_by:
+              avatar_url: https://secure.gravatar.com/avatar/9c8d9a288151a8e563547e082c591f2a?s=80&d=identicon
+              id: 4594931
+              name: "Laura Barcziov\xE1"
+              state: active
+              username: lbarcziova
+              web_url: https://gitlab.com/lbarcziova
+            milestone: null
+            pipeline: null
+            project_id: 14233409
+            reference: '!1'
+            references:
+              full: packit-service/ogr-tests!1
+              relative: '!1'
+              short: '!1'
+            sha: d490ec67dd98f69dfdc1732b98bb3189f0e0aace
+            should_remove_source_branch: null
+            source_branch: change
+            source_project_id: 14233409
+            squash: false
+            squash_commit_sha: null
+            state: merged
+            subscribed: true
+            target_branch: master
+            target_project_id: 14233409
+            task_completion_status:
+              completed_count: 0
+              count: 0
+            time_stats:
+              human_time_estimate: null
+              human_total_time_spent: null
+              time_estimate: 0
+              total_time_spent: 0
+            title: change
+            updated_at: '2020-08-24T08:45:06.341Z'
+            upvotes: 0
+            user:
+              can_merge: true
+            user_notes_count: 3
+            web_url: https://gitlab.com/packit-service/ogr-tests/-/merge_requests/1
+            work_in_progress: false
+          _next: null
+          elapsed: 0.2
+          encoding: null
+          headers:
+            CF-Cache-Status: DYNAMIC
+            CF-RAY: 5c7bcb918ea2d6d1-FRA
+            Cache-Control: max-age=0, private, must-revalidate
+            Connection: keep-alive
+            Content-Encoding: gzip
+            Content-Type: application/json
+            Date: Fri, 01 Nov 2019 13-36-03 GMT
+            Etag: W/"420e4b720be27fc9f99c72cb40f44d84"
+            Expect-CT: max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
+            GitLab-LB: fe-12-lb-gprd
+            GitLab-SV: api-12-sv-gprd
+            Referrer-Policy: strict-origin-when-cross-origin
+            Server: cloudflare
+            Strict-Transport-Security: max-age=31536000
+            Transfer-Encoding: chunked
+            Vary: Accept-Encoding, Origin
+            X-Content-Type-Options: nosniff
+            X-Frame-Options: SAMEORIGIN
+            X-Request-Id: g7Luuay9N05
+            X-Runtime: '0.276598'
+            cf-request-id: 04c13d8ef40000d6d1deb31200000001
+          raw: !!binary ""
+          reason: OK
+          status_code: 200

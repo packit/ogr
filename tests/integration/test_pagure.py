@@ -1,30 +1,36 @@
 import os
 from datetime import datetime
-
+import unittest
 import pytest
-from requre.storage import PersistentObjectStorage
-from requre.utils import StorageMode
-from requre import RequreTestCase
+from requre.utils import get_datafile_filename
+from requre.online_replacing import record_requests_for_all_methods
 
 from ogr import PagureService
 from ogr.abstract import PRStatus, IssueStatus, CommitStatus, AccessLevel
 from ogr.exceptions import PagureAPIException, OgrException
 
 
-class PagureTests(RequreTestCase):
+class PagureTests(unittest.TestCase):
     def setUp(self):
         super().setUp()
         self.token = os.environ.get("PAGURE_TOKEN")
 
-        if PersistentObjectStorage().mode == StorageMode.write and (not self.token):
+        if not get_datafile_filename(obj=self) and (not self.token):
             raise EnvironmentError(
                 "You are in Requre write mode, please set PAGURE_TOKEN env variables"
             )
-
-        self.service = PagureService(token=self.token, instance_url="https://pagure.io")
+        self._service = None
         self._user = None
         self._ogr_project = None
         self._ogr_fork = None
+
+    @property
+    def service(self):
+        if not self._service:
+            self._service = PagureService(
+                token=self.token, instance_url="https://pagure.io"
+            )
+        return self._service
 
     @property
     def user(self):
@@ -49,19 +55,20 @@ class PagureTests(RequreTestCase):
         return self._ogr_fork
 
 
+@record_requests_for_all_methods()
 class Comments(PagureTests):
     def test_pr_comments(self):
         pr_comments = self.ogr_project.get_pr_comments(pr_id=4)
         assert pr_comments
         print(pr_comments[0].body, pr_comments[1].body, pr_comments[2].body)
-        assert len(pr_comments) == 6
+        assert len(pr_comments) == 8
         assert pr_comments[0].body.endswith("test")
 
     def test_pr_comments_reversed(self):
         pr_comments = self.ogr_project.get_pr_comments(pr_id=4, reverse=True)
         assert pr_comments
-        assert len(pr_comments) == 6
-        assert pr_comments[2].body.endswith("me")
+        assert len(pr_comments) == 8
+        assert pr_comments[2].body.endswith("PR comment 10")
 
     def test_pr_comments_filter(self):
         pr_comments = self.ogr_project.get_pr_comments(pr_id=4, filter_regex="me")
@@ -90,7 +97,9 @@ class Comments(PagureTests):
         assert comment_match[0].startswith("Pull")
 
 
+@record_requests_for_all_methods()
 class GenericCommands(PagureTests):
+    @unittest.skip("TODO: not enough rights to modify ACLs")
     def test_add_user(self):
         project = self.service.get_project(
             repo="hello-112111",
@@ -98,6 +107,7 @@ class GenericCommands(PagureTests):
         )
         project.add_user("lachmanfrantisek", AccessLevel.admin)
 
+    @unittest.skip("TODO: not enough rights to modify ACLs")
     def test_add_group(self):
         project = self.service.get_project(
             repo="hello-112111",
@@ -112,7 +122,7 @@ class GenericCommands(PagureTests):
     def test_branches(self):
         branches = self.ogr_project.get_branches()
         assert branches
-        assert set(branches) == {"master"}
+        assert set(branches) == {"master", "testPR"}
 
     def test_get_releases(self):
         releases = self.ogr_project.get_releases()
@@ -132,10 +142,10 @@ class GenericCommands(PagureTests):
         assert len(self.service.user.get_username()) > 3
 
     def test_get_file(self):
-        file_content = self.ogr_project.get_file_content("README.rst")
+        file_content = self.ogr_project.get_file_content("README.md")
         assert file_content
         assert isinstance(file_content, str)
-        assert "This is a testing repo" in file_content
+        assert "Testing repository for python-ogr" in file_content
 
     def test_nonexisting_file(self):
         with self.assertRaises(Exception) as _:
@@ -185,12 +195,14 @@ class GenericCommands(PagureTests):
         )
 
 
+@record_requests_for_all_methods()
 class Service(PagureTests):
     def test_project_create(self):
         """
-        Remove https://pagure.io/$USERNAME/new-ogr-testing-repo before data regeneration
+        Remove https://pagure.io/"name" before data regeneration
+        in case you are not owner of repo, create your
         """
-        name = "new-ogr-testing-repo"
+        name = "new-ogr-testing-repo-jscotka"
         project = self.service.get_project(repo=name, namespace=None)
         assert not project.exists()
 
@@ -204,9 +216,10 @@ class Service(PagureTests):
     def test_project_create_in_the_group(self):
         """
         Remove https://pagure.io/packit-service/new-ogr-testing-repo-in-the-group
-        before data regeneration
+        before data regeneration, if you have rigths to remove it, in other case
+        create your suffix
         """
-        name = "new-ogr-testing-repo-in-the-group"
+        name = "new-ogr-testing-repo-in-the-group-jscotka"
         namespace = "packit-service"
         project = self.service.get_project(repo=name, namespace=namespace)
         assert not project.exists()
@@ -239,6 +252,7 @@ class Service(PagureTests):
         assert not project.exists()
 
 
+@record_requests_for_all_methods()
 class Issues(PagureTests):
     def setUp(self):
         super().setUp()
@@ -316,6 +330,7 @@ class Issues(PagureTests):
         assert issue.description == description
 
 
+@record_requests_for_all_methods()
 class PullRequests(PagureTests):
     def test_pr_create(self):
         pr = self.ogr_fork.pr_create(
@@ -344,7 +359,8 @@ class PullRequests(PagureTests):
         pr_info = self.ogr_project.get_pr_info(pr_id=5)
         assert pr_info
         assert pr_info.title.startswith("Test PR")
-        assert pr_info.description.endswith("merged prs")
+        assert not pr_info.description
+        assert not pr_info.description
         assert pr_info.status == PRStatus.merged
         assert pr_info.url == "https://pagure.io/ogr-tests/pull-request/5"
         assert (
@@ -395,6 +411,7 @@ class PullRequests(PagureTests):
         assert "\nDate: Nov 26 2019 19:01:46 +0000\n" in patch.decode()
 
 
+@record_requests_for_all_methods()
 class Forks(PagureTests):
     def test_fork(self):
         assert self.ogr_fork.exists()
@@ -456,18 +473,27 @@ class Forks(PagureTests):
         assert len(old_forks) == len(new_forks) - 1
 
 
+@record_requests_for_all_methods()
 class PagureProjectTokenCommands(PagureTests):
     def setUp(self):
         super().setUp()
         self.token = os.environ.get("PAGURE_OGR_TEST_TOKEN", "")
 
-        if PersistentObjectStorage().mode == StorageMode.write and (not self.token):
+        if not get_datafile_filename(obj=self) and (not self.token):
             raise EnvironmentError("please set PAGURE_OGR_TEST_TOKEN env variables")
 
-        self.service = PagureService(token=self.token, instance_url="https://pagure.io")
+        self._service = None
         self._user = None
         self._ogr_project = None
         self._ogr_fork = None
+
+    @property
+    def service(self):
+        if not self._service:
+            self._service = PagureService(
+                token=self.token, instance_url="https://pagure.io"
+            )
+        return self._service
 
     def test_issue_permissions(self):
         owners = self.ogr_project.who_can_close_issue()
@@ -591,6 +617,9 @@ class PagureProjectTokenCommands(PagureTests):
         )
         assert len(comments) == 0
 
+    @unittest.skip(
+        "TODO: ask mfocko, how to regenerate this, there are no statuses in PR"
+    )
     def test_pr_status(self):
         self.ogr_project.set_commit_status(
             commit="360928f7ca08827e8e17cb26851ea57e8d197f87",

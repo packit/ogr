@@ -1,16 +1,16 @@
 import os
 import tempfile
 from pathlib import Path
-
+import unittest
 import pytest
 from ogr.exceptions import OgrException
 
 from ogr.services.github.project import GithubProject
 
 from ogr import GithubService
-from requre.storage import PersistentObjectStorage
-from requre.utils import StorageMode
-from requre import RequreTestCase
+from requre.utils import get_datafile_filename
+from requre.online_replacing import record_requests_for_all_methods
+
 
 TESTING_PRIVATE_KEY = str(
     """-----BEGIN RSA PRIVATE """ + "KEY-----\n"
@@ -25,13 +25,13 @@ TESTING_PRIVATE_KEY = str(
 )
 
 
-class GithubTests(RequreTestCase):
+@record_requests_for_all_methods()
+class GithubTests(unittest.TestCase):
     def setUp(self):
-        super().setUp()
         self.github_app_id = os.environ.get("GITHUB_APP_ID")
         self.github_app_private_key_path = os.environ.get("GITHUB_APP_PRIVATE_KEY_PATH")
 
-        if PersistentObjectStorage().mode == StorageMode.write and (
+        if not get_datafile_filename(obj=self) and (
             not self.github_app_id or not self.github_app_private_key_path
         ):
             raise EnvironmentError(
