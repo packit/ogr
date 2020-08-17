@@ -9,10 +9,10 @@ By contributing to this project you agree to the Developer Certificate of Origin
 
 ## Reporting Bugs
 
-Before creating bug reports, please check a [list of known issues](https://github.com/packit-service/ogr/issues) to see
+Before creating bug reports, please check a [list of known issues](https://github.com/packit/ogr/issues) to see
 if the problem has already been reported (or fixed in a master branch).
 
-If you're unable to find an open issue addressing the problem, [open a new one](https://github.com/packit-service/ogr/issues/new).
+If you're unable to find an open issue addressing the problem, [open a new one](https://github.com/packit/ogr/issues/new).
 Be sure to include a **descriptive title and a clear description**. Ideally, please provide:
 
 - version of ogr you are using (`rpm -q python3-ogr` or `pip3 freeze | grep ogr`)

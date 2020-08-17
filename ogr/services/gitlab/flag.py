@@ -117,5 +117,5 @@ class GitlabCommitFlag(CommitFlag):
     @property
     def edited(self) -> datetime.datetime:
         # Gitlab edited not implemented
-        # https://github.com/packit-service/ogr/issues/344
+        # https://github.com/packit/ogr/issues/344
         raise NotImplementedError()
