@@ -31,7 +31,10 @@ from ogr.exceptions import GithubAPIException
 from ogr.factory import use_for_service
 from ogr.services.base import BaseGitService
 from ogr.services.github.project import GithubProject
-from ogr.services.github.token_managers import OgrGithubTokenManager
+from ogr.services.github.token_managers import (
+    OgrGithubTokenManager,
+    TokmanGithubTokenManager,
+)
 from ogr.services.github.user import GithubUser
 
 
@@ -48,6 +51,7 @@ class GithubService(BaseGitService):
         github_app_id: str = None,
         github_app_private_key: str = None,
         github_app_private_key_path: str = None,
+        tokman_instance_url: str = None,
         token_manager: GithubTokenManager = None,
         **_,
     ):
@@ -62,6 +66,7 @@ class GithubService(BaseGitService):
         self.github = github.Github(login_or_token=self.token)
         self.read_only = read_only
 
+        self.tokman_instance_url = tokman_instance_url
         self._token_manager = token_manager
 
     @property
@@ -83,7 +88,11 @@ class GithubService(BaseGitService):
     @property
     def token_manager(self) -> GithubTokenManager:
         if self._token_manager is None:
-            self._token_manager = OgrGithubTokenManager(self)
+            self._token_manager = (
+                TokmanGithubTokenManager(self.tokman_instance_url)
+                if self.tokman_instance_url
+                else OgrGithubTokenManager(self)
+            )
         return self._token_manager
 
     def __str__(self) -> str:
@@ -189,7 +198,11 @@ class GithubService(BaseGitService):
         )
 
     def get_github_instance(self, namespace: str, repo: str) -> github.Github:
-        if self.github_app_id and self.github_app_private_key:
-            # authenticating as a GitHub app
+        if (
+            self._token_manager
+            or self.tokman_instance_url
+            or (self.github_app_id and self.github_app_private_key)
+        ):
+            # authenticating as a GitHub app or using Tokman
             return self.token_manager.get_instance(namespace, repo)
         return self.github
