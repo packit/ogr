@@ -17,7 +17,7 @@ class OgrGithubTokenManager(GithubTokenManager):
             service.github_app_id, service.github_app_private_key
         )
 
-    def get_instance(self, namespace: str, repo: str) -> github.Github:
+    def get_pygithub_instance(self, namespace: str, repo: str) -> github.Github:
         inst_id = self.integration.get_installation(namespace, repo).id
         # PyGithub<1.52 returned an object for id, with a value attribute,
         # which was None or an ID.

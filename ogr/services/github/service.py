@@ -99,6 +99,9 @@ class GithubService(BaseGitService):
 
     @property
     def token_manager(self) -> GithubTokenManager:
+        if self.token:
+            return None
+
         if self._token_manager is None:
             self._token_manager = (
                 TokmanGithubTokenManager(self.tokman_instance_url)
@@ -223,5 +226,5 @@ class GithubService(BaseGitService):
             or (self.github_app_id and self.github_app_private_key)
         ):
             # authenticating as a GitHub app or using Tokman
-            return self.token_manager.get_instance(namespace, repo)
+            return self.token_manager.get_pygithub_instance(namespace, repo)
         return self.github

@@ -27,7 +27,7 @@ class TokmanGithubTokenManager(GithubTokenManager):
         except Exception as ex:
             raise OgrException(f"Couldn't connect to Tokman instance: {ex}")
 
-    def get_instance(self, namespace: str, repo: str) -> github.Github:
+    def get_pygithub_instance(self, namespace: str, repo: str) -> github.Github:
         response = requests.get(f"{self.__instance_url}/api/{namespace}/{repo}")
 
         json_response = response.json()

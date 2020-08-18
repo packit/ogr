@@ -26,6 +26,8 @@ from enum import Enum, IntEnum
 from typing import Optional, Match, List, Dict, Set, TypeVar, Any, Sequence, Union
 from urllib.request import urlopen
 
+import github
+
 from ogr.deprecation import deprecate_and_set_removal
 from ogr.exceptions import OgrException
 from ogr.parsing import parse_git_repo
@@ -1401,7 +1403,7 @@ class GithubTokenManager:
     Represents a token manager for authentication via GitHubApp.
     """
 
-    def get_instance(self, namespace: str, repo: str) -> Any:
+    def get_pygithub_instance(self, namespace: str, repo: str) -> github.Github:
         """
         Returns GitHub instance for a requested repository,
         authenticated using GitHub App
