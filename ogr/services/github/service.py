@@ -27,7 +27,7 @@ import github
 from github import UnknownObjectException
 
 from ogr.abstract import GitUser, GithubTokenManager
-from ogr.exceptions import GithubAPIException
+from ogr.exceptions import GithubAPIException, OgrException
 from ogr.factory import use_for_service
 from ogr.services.base import BaseGitService
 from ogr.services.github.project import GithubProject
@@ -68,6 +68,18 @@ class GithubService(BaseGitService):
 
         self.tokman_instance_url = tokman_instance_url
         self._token_manager = token_manager
+
+        self.__check_for_multiple_auths(
+            (token, github_app_id, tokman_instance_url, token_manager)
+        )
+
+    def __check_for_multiple_auths(self, auths):
+        """
+        Checks if given more than one way to authenticate.
+        Raises an exception if so.
+        """
+        if len(list(filter(None, auths))) > 1:
+            raise OgrException("More than one authentication method specified")
 
     @property
     def github_app_private_key(self):

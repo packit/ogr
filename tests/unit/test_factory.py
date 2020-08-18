@@ -297,6 +297,32 @@ def test_get_instances_from_dict(instances_in_dict, result_instances: Set):
 
 
 @pytest.mark.parametrize(
+    "instances_in_dict",
+    [
+        {"github.com": {"token": "abcd", "github_app_id": "123"}},
+        {"github.com": {"token": "abcd", "tokman_instance_url": "http://localhost"}},
+        {
+            "github.com": {
+                "token": "abcd",
+                "github_app_id": "123",
+                "tokman_instance_url": "http://localhost",
+            }
+        },
+        {
+            "github.com": {
+                "github_app_id": "123",
+                "tokman_instance_url": "http://localhost",
+            }
+        },
+    ],
+)
+def test_get_instances_from_dict_multiple_auth(instances_in_dict):
+    with pytest.raises(OgrException) as ex:
+        _ = get_instances_from_dict(instances=instances_in_dict)
+    assert "More than one auth" in str(ex.value)
+
+
+@pytest.mark.parametrize(
     "instances_in_dict,error_str",
     [
         ({"unknown": {"token": "abcd"}}, "No matching service was found for url"),
