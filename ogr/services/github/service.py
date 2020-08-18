@@ -115,6 +115,11 @@ class GithubService(BaseGitService):
             if self.github_app_private_key_path
             else ""
         )
+        tokman_url_str = (
+            f", tokman_instance_url='{self.tokman_instance_url}'"
+            if self.tokman_instance_url
+            else ""
+        )
 
         readonly_str = ", read_only=True" if self.read_only else ""
         arguments = (
@@ -122,6 +127,7 @@ class GithubService(BaseGitService):
             f"{github_app_id_str}"
             f"{github_app_private_key_str}"
             f"{github_app_private_key_path_str}"
+            f"{tokman_url_str}"
             f"{readonly_str}"
         )
 
@@ -143,6 +149,7 @@ class GithubService(BaseGitService):
             == o._github_app_private_key  # type: ignore
             and self.github_app_private_key_path
             == o.github_app_private_key_path  # type: ignore
+            and self.tokman_instance_url == o.tokman_instance_url  # type: ignore
         )
 
     def __hash__(self) -> int:
