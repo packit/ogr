@@ -1,8 +1,13 @@
 # 0.13.1
 
-* https://github.com/packit-service -> https://github.com/packit
-* Add Jupyter examples
-* fix create issue in Github and add test
+## Fixes
+
+- Creating issues in Github (GithubIssue.create) without label works now.
+
+## Internals
+
+- Because of "packit-service -> packit" GitHub organization rename, the required files were updated.
+- Documentation now contains [Jupyter examples](https://github.com/packit/ogr/tree/master/examples).
 
 # 0.13.0
 
