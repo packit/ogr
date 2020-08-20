@@ -83,7 +83,7 @@ class GithubProject(BaseGitProject):
     @property
     def github_instance(self):
         if not self._github_instance:
-            self._github_instance = self.service.get_github_instance(
+            self._github_instance = self.service.get_pygithub_instance(
                 self.namespace, self.repo
             )
 

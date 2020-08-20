@@ -20,20 +20,25 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-from pathlib import Path
 from typing import Type
 
 import github
-from github import UnknownObjectException
+from github import (
+    UnknownObjectException,
+    Github as PyGithubInstance,
+    Repository as PyGithubRepository,
+)
 
-from ogr.abstract import GitUser, GithubTokenManager
-from ogr.exceptions import GithubAPIException, OgrException
+from ogr.abstract import GitUser
+from ogr.exceptions import GithubAPIException
 from ogr.factory import use_for_service
 from ogr.services.base import BaseGitService
 from ogr.services.github.project import GithubProject
-from ogr.services.github.token_managers import (
-    OgrGithubTokenManager,
-    TokmanGithubTokenManager,
+from ogr.services.github.auth_providers import (
+    GithubAuthentication,
+    Token,
+    GithubApp,
+    Tokman,
 )
 from ogr.services.github.user import GithubUser
 
@@ -52,99 +57,48 @@ class GithubService(BaseGitService):
         github_app_private_key: str = None,
         github_app_private_key_path: str = None,
         tokman_instance_url: str = None,
-        token_manager: GithubTokenManager = None,
+        github_authentication: GithubAuthentication = None,
         **_,
     ):
+        """
+        If multiple authentication methods are provided, they are prioritised:
+            1. Tokman
+            2. GithubApp
+            3. Token (which is also default one, that works without specified token)
+        """
         super().__init__()
-        self.token = token
-
-        # Authentication via GitHub app
-        self.github_app_id = github_app_id
-        self._github_app_private_key = github_app_private_key
-        self.github_app_private_key_path = github_app_private_key_path
-
-        self.github = github.Github(login_or_token=self.token)
         self.read_only = read_only
+        self.authentication = github_authentication
 
-        self.tokman_instance_url = tokman_instance_url
-        self._token_manager = token_manager
-
-        self.__check_for_multiple_auths(
-            (token, github_app_id, tokman_instance_url, token_manager)
-        )
-
-    def __check_for_multiple_auths(self, auths):
-        """
-        Checks if given more than one way to authenticate.
-        Raises an exception if so.
-        """
-        if len(list(filter(None, auths))) > 1:
-            raise OgrException("More than one authentication method specified")
-
-    @property
-    def github_app_private_key(self):
-        if self._github_app_private_key:
-            return self._github_app_private_key
-
-        if self.github_app_private_key_path:
-            if not Path(self.github_app_private_key_path).is_file():
-                raise GithubAPIException(
-                    f"File with the github-app private key "
-                    f"({self.github_app_private_key_path}) "
-                    f"does not exist."
-                )
-            return Path(self.github_app_private_key_path).read_text()
-
-        return None
-
-    @property
-    def token_manager(self) -> GithubTokenManager:
-        if self.token:
-            return None
-
-        if self._token_manager is None:
-            self._token_manager = (
-                TokmanGithubTokenManager(self.tokman_instance_url)
-                if self.tokman_instance_url
-                else OgrGithubTokenManager(self)
+        if not self.authentication:
+            self.__set_authentication(
+                token=token,
+                github_app_id=github_app_id,
+                github_app_private_key=github_app_private_key,
+                github_app_private_key_path=github_app_private_key_path,
+                tokman_instance_url=tokman_instance_url,
             )
-        return self._token_manager
+
+    def __set_authentication(self, **kwargs):
+        auth_methods = [
+            Tokman,
+            GithubApp,
+            Token,
+        ]
+        for auth_class in auth_methods:
+            self.authentication = auth_class.try_create(**kwargs)
+            if self.authentication:
+                return
+
+        return Token(None)
+
+    @property
+    def github(self):
+        return self.authentication.pygithub_instance
 
     def __str__(self) -> str:
-        token_str = (
-            f", token='{self.token[:1]}***{self.token[-1:]}'" if self.token else ""
-        )
-        github_app_id_str = (
-            f", github_app_id='{self.github_app_id[:1]}***{self.github_app_id[-1:]}'"
-            if self.github_app_id
-            else ""
-        )
-        github_app_private_key_str = (
-            f", github_app_private_key"
-            f"='{self._github_app_private_key[:1]}***{self._github_app_private_key[-1:]}'"
-            if self._github_app_private_key
-            else ""
-        )
-        github_app_private_key_path_str = (
-            f", github_app_private_key_path='{self.github_app_private_key_path}'"
-            if self.github_app_private_key_path
-            else ""
-        )
-        tokman_url_str = (
-            f", tokman_instance_url='{self.tokman_instance_url}'"
-            if self.tokman_instance_url
-            else ""
-        )
-
         readonly_str = ", read_only=True" if self.read_only else ""
-        arguments = (
-            f"{token_str}"
-            f"{github_app_id_str}"
-            f"{github_app_private_key_str}"
-            f"{github_app_private_key_path_str}"
-            f"{tokman_url_str}"
-            f"{readonly_str}"
-        )
+        arguments = f", github_authentication={str(self.authentication)}{readonly_str}"
 
         if arguments:
             # remove the first '- '
@@ -157,14 +111,8 @@ class GithubService(BaseGitService):
             return False
 
         return (
-            self.token == o.token  # type: ignore
-            and self.read_only == o.read_only  # type: ignore
-            and self.github_app_id == o.github_app_id  # type: ignore
-            and self._github_app_private_key
-            == o._github_app_private_key  # type: ignore
-            and self.github_app_private_key_path
-            == o.github_app_private_key_path  # type: ignore
-            and self.tokman_instance_url == o.tokman_instance_url  # type: ignore
+            self.read_only == o.read_only  # type: ignore
+            and self.authentication == o.authentication  # type: ignore
         )
 
     def __hash__(self) -> int:
@@ -184,7 +132,7 @@ class GithubService(BaseGitService):
         )
 
     def get_project_from_github_repository(
-        self, github_repo: github.Repository.Repository
+        self, github_repo: PyGithubRepository.Repository
     ) -> "GithubProject":
         return GithubProject(
             repo=github_repo.name,
@@ -199,8 +147,7 @@ class GithubService(BaseGitService):
         return GithubUser(service=self)
 
     def change_token(self, new_token: str) -> None:
-        self.token = new_token
-        self.github = github.Github(login_or_token=self.token)
+        self.authentication = Token(new_token)
 
     def project_create(self, repo: str, namespace: str = None) -> "GithubProject":
         if namespace:
@@ -219,12 +166,5 @@ class GithubService(BaseGitService):
             github_repo=new_repo,
         )
 
-    def get_github_instance(self, namespace: str, repo: str) -> github.Github:
-        if (
-            self._token_manager
-            or self.tokman_instance_url
-            or (self.github_app_id and self.github_app_private_key)
-        ):
-            # authenticating as a GitHub app or using Tokman
-            return self.token_manager.get_pygithub_instance(namespace, repo)
-        return self.github
+    def get_pygithub_instance(self, namespace: str, repo: str) -> PyGithubInstance:
+        return self.authentication.get_pygithub_instance(namespace, repo)
