@@ -61,10 +61,9 @@ class GithubApp(GithubAuthentication):
         return None
 
     @property
-    def pygithub_instance(self) -> github.Github:
-        if not self._github:
-            self._github = github.Github()
-        return self._github
+    def pygithub_instance(self) -> Optional[github.Github]:
+        # used for backward compatibility with GitUser
+        return None
 
     @property
     def integration(self) -> github.GithubIntegration:
@@ -72,9 +71,9 @@ class GithubApp(GithubAuthentication):
             self._integration = github.GithubIntegration(self.id, self.private_key)
         return self._integration
 
-    def get_pygithub_instance(self, namespace: str, repo: str) -> github.Github:
+    def get_token(self, namespace: str, repo: str) -> str:
         if not self.private_key:
-            return self.pygithub_instance
+            return None
 
         inst_id = self.integration.get_installation(namespace, repo).id
         # PyGithub<1.52 returned an object for id, with a value attribute,
@@ -91,7 +90,7 @@ class GithubApp(GithubAuthentication):
                 "please make sure that you provided correct credentials of your GitHub app."
             )
         inst_auth = self.integration.get_access_token(inst_id)
-        return github.Github(login_or_token=inst_auth.token)
+        return inst_auth.token
 
     @staticmethod
     def try_create(

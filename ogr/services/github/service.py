@@ -36,7 +36,7 @@ from ogr.services.base import BaseGitService
 from ogr.services.github.project import GithubProject
 from ogr.services.github.auth_providers import (
     GithubAuthentication,
-    Token,
+    TokenAuthentication,
     GithubApp,
     Tokman,
 )
@@ -64,7 +64,7 @@ class GithubService(BaseGitService):
         If multiple authentication methods are provided, they are prioritised:
             1. Tokman
             2. GithubApp
-            3. Token (which is also default one, that works without specified token)
+            3. TokenAuthentication (which is also default one, that works without specified token)
         """
         super().__init__()
         self.read_only = read_only
@@ -83,14 +83,14 @@ class GithubService(BaseGitService):
         auth_methods = [
             Tokman,
             GithubApp,
-            Token,
+            TokenAuthentication,
         ]
         for auth_class in auth_methods:
             self.authentication = auth_class.try_create(**kwargs)
             if self.authentication:
                 return
 
-        return Token(None)
+        return TokenAuthentication(None)
 
     @property
     def github(self):
@@ -147,7 +147,7 @@ class GithubService(BaseGitService):
         return GithubUser(service=self)
 
     def change_token(self, new_token: str) -> None:
-        self.authentication = Token(new_token)
+        self.authentication = TokenAuthentication(new_token)
 
     def project_create(self, repo: str, namespace: str = None) -> "GithubProject":
         if namespace:
@@ -167,4 +167,5 @@ class GithubService(BaseGitService):
         )
 
     def get_pygithub_instance(self, namespace: str, repo: str) -> PyGithubInstance:
-        return self.authentication.get_pygithub_instance(namespace, repo)
+        token = self.authentication.get_token(namespace, repo)
+        return PyGithubInstance(login_or_token=token)

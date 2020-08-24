@@ -11,14 +11,13 @@ class GithubAuthentication:
     Represents a token manager for authentication via GitHubApp.
     """
 
-    def get_pygithub_instance(self, namespace: str, repo: str) -> github.Github:
+    def get_token(self, namespace: str, repo: str) -> str:
         """
-        Returns GitHub instance for a requested repository,
-        authenticated using GitHub App
+        Returns GitHub token for a requested repository.
 
         :param namespace: namespace of the repository
         :param repo: name of the repository
-        :return: instance of github.Github
+        :return: token that can be used in PyGithub instance for authentication
         """
         raise NotImplementedError()
 
