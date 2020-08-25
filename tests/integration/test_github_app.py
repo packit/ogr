@@ -43,7 +43,7 @@ class GithubTests(RequreTestCase):
         service = GithubService(
             github_app_id="123", github_app_private_key=TESTING_PRIVATE_KEY
         )
-        assert service.github_app_private_key == TESTING_PRIVATE_KEY
+        assert service.authentication.private_key == TESTING_PRIVATE_KEY
 
     def test_private_key_path(self):
         with tempfile.NamedTemporaryFile() as pr_key:
@@ -51,7 +51,7 @@ class GithubTests(RequreTestCase):
             service = GithubService(
                 github_app_id="123", github_app_private_key_path=pr_key.name
             )
-            assert service.github_app_private_key == TESTING_PRIVATE_KEY
+            assert service.authentication.private_key == TESTING_PRIVATE_KEY
 
     def test_get_project(self):
         github_app_private_key = (

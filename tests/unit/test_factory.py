@@ -281,11 +281,60 @@ def test_get_project_not_found(url, mapping, instances, exc_str):
             {"https://my.gtlb": {"token": "abcd", "type": "gitlab"}},
             {GitlabService(token="abcd", instance_url="https://my.gtlb")},
         ),
+        (
+            {"github.com": {"tokman_instance_url": "https://localhost"}},
+            {GithubService(tokman_instance_url="https://localhost")},
+        ),
+        (
+            {"github.com": {"tokman_instance_url": "http://random.domain.com:8080"}},
+            {GithubService(tokman_instance_url="http://random.domain.com:8080")},
+        ),
     ],
 )
 def test_get_instances_from_dict(instances_in_dict, result_instances: Set):
     services = get_instances_from_dict(instances=instances_in_dict)
     assert services == result_instances
+
+
+@pytest.mark.parametrize(
+    "instances_in_dict,result_instances",
+    [
+        (
+            {"github.com": {"token": "abcd", "github_app_id": "123"}},
+            {GithubService(github_app_id="123")},
+        ),
+        (
+            {
+                "github.com": {
+                    "token": "abcd",
+                    "tokman_instance_url": "http://localhost",
+                },
+            },
+            {GithubService(tokman_instance_url="http://localhost")},
+        ),
+        (
+            {
+                "github.com": {
+                    "token": "abcd",
+                    "github_app_id": "123",
+                    "tokman_instance_url": "http://localhost",
+                }
+            },
+            {GithubService(tokman_instance_url="http://localhost")},
+        ),
+        (
+            {
+                "github.com": {
+                    "github_app_id": "123",
+                    "tokman_instance_url": "http://localhost",
+                }
+            },
+            {GithubService(tokman_instance_url="http://localhost")},
+        ),
+    ],
+)
+def test_get_instances_from_dict_multiple_auth(instances_in_dict, result_instances):
+    assert get_instances_from_dict(instances=instances_in_dict) == result_instances
 
 
 @pytest.mark.parametrize(
