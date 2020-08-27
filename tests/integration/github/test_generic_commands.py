@@ -1,5 +1,4 @@
 from datetime import datetime
-import unittest
 
 from github import GithubException
 import pytest
@@ -17,7 +16,9 @@ class GenericCommands(GithubTests):
         Make sure you have `playground` repo in your own namespace and
         `lachmanfrantisek` is not added in the project before running tests
         """
-        project = self.service.get_project(repo="playground", namespace=self.service.user.get_username())
+        project = self.service.get_project(
+            repo="playground", namespace=self.service.user.get_username()
+        )
 
         assert not project.can_merge_pr("lachmanfrantisek")
         project.add_user("lachmanfrantisek", AccessLevel.pull)

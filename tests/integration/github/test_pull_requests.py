@@ -65,6 +65,8 @@ class PullRequests(GithubTests):
 
     def test_pr_create_upstream_upstream(self):
         """
+        Tests creating PR from upstream to the upstream itself.
+
         Requires  packit_service:test_source to be ahead of packit_service:test_target
         at least by one commit.
         """
@@ -87,6 +89,9 @@ class PullRequests(GithubTests):
 
     def test_pr_create_upstream_forkusername(self):
         """
+        Tests creating PR from fork to upstream, by calling create_pr on upstream
+        with specified fork.
+
         Requires  packit_service:test_source to be ahead of packit_service:test_target
         at least by one commit.
         """
@@ -114,6 +119,8 @@ class PullRequests(GithubTests):
 
     def test_pr_create_upstream_fork(self):
         """
+        Tests creating PR from fork to the upstream, by calling create_pr on fork.
+
         Requires  packit_service:test_source to be ahead of packit_service:test_target
         at least by one commit.
         """
@@ -135,34 +142,10 @@ class PullRequests(GithubTests):
         pr_upstream_fork.close()
         assert pr_upstream_fork.status == PRStatus.closed
 
-    @unittest.skip("TODO: better describe what happen here, how to regenerate it")
-    def test_pr_create_fork_fu_ignored(self):
-        """
-        Requires  packit_service:test_source to be ahead of packit_service:test_target
-        at least by one commit.
-        """
-        gh_project = self.hello_world_project
-        pr_opened_before = len(gh_project.get_pr_list(status=PRStatus.open))
-        pr_upstream_fork_fu_ignored = gh_project.get_fork().create_pr(
-            title="test: upstream <- fork (fork_username ignored)",
-            body="pull request body",
-            target_branch="test_target",
-            source_branch="test_source",
-            fork_username=self.hello_world_project.service.user.get_username(),
-        )
-        pr_opened_after = len(gh_project.get_pr_list(status=PRStatus.open))
-
-        assert (
-            pr_upstream_fork_fu_ignored.title
-            == "test: upstream <- fork (fork_username ignored)"
-        )
-        assert pr_upstream_fork_fu_ignored.status == PRStatus.open
-        assert pr_opened_after == pr_opened_before + 1
-
-        pr_upstream_fork_fu_ignored.close()
-        assert pr_upstream_fork_fu_ignored.status == PRStatus.closed
-
     def test_pr_create_fork_other_fork(self):
+        """
+        Tests creating PR from one fork to another.
+        """
         fork_project = self.service.get_project(namespace="mfocko", repo="hello-world")
         other_fork_project = self.service.get_project(
             namespace="lachmanfrantisek", repo="hello-world"
@@ -178,6 +161,30 @@ class PullRequests(GithubTests):
         pr_opened_after = len(other_fork_project.get_pr_list(status=PRStatus.open))
 
         assert opened_pr.title == "test: other_fork(master) <- fork"
+        assert opened_pr.status == PRStatus.open
+        assert pr_opened_after == pr_opened_before + 1
+
+        opened_pr.close()
+        assert opened_pr.status == PRStatus.closed
+
+    def test_pr_create_fork_fork(self):
+        """
+        Tests creating PR from fork to the fork itself.
+        """
+        user = self.service.user.get_username()
+        fork_project = self.service.get_project(namespace=user, repo="hello-world")
+
+        pr_opened_before = len(fork_project.get_pr_list(status=PRStatus.open))
+        opened_pr = fork_project.create_pr(
+            title="test: fork(master) <- fork",
+            body="pull request body",
+            target_branch="master",
+            source_branch="test_source",
+            fork_username=user,
+        )
+        pr_opened_after = len(fork_project.get_pr_list(status=PRStatus.open))
+
+        assert opened_pr.title == "test: fork(master) <- fork"
         assert opened_pr.status == PRStatus.open
         assert pr_opened_after == pr_opened_before + 1
 
@@ -254,6 +261,7 @@ class PullRequests(GithubTests):
         )
 
     def test_source_project_upstream_branch(self):
+        # Tests source project for PR from upstream to upstream.
         pr = self.hello_world_project.get_pr(72)
         source_project = pr.source_project
         # The namespace was 'packit-service' when this PR was opened.
@@ -261,12 +269,14 @@ class PullRequests(GithubTests):
         assert source_project.repo == "hello-world"
 
     def test_source_project_upstream_fork(self):
+        # Tests source project for PR from fork to upstream
         pr = self.hello_world_project.get_pr(111)
         source_project = pr.source_project
         assert source_project.namespace == "lbarcziova"
         assert source_project.repo == "hello-world"
 
     def test_source_project_fork_fork(self):
+        # Tests source project for PR from fork to the fork itself
         project = self.service.get_project(repo="hello-world", namespace="mfocko")
         pr = project.get_pr(1)
         source_project = pr.source_project
@@ -274,6 +284,7 @@ class PullRequests(GithubTests):
         assert source_project.repo == "hello-world"
 
     def test_source_project_other_fork_fork(self):
+        # Tests source project for PR from one fork to another fork
         project = self.service.get_project(
             repo="hello-world", namespace="lachmanfrantisek"
         )
@@ -283,13 +294,25 @@ class PullRequests(GithubTests):
         assert source_project.repo == "hello-world"
 
     def test_source_project_renamed_fork(self):
-        # TODO: why there were "bye-world" in source_project.repo, it needs some manual change?
+        """
+        Tests source project for PR from fork to the upstream with renamed fork.
+
+        1. Create PR from fork to upstream.
+        2. Rename fork.
+        """
         pr = self.hello_world_project.get_pr(113)
         source_project = pr.source_project
         assert source_project.namespace == "mfocko"
         assert source_project.repo == "hello-world"
 
     def test_source_project_renamed_upstream(self):
+        """
+        Tests source project for PR from to the upstream with renamed upstream.
+
+        1. Use for example testing repo in a packit namespace
+        2. Create a PR from fork to the repo.
+        3. Rename the repo in packit namespace.
+        """
         pr = self.service.get_project(
             repo="testing_repo_changed_name", namespace="packit"
         ).get_pr(1)

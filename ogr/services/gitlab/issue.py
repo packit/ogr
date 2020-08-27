@@ -138,7 +138,7 @@ class GitlabIssue(BaseIssue):
     def _get_all_comments(self) -> List[IssueComment]:
         return [
             GitlabIssueComment(parent=self, raw_comment=raw_comment)
-            for raw_comment in self._raw_issue.notes.list(sort="asc")
+            for raw_comment in self._raw_issue.notes.list(sort="asc", all=True)
         ]
 
     def comment(self, body: str) -> IssueComment:

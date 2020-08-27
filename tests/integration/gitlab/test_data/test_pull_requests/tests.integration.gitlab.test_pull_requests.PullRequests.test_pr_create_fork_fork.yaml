@@ -1,0 +1,831 @@
+_requre:
+  DataTypes: 1
+  key_strategy: StorageKeysInspectSimple
+  version_storage_file: 2
+requests.sessions:
+  send:
+    GET:
+      https://gitlab.com/api/v4/projects/20772752/merge_requests?state=opened&order_by=updated_at&sort=desc:
+      - metadata:
+          latency: 0.40454912185668945
+          module_call_list:
+          - unittest.case
+          - requre.online_replacing
+          - tests.integration.gitlab.test_pull_requests
+          - ogr.services.gitlab.project
+          - ogr.services.gitlab.pull_request
+          - gitlab.exceptions
+          - gitlab.mixins
+          - gitlab
+          - requre.objects
+          - requre.cassette
+          - requests.sessions
+          - send
+        output:
+          __store_indicator: 2
+          _content:
+          - approvals_before_merge: null
+            assignee: null
+            assignees: []
+            author:
+              avatar_url: https://assets.gitlab-static.net/uploads/-/system/user/avatar/375555/avatar.png
+              id: 375555
+              name: Matej Focko
+              state: active
+              username: mfocko
+              web_url: https://gitlab.com/mfocko
+            blocking_discussions_resolved: true
+            closed_at: null
+            closed_by: null
+            created_at: '2020-08-28T08:55:33.169Z'
+            description: ''
+            discussion_locked: null
+            downvotes: 0
+            force_remove_source_branch: true
+            has_conflicts: true
+            id: 69040760
+            iid: 1
+            labels: []
+            merge_commit_sha: null
+            merge_status: cannot_be_merged
+            merge_when_pipeline_succeeds: false
+            merged_at: null
+            merged_by: null
+            milestone: null
+            project_id: 20772752
+            reference: '!1'
+            references:
+              full: mfocko/ogr-tests!1
+              relative: '!1'
+              short: '!1'
+            sha: 257ce9fd8c5421d2e116337847710ba70d215aa6
+            should_remove_source_branch: null
+            source_branch: pr-test1
+            source_project_id: 20772752
+            squash: false
+            squash_commit_sha: null
+            state: opened
+            target_branch: master
+            target_project_id: 20772752
+            task_completion_status:
+              completed_count: 0
+              count: 0
+            time_stats:
+              human_time_estimate: null
+              human_total_time_spent: null
+              time_estimate: 0
+              total_time_spent: 0
+            title: 'Draft: Pr test1'
+            updated_at: '2020-08-28T08:55:33.169Z'
+            upvotes: 0
+            user_notes_count: 0
+            web_url: https://gitlab.com/mfocko/ogr-tests/-/merge_requests/1
+            work_in_progress: true
+          _next: null
+          elapsed: 0.2
+          encoding: null
+          headers:
+            CF-Cache-Status: DYNAMIC
+            CF-RAY: 5cce98c06b3efcad-VIE
+            Cache-Control: max-age=0, private, must-revalidate
+            Connection: keep-alive
+            Content-Encoding: gzip
+            Content-Type: application/json
+            Date: Fri, 01 Nov 2019 13-36-03 GMT
+            Etag: W/"218d2c3997ad4ab99bdef2a3be2f4341"
+            Expect-CT: max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
+            GitLab-LB: fe-10-lb-gprd
+            GitLab-SV: localhost
+            Link: <https://gitlab.com/api/v4/projects/20772752/merge_requests?id=20772752&order_by=updated_at&page=1&per_page=20&sort=desc&state=opened&with_labels_details=false&with_merge_status_recheck=false>;
+              rel="first", <https://gitlab.com/api/v4/projects/20772752/merge_requests?id=20772752&order_by=updated_at&page=1&per_page=20&sort=desc&state=opened&with_labels_details=false&with_merge_status_recheck=false>;
+              rel="last"
+            RateLimit-Limit: '600'
+            RateLimit-Observed: '3'
+            RateLimit-Remaining: '597'
+            RateLimit-Reset: '1599127002'
+            RateLimit-ResetTime: Thu, 03 Sep 2020 09:56:42 GMT
+            Referrer-Policy: strict-origin-when-cross-origin
+            Server: cloudflare
+            Strict-Transport-Security: max-age=31536000
+            Transfer-Encoding: chunked
+            Vary: Accept-Encoding, Origin
+            X-Content-Type-Options: nosniff
+            X-Frame-Options: SAMEORIGIN
+            X-Next-Page: ''
+            X-Page: '1'
+            X-Per-Page: '20'
+            X-Prev-Page: ''
+            X-Request-Id: ZQ2DEIZGc9a
+            X-Runtime: '0.093033'
+            X-Total: '1'
+            X-Total-Pages: '1'
+            cf-request-id: 04f4fdcc400000fcadaa301200000001
+          raw: !!binary ""
+          reason: OK
+          status_code: 200
+      - metadata:
+          latency: 0.40493083000183105
+          module_call_list:
+          - unittest.case
+          - requre.online_replacing
+          - tests.integration.gitlab.test_pull_requests
+          - ogr.services.gitlab.project
+          - ogr.services.gitlab.pull_request
+          - gitlab.exceptions
+          - gitlab.mixins
+          - gitlab
+          - requre.objects
+          - requre.cassette
+          - requests.sessions
+          - send
+        output:
+          __store_indicator: 2
+          _content:
+          - approvals_before_merge: null
+            assignee: null
+            assignees: []
+            author:
+              avatar_url: https://assets.gitlab-static.net/uploads/-/system/user/avatar/375555/avatar.png
+              id: 375555
+              name: Matej Focko
+              state: active
+              username: mfocko
+              web_url: https://gitlab.com/mfocko
+            blocking_discussions_resolved: true
+            closed_at: null
+            closed_by: null
+            created_at: '2020-09-03T09:55:43.360Z'
+            description: pull request body
+            discussion_locked: null
+            downvotes: 0
+            force_remove_source_branch: null
+            has_conflicts: true
+            id: 69665165
+            iid: 2
+            labels: []
+            merge_commit_sha: null
+            merge_status: cannot_be_merged
+            merge_when_pipeline_succeeds: false
+            merged_at: null
+            merged_by: null
+            milestone: null
+            project_id: 20772752
+            reference: '!2'
+            references:
+              full: mfocko/ogr-tests!2
+              relative: '!2'
+              short: '!2'
+            sha: null
+            should_remove_source_branch: null
+            source_branch: one-more-branch
+            source_project_id: 20772752
+            squash: false
+            squash_commit_sha: null
+            state: opened
+            target_branch: master
+            target_project_id: 20772752
+            task_completion_status:
+              completed_count: 0
+              count: 0
+            time_stats:
+              human_time_estimate: null
+              human_total_time_spent: null
+              time_estimate: 0
+              total_time_spent: 0
+            title: 'test: fork(master) <- fork'
+            updated_at: '2020-09-03T09:55:43.360Z'
+            upvotes: 0
+            user_notes_count: 0
+            web_url: https://gitlab.com/mfocko/ogr-tests/-/merge_requests/2
+            work_in_progress: false
+          - approvals_before_merge: null
+            assignee: null
+            assignees: []
+            author:
+              avatar_url: https://assets.gitlab-static.net/uploads/-/system/user/avatar/375555/avatar.png
+              id: 375555
+              name: Matej Focko
+              state: active
+              username: mfocko
+              web_url: https://gitlab.com/mfocko
+            blocking_discussions_resolved: true
+            closed_at: null
+            closed_by: null
+            created_at: '2020-08-28T08:55:33.169Z'
+            description: ''
+            discussion_locked: null
+            downvotes: 0
+            force_remove_source_branch: true
+            has_conflicts: true
+            id: 69040760
+            iid: 1
+            labels: []
+            merge_commit_sha: null
+            merge_status: cannot_be_merged
+            merge_when_pipeline_succeeds: false
+            merged_at: null
+            merged_by: null
+            milestone: null
+            project_id: 20772752
+            reference: '!1'
+            references:
+              full: mfocko/ogr-tests!1
+              relative: '!1'
+              short: '!1'
+            sha: 257ce9fd8c5421d2e116337847710ba70d215aa6
+            should_remove_source_branch: null
+            source_branch: pr-test1
+            source_project_id: 20772752
+            squash: false
+            squash_commit_sha: null
+            state: opened
+            target_branch: master
+            target_project_id: 20772752
+            task_completion_status:
+              completed_count: 0
+              count: 0
+            time_stats:
+              human_time_estimate: null
+              human_total_time_spent: null
+              time_estimate: 0
+              total_time_spent: 0
+            title: 'Draft: Pr test1'
+            updated_at: '2020-08-28T08:55:33.169Z'
+            upvotes: 0
+            user_notes_count: 0
+            web_url: https://gitlab.com/mfocko/ogr-tests/-/merge_requests/1
+            work_in_progress: true
+          _next: null
+          elapsed: 0.2
+          encoding: null
+          headers:
+            CF-Cache-Status: DYNAMIC
+            CF-RAY: 5cce98c6cc7dfcad-VIE
+            Cache-Control: max-age=0, private, must-revalidate
+            Connection: keep-alive
+            Content-Encoding: gzip
+            Content-Type: application/json
+            Date: Fri, 01 Nov 2019 13-36-03 GMT
+            Etag: W/"94b21d9923e0dbde5fdf4fd7aa37b5d0"
+            Expect-CT: max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
+            GitLab-LB: fe-03-lb-gprd
+            GitLab-SV: localhost
+            Link: <https://gitlab.com/api/v4/projects/20772752/merge_requests?id=20772752&order_by=updated_at&page=1&per_page=20&sort=desc&state=opened&with_labels_details=false&with_merge_status_recheck=false>;
+              rel="first", <https://gitlab.com/api/v4/projects/20772752/merge_requests?id=20772752&order_by=updated_at&page=1&per_page=20&sort=desc&state=opened&with_labels_details=false&with_merge_status_recheck=false>;
+              rel="last"
+            RateLimit-Limit: '600'
+            RateLimit-Observed: '4'
+            RateLimit-Remaining: '596'
+            RateLimit-Reset: '1599127004'
+            RateLimit-ResetTime: Thu, 03 Sep 2020 09:56:44 GMT
+            Referrer-Policy: strict-origin-when-cross-origin
+            Server: cloudflare
+            Strict-Transport-Security: max-age=31536000
+            Transfer-Encoding: chunked
+            Vary: Accept-Encoding, Origin
+            X-Content-Type-Options: nosniff
+            X-Frame-Options: SAMEORIGIN
+            X-Next-Page: ''
+            X-Page: '1'
+            X-Per-Page: '20'
+            X-Prev-Page: ''
+            X-Request-Id: muP31K2Dmaa
+            X-Runtime: '0.142165'
+            X-Total: '2'
+            X-Total-Pages: '1'
+            cf-request-id: 04f4fdd0410000fcadaa34a200000001
+          raw: !!binary ""
+          reason: OK
+          status_code: 200
+      https://gitlab.com/api/v4/projects/mfocko%2Fogr-tests:
+      - metadata:
+          latency: 0.3212451934814453
+          module_call_list:
+          - unittest.case
+          - requre.online_replacing
+          - tests.integration.gitlab.test_pull_requests
+          - ogr.services.gitlab.project
+          - ogr.services.gitlab.pull_request
+          - ogr.services.gitlab.project
+          - gitlab.exceptions
+          - gitlab.mixins
+          - gitlab
+          - requre.objects
+          - requre.cassette
+          - requests.sessions
+          - send
+        output:
+          __store_indicator: 2
+          _content:
+            _links:
+              events: https://gitlab.com/api/v4/projects/20772752/events
+              issues: https://gitlab.com/api/v4/projects/20772752/issues
+              labels: https://gitlab.com/api/v4/projects/20772752/labels
+              members: https://gitlab.com/api/v4/projects/20772752/members
+              merge_requests: https://gitlab.com/api/v4/projects/20772752/merge_requests
+              repo_branches: https://gitlab.com/api/v4/projects/20772752/repository/branches
+              self: https://gitlab.com/api/v4/projects/20772752
+            allow_merge_on_skipped_pipeline: null
+            approvals_before_merge: 0
+            archived: false
+            auto_cancel_pending_pipelines: enabled
+            auto_devops_deploy_strategy: continuous
+            auto_devops_enabled: false
+            autoclose_referenced_issues: true
+            avatar_url: null
+            build_coverage_regex: null
+            build_git_strategy: fetch
+            build_timeout: 3600
+            builds_access_level: enabled
+            can_create_merge_request_in: true
+            ci_config_path: null
+            ci_default_git_depth: 50
+            compliance_frameworks: []
+            container_expiration_policy:
+              cadence: 1d
+              enabled: true
+              keep_n: 10
+              name_regex: null
+              name_regex_keep: null
+              next_run_at: '2020-09-03T16:13:09.955Z'
+              older_than: 90d
+            container_registry_enabled: true
+            created_at: '2020-08-27T09:58:41.843Z'
+            creator_id: 375555
+            default_branch: master
+            description: Testing repository for python-ogr package.  |  https://github.com/packit-service/ogr
+            emails_disabled: null
+            empty_repo: false
+            external_authorization_classification_label: ''
+            forked_from_project:
+              avatar_url: null
+              created_at: '2019-09-10T10:28:09.946Z'
+              default_branch: master
+              description: Testing repository for python-ogr package.  |  https://github.com/packit-service/ogr
+              forks_count: 4
+              http_url_to_repo: https://gitlab.com/packit-service/ogr-tests.git
+              id: 14233409
+              last_activity_at: '2020-09-03T09:50:05.870Z'
+              name: ogr-tests
+              name_with_namespace: packit-service / ogr-tests
+              namespace:
+                avatar_url: /uploads/-/system/group/avatar/6032704/packit-logo.png
+                full_path: packit-service
+                id: 6032704
+                kind: group
+                name: packit-service
+                parent_id: null
+                path: packit-service
+                web_url: https://gitlab.com/groups/packit-service
+              path: ogr-tests
+              path_with_namespace: packit-service/ogr-tests
+              readme_url: https://gitlab.com/packit-service/ogr-tests/-/blob/master/README.md
+              ssh_url_to_repo: git@gitlab.com:packit-service/ogr-tests.git
+              star_count: 0
+              tag_list: []
+              web_url: https://gitlab.com/packit-service/ogr-tests
+            forking_access_level: enabled
+            forks_count: 0
+            http_url_to_repo: https://gitlab.com/mfocko/ogr-tests.git
+            id: 20772752
+            import_error: null
+            import_status: finished
+            issues_access_level: enabled
+            issues_enabled: true
+            jobs_enabled: true
+            last_activity_at: '2020-08-28T08:55:33.312Z'
+            lfs_enabled: true
+            marked_for_deletion_at: null
+            marked_for_deletion_on: null
+            merge_method: merge
+            merge_requests_access_level: enabled
+            merge_requests_enabled: true
+            mirror: false
+            name: ogr-tests
+            name_with_namespace: Matej Focko / ogr-tests
+            namespace:
+              avatar_url: /uploads/-/system/user/avatar/375555/avatar.png
+              full_path: mfocko
+              id: 439774
+              kind: user
+              name: Matej Focko
+              parent_id: null
+              path: mfocko
+              web_url: https://gitlab.com/mfocko
+            only_allow_merge_if_all_discussions_are_resolved: false
+            only_allow_merge_if_pipeline_succeeds: false
+            open_issues_count: 0
+            owner:
+              avatar_url: https://assets.gitlab-static.net/uploads/-/system/user/avatar/375555/avatar.png
+              id: 375555
+              name: Matej Focko
+              state: active
+              username: mfocko
+              web_url: https://gitlab.com/mfocko
+            packages_enabled: true
+            pages_access_level: enabled
+            path: ogr-tests
+            path_with_namespace: mfocko/ogr-tests
+            permissions:
+              group_access: null
+              project_access:
+                access_level: 40
+                notification_level: 3
+            printing_merge_request_link_enabled: true
+            public_jobs: true
+            readme_url: https://gitlab.com/mfocko/ogr-tests/-/blob/master/README.md
+            remove_source_branch_after_merge: true
+            repository_access_level: enabled
+            request_access_enabled: true
+            resolve_outdated_diff_discussions: false
+            runners_token: GSKm-AeGi_GB5_jivSBm
+            service_desk_address: incoming+mfocko-ogr-tests-20772752-issue-@incoming.gitlab.com
+            service_desk_enabled: true
+            shared_runners_enabled: true
+            shared_with_groups: []
+            snippets_access_level: enabled
+            snippets_enabled: true
+            ssh_url_to_repo: git@gitlab.com:mfocko/ogr-tests.git
+            star_count: 0
+            suggestion_commit_message: null
+            tag_list: []
+            visibility: public
+            web_url: https://gitlab.com/mfocko/ogr-tests
+            wiki_access_level: enabled
+            wiki_enabled: true
+          _next: null
+          elapsed: 0.2
+          encoding: null
+          headers:
+            CF-Cache-Status: DYNAMIC
+            CF-RAY: 5cce98be58a5fcad-VIE
+            Cache-Control: max-age=0, private, must-revalidate
+            Connection: keep-alive
+            Content-Encoding: gzip
+            Content-Type: application/json
+            Date: Fri, 01 Nov 2019 13-36-03 GMT
+            Etag: W/"1c073db209c0b0c170e0ffb8752e925a"
+            Expect-CT: max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
+            GitLab-LB: fe-05-lb-gprd
+            GitLab-SV: localhost
+            RateLimit-Limit: '600'
+            RateLimit-Observed: '2'
+            RateLimit-Remaining: '598'
+            RateLimit-Reset: '1599127002'
+            RateLimit-ResetTime: Thu, 03 Sep 2020 09:56:42 GMT
+            Referrer-Policy: strict-origin-when-cross-origin
+            Server: cloudflare
+            Strict-Transport-Security: max-age=31536000
+            Transfer-Encoding: chunked
+            Vary: Accept-Encoding, Origin
+            X-Content-Type-Options: nosniff
+            X-Frame-Options: SAMEORIGIN
+            X-Request-Id: 5N0p9iz1Gg9
+            X-Runtime: '0.109285'
+            cf-request-id: 04f4fdcaf80000fcadaa2e7200000001
+          raw: !!binary ""
+          reason: OK
+          status_code: 200
+      https://gitlab.com/api/v4/user:
+      - metadata:
+          latency: 0.3326141834259033
+          module_call_list:
+          - unittest.case
+          - requre.online_replacing
+          - tests.integration.gitlab.test_pull_requests
+          - ogr.services.gitlab.user
+          - ogr.services.gitlab.service
+          - gitlab
+          - gitlab.exceptions
+          - gitlab.mixins
+          - gitlab
+          - requre.objects
+          - requre.cassette
+          - requests.sessions
+          - send
+        output:
+          __store_indicator: 2
+          _content:
+            avatar_url: https://assets.gitlab-static.net/uploads/-/system/user/avatar/375555/avatar.png
+            bio: ''
+            bio_html: ''
+            can_create_group: true
+            can_create_project: true
+            color_scheme_id: 4
+            confirmed_at: '2020-07-24T20:00:33.764Z'
+            created_at: '2016-01-15T21:12:31.705Z'
+            current_sign_in_at: '2020-08-27T09:28:33.626Z'
+            email: matej.focko@outlook.com
+            external: false
+            extra_shared_runners_minutes_limit: null
+            id: 375555
+            identities: []
+            job_title: ''
+            last_activity_on: '2020-09-03'
+            last_sign_in_at: '2020-07-24T21:14:08.642Z'
+            linkedin: ''
+            location: "Ko\u0161ice, Slovakia"
+            name: Matej Focko
+            organization: ''
+            private_profile: false
+            projects_limit: 100000
+            public_email: ''
+            shared_runners_minutes_limit: 2000
+            skype: ''
+            state: active
+            theme_id: 7
+            twitter: MatejFocko
+            two_factor_enabled: true
+            username: mfocko
+            web_url: https://gitlab.com/mfocko
+            website_url: ''
+            work_information: null
+          _next: null
+          elapsed: 0.2
+          encoding: null
+          headers:
+            CF-Cache-Status: DYNAMIC
+            CF-RAY: 5cce98bc8dddfcad-VIE
+            Cache-Control: max-age=0, private, must-revalidate
+            Connection: keep-alive
+            Content-Encoding: gzip
+            Content-Type: application/json
+            Date: Fri, 01 Nov 2019 13-36-03 GMT
+            Etag: W/"fbf6d9c02df9460d3d3ed7dd3b3d4344"
+            Expect-CT: max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
+            GitLab-LB: fe-06-lb-gprd
+            GitLab-SV: localhost
+            RateLimit-Limit: '600'
+            RateLimit-Observed: '1'
+            RateLimit-Remaining: '599'
+            RateLimit-Reset: '1599127002'
+            RateLimit-ResetTime: Thu, 03 Sep 2020 09:56:42 GMT
+            Referrer-Policy: strict-origin-when-cross-origin
+            Server: cloudflare
+            Set-Cookie: __cfduid=d73b3290687eb380e6c9612841484e0bf1599126942; expires=Sat,
+              03-Oct-20 09:55:42 GMT; path=/; domain=.gitlab.com; HttpOnly; SameSite=Lax;
+              Secure
+            Strict-Transport-Security: max-age=31536000
+            Transfer-Encoding: chunked
+            Vary: Accept-Encoding, Origin
+            X-Content-Type-Options: nosniff
+            X-Frame-Options: SAMEORIGIN
+            X-Request-Id: 7S4gFlS8Gfa
+            X-Runtime: '0.030092'
+            cf-request-id: 04f4fdc9d40000fcadaa2dc200000001
+          raw: !!binary ""
+          reason: OK
+          status_code: 200
+    POST:
+      https://gitlab.com/api/v4/projects/20772752/merge_requests:
+      - metadata:
+          latency: 0.6019537448883057
+          module_call_list:
+          - unittest.case
+          - requre.online_replacing
+          - tests.integration.gitlab.test_pull_requests
+          - ogr.services.gitlab.project
+          - ogr.services.gitlab.pull_request
+          - gitlab.exceptions
+          - gitlab.mixins
+          - gitlab
+          - requre.objects
+          - requre.cassette
+          - requests.sessions
+          - send
+        output:
+          __store_indicator: 2
+          _content:
+            approvals_before_merge: null
+            assignee: null
+            assignees: []
+            author:
+              avatar_url: https://assets.gitlab-static.net/uploads/-/system/user/avatar/375555/avatar.png
+              id: 375555
+              name: Matej Focko
+              state: active
+              username: mfocko
+              web_url: https://gitlab.com/mfocko
+            blocking_discussions_resolved: true
+            changes_count: null
+            closed_at: null
+            closed_by: null
+            created_at: '2020-09-03T09:55:43.360Z'
+            description: pull request body
+            diff_refs:
+              base_sha: null
+              head_sha: null
+              start_sha: b8e18207cfdad954f1b3a96db34d0706b272e6cf
+            discussion_locked: null
+            downvotes: 0
+            first_deployed_to_production_at: null
+            force_remove_source_branch: null
+            has_conflicts: false
+            head_pipeline: null
+            id: 69665165
+            iid: 2
+            labels: []
+            latest_build_finished_at: null
+            latest_build_started_at: null
+            merge_commit_sha: null
+            merge_error: null
+            merge_status: checking
+            merge_when_pipeline_succeeds: false
+            merged_at: null
+            merged_by: null
+            milestone: null
+            pipeline: null
+            project_id: 20772752
+            reference: '!2'
+            references:
+              full: mfocko/ogr-tests!2
+              relative: '!2'
+              short: '!2'
+            sha: null
+            should_remove_source_branch: null
+            source_branch: one-more-branch
+            source_project_id: 20772752
+            squash: false
+            squash_commit_sha: null
+            state: opened
+            subscribed: true
+            target_branch: master
+            target_project_id: 20772752
+            task_completion_status:
+              completed_count: 0
+              count: 0
+            time_stats:
+              human_time_estimate: null
+              human_total_time_spent: null
+              time_estimate: 0
+              total_time_spent: 0
+            title: 'test: fork(master) <- fork'
+            updated_at: '2020-09-03T09:55:43.360Z'
+            upvotes: 0
+            user:
+              can_merge: true
+            user_notes_count: 0
+            web_url: https://gitlab.com/mfocko/ogr-tests/-/merge_requests/2
+            work_in_progress: false
+          _next: null
+          elapsed: 0.2
+          encoding: null
+          headers:
+            CF-Cache-Status: DYNAMIC
+            CF-RAY: 5cce98c30ec9fcad-VIE
+            Cache-Control: max-age=0, private, must-revalidate
+            Connection: keep-alive
+            Content-Length: '1718'
+            Content-Type: application/json
+            Date: Fri, 01 Nov 2019 13-36-03 GMT
+            Etag: W/"4d3f54ceaa828fd4681ffb474c7b0f46"
+            Expect-CT: max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
+            GitLab-LB: fe-11-lb-gprd
+            GitLab-SV: localhost
+            RateLimit-Limit: '600'
+            RateLimit-Observed: '4'
+            RateLimit-Remaining: '596'
+            RateLimit-Reset: '1599127003'
+            RateLimit-ResetTime: Thu, 03 Sep 2020 09:56:43 GMT
+            Referrer-Policy: strict-origin-when-cross-origin
+            Server: cloudflare
+            Strict-Transport-Security: max-age=31536000
+            Vary: Origin
+            X-Content-Type-Options: nosniff
+            X-Frame-Options: SAMEORIGIN
+            X-Request-Id: Ck9q54RTFu7
+            X-Runtime: '0.380474'
+            cf-request-id: 04f4fdcde20000fcadaa31a200000001
+          raw: !!binary ""
+          reason: Created
+          status_code: 201
+    PUT:
+      https://gitlab.com/api/v4/projects/20772752/merge_requests/2:
+      - metadata:
+          latency: 0.7101485729217529
+          module_call_list:
+          - unittest.case
+          - requre.online_replacing
+          - tests.integration.gitlab.test_pull_requests
+          - ogr.services.gitlab.pull_request
+          - gitlab.mixins
+          - gitlab.exceptions
+          - gitlab.mixins
+          - gitlab
+          - requre.objects
+          - requre.cassette
+          - requests.sessions
+          - send
+        output:
+          __store_indicator: 2
+          _content:
+            approvals_before_merge: null
+            assignee: null
+            assignees: []
+            author:
+              avatar_url: https://assets.gitlab-static.net/uploads/-/system/user/avatar/375555/avatar.png
+              id: 375555
+              name: Matej Focko
+              state: active
+              username: mfocko
+              web_url: https://gitlab.com/mfocko
+            blocking_discussions_resolved: true
+            changes_count: null
+            closed_at: '2020-09-03T09:55:44.597Z'
+            closed_by:
+              avatar_url: https://assets.gitlab-static.net/uploads/-/system/user/avatar/375555/avatar.png
+              id: 375555
+              name: Matej Focko
+              state: active
+              username: mfocko
+              web_url: https://gitlab.com/mfocko
+            created_at: '2020-09-03T09:55:43.360Z'
+            description: pull request body
+            diff_refs:
+              base_sha: null
+              head_sha: null
+              start_sha: b8e18207cfdad954f1b3a96db34d0706b272e6cf
+            discussion_locked: null
+            downvotes: 0
+            first_deployed_to_production_at: null
+            force_remove_source_branch: null
+            has_conflicts: true
+            head_pipeline: null
+            id: 69665165
+            iid: 2
+            labels: []
+            latest_build_finished_at: null
+            latest_build_started_at: null
+            merge_commit_sha: null
+            merge_error: null
+            merge_status: cannot_be_merged
+            merge_when_pipeline_succeeds: false
+            merged_at: null
+            merged_by: null
+            milestone: null
+            pipeline: null
+            project_id: 20772752
+            reference: '!2'
+            references:
+              full: mfocko/ogr-tests!2
+              relative: '!2'
+              short: '!2'
+            sha: null
+            should_remove_source_branch: null
+            source_branch: one-more-branch
+            source_project_id: 20772752
+            squash: false
+            squash_commit_sha: null
+            state: closed
+            subscribed: true
+            target_branch: master
+            target_project_id: 20772752
+            task_completion_status:
+              completed_count: 0
+              count: 0
+            time_stats:
+              human_time_estimate: null
+              human_total_time_spent: null
+              time_estimate: 0
+              total_time_spent: 0
+            title: 'test: fork(master) <- fork'
+            updated_at: '2020-09-03T09:55:44.580Z'
+            upvotes: 0
+            user:
+              can_merge: true
+            user_notes_count: 0
+            web_url: https://gitlab.com/mfocko/ogr-tests/-/merge_requests/2
+            work_in_progress: false
+          _next: null
+          elapsed: 0.2
+          encoding: null
+          headers:
+            CF-Cache-Status: DYNAMIC
+            CF-RAY: 5cce98c9581bfcad-VIE
+            Cache-Control: max-age=0, private, must-revalidate
+            Connection: keep-alive
+            Content-Encoding: gzip
+            Content-Type: application/json
+            Date: Fri, 01 Nov 2019 13-36-03 GMT
+            Etag: W/"ff5935ef87dc01825ec2dcb84dd23fdf"
+            Expect-CT: max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
+            GitLab-LB: fe-10-lb-gprd
+            GitLab-SV: localhost
+            RateLimit-Limit: '600'
+            RateLimit-Observed: '5'
+            RateLimit-Remaining: '595'
+            RateLimit-Reset: '1599127004'
+            RateLimit-ResetTime: Thu, 03 Sep 2020 09:56:44 GMT
+            Referrer-Policy: strict-origin-when-cross-origin
+            Server: cloudflare
+            Strict-Transport-Security: max-age=31536000
+            Transfer-Encoding: chunked
+            Vary: Accept-Encoding, Origin
+            X-Content-Type-Options: nosniff
+            X-Frame-Options: SAMEORIGIN
+            X-Request-Id: YKrKYj15MR4
+            X-Runtime: '0.201938'
+            cf-request-id: 04f4fdd1d60000fcadaa357200000001
+          raw: !!binary ""
+          reason: OK
+          status_code: 200

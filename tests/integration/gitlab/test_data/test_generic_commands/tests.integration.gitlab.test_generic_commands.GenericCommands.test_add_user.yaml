@@ -7,11 +7,11 @@ requests.sessions:
     GET:
       https://gitlab.com/api/v4/projects/packit-service%2Fogr-tests:
       - metadata:
-          latency: 0.25727272033691406
+          latency: 0.2755117416381836
           module_call_list:
           - unittest.case
           - requre.online_replacing
-          - tests.integration.test_factory
+          - tests.integration.test_gitlab
           - ogr.services.gitlab.project
           - gitlab.exceptions
           - gitlab.mixins
@@ -64,7 +64,7 @@ requests.sessions:
             issues_access_level: enabled
             issues_enabled: true
             jobs_enabled: true
-            last_activity_at: '2020-08-12T20:36:50.648Z'
+            last_activity_at: '2020-08-24T10:56:31.604Z'
             lfs_enabled: true
             marked_for_deletion_at: null
             marked_for_deletion_on: null
@@ -85,7 +85,7 @@ requests.sessions:
               web_url: https://gitlab.com/groups/packit-service
             only_allow_merge_if_all_discussions_are_resolved: false
             only_allow_merge_if_pipeline_succeeds: false
-            open_issues_count: 45
+            open_issues_count: 49
             packages_enabled: true
             pages_access_level: enabled
             path: ogr-tests
@@ -122,15 +122,15 @@ requests.sessions:
           encoding: null
           headers:
             CF-Cache-Status: DYNAMIC
-            CF-RAY: 5c53ca6a6d19c2d1-FRA
+            CF-RAY: 5c7c8d0ddc351782-FRA
             Cache-Control: max-age=0, private, must-revalidate
             Connection: keep-alive
             Content-Encoding: gzip
             Content-Type: application/json
             Date: Fri, 01 Nov 2019 13-36-03 GMT
-            Etag: W/"5e97fc3265a21f5930b4340e2ca1284c"
+            Etag: W/"f2f6bec3bd7ea6749ba81bdde93b31b4"
             Expect-CT: max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
-            GitLab-LB: fe-08-lb-gprd
+            GitLab-LB: fe-05-lb-gprd
             GitLab-SV: api-17-sv-gprd
             Referrer-Policy: strict-origin-when-cross-origin
             Server: cloudflare
@@ -139,18 +139,18 @@ requests.sessions:
             Vary: Accept-Encoding, Origin
             X-Content-Type-Options: nosniff
             X-Frame-Options: SAMEORIGIN
-            X-Request-Id: zfti2VjYvw6
-            X-Runtime: '0.088774'
-            cf-request-id: 04a83cd67e0000c2d16ba2e200000001
+            X-Request-Id: qHowmKKk2q6
+            X-Runtime: '0.076904'
+            cf-request-id: 04c1b67ca20000178294800200000001
           raw: !!binary ""
           reason: OK
           status_code: 200
       - metadata:
-          latency: 0.29192161560058594
+          latency: 0.2669696807861328
           module_call_list:
           - unittest.case
           - requre.online_replacing
-          - tests.integration.factory.test_factory
+          - tests.integration.gitlab.test_generic_commands
           - ogr.services.gitlab.project
           - gitlab.exceptions
           - gitlab.mixins
@@ -261,7 +261,7 @@ requests.sessions:
           encoding: null
           headers:
             CF-Cache-Status: DYNAMIC
-            CF-RAY: 5cb5670c29eccba0-VIE
+            CF-RAY: 5cb567395fecfca1-VIE
             Cache-Control: max-age=0, private, must-revalidate
             Connection: keep-alive
             Content-Encoding: gzip
@@ -269,13 +269,13 @@ requests.sessions:
             Date: Fri, 01 Nov 2019 13-36-03 GMT
             Etag: W/"1978cc0f8c6bb454dcef73c96acdcf54"
             Expect-CT: max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
-            GitLab-LB: fe-05-lb-gprd
+            GitLab-LB: fe-06-lb-gprd
             GitLab-SV: localhost
             RateLimit-Limit: '600'
-            RateLimit-Observed: '2'
-            RateLimit-Remaining: '598'
-            RateLimit-Reset: '1598862823'
-            RateLimit-ResetTime: Mon, 31 Aug 2020 08:33:43 GMT
+            RateLimit-Observed: '17'
+            RateLimit-Remaining: '583'
+            RateLimit-Reset: '1598862830'
+            RateLimit-ResetTime: Mon, 31 Aug 2020 08:33:50 GMT
             Referrer-Policy: strict-origin-when-cross-origin
             Server: cloudflare
             Strict-Transport-Security: max-age=31536000
@@ -283,19 +283,19 @@ requests.sessions:
             Vary: Accept-Encoding, Origin
             X-Content-Type-Options: nosniff
             X-Frame-Options: SAMEORIGIN
-            X-Request-Id: vvqchLxns02
-            X-Runtime: '0.112776'
-            cf-request-id: 04e53ebb980000cba0200c4200000001
+            X-Request-Id: VfbVFGwrRW1
+            X-Runtime: '0.086478'
+            cf-request-id: 04e53ed7d40000fca111380200000001
           raw: !!binary ""
           reason: OK
           status_code: 200
       https://gitlab.com/api/v4/user:
       - metadata:
-          latency: 0.7725794315338135
+          latency: 0.3062782287597656
           module_call_list:
           - unittest.case
           - requre.online_replacing
-          - tests.integration.test_factory
+          - tests.integration.test_gitlab
           - ogr.services.gitlab.project
           - ogr.services.gitlab.service
           - gitlab
@@ -317,7 +317,7 @@ requests.sessions:
             color_scheme_id: 1
             confirmed_at: '2019-09-16T14:07:15.993Z'
             created_at: '2019-09-16T14:07:16.050Z'
-            current_sign_in_at: '2020-07-30T13:14:34.957Z'
+            current_sign_in_at: '2020-08-21T12:43:01.530Z'
             email: scottyh@post.cz
             external: false
             extra_shared_runners_minutes_limit: null
@@ -327,8 +327,8 @@ requests.sessions:
               provider: github
               saml_provider_id: null
             job_title: ''
-            last_activity_on: '2020-08-19'
-            last_sign_in_at: '2019-09-27T08:22:58.253Z'
+            last_activity_on: '2020-08-24'
+            last_sign_in_at: '2020-07-30T13:14:34.957Z'
             linkedin: ''
             location: null
             name: jscotka
@@ -351,38 +351,38 @@ requests.sessions:
           encoding: null
           headers:
             CF-Cache-Status: DYNAMIC
-            CF-RAY: 5c53ca665c65c2d1-FRA
+            CF-RAY: 5c7c8d0adc6c1782-FRA
             Cache-Control: max-age=0, private, must-revalidate
             Connection: keep-alive
             Content-Encoding: gzip
             Content-Type: application/json
             Date: Fri, 01 Nov 2019 13-36-03 GMT
-            Etag: W/"71229b72f0995f88e421d895924ee094"
+            Etag: W/"9a28ab27b4a03f0ca6932942f5f532ab"
             Expect-CT: max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
-            GitLab-LB: fe-06-lb-gprd
-            GitLab-SV: api-12-sv-gprd
+            GitLab-LB: fe-09-lb-gprd
+            GitLab-SV: api-09-sv-gprd
             Referrer-Policy: strict-origin-when-cross-origin
             Server: cloudflare
-            Set-Cookie: __cfduid=db7460381ecbd14b2fc654cbe9556c4121597839227; expires=Fri,
-              18-Sep-20 12:13:47 GMT; path=/; domain=.gitlab.com; HttpOnly; SameSite=Lax;
+            Set-Cookie: __cfduid=d2b60469c797c73a6c0b63222b6e7fb971598266630; expires=Wed,
+              23-Sep-20 10:57:10 GMT; path=/; domain=.gitlab.com; HttpOnly; SameSite=Lax;
               Secure
             Strict-Transport-Security: max-age=31536000
             Transfer-Encoding: chunked
             Vary: Accept-Encoding, Origin
             X-Content-Type-Options: nosniff
             X-Frame-Options: SAMEORIGIN
-            X-Request-Id: 2KvIE1j6g99
-            X-Runtime: '0.031248'
-            cf-request-id: 04a83cd3f50000c2d16b9ff200000001
+            X-Request-Id: pyg8ZoCtJja
+            X-Runtime: '0.028582'
+            cf-request-id: 04c1b67ac80000178294bbc200000001
           raw: !!binary ""
           reason: OK
           status_code: 200
       - metadata:
-          latency: 0.34153223037719727
+          latency: 0.31082940101623535
           module_call_list:
           - unittest.case
           - requre.online_replacing
-          - tests.integration.factory.test_factory
+          - tests.integration.gitlab.test_generic_commands
           - ogr.services.gitlab.project
           - ogr.services.gitlab.service
           - gitlab
@@ -435,7 +435,7 @@ requests.sessions:
           encoding: null
           headers:
             CF-Cache-Status: DYNAMIC
-            CF-RAY: 5cb5670a5f5ccba0-VIE
+            CF-RAY: 5cb56736bc9bfca1-VIE
             Cache-Control: max-age=0, private, must-revalidate
             Connection: keep-alive
             Content-Encoding: gzip
@@ -443,26 +443,253 @@ requests.sessions:
             Date: Fri, 01 Nov 2019 13-36-03 GMT
             Etag: W/"200774d261a50e11c2ad70cff27c4040"
             Expect-CT: max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
-            GitLab-LB: fe-05-lb-gprd
+            GitLab-LB: fe-12-lb-gprd
             GitLab-SV: localhost
             RateLimit-Limit: '600'
-            RateLimit-Observed: '1'
-            RateLimit-Remaining: '599'
-            RateLimit-Reset: '1598862822'
-            RateLimit-ResetTime: Mon, 31 Aug 2020 08:33:42 GMT
+            RateLimit-Observed: '15'
+            RateLimit-Remaining: '585'
+            RateLimit-Reset: '1598862829'
+            RateLimit-ResetTime: Mon, 31 Aug 2020 08:33:49 GMT
             Referrer-Policy: strict-origin-when-cross-origin
             Server: cloudflare
-            Set-Cookie: __cfduid=d900bc9e331a956b83316488835b6e5851598862762; expires=Wed,
-              30-Sep-20 08:32:42 GMT; path=/; domain=.gitlab.com; HttpOnly; SameSite=Lax;
+            Set-Cookie: __cfduid=d975f15161f1fc22cfb00937f627ccd051598862769; expires=Wed,
+              30-Sep-20 08:32:49 GMT; path=/; domain=.gitlab.com; HttpOnly; SameSite=Lax;
               Secure
             Strict-Transport-Security: max-age=31536000
             Transfer-Encoding: chunked
             Vary: Accept-Encoding, Origin
             X-Content-Type-Options: nosniff
             X-Frame-Options: SAMEORIGIN
-            X-Request-Id: BBKJ01iaP44
-            X-Runtime: '0.043185'
-            cf-request-id: 04e53eba760000cba0200b9200000001
+            X-Request-Id: bICLurz43g6
+            X-Runtime: '0.027440'
+            cf-request-id: 04e53ed62e0000fca111375200000001
           raw: !!binary ""
           reason: OK
           status_code: 200
+      https://gitlab.com/api/v4/users?username=tomastomecek:
+      - metadata:
+          latency: 0.1947035789489746
+          module_call_list:
+          - unittest.case
+          - requre.online_replacing
+          - tests.integration.test_gitlab
+          - ogr.services.gitlab.project
+          - gitlab.exceptions
+          - gitlab.mixins
+          - gitlab
+          - requre.objects
+          - requre.cassette
+          - requests.sessions
+          - send
+        output:
+          __store_indicator: 2
+          _content:
+          - avatar_url: https://secure.gravatar.com/avatar/86a332a848dc6260af0575f55ce1f499?s=80&d=identicon
+            id: 737640
+            name: Tomas Tomecek
+            state: active
+            username: TomasTomecek
+            web_url: https://gitlab.com/TomasTomecek
+          _next: null
+          elapsed: 0.2
+          encoding: null
+          headers:
+            CF-Cache-Status: DYNAMIC
+            CF-RAY: 5c7c8d0c88d71782-FRA
+            Cache-Control: max-age=0, private, must-revalidate
+            Connection: keep-alive
+            Content-Encoding: gzip
+            Content-Type: application/json
+            Date: Fri, 01 Nov 2019 13-36-03 GMT
+            Etag: W/"3346dc8fc195875f1395873885e62962"
+            Expect-CT: max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
+            GitLab-LB: fe-08-lb-gprd
+            GitLab-SV: api-08-sv-gprd
+            Link: <https://gitlab.com/api/v4/users?active=false&blocked=false&external=false&page=1&per_page=20&skip_ldap=false&username=tomastomecek&with_custom_attributes=false>;
+              rel="first", <https://gitlab.com/api/v4/users?active=false&blocked=false&external=false&page=1&per_page=20&skip_ldap=false&username=tomastomecek&with_custom_attributes=false>;
+              rel="last"
+            Referrer-Policy: strict-origin-when-cross-origin
+            Server: cloudflare
+            Strict-Transport-Security: max-age=31536000
+            Transfer-Encoding: chunked
+            Vary: Origin
+            X-Content-Type-Options: nosniff
+            X-Frame-Options: SAMEORIGIN
+            X-Next-Page: ''
+            X-Page: '1'
+            X-Per-Page: '20'
+            X-Prev-Page: ''
+            X-Request-Id: eKk6PEwGyE9
+            X-Runtime: '0.024218'
+            X-Total: '1'
+            X-Total-Pages: '1'
+            cf-request-id: 04c1b67bd20000178294bf5200000001
+          raw: !!binary ""
+          reason: OK
+          status_code: 200
+      - metadata:
+          latency: 0.20664143562316895
+          module_call_list:
+          - unittest.case
+          - requre.online_replacing
+          - tests.integration.gitlab.test_generic_commands
+          - ogr.services.gitlab.project
+          - gitlab.exceptions
+          - gitlab.mixins
+          - gitlab
+          - requre.objects
+          - requre.cassette
+          - requests.sessions
+          - send
+        output:
+          __store_indicator: 2
+          _content:
+          - avatar_url: https://secure.gravatar.com/avatar/86a332a848dc6260af0575f55ce1f499?s=80&d=identicon
+            id: 737640
+            name: Tomas Tomecek
+            state: active
+            username: TomasTomecek
+            web_url: https://gitlab.com/TomasTomecek
+          _next: null
+          elapsed: 0.2
+          encoding: null
+          headers:
+            CF-Cache-Status: DYNAMIC
+            CF-RAY: 5cb567381e7bfca1-VIE
+            Cache-Control: max-age=0, private, must-revalidate
+            Connection: keep-alive
+            Content-Encoding: gzip
+            Content-Type: application/json
+            Date: Fri, 01 Nov 2019 13-36-03 GMT
+            Etag: W/"3346dc8fc195875f1395873885e62962"
+            Expect-CT: max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
+            GitLab-LB: fe-12-lb-gprd
+            GitLab-SV: localhost
+            Link: <https://gitlab.com/api/v4/users?active=false&blocked=false&external=false&page=1&per_page=20&skip_ldap=false&username=tomastomecek&with_custom_attributes=false>;
+              rel="first", <https://gitlab.com/api/v4/users?active=false&blocked=false&external=false&page=1&per_page=20&skip_ldap=false&username=tomastomecek&with_custom_attributes=false>;
+              rel="last"
+            RateLimit-Limit: '600'
+            RateLimit-Observed: '16'
+            RateLimit-Remaining: '584'
+            RateLimit-Reset: '1598862830'
+            RateLimit-ResetTime: Mon, 31 Aug 2020 08:33:50 GMT
+            Referrer-Policy: strict-origin-when-cross-origin
+            Server: cloudflare
+            Strict-Transport-Security: max-age=31536000
+            Transfer-Encoding: chunked
+            Vary: Origin
+            X-Content-Type-Options: nosniff
+            X-Frame-Options: SAMEORIGIN
+            X-Next-Page: ''
+            X-Page: '1'
+            X-Per-Page: '20'
+            X-Prev-Page: ''
+            X-Request-Id: Cubp3j89IUa
+            X-Runtime: '0.025345'
+            X-Total: '1'
+            X-Total-Pages: '1'
+            cf-request-id: 04e53ed70a0000fca11137a200000001
+          raw: !!binary ""
+          reason: OK
+          status_code: 200
+    POST:
+      https://gitlab.com/api/v4/projects/14233409/members:
+      - metadata:
+          latency: 0.3269829750061035
+          module_call_list:
+          - unittest.case
+          - requre.online_replacing
+          - tests.integration.test_gitlab
+          - ogr.services.gitlab.project
+          - gitlab.exceptions
+          - gitlab.mixins
+          - gitlab
+          - requre.objects
+          - requre.cassette
+          - requests.sessions
+          - send
+        output:
+          __store_indicator: 2
+          _content:
+            access_level: 40
+            avatar_url: https://secure.gravatar.com/avatar/86a332a848dc6260af0575f55ce1f499?s=80&d=identicon
+            expires_at: '2019-11-01T14:35:53Z'
+            id: 737640
+            name: Tomas Tomecek
+            state: active
+            username: TomasTomecek
+            web_url: https://gitlab.com/TomasTomecek
+          _next: null
+          elapsed: 0.2
+          encoding: null
+          headers:
+            CF-Cache-Status: DYNAMIC
+            CF-RAY: 5c7c8d0f99651782-FRA
+            Cache-Control: max-age=0, private, must-revalidate
+            Connection: keep-alive
+            Content-Length: '264'
+            Content-Type: application/json
+            Date: Fri, 01 Nov 2019 13-36-03 GMT
+            Etag: W/"65cbe899e7441a84515091c1e6a64cb7"
+            Expect-CT: max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
+            GitLab-LB: fe-03-lb-gprd
+            GitLab-SV: api-15-sv-gprd
+            Referrer-Policy: strict-origin-when-cross-origin
+            Server: cloudflare
+            Strict-Transport-Security: max-age=31536000
+            Vary: Origin
+            X-Content-Type-Options: nosniff
+            X-Frame-Options: SAMEORIGIN
+            X-Request-Id: 8XjOAvp2Qt8
+            X-Runtime: '0.152658'
+            cf-request-id: 04c1b67dc2000017829481c200000001
+          raw: !!binary ""
+          reason: Created
+          status_code: 201
+      - metadata:
+          latency: 0.23858237266540527
+          module_call_list:
+          - unittest.case
+          - requre.online_replacing
+          - tests.integration.gitlab.test_generic_commands
+          - ogr.services.gitlab.project
+          - gitlab.exceptions
+          - gitlab.mixins
+          - gitlab
+          - requre.objects
+          - requre.cassette
+          - requests.sessions
+          - send
+        output:
+          __store_indicator: 2
+          _content:
+            message: Member already exists
+          _next: null
+          elapsed: 0.2
+          encoding: null
+          headers:
+            CF-Cache-Status: DYNAMIC
+            CF-RAY: 5cb5673b1a78fca1-VIE
+            Cache-Control: no-cache
+            Connection: keep-alive
+            Content-Length: '35'
+            Content-Type: application/json
+            Date: Fri, 01 Nov 2019 13-36-03 GMT
+            Expect-CT: max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
+            GitLab-LB: fe-02-lb-gprd
+            GitLab-SV: localhost
+            RateLimit-Limit: '600'
+            RateLimit-Observed: '17'
+            RateLimit-Remaining: '583'
+            RateLimit-Reset: '1598862830'
+            RateLimit-ResetTime: Mon, 31 Aug 2020 08:33:50 GMT
+            Server: cloudflare
+            Vary: Origin
+            X-Content-Type-Options: nosniff
+            X-Frame-Options: SAMEORIGIN
+            X-Request-Id: ZwMEoJ44nt8
+            X-Runtime: '0.048733'
+            cf-request-id: 04e53ed8f30000fca111388200000001
+          raw: !!binary ""
+          reason: Conflict
+          status_code: 409
