@@ -302,7 +302,10 @@ class PullRequests(GitlabTests):
 
     def test_create_pr_fork_other_fork(self):
         username = "jscotka"
-        other_fork = self.service.get_project(repo="ogr-tests", namespace=username,)
+        other_fork = self.service.get_project(
+            repo="ogr-tests",
+            namespace=username,
+        )
 
         prs_before = len(other_fork.get_pr_list(status=PRStatus.open))
         pr_fork_fork = self.project.get_fork().create_pr(

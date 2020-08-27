@@ -69,7 +69,7 @@ class PagurePullRequest(BasePullRequest):
     def url(self) -> str:
         return "/".join(
             [
-                self.project.service.instance_url,
+                self.target_project.service.instance_url,
                 self._raw_pr["project"]["url_path"],
                 "pull-request",
                 str(self.id),
@@ -264,7 +264,7 @@ class PagurePullRequest(BasePullRequest):
 
     def get_statuses(self) -> List[CommitFlag]:
         self.__update()
-        return self.project.get_commit_statuses(self._raw_pr["commit_stop"])
+        return self.target_project.get_commit_statuses(self._raw_pr["commit_stop"])
 
     def set_flag(
         self,

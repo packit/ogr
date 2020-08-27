@@ -1,0 +1,140 @@
+_requre:
+  DataTypes: 1
+  key_strategy: StorageKeysInspectSimple
+  version_storage_file: 2
+requests.sessions:
+  send:
+    GET:
+      https://pagure.io/ogr-tests/raw/master/f/.blablabla_nonexisting_file:
+      - metadata:
+          latency: 0.2503077983856201
+          module_call_list:
+          - unittest.case
+          - requre.online_replacing
+          - tests.integration.pagure.test_generic_commands
+          - ogr.services.pagure.project
+          - ogr.services.pagure.service
+          - requests.sessions
+          - requre.objects
+          - requre.cassette
+          - requests.sessions
+          - send
+        output:
+          __store_indicator: 1
+          _content: "\n<!DOCTYPE html>\n<html lang='en'>\n<head>\n    <meta http-equiv=\"\
+            Content-Type\" content=\"text/html; charset=UTF-8\"/>\n    <title>Page\
+            \ not found :'( - Pagure.io</title>\n        <link rel=\"shortcut icon\"\
+            \ type=\"image/vnd.microsoft.icon\"\n        href=\"/theme/static/favicon.ico?version=5.11.2\"\
+            />\n    <link href=\"/theme/static/fedora-bootstrap-1.3.0/fedora-bootstrap.min.css?version=5.11.2\"\
+            \n        type=\"text/css\" rel=\"stylesheet\" />\n    <link href=\"/theme/static/fonts/fonts.css?version=5.11.2\"\
+            \n        rel=\"stylesheet\" type=\"text/css\" />\n    <link href=\"/theme/static/fonts/hack_fonts/css/hack-extended.min.css?version=5.11.2\"\
+            \n        type=\"text/css\" rel=\"stylesheet\" />\n    <link href=\"/theme/static/theme.css?version=5.11.2\"\
+            \n        type=\"text/css\" rel=\"stylesheet\" />\n\n    <link type=\"\
+            text/css\" rel=\"stylesheet\" nonce=\"ZE4PZ7yQMT7GEChJtq85sl4nk\" href=\"\
+            /static/vendor/font-awesome/font-awesome.css?version=5.11.2\"/>\n    <link\
+            \ type=\"text/css\" rel=\"stylesheet\" nonce=\"ZE4PZ7yQMT7GEChJtq85sl4nk\"\
+            \ href=\"/static/pagure.css?version=5.11.2\"/>\n  </head>\n  <body id=\"\
+            error\">\n    \n    <!-- start masthead -->\n    <nav class=\"navbar navbar-light\
+            \ masthead p-0 navbar-expand\">\n      <div class=\"container\">\n   \
+            \     <a href=\"/\" class=\"navbar-brand\">\n        <img height=40px\
+            \ src=\"/theme/static/pagure-logo.png?version=5.11.2\"\n             alt=\"\
+            pagure Logo\" id=\"pagureLogo\"/>\n        </a>\n        <ul class=\"\
+            navbar-nav ml-auto\">\n\n          \n\n          <li class=\"nav-item\"\
+            >\n            <a class=\"btn btn-primary\" href=\"/login/?next=https://pagure.io/ogr-tests/raw/master/f/.blablabla_nonexisting_file\"\
+            >Log In</a>\n          </li>\n        </ul>\n      </div>\n    </nav>\n\
+            \    <!-- close masthead-->\n\n    <div class=\"bodycontent\">\n\n\n<div\
+            \ class=\"container p-t-3\">\n  <div class=\"row\">\n    <div class=\"\
+            col-md-8\">\n      <h2>Page not found (404)</h2>\n      <p>With the message:</p>\n\
+            \      <div class=\"card-block\">\n      <p>File not found</p>\n     \
+            \ </div>\n      <p>You have either entered a bad URL or the page has moved,\
+            \ removed, or otherwise rendered unavailable.<br/>\n      Please use the\
+            \ main navigation menu to get (re)started.</p>\n    </div>\n  </div>\n\
+            </div>\n    </div>\n\n        <div class=\"footer pt-4 text-white\">\n\
+            \        <div class=\"container\">\n            <div class=\"d-flex align-items-center\"\
+            >\n                <div>\n                    <div>Powered by <a href=\"\
+            https://pagure.io/pagure\" class=\"notblue\">Pagure</a> 5.11.2</div>\n\
+            \                    <div>\n                        <a href=\"https://docs.pagure.org/pagure/usage/index.html\"\
+            \ class=\"notblue\">Documentation</a> &bull;\n                       \
+            \ <a href=\"https://pagure.io/pagure/new_issue\" class=\"notblue\">File\
+            \ an Issue</a> &bull;\n                        <a href=\"/about\">About</a>\
+            \ &bull;\n                        <a href=\"/ssh_info\" class=\"notblue\"\
+            >SSH Hostkey/Fingerprint</a>\n                    </div>\n           \
+            \     </div>\n                <div class=\"ml-auto text-right\">\n   \
+            \                 <div>&copy; Red Hat, Inc. and others.</div>\n      \
+            \          </div>\n            </div>\n        </div>\n    </div>\n\n\n\
+            \    <script type=\"text/javascript\" nonce=\"ZE4PZ7yQMT7GEChJtq85sl4nk\"\
+            \ src=\"/static/vendor/jquery/jquery.min.js?version=5.11.2\"></script>\n\
+            \n    <script src=\"/static/vendor/bootstrap/bootstrap.bundle.min.js?version=5.11.2\"\
+            ></script>\n\n    <script type=\"text/javascript\" nonce=\"ZE4PZ7yQMT7GEChJtq85sl4nk\"\
+            >\n      $('[data-toggle=\"tooltip\"]').tooltip({placement : 'bottom'});\n\
+            \      $(\".cancel_btn\").click(function() {\n        history.back();\n\
+            \      });\n    </script>\n\n</body>\n</html>"
+          _next: null
+          elapsed: 0.2
+          encoding: utf-8
+          headers:
+            Connection: Keep-Alive
+            Content-Length: '3518'
+            Content-Security-Policy: default-src 'self';script-src 'self' 'nonce-YqLDC0BS8d7iY8mKO7VtBbIne'
+              https://apps.fedoraproject.org; style-src 'self' 'nonce-YqLDC0BS8d7iY8mKO7VtBbIne';
+              object-src 'none';base-uri 'self';img-src 'self' https:;
+            Content-Type: text/html; charset=utf-8
+            Date: Fri, 01 Nov 2019 13-36-03 GMT
+            Keep-Alive: timeout=5, max=99
+            Referrer-Policy: same-origin
+            Server: Apache/2.4.6 (Red Hat Enterprise Linux) OpenSSL/1.0.2k-fips mod_wsgi/3.4
+              Python/2.7.5
+            Set-Cookie: pagure=eyJfcGVybWFuZW50Ijp0cnVlLCJjc3JmIjp7IiBiIjoiTldFMU9UQXlOMlE0TlRoall6QTBNVE14TkdVeFpEQXlNamhsTkdVeE1UQTNNR1E0TXpNMFlRPT0ifX0.EikagQ.dyhL04iOExXYHSaZuZEnzoCe21g;
+              Expires=Sun, 27-Sep-2020 10:20:49 GMT; Secure; HttpOnly; Path=/
+            Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
+            X-Content-Type-Options: nosniff
+            X-Frame-Options: ALLOW-FROM https://pagure.io/
+            X-Xss-Protection: 1; mode=block
+          raw: !!binary ""
+          reason: NOT FOUND
+          status_code: 404
+    POST:
+      https://pagure.io/api/0/-/whoami:
+      - metadata:
+          latency: 0.8269674777984619
+          module_call_list:
+          - unittest.case
+          - requre.online_replacing
+          - tests.integration.pagure.test_generic_commands
+          - tests.integration.pagure.base
+          - ogr.services.pagure.service
+          - ogr.services.pagure.user
+          - ogr.services.pagure.service
+          - requests.sessions
+          - requre.objects
+          - requre.cassette
+          - requests.sessions
+          - send
+        output:
+          __store_indicator: 2
+          _content:
+            username: mfocko
+          _next: null
+          elapsed: 0.2
+          encoding: null
+          headers:
+            Connection: Keep-Alive
+            Content-Length: '26'
+            Content-Security-Policy: default-src 'self';script-src 'self' 'nonce-YqLDC0BS8d7iY8mKO7VtBbIne'
+              https://apps.fedoraproject.org; style-src 'self' 'nonce-YqLDC0BS8d7iY8mKO7VtBbIne';
+              object-src 'none';base-uri 'self';img-src 'self' https:;
+            Content-Type: application/json
+            Date: Fri, 01 Nov 2019 13-36-03 GMT
+            Keep-Alive: timeout=5, max=100
+            Referrer-Policy: same-origin
+            Server: Apache/2.4.6 (Red Hat Enterprise Linux) OpenSSL/1.0.2k-fips mod_wsgi/3.4
+              Python/2.7.5
+            Set-Cookie: pagure=eyJfcGVybWFuZW50Ijp0cnVlLCJjc3JmIjp7IiBiIjoiTldFMU9UQXlOMlE0TlRoall6QTBNVE14TkdVeFpEQXlNamhsTkdVeE1UQTNNR1E0TXpNMFlRPT0ifX0.EikagQ.dyhL04iOExXYHSaZuZEnzoCe21g;
+              Expires=Sun, 27-Sep-2020 10:20:49 GMT; Secure; HttpOnly; Path=/
+            Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
+            X-Content-Type-Options: nosniff
+            X-Frame-Options: ALLOW-FROM https://pagure.io/
+            X-Xss-Protection: 1; mode=block
+          raw: !!binary ""
+          reason: OK
+          status_code: 200
