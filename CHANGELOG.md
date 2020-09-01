@@ -1,14 +1,14 @@
 # 0.14.0
 
-* Add remarks from review
-* Refactor authentication in `GithubService`
-* Add suggestions from review for token managers
-* Check for multiple auth methods in `GithubService`
-* Add unit tests for parsing `tokman_instance_url`
-* Implement TokmanGithubTokenManager
-* Implement suggestions from review
-* Introduce token managers for GitHub App
-* Move getting github_instance from project to service
+## Minor
+
+- Ogr now uses [tokman](https://github.com/packit/tokman) for authentication
+  with Github. (@mfocko)
+
+## Internals
+
+- Authentication related logic has been improved, refactored and
+  moved from `GithubProject` to `GithubService`. (@mfocko)
 
 # 0.13.1
 
