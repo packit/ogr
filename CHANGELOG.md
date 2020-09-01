@@ -1,3 +1,15 @@
+# 0.14.0
+
+* Add remarks from review
+* Refactor authentication in `GithubService`
+* Add suggestions from review for token managers
+* Check for multiple auth methods in `GithubService`
+* Add unit tests for parsing `tokman_instance_url`
+* Implement TokmanGithubTokenManager
+* Implement suggestions from review
+* Introduce token managers for GitHub App
+* Move getting github_instance from project to service
+
 # 0.13.1
 
 ## Fixes
