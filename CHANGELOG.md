@@ -1,3 +1,15 @@
+# 0.14.0
+
+## Minor
+
+- Ogr now uses [tokman](https://github.com/packit/tokman) for authentication
+  with Github. (@mfocko)
+
+## Internals
+
+- Authentication related logic has been improved, refactored and
+  moved from `GithubProject` to `GithubService`. (@mfocko)
+
 # 0.13.1
 
 ## Fixes
