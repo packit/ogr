@@ -72,7 +72,8 @@ class TestGithubProject:
         )
 
     @pytest.mark.parametrize(
-        "fork_username", [pytest.param("fork_username", id="fork_username_set")],
+        "fork_username",
+        [pytest.param("fork_username", id="fork_username_set")],
     )
     def test_pr_create_is_fork(self, github_project, fork_username):
         github_project.should_receive("is_fork").and_return(True)

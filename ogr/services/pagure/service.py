@@ -121,7 +121,7 @@ class PagureService(BaseGitService):
     def call_api(
         self, url: str, method: str = None, params: dict = None, data=None
     ) -> dict:
-        """ Method used to call the API.
+        """Method used to call the API.
         It returns the raw JSON returned by the API or raises an exception
         if something goes wrong.
         """
@@ -151,7 +151,9 @@ class PagureService(BaseGitService):
                 if error_msg_ext:
                     msg += f" - {error_msg_ext}"
                 raise PagureAPIException(
-                    msg, pagure_error=error_msg, pagure_response=response.json_content,
+                    msg,
+                    pagure_error=error_msg,
+                    pagure_response=response.json_content,
                 )
             raise PagureAPIException(f"Problem with Pagure API when calling '{url}'")
 

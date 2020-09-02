@@ -21,14 +21,18 @@
 # SOFTWARE.
 
 import datetime
+from typing import Union
 
-from github import IssueComment as _GithubIssueComment
+from github.IssueComment import IssueComment as _GithubIssueComment
+from github.PullRequestComment import PullRequestComment as _GithubPullRequestComment
 
 from ogr.abstract import IssueComment, PRComment
 
 
 class GithubComment:
-    def _from_raw_comment(self, raw_comment: _GithubIssueComment) -> None:
+    def _from_raw_comment(
+        self, raw_comment: Union[_GithubIssueComment, _GithubPullRequestComment]
+    ) -> None:
         self._raw_comment = raw_comment
         self._author = raw_comment.user.login
         self._created = raw_comment.created_at

@@ -24,11 +24,9 @@ import logging
 from typing import Optional, Dict, List, Set, Union
 
 import github
-from github import (
-    UnknownObjectException,
-    Repository,
-    CommitComment as GithubCommitComment,
-)
+from github import UnknownObjectException
+from github.Repository import Repository
+from github.CommitComment import CommitComment as GithubCommitComment
 from github.GitRelease import GitRelease as PyGithubRelease
 
 from ogr.abstract import (
@@ -480,7 +478,7 @@ class GithubProject(BaseGitProject):
         return GithubRelease(
             tag_name=raw_release.tag_name,
             url=raw_release.url,
-            created_at=raw_release.created_at,
+            created_at=str(raw_release.created_at),
             tarball_url=raw_release.tarball_url,
             git_tag=git_tag,
             project=self,
