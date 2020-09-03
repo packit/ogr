@@ -82,14 +82,16 @@ class GithubApp(GithubAuthentication):
         # https://github.com/PyGithub/PyGithub/commit/61808da15e8e3bcb660acd0e7947326a4a6c0c7a#diff-b8f1ee87df332916352809a397ea259aL54
         # 'id' is now None or an ID.
         inst_id = (
-            inst_id if isinstance(inst_id, int) or inst_id is None else inst_id.value
+            inst_id
+            if isinstance(inst_id, int) or inst_id is None
+            else inst_id.value  # type: ignore
         )
         if not inst_id:
             raise OgrException(
                 f"No installation ID provided for {namespace}/{repo}: "
                 "please make sure that you provided correct credentials of your GitHub app."
             )
-        inst_auth = self.integration.get_access_token(inst_id)
+        inst_auth = self.integration.get_access_token(inst_id)  # type: ignore
         return inst_auth.token
 
     @staticmethod
