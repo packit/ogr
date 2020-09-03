@@ -102,8 +102,10 @@ class GitlabPullRequest(BasePullRequest):
     @property
     def source_project(self) -> "ogr_gitlab.GitlabProject":
         if self._source_project is None:
-            self._source_project = self._target_project.service.get_project_from_project_id(
-                self._raw_pr.attributes["source_project_id"]
+            self._source_project = (
+                self._target_project.service.get_project_from_project_id(
+                    self._raw_pr.attributes["source_project_id"]
+                )
             )
         return self._source_project
 
@@ -149,7 +151,8 @@ class GitlabPullRequest(BasePullRequest):
             #   (username of other_fork owner specified by fork_username)
 
             other_project = GitlabPullRequest.__get_fork(
-                fork_username, project if project.parent is None else project.parent,
+                fork_username,
+                project if project.parent is None else project.parent,
             )
 
             target_id = other_project.gitlab_repo.attributes["id"]

@@ -22,12 +22,14 @@
 
 import datetime
 import logging
-from typing import Optional, List
+from typing import Optional, List, Union
 
 from github import UnknownObjectException
 from github.Label import Label as GithubLabel
 from github.PullRequest import PullRequest as _GithubPullRequest
 from github.Repository import Repository as _GithubRepository
+from github.IssueComment import IssueComment as _GithubIssueComment
+from github.PullRequestComment import PullRequestComment as _GithubPullRequestComment
 
 from ogr.abstract import PRComment, PRStatus, PullRequest
 from ogr.exceptions import GithubAPIException
@@ -106,8 +108,10 @@ class GithubPullRequest(BasePullRequest):
     @property
     def source_project(self) -> "ogr_github.GithubProject":
         if self._source_project is None:
-            self._source_project = self._target_project.service.get_project_from_github_repository(
-                self._raw_pr.head.repo
+            self._source_project = (
+                self._target_project.service.get_project_from_github_repository(
+                    self._raw_pr.head.repo
+                )
             )
 
         return self._source_project
@@ -210,6 +214,7 @@ class GithubPullRequest(BasePullRequest):
         filename: Optional[str] = None,
         row: Optional[int] = None,
     ) -> "PRComment":
+        comment: Union[_GithubIssueComment, _GithubPullRequestComment] = None
         if not any([commit, filename, row]):
             comment = self._raw_pr.create_issue_comment(body)
         else:

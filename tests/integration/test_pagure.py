@@ -92,11 +92,17 @@ class Comments(PagureTests):
 
 class GenericCommands(PagureTests):
     def test_add_user(self):
-        project = self.service.get_project(repo="hello-112111", namespace="testing",)
+        project = self.service.get_project(
+            repo="hello-112111",
+            namespace="testing",
+        )
         project.add_user("lachmanfrantisek", AccessLevel.admin)
 
     def test_add_group(self):
-        project = self.service.get_project(repo="hello-112111", namespace="testing",)
+        project = self.service.get_project(
+            repo="hello-112111",
+            namespace="testing",
+        )
         project.add_group("packit-test-group", AccessLevel.admin)
 
     def test_description(self):
@@ -600,10 +606,20 @@ class PagureProjectTokenCommands(PagureTests):
         assert len(statuses) >= 0
         assert statuses[-1].state == CommitStatus.success
         assert statuses[-1].created == datetime(
-            year=2019, month=12, day=2, hour=13, minute=16, second=11,
+            year=2019,
+            month=12,
+            day=2,
+            hour=13,
+            minute=16,
+            second=11,
         )
         assert statuses[-1].edited == datetime(
-            year=2019, month=12, day=2, hour=13, minute=16, second=11,
+            year=2019,
+            month=12,
+            day=2,
+            hour=13,
+            minute=16,
+            second=11,
         )
 
     def test_is_private(self):
