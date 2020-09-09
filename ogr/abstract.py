@@ -604,10 +604,13 @@ class CommitFlag:
             f"edited='{self.edited}')"
         )
 
-    def _state_from_str(self, state: str) -> CommitStatus:
-        if state not in self._states:
-            raise ValueError("non-existing status")
-        return self._states[state]
+    @classmethod
+    def _state_from_str(cls, state: str) -> CommitStatus:
+        raise NotImplementedError()
+
+    @classmethod
+    def _validate_state(cls, state: Union[CommitStatus, str]) -> CommitStatus:
+        raise NotImplementedError()
 
     def _from_raw_commit_flag(self) -> None:
         raise NotImplementedError()

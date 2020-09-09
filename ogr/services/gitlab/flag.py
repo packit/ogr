@@ -21,7 +21,6 @@
 # SOFTWARE.
 
 import logging
-import warnings
 import datetime
 from typing import List, Union
 
@@ -30,11 +29,12 @@ import gitlab
 from ogr.abstract import CommitFlag, CommitStatus
 from ogr.exceptions import GitlabAPIException
 from ogr.services import gitlab as ogr_gitlab
+from ogr.services.base import BaseCommitFlag
 
 logger = logging.getLogger(__name__)
 
 
-class GitlabCommitFlag(CommitFlag):
+class GitlabCommitFlag(BaseCommitFlag):
     _states = {
         "pending": CommitStatus.pending,
         "success": CommitStatus.success,
@@ -82,16 +82,10 @@ class GitlabCommitFlag(CommitFlag):
         context: str,
         trim: bool = False,
     ) -> "CommitFlag":
+        state = GitlabCommitFlag._validate_state(state)
 
         if trim:
             description = description[:140]
-
-        if isinstance(state, str):
-            warnings.warn(
-                "Using the string representation of commit states, that will be removed in 0.14.0"
-                " (or 1.0.0 if it comes sooner). Please use CommitStatus enum instead. "
-            )
-            state = GitlabCommitFlag._states[state]
 
         try:
             commit_object = project.gitlab_repo.commits.get(commit)

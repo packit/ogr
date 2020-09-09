@@ -21,7 +21,7 @@
 # SOFTWARE.
 
 import datetime
-from typing import List, Optional, Match, Any
+from typing import List, Optional, Match, Any, Union
 import warnings
 
 from ogr.abstract import (
@@ -34,6 +34,7 @@ from ogr.abstract import (
     Issue,
     PullRequest,
     CommitFlag,
+    CommitStatus,
 )
 from ogr.deprecation import deprecate_and_set_removal
 from ogr.exceptions import OgrException
@@ -384,3 +385,25 @@ class BaseIssue(Issue):
 
     def can_close(self, username: str) -> bool:
         return username == self.author or username in self.project.who_can_close_issue()
+
+
+class BaseCommitFlag(CommitFlag):
+    @classmethod
+    def _state_from_str(cls, state: str) -> CommitStatus:
+        if state not in cls._states:
+            raise ValueError("Invalid state given")
+        return cls._states[state]
+
+    @classmethod
+    def _validate_state(cls, state: Union[CommitStatus, str]) -> CommitStatus:
+        if isinstance(state, str):
+            warnings.warn(
+                "Using the string representation of commit states, that will be removed in 0.14.0"
+                " (or 1.0.0 if it comes sooner). Please use CommitStatus enum instead. "
+            )
+            state = cls._state_from_str(state)
+
+        if state not in cls._states.values():
+            raise ValueError("Invalid state given")
+
+        return state

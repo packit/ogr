@@ -19,17 +19,18 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
+
 import datetime
-import warnings
 from typing import List, Union
 
 from github import UnknownObjectException
 
 from ogr.abstract import CommitFlag, CommitStatus
 from ogr.services import github as ogr_github
+from ogr.services.base import BaseCommitFlag
 
 
-class GithubCommitFlag(CommitFlag):
+class GithubCommitFlag(BaseCommitFlag):
     _states = {
         "pending": CommitStatus.pending,
         "success": CommitStatus.success,
@@ -71,13 +72,7 @@ class GithubCommitFlag(CommitFlag):
         context: str,
         trim: bool = False,
     ) -> "CommitFlag":
-
-        if isinstance(state, str):
-            warnings.warn(
-                "Using the string representation of commit states, that will be removed in 0.14.0"
-                " (or 1.0.0 if it comes sooner). Please use CommitStatus enum instead. "
-            )
-            state = GithubCommitFlag._states[state]
+        state = GithubCommitFlag._validate_state(state)
 
         github_commit = project.github_repo.get_commit(commit)
         if trim:
