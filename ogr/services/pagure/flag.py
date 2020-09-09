@@ -19,16 +19,17 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
-import warnings
+
 import datetime
 from typing import List, Dict, Any, Union
 
 
 from ogr.abstract import CommitFlag, CommitStatus
 from ogr.services import pagure as ogr_pagure
+from ogr.services.base import BaseCommitFlag
 
 
-class PagureCommitFlag(CommitFlag):
+class PagureCommitFlag(BaseCommitFlag):
     _states = {
         "pending": CommitStatus.pending,
         "success": CommitStatus.success,
@@ -67,13 +68,7 @@ class PagureCommitFlag(CommitFlag):
         trim: bool = False,
         uid: str = None,
     ) -> "CommitFlag":
-
-        if isinstance(state, str):
-            warnings.warn(
-                "Using the string representation of commit states, that will be removed in 0.14.0"
-                " (or 1.0.0 if it comes sooner). Please use CommitStatus enum instead. "
-            )
-            state = PagureCommitFlag._states[state]
+        state = PagureCommitFlag._validate_state(state)
 
         if trim:
             description = description[:140]
