@@ -71,6 +71,16 @@ from ogr.parsing import parse_git_repo, RepoUrl
                 hostname="host.name",
             ),
         ),
+        (
+            "https://host.name/multi/part/namespace/repo/",
+            RepoUrl(
+                repo="repo",
+                username=None,
+                namespace="multi/part/namespace",
+                scheme="https",
+                hostname="host.name",
+            ),
+        ),
     ],
 )
 def test_parse_git_repo(url, result):
