@@ -136,16 +136,22 @@ def parse_git_repo(potential_url: str) -> Optional[RepoUrl]:
         )
     if not username and len(split) >= 2:
         # path contains username/reponame
+        # or some/namespace/reponame
+        # or fork/username/some/namespace/reponame
 
-        is_fork = "fork" in split
-        if is_fork and len(split) == 4:
+        is_pagure_fork = "fork" == split[0] and len(split) >= 3
+        if is_pagure_fork:
+            # fork/username/namespace/repo format
             username = split[1]
+            namespace_parts = split[2:-1]
+        else:
+            namespace_parts = split[:-1]
 
         return RepoUrl(
-            namespace=split[-2],
+            namespace="/".join(namespace_parts),
             repo=split[-1],
             username=username,
-            is_fork=is_fork,
+            is_fork=is_pagure_fork,
             hostname=parsed.hostname,
             scheme=parsed.scheme,
         )
