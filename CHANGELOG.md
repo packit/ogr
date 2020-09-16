@@ -1,3 +1,21 @@
+# 0.15.0
+
+## Features
+
+- Add support for repository names with sub-namespaces (multiple slashes) -
+  this is possible with GitLab and Pagure (@lachmanfrantisek).
+
+## Minor
+
+- Validate GitHub flag states before setting them - this should give us more
+  sensible errors right away (@mfocko).
+
+## Internals
+
+- Ignore type-checking for GitHub App to avoid mypy warnings: short-term
+  workaround (@mfocko).
+- Update pre-commit configuration and fix mypy remarks (@mfocko).
+
 # 0.14.0
 
 ## Minor
