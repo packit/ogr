@@ -30,6 +30,15 @@ from ogr.deprecation import deprecate_and_set_removal
 from ogr.exceptions import OgrException
 from ogr.parsing import parse_git_repo
 
+try:
+    from functools import cached_property
+except ImportError:
+    from functools import lru_cache
+
+    def cached_property(func):  # type: ignore
+        return property(lru_cache(func))
+
+
 AnyComment = TypeVar("AnyComment", bound="Comment")
 
 
@@ -738,6 +747,13 @@ class GitService:
         if not repo_url:
             raise OgrException(f"Failed to find repository for url: {url}")
         return self.get_project(repo=repo_url.repo, namespace=repo_url.namespace)
+
+    @cached_property
+    def hostname(self) -> Optional[str]:
+        """
+        Hostname of the service.
+        """
+        raise NotImplementedError
 
     @property
     def user(self) -> "GitUser":

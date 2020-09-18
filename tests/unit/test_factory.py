@@ -127,6 +127,7 @@ def test_get_service_class_not_found(url, mapping):
             [
                 flexmock(
                     instance_url="https://host.name",
+                    hostname="host.name",
                     get_project_from_url=lambda url: "project",
                 )
             ],
@@ -138,10 +139,12 @@ def test_get_service_class_not_found(url, mapping):
             [
                 flexmock(
                     instance_url="https://host.name",
+                    hostname="host.name",
                     get_project_from_url=lambda url: "wrong-project",
                 ),
                 flexmock(
                     instance_url="https://host2.name",
+                    hostname="host2.name",
                     get_project_from_url=lambda url: "right-project",
                 ),
             ],
@@ -210,6 +213,7 @@ def test_get_project(url, mapping, instances, result):
             [
                 flexmock(
                     instance_url="https://unknown.com",
+                    hostname="unknown.com",
                     get_project_from_url=lambda url: "project",
                 )
             ],
@@ -221,10 +225,12 @@ def test_get_project(url, mapping, instances, result):
             [
                 flexmock(
                     instance_url="https://host2.name",
+                    hostname="host2.name",
                     get_project_from_url=lambda url: "wrong-project",
                 ),
                 flexmock(
                     instance_url="https://host3.name",
+                    hostname="host3.name",
                     get_project_from_url=lambda url: "right-project",
                 ),
             ],

@@ -1,6 +1,9 @@
+from unittest import TestCase
+
 import pytest
 from flexmock import flexmock
 
+from ogr import GithubService
 from ogr.services.github.project import GithubProject
 from ogr.services.github.pull_request import GithubPullRequest
 
@@ -96,3 +99,8 @@ class TestGithubProject:
             source_branch="master",
             fork_username=fork_username,
         )
+
+
+class TestGitHubService(TestCase):
+    def test_hostname(self):
+        assert GithubService().hostname == "github.com"
