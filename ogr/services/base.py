@@ -42,8 +42,24 @@ from ogr.parsing import parse_git_repo
 from ogr.read_only import if_readonly, GitProjectReadOnly
 from ogr.utils import search_in_comments, filter_comments
 
+try:
+    from functools import cached_property
+except ImportError:
+    from functools import lru_cache
+
+    def cached_property(func):  # type: ignore
+        return property(lru_cache(func))
+
 
 class BaseGitService(GitService):
+    @cached_property
+    def hostname(self) -> Optional[str]:
+        """
+        Hostname of the service.
+        """
+        parsed_url = parse_git_repo(potential_url=self.instance_url)
+        return parsed_url.hostname if parsed_url else None
+
     def get_project_from_url(self, url: str) -> "GitProject":
         repo_url = parse_git_repo(potential_url=url)
         if not repo_url:

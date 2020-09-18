@@ -22,15 +22,16 @@
 
 import gitlab
 
-from ogr.abstract import GitService, GitUser
+from ogr.abstract import GitUser
 from ogr.exceptions import GitlabAPIException
 from ogr.factory import use_for_service
+from ogr.services.base import BaseGitService
 from ogr.services.gitlab.project import GitlabProject
 from ogr.services.gitlab.user import GitlabUser
 
 
 @use_for_service("gitlab")
-class GitlabService(GitService):
+class GitlabService(BaseGitService):
     name = "gitlab"
 
     def __init__(self, token=None, instance_url=None, ssl_verify=True):

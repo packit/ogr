@@ -86,14 +86,13 @@ def get_project(
         mapping[instance.instance_url] = instance.__class__
 
     kls = get_service_class(url=url, service_mapping_update=mapping)
-    repo_url = parse_git_repo(url)
+    parsed_repo_url = parse_git_repo(url)
 
     if custom_instances:
         for service_inst in custom_instances:
-            si_repo_url = parse_git_repo(service_inst.instance_url)
             if (
                 isinstance(service_inst, kls)
-                and si_repo_url.hostname == repo_url.hostname
+                and service_inst.hostname == parsed_repo_url.hostname
             ):
                 service = service_inst
                 break
@@ -103,8 +102,7 @@ def get_project(
                 f"matching instance url '{url}' was not provided."
             )
     else:
-        repo_url = parse_git_repo(potential_url=url)
-        service = kls(instance_url=repo_url.get_instance_url(), **kwargs)
+        service = kls(instance_url=parsed_repo_url.get_instance_url(), **kwargs)
     return service.get_project_from_url(url=url)
 
 
