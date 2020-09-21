@@ -48,7 +48,7 @@ except ImportError:
     from functools import lru_cache
 
     def cached_property(func):  # type: ignore
-        return property(lru_cache(func))
+        return property(lru_cache()(func))
 
 
 class BaseGitService(GitService):
