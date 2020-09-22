@@ -81,6 +81,18 @@ from ogr.parsing import parse_git_repo, RepoUrl
                 hostname="host.name",
             ),
         ),
+        (
+            "https://pagure.io/fork/user/some_repo",
+            RepoUrl(
+                repo="some_repo",
+                username="user",
+                namespace="",
+                is_fork=True,
+                hostname="pagure.io",
+                scheme="https",
+            ),
+        ),
+        ("https://fail@more@at@domain.com", None),
     ],
 )
 def test_parse_git_repo(url, result):

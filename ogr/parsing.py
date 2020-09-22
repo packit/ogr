@@ -20,8 +20,8 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-from typing import Optional
-from urllib.parse import urlparse
+from typing import Optional, Tuple, List
+from urllib.parse import urlparse, ParseResult
 
 
 class RepoUrl:
@@ -71,6 +71,97 @@ class RepoUrl:
         repo_url_str += ")"
         return repo_url_str
 
+    def __repr__(self) -> str:
+        return str(self)
+
+    @staticmethod
+    def _prepare_url(potential_url: str) -> Optional[ParseResult]:
+        # Remove trailing '/' to ensure parsing works as expected.
+        potential_url = potential_url.rstrip("/")
+
+        # transform SSH URL
+        if "@" in potential_url:
+            split = potential_url.split("@")
+            if len(split) == 2:
+                potential_url = "http://" + split[1]
+            else:
+                # more @s ?
+                return None
+
+        # make it parsable by urlparse if it doesn't contain scheme
+        if not potential_url.startswith(
+            ("http://", "https://", "git://", "git+https://")
+        ):
+            potential_url = "http://" + potential_url
+
+        return urlparse(potential_url)
+
+    def _set_hostname_and_scheme(self, parsed_url: ParseResult):
+        self.hostname = parsed_url.hostname
+        self.scheme = parsed_url.scheme
+
+    def _parse_username(self, parsed: ParseResult) -> None:
+        if ":" not in parsed.netloc:
+            return
+
+        # e.g. domain.com:foo or domain.com:1234, where foo is username, but 1234 is port number
+        split = parsed.netloc.split(":")
+        if split[1] and not split[1].isnumeric():
+            self.username = split[1]
+
+    @staticmethod
+    def _prepare_path(parsed: ParseResult) -> Tuple[str, List[str]]:
+        # path starts with '/', strip it away
+        path = parsed.path.lstrip("/")
+
+        # strip trailing '.git'
+        if path.endswith(".git"):
+            path = path[:-4]
+
+        return path, path.split("/")
+
+    def _parsed_path(self, path: str, splits: List[str]) -> Optional["RepoUrl"]:
+        if len(splits) == 1:
+            self.namespace = self.username
+            self.repo = path
+
+            return self
+
+        if self.username or len(splits) < 2:
+            # invalid cases
+            return None
+
+        # path contains username/reponame
+        # or some/namespace/reponame
+        # or fork/username/some/namespace/reponame
+        self.is_fork = "fork" == splits[0] and len(splits) >= 3  # pagure fork
+        if self.is_fork:
+            # fork/username/namespace/repo format
+            self.username = splits[1]
+            namespace_parts = splits[2:-1]
+        else:
+            namespace_parts = splits[:-1]
+
+        self.namespace = "/".join(namespace_parts)
+        self.repo = splits[-1]
+
+        return self
+
+    @classmethod
+    def parse(cls, potential_url: str) -> Optional["RepoUrl"]:
+        if not potential_url:
+            return None
+
+        repo = RepoUrl(None)
+        parsed_url = cls._prepare_url(potential_url)
+        if not parsed_url:
+            return None
+
+        repo._set_hostname_and_scheme(parsed_url)
+        repo._parse_username(parsed_url)
+
+        return repo if repo._parsed_path(*cls._prepare_path(parsed_url)) else None
+
 
 def parse_git_repo(potential_url: str) -> Optional[RepoUrl]:
     """Cover the following variety of URL forms for Github/Gitlab repo referencing.
@@ -82,82 +173,10 @@ def parse_git_repo(potential_url: str) -> Optional[RepoUrl]:
     4) git@domain.com:foo/bar
     5) (same as above, but with ".git" in the end)
     6) (same as the two above but with "ssh://" in front or with "git+ssh" instead of "git")
-    7) pagure format of forks (e.g. domain.com/fork/username/namespace/project
-
-    Notably, the repo *must* have exactly username and reponame, nothing else and nothing
-    more. E.g. `github.com/<username>/<reponame>/<something>` is *not* recognized.
+    7) pagure format of forks (e.g. domain.com/fork/username/namespace/project)
+    8) nested groups on GitLab or Pagure (empty namespace is supported as well)
     """
-    if not potential_url:
-        return None
-
-    # Remove trailing '/' from 1-7 to ensure parsing works as expected.
-    if potential_url[-1] == "/":
-        potential_url = potential_url.rstrip("/")
-
-    # transform 4-6 to a URL-like string, so that we can handle it together with 1-3
-    if "@" in potential_url:
-        split = potential_url.split("@")
-        if len(split) == 2:
-            potential_url = "http://" + split[1]
-        else:
-            # more @s ?
-            return None
-
-    # make it parsable by urlparse if it doesn't contain scheme
-    if not potential_url.startswith(("http://", "https://", "git://", "git+https://")):
-        potential_url = "http://" + potential_url
-
-    # urlparse should handle it now
-    parsed = urlparse(potential_url)
-
-    username = None
-    if ":" in parsed.netloc:
-        # e.g. domain.com:foo or domain.com:1234, where foo is username, but 1234 is port number
-        split = parsed.netloc.split(":")
-        if split[1] and not split[1].isnumeric():
-            username = split[1]
-
-    # path starts with '/', strip it away
-    path = parsed.path.lstrip("/")
-
-    # strip trailing '.git'
-    if path.endswith(".git"):
-        path = path[: -len(".git")]
-
-    split = path.split("/")
-    if len(split) == 1:
-        # path contains only reponame
-        return RepoUrl(
-            namespace=username,
-            repo=path,
-            username=username,
-            hostname=parsed.hostname,
-            scheme=parsed.scheme,
-        )
-    if not username and len(split) >= 2:
-        # path contains username/reponame
-        # or some/namespace/reponame
-        # or fork/username/some/namespace/reponame
-
-        is_pagure_fork = "fork" == split[0] and len(split) >= 3
-        if is_pagure_fork:
-            # fork/username/namespace/repo format
-            username = split[1]
-            namespace_parts = split[2:-1]
-        else:
-            namespace_parts = split[:-1]
-
-        return RepoUrl(
-            namespace="/".join(namespace_parts),
-            repo=split[-1],
-            username=username,
-            is_fork=is_pagure_fork,
-            hostname=parsed.hostname,
-            scheme=parsed.scheme,
-        )
-
-    # all other cases
-    return None
+    return RepoUrl.parse(potential_url)
 
 
 def get_username_from_git_url(url: str) -> Optional[str]:
