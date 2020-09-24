@@ -1,0 +1,57 @@
+_requre:
+  DataTypes: 1
+  key_strategy: StorageKeysInspectSimple
+  version_storage_file: 2
+requests.sessions:
+  send:
+    GET:
+      https://api.github.com/repos/packit/packit/installation:
+      - metadata:
+          latency: 0.4730544090270996
+          module_call_list:
+          - unittest.case
+          - requre.online_replacing
+          - tests.integration.github.test_app
+          - ogr.services.github.project
+          - ogr.services.github.service
+          - ogr.services.github.auth_providers.github_app
+          - github.MainClass
+          - requests.api
+          - requests.sessions
+          - requre.objects
+          - requre.cassette
+          - requests.sessions
+          - send
+        output:
+          __store_indicator: 2
+          _content:
+            documentation_url: https://docs.github.com/rest
+            message: A JSON web token could not be decoded
+          _next: null
+          elapsed: 0.2
+          encoding: utf-8
+          headers:
+            Access-Control-Allow-Origin: '*'
+            Access-Control-Expose-Headers: ETag, Link, Location, Retry-After, X-GitHub-OTP,
+              X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Reset, X-OAuth-Scopes,
+              X-Accepted-OAuth-Scopes, X-Poll-Interval, X-GitHub-Media-Type, Deprecation,
+              Sunset
+            Content-Length: '102'
+            Content-Security-Policy: default-src 'self';script-src 'self' 'nonce-YqLDC0BS8d7iY8mKO7VtBbIne'
+              https://apps.fedoraproject.org; style-src 'self' 'nonce-YqLDC0BS8d7iY8mKO7VtBbIne';
+              object-src 'none';base-uri 'self';img-src 'self' https:;
+            Content-Type: application/json; charset=utf-8
+            Date: Fri, 01 Nov 2019 13-36-03 GMT
+            Referrer-Policy: origin-when-cross-origin, strict-origin-when-cross-origin
+            Server: GitHub.com
+            Status: 401 Unauthorized
+            Strict-Transport-Security: max-age=31536000; includeSubdomains; preload
+            Vary: Accept-Encoding, Accept, X-Requested-With
+            X-Content-Type-Options: nosniff
+            X-Frame-Options: deny
+            X-GitHub-Media-Type: github.v3; param=machine-man-preview; format=json
+            X-GitHub-Request-Id: 18FB:AA1A:99616C4:B8092CB:5CC15425
+            X-XSS-Protection: 1; mode=block
+          raw: !!binary ""
+          reason: Unauthorized
+          status_code: 401

@@ -1,0 +1,403 @@
+_requre:
+  DataTypes: 1
+  key_strategy: StorageKeysInspectSimple
+  version_storage_file: 2
+requests.sessions:
+  send:
+    GET:
+      https://pagure.io/api/0/ogr-tests/issue/3:
+      - metadata:
+          latency: 0.28149938583374023
+          module_call_list:
+          - unittest.case
+          - requre.online_replacing
+          - tests.integration.test_pagure
+          - ogr.services.pagure.project
+          - ogr.services.pagure.issue
+          - ogr.services.pagure.project
+          - ogr.services.pagure.service
+          - requests.sessions
+          - requre.objects
+          - requre.cassette
+          - requests.sessions
+          - send
+        output:
+          __store_indicator: 2
+          _content:
+            assignee: null
+            blocks: []
+            close_status: null
+            closed_at: null
+            closed_by: null
+            comments:
+            - comment: test
+              date_created: '1570615519'
+              edited_on: '1574278899'
+              editor:
+                fullname: Matej Focko
+                name: mfocko
+                url_path: user/mfocko
+              id: 603532
+              notification: false
+              parent: null
+              reactions: {}
+              user:
+                fullname: Matej Focko
+                name: mfocko
+                url_path: user/mfocko
+            - comment: tests
+              date_created: '1570615521'
+              edited_on: null
+              editor: null
+              id: 603533
+              notification: false
+              parent: null
+              reactions: {}
+              user:
+                fullname: Matej Focko
+                name: mfocko
+                url_path: user/mfocko
+            - comment: let's test regex
+              date_created: '1570615541'
+              edited_on: null
+              editor: null
+              id: 603534
+              notification: false
+              parent: null
+              reactions: {}
+              user:
+                fullname: Matej Focko
+                name: mfocko
+                url_path: user/mfocko
+            - comment: regex test let's
+              date_created: '1570615551'
+              edited_on: null
+              editor: null
+              id: 603535
+              notification: false
+              parent: null
+              reactions: {}
+              user:
+                fullname: Matej Focko
+                name: mfocko
+                url_path: user/mfocko
+            content: Issue for testing filtering comments
+            custom_fields: []
+            date_created: '1570615513'
+            depends: []
+            id: 3
+            last_updated: '1598357218'
+            milestone: null
+            priority: null
+            private: false
+            related_prs: []
+            status: Open
+            tags: []
+            title: Testing regex
+            user:
+              fullname: Matej Focko
+              name: mfocko
+              url_path: user/mfocko
+          _next: null
+          elapsed: 0.2
+          encoding: null
+          headers:
+            Connection: Keep-Alive
+            Content-Length: '2005'
+            Content-Security-Policy: default-src 'self';script-src 'self' 'nonce-YqLDC0BS8d7iY8mKO7VtBbIne'
+              https://apps.fedoraproject.org; style-src 'self' 'nonce-YqLDC0BS8d7iY8mKO7VtBbIne';
+              object-src 'none';base-uri 'self';img-src 'self' https:;
+            Content-Type: application/json
+            Date: Fri, 01 Nov 2019 13-36-03 GMT
+            Keep-Alive: timeout=5, max=99
+            Referrer-Policy: same-origin
+            Server: Apache/2.4.6 (Red Hat Enterprise Linux) OpenSSL/1.0.2k-fips mod_wsgi/3.4
+              Python/2.7.5
+            Set-Cookie: pagure=eyJfcGVybWFuZW50Ijp0cnVlLCJjc3JmIjp7IiBiIjoiTmpCa1ptWTVPREJpWXpFM01tSXlZVFl6WWpBMU1tWTJaamsxT1dSaVlUUTNZalJpWldFM09RPT0ifX0.EiaQZA.MMP7T0OeUXG_nNxzP5A4sBD-gHM;
+              Expires=Fri, 25-Sep-2020 12:07:00 GMT; Secure; HttpOnly; Path=/
+            Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
+            X-Content-Type-Options: nosniff
+            X-Frame-Options: ALLOW-FROM https://pagure.io/
+            X-Xss-Protection: 1; mode=block
+          raw: !!binary ""
+          reason: OK
+          status_code: 200
+    POST:
+      https://pagure.io/api/0/-/whoami:
+      - metadata:
+          latency: 0.6903738975524902
+          module_call_list:
+          - unittest.case
+          - requre.online_replacing
+          - tests.integration.test_pagure
+          - ogr.services.pagure.service
+          - ogr.services.pagure.user
+          - ogr.services.pagure.service
+          - requests.sessions
+          - requre.objects
+          - requre.cassette
+          - requests.sessions
+          - send
+        output:
+          __store_indicator: 2
+          _content:
+            username: jscotka
+          _next: null
+          elapsed: 0.2
+          encoding: null
+          headers:
+            Connection: Keep-Alive
+            Content-Length: '27'
+            Content-Security-Policy: default-src 'self';script-src 'self' 'nonce-YqLDC0BS8d7iY8mKO7VtBbIne'
+              https://apps.fedoraproject.org; style-src 'self' 'nonce-YqLDC0BS8d7iY8mKO7VtBbIne';
+              object-src 'none';base-uri 'self';img-src 'self' https:;
+            Content-Type: application/json
+            Date: Fri, 01 Nov 2019 13-36-03 GMT
+            Keep-Alive: timeout=5, max=100
+            Referrer-Policy: same-origin
+            Server: Apache/2.4.6 (Red Hat Enterprise Linux) OpenSSL/1.0.2k-fips mod_wsgi/3.4
+              Python/2.7.5
+            Set-Cookie: pagure=eyJfcGVybWFuZW50Ijp0cnVlLCJjc3JmIjp7IiBiIjoiTmpCa1ptWTVPREJpWXpFM01tSXlZVFl6WWpBMU1tWTJaamsxT1dSaVlUUTNZalJpWldFM09RPT0ifX0.EiaQYw.F-aq7xAnkeP5_50VMqPy9aSAmxk;
+              Expires=Fri, 25-Sep-2020 12:06:59 GMT; Secure; HttpOnly; Path=/
+            Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
+            X-Content-Type-Options: nosniff
+            X-Frame-Options: ALLOW-FROM https://pagure.io/
+            X-Xss-Protection: 1; mode=block
+          raw: !!binary ""
+          reason: OK
+          status_code: 200
+      https://pagure.io/api/0/ogr-tests/issue/3:
+      - metadata:
+          latency: 0.42745208740234375
+          module_call_list:
+          - unittest.case
+          - requre.online_replacing
+          - tests.integration.test_pagure
+          - ogr.services.pagure.issue
+          - ogr.services.pagure.project
+          - ogr.services.pagure.service
+          - requests.sessions
+          - requre.objects
+          - requre.cassette
+          - requests.sessions
+          - send
+        output:
+          __store_indicator: 2
+          _content:
+            issue:
+              assignee: null
+              blocks: []
+              close_status: null
+              closed_at: null
+              closed_by: null
+              comments:
+              - comment: test
+                date_created: '1570615519'
+                edited_on: '1574278899'
+                editor:
+                  fullname: Matej Focko
+                  name: mfocko
+                  url_path: user/mfocko
+                id: 603532
+                notification: false
+                parent: null
+                reactions: {}
+                user:
+                  fullname: Matej Focko
+                  name: mfocko
+                  url_path: user/mfocko
+              - comment: tests
+                date_created: '1570615521'
+                edited_on: null
+                editor: null
+                id: 603533
+                notification: false
+                parent: null
+                reactions: {}
+                user:
+                  fullname: Matej Focko
+                  name: mfocko
+                  url_path: user/mfocko
+              - comment: let's test regex
+                date_created: '1570615541'
+                edited_on: null
+                editor: null
+                id: 603534
+                notification: false
+                parent: null
+                reactions: {}
+                user:
+                  fullname: Matej Focko
+                  name: mfocko
+                  url_path: user/mfocko
+              - comment: regex test let's
+                date_created: '1570615551'
+                edited_on: null
+                editor: null
+                id: 603535
+                notification: false
+                parent: null
+                reactions: {}
+                user:
+                  fullname: Matej Focko
+                  name: mfocko
+                  url_path: user/mfocko
+              content: Issue for testing filtering comments
+              custom_fields: []
+              date_created: '1570615513'
+              depends: []
+              id: 3
+              last_updated: '1598357220'
+              milestone: null
+              priority: null
+              private: false
+              related_prs: []
+              status: Open
+              tags: []
+              title: testing title
+              user:
+                fullname: Matej Focko
+                name: mfocko
+                url_path: user/mfocko
+            message: Issue edited
+          _next: null
+          elapsed: 0.2
+          encoding: null
+          headers:
+            Connection: Keep-Alive
+            Content-Length: '2229'
+            Content-Security-Policy: default-src 'self';script-src 'self' 'nonce-YqLDC0BS8d7iY8mKO7VtBbIne'
+              https://apps.fedoraproject.org; style-src 'self' 'nonce-YqLDC0BS8d7iY8mKO7VtBbIne';
+              object-src 'none';base-uri 'self';img-src 'self' https:;
+            Content-Type: application/json
+            Date: Fri, 01 Nov 2019 13-36-03 GMT
+            Keep-Alive: timeout=5, max=98
+            Referrer-Policy: same-origin
+            Server: Apache/2.4.6 (Red Hat Enterprise Linux) OpenSSL/1.0.2k-fips mod_wsgi/3.4
+              Python/2.7.5
+            Set-Cookie: pagure=eyJfcGVybWFuZW50Ijp0cnVlLCJjc3JmIjp7IiBiIjoiTmpCa1ptWTVPREJpWXpFM01tSXlZVFl6WWpBMU1tWTJaamsxT1dSaVlUUTNZalJpWldFM09RPT0ifX0.EiaQZA.MMP7T0OeUXG_nNxzP5A4sBD-gHM;
+              Expires=Fri, 25-Sep-2020 12:07:00 GMT; Secure; HttpOnly; Path=/
+            Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
+            X-Content-Type-Options: nosniff
+            X-Frame-Options: ALLOW-FROM https://pagure.io/
+            X-Xss-Protection: 1; mode=block
+          raw: !!binary ""
+          reason: OK
+          status_code: 200
+      - metadata:
+          latency: 0.5708818435668945
+          module_call_list:
+          - unittest.case
+          - requre.online_replacing
+          - tests.integration.test_pagure
+          - ogr.services.pagure.issue
+          - ogr.services.pagure.project
+          - ogr.services.pagure.service
+          - requests.sessions
+          - requre.objects
+          - requre.cassette
+          - requests.sessions
+          - send
+        output:
+          __store_indicator: 2
+          _content:
+            issue:
+              assignee: null
+              blocks: []
+              close_status: null
+              closed_at: null
+              closed_by: null
+              comments:
+              - comment: test
+                date_created: '1570615519'
+                edited_on: '1574278899'
+                editor:
+                  fullname: Matej Focko
+                  name: mfocko
+                  url_path: user/mfocko
+                id: 603532
+                notification: false
+                parent: null
+                reactions: {}
+                user:
+                  fullname: Matej Focko
+                  name: mfocko
+                  url_path: user/mfocko
+              - comment: tests
+                date_created: '1570615521'
+                edited_on: null
+                editor: null
+                id: 603533
+                notification: false
+                parent: null
+                reactions: {}
+                user:
+                  fullname: Matej Focko
+                  name: mfocko
+                  url_path: user/mfocko
+              - comment: let's test regex
+                date_created: '1570615541'
+                edited_on: null
+                editor: null
+                id: 603534
+                notification: false
+                parent: null
+                reactions: {}
+                user:
+                  fullname: Matej Focko
+                  name: mfocko
+                  url_path: user/mfocko
+              - comment: regex test let's
+                date_created: '1570615551'
+                edited_on: null
+                editor: null
+                id: 603535
+                notification: false
+                parent: null
+                reactions: {}
+                user:
+                  fullname: Matej Focko
+                  name: mfocko
+                  url_path: user/mfocko
+              content: Issue for testing filtering comments
+              custom_fields: []
+              date_created: '1570615513'
+              depends: []
+              id: 3
+              last_updated: '1598357220'
+              milestone: null
+              priority: null
+              private: false
+              related_prs: []
+              status: Open
+              tags: []
+              title: Testing regex
+              user:
+                fullname: Matej Focko
+                name: mfocko
+                url_path: user/mfocko
+            message: Issue edited
+          _next: null
+          elapsed: 0.2
+          encoding: null
+          headers:
+            Connection: Keep-Alive
+            Content-Length: '2229'
+            Content-Security-Policy: default-src 'self';script-src 'self' 'nonce-YqLDC0BS8d7iY8mKO7VtBbIne'
+              https://apps.fedoraproject.org; style-src 'self' 'nonce-YqLDC0BS8d7iY8mKO7VtBbIne';
+              object-src 'none';base-uri 'self';img-src 'self' https:;
+            Content-Type: application/json
+            Date: Fri, 01 Nov 2019 13-36-03 GMT
+            Keep-Alive: timeout=5, max=97
+            Referrer-Policy: same-origin
+            Server: Apache/2.4.6 (Red Hat Enterprise Linux) OpenSSL/1.0.2k-fips mod_wsgi/3.4
+              Python/2.7.5
+            Set-Cookie: pagure=eyJfcGVybWFuZW50Ijp0cnVlLCJjc3JmIjp7IiBiIjoiTmpCa1ptWTVPREJpWXpFM01tSXlZVFl6WWpBMU1tWTJaamsxT1dSaVlUUTNZalJpWldFM09RPT0ifX0.EiaQZQ.dUwyJjfTzbvJiGBeZwzBlAkWRl8;
+              Expires=Fri, 25-Sep-2020 12:07:01 GMT; Secure; HttpOnly; Path=/
+            Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
+            X-Content-Type-Options: nosniff
+            X-Frame-Options: ALLOW-FROM https://pagure.io/
+            X-Xss-Protection: 1; mode=block
+          raw: !!binary ""
+          reason: OK
+          status_code: 200

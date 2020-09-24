@@ -385,7 +385,7 @@ class BasePullRequest(PullRequest):
 
     def get_statuses(self) -> List[CommitFlag]:
         commit = self.get_all_commits()[-1]
-        return self.project.get_commit_statuses(commit)
+        return self.target_project.get_commit_statuses(commit)
 
 
 class BaseGitUser(GitUser):

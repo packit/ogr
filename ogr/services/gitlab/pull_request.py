@@ -138,11 +138,8 @@ class GitlabPullRequest(BasePullRequest):
         }
         target_id = None
 
-        if project.is_fork and (
-            fork_username is None or fork_username == project.namespace
-        ):
+        if project.is_fork and fork_username is None:
             # handles fork -> upstream (called on fork)
-            # handles fork -> fork
             target_id = project.parent.gitlab_repo.attributes["id"]
         elif fork_username and fork_username != project.namespace:
             # handles fork -> upstream
@@ -220,7 +217,7 @@ class GitlabPullRequest(BasePullRequest):
     def _get_all_comments(self) -> List[PRComment]:
         return [
             GitlabPRComment(parent=self, raw_comment=raw_comment)
-            for raw_comment in self._raw_pr.notes.list(sort="asc")
+            for raw_comment in self._raw_pr.notes.list(sort="asc", all=True)
         ]
 
     def get_all_commits(self) -> List[str]:

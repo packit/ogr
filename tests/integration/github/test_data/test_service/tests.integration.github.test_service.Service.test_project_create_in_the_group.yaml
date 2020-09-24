@@ -1,0 +1,525 @@
+_requre:
+  DataTypes: 1
+  key_strategy: StorageKeysInspectSimple
+  version_storage_file: 2
+requests.sessions:
+  send:
+    GET:
+      https://api.github.com:443/orgs/packit:
+      - metadata:
+          latency: 0.4507107734680176
+          module_call_list:
+          - unittest.case
+          - requre.online_replacing
+          - tests.integration.github.test_service
+          - ogr.services.github.service
+          - github.MainClass
+          - github.Requester
+          - requests.sessions
+          - requre.objects
+          - requre.cassette
+          - requests.sessions
+          - send
+        output:
+          __store_indicator: 2
+          _content:
+            avatar_url: https://avatars3.githubusercontent.com/u/46870917?v=4
+            billing_email: ttomecek@redhat.com
+            blog: null
+            collaborators: 0
+            company: null
+            created_at: '2019-01-20T17:49:34Z'
+            default_repository_permission: read
+            description: 'Packit service: package it in an automated way.'
+            disk_usage: 204083
+            email: user-cont-team@redhat.com
+            events_url: https://api.github.com/orgs/packit/events
+            followers: 0
+            following: 0
+            has_organization_projects: true
+            has_repository_projects: true
+            hooks_url: https://api.github.com/orgs/packit/hooks
+            html_url: https://github.com/packit
+            id: 46870917
+            is_verified: false
+            issues_url: https://api.github.com/orgs/packit/issues
+            location: null
+            login: packit
+            members_can_create_repositories: true
+            members_url: https://api.github.com/orgs/packit/members{/member}
+            name: Packit
+            node_id: MDEyOk9yZ2FuaXphdGlvbjQ2ODcwOTE3
+            owned_private_repos: 0
+            plan:
+              filled_seats: 13
+              name: free
+              private_repos: 10000
+              seats: 0
+              space: 976562499
+            private_gists: 0
+            public_gists: 0
+            public_members_url: https://api.github.com/orgs/packit/public_members{/member}
+            public_repos: 21
+            repos_url: https://api.github.com/orgs/packit/repos
+            total_private_repos: 0
+            twitter_username: null
+            two_factor_requirement_enabled: false
+            type: Organization
+            updated_at: '2020-08-03T06:23:40Z'
+            url: https://api.github.com/orgs/packit
+          _next: null
+          elapsed: 0.2
+          encoding: utf-8
+          headers:
+            Access-Control-Allow-Origin: '*'
+            Access-Control-Expose-Headers: ETag, Link, Location, Retry-After, X-GitHub-OTP,
+              X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Reset, X-OAuth-Scopes,
+              X-Accepted-OAuth-Scopes, X-Poll-Interval, X-GitHub-Media-Type, Deprecation,
+              Sunset
+            Cache-Control: private, max-age=60, s-maxage=60
+            Content-Encoding: gzip
+            Content-Security-Policy: default-src 'self';script-src 'self' 'nonce-YqLDC0BS8d7iY8mKO7VtBbIne'
+              https://apps.fedoraproject.org; style-src 'self' 'nonce-YqLDC0BS8d7iY8mKO7VtBbIne';
+              object-src 'none';base-uri 'self';img-src 'self' https:;
+            Content-Type: application/json; charset=utf-8
+            Date: Fri, 01 Nov 2019 13-36-03 GMT
+            ETag: W/"1e51b8e1c48787a433405211e9e0fe61"
+            Last-Modified: Mon, 03 Aug 2020 06:23:40 GMT
+            Referrer-Policy: origin-when-cross-origin, strict-origin-when-cross-origin
+            Server: GitHub.com
+            Status: 200 OK
+            Strict-Transport-Security: max-age=31536000; includeSubdomains; preload
+            Transfer-Encoding: chunked
+            Vary: Accept, Authorization, Cookie, X-GitHub-OTP, Accept-Encoding, Accept,
+              X-Requested-With, Accept-Encoding
+            X-Accepted-OAuth-Scopes: admin:org, read:org, repo, user, write:org
+            X-Content-Type-Options: nosniff
+            X-Frame-Options: deny
+            X-GitHub-Media-Type: github.v3; format=json
+            X-GitHub-Request-Id: 18FB:AA1A:99616C4:B8092CB:5CC15425
+            X-OAuth-Scopes: admin:enterprise, admin:gpg_key, admin:org, admin:org_hook,
+              admin:public_key, admin:repo_hook, delete:packages, delete_repo, gist,
+              notifications, read:packages, repo, user, workflow, write:discussion,
+              write:packages
+            X-RateLimit-Limit: '5000'
+            X-RateLimit-Remaining: '4972'
+            X-RateLimit-Reset: '1572953901'
+            X-XSS-Protection: 1; mode=block
+          raw: !!binary ""
+          reason: OK
+          status_code: 200
+      https://api.github.com:443/repos/packit/repo_created_for_test_in_group:
+      - metadata:
+          latency: 0.3172900676727295
+          module_call_list:
+          - unittest.case
+          - requre.online_replacing
+          - tests.integration.github.test_service
+          - ogr.services.github.project
+          - github.MainClass
+          - github.Requester
+          - requests.sessions
+          - requre.objects
+          - requre.cassette
+          - requests.sessions
+          - send
+        output:
+          __store_indicator: 2
+          _content:
+            documentation_url: https://docs.github.com/rest/reference/repos#get-a-repository
+            message: Not Found
+          _next: null
+          elapsed: 0.2
+          encoding: utf-8
+          headers:
+            Access-Control-Allow-Origin: '*'
+            Access-Control-Expose-Headers: ETag, Link, Location, Retry-After, X-GitHub-OTP,
+              X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Reset, X-OAuth-Scopes,
+              X-Accepted-OAuth-Scopes, X-Poll-Interval, X-GitHub-Media-Type, Deprecation,
+              Sunset
+            Content-Encoding: gzip
+            Content-Security-Policy: default-src 'self';script-src 'self' 'nonce-YqLDC0BS8d7iY8mKO7VtBbIne'
+              https://apps.fedoraproject.org; style-src 'self' 'nonce-YqLDC0BS8d7iY8mKO7VtBbIne';
+              object-src 'none';base-uri 'self';img-src 'self' https:;
+            Content-Type: application/json; charset=utf-8
+            Date: Fri, 01 Nov 2019 13-36-03 GMT
+            Referrer-Policy: origin-when-cross-origin, strict-origin-when-cross-origin
+            Server: GitHub.com
+            Status: 404 Not Found
+            Strict-Transport-Security: max-age=31536000; includeSubdomains; preload
+            Transfer-Encoding: chunked
+            Vary: Accept-Encoding, Accept, X-Requested-With
+            X-Accepted-OAuth-Scopes: repo
+            X-Content-Type-Options: nosniff
+            X-Frame-Options: deny
+            X-GitHub-Media-Type: github.v3; format=json
+            X-GitHub-Request-Id: 18FB:AA1A:99616C4:B8092CB:5CC15425
+            X-OAuth-Scopes: admin:enterprise, admin:gpg_key, admin:org, admin:org_hook,
+              admin:public_key, admin:repo_hook, delete:packages, delete_repo, gist,
+              notifications, read:packages, repo, user, workflow, write:discussion,
+              write:packages
+            X-RateLimit-Limit: '5000'
+            X-RateLimit-Remaining: '4972'
+            X-RateLimit-Reset: '1572953901'
+            X-XSS-Protection: 1; mode=block
+          raw: !!binary ""
+          reason: Not Found
+          status_code: 404
+      - metadata:
+          latency: 0.5041854381561279
+          module_call_list:
+          - unittest.case
+          - requre.online_replacing
+          - tests.integration.github.test_service
+          - ogr.services.github.project
+          - github.MainClass
+          - github.Requester
+          - requests.sessions
+          - requre.objects
+          - requre.cassette
+          - requests.sessions
+          - send
+        output:
+          __store_indicator: 2
+          _content:
+            allow_merge_commit: true
+            allow_rebase_merge: true
+            allow_squash_merge: true
+            archive_url: https://api.github.com/repos/packit/repo_created_for_test_in_group/{archive_format}{/ref}
+            archived: false
+            assignees_url: https://api.github.com/repos/packit/repo_created_for_test_in_group/assignees{/user}
+            blobs_url: https://api.github.com/repos/packit/repo_created_for_test_in_group/git/blobs{/sha}
+            branches_url: https://api.github.com/repos/packit/repo_created_for_test_in_group/branches{/branch}
+            clone_url: https://github.com/packit/repo_created_for_test_in_group.git
+            collaborators_url: https://api.github.com/repos/packit/repo_created_for_test_in_group/collaborators{/collaborator}
+            comments_url: https://api.github.com/repos/packit/repo_created_for_test_in_group/comments{/number}
+            commits_url: https://api.github.com/repos/packit/repo_created_for_test_in_group/commits{/sha}
+            compare_url: https://api.github.com/repos/packit/repo_created_for_test_in_group/compare/{base}...{head}
+            contents_url: https://api.github.com/repos/packit/repo_created_for_test_in_group/contents/{+path}
+            contributors_url: https://api.github.com/repos/packit/repo_created_for_test_in_group/contributors
+            created_at: '2020-08-26T12:25:10Z'
+            default_branch: master
+            delete_branch_on_merge: false
+            deployments_url: https://api.github.com/repos/packit/repo_created_for_test_in_group/deployments
+            description: null
+            disabled: false
+            downloads_url: https://api.github.com/repos/packit/repo_created_for_test_in_group/downloads
+            events_url: https://api.github.com/repos/packit/repo_created_for_test_in_group/events
+            fork: false
+            forks: 0
+            forks_count: 0
+            forks_url: https://api.github.com/repos/packit/repo_created_for_test_in_group/forks
+            full_name: packit/repo_created_for_test_in_group
+            git_commits_url: https://api.github.com/repos/packit/repo_created_for_test_in_group/git/commits{/sha}
+            git_refs_url: https://api.github.com/repos/packit/repo_created_for_test_in_group/git/refs{/sha}
+            git_tags_url: https://api.github.com/repos/packit/repo_created_for_test_in_group/git/tags{/sha}
+            git_url: git://github.com/packit/repo_created_for_test_in_group.git
+            has_downloads: true
+            has_issues: true
+            has_pages: false
+            has_projects: true
+            has_wiki: true
+            homepage: null
+            hooks_url: https://api.github.com/repos/packit/repo_created_for_test_in_group/hooks
+            html_url: https://github.com/packit/repo_created_for_test_in_group
+            id: 290489460
+            issue_comment_url: https://api.github.com/repos/packit/repo_created_for_test_in_group/issues/comments{/number}
+            issue_events_url: https://api.github.com/repos/packit/repo_created_for_test_in_group/issues/events{/number}
+            issues_url: https://api.github.com/repos/packit/repo_created_for_test_in_group/issues{/number}
+            keys_url: https://api.github.com/repos/packit/repo_created_for_test_in_group/keys{/key_id}
+            labels_url: https://api.github.com/repos/packit/repo_created_for_test_in_group/labels{/name}
+            language: null
+            languages_url: https://api.github.com/repos/packit/repo_created_for_test_in_group/languages
+            license: null
+            merges_url: https://api.github.com/repos/packit/repo_created_for_test_in_group/merges
+            milestones_url: https://api.github.com/repos/packit/repo_created_for_test_in_group/milestones{/number}
+            mirror_url: null
+            name: repo_created_for_test_in_group
+            network_count: 0
+            node_id: MDEwOlJlcG9zaXRvcnkyOTA0ODk0NjA=
+            notifications_url: https://api.github.com/repos/packit/repo_created_for_test_in_group/notifications{?since,all,participating}
+            open_issues: 0
+            open_issues_count: 0
+            organization:
+              avatar_url: https://avatars3.githubusercontent.com/u/46870917?v=4
+              events_url: https://api.github.com/users/packit/events{/privacy}
+              followers_url: https://api.github.com/users/packit/followers
+              following_url: https://api.github.com/users/packit/following{/other_user}
+              gists_url: https://api.github.com/users/packit/gists{/gist_id}
+              gravatar_id: ''
+              html_url: https://github.com/packit
+              id: 46870917
+              login: packit
+              node_id: MDEyOk9yZ2FuaXphdGlvbjQ2ODcwOTE3
+              organizations_url: https://api.github.com/users/packit/orgs
+              received_events_url: https://api.github.com/users/packit/received_events
+              repos_url: https://api.github.com/users/packit/repos
+              site_admin: false
+              starred_url: https://api.github.com/users/packit/starred{/owner}{/repo}
+              subscriptions_url: https://api.github.com/users/packit/subscriptions
+              type: Organization
+              url: https://api.github.com/users/packit
+            owner:
+              avatar_url: https://avatars3.githubusercontent.com/u/46870917?v=4
+              events_url: https://api.github.com/users/packit/events{/privacy}
+              followers_url: https://api.github.com/users/packit/followers
+              following_url: https://api.github.com/users/packit/following{/other_user}
+              gists_url: https://api.github.com/users/packit/gists{/gist_id}
+              gravatar_id: ''
+              html_url: https://github.com/packit
+              id: 46870917
+              login: packit
+              node_id: MDEyOk9yZ2FuaXphdGlvbjQ2ODcwOTE3
+              organizations_url: https://api.github.com/users/packit/orgs
+              received_events_url: https://api.github.com/users/packit/received_events
+              repos_url: https://api.github.com/users/packit/repos
+              site_admin: false
+              starred_url: https://api.github.com/users/packit/starred{/owner}{/repo}
+              subscriptions_url: https://api.github.com/users/packit/subscriptions
+              type: Organization
+              url: https://api.github.com/users/packit
+            permissions:
+              admin: true
+              pull: true
+              push: true
+            private: false
+            pulls_url: https://api.github.com/repos/packit/repo_created_for_test_in_group/pulls{/number}
+            pushed_at: '2020-08-26T12:25:12Z'
+            releases_url: https://api.github.com/repos/packit/repo_created_for_test_in_group/releases{/id}
+            size: 0
+            ssh_url: git@github.com:packit/repo_created_for_test_in_group.git
+            stargazers_count: 0
+            stargazers_url: https://api.github.com/repos/packit/repo_created_for_test_in_group/stargazers
+            statuses_url: https://api.github.com/repos/packit/repo_created_for_test_in_group/statuses/{sha}
+            subscribers_count: 8
+            subscribers_url: https://api.github.com/repos/packit/repo_created_for_test_in_group/subscribers
+            subscription_url: https://api.github.com/repos/packit/repo_created_for_test_in_group/subscription
+            svn_url: https://github.com/packit/repo_created_for_test_in_group
+            tags_url: https://api.github.com/repos/packit/repo_created_for_test_in_group/tags
+            teams_url: https://api.github.com/repos/packit/repo_created_for_test_in_group/teams
+            temp_clone_token: ''
+            trees_url: https://api.github.com/repos/packit/repo_created_for_test_in_group/git/trees{/sha}
+            updated_at: '2020-08-26T12:25:10Z'
+            url: https://api.github.com/repos/packit/repo_created_for_test_in_group
+            watchers: 0
+            watchers_count: 0
+          _next: null
+          elapsed: 0.2
+          encoding: utf-8
+          headers:
+            Access-Control-Allow-Origin: '*'
+            Access-Control-Expose-Headers: ETag, Link, Location, Retry-After, X-GitHub-OTP,
+              X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Reset, X-OAuth-Scopes,
+              X-Accepted-OAuth-Scopes, X-Poll-Interval, X-GitHub-Media-Type, Deprecation,
+              Sunset
+            Cache-Control: private, max-age=60, s-maxage=60
+            Content-Encoding: gzip
+            Content-Security-Policy: default-src 'self';script-src 'self' 'nonce-YqLDC0BS8d7iY8mKO7VtBbIne'
+              https://apps.fedoraproject.org; style-src 'self' 'nonce-YqLDC0BS8d7iY8mKO7VtBbIne';
+              object-src 'none';base-uri 'self';img-src 'self' https:;
+            Content-Type: application/json; charset=utf-8
+            Date: Fri, 01 Nov 2019 13-36-03 GMT
+            ETag: W/"1e51b8e1c48787a433405211e9e0fe61"
+            Last-Modified: Wed, 26 Aug 2020 12:25:10 GMT
+            Referrer-Policy: origin-when-cross-origin, strict-origin-when-cross-origin
+            Server: GitHub.com
+            Status: 200 OK
+            Strict-Transport-Security: max-age=31536000; includeSubdomains; preload
+            Transfer-Encoding: chunked
+            Vary: Accept, Authorization, Cookie, X-GitHub-OTP, Accept-Encoding, Accept,
+              X-Requested-With, Accept-Encoding
+            X-Accepted-OAuth-Scopes: repo
+            X-Content-Type-Options: nosniff
+            X-Frame-Options: deny
+            X-GitHub-Media-Type: github.v3; format=json
+            X-GitHub-Request-Id: 18FB:AA1A:99616C4:B8092CB:5CC15425
+            X-OAuth-Scopes: admin:enterprise, admin:gpg_key, admin:org, admin:org_hook,
+              admin:public_key, admin:repo_hook, delete:packages, delete_repo, gist,
+              notifications, read:packages, repo, user, workflow, write:discussion,
+              write:packages
+            X-RateLimit-Limit: '5000'
+            X-RateLimit-Remaining: '4972'
+            X-RateLimit-Reset: '1572953901'
+            X-XSS-Protection: 1; mode=block
+          raw: !!binary ""
+          reason: OK
+          status_code: 200
+    POST:
+      https://api.github.com:443/orgs/packit/repos:
+      - metadata:
+          latency: 2.35270619392395
+          module_call_list:
+          - unittest.case
+          - requre.online_replacing
+          - tests.integration.github.test_service
+          - ogr.services.github.service
+          - github.Organization
+          - github.Requester
+          - requests.sessions
+          - requre.objects
+          - requre.cassette
+          - requests.sessions
+          - send
+        output:
+          __store_indicator: 2
+          _content:
+            allow_merge_commit: true
+            allow_rebase_merge: true
+            allow_squash_merge: true
+            archive_url: https://api.github.com/repos/packit/repo_created_for_test_in_group/{archive_format}{/ref}
+            archived: false
+            assignees_url: https://api.github.com/repos/packit/repo_created_for_test_in_group/assignees{/user}
+            blobs_url: https://api.github.com/repos/packit/repo_created_for_test_in_group/git/blobs{/sha}
+            branches_url: https://api.github.com/repos/packit/repo_created_for_test_in_group/branches{/branch}
+            clone_url: https://github.com/packit/repo_created_for_test_in_group.git
+            collaborators_url: https://api.github.com/repos/packit/repo_created_for_test_in_group/collaborators{/collaborator}
+            comments_url: https://api.github.com/repos/packit/repo_created_for_test_in_group/comments{/number}
+            commits_url: https://api.github.com/repos/packit/repo_created_for_test_in_group/commits{/sha}
+            compare_url: https://api.github.com/repos/packit/repo_created_for_test_in_group/compare/{base}...{head}
+            contents_url: https://api.github.com/repos/packit/repo_created_for_test_in_group/contents/{+path}
+            contributors_url: https://api.github.com/repos/packit/repo_created_for_test_in_group/contributors
+            created_at: '2020-08-26T12:25:10Z'
+            default_branch: master
+            delete_branch_on_merge: false
+            deployments_url: https://api.github.com/repos/packit/repo_created_for_test_in_group/deployments
+            description: null
+            disabled: false
+            downloads_url: https://api.github.com/repos/packit/repo_created_for_test_in_group/downloads
+            events_url: https://api.github.com/repos/packit/repo_created_for_test_in_group/events
+            fork: false
+            forks: 0
+            forks_count: 0
+            forks_url: https://api.github.com/repos/packit/repo_created_for_test_in_group/forks
+            full_name: packit/repo_created_for_test_in_group
+            git_commits_url: https://api.github.com/repos/packit/repo_created_for_test_in_group/git/commits{/sha}
+            git_refs_url: https://api.github.com/repos/packit/repo_created_for_test_in_group/git/refs{/sha}
+            git_tags_url: https://api.github.com/repos/packit/repo_created_for_test_in_group/git/tags{/sha}
+            git_url: git://github.com/packit/repo_created_for_test_in_group.git
+            has_downloads: true
+            has_issues: true
+            has_pages: false
+            has_projects: true
+            has_wiki: true
+            homepage: null
+            hooks_url: https://api.github.com/repos/packit/repo_created_for_test_in_group/hooks
+            html_url: https://github.com/packit/repo_created_for_test_in_group
+            id: 290489460
+            issue_comment_url: https://api.github.com/repos/packit/repo_created_for_test_in_group/issues/comments{/number}
+            issue_events_url: https://api.github.com/repos/packit/repo_created_for_test_in_group/issues/events{/number}
+            issues_url: https://api.github.com/repos/packit/repo_created_for_test_in_group/issues{/number}
+            keys_url: https://api.github.com/repos/packit/repo_created_for_test_in_group/keys{/key_id}
+            labels_url: https://api.github.com/repos/packit/repo_created_for_test_in_group/labels{/name}
+            language: null
+            languages_url: https://api.github.com/repos/packit/repo_created_for_test_in_group/languages
+            license: null
+            merges_url: https://api.github.com/repos/packit/repo_created_for_test_in_group/merges
+            milestones_url: https://api.github.com/repos/packit/repo_created_for_test_in_group/milestones{/number}
+            mirror_url: null
+            name: repo_created_for_test_in_group
+            network_count: 0
+            node_id: MDEwOlJlcG9zaXRvcnkyOTA0ODk0NjA=
+            notifications_url: https://api.github.com/repos/packit/repo_created_for_test_in_group/notifications{?since,all,participating}
+            open_issues: 0
+            open_issues_count: 0
+            organization:
+              avatar_url: https://avatars3.githubusercontent.com/u/46870917?v=4
+              events_url: https://api.github.com/users/packit/events{/privacy}
+              followers_url: https://api.github.com/users/packit/followers
+              following_url: https://api.github.com/users/packit/following{/other_user}
+              gists_url: https://api.github.com/users/packit/gists{/gist_id}
+              gravatar_id: ''
+              html_url: https://github.com/packit
+              id: 46870917
+              login: packit
+              node_id: MDEyOk9yZ2FuaXphdGlvbjQ2ODcwOTE3
+              organizations_url: https://api.github.com/users/packit/orgs
+              received_events_url: https://api.github.com/users/packit/received_events
+              repos_url: https://api.github.com/users/packit/repos
+              site_admin: false
+              starred_url: https://api.github.com/users/packit/starred{/owner}{/repo}
+              subscriptions_url: https://api.github.com/users/packit/subscriptions
+              type: Organization
+              url: https://api.github.com/users/packit
+            owner:
+              avatar_url: https://avatars3.githubusercontent.com/u/46870917?v=4
+              events_url: https://api.github.com/users/packit/events{/privacy}
+              followers_url: https://api.github.com/users/packit/followers
+              following_url: https://api.github.com/users/packit/following{/other_user}
+              gists_url: https://api.github.com/users/packit/gists{/gist_id}
+              gravatar_id: ''
+              html_url: https://github.com/packit
+              id: 46870917
+              login: packit
+              node_id: MDEyOk9yZ2FuaXphdGlvbjQ2ODcwOTE3
+              organizations_url: https://api.github.com/users/packit/orgs
+              received_events_url: https://api.github.com/users/packit/received_events
+              repos_url: https://api.github.com/users/packit/repos
+              site_admin: false
+              starred_url: https://api.github.com/users/packit/starred{/owner}{/repo}
+              subscriptions_url: https://api.github.com/users/packit/subscriptions
+              type: Organization
+              url: https://api.github.com/users/packit
+            permissions:
+              admin: true
+              pull: true
+              push: true
+            private: false
+            pulls_url: https://api.github.com/repos/packit/repo_created_for_test_in_group/pulls{/number}
+            pushed_at: '2020-08-26T12:25:12Z'
+            releases_url: https://api.github.com/repos/packit/repo_created_for_test_in_group/releases{/id}
+            size: 0
+            ssh_url: git@github.com:packit/repo_created_for_test_in_group.git
+            stargazers_count: 0
+            stargazers_url: https://api.github.com/repos/packit/repo_created_for_test_in_group/stargazers
+            statuses_url: https://api.github.com/repos/packit/repo_created_for_test_in_group/statuses/{sha}
+            subscribers_count: 8
+            subscribers_url: https://api.github.com/repos/packit/repo_created_for_test_in_group/subscribers
+            subscription_url: https://api.github.com/repos/packit/repo_created_for_test_in_group/subscription
+            svn_url: https://github.com/packit/repo_created_for_test_in_group
+            tags_url: https://api.github.com/repos/packit/repo_created_for_test_in_group/tags
+            teams_url: https://api.github.com/repos/packit/repo_created_for_test_in_group/teams
+            trees_url: https://api.github.com/repos/packit/repo_created_for_test_in_group/git/trees{/sha}
+            updated_at: '2020-08-26T12:25:10Z'
+            url: https://api.github.com/repos/packit/repo_created_for_test_in_group
+            watchers: 0
+            watchers_count: 0
+          _next: null
+          elapsed: 0.2
+          encoding: utf-8
+          headers:
+            Access-Control-Allow-Origin: '*'
+            Access-Control-Expose-Headers: ETag, Link, Location, Retry-After, X-GitHub-OTP,
+              X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Reset, X-OAuth-Scopes,
+              X-Accepted-OAuth-Scopes, X-Poll-Interval, X-GitHub-Media-Type, Deprecation,
+              Sunset
+            Cache-Control: private, max-age=60, s-maxage=60
+            Content-Length: '6700'
+            Content-Security-Policy: default-src 'self';script-src 'self' 'nonce-YqLDC0BS8d7iY8mKO7VtBbIne'
+              https://apps.fedoraproject.org; style-src 'self' 'nonce-YqLDC0BS8d7iY8mKO7VtBbIne';
+              object-src 'none';base-uri 'self';img-src 'self' https:;
+            Content-Type: application/json; charset=utf-8
+            Date: Fri, 01 Nov 2019 13-36-03 GMT
+            ETag: W/"1e51b8e1c48787a433405211e9e0fe61"
+            Location: https://api.github.com/repos/packit/repo_created_for_test_in_group
+            Referrer-Policy: origin-when-cross-origin, strict-origin-when-cross-origin
+            Server: GitHub.com
+            Status: 201 Created
+            Strict-Transport-Security: max-age=31536000; includeSubdomains; preload
+            Vary: Accept, Authorization, Cookie, X-GitHub-OTP, Accept-Encoding, Accept,
+              X-Requested-With, Accept-Encoding
+            X-Accepted-OAuth-Scopes: public_repo, repo
+            X-Content-Type-Options: nosniff
+            X-Frame-Options: deny
+            X-GitHub-Media-Type: github.v3; format=json
+            X-GitHub-Request-Id: 18FB:AA1A:99616C4:B8092CB:5CC15425
+            X-OAuth-Scopes: admin:enterprise, admin:gpg_key, admin:org, admin:org_hook,
+              admin:public_key, admin:repo_hook, delete:packages, delete_repo, gist,
+              notifications, read:packages, repo, user, workflow, write:discussion,
+              write:packages
+            X-RateLimit-Limit: '5000'
+            X-RateLimit-Remaining: '4972'
+            X-RateLimit-Reset: '1572953901'
+            X-XSS-Protection: 1; mode=block
+          raw: !!binary ""
+          reason: Created
+          status_code: 201

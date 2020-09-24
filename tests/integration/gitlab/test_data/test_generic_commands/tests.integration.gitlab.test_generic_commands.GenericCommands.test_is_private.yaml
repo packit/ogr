@@ -1,0 +1,382 @@
+_requre:
+  DataTypes: 1
+  key_strategy: StorageKeysInspectSimple
+  version_storage_file: 2
+requests.sessions:
+  send:
+    GET:
+      https://gitlab.com/api/v4/projects/jscotka%2Fprivate:
+      - metadata:
+          latency: 0.4112086296081543
+          module_call_list:
+          - unittest.case
+          - requre.online_replacing
+          - tests.integration.test_gitlab
+          - ogr.services.gitlab.project
+          - gitlab.exceptions
+          - gitlab.mixins
+          - gitlab
+          - requre.objects
+          - requre.cassette
+          - requests.sessions
+          - send
+        output:
+          __store_indicator: 2
+          _content:
+            _links:
+              events: https://gitlab.com/api/v4/projects/20709614/events
+              issues: https://gitlab.com/api/v4/projects/20709614/issues
+              labels: https://gitlab.com/api/v4/projects/20709614/labels
+              members: https://gitlab.com/api/v4/projects/20709614/members
+              merge_requests: https://gitlab.com/api/v4/projects/20709614/merge_requests
+              repo_branches: https://gitlab.com/api/v4/projects/20709614/repository/branches
+              self: https://gitlab.com/api/v4/projects/20709614
+            allow_merge_on_skipped_pipeline: null
+            archived: false
+            auto_cancel_pending_pipelines: enabled
+            auto_devops_deploy_strategy: continuous
+            auto_devops_enabled: false
+            autoclose_referenced_issues: true
+            avatar_url: null
+            build_coverage_regex: null
+            build_git_strategy: fetch
+            build_timeout: 3600
+            builds_access_level: enabled
+            can_create_merge_request_in: true
+            ci_config_path: ''
+            ci_default_git_depth: 50
+            compliance_frameworks: []
+            container_expiration_policy:
+              cadence: 1d
+              enabled: true
+              keep_n: 10
+              name_regex: null
+              name_regex_keep: null
+              next_run_at: '2020-08-25T12:48:08.609Z'
+              older_than: 90d
+            container_registry_enabled: true
+            created_at: '2020-08-24T12:48:08.591Z'
+            creator_id: 4626962
+            default_branch: null
+            description: ''
+            emails_disabled: null
+            empty_repo: true
+            external_authorization_classification_label: ''
+            forking_access_level: enabled
+            forks_count: 0
+            http_url_to_repo: https://gitlab.com/jscotka/private.git
+            id: 20709614
+            import_error: null
+            import_status: none
+            issues_access_level: enabled
+            issues_enabled: true
+            jobs_enabled: true
+            last_activity_at: '2020-08-24T12:48:08.591Z'
+            lfs_enabled: true
+            merge_method: merge
+            merge_requests_access_level: enabled
+            merge_requests_enabled: true
+            name: private
+            name_with_namespace: jscotka / private
+            namespace:
+              avatar_url: https://secure.gravatar.com/avatar/e1ae3427f994784121371108f12eceb5?s=80&d=identicon
+              full_path: jscotka
+              id: 6077236
+              kind: user
+              name: jscotka
+              parent_id: null
+              path: jscotka
+              web_url: https://gitlab.com/jscotka
+            only_allow_merge_if_all_discussions_are_resolved: false
+            only_allow_merge_if_pipeline_succeeds: false
+            open_issues_count: 0
+            owner:
+              avatar_url: https://secure.gravatar.com/avatar/e1ae3427f994784121371108f12eceb5?s=80&d=identicon
+              id: 4626962
+              name: jscotka
+              state: active
+              username: jscotka
+              web_url: https://gitlab.com/jscotka
+            packages_enabled: true
+            pages_access_level: private
+            path: private
+            path_with_namespace: jscotka/private
+            permissions:
+              group_access: null
+              project_access:
+                access_level: 40
+                notification_level: 3
+            printing_merge_request_link_enabled: true
+            public_jobs: true
+            readme_url: null
+            remove_source_branch_after_merge: true
+            repository_access_level: enabled
+            request_access_enabled: true
+            resolve_outdated_diff_discussions: false
+            runners_token: wCdzvw9uh1WWutKVCyP-
+            service_desk_address: incoming+jscotka-private-20709614-issue-@incoming.gitlab.com
+            service_desk_enabled: true
+            shared_runners_enabled: true
+            shared_with_groups: []
+            snippets_access_level: enabled
+            snippets_enabled: true
+            ssh_url_to_repo: git@gitlab.com:jscotka/private.git
+            star_count: 0
+            suggestion_commit_message: null
+            tag_list: []
+            visibility: private
+            web_url: https://gitlab.com/jscotka/private
+            wiki_access_level: enabled
+            wiki_enabled: true
+          _next: null
+          elapsed: 0.2
+          encoding: null
+          headers:
+            CF-Cache-Status: DYNAMIC
+            CF-RAY: 5c7d30e13d2e1772-FRA
+            Cache-Control: max-age=0, private, must-revalidate
+            Connection: keep-alive
+            Content-Encoding: gzip
+            Content-Type: application/json
+            Date: Fri, 01 Nov 2019 13-36-03 GMT
+            Etag: W/"13cc197552c45a6e5253a1f4ecaee77a"
+            Expect-CT: max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
+            GitLab-LB: fe-12-lb-gprd
+            GitLab-SV: api-15-sv-gprd
+            Referrer-Policy: strict-origin-when-cross-origin
+            Server: cloudflare
+            Strict-Transport-Security: max-age=31536000
+            Transfer-Encoding: chunked
+            Vary: Accept-Encoding, Origin
+            X-Content-Type-Options: nosniff
+            X-Frame-Options: SAMEORIGIN
+            X-Request-Id: UDlhNX14GK9
+            X-Runtime: '0.100649'
+            cf-request-id: 04c21ce0c200001772483e8200000001
+          raw: !!binary ""
+          reason: OK
+          status_code: 200
+      - metadata:
+          latency: 0.3139011859893799
+          module_call_list:
+          - unittest.case
+          - requre.online_replacing
+          - tests.integration.gitlab.test_generic_commands
+          - ogr.services.gitlab.project
+          - gitlab.exceptions
+          - gitlab.mixins
+          - gitlab
+          - requre.objects
+          - requre.cassette
+          - requests.sessions
+          - send
+        output:
+          __store_indicator: 2
+          _content:
+            message: 404 Project Not Found
+          _next: null
+          elapsed: 0.2
+          encoding: null
+          headers:
+            CF-Cache-Status: DYNAMIC
+            CF-RAY: 5cb5679b3abbfcb1-VIE
+            Cache-Control: no-cache
+            Connection: keep-alive
+            Content-Length: '35'
+            Content-Type: application/json
+            Date: Fri, 01 Nov 2019 13-36-03 GMT
+            Expect-CT: max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
+            GitLab-LB: fe-08-lb-gprd
+            GitLab-SV: localhost
+            RateLimit-Limit: '600'
+            RateLimit-Observed: '54'
+            RateLimit-Remaining: '546'
+            RateLimit-Reset: '1598862846'
+            RateLimit-ResetTime: Mon, 31 Aug 2020 08:34:06 GMT
+            Server: cloudflare
+            Vary: Origin
+            X-Content-Type-Options: nosniff
+            X-Frame-Options: SAMEORIGIN
+            X-Request-Id: ZWG9WWh2M4a
+            X-Runtime: '0.139561'
+            cf-request-id: 04e53f14fe0000fcb1edb7d200000001
+          raw: !!binary ""
+          reason: Not Found
+          status_code: 404
+      https://gitlab.com/api/v4/user:
+      - metadata:
+          latency: 0.3431696891784668
+          module_call_list:
+          - unittest.case
+          - requre.online_replacing
+          - tests.integration.test_gitlab
+          - ogr.services.gitlab.project
+          - ogr.services.gitlab.service
+          - gitlab
+          - gitlab.exceptions
+          - gitlab.mixins
+          - gitlab
+          - requre.objects
+          - requre.cassette
+          - requests.sessions
+          - send
+        output:
+          __store_indicator: 2
+          _content:
+            avatar_url: https://secure.gravatar.com/avatar/e1ae3427f994784121371108f12eceb5?s=80&d=identicon
+            bio: ''
+            bio_html: ''
+            can_create_group: true
+            can_create_project: true
+            color_scheme_id: 1
+            confirmed_at: '2019-09-16T14:07:15.993Z'
+            created_at: '2019-09-16T14:07:16.050Z'
+            current_sign_in_at: '2020-08-21T12:43:01.530Z'
+            email: scottyh@post.cz
+            external: false
+            extra_shared_runners_minutes_limit: null
+            id: 4626962
+            identities:
+            - extern_uid: '8735467'
+              provider: github
+              saml_provider_id: null
+            job_title: ''
+            last_activity_on: '2020-08-24'
+            last_sign_in_at: '2020-07-30T13:14:34.957Z'
+            linkedin: ''
+            location: null
+            name: jscotka
+            organization: null
+            private_profile: false
+            projects_limit: 100000
+            public_email: ''
+            shared_runners_minutes_limit: null
+            skype: ''
+            state: active
+            theme_id: 1
+            twitter: ''
+            two_factor_enabled: false
+            username: jscotka
+            web_url: https://gitlab.com/jscotka
+            website_url: ''
+            work_information: null
+          _next: null
+          elapsed: 0.2
+          encoding: null
+          headers:
+            CF-Cache-Status: DYNAMIC
+            CF-RAY: 5c7d30df58c11772-FRA
+            Cache-Control: max-age=0, private, must-revalidate
+            Connection: keep-alive
+            Content-Encoding: gzip
+            Content-Type: application/json
+            Date: Fri, 01 Nov 2019 13-36-03 GMT
+            Etag: W/"9a28ab27b4a03f0ca6932942f5f532ab"
+            Expect-CT: max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
+            GitLab-LB: fe-06-lb-gprd
+            GitLab-SV: api-09-sv-gprd
+            Referrer-Policy: strict-origin-when-cross-origin
+            Server: cloudflare
+            Set-Cookie: __cfduid=dc4b9dbcdf6d62d7a2e75343e0ca6ab4c1598273341; expires=Wed,
+              23-Sep-20 12:49:01 GMT; path=/; domain=.gitlab.com; HttpOnly; SameSite=Lax;
+              Secure
+            Strict-Transport-Security: max-age=31536000
+            Transfer-Encoding: chunked
+            Vary: Accept-Encoding, Origin
+            X-Content-Type-Options: nosniff
+            X-Frame-Options: SAMEORIGIN
+            X-Request-Id: RjYhp4WmfS4
+            X-Runtime: '0.025822'
+            cf-request-id: 04c21cdf9200001772483c5200000001
+          raw: !!binary ""
+          reason: OK
+          status_code: 200
+      - metadata:
+          latency: 0.32301950454711914
+          module_call_list:
+          - unittest.case
+          - requre.online_replacing
+          - tests.integration.gitlab.test_generic_commands
+          - ogr.services.gitlab.project
+          - ogr.services.gitlab.service
+          - gitlab
+          - gitlab.exceptions
+          - gitlab.mixins
+          - gitlab
+          - requre.objects
+          - requre.cassette
+          - requests.sessions
+          - send
+        output:
+          __store_indicator: 2
+          _content:
+            avatar_url: https://assets.gitlab-static.net/uploads/-/system/user/avatar/375555/avatar.png
+            bio: ''
+            bio_html: ''
+            can_create_group: true
+            can_create_project: true
+            color_scheme_id: 4
+            confirmed_at: '2020-07-24T20:00:33.764Z'
+            created_at: '2016-01-15T21:12:31.705Z'
+            current_sign_in_at: '2020-08-27T09:28:33.626Z'
+            email: matej.focko@outlook.com
+            external: false
+            extra_shared_runners_minutes_limit: null
+            id: 375555
+            identities: []
+            job_title: ''
+            last_activity_on: '2020-08-31'
+            last_sign_in_at: '2020-07-24T21:14:08.642Z'
+            linkedin: ''
+            location: "Ko\u0161ice, Slovakia"
+            name: Matej Focko
+            organization: ''
+            private_profile: false
+            projects_limit: 100000
+            public_email: ''
+            shared_runners_minutes_limit: 2000
+            skype: ''
+            state: active
+            theme_id: 7
+            twitter: MatejFocko
+            two_factor_enabled: true
+            username: mfocko
+            web_url: https://gitlab.com/mfocko
+            website_url: ''
+            work_information: null
+          _next: null
+          elapsed: 0.2
+          encoding: null
+          headers:
+            CF-Cache-Status: DYNAMIC
+            CF-RAY: 5cb56799c8c0fcb1-VIE
+            Cache-Control: max-age=0, private, must-revalidate
+            Connection: keep-alive
+            Content-Encoding: gzip
+            Content-Type: application/json
+            Date: Fri, 01 Nov 2019 13-36-03 GMT
+            Etag: W/"200774d261a50e11c2ad70cff27c4040"
+            Expect-CT: max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
+            GitLab-LB: fe-12-lb-gprd
+            GitLab-SV: localhost
+            RateLimit-Limit: '600'
+            RateLimit-Observed: '53'
+            RateLimit-Remaining: '547'
+            RateLimit-Reset: '1598862845'
+            RateLimit-ResetTime: Mon, 31 Aug 2020 08:34:05 GMT
+            Referrer-Policy: strict-origin-when-cross-origin
+            Server: cloudflare
+            Set-Cookie: __cfduid=d3de229171e68f73611edb712c9b4a6f41598862785; expires=Wed,
+              30-Sep-20 08:33:05 GMT; path=/; domain=.gitlab.com; HttpOnly; SameSite=Lax;
+              Secure
+            Strict-Transport-Security: max-age=31536000
+            Transfer-Encoding: chunked
+            Vary: Accept-Encoding, Origin
+            X-Content-Type-Options: nosniff
+            X-Frame-Options: SAMEORIGIN
+            X-Request-Id: pXseXeqOoo
+            X-Runtime: '0.026953'
+            cf-request-id: 04e53f141f0000fcb1edb75200000001
+          raw: !!binary ""
+          reason: OK
+          status_code: 200

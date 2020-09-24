@@ -1,0 +1,55 @@
+_requre:
+  DataTypes: 1
+  key_strategy: StorageKeysInspectSimple
+  version_storage_file: 2
+requests.sessions:
+  send:
+    POST:
+      https://src.fedoraproject.org/api/0/-/whoami:
+      - metadata:
+          latency: 0.7874109745025635
+          module_call_list:
+          - unittest.case
+          - requre.online_replacing
+          - tests.integration.test_pagure
+          - ogr.services.pagure.service
+          - ogr.services.pagure.user
+          - ogr.services.pagure.service
+          - requests.sessions
+          - requre.objects
+          - requre.cassette
+          - requests.sessions
+          - send
+        output:
+          __store_indicator: 2
+          _content:
+            username: jscotka
+          _next: null
+          elapsed: 0.2
+          encoding: null
+          headers:
+            Connection: Keep-Alive
+            Date: Fri, 01 Nov 2019 13-36-03 GMT
+            Keep-Alive: timeout=15, max=500
+            Referrer-Policy: same-origin
+            Server: Apache
+            Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
+            X-Content-Type-Options: nosniff
+            X-Fedora-ProxyServer: proxy01.phx2.fedoraproject.org
+            X-Fedora-RequestID: XcFVKMi@EiqyqRlV7q32fgBBBkM
+            X-Frame-Options: SAMEORIGIN
+            X-Xss-Protection: 1; mode=block
+            apptime: D=90508
+            content-length: '28'
+            content-security-policy: default-src 'self'; script-src 'self' 'nonce-nHI1k2IDUNQVnryp80NS0moAz'
+              https://apps.fedoraproject.org https://mdapi.fedoraproject.org; style-src
+              'self' 'nonce-nHI1k2IDUNQVnryp80NS0moAz'; object-src 'none'; base-uri
+              'self'; img-src 'self' https:; connect-src 'self' https://pdc.fedoraproject.org
+              https://apps.fedoraproject.org https://mdapi.fedoraproject.org;
+            content-type: application/json
+            set-cookie: disgit_pagure=eyJfcGVybWFuZW50Ijp0cnVlLCJjc3JmX3Rva2VuIjoiOTE4MGM4Mjk3MWQxOWE5YmE1MGU1NzY2ZWE1ZTA4NTQzYTI4ODFhYSJ9.Eiarrw.VYHKXB7PInY8VRkn0WTlDKhaP9c;
+              Expires=Fri, 25-Sep-2020 14:03:27 GMT; Secure; HttpOnly; Path=/
+            x-fedora-appserver: pkgs01.iad2.fedoraproject.org
+          raw: !!binary ""
+          reason: OK
+          status_code: 200

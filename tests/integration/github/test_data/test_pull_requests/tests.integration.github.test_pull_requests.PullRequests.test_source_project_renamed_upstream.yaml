@@ -1,0 +1,661 @@
+_requre:
+  DataTypes: 1
+  key_strategy: StorageKeysInspectSimple
+  version_storage_file: 2
+requests.sessions:
+  send:
+    GET:
+      https://api.github.com:443/repos/packit/testing_repo_changed_name:
+      - metadata:
+          latency: 0.3939368724822998
+          module_call_list:
+          - unittest.case
+          - requre.online_replacing
+          - tests.integration.github.test_pull_requests
+          - ogr.services.github.project
+          - ogr.services.github.pull_request
+          - ogr.services.github.project
+          - github.MainClass
+          - github.Requester
+          - requests.sessions
+          - requre.objects
+          - requre.cassette
+          - requests.sessions
+          - send
+        output:
+          __store_indicator: 2
+          _content:
+            allow_merge_commit: true
+            allow_rebase_merge: true
+            allow_squash_merge: true
+            archive_url: https://api.github.com/repos/packit/testing_repo_changed_name/{archive_format}{/ref}
+            archived: false
+            assignees_url: https://api.github.com/repos/packit/testing_repo_changed_name/assignees{/user}
+            blobs_url: https://api.github.com/repos/packit/testing_repo_changed_name/git/blobs{/sha}
+            branches_url: https://api.github.com/repos/packit/testing_repo_changed_name/branches{/branch}
+            clone_url: https://github.com/packit/testing_repo_changed_name.git
+            collaborators_url: https://api.github.com/repos/packit/testing_repo_changed_name/collaborators{/collaborator}
+            comments_url: https://api.github.com/repos/packit/testing_repo_changed_name/comments{/number}
+            commits_url: https://api.github.com/repos/packit/testing_repo_changed_name/commits{/sha}
+            compare_url: https://api.github.com/repos/packit/testing_repo_changed_name/compare/{base}...{head}
+            contents_url: https://api.github.com/repos/packit/testing_repo_changed_name/contents/{+path}
+            contributors_url: https://api.github.com/repos/packit/testing_repo_changed_name/contributors
+            created_at: '2020-08-26T12:25:10Z'
+            default_branch: master
+            delete_branch_on_merge: false
+            deployments_url: https://api.github.com/repos/packit/testing_repo_changed_name/deployments
+            description: null
+            disabled: false
+            downloads_url: https://api.github.com/repos/packit/testing_repo_changed_name/downloads
+            events_url: https://api.github.com/repos/packit/testing_repo_changed_name/events
+            fork: false
+            forks: 1
+            forks_count: 1
+            forks_url: https://api.github.com/repos/packit/testing_repo_changed_name/forks
+            full_name: packit/testing_repo_changed_name
+            git_commits_url: https://api.github.com/repos/packit/testing_repo_changed_name/git/commits{/sha}
+            git_refs_url: https://api.github.com/repos/packit/testing_repo_changed_name/git/refs{/sha}
+            git_tags_url: https://api.github.com/repos/packit/testing_repo_changed_name/git/tags{/sha}
+            git_url: git://github.com/packit/testing_repo_changed_name.git
+            has_downloads: true
+            has_issues: true
+            has_pages: false
+            has_projects: true
+            has_wiki: true
+            homepage: null
+            hooks_url: https://api.github.com/repos/packit/testing_repo_changed_name/hooks
+            html_url: https://github.com/packit/testing_repo_changed_name
+            id: 290489460
+            issue_comment_url: https://api.github.com/repos/packit/testing_repo_changed_name/issues/comments{/number}
+            issue_events_url: https://api.github.com/repos/packit/testing_repo_changed_name/issues/events{/number}
+            issues_url: https://api.github.com/repos/packit/testing_repo_changed_name/issues{/number}
+            keys_url: https://api.github.com/repos/packit/testing_repo_changed_name/keys{/key_id}
+            labels_url: https://api.github.com/repos/packit/testing_repo_changed_name/labels{/name}
+            language: null
+            languages_url: https://api.github.com/repos/packit/testing_repo_changed_name/languages
+            license: null
+            merges_url: https://api.github.com/repos/packit/testing_repo_changed_name/merges
+            milestones_url: https://api.github.com/repos/packit/testing_repo_changed_name/milestones{/number}
+            mirror_url: null
+            name: testing_repo_changed_name
+            network_count: 1
+            node_id: MDEwOlJlcG9zaXRvcnkyOTA0ODk0NjA=
+            notifications_url: https://api.github.com/repos/packit/testing_repo_changed_name/notifications{?since,all,participating}
+            open_issues: 1
+            open_issues_count: 1
+            organization:
+              avatar_url: https://avatars3.githubusercontent.com/u/46870917?v=4
+              events_url: https://api.github.com/users/packit/events{/privacy}
+              followers_url: https://api.github.com/users/packit/followers
+              following_url: https://api.github.com/users/packit/following{/other_user}
+              gists_url: https://api.github.com/users/packit/gists{/gist_id}
+              gravatar_id: ''
+              html_url: https://github.com/packit
+              id: 46870917
+              login: packit
+              node_id: MDEyOk9yZ2FuaXphdGlvbjQ2ODcwOTE3
+              organizations_url: https://api.github.com/users/packit/orgs
+              received_events_url: https://api.github.com/users/packit/received_events
+              repos_url: https://api.github.com/users/packit/repos
+              site_admin: false
+              starred_url: https://api.github.com/users/packit/starred{/owner}{/repo}
+              subscriptions_url: https://api.github.com/users/packit/subscriptions
+              type: Organization
+              url: https://api.github.com/users/packit
+            owner:
+              avatar_url: https://avatars3.githubusercontent.com/u/46870917?v=4
+              events_url: https://api.github.com/users/packit/events{/privacy}
+              followers_url: https://api.github.com/users/packit/followers
+              following_url: https://api.github.com/users/packit/following{/other_user}
+              gists_url: https://api.github.com/users/packit/gists{/gist_id}
+              gravatar_id: ''
+              html_url: https://github.com/packit
+              id: 46870917
+              login: packit
+              node_id: MDEyOk9yZ2FuaXphdGlvbjQ2ODcwOTE3
+              organizations_url: https://api.github.com/users/packit/orgs
+              received_events_url: https://api.github.com/users/packit/received_events
+              repos_url: https://api.github.com/users/packit/repos
+              site_admin: false
+              starred_url: https://api.github.com/users/packit/starred{/owner}{/repo}
+              subscriptions_url: https://api.github.com/users/packit/subscriptions
+              type: Organization
+              url: https://api.github.com/users/packit
+            permissions:
+              admin: true
+              pull: true
+              push: true
+            private: false
+            pulls_url: https://api.github.com/repos/packit/testing_repo_changed_name/pulls{/number}
+            pushed_at: '2020-08-31T10:12:18Z'
+            releases_url: https://api.github.com/repos/packit/testing_repo_changed_name/releases{/id}
+            size: 0
+            ssh_url: git@github.com:packit/testing_repo_changed_name.git
+            stargazers_count: 0
+            stargazers_url: https://api.github.com/repos/packit/testing_repo_changed_name/stargazers
+            statuses_url: https://api.github.com/repos/packit/testing_repo_changed_name/statuses/{sha}
+            subscribers_count: 8
+            subscribers_url: https://api.github.com/repos/packit/testing_repo_changed_name/subscribers
+            subscription_url: https://api.github.com/repos/packit/testing_repo_changed_name/subscription
+            svn_url: https://github.com/packit/testing_repo_changed_name
+            tags_url: https://api.github.com/repos/packit/testing_repo_changed_name/tags
+            teams_url: https://api.github.com/repos/packit/testing_repo_changed_name/teams
+            temp_clone_token: ''
+            trees_url: https://api.github.com/repos/packit/testing_repo_changed_name/git/trees{/sha}
+            updated_at: '2020-08-31T10:12:46Z'
+            url: https://api.github.com/repos/packit/testing_repo_changed_name
+            watchers: 0
+            watchers_count: 0
+          _next: null
+          elapsed: 0.2
+          encoding: utf-8
+          headers:
+            Access-Control-Allow-Origin: '*'
+            Access-Control-Expose-Headers: ETag, Link, Location, Retry-After, X-GitHub-OTP,
+              X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Reset, X-OAuth-Scopes,
+              X-Accepted-OAuth-Scopes, X-Poll-Interval, X-GitHub-Media-Type, Deprecation,
+              Sunset
+            Cache-Control: private, max-age=60, s-maxage=60
+            Content-Encoding: gzip
+            Content-Security-Policy: default-src 'self';script-src 'self' 'nonce-YqLDC0BS8d7iY8mKO7VtBbIne'
+              https://apps.fedoraproject.org; style-src 'self' 'nonce-YqLDC0BS8d7iY8mKO7VtBbIne';
+              object-src 'none';base-uri 'self';img-src 'self' https:;
+            Content-Type: application/json; charset=utf-8
+            Date: Fri, 01 Nov 2019 13-36-03 GMT
+            ETag: W/"1e51b8e1c48787a433405211e9e0fe61"
+            Last-Modified: Mon, 31 Aug 2020 10:12:46 GMT
+            Referrer-Policy: origin-when-cross-origin, strict-origin-when-cross-origin
+            Server: GitHub.com
+            Status: 200 OK
+            Strict-Transport-Security: max-age=31536000; includeSubdomains; preload
+            Transfer-Encoding: chunked
+            Vary: Accept, Authorization, Cookie, X-GitHub-OTP, Accept-Encoding, Accept,
+              X-Requested-With, Accept-Encoding
+            X-Accepted-OAuth-Scopes: repo
+            X-Content-Type-Options: nosniff
+            X-Frame-Options: deny
+            X-GitHub-Media-Type: github.v3; format=json
+            X-GitHub-Request-Id: 18FB:AA1A:99616C4:B8092CB:5CC15425
+            X-OAuth-Scopes: admin:enterprise, admin:gpg_key, admin:org, admin:org_hook,
+              admin:public_key, admin:repo_hook, delete:packages, delete_repo, gist,
+              notifications, read:packages, repo, user, workflow, write:discussion,
+              write:packages
+            X-RateLimit-Limit: '5000'
+            X-RateLimit-Remaining: '4972'
+            X-RateLimit-Reset: '1572953901'
+            X-XSS-Protection: 1; mode=block
+          raw: !!binary ""
+          reason: OK
+          status_code: 200
+      https://api.github.com:443/repos/packit/testing_repo_changed_name/pulls/1:
+      - metadata:
+          latency: 0.6488974094390869
+          module_call_list:
+          - unittest.case
+          - requre.online_replacing
+          - tests.integration.github.test_pull_requests
+          - ogr.services.github.project
+          - ogr.services.github.pull_request
+          - github.Repository
+          - github.Requester
+          - requests.sessions
+          - requre.objects
+          - requre.cassette
+          - requests.sessions
+          - send
+        output:
+          __store_indicator: 2
+          _content:
+            _links:
+              comments:
+                href: https://api.github.com/repos/packit/testing_repo_changed_name/issues/1/comments
+              commits:
+                href: https://api.github.com/repos/packit/testing_repo_changed_name/pulls/1/commits
+              html:
+                href: https://github.com/packit/testing_repo_changed_name/pull/1
+              issue:
+                href: https://api.github.com/repos/packit/testing_repo_changed_name/issues/1
+              review_comment:
+                href: https://api.github.com/repos/packit/testing_repo_changed_name/pulls/comments{/number}
+              review_comments:
+                href: https://api.github.com/repos/packit/testing_repo_changed_name/pulls/1/comments
+              self:
+                href: https://api.github.com/repos/packit/testing_repo_changed_name/pulls/1
+              statuses:
+                href: https://api.github.com/repos/packit/testing_repo_changed_name/statuses/b410742da1bafb81d18f3a6e1fc48aa55d660412
+            active_lock_reason: null
+            additions: 1
+            assignee: null
+            assignees: []
+            author_association: MEMBER
+            base:
+              label: packit:master
+              ref: master
+              repo:
+                archive_url: https://api.github.com/repos/packit/testing_repo_changed_name/{archive_format}{/ref}
+                archived: false
+                assignees_url: https://api.github.com/repos/packit/testing_repo_changed_name/assignees{/user}
+                blobs_url: https://api.github.com/repos/packit/testing_repo_changed_name/git/blobs{/sha}
+                branches_url: https://api.github.com/repos/packit/testing_repo_changed_name/branches{/branch}
+                clone_url: https://github.com/packit/testing_repo_changed_name.git
+                collaborators_url: https://api.github.com/repos/packit/testing_repo_changed_name/collaborators{/collaborator}
+                comments_url: https://api.github.com/repos/packit/testing_repo_changed_name/comments{/number}
+                commits_url: https://api.github.com/repos/packit/testing_repo_changed_name/commits{/sha}
+                compare_url: https://api.github.com/repos/packit/testing_repo_changed_name/compare/{base}...{head}
+                contents_url: https://api.github.com/repos/packit/testing_repo_changed_name/contents/{+path}
+                contributors_url: https://api.github.com/repos/packit/testing_repo_changed_name/contributors
+                created_at: '2020-08-26T12:25:10Z'
+                default_branch: master
+                deployments_url: https://api.github.com/repos/packit/testing_repo_changed_name/deployments
+                description: null
+                disabled: false
+                downloads_url: https://api.github.com/repos/packit/testing_repo_changed_name/downloads
+                events_url: https://api.github.com/repos/packit/testing_repo_changed_name/events
+                fork: false
+                forks: 1
+                forks_count: 1
+                forks_url: https://api.github.com/repos/packit/testing_repo_changed_name/forks
+                full_name: packit/testing_repo_changed_name
+                git_commits_url: https://api.github.com/repos/packit/testing_repo_changed_name/git/commits{/sha}
+                git_refs_url: https://api.github.com/repos/packit/testing_repo_changed_name/git/refs{/sha}
+                git_tags_url: https://api.github.com/repos/packit/testing_repo_changed_name/git/tags{/sha}
+                git_url: git://github.com/packit/testing_repo_changed_name.git
+                has_downloads: true
+                has_issues: true
+                has_pages: false
+                has_projects: true
+                has_wiki: true
+                homepage: null
+                hooks_url: https://api.github.com/repos/packit/testing_repo_changed_name/hooks
+                html_url: https://github.com/packit/testing_repo_changed_name
+                id: 290489460
+                issue_comment_url: https://api.github.com/repos/packit/testing_repo_changed_name/issues/comments{/number}
+                issue_events_url: https://api.github.com/repos/packit/testing_repo_changed_name/issues/events{/number}
+                issues_url: https://api.github.com/repos/packit/testing_repo_changed_name/issues{/number}
+                keys_url: https://api.github.com/repos/packit/testing_repo_changed_name/keys{/key_id}
+                labels_url: https://api.github.com/repos/packit/testing_repo_changed_name/labels{/name}
+                language: null
+                languages_url: https://api.github.com/repos/packit/testing_repo_changed_name/languages
+                license: null
+                merges_url: https://api.github.com/repos/packit/testing_repo_changed_name/merges
+                milestones_url: https://api.github.com/repos/packit/testing_repo_changed_name/milestones{/number}
+                mirror_url: null
+                name: testing_repo_changed_name
+                node_id: MDEwOlJlcG9zaXRvcnkyOTA0ODk0NjA=
+                notifications_url: https://api.github.com/repos/packit/testing_repo_changed_name/notifications{?since,all,participating}
+                open_issues: 1
+                open_issues_count: 1
+                owner:
+                  avatar_url: https://avatars3.githubusercontent.com/u/46870917?v=4
+                  events_url: https://api.github.com/users/packit/events{/privacy}
+                  followers_url: https://api.github.com/users/packit/followers
+                  following_url: https://api.github.com/users/packit/following{/other_user}
+                  gists_url: https://api.github.com/users/packit/gists{/gist_id}
+                  gravatar_id: ''
+                  html_url: https://github.com/packit
+                  id: 46870917
+                  login: packit
+                  node_id: MDEyOk9yZ2FuaXphdGlvbjQ2ODcwOTE3
+                  organizations_url: https://api.github.com/users/packit/orgs
+                  received_events_url: https://api.github.com/users/packit/received_events
+                  repos_url: https://api.github.com/users/packit/repos
+                  site_admin: false
+                  starred_url: https://api.github.com/users/packit/starred{/owner}{/repo}
+                  subscriptions_url: https://api.github.com/users/packit/subscriptions
+                  type: Organization
+                  url: https://api.github.com/users/packit
+                private: false
+                pulls_url: https://api.github.com/repos/packit/testing_repo_changed_name/pulls{/number}
+                pushed_at: '2020-08-31T10:12:18Z'
+                releases_url: https://api.github.com/repos/packit/testing_repo_changed_name/releases{/id}
+                size: 0
+                ssh_url: git@github.com:packit/testing_repo_changed_name.git
+                stargazers_count: 0
+                stargazers_url: https://api.github.com/repos/packit/testing_repo_changed_name/stargazers
+                statuses_url: https://api.github.com/repos/packit/testing_repo_changed_name/statuses/{sha}
+                subscribers_url: https://api.github.com/repos/packit/testing_repo_changed_name/subscribers
+                subscription_url: https://api.github.com/repos/packit/testing_repo_changed_name/subscription
+                svn_url: https://github.com/packit/testing_repo_changed_name
+                tags_url: https://api.github.com/repos/packit/testing_repo_changed_name/tags
+                teams_url: https://api.github.com/repos/packit/testing_repo_changed_name/teams
+                trees_url: https://api.github.com/repos/packit/testing_repo_changed_name/git/trees{/sha}
+                updated_at: '2020-08-31T10:12:46Z'
+                url: https://api.github.com/repos/packit/testing_repo_changed_name
+                watchers: 0
+                watchers_count: 0
+              sha: 1f9a6d152f58d484599b7d3b2a3c1e2dbdce9ddc
+              user:
+                avatar_url: https://avatars3.githubusercontent.com/u/46870917?v=4
+                events_url: https://api.github.com/users/packit/events{/privacy}
+                followers_url: https://api.github.com/users/packit/followers
+                following_url: https://api.github.com/users/packit/following{/other_user}
+                gists_url: https://api.github.com/users/packit/gists{/gist_id}
+                gravatar_id: ''
+                html_url: https://github.com/packit
+                id: 46870917
+                login: packit
+                node_id: MDEyOk9yZ2FuaXphdGlvbjQ2ODcwOTE3
+                organizations_url: https://api.github.com/users/packit/orgs
+                received_events_url: https://api.github.com/users/packit/received_events
+                repos_url: https://api.github.com/users/packit/repos
+                site_admin: false
+                starred_url: https://api.github.com/users/packit/starred{/owner}{/repo}
+                subscriptions_url: https://api.github.com/users/packit/subscriptions
+                type: Organization
+                url: https://api.github.com/users/packit
+            body: ''
+            changed_files: 1
+            closed_at: null
+            comments: 0
+            comments_url: https://api.github.com/repos/packit/testing_repo_changed_name/issues/1/comments
+            commits: 1
+            commits_url: https://api.github.com/repos/packit/testing_repo_changed_name/pulls/1/commits
+            created_at: '2020-08-31T10:12:18Z'
+            deletions: 0
+            diff_url: https://github.com/packit/testing_repo_changed_name/pull/1.diff
+            draft: false
+            head:
+              label: mfocko:test
+              ref: test
+              repo:
+                archive_url: https://api.github.com/repos/mfocko/repo_created_for_test_in_group/{archive_format}{/ref}
+                archived: false
+                assignees_url: https://api.github.com/repos/mfocko/repo_created_for_test_in_group/assignees{/user}
+                blobs_url: https://api.github.com/repos/mfocko/repo_created_for_test_in_group/git/blobs{/sha}
+                branches_url: https://api.github.com/repos/mfocko/repo_created_for_test_in_group/branches{/branch}
+                clone_url: https://github.com/mfocko/repo_created_for_test_in_group.git
+                collaborators_url: https://api.github.com/repos/mfocko/repo_created_for_test_in_group/collaborators{/collaborator}
+                comments_url: https://api.github.com/repos/mfocko/repo_created_for_test_in_group/comments{/number}
+                commits_url: https://api.github.com/repos/mfocko/repo_created_for_test_in_group/commits{/sha}
+                compare_url: https://api.github.com/repos/mfocko/repo_created_for_test_in_group/compare/{base}...{head}
+                contents_url: https://api.github.com/repos/mfocko/repo_created_for_test_in_group/contents/{+path}
+                contributors_url: https://api.github.com/repos/mfocko/repo_created_for_test_in_group/contributors
+                created_at: '2020-08-31T10:10:54Z'
+                default_branch: master
+                deployments_url: https://api.github.com/repos/mfocko/repo_created_for_test_in_group/deployments
+                description: null
+                disabled: false
+                downloads_url: https://api.github.com/repos/mfocko/repo_created_for_test_in_group/downloads
+                events_url: https://api.github.com/repos/mfocko/repo_created_for_test_in_group/events
+                fork: true
+                forks: 0
+                forks_count: 0
+                forks_url: https://api.github.com/repos/mfocko/repo_created_for_test_in_group/forks
+                full_name: mfocko/repo_created_for_test_in_group
+                git_commits_url: https://api.github.com/repos/mfocko/repo_created_for_test_in_group/git/commits{/sha}
+                git_refs_url: https://api.github.com/repos/mfocko/repo_created_for_test_in_group/git/refs{/sha}
+                git_tags_url: https://api.github.com/repos/mfocko/repo_created_for_test_in_group/git/tags{/sha}
+                git_url: git://github.com/mfocko/repo_created_for_test_in_group.git
+                has_downloads: true
+                has_issues: false
+                has_pages: false
+                has_projects: true
+                has_wiki: true
+                homepage: null
+                hooks_url: https://api.github.com/repos/mfocko/repo_created_for_test_in_group/hooks
+                html_url: https://github.com/mfocko/repo_created_for_test_in_group
+                id: 291681285
+                issue_comment_url: https://api.github.com/repos/mfocko/repo_created_for_test_in_group/issues/comments{/number}
+                issue_events_url: https://api.github.com/repos/mfocko/repo_created_for_test_in_group/issues/events{/number}
+                issues_url: https://api.github.com/repos/mfocko/repo_created_for_test_in_group/issues{/number}
+                keys_url: https://api.github.com/repos/mfocko/repo_created_for_test_in_group/keys{/key_id}
+                labels_url: https://api.github.com/repos/mfocko/repo_created_for_test_in_group/labels{/name}
+                language: null
+                languages_url: https://api.github.com/repos/mfocko/repo_created_for_test_in_group/languages
+                license: null
+                merges_url: https://api.github.com/repos/mfocko/repo_created_for_test_in_group/merges
+                milestones_url: https://api.github.com/repos/mfocko/repo_created_for_test_in_group/milestones{/number}
+                mirror_url: null
+                name: repo_created_for_test_in_group
+                node_id: MDEwOlJlcG9zaXRvcnkyOTE2ODEyODU=
+                notifications_url: https://api.github.com/repos/mfocko/repo_created_for_test_in_group/notifications{?since,all,participating}
+                open_issues: 0
+                open_issues_count: 0
+                owner:
+                  avatar_url: https://avatars0.githubusercontent.com/u/8149784?v=4
+                  events_url: https://api.github.com/users/mfocko/events{/privacy}
+                  followers_url: https://api.github.com/users/mfocko/followers
+                  following_url: https://api.github.com/users/mfocko/following{/other_user}
+                  gists_url: https://api.github.com/users/mfocko/gists{/gist_id}
+                  gravatar_id: ''
+                  html_url: https://github.com/mfocko
+                  id: 8149784
+                  login: mfocko
+                  node_id: MDQ6VXNlcjgxNDk3ODQ=
+                  organizations_url: https://api.github.com/users/mfocko/orgs
+                  received_events_url: https://api.github.com/users/mfocko/received_events
+                  repos_url: https://api.github.com/users/mfocko/repos
+                  site_admin: false
+                  starred_url: https://api.github.com/users/mfocko/starred{/owner}{/repo}
+                  subscriptions_url: https://api.github.com/users/mfocko/subscriptions
+                  type: User
+                  url: https://api.github.com/users/mfocko
+                private: false
+                pulls_url: https://api.github.com/repos/mfocko/repo_created_for_test_in_group/pulls{/number}
+                pushed_at: '2020-08-31T10:12:06Z'
+                releases_url: https://api.github.com/repos/mfocko/repo_created_for_test_in_group/releases{/id}
+                size: 0
+                ssh_url: git@github.com:mfocko/repo_created_for_test_in_group.git
+                stargazers_count: 0
+                stargazers_url: https://api.github.com/repos/mfocko/repo_created_for_test_in_group/stargazers
+                statuses_url: https://api.github.com/repos/mfocko/repo_created_for_test_in_group/statuses/{sha}
+                subscribers_url: https://api.github.com/repos/mfocko/repo_created_for_test_in_group/subscribers
+                subscription_url: https://api.github.com/repos/mfocko/repo_created_for_test_in_group/subscription
+                svn_url: https://github.com/mfocko/repo_created_for_test_in_group
+                tags_url: https://api.github.com/repos/mfocko/repo_created_for_test_in_group/tags
+                teams_url: https://api.github.com/repos/mfocko/repo_created_for_test_in_group/teams
+                trees_url: https://api.github.com/repos/mfocko/repo_created_for_test_in_group/git/trees{/sha}
+                updated_at: '2020-08-31T10:10:56Z'
+                url: https://api.github.com/repos/mfocko/repo_created_for_test_in_group
+                watchers: 0
+                watchers_count: 0
+              sha: b410742da1bafb81d18f3a6e1fc48aa55d660412
+              user:
+                avatar_url: https://avatars0.githubusercontent.com/u/8149784?v=4
+                events_url: https://api.github.com/users/mfocko/events{/privacy}
+                followers_url: https://api.github.com/users/mfocko/followers
+                following_url: https://api.github.com/users/mfocko/following{/other_user}
+                gists_url: https://api.github.com/users/mfocko/gists{/gist_id}
+                gravatar_id: ''
+                html_url: https://github.com/mfocko
+                id: 8149784
+                login: mfocko
+                node_id: MDQ6VXNlcjgxNDk3ODQ=
+                organizations_url: https://api.github.com/users/mfocko/orgs
+                received_events_url: https://api.github.com/users/mfocko/received_events
+                repos_url: https://api.github.com/users/mfocko/repos
+                site_admin: false
+                starred_url: https://api.github.com/users/mfocko/starred{/owner}{/repo}
+                subscriptions_url: https://api.github.com/users/mfocko/subscriptions
+                type: User
+                url: https://api.github.com/users/mfocko
+            html_url: https://github.com/packit/testing_repo_changed_name/pull/1
+            id: 476198162
+            issue_url: https://api.github.com/repos/packit/testing_repo_changed_name/issues/1
+            labels: []
+            locked: false
+            maintainer_can_modify: true
+            merge_commit_sha: 893ffd78289530744378547bf3dc89024d6d8478
+            mergeable: true
+            mergeable_state: clean
+            merged: false
+            merged_at: null
+            merged_by: null
+            milestone: null
+            node_id: MDExOlB1bGxSZXF1ZXN0NDc2MTk4MTYy
+            number: 1
+            patch_url: https://github.com/packit/testing_repo_changed_name/pull/1.patch
+            rebaseable: true
+            requested_reviewers: []
+            requested_teams: []
+            review_comment_url: https://api.github.com/repos/packit/testing_repo_changed_name/pulls/comments{/number}
+            review_comments: 0
+            review_comments_url: https://api.github.com/repos/packit/testing_repo_changed_name/pulls/1/comments
+            state: open
+            statuses_url: https://api.github.com/repos/packit/testing_repo_changed_name/statuses/b410742da1bafb81d18f3a6e1fc48aa55d660412
+            title: Update README
+            updated_at: '2020-08-31T10:12:18Z'
+            url: https://api.github.com/repos/packit/testing_repo_changed_name/pulls/1
+            user:
+              avatar_url: https://avatars0.githubusercontent.com/u/8149784?v=4
+              events_url: https://api.github.com/users/mfocko/events{/privacy}
+              followers_url: https://api.github.com/users/mfocko/followers
+              following_url: https://api.github.com/users/mfocko/following{/other_user}
+              gists_url: https://api.github.com/users/mfocko/gists{/gist_id}
+              gravatar_id: ''
+              html_url: https://github.com/mfocko
+              id: 8149784
+              login: mfocko
+              node_id: MDQ6VXNlcjgxNDk3ODQ=
+              organizations_url: https://api.github.com/users/mfocko/orgs
+              received_events_url: https://api.github.com/users/mfocko/received_events
+              repos_url: https://api.github.com/users/mfocko/repos
+              site_admin: false
+              starred_url: https://api.github.com/users/mfocko/starred{/owner}{/repo}
+              subscriptions_url: https://api.github.com/users/mfocko/subscriptions
+              type: User
+              url: https://api.github.com/users/mfocko
+          _next: null
+          elapsed: 0.2
+          encoding: utf-8
+          headers:
+            Access-Control-Allow-Origin: '*'
+            Access-Control-Expose-Headers: ETag, Link, Location, Retry-After, X-GitHub-OTP,
+              X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Reset, X-OAuth-Scopes,
+              X-Accepted-OAuth-Scopes, X-Poll-Interval, X-GitHub-Media-Type, Deprecation,
+              Sunset
+            Cache-Control: private, max-age=60, s-maxage=60
+            Content-Encoding: gzip
+            Content-Security-Policy: default-src 'self';script-src 'self' 'nonce-YqLDC0BS8d7iY8mKO7VtBbIne'
+              https://apps.fedoraproject.org; style-src 'self' 'nonce-YqLDC0BS8d7iY8mKO7VtBbIne';
+              object-src 'none';base-uri 'self';img-src 'self' https:;
+            Content-Type: application/json; charset=utf-8
+            Date: Fri, 01 Nov 2019 13-36-03 GMT
+            ETag: W/"1e51b8e1c48787a433405211e9e0fe61"
+            Last-Modified: Mon, 31 Aug 2020 10:12:18 GMT
+            Referrer-Policy: origin-when-cross-origin, strict-origin-when-cross-origin
+            Server: GitHub.com
+            Status: 200 OK
+            Strict-Transport-Security: max-age=31536000; includeSubdomains; preload
+            Transfer-Encoding: chunked
+            Vary: Accept, Authorization, Cookie, X-GitHub-OTP, Accept-Encoding, Accept,
+              X-Requested-With, Accept-Encoding
+            X-Accepted-OAuth-Scopes: ''
+            X-Content-Type-Options: nosniff
+            X-Frame-Options: deny
+            X-GitHub-Media-Type: github.v3; format=json
+            X-GitHub-Request-Id: 18FB:AA1A:99616C4:B8092CB:5CC15425
+            X-OAuth-Scopes: admin:enterprise, admin:gpg_key, admin:org, admin:org_hook,
+              admin:public_key, admin:repo_hook, delete:packages, delete_repo, gist,
+              notifications, read:packages, repo, user, workflow, write:discussion,
+              write:packages
+            X-RateLimit-Limit: '5000'
+            X-RateLimit-Remaining: '4972'
+            X-RateLimit-Reset: '1572953901'
+            X-XSS-Protection: 1; mode=block
+          raw: !!binary ""
+          reason: OK
+          status_code: 200
+      https://api.github.com:443/user:
+      - metadata:
+          latency: 0.40215206146240234
+          module_call_list:
+          - unittest.case
+          - requre.online_replacing
+          - tests.integration.github.test_pull_requests
+          - ogr.services.github.user
+          - github.AuthenticatedUser
+          - github.GithubObject
+          - github.Requester
+          - requests.sessions
+          - requre.objects
+          - requre.cassette
+          - requests.sessions
+          - send
+        output:
+          __store_indicator: 2
+          _content:
+            avatar_url: https://avatars0.githubusercontent.com/u/8149784?v=4
+            bio: null
+            blog: https://gitlab.com/mfocko
+            collaborators: 0
+            company: Red Hat
+            created_at: '2014-07-13T12:54:55Z'
+            disk_usage: 27754
+            email: null
+            events_url: https://api.github.com/users/mfocko/events{/privacy}
+            followers: 9
+            followers_url: https://api.github.com/users/mfocko/followers
+            following: 68
+            following_url: https://api.github.com/users/mfocko/following{/other_user}
+            gists_url: https://api.github.com/users/mfocko/gists{/gist_id}
+            gravatar_id: ''
+            hireable: true
+            html_url: https://github.com/mfocko
+            id: 8149784
+            location: Brno, Czech Republic
+            login: mfocko
+            name: Matej Focko
+            node_id: MDQ6VXNlcjgxNDk3ODQ=
+            organizations_url: https://api.github.com/users/mfocko/orgs
+            owned_private_repos: 7
+            plan:
+              collaborators: 0
+              name: pro
+              private_repos: 9999
+              space: 976562499
+            private_gists: 4
+            public_gists: 4
+            public_repos: 19
+            received_events_url: https://api.github.com/users/mfocko/received_events
+            repos_url: https://api.github.com/users/mfocko/repos
+            site_admin: false
+            starred_url: https://api.github.com/users/mfocko/starred{/owner}{/repo}
+            subscriptions_url: https://api.github.com/users/mfocko/subscriptions
+            total_private_repos: 7
+            twitter_username: MatejFocko
+            two_factor_authentication: true
+            type: User
+            updated_at: '2020-08-28T07:20:33Z'
+            url: https://api.github.com/users/mfocko
+          _next: null
+          elapsed: 0.2
+          encoding: utf-8
+          headers:
+            Access-Control-Allow-Origin: '*'
+            Access-Control-Expose-Headers: ETag, Link, Location, Retry-After, X-GitHub-OTP,
+              X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Reset, X-OAuth-Scopes,
+              X-Accepted-OAuth-Scopes, X-Poll-Interval, X-GitHub-Media-Type, Deprecation,
+              Sunset
+            Cache-Control: private, max-age=60, s-maxage=60
+            Content-Encoding: gzip
+            Content-Security-Policy: default-src 'self';script-src 'self' 'nonce-YqLDC0BS8d7iY8mKO7VtBbIne'
+              https://apps.fedoraproject.org; style-src 'self' 'nonce-YqLDC0BS8d7iY8mKO7VtBbIne';
+              object-src 'none';base-uri 'self';img-src 'self' https:;
+            Content-Type: application/json; charset=utf-8
+            Date: Fri, 01 Nov 2019 13-36-03 GMT
+            ETag: W/"1e51b8e1c48787a433405211e9e0fe61"
+            Last-Modified: Fri, 28 Aug 2020 07:20:33 GMT
+            Referrer-Policy: origin-when-cross-origin, strict-origin-when-cross-origin
+            Server: GitHub.com
+            Status: 200 OK
+            Strict-Transport-Security: max-age=31536000; includeSubdomains; preload
+            Transfer-Encoding: chunked
+            Vary: Accept, Authorization, Cookie, X-GitHub-OTP, Accept-Encoding, Accept,
+              X-Requested-With, Accept-Encoding
+            X-Accepted-OAuth-Scopes: ''
+            X-Content-Type-Options: nosniff
+            X-Frame-Options: deny
+            X-GitHub-Media-Type: github.v3; format=json
+            X-GitHub-Request-Id: 18FB:AA1A:99616C4:B8092CB:5CC15425
+            X-OAuth-Scopes: admin:enterprise, admin:gpg_key, admin:org, admin:org_hook,
+              admin:public_key, admin:repo_hook, delete:packages, delete_repo, gist,
+              notifications, read:packages, repo, user, workflow, write:discussion,
+              write:packages
+            X-RateLimit-Limit: '5000'
+            X-RateLimit-Remaining: '4972'
+            X-RateLimit-Reset: '1572953901'
+            X-XSS-Protection: 1; mode=block
+          raw: !!binary ""
+          reason: OK
+          status_code: 200

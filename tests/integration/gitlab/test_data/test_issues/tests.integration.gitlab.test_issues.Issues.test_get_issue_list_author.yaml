@@ -1,0 +1,1759 @@
+_requre:
+  DataTypes: 1
+  key_strategy: StorageKeysInspectSimple
+  version_storage_file: 2
+requests.sessions:
+  send:
+    GET:
+      https://gitlab.com/api/v4/projects/14233409/issues?state=all&order_by=updated_at&sort=desc&author_username=mfocko:
+      - metadata:
+          latency: 0.333538293838501
+          module_call_list:
+          - unittest.case
+          - requre.online_replacing
+          - tests.integration.gitlab.test_issues
+          - ogr.services.gitlab.project
+          - ogr.services.gitlab.issue
+          - gitlab.exceptions
+          - gitlab.mixins
+          - gitlab
+          - requre.objects
+          - requre.cassette
+          - requests.sessions
+          - send
+        output:
+          __store_indicator: 2
+          _content:
+          - _links:
+              award_emoji: https://gitlab.com/api/v4/projects/14233409/issues/80/award_emoji
+              notes: https://gitlab.com/api/v4/projects/14233409/issues/80/notes
+              project: https://gitlab.com/api/v4/projects/14233409
+              self: https://gitlab.com/api/v4/projects/14233409/issues/80
+            assignee: null
+            assignees: []
+            author:
+              avatar_url: https://assets.gitlab-static.net/uploads/-/system/user/avatar/375555/avatar.png
+              id: 375555
+              name: Matej Focko
+              state: active
+              username: mfocko
+              web_url: https://gitlab.com/mfocko
+            blocking_issues_count: null
+            closed_at: null
+            closed_by: null
+            confidential: true
+            created_at: '2020-08-27T09:29:10.577Z'
+            description: Description for issue abcdefghi
+            discussion_locked: null
+            downvotes: 0
+            due_date: null
+            has_tasks: false
+            health_status: null
+            id: 70364324
+            iid: 80
+            labels: []
+            merge_requests_count: 0
+            milestone: null
+            moved_to_id: null
+            project_id: 14233409
+            references:
+              full: packit-service/ogr-tests#80
+              relative: '#80'
+              short: '#80'
+            state: opened
+            task_completion_status:
+              completed_count: 0
+              count: 0
+            time_stats:
+              human_time_estimate: null
+              human_total_time_spent: null
+              time_estimate: 0
+              total_time_spent: 0
+            title: New Confidential Issue abcdefghi
+            updated_at: '2020-08-27T09:29:10.577Z'
+            upvotes: 0
+            user_notes_count: 0
+            web_url: https://gitlab.com/packit-service/ogr-tests/-/issues/80
+            weight: null
+          - _links:
+              award_emoji: https://gitlab.com/api/v4/projects/14233409/issues/79/award_emoji
+              notes: https://gitlab.com/api/v4/projects/14233409/issues/79/notes
+              project: https://gitlab.com/api/v4/projects/14233409
+              self: https://gitlab.com/api/v4/projects/14233409/issues/79
+            assignee: null
+            assignees: []
+            author:
+              avatar_url: https://assets.gitlab-static.net/uploads/-/system/user/avatar/375555/avatar.png
+              id: 375555
+              name: Matej Focko
+              state: active
+              username: mfocko
+              web_url: https://gitlab.com/mfocko
+            blocking_issues_count: null
+            closed_at: '2020-08-27T09:29:09.328Z'
+            closed_by:
+              avatar_url: https://assets.gitlab-static.net/uploads/-/system/user/avatar/375555/avatar.png
+              id: 375555
+              name: Matej Focko
+              state: active
+              username: mfocko
+              web_url: https://gitlab.com/mfocko
+            confidential: false
+            created_at: '2020-08-27T09:29:08.200Z'
+            description: Description for issue for closing abcdefghi
+            discussion_locked: null
+            downvotes: 0
+            due_date: null
+            has_tasks: false
+            health_status: null
+            id: 70364319
+            iid: 79
+            labels: []
+            merge_requests_count: 0
+            milestone: null
+            moved_to_id: null
+            project_id: 14233409
+            references:
+              full: packit-service/ogr-tests#79
+              relative: '#79'
+              short: '#79'
+            state: closed
+            task_completion_status:
+              completed_count: 0
+              count: 0
+            time_stats:
+              human_time_estimate: null
+              human_total_time_spent: null
+              time_estimate: 0
+              total_time_spent: 0
+            title: Close issue abcdefghi
+            updated_at: '2020-08-27T09:29:09.350Z'
+            upvotes: 0
+            user_notes_count: 0
+            web_url: https://gitlab.com/packit-service/ogr-tests/-/issues/79
+            weight: null
+          - _links:
+              award_emoji: https://gitlab.com/api/v4/projects/14233409/issues/23/award_emoji
+              notes: https://gitlab.com/api/v4/projects/14233409/issues/23/notes
+              project: https://gitlab.com/api/v4/projects/14233409
+              self: https://gitlab.com/api/v4/projects/14233409/issues/23
+            assignee:
+              avatar_url: https://assets.gitlab-static.net/uploads/-/system/user/avatar/375555/avatar.png
+              id: 375555
+              name: Matej Focko
+              state: active
+              username: mfocko
+              web_url: https://gitlab.com/mfocko
+            assignees:
+            - avatar_url: https://assets.gitlab-static.net/uploads/-/system/user/avatar/375555/avatar.png
+              id: 375555
+              name: Matej Focko
+              state: active
+              username: mfocko
+              web_url: https://gitlab.com/mfocko
+            author:
+              avatar_url: https://assets.gitlab-static.net/uploads/-/system/user/avatar/375555/avatar.png
+              id: 375555
+              name: Matej Focko
+              state: active
+              username: mfocko
+              web_url: https://gitlab.com/mfocko
+            blocking_issues_count: null
+            closed_at: null
+            closed_by: null
+            confidential: false
+            created_at: '2019-11-20T19:36:34.008Z'
+            description: Description for issue abcde
+            discussion_locked: null
+            downvotes: 0
+            due_date: null
+            has_tasks: false
+            health_status: null
+            id: 27281207
+            iid: 23
+            labels: []
+            merge_requests_count: 0
+            milestone: null
+            moved_to_id: null
+            project_id: 14233409
+            references:
+              full: packit-service/ogr-tests#23
+              relative: '#23'
+              short: '#23'
+            state: opened
+            task_completion_status:
+              completed_count: 0
+              count: 0
+            time_stats:
+              human_time_estimate: null
+              human_total_time_spent: null
+              time_estimate: 0
+              total_time_spent: 0
+            title: New Issue abcde
+            updated_at: '2020-01-17T13:59:46.775Z'
+            upvotes: 0
+            user_notes_count: 0
+            web_url: https://gitlab.com/packit-service/ogr-tests/-/issues/23
+            weight: null
+          - _links:
+              award_emoji: https://gitlab.com/api/v4/projects/14233409/issues/22/award_emoji
+              notes: https://gitlab.com/api/v4/projects/14233409/issues/22/notes
+              project: https://gitlab.com/api/v4/projects/14233409
+              self: https://gitlab.com/api/v4/projects/14233409/issues/22
+            assignee: null
+            assignees: []
+            author:
+              avatar_url: https://assets.gitlab-static.net/uploads/-/system/user/avatar/375555/avatar.png
+              id: 375555
+              name: Matej Focko
+              state: active
+              username: mfocko
+              web_url: https://gitlab.com/mfocko
+            blocking_issues_count: null
+            closed_at: '2019-11-20T19:36:31.067Z'
+            closed_by:
+              avatar_url: https://assets.gitlab-static.net/uploads/-/system/user/avatar/375555/avatar.png
+              id: 375555
+              name: Matej Focko
+              state: active
+              username: mfocko
+              web_url: https://gitlab.com/mfocko
+            confidential: false
+            created_at: '2019-11-20T19:36:30.130Z'
+            description: Description for issue for closing abcde
+            discussion_locked: null
+            downvotes: 0
+            due_date: null
+            has_tasks: false
+            health_status: null
+            id: 27281179
+            iid: 22
+            labels: []
+            merge_requests_count: 0
+            milestone: null
+            moved_to_id: null
+            project_id: 14233409
+            references:
+              full: packit-service/ogr-tests#22
+              relative: '#22'
+              short: '#22'
+            state: closed
+            task_completion_status:
+              completed_count: 0
+              count: 0
+            time_stats:
+              human_time_estimate: null
+              human_total_time_spent: null
+              time_estimate: 0
+              total_time_spent: 0
+            title: Close issue abcde
+            updated_at: '2019-11-20T19:36:31.107Z'
+            upvotes: 0
+            user_notes_count: 0
+            web_url: https://gitlab.com/packit-service/ogr-tests/-/issues/22
+            weight: null
+          - _links:
+              award_emoji: https://gitlab.com/api/v4/projects/14233409/issues/21/award_emoji
+              notes: https://gitlab.com/api/v4/projects/14233409/issues/21/notes
+              project: https://gitlab.com/api/v4/projects/14233409
+              self: https://gitlab.com/api/v4/projects/14233409/issues/21
+            assignee: null
+            assignees: []
+            author:
+              avatar_url: https://assets.gitlab-static.net/uploads/-/system/user/avatar/375555/avatar.png
+              id: 375555
+              name: Matej Focko
+              state: active
+              username: mfocko
+              web_url: https://gitlab.com/mfocko
+            blocking_issues_count: null
+            closed_at: '2019-11-13T10:00:20.335Z'
+            closed_by:
+              avatar_url: https://assets.gitlab-static.net/uploads/-/system/user/avatar/375555/avatar.png
+              id: 375555
+              name: Matej Focko
+              state: active
+              username: mfocko
+              web_url: https://gitlab.com/mfocko
+            confidential: false
+            created_at: '2019-11-13T10:00:18.833Z'
+            description: Description for issue for closing abcde
+            discussion_locked: null
+            downvotes: 0
+            due_date: null
+            has_tasks: false
+            health_status: null
+            id: 27008021
+            iid: 21
+            labels: []
+            merge_requests_count: 0
+            milestone: null
+            moved_to_id: null
+            project_id: 14233409
+            references:
+              full: packit-service/ogr-tests#21
+              relative: '#21'
+              short: '#21'
+            state: closed
+            task_completion_status:
+              completed_count: 0
+              count: 0
+            time_stats:
+              human_time_estimate: null
+              human_total_time_spent: null
+              time_estimate: 0
+              total_time_spent: 0
+            title: Close issue abcde
+            updated_at: '2019-11-13T10:00:20.374Z'
+            upvotes: 0
+            user_notes_count: 0
+            web_url: https://gitlab.com/packit-service/ogr-tests/-/issues/21
+            weight: null
+          - _links:
+              award_emoji: https://gitlab.com/api/v4/projects/14233409/issues/20/award_emoji
+              notes: https://gitlab.com/api/v4/projects/14233409/issues/20/notes
+              project: https://gitlab.com/api/v4/projects/14233409
+              self: https://gitlab.com/api/v4/projects/14233409/issues/20
+            assignee: null
+            assignees: []
+            author:
+              avatar_url: https://assets.gitlab-static.net/uploads/-/system/user/avatar/375555/avatar.png
+              id: 375555
+              name: Matej Focko
+              state: active
+              username: mfocko
+              web_url: https://gitlab.com/mfocko
+            blocking_issues_count: null
+            closed_at: null
+            closed_by: null
+            confidential: false
+            created_at: '2019-10-08T16:16:08.379Z'
+            description: Description for issue abcde
+            discussion_locked: null
+            downvotes: 0
+            due_date: null
+            has_tasks: false
+            health_status: null
+            id: 25732188
+            iid: 20
+            labels: []
+            merge_requests_count: 0
+            milestone: null
+            moved_to_id: null
+            project_id: 14233409
+            references:
+              full: packit-service/ogr-tests#20
+              relative: '#20'
+              short: '#20'
+            state: opened
+            task_completion_status:
+              completed_count: 0
+              count: 0
+            time_stats:
+              human_time_estimate: null
+              human_total_time_spent: null
+              time_estimate: 0
+              total_time_spent: 0
+            title: New Issue abcde
+            updated_at: '2019-10-08T16:16:08.379Z'
+            upvotes: 0
+            user_notes_count: 0
+            web_url: https://gitlab.com/packit-service/ogr-tests/-/issues/20
+            weight: null
+          - _links:
+              award_emoji: https://gitlab.com/api/v4/projects/14233409/issues/19/award_emoji
+              notes: https://gitlab.com/api/v4/projects/14233409/issues/19/notes
+              project: https://gitlab.com/api/v4/projects/14233409
+              self: https://gitlab.com/api/v4/projects/14233409/issues/19
+            assignee: null
+            assignees: []
+            author:
+              avatar_url: https://assets.gitlab-static.net/uploads/-/system/user/avatar/375555/avatar.png
+              id: 375555
+              name: Matej Focko
+              state: active
+              username: mfocko
+              web_url: https://gitlab.com/mfocko
+            blocking_issues_count: null
+            closed_at: '2019-10-08T16:16:06.796Z'
+            closed_by:
+              avatar_url: https://assets.gitlab-static.net/uploads/-/system/user/avatar/375555/avatar.png
+              id: 375555
+              name: Matej Focko
+              state: active
+              username: mfocko
+              web_url: https://gitlab.com/mfocko
+            confidential: false
+            created_at: '2019-10-08T16:16:05.165Z'
+            description: Description for issue for closing abcde
+            discussion_locked: null
+            downvotes: 0
+            due_date: null
+            has_tasks: false
+            health_status: null
+            id: 25732185
+            iid: 19
+            labels: []
+            merge_requests_count: 0
+            milestone: null
+            moved_to_id: null
+            project_id: 14233409
+            references:
+              full: packit-service/ogr-tests#19
+              relative: '#19'
+              short: '#19'
+            state: closed
+            task_completion_status:
+              completed_count: 0
+              count: 0
+            time_stats:
+              human_time_estimate: null
+              human_total_time_spent: null
+              time_estimate: 0
+              total_time_spent: 0
+            title: Close issue abcde
+            updated_at: '2019-10-08T16:16:06.827Z'
+            upvotes: 0
+            user_notes_count: 0
+            web_url: https://gitlab.com/packit-service/ogr-tests/-/issues/19
+            weight: null
+          _next: null
+          elapsed: 0.2
+          encoding: null
+          headers:
+            CF-Cache-Status: DYNAMIC
+            CF-RAY: 5c94c497ca7b0fa2-VIE
+            Cache-Control: max-age=0, private, must-revalidate
+            Connection: keep-alive
+            Content-Encoding: gzip
+            Content-Type: application/json
+            Date: Fri, 01 Nov 2019 13-36-03 GMT
+            Etag: W/"6aa5e07ee7e07cdfa04d58f0461dff8b"
+            Expect-CT: max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
+            GitLab-LB: fe-12-lb-gprd
+            GitLab-SV: localhost
+            Link: <https://gitlab.com/api/v4/projects/14233409/issues?author_username=mfocko&id=14233409&order_by=updated_at&page=1&per_page=20&sort=desc&state=all&with_labels_details=false>;
+              rel="first", <https://gitlab.com/api/v4/projects/14233409/issues?author_username=mfocko&id=14233409&order_by=updated_at&page=1&per_page=20&sort=desc&state=all&with_labels_details=false>;
+              rel="last"
+            RateLimit-Limit: '600'
+            RateLimit-Observed: '42'
+            RateLimit-Remaining: '558'
+            RateLimit-Reset: '1598520624'
+            RateLimit-ResetTime: Thu, 27 Aug 2020 09:30:24 GMT
+            Referrer-Policy: strict-origin-when-cross-origin
+            Server: cloudflare
+            Strict-Transport-Security: max-age=31536000
+            Transfer-Encoding: chunked
+            Vary: Accept-Encoding, Origin
+            X-Content-Type-Options: nosniff
+            X-Frame-Options: SAMEORIGIN
+            X-Next-Page: ''
+            X-Page: '1'
+            X-Per-Page: '20'
+            X-Prev-Page: ''
+            X-Request-Id: bp2rw8mVUF3
+            X-Runtime: '0.153339'
+            X-Total: '7'
+            X-Total-Pages: '1'
+            cf-request-id: 04d0d932df00000fa29a269200000001
+          raw: !!binary ""
+          reason: OK
+          status_code: 200
+      - metadata:
+          latency: 0.36546921730041504
+          module_call_list:
+          - unittest.case
+          - requre.online_replacing
+          - tests.integration.gitlab.test_issues
+          - ogr.services.gitlab.project
+          - ogr.services.gitlab.issue
+          - gitlab.exceptions
+          - gitlab.mixins
+          - gitlab
+          - requre.objects
+          - requre.cassette
+          - requests.sessions
+          - send
+        output:
+          __store_indicator: 2
+          _content:
+          - _links:
+              award_emoji: https://gitlab.com/api/v4/projects/14233409/issues/87/award_emoji
+              notes: https://gitlab.com/api/v4/projects/14233409/issues/87/notes
+              project: https://gitlab.com/api/v4/projects/14233409
+              self: https://gitlab.com/api/v4/projects/14233409/issues/87
+            assignee: null
+            assignees: []
+            author:
+              avatar_url: https://assets.gitlab-static.net/uploads/-/system/user/avatar/375555/avatar.png
+              id: 375555
+              name: Matej Focko
+              state: active
+              username: mfocko
+              web_url: https://gitlab.com/mfocko
+            blocking_issues_count: null
+            closed_at: null
+            closed_by: null
+            confidential: true
+            created_at: '2020-08-31T08:33:21.740Z'
+            description: Description for issue abcdefghi
+            discussion_locked: null
+            downvotes: 0
+            due_date: null
+            has_tasks: false
+            health_status: null
+            id: 70490892
+            iid: 87
+            labels: []
+            merge_requests_count: 0
+            milestone: null
+            moved_to_id: null
+            project_id: 14233409
+            references:
+              full: packit-service/ogr-tests#87
+              relative: '#87'
+              short: '#87'
+            state: opened
+            task_completion_status:
+              completed_count: 0
+              count: 0
+            time_stats:
+              human_time_estimate: null
+              human_total_time_spent: null
+              time_estimate: 0
+              total_time_spent: 0
+            title: New Confidential Issue abcdefghi
+            updated_at: '2020-08-31T08:33:21.740Z'
+            upvotes: 0
+            user_notes_count: 0
+            web_url: https://gitlab.com/packit-service/ogr-tests/-/issues/87
+            weight: null
+          - _links:
+              award_emoji: https://gitlab.com/api/v4/projects/14233409/issues/86/award_emoji
+              notes: https://gitlab.com/api/v4/projects/14233409/issues/86/notes
+              project: https://gitlab.com/api/v4/projects/14233409
+              self: https://gitlab.com/api/v4/projects/14233409/issues/86
+            assignee: null
+            assignees: []
+            author:
+              avatar_url: https://assets.gitlab-static.net/uploads/-/system/user/avatar/375555/avatar.png
+              id: 375555
+              name: Matej Focko
+              state: active
+              username: mfocko
+              web_url: https://gitlab.com/mfocko
+            blocking_issues_count: null
+            closed_at: null
+            closed_by: null
+            confidential: false
+            created_at: '2020-08-31T08:33:20.605Z'
+            description: Description for issue abcdefghi
+            discussion_locked: null
+            downvotes: 0
+            due_date: null
+            has_tasks: false
+            health_status: null
+            id: 70490889
+            iid: 86
+            labels: []
+            merge_requests_count: 0
+            milestone: null
+            moved_to_id: null
+            project_id: 14233409
+            references:
+              full: packit-service/ogr-tests#86
+              relative: '#86'
+              short: '#86'
+            state: opened
+            task_completion_status:
+              completed_count: 0
+              count: 0
+            time_stats:
+              human_time_estimate: null
+              human_total_time_spent: null
+              time_estimate: 0
+              total_time_spent: 0
+            title: New Issue abcdefghi
+            updated_at: '2020-08-31T08:33:20.605Z'
+            upvotes: 0
+            user_notes_count: 0
+            web_url: https://gitlab.com/packit-service/ogr-tests/-/issues/86
+            weight: null
+          - _links:
+              award_emoji: https://gitlab.com/api/v4/projects/14233409/issues/85/award_emoji
+              notes: https://gitlab.com/api/v4/projects/14233409/issues/85/notes
+              project: https://gitlab.com/api/v4/projects/14233409
+              self: https://gitlab.com/api/v4/projects/14233409/issues/85
+            assignee: null
+            assignees: []
+            author:
+              avatar_url: https://assets.gitlab-static.net/uploads/-/system/user/avatar/375555/avatar.png
+              id: 375555
+              name: Matej Focko
+              state: active
+              username: mfocko
+              web_url: https://gitlab.com/mfocko
+            blocking_issues_count: null
+            closed_at: null
+            closed_by: null
+            confidential: false
+            created_at: '2020-08-31T08:33:20.086Z'
+            description: Description for issue abcdefghi
+            discussion_locked: null
+            downvotes: 0
+            due_date: null
+            has_tasks: false
+            health_status: null
+            id: 70490888
+            iid: 85
+            labels:
+            - label1
+            - label2
+            merge_requests_count: 0
+            milestone: null
+            moved_to_id: null
+            project_id: 14233409
+            references:
+              full: packit-service/ogr-tests#85
+              relative: '#85'
+              short: '#85'
+            state: opened
+            task_completion_status:
+              completed_count: 0
+              count: 0
+            time_stats:
+              human_time_estimate: null
+              human_total_time_spent: null
+              time_estimate: 0
+              total_time_spent: 0
+            title: New Issue abcdefghi
+            updated_at: '2020-08-31T08:33:20.086Z'
+            upvotes: 0
+            user_notes_count: 0
+            web_url: https://gitlab.com/packit-service/ogr-tests/-/issues/85
+            weight: null
+          - _links:
+              award_emoji: https://gitlab.com/api/v4/projects/14233409/issues/84/award_emoji
+              notes: https://gitlab.com/api/v4/projects/14233409/issues/84/notes
+              project: https://gitlab.com/api/v4/projects/14233409
+              self: https://gitlab.com/api/v4/projects/14233409/issues/84
+            assignee: null
+            assignees: []
+            author:
+              avatar_url: https://assets.gitlab-static.net/uploads/-/system/user/avatar/375555/avatar.png
+              id: 375555
+              name: Matej Focko
+              state: active
+              username: mfocko
+              web_url: https://gitlab.com/mfocko
+            blocking_issues_count: null
+            closed_at: '2020-08-31T08:33:18.658Z'
+            closed_by:
+              avatar_url: https://assets.gitlab-static.net/uploads/-/system/user/avatar/375555/avatar.png
+              id: 375555
+              name: Matej Focko
+              state: active
+              username: mfocko
+              web_url: https://gitlab.com/mfocko
+            confidential: false
+            created_at: '2020-08-31T08:33:17.944Z'
+            description: Description for issue for closing abcdefghi
+            discussion_locked: null
+            downvotes: 0
+            due_date: null
+            has_tasks: false
+            health_status: null
+            id: 70490882
+            iid: 84
+            labels: []
+            merge_requests_count: 0
+            milestone: null
+            moved_to_id: null
+            project_id: 14233409
+            references:
+              full: packit-service/ogr-tests#84
+              relative: '#84'
+              short: '#84'
+            state: closed
+            task_completion_status:
+              completed_count: 0
+              count: 0
+            time_stats:
+              human_time_estimate: null
+              human_total_time_spent: null
+              time_estimate: 0
+              total_time_spent: 0
+            title: Close issue abcdefghi
+            updated_at: '2020-08-31T08:33:18.679Z'
+            upvotes: 0
+            user_notes_count: 0
+            web_url: https://gitlab.com/packit-service/ogr-tests/-/issues/84
+            weight: null
+          - _links:
+              award_emoji: https://gitlab.com/api/v4/projects/14233409/issues/83/award_emoji
+              notes: https://gitlab.com/api/v4/projects/14233409/issues/83/notes
+              project: https://gitlab.com/api/v4/projects/14233409
+              self: https://gitlab.com/api/v4/projects/14233409/issues/83
+            assignee: null
+            assignees: []
+            author:
+              avatar_url: https://assets.gitlab-static.net/uploads/-/system/user/avatar/375555/avatar.png
+              id: 375555
+              name: Matej Focko
+              state: active
+              username: mfocko
+              web_url: https://gitlab.com/mfocko
+            blocking_issues_count: null
+            closed_at: null
+            closed_by: null
+            confidential: false
+            created_at: '2020-08-27T09:30:55.607Z'
+            description: Description for issue abcdefghi
+            discussion_locked: null
+            downvotes: 0
+            due_date: null
+            has_tasks: false
+            health_status: null
+            id: 70364436
+            iid: 83
+            labels: []
+            merge_requests_count: 0
+            milestone: null
+            moved_to_id: null
+            project_id: 14233409
+            references:
+              full: packit-service/ogr-tests#83
+              relative: '#83'
+              short: '#83'
+            state: opened
+            task_completion_status:
+              completed_count: 0
+              count: 0
+            time_stats:
+              human_time_estimate: null
+              human_total_time_spent: null
+              time_estimate: 0
+              total_time_spent: 0
+            title: New Issue abcdefghi
+            updated_at: '2020-08-27T09:30:55.607Z'
+            upvotes: 0
+            user_notes_count: 0
+            web_url: https://gitlab.com/packit-service/ogr-tests/-/issues/83
+            weight: null
+          - _links:
+              award_emoji: https://gitlab.com/api/v4/projects/14233409/issues/82/award_emoji
+              notes: https://gitlab.com/api/v4/projects/14233409/issues/82/notes
+              project: https://gitlab.com/api/v4/projects/14233409
+              self: https://gitlab.com/api/v4/projects/14233409/issues/82
+            assignee: null
+            assignees: []
+            author:
+              avatar_url: https://assets.gitlab-static.net/uploads/-/system/user/avatar/375555/avatar.png
+              id: 375555
+              name: Matej Focko
+              state: active
+              username: mfocko
+              web_url: https://gitlab.com/mfocko
+            blocking_issues_count: null
+            closed_at: null
+            closed_by: null
+            confidential: false
+            created_at: '2020-08-27T09:30:54.849Z'
+            description: Description for issue abcdefghi
+            discussion_locked: null
+            downvotes: 0
+            due_date: null
+            has_tasks: false
+            health_status: null
+            id: 70364435
+            iid: 82
+            labels:
+            - label1
+            - label2
+            merge_requests_count: 0
+            milestone: null
+            moved_to_id: null
+            project_id: 14233409
+            references:
+              full: packit-service/ogr-tests#82
+              relative: '#82'
+              short: '#82'
+            state: opened
+            task_completion_status:
+              completed_count: 0
+              count: 0
+            time_stats:
+              human_time_estimate: null
+              human_total_time_spent: null
+              time_estimate: 0
+              total_time_spent: 0
+            title: New Issue abcdefghi
+            updated_at: '2020-08-27T09:30:54.849Z'
+            upvotes: 0
+            user_notes_count: 0
+            web_url: https://gitlab.com/packit-service/ogr-tests/-/issues/82
+            weight: null
+          - _links:
+              award_emoji: https://gitlab.com/api/v4/projects/14233409/issues/81/award_emoji
+              notes: https://gitlab.com/api/v4/projects/14233409/issues/81/notes
+              project: https://gitlab.com/api/v4/projects/14233409
+              self: https://gitlab.com/api/v4/projects/14233409/issues/81
+            assignee: null
+            assignees: []
+            author:
+              avatar_url: https://assets.gitlab-static.net/uploads/-/system/user/avatar/375555/avatar.png
+              id: 375555
+              name: Matej Focko
+              state: active
+              username: mfocko
+              web_url: https://gitlab.com/mfocko
+            blocking_issues_count: null
+            closed_at: null
+            closed_by: null
+            confidential: false
+            created_at: '2020-08-27T09:29:55.109Z'
+            description: Description for issue abcdefghi
+            discussion_locked: null
+            downvotes: 0
+            due_date: null
+            has_tasks: false
+            health_status: null
+            id: 70364386
+            iid: 81
+            labels:
+            - label1
+            - label2
+            merge_requests_count: 0
+            milestone: null
+            moved_to_id: null
+            project_id: 14233409
+            references:
+              full: packit-service/ogr-tests#81
+              relative: '#81'
+              short: '#81'
+            state: opened
+            task_completion_status:
+              completed_count: 0
+              count: 0
+            time_stats:
+              human_time_estimate: null
+              human_total_time_spent: null
+              time_estimate: 0
+              total_time_spent: 0
+            title: New Issue abcdefghi
+            updated_at: '2020-08-27T09:29:55.109Z'
+            upvotes: 0
+            user_notes_count: 0
+            web_url: https://gitlab.com/packit-service/ogr-tests/-/issues/81
+            weight: null
+          - _links:
+              award_emoji: https://gitlab.com/api/v4/projects/14233409/issues/80/award_emoji
+              notes: https://gitlab.com/api/v4/projects/14233409/issues/80/notes
+              project: https://gitlab.com/api/v4/projects/14233409
+              self: https://gitlab.com/api/v4/projects/14233409/issues/80
+            assignee: null
+            assignees: []
+            author:
+              avatar_url: https://assets.gitlab-static.net/uploads/-/system/user/avatar/375555/avatar.png
+              id: 375555
+              name: Matej Focko
+              state: active
+              username: mfocko
+              web_url: https://gitlab.com/mfocko
+            blocking_issues_count: null
+            closed_at: null
+            closed_by: null
+            confidential: true
+            created_at: '2020-08-27T09:29:10.577Z'
+            description: Description for issue abcdefghi
+            discussion_locked: null
+            downvotes: 0
+            due_date: null
+            has_tasks: false
+            health_status: null
+            id: 70364324
+            iid: 80
+            labels: []
+            merge_requests_count: 0
+            milestone: null
+            moved_to_id: null
+            project_id: 14233409
+            references:
+              full: packit-service/ogr-tests#80
+              relative: '#80'
+              short: '#80'
+            state: opened
+            task_completion_status:
+              completed_count: 0
+              count: 0
+            time_stats:
+              human_time_estimate: null
+              human_total_time_spent: null
+              time_estimate: 0
+              total_time_spent: 0
+            title: New Confidential Issue abcdefghi
+            updated_at: '2020-08-27T09:29:10.577Z'
+            upvotes: 0
+            user_notes_count: 0
+            web_url: https://gitlab.com/packit-service/ogr-tests/-/issues/80
+            weight: null
+          - _links:
+              award_emoji: https://gitlab.com/api/v4/projects/14233409/issues/79/award_emoji
+              notes: https://gitlab.com/api/v4/projects/14233409/issues/79/notes
+              project: https://gitlab.com/api/v4/projects/14233409
+              self: https://gitlab.com/api/v4/projects/14233409/issues/79
+            assignee: null
+            assignees: []
+            author:
+              avatar_url: https://assets.gitlab-static.net/uploads/-/system/user/avatar/375555/avatar.png
+              id: 375555
+              name: Matej Focko
+              state: active
+              username: mfocko
+              web_url: https://gitlab.com/mfocko
+            blocking_issues_count: null
+            closed_at: '2020-08-27T09:29:09.328Z'
+            closed_by:
+              avatar_url: https://assets.gitlab-static.net/uploads/-/system/user/avatar/375555/avatar.png
+              id: 375555
+              name: Matej Focko
+              state: active
+              username: mfocko
+              web_url: https://gitlab.com/mfocko
+            confidential: false
+            created_at: '2020-08-27T09:29:08.200Z'
+            description: Description for issue for closing abcdefghi
+            discussion_locked: null
+            downvotes: 0
+            due_date: null
+            has_tasks: false
+            health_status: null
+            id: 70364319
+            iid: 79
+            labels: []
+            merge_requests_count: 0
+            milestone: null
+            moved_to_id: null
+            project_id: 14233409
+            references:
+              full: packit-service/ogr-tests#79
+              relative: '#79'
+              short: '#79'
+            state: closed
+            task_completion_status:
+              completed_count: 0
+              count: 0
+            time_stats:
+              human_time_estimate: null
+              human_total_time_spent: null
+              time_estimate: 0
+              total_time_spent: 0
+            title: Close issue abcdefghi
+            updated_at: '2020-08-27T09:29:09.350Z'
+            upvotes: 0
+            user_notes_count: 0
+            web_url: https://gitlab.com/packit-service/ogr-tests/-/issues/79
+            weight: null
+          - _links:
+              award_emoji: https://gitlab.com/api/v4/projects/14233409/issues/23/award_emoji
+              notes: https://gitlab.com/api/v4/projects/14233409/issues/23/notes
+              project: https://gitlab.com/api/v4/projects/14233409
+              self: https://gitlab.com/api/v4/projects/14233409/issues/23
+            assignee:
+              avatar_url: https://assets.gitlab-static.net/uploads/-/system/user/avatar/375555/avatar.png
+              id: 375555
+              name: Matej Focko
+              state: active
+              username: mfocko
+              web_url: https://gitlab.com/mfocko
+            assignees:
+            - avatar_url: https://assets.gitlab-static.net/uploads/-/system/user/avatar/375555/avatar.png
+              id: 375555
+              name: Matej Focko
+              state: active
+              username: mfocko
+              web_url: https://gitlab.com/mfocko
+            author:
+              avatar_url: https://assets.gitlab-static.net/uploads/-/system/user/avatar/375555/avatar.png
+              id: 375555
+              name: Matej Focko
+              state: active
+              username: mfocko
+              web_url: https://gitlab.com/mfocko
+            blocking_issues_count: null
+            closed_at: null
+            closed_by: null
+            confidential: false
+            created_at: '2019-11-20T19:36:34.008Z'
+            description: Description for issue abcde
+            discussion_locked: null
+            downvotes: 0
+            due_date: null
+            has_tasks: false
+            health_status: null
+            id: 27281207
+            iid: 23
+            labels: []
+            merge_requests_count: 0
+            milestone: null
+            moved_to_id: null
+            project_id: 14233409
+            references:
+              full: packit-service/ogr-tests#23
+              relative: '#23'
+              short: '#23'
+            state: opened
+            task_completion_status:
+              completed_count: 0
+              count: 0
+            time_stats:
+              human_time_estimate: null
+              human_total_time_spent: null
+              time_estimate: 0
+              total_time_spent: 0
+            title: New Issue abcde
+            updated_at: '2020-01-17T13:59:46.775Z'
+            upvotes: 0
+            user_notes_count: 0
+            web_url: https://gitlab.com/packit-service/ogr-tests/-/issues/23
+            weight: null
+          - _links:
+              award_emoji: https://gitlab.com/api/v4/projects/14233409/issues/22/award_emoji
+              notes: https://gitlab.com/api/v4/projects/14233409/issues/22/notes
+              project: https://gitlab.com/api/v4/projects/14233409
+              self: https://gitlab.com/api/v4/projects/14233409/issues/22
+            assignee: null
+            assignees: []
+            author:
+              avatar_url: https://assets.gitlab-static.net/uploads/-/system/user/avatar/375555/avatar.png
+              id: 375555
+              name: Matej Focko
+              state: active
+              username: mfocko
+              web_url: https://gitlab.com/mfocko
+            blocking_issues_count: null
+            closed_at: '2019-11-20T19:36:31.067Z'
+            closed_by:
+              avatar_url: https://assets.gitlab-static.net/uploads/-/system/user/avatar/375555/avatar.png
+              id: 375555
+              name: Matej Focko
+              state: active
+              username: mfocko
+              web_url: https://gitlab.com/mfocko
+            confidential: false
+            created_at: '2019-11-20T19:36:30.130Z'
+            description: Description for issue for closing abcde
+            discussion_locked: null
+            downvotes: 0
+            due_date: null
+            has_tasks: false
+            health_status: null
+            id: 27281179
+            iid: 22
+            labels: []
+            merge_requests_count: 0
+            milestone: null
+            moved_to_id: null
+            project_id: 14233409
+            references:
+              full: packit-service/ogr-tests#22
+              relative: '#22'
+              short: '#22'
+            state: closed
+            task_completion_status:
+              completed_count: 0
+              count: 0
+            time_stats:
+              human_time_estimate: null
+              human_total_time_spent: null
+              time_estimate: 0
+              total_time_spent: 0
+            title: Close issue abcde
+            updated_at: '2019-11-20T19:36:31.107Z'
+            upvotes: 0
+            user_notes_count: 0
+            web_url: https://gitlab.com/packit-service/ogr-tests/-/issues/22
+            weight: null
+          - _links:
+              award_emoji: https://gitlab.com/api/v4/projects/14233409/issues/21/award_emoji
+              notes: https://gitlab.com/api/v4/projects/14233409/issues/21/notes
+              project: https://gitlab.com/api/v4/projects/14233409
+              self: https://gitlab.com/api/v4/projects/14233409/issues/21
+            assignee: null
+            assignees: []
+            author:
+              avatar_url: https://assets.gitlab-static.net/uploads/-/system/user/avatar/375555/avatar.png
+              id: 375555
+              name: Matej Focko
+              state: active
+              username: mfocko
+              web_url: https://gitlab.com/mfocko
+            blocking_issues_count: null
+            closed_at: '2019-11-13T10:00:20.335Z'
+            closed_by:
+              avatar_url: https://assets.gitlab-static.net/uploads/-/system/user/avatar/375555/avatar.png
+              id: 375555
+              name: Matej Focko
+              state: active
+              username: mfocko
+              web_url: https://gitlab.com/mfocko
+            confidential: false
+            created_at: '2019-11-13T10:00:18.833Z'
+            description: Description for issue for closing abcde
+            discussion_locked: null
+            downvotes: 0
+            due_date: null
+            has_tasks: false
+            health_status: null
+            id: 27008021
+            iid: 21
+            labels: []
+            merge_requests_count: 0
+            milestone: null
+            moved_to_id: null
+            project_id: 14233409
+            references:
+              full: packit-service/ogr-tests#21
+              relative: '#21'
+              short: '#21'
+            state: closed
+            task_completion_status:
+              completed_count: 0
+              count: 0
+            time_stats:
+              human_time_estimate: null
+              human_total_time_spent: null
+              time_estimate: 0
+              total_time_spent: 0
+            title: Close issue abcde
+            updated_at: '2019-11-13T10:00:20.374Z'
+            upvotes: 0
+            user_notes_count: 0
+            web_url: https://gitlab.com/packit-service/ogr-tests/-/issues/21
+            weight: null
+          - _links:
+              award_emoji: https://gitlab.com/api/v4/projects/14233409/issues/20/award_emoji
+              notes: https://gitlab.com/api/v4/projects/14233409/issues/20/notes
+              project: https://gitlab.com/api/v4/projects/14233409
+              self: https://gitlab.com/api/v4/projects/14233409/issues/20
+            assignee: null
+            assignees: []
+            author:
+              avatar_url: https://assets.gitlab-static.net/uploads/-/system/user/avatar/375555/avatar.png
+              id: 375555
+              name: Matej Focko
+              state: active
+              username: mfocko
+              web_url: https://gitlab.com/mfocko
+            blocking_issues_count: null
+            closed_at: null
+            closed_by: null
+            confidential: false
+            created_at: '2019-10-08T16:16:08.379Z'
+            description: Description for issue abcde
+            discussion_locked: null
+            downvotes: 0
+            due_date: null
+            has_tasks: false
+            health_status: null
+            id: 25732188
+            iid: 20
+            labels: []
+            merge_requests_count: 0
+            milestone: null
+            moved_to_id: null
+            project_id: 14233409
+            references:
+              full: packit-service/ogr-tests#20
+              relative: '#20'
+              short: '#20'
+            state: opened
+            task_completion_status:
+              completed_count: 0
+              count: 0
+            time_stats:
+              human_time_estimate: null
+              human_total_time_spent: null
+              time_estimate: 0
+              total_time_spent: 0
+            title: New Issue abcde
+            updated_at: '2019-10-08T16:16:08.379Z'
+            upvotes: 0
+            user_notes_count: 0
+            web_url: https://gitlab.com/packit-service/ogr-tests/-/issues/20
+            weight: null
+          - _links:
+              award_emoji: https://gitlab.com/api/v4/projects/14233409/issues/19/award_emoji
+              notes: https://gitlab.com/api/v4/projects/14233409/issues/19/notes
+              project: https://gitlab.com/api/v4/projects/14233409
+              self: https://gitlab.com/api/v4/projects/14233409/issues/19
+            assignee: null
+            assignees: []
+            author:
+              avatar_url: https://assets.gitlab-static.net/uploads/-/system/user/avatar/375555/avatar.png
+              id: 375555
+              name: Matej Focko
+              state: active
+              username: mfocko
+              web_url: https://gitlab.com/mfocko
+            blocking_issues_count: null
+            closed_at: '2019-10-08T16:16:06.796Z'
+            closed_by:
+              avatar_url: https://assets.gitlab-static.net/uploads/-/system/user/avatar/375555/avatar.png
+              id: 375555
+              name: Matej Focko
+              state: active
+              username: mfocko
+              web_url: https://gitlab.com/mfocko
+            confidential: false
+            created_at: '2019-10-08T16:16:05.165Z'
+            description: Description for issue for closing abcde
+            discussion_locked: null
+            downvotes: 0
+            due_date: null
+            has_tasks: false
+            health_status: null
+            id: 25732185
+            iid: 19
+            labels: []
+            merge_requests_count: 0
+            milestone: null
+            moved_to_id: null
+            project_id: 14233409
+            references:
+              full: packit-service/ogr-tests#19
+              relative: '#19'
+              short: '#19'
+            state: closed
+            task_completion_status:
+              completed_count: 0
+              count: 0
+            time_stats:
+              human_time_estimate: null
+              human_total_time_spent: null
+              time_estimate: 0
+              total_time_spent: 0
+            title: Close issue abcde
+            updated_at: '2019-10-08T16:16:06.827Z'
+            upvotes: 0
+            user_notes_count: 0
+            web_url: https://gitlab.com/packit-service/ogr-tests/-/issues/19
+            weight: null
+          _next: null
+          elapsed: 0.2
+          encoding: null
+          headers:
+            CF-Cache-Status: DYNAMIC
+            CF-RAY: 5cb56855f8ccfcad-VIE
+            Cache-Control: max-age=0, private, must-revalidate
+            Connection: keep-alive
+            Content-Encoding: gzip
+            Content-Type: application/json
+            Date: Fri, 01 Nov 2019 13-36-03 GMT
+            Etag: W/"4b947b630a2dd389de005d91e81d78d3"
+            Expect-CT: max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
+            GitLab-LB: fe-02-lb-gprd
+            GitLab-SV: localhost
+            Link: <https://gitlab.com/api/v4/projects/14233409/issues?author_username=mfocko&id=14233409&order_by=updated_at&page=1&per_page=20&sort=desc&state=all&with_labels_details=false>;
+              rel="first", <https://gitlab.com/api/v4/projects/14233409/issues?author_username=mfocko&id=14233409&order_by=updated_at&page=1&per_page=20&sort=desc&state=all&with_labels_details=false>;
+              rel="last"
+            RateLimit-Limit: '600'
+            RateLimit-Observed: '121'
+            RateLimit-Remaining: '479'
+            RateLimit-Reset: '1598862875'
+            RateLimit-ResetTime: Mon, 31 Aug 2020 08:34:35 GMT
+            Referrer-Policy: strict-origin-when-cross-origin
+            Server: cloudflare
+            Strict-Transport-Security: max-age=31536000
+            Transfer-Encoding: chunked
+            Vary: Accept-Encoding, Origin
+            X-Content-Type-Options: nosniff
+            X-Frame-Options: SAMEORIGIN
+            X-Next-Page: ''
+            X-Page: '1'
+            X-Per-Page: '20'
+            X-Prev-Page: ''
+            X-Request-Id: XXOlOh48wra
+            X-Runtime: '0.181297'
+            X-Total: '14'
+            X-Total-Pages: '1'
+            cf-request-id: 04e53f89bb0000fcadb2327200000001
+          raw: !!binary ""
+          reason: OK
+          status_code: 200
+      https://gitlab.com/api/v4/projects/packit-service%2Fogr-tests:
+      - metadata:
+          latency: 0.3556697368621826
+          module_call_list:
+          - unittest.case
+          - requre.online_replacing
+          - tests.integration.gitlab.test_issues
+          - ogr.services.gitlab.project
+          - ogr.services.gitlab.issue
+          - ogr.services.gitlab.project
+          - gitlab.exceptions
+          - gitlab.mixins
+          - gitlab
+          - requre.objects
+          - requre.cassette
+          - requests.sessions
+          - send
+        output:
+          __store_indicator: 2
+          _content:
+            _links:
+              events: https://gitlab.com/api/v4/projects/14233409/events
+              issues: https://gitlab.com/api/v4/projects/14233409/issues
+              labels: https://gitlab.com/api/v4/projects/14233409/labels
+              members: https://gitlab.com/api/v4/projects/14233409/members
+              merge_requests: https://gitlab.com/api/v4/projects/14233409/merge_requests
+              repo_branches: https://gitlab.com/api/v4/projects/14233409/repository/branches
+              self: https://gitlab.com/api/v4/projects/14233409
+            allow_merge_on_skipped_pipeline: null
+            approvals_before_merge: 0
+            archived: false
+            auto_cancel_pending_pipelines: enabled
+            auto_devops_deploy_strategy: continuous
+            auto_devops_enabled: false
+            autoclose_referenced_issues: true
+            avatar_url: null
+            build_coverage_regex: null
+            build_git_strategy: fetch
+            build_timeout: 3600
+            builds_access_level: enabled
+            can_create_merge_request_in: true
+            ci_config_path: null
+            ci_default_git_depth: 50
+            compliance_frameworks: []
+            container_registry_enabled: true
+            created_at: '2019-09-10T10:28:09.946Z'
+            creator_id: 433670
+            default_branch: master
+            description: Testing repository for python-ogr package.  |  https://github.com/packit-service/ogr
+            emails_disabled: null
+            empty_repo: false
+            external_authorization_classification_label: ''
+            forking_access_level: enabled
+            forks_count: 4
+            http_url_to_repo: https://gitlab.com/packit-service/ogr-tests.git
+            id: 14233409
+            import_error: null
+            import_status: none
+            issues_access_level: enabled
+            issues_enabled: true
+            jobs_enabled: true
+            last_activity_at: '2020-08-27T09:19:40.071Z'
+            lfs_enabled: true
+            marked_for_deletion_at: null
+            marked_for_deletion_on: null
+            merge_method: merge
+            merge_requests_access_level: enabled
+            merge_requests_enabled: true
+            mirror: false
+            name: ogr-tests
+            name_with_namespace: packit-service / ogr-tests
+            namespace:
+              avatar_url: /uploads/-/system/group/avatar/6032704/packit-logo.png
+              full_path: packit-service
+              id: 6032704
+              kind: group
+              name: packit-service
+              parent_id: null
+              path: packit-service
+              web_url: https://gitlab.com/groups/packit-service
+            only_allow_merge_if_all_discussions_are_resolved: false
+            only_allow_merge_if_pipeline_succeeds: false
+            open_issues_count: 51
+            packages_enabled: true
+            pages_access_level: enabled
+            path: ogr-tests
+            path_with_namespace: packit-service/ogr-tests
+            permissions:
+              group_access:
+                access_level: 40
+                notification_level: 3
+              project_access: null
+            printing_merge_request_link_enabled: true
+            public_jobs: true
+            readme_url: https://gitlab.com/packit-service/ogr-tests/-/blob/master/README.md
+            remove_source_branch_after_merge: null
+            repository_access_level: enabled
+            request_access_enabled: false
+            resolve_outdated_diff_discussions: false
+            runners_token: VjGdzzwZbsTY37sxUeWL
+            service_desk_address: incoming+packit-service-ogr-tests-14233409-issue-@incoming.gitlab.com
+            service_desk_enabled: true
+            shared_runners_enabled: true
+            shared_with_groups: []
+            snippets_access_level: enabled
+            snippets_enabled: true
+            ssh_url_to_repo: git@gitlab.com:packit-service/ogr-tests.git
+            star_count: 0
+            suggestion_commit_message: null
+            tag_list: []
+            visibility: public
+            web_url: https://gitlab.com/packit-service/ogr-tests
+            wiki_access_level: enabled
+            wiki_enabled: true
+          _next: null
+          elapsed: 0.2
+          encoding: null
+          headers:
+            CF-Cache-Status: DYNAMIC
+            CF-RAY: 5c94c4958e9e0fa2-VIE
+            Cache-Control: max-age=0, private, must-revalidate
+            Connection: keep-alive
+            Content-Encoding: gzip
+            Content-Type: application/json
+            Date: Fri, 01 Nov 2019 13-36-03 GMT
+            Etag: W/"689cda9e6c8445468488b00d8112c645"
+            Expect-CT: max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
+            GitLab-LB: fe-10-lb-gprd
+            GitLab-SV: localhost
+            RateLimit-Limit: '600'
+            RateLimit-Observed: '41'
+            RateLimit-Remaining: '559'
+            RateLimit-Reset: '1598520624'
+            RateLimit-ResetTime: Thu, 27 Aug 2020 09:30:24 GMT
+            Referrer-Policy: strict-origin-when-cross-origin
+            Server: cloudflare
+            Strict-Transport-Security: max-age=31536000
+            Transfer-Encoding: chunked
+            Vary: Accept-Encoding, Origin
+            X-Content-Type-Options: nosniff
+            X-Frame-Options: SAMEORIGIN
+            X-Request-Id: 8NKF2ovkfZ9
+            X-Runtime: '0.175587'
+            cf-request-id: 04d0d9317100000fa29a254200000001
+          raw: !!binary ""
+          reason: OK
+          status_code: 200
+      - metadata:
+          latency: 0.3492591381072998
+          module_call_list:
+          - unittest.case
+          - requre.online_replacing
+          - tests.integration.gitlab.test_issues
+          - ogr.services.gitlab.project
+          - ogr.services.gitlab.issue
+          - ogr.services.gitlab.project
+          - gitlab.exceptions
+          - gitlab.mixins
+          - gitlab
+          - requre.objects
+          - requre.cassette
+          - requests.sessions
+          - send
+        output:
+          __store_indicator: 2
+          _content:
+            _links:
+              events: https://gitlab.com/api/v4/projects/14233409/events
+              issues: https://gitlab.com/api/v4/projects/14233409/issues
+              labels: https://gitlab.com/api/v4/projects/14233409/labels
+              members: https://gitlab.com/api/v4/projects/14233409/members
+              merge_requests: https://gitlab.com/api/v4/projects/14233409/merge_requests
+              repo_branches: https://gitlab.com/api/v4/projects/14233409/repository/branches
+              self: https://gitlab.com/api/v4/projects/14233409
+            allow_merge_on_skipped_pipeline: null
+            approvals_before_merge: 0
+            archived: false
+            auto_cancel_pending_pipelines: enabled
+            auto_devops_deploy_strategy: continuous
+            auto_devops_enabled: false
+            autoclose_referenced_issues: true
+            avatar_url: null
+            build_coverage_regex: null
+            build_git_strategy: fetch
+            build_timeout: 3600
+            builds_access_level: enabled
+            can_create_merge_request_in: true
+            ci_config_path: null
+            ci_default_git_depth: 50
+            compliance_frameworks: []
+            container_registry_enabled: true
+            created_at: '2019-09-10T10:28:09.946Z'
+            creator_id: 433670
+            default_branch: master
+            description: Testing repository for python-ogr package.  |  https://github.com/packit-service/ogr
+            emails_disabled: null
+            empty_repo: false
+            external_authorization_classification_label: ''
+            forking_access_level: enabled
+            forks_count: 4
+            http_url_to_repo: https://gitlab.com/packit-service/ogr-tests.git
+            id: 14233409
+            import_error: null
+            import_status: none
+            issues_access_level: enabled
+            issues_enabled: true
+            jobs_enabled: true
+            last_activity_at: '2020-08-31T08:32:55.070Z'
+            lfs_enabled: true
+            marked_for_deletion_at: null
+            marked_for_deletion_on: null
+            merge_method: merge
+            merge_requests_access_level: enabled
+            merge_requests_enabled: true
+            mirror: false
+            name: ogr-tests
+            name_with_namespace: packit-service / ogr-tests
+            namespace:
+              avatar_url: /uploads/-/system/group/avatar/6032704/packit-logo.png
+              full_path: packit-service
+              id: 6032704
+              kind: group
+              name: packit-service
+              parent_id: null
+              path: packit-service
+              web_url: https://gitlab.com/groups/packit-service
+            only_allow_merge_if_all_discussions_are_resolved: false
+            only_allow_merge_if_pipeline_succeeds: false
+            open_issues_count: 56
+            packages_enabled: true
+            pages_access_level: enabled
+            path: ogr-tests
+            path_with_namespace: packit-service/ogr-tests
+            permissions:
+              group_access:
+                access_level: 40
+                notification_level: 3
+              project_access: null
+            printing_merge_request_link_enabled: true
+            public_jobs: true
+            readme_url: https://gitlab.com/packit-service/ogr-tests/-/blob/master/README.md
+            remove_source_branch_after_merge: null
+            repository_access_level: enabled
+            request_access_enabled: false
+            resolve_outdated_diff_discussions: false
+            runners_token: VjGdzzwZbsTY37sxUeWL
+            service_desk_address: incoming+packit-service-ogr-tests-14233409-issue-@incoming.gitlab.com
+            service_desk_enabled: true
+            shared_runners_enabled: true
+            shared_with_groups: []
+            snippets_access_level: enabled
+            snippets_enabled: true
+            ssh_url_to_repo: git@gitlab.com:packit-service/ogr-tests.git
+            star_count: 0
+            suggestion_commit_message: null
+            tag_list: []
+            visibility: public
+            web_url: https://gitlab.com/packit-service/ogr-tests
+            wiki_access_level: enabled
+            wiki_enabled: true
+          _next: null
+          elapsed: 0.2
+          encoding: null
+          headers:
+            CF-Cache-Status: DYNAMIC
+            CF-RAY: 5cb56853adc3fcad-VIE
+            Cache-Control: max-age=0, private, must-revalidate
+            Connection: keep-alive
+            Content-Encoding: gzip
+            Content-Type: application/json
+            Date: Fri, 01 Nov 2019 13-36-03 GMT
+            Etag: W/"0e711dc52726ed86f49c4cf226f050c3"
+            Expect-CT: max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
+            GitLab-LB: fe-09-lb-gprd
+            GitLab-SV: localhost
+            RateLimit-Limit: '600'
+            RateLimit-Observed: '120'
+            RateLimit-Remaining: '480'
+            RateLimit-Reset: '1598862875'
+            RateLimit-ResetTime: Mon, 31 Aug 2020 08:34:35 GMT
+            Referrer-Policy: strict-origin-when-cross-origin
+            Server: cloudflare
+            Strict-Transport-Security: max-age=31536000
+            Transfer-Encoding: chunked
+            Vary: Accept-Encoding, Origin
+            X-Content-Type-Options: nosniff
+            X-Frame-Options: SAMEORIGIN
+            X-Request-Id: dNhv34sXiK2
+            X-Runtime: '0.171990'
+            cf-request-id: 04e53f884b0000fcadb2319200000001
+          raw: !!binary ""
+          reason: OK
+          status_code: 200
+      https://gitlab.com/api/v4/user:
+      - metadata:
+          latency: 0.5048916339874268
+          module_call_list:
+          - unittest.case
+          - requre.online_replacing
+          - tests.integration.gitlab.test_issues
+          - ogr.services.gitlab.project
+          - ogr.services.gitlab.issue
+          - ogr.services.gitlab.project
+          - ogr.services.gitlab.service
+          - gitlab
+          - gitlab.exceptions
+          - gitlab.mixins
+          - gitlab
+          - requre.objects
+          - requre.cassette
+          - requests.sessions
+          - send
+        output:
+          __store_indicator: 2
+          _content:
+            avatar_url: https://assets.gitlab-static.net/uploads/-/system/user/avatar/375555/avatar.png
+            bio: ''
+            bio_html: ''
+            can_create_group: true
+            can_create_project: true
+            color_scheme_id: 4
+            confirmed_at: '2020-07-24T20:00:33.764Z'
+            created_at: '2016-01-15T21:12:31.705Z'
+            current_sign_in_at: '2020-08-27T09:28:33.626Z'
+            email: matej.focko@outlook.com
+            external: false
+            extra_shared_runners_minutes_limit: null
+            id: 375555
+            identities: []
+            job_title: ''
+            last_activity_on: '2020-08-27'
+            last_sign_in_at: '2020-07-24T21:14:08.642Z'
+            linkedin: ''
+            location: "Ko\u0161ice, Slovakia"
+            name: Matej Focko
+            organization: ''
+            private_profile: false
+            projects_limit: 100000
+            public_email: ''
+            shared_runners_minutes_limit: 2000
+            skype: ''
+            state: active
+            theme_id: 7
+            twitter: MatejFocko
+            two_factor_enabled: true
+            username: mfocko
+            web_url: https://gitlab.com/mfocko
+            website_url: ''
+            work_information: null
+          _next: null
+          elapsed: 0.2
+          encoding: null
+          headers:
+            CF-Cache-Status: DYNAMIC
+            CF-RAY: 5c94c492ea670fa2-VIE
+            Cache-Control: max-age=0, private, must-revalidate
+            Connection: keep-alive
+            Content-Encoding: gzip
+            Content-Type: application/json
+            Date: Fri, 01 Nov 2019 13-36-03 GMT
+            Etag: W/"6910ed4f44c82c35c85beb26d1ecdef1"
+            Expect-CT: max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
+            GitLab-LB: fe-02-lb-gprd
+            GitLab-SV: localhost
+            RateLimit-Limit: '600'
+            RateLimit-Observed: '40'
+            RateLimit-Remaining: '560'
+            RateLimit-Reset: '1598520623'
+            RateLimit-ResetTime: Thu, 27 Aug 2020 09:30:23 GMT
+            Referrer-Policy: strict-origin-when-cross-origin
+            Server: cloudflare
+            Set-Cookie: __cfduid=d5ba0644d64921dd7f2810453a2ed7e691598520563; expires=Sat,
+              26-Sep-20 09:29:23 GMT; path=/; domain=.gitlab.com; HttpOnly; SameSite=Lax;
+              Secure
+            Strict-Transport-Security: max-age=31536000
+            Transfer-Encoding: chunked
+            Vary: Accept-Encoding, Origin
+            X-Content-Type-Options: nosniff
+            X-Frame-Options: SAMEORIGIN
+            X-Request-Id: fahMjOMRS92
+            X-Runtime: '0.029901'
+            cf-request-id: 04d0d92fcf00000fa29a238200000001
+          raw: !!binary ""
+          reason: OK
+          status_code: 200
+      - metadata:
+          latency: 0.3036160469055176
+          module_call_list:
+          - unittest.case
+          - requre.online_replacing
+          - tests.integration.gitlab.test_issues
+          - ogr.services.gitlab.project
+          - ogr.services.gitlab.issue
+          - ogr.services.gitlab.project
+          - ogr.services.gitlab.service
+          - gitlab
+          - gitlab.exceptions
+          - gitlab.mixins
+          - gitlab
+          - requre.objects
+          - requre.cassette
+          - requests.sessions
+          - send
+        output:
+          __store_indicator: 2
+          _content:
+            avatar_url: https://assets.gitlab-static.net/uploads/-/system/user/avatar/375555/avatar.png
+            bio: ''
+            bio_html: ''
+            can_create_group: true
+            can_create_project: true
+            color_scheme_id: 4
+            confirmed_at: '2020-07-24T20:00:33.764Z'
+            created_at: '2016-01-15T21:12:31.705Z'
+            current_sign_in_at: '2020-08-27T09:28:33.626Z'
+            email: matej.focko@outlook.com
+            external: false
+            extra_shared_runners_minutes_limit: null
+            id: 375555
+            identities: []
+            job_title: ''
+            last_activity_on: '2020-08-31'
+            last_sign_in_at: '2020-07-24T21:14:08.642Z'
+            linkedin: ''
+            location: "Ko\u0161ice, Slovakia"
+            name: Matej Focko
+            organization: ''
+            private_profile: false
+            projects_limit: 100000
+            public_email: ''
+            shared_runners_minutes_limit: 2000
+            skype: ''
+            state: active
+            theme_id: 7
+            twitter: MatejFocko
+            two_factor_enabled: true
+            username: mfocko
+            web_url: https://gitlab.com/mfocko
+            website_url: ''
+            work_information: null
+          _next: null
+          elapsed: 0.2
+          encoding: null
+          headers:
+            CF-Cache-Status: DYNAMIC
+            CF-RAY: 5cb568525b9ffcad-VIE
+            Cache-Control: max-age=0, private, must-revalidate
+            Connection: keep-alive
+            Content-Encoding: gzip
+            Content-Type: application/json
+            Date: Fri, 01 Nov 2019 13-36-03 GMT
+            Etag: W/"200774d261a50e11c2ad70cff27c4040"
+            Expect-CT: max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
+            GitLab-LB: fe-08-lb-gprd
+            GitLab-SV: localhost
+            RateLimit-Limit: '600'
+            RateLimit-Observed: '119'
+            RateLimit-Remaining: '481'
+            RateLimit-Reset: '1598862875'
+            RateLimit-ResetTime: Mon, 31 Aug 2020 08:34:35 GMT
+            Referrer-Policy: strict-origin-when-cross-origin
+            Server: cloudflare
+            Set-Cookie: __cfduid=ddece3fe80d0db32de42a8749b412e75c1598862815; expires=Wed,
+              30-Sep-20 08:33:35 GMT; path=/; domain=.gitlab.com; HttpOnly; SameSite=Lax;
+              Secure
+            Strict-Transport-Security: max-age=31536000
+            Transfer-Encoding: chunked
+            Vary: Accept-Encoding, Origin
+            X-Content-Type-Options: nosniff
+            X-Frame-Options: SAMEORIGIN
+            X-Request-Id: j41hVEYTN68
+            X-Runtime: '0.027482'
+            cf-request-id: 04e53f87720000fcadb230a200000001
+          raw: !!binary ""
+          reason: OK
+          status_code: 200

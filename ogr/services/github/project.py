@@ -584,6 +584,7 @@ class GithubProject(BaseGitProject):
         return [
             self.service.get_project_from_github_repository(fork)
             for fork in self.github_repo.get_forks()
+            if fork.owner
         ]
 
     def get_web_url(self) -> str:
