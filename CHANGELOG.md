@@ -1,3 +1,16 @@
+# 0.16.0
+
+## Features
+
+- Service classes now have `hostname` property (@lachmanfrantisek).
+
+## Internals
+
+- Contribution guide has been updated (@mfocko).
+- Tests have been refactored and test data regenerated (@jscotka, @mfocko, @lachmanfrantisek).
+  - Minor refactor of `parse_git_repo` (@mfocko).
+- README now contains badges for tools that we use (pre-commit, black) (@lachmanfrantisek).
+
 # 0.15.0
 
 ## Features
