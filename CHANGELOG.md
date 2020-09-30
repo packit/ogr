@@ -1,15 +1,15 @@
 # 0.16.0
 
-* Update contribution guide
-* Refactor Pagure and factory tests
-* Refactor GitLab tests
-* Refactor GitHub tests
-* this is first draft how new tests could look like
-* Add badge for pre-commit and black to README
-* Refactor `parse_git_repo`
-* Use parenthesis for lru_cache decorator
-* Add hostname property to service class
-* Fix inheritance of GitlabService from BaseGitService
+## Features
+
+- Service classes now have `hostname` property (@lachmanfrantisek).
+
+## Internals
+
+- Contribution guide has been updated (@mfocko).
+- Tests have been refactored and test data regenerated (@jscotka, @mfocko, @lachmanfrantisek).
+  - Minor refactor of `parse_git_repo` (@mfocko).
+- README now contains badges for tools that we use (pre-commit, black) (@lachmanfrantisek).
 
 # 0.15.0
 
