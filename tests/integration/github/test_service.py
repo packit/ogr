@@ -27,6 +27,34 @@ class Service(GithubTests):
         )
         assert project.github_repo
 
+    def test_project_create_with_description(self):
+        """
+        Remove the following project before data regeneration:
+        https://github.com/$USERNAME/new-ogr-testing-repo-with-description
+        """
+        name_of_the_repo = "new-ogr-testing-repo-with-description"
+        description = "The description of the newly created project."
+
+        project = self.service.get_project(
+            repo=name_of_the_repo, namespace=self.service.user.get_username()
+        )
+        with self.assertRaises(GithubException):
+            project.github_repo
+
+        new_project = self.service.project_create(
+            name_of_the_repo,
+            description=description,
+        )
+        assert new_project.repo == name_of_the_repo
+        assert new_project.github_repo
+        assert new_project.get_description() == description
+
+        project = self.service.get_project(
+            repo=name_of_the_repo, namespace=self.service.user.get_username()
+        )
+        assert project.github_repo
+        assert project.get_description() == description
+
     def test_project_create_in_the_group(self):
         """
         Remove https://github.com/packit/repo_created_for_test_in_group
