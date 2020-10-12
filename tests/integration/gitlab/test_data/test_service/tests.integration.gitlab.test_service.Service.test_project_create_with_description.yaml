@@ -1,0 +1,467 @@
+_requre:
+  DataTypes: 1
+  key_strategy: StorageKeysInspectSimple
+  version_storage_file: 2
+requests.sessions:
+  send:
+    GET:
+      https://gitlab.com/api/v4/projects/lachmanfrantisek%2Fnew-ogr-testing-repo-with-description:
+      - metadata:
+          latency: 0.221832275390625
+          module_call_list:
+          - unittest.main
+          - teamcity.unittestpy
+          - unittest.runner
+          - unittest.suite
+          - unittest.case
+          - requre.online_replacing
+          - test_service
+          - ogr.services.gitlab.project
+          - gitlab.exceptions
+          - gitlab.mixins
+          - gitlab
+          - requre.objects
+          - requre.cassette
+          - requests.sessions
+          - send
+        output:
+          __store_indicator: 2
+          _content:
+            message: 404 Project Not Found
+          _next: null
+          elapsed: 0.2
+          encoding: null
+          headers:
+            CF-Cache-Status: DYNAMIC
+            CF-RAY: 5df64dc00bacf9d6-PRG
+            Cache-Control: no-cache
+            Connection: keep-alive
+            Content-Length: '35'
+            Content-Type: application/json
+            Date: Fri, 01 Nov 2019 13-36-03 GMT
+            Expect-CT: max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
+            GitLab-LB: fe-01-lb-gprd
+            GitLab-SV: localhost
+            RateLimit-Limit: '600'
+            RateLimit-Observed: '2'
+            RateLimit-Remaining: '598'
+            RateLimit-Reset: '1602227715'
+            RateLimit-ResetTime: Fri, 09 Oct 2020 07:15:15 GMT
+            Server: cloudflare
+            Vary: Origin
+            X-Content-Type-Options: nosniff
+            X-Frame-Options: SAMEORIGIN
+            X-Request-Id: 5dHVaVTlJSa
+            X-Runtime: '0.046844'
+            cf-request-id: 05adceec050000f9d6e396f200000001
+          raw: !!binary ""
+          reason: Not Found
+          status_code: 404
+      - metadata:
+          latency: 0.3035299777984619
+          module_call_list:
+          - unittest.main
+          - teamcity.unittestpy
+          - unittest.runner
+          - unittest.suite
+          - unittest.case
+          - requre.online_replacing
+          - test_service
+          - ogr.services.gitlab.project
+          - gitlab.exceptions
+          - gitlab.mixins
+          - gitlab
+          - requre.objects
+          - requre.cassette
+          - requests.sessions
+          - send
+        output:
+          __store_indicator: 2
+          _content:
+            _links:
+              events: https://gitlab.com/api/v4/projects/21670066/events
+              issues: https://gitlab.com/api/v4/projects/21670066/issues
+              labels: https://gitlab.com/api/v4/projects/21670066/labels
+              members: https://gitlab.com/api/v4/projects/21670066/members
+              merge_requests: https://gitlab.com/api/v4/projects/21670066/merge_requests
+              repo_branches: https://gitlab.com/api/v4/projects/21670066/repository/branches
+              self: https://gitlab.com/api/v4/projects/21670066
+            allow_merge_on_skipped_pipeline: null
+            archived: false
+            auto_cancel_pending_pipelines: enabled
+            auto_devops_deploy_strategy: continuous
+            auto_devops_enabled: false
+            autoclose_referenced_issues: true
+            avatar_url: null
+            build_coverage_regex: null
+            build_git_strategy: fetch
+            build_timeout: 3600
+            builds_access_level: enabled
+            can_create_merge_request_in: true
+            ci_config_path: ''
+            ci_default_git_depth: 50
+            compliance_frameworks: []
+            container_expiration_policy:
+              cadence: 1d
+              enabled: true
+              keep_n: 10
+              name_regex: null
+              name_regex_keep: null
+              next_run_at: '2020-10-10T07:14:16.236Z'
+              older_than: 90d
+            container_registry_enabled: true
+            created_at: '2020-10-09T07:14:16.217Z'
+            creator_id: 433670
+            default_branch: null
+            description: The description of the newly created project.
+            emails_disabled: null
+            empty_repo: true
+            external_authorization_classification_label: ''
+            forking_access_level: enabled
+            forks_count: 0
+            http_url_to_repo: https://gitlab.com/lachmanfrantisek/new-ogr-testing-repo-with-description.git
+            id: 21670066
+            import_error: null
+            import_status: none
+            issues_access_level: enabled
+            issues_enabled: true
+            jobs_enabled: true
+            last_activity_at: '2020-10-09T07:14:16.217Z'
+            lfs_enabled: true
+            merge_method: merge
+            merge_requests_access_level: enabled
+            merge_requests_enabled: true
+            name: new-ogr-testing-repo-with-description
+            name_with_namespace: "Franti\u0161ek Lachman / new-ogr-testing-repo-with-description"
+            namespace:
+              avatar_url: /uploads/-/system/user/avatar/433670/avatar.png
+              full_path: lachmanfrantisek
+              id: 509438
+              kind: user
+              name: "Franti\u0161ek Lachman"
+              parent_id: null
+              path: lachmanfrantisek
+              web_url: https://gitlab.com/lachmanfrantisek
+            only_allow_merge_if_all_discussions_are_resolved: false
+            only_allow_merge_if_pipeline_succeeds: false
+            open_issues_count: 0
+            owner:
+              avatar_url: https://assets.gitlab-static.net/uploads/-/system/user/avatar/433670/avatar.png
+              id: 433670
+              name: "Franti\u0161ek Lachman"
+              state: active
+              username: lachmanfrantisek
+              web_url: https://gitlab.com/lachmanfrantisek
+            packages_enabled: true
+            pages_access_level: private
+            path: new-ogr-testing-repo-with-description
+            path_with_namespace: lachmanfrantisek/new-ogr-testing-repo-with-description
+            permissions:
+              group_access: null
+              project_access:
+                access_level: 40
+                notification_level: 3
+            printing_merge_request_link_enabled: true
+            public_jobs: true
+            readme_url: null
+            remove_source_branch_after_merge: true
+            repository_access_level: enabled
+            request_access_enabled: true
+            resolve_outdated_diff_discussions: false
+            runners_token: sqSuoA5yK3Vs-1soPKZM
+            service_desk_address: incoming+lachmanfrantisek-new-ogr-testing-repo-with-description-21670066-issue-@incoming.gitlab.com
+            service_desk_enabled: true
+            shared_runners_enabled: true
+            shared_with_groups: []
+            snippets_access_level: enabled
+            snippets_enabled: true
+            ssh_url_to_repo: git@gitlab.com:lachmanfrantisek/new-ogr-testing-repo-with-description.git
+            star_count: 0
+            suggestion_commit_message: null
+            tag_list: []
+            visibility: private
+            web_url: https://gitlab.com/lachmanfrantisek/new-ogr-testing-repo-with-description
+            wiki_access_level: enabled
+            wiki_enabled: true
+          _next: null
+          elapsed: 0.2
+          encoding: null
+          headers:
+            CF-Cache-Status: DYNAMIC
+            CF-RAY: 5df64dc5dea0f9d6-PRG
+            Cache-Control: max-age=0, private, must-revalidate
+            Connection: keep-alive
+            Content-Encoding: gzip
+            Content-Type: application/json
+            Date: Fri, 01 Nov 2019 13-36-03 GMT
+            Etag: W/"fd4d3ac08c44e2719984121535a08832"
+            Expect-CT: max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
+            GitLab-LB: fe-04-lb-gprd
+            GitLab-SV: localhost
+            RateLimit-Limit: '600'
+            RateLimit-Observed: '4'
+            RateLimit-Remaining: '596'
+            RateLimit-Reset: '1602227716'
+            RateLimit-ResetTime: Fri, 09 Oct 2020 07:15:16 GMT
+            Referrer-Policy: strict-origin-when-cross-origin
+            Server: cloudflare
+            Strict-Transport-Security: max-age=31536000
+            Transfer-Encoding: chunked
+            Vary: Accept-Encoding, Origin
+            X-Content-Type-Options: nosniff
+            X-Frame-Options: SAMEORIGIN
+            X-Request-Id: aPLouSKdMO7
+            X-Runtime: '0.102936'
+            cf-request-id: 05adceefa50000f9d6e39a9200000001
+          raw: !!binary ""
+          reason: OK
+          status_code: 200
+      https://gitlab.com/api/v4/user:
+      - metadata:
+          latency: 0.5020523071289062
+          module_call_list:
+          - unittest.main
+          - teamcity.unittestpy
+          - unittest.runner
+          - unittest.suite
+          - unittest.case
+          - requre.online_replacing
+          - test_service
+          - ogr.services.gitlab.user
+          - ogr.services.gitlab.service
+          - gitlab
+          - gitlab.exceptions
+          - gitlab.mixins
+          - gitlab
+          - requre.objects
+          - requre.cassette
+          - requests.sessions
+          - send
+        output:
+          __store_indicator: 2
+          _content:
+            avatar_url: https://assets.gitlab-static.net/uploads/-/system/user/avatar/433670/avatar.png
+            bio: ''
+            bio_html: ''
+            can_create_group: true
+            can_create_project: true
+            color_scheme_id: 5
+            confirmed_at: '2016-03-01T11:08:34.779Z'
+            created_at: '2016-03-01T11:08:00.390Z'
+            current_sign_in_at: '2020-09-14T09:21:53.853Z'
+            email: lachmanfrantisek@gmail.com
+            external: false
+            extra_shared_runners_minutes_limit: null
+            id: 433670
+            identities: []
+            job_title: ''
+            last_activity_on: '2020-10-09'
+            last_sign_in_at: '2020-09-07T09:53:44.736Z'
+            linkedin: ''
+            location: ''
+            name: "Franti\u0161ek Lachman"
+            organization: ''
+            private_profile: false
+            projects_limit: 100000
+            public_email: lachmanfrantisek@gmail.com
+            shared_runners_minutes_limit: 2000
+            skype: ''
+            state: active
+            theme_id: 2
+            twitter: ''
+            two_factor_enabled: true
+            username: lachmanfrantisek
+            web_url: https://gitlab.com/lachmanfrantisek
+            website_url: lachman.tk
+            work_information: null
+          _next: null
+          elapsed: 0.2
+          encoding: null
+          headers:
+            CF-Cache-Status: DYNAMIC
+            CF-RAY: 5df64db8ce09f9d6-PRG
+            Cache-Control: max-age=0, private, must-revalidate
+            Connection: keep-alive
+            Content-Encoding: gzip
+            Content-Type: application/json
+            Date: Fri, 01 Nov 2019 13-36-03 GMT
+            Etag: W/"a63cdab6c798a25644985a1fc4a94076"
+            Expect-CT: max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
+            GitLab-LB: fe-01-lb-gprd
+            GitLab-SV: localhost
+            RateLimit-Limit: '600'
+            RateLimit-Observed: '1'
+            RateLimit-Remaining: '599'
+            RateLimit-Reset: '1602227714'
+            RateLimit-ResetTime: Fri, 09 Oct 2020 07:15:14 GMT
+            Referrer-Policy: strict-origin-when-cross-origin
+            Server: cloudflare
+            Set-Cookie: __cfduid=d7d9123bb48f27f46255b9f52375c9bd91602227654; expires=Sun,
+              08-Nov-20 07:14:14 GMT; path=/; domain=.gitlab.com; HttpOnly; SameSite=Lax;
+              Secure
+            Strict-Transport-Security: max-age=31536000
+            Transfer-Encoding: chunked
+            Vary: Accept-Encoding, Origin
+            X-Content-Type-Options: nosniff
+            X-Frame-Options: SAMEORIGIN
+            X-Request-Id: YnQMObIRwY4
+            X-Runtime: '0.065629'
+            cf-request-id: 05adcee7810000f9d6e393f200000001
+          raw: !!binary ""
+          reason: OK
+          status_code: 200
+    POST:
+      https://gitlab.com/api/v4/projects:
+      - metadata:
+          latency: 0.6315863132476807
+          module_call_list:
+          - unittest.main
+          - teamcity.unittestpy
+          - unittest.runner
+          - unittest.suite
+          - unittest.case
+          - requre.online_replacing
+          - test_service
+          - ogr.services.gitlab.service
+          - gitlab.exceptions
+          - gitlab.mixins
+          - gitlab
+          - requre.objects
+          - requre.cassette
+          - requests.sessions
+          - send
+        output:
+          __store_indicator: 2
+          _content:
+            _links:
+              events: https://gitlab.com/api/v4/projects/21670066/events
+              issues: https://gitlab.com/api/v4/projects/21670066/issues
+              labels: https://gitlab.com/api/v4/projects/21670066/labels
+              members: https://gitlab.com/api/v4/projects/21670066/members
+              merge_requests: https://gitlab.com/api/v4/projects/21670066/merge_requests
+              repo_branches: https://gitlab.com/api/v4/projects/21670066/repository/branches
+              self: https://gitlab.com/api/v4/projects/21670066
+            allow_merge_on_skipped_pipeline: null
+            archived: false
+            auto_cancel_pending_pipelines: enabled
+            auto_devops_deploy_strategy: continuous
+            auto_devops_enabled: false
+            autoclose_referenced_issues: true
+            avatar_url: null
+            build_coverage_regex: null
+            build_git_strategy: fetch
+            build_timeout: 3600
+            builds_access_level: enabled
+            can_create_merge_request_in: true
+            ci_config_path: ''
+            ci_default_git_depth: 50
+            compliance_frameworks: []
+            container_expiration_policy:
+              cadence: 1d
+              enabled: true
+              keep_n: 10
+              name_regex: null
+              name_regex_keep: null
+              next_run_at: '2020-10-10T07:14:16.236Z'
+              older_than: 90d
+            container_registry_enabled: true
+            created_at: '2020-10-09T07:14:16.217Z'
+            creator_id: 433670
+            default_branch: null
+            description: The description of the newly created project.
+            emails_disabled: null
+            empty_repo: true
+            external_authorization_classification_label: ''
+            forking_access_level: enabled
+            forks_count: 0
+            http_url_to_repo: https://gitlab.com/lachmanfrantisek/new-ogr-testing-repo-with-description.git
+            id: 21670066
+            import_error: null
+            import_status: none
+            issues_access_level: enabled
+            issues_enabled: true
+            jobs_enabled: true
+            last_activity_at: '2020-10-09T07:14:16.217Z'
+            lfs_enabled: true
+            merge_method: merge
+            merge_requests_access_level: enabled
+            merge_requests_enabled: true
+            name: new-ogr-testing-repo-with-description
+            name_with_namespace: "Franti\u0161ek Lachman / new-ogr-testing-repo-with-description"
+            namespace:
+              avatar_url: /uploads/-/system/user/avatar/433670/avatar.png
+              full_path: lachmanfrantisek
+              id: 509438
+              kind: user
+              name: "Franti\u0161ek Lachman"
+              parent_id: null
+              path: lachmanfrantisek
+              web_url: https://gitlab.com/lachmanfrantisek
+            only_allow_merge_if_all_discussions_are_resolved: false
+            only_allow_merge_if_pipeline_succeeds: false
+            open_issues_count: 0
+            owner:
+              avatar_url: https://assets.gitlab-static.net/uploads/-/system/user/avatar/433670/avatar.png
+              id: 433670
+              name: "Franti\u0161ek Lachman"
+              state: active
+              username: lachmanfrantisek
+              web_url: https://gitlab.com/lachmanfrantisek
+            packages_enabled: true
+            pages_access_level: private
+            path: new-ogr-testing-repo-with-description
+            path_with_namespace: lachmanfrantisek/new-ogr-testing-repo-with-description
+            printing_merge_request_link_enabled: true
+            public_jobs: true
+            readme_url: null
+            remove_source_branch_after_merge: true
+            repository_access_level: enabled
+            request_access_enabled: true
+            resolve_outdated_diff_discussions: false
+            runners_token: sqSuoA5yK3Vs-1soPKZM
+            service_desk_address: incoming+lachmanfrantisek-new-ogr-testing-repo-with-description-21670066-issue-@incoming.gitlab.com
+            service_desk_enabled: true
+            shared_runners_enabled: true
+            shared_with_groups: []
+            snippets_access_level: enabled
+            snippets_enabled: true
+            ssh_url_to_repo: git@gitlab.com:lachmanfrantisek/new-ogr-testing-repo-with-description.git
+            star_count: 0
+            suggestion_commit_message: null
+            tag_list: []
+            visibility: private
+            web_url: https://gitlab.com/lachmanfrantisek/new-ogr-testing-repo-with-description
+            wiki_access_level: enabled
+            wiki_enabled: true
+          _next: null
+          elapsed: 0.2
+          encoding: null
+          headers:
+            CF-Cache-Status: DYNAMIC
+            CF-RAY: 5df64dc1af30f9d6-PRG
+            Cache-Control: max-age=0, private, must-revalidate
+            Connection: keep-alive
+            Content-Length: '3571'
+            Content-Type: application/json
+            Date: Fri, 01 Nov 2019 13-36-03 GMT
+            Etag: W/"d0f5717168681d589f324518abe2e008"
+            Expect-CT: max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
+            GitLab-LB: fe-03-lb-gprd
+            GitLab-SV: localhost
+            RateLimit-Limit: '600'
+            RateLimit-Observed: '3'
+            RateLimit-Remaining: '597'
+            RateLimit-Reset: '1602227716'
+            RateLimit-ResetTime: Fri, 09 Oct 2020 07:15:16 GMT
+            Referrer-Policy: strict-origin-when-cross-origin
+            Server: cloudflare
+            Strict-Transport-Security: max-age=31536000
+            Vary: Origin
+            X-Content-Type-Options: nosniff
+            X-Frame-Options: SAMEORIGIN
+            X-Request-Id: YTteVZP9wJ6
+            X-Runtime: '0.451626'
+            cf-request-id: 05adceed090000f9d6e3983200000001
+          raw: !!binary ""
+          reason: Created
+          status_code: 201

@@ -20,9 +20,10 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-from typing import Type
+from typing import Optional, Type
 
 import github
+import github.GithubObject
 from github import (
     UnknownObjectException,
     Github as PyGithubInstance,
@@ -149,7 +150,12 @@ class GithubService(BaseGitService):
     def change_token(self, new_token: str) -> None:
         self.authentication = TokenAuthentication(new_token)
 
-    def project_create(self, repo: str, namespace: str = None) -> "GithubProject":
+    def project_create(
+        self,
+        repo: str,
+        namespace: Optional[str] = None,
+        description: Optional[str] = None,
+    ) -> "GithubProject":
         if namespace:
             try:
                 owner = self.github.get_organization(namespace)
@@ -158,7 +164,10 @@ class GithubService(BaseGitService):
         else:
             owner = self.github.get_user()
 
-        new_repo = owner.create_repo(name=repo)
+        new_repo = owner.create_repo(
+            name=repo,
+            description=description if description else github.GithubObject.NotSet,
+        )
         return GithubProject(
             repo=repo,
             namespace=namespace or owner.login,

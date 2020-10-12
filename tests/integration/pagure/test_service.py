@@ -23,6 +23,25 @@ class Service(PagureTests):
         project = self.service.get_project(repo=name, namespace=None)
         assert project.exists()
 
+    def test_project_create_with_description(self):
+        """
+        Remove https://pagure.io/"name" before data regeneration
+        in case you are not owner of repo, create your
+        """
+        name = "new-ogr-testing-repo-with-description"
+        description = "The description of the newly created project."
+        project = self.service.get_project(repo=name, namespace=None)
+        assert not project.exists()
+
+        new_project = self.service.project_create(repo=name, description=description)
+        assert new_project.exists()
+        assert new_project.repo == name
+        assert new_project.get_description() == description
+
+        project = self.service.get_project(repo=name, namespace=None)
+        assert project.exists()
+        assert new_project.get_description() == description
+
     def test_project_create_in_the_group(self):
         """
         Remove https://pagure.io/packit-service/new-ogr-testing-repo-in-the-group

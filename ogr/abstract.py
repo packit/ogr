@@ -773,13 +773,17 @@ class GitService:
         raise NotImplementedError
 
     def project_create(
-        self, repo: str, namespace: Optional[str] = None
+        self,
+        repo: str,
+        namespace: Optional[str] = None,
+        description: Optional[str] = None,
     ) -> "GitProject":
         """
         Create a new project.
 
         :param repo: str
         :param namespace: Optional[str]
+        :param description: str
         :return: GitProject
         """
         raise NotImplementedError()
