@@ -22,6 +22,7 @@
 
 from typing import List
 
+from ogr.exceptions import OperationNotSupported
 from ogr.services import pagure as ogr_pagure
 from ogr.services.base import BaseGitUser
 from ogr.services.pagure.project import PagureProject
@@ -68,3 +69,9 @@ class PagureUser(BaseGitUser):
             )
             for fork in raw_forks
         ]
+
+    def get_email(self) -> str:
+        # Not supported by Pagure
+        raise OperationNotSupported(
+            "Pagure does not support retrieving of user's email address"
+        )
