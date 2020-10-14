@@ -1,8 +1,9 @@
 ---
 - name: This is a recipe for how to run ogr tests
   hosts: all
+  vars:
+    project_dir: "{{ playbook_dir }}/.."
   tasks:
-    - include_tasks: tasks/zuul-project-setup.yaml
     - include_tasks: tasks/rpm-test-deps.yaml
     - include_tasks: tasks/install-ogr.yaml
     - include_tasks: tasks/configure-git.yaml
