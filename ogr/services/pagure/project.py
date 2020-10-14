@@ -307,7 +307,7 @@ class PagureProject(BaseGitProject):
                 return None
         return self._construct_fork_project()
 
-    def exists(self):
+    def exists(self) -> bool:
         response = self._call_project_api_raw()
         return response.ok
 

@@ -1,11 +1,11 @@
 from datetime import datetime
 
 import pytest
-from requre.online_replacing import record_requests_for_all_methods
 
-from tests.integration.gitlab.base import GitlabTests
-from ogr.abstract import CommitStatus, AccessLevel
+from ogr.abstract import AccessLevel, CommitStatus
 from ogr.exceptions import GitlabAPIException
+from requre.online_replacing import record_requests_for_all_methods
+from tests.integration.gitlab.base import GitlabTests
 
 
 @record_requests_for_all_methods()
@@ -158,6 +158,14 @@ class GenericCommands(GitlabTests):
 
     def test_full_repo_name(self):
         assert self.project.full_repo_name == "packit-service/ogr-tests"
+
+    def test_project_exists(self):
+        assert self.project.exists()
+
+    def test_project_not_exists(self):
+        assert not self.service.get_project(
+            repo="some-non-existing-repo", namespace="some-none-existing-namespace"
+        ).exists()
 
     def test_get_owners(self):
         owners = self.project.get_owners()

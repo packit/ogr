@@ -24,7 +24,7 @@ import logging
 from typing import List, Optional, Dict, Set, Union
 
 import gitlab
-from gitlab.v4.objects import Project as GitlabObjectsProject
+from gitlab.v4.objects import GitlabGetError, Project as GitlabObjectsProject
 
 from ogr.abstract import (
     PullRequest,
@@ -119,6 +119,15 @@ class GitlabProject(BaseGitProject):
         except Exception as ex:
             logger.debug(f"Project {self.repo}/{user_login} does not exist: {ex}")
         return None
+
+    def exists(self) -> bool:
+        try:
+            _ = self.gitlab_repo
+            return True
+        except GitlabGetError as ex:
+            if "404 Project Not Found" in str(ex):
+                return False
+            raise GitlabAPIException from ex
 
     def is_private(self) -> bool:
         """
