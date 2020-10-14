@@ -803,6 +803,14 @@ class GitProject:
         self.repo = repo
         self.namespace = namespace
 
+    def exists(self) -> bool:
+        """
+        Check the existence of the repo.
+
+        :return: True if the project exists, False otherwise
+        """
+        raise NotImplementedError()
+
     def is_private(self) -> bool:
         """
         Is this repo private (accessible only by users with permissions)
