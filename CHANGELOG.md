@@ -1,3 +1,17 @@
+# 0.17.0
+
+## Features
+
+- GitLab projects got the `exists()` method implemented (@lachmanfrantisek).
+- It is possible to specify a description when creating projects with
+  `project_create()` (@lachmanfrantisek).
+
+## Minor
+
+- When asking for a Pagure user's email address, the error raised explains
+  that this is not possible due to the Pagure API not supporting this feature
+  (@mfocko).
+
 # 0.16.0
 
 ## Features
