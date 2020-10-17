@@ -189,7 +189,12 @@ class Issue:
 
     @staticmethod
     def create(
-        project: Any, title: str, body: str, private: Optional[bool] = None
+        project: Any,
+        title: str,
+        body: str,
+        private: Optional[bool] = None,
+        labels: Optional[List[str]] = None,
+        assignees: Optional[List[str]] = None,
     ) -> "Issue":
         """
         Open new Issue.
@@ -197,6 +202,8 @@ class Issue:
         :param project: Any
         :param title: str
         :param body: str
+        :param labels: list
+        :param assignees: list
         :return: Issue
         """
         raise NotImplementedError()
@@ -1024,6 +1031,7 @@ class GitProject:
         body: str,
         private: Optional[bool] = None,
         labels: Optional[List[str]] = None,
+        assignees: Optional[List[str]] = None,
     ) -> Issue:
         """
         Open new Issue.
@@ -1033,6 +1041,7 @@ class GitProject:
         :param body: str
         :param private: bool
         :param labels: [str]
+        :param assignees: [str]
         :return: Issue
         """
         raise NotImplementedError()

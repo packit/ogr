@@ -72,6 +72,11 @@ class PagureIssue(BaseIssue):
         )
 
     @property
+    def assignee(self) -> str:
+        self.__update()
+        return self._raw_issue["assignee"]["name"]
+
+    @property
     def description(self) -> str:
         self.__update()
         return self._raw_issue["content"]
@@ -96,7 +101,10 @@ class PagureIssue(BaseIssue):
         return "Pagure" + super().__str__()
 
     def __update_info(
-        self, title: Optional[str] = None, description: Optional[str] = None
+        self,
+        title: Optional[str] = None,
+        description: Optional[str] = None,
+        assignee: Optional[str] = None,
     ) -> None:
         try:
             data = {
@@ -120,12 +128,17 @@ class PagureIssue(BaseIssue):
         body: str,
         private: Optional[bool] = None,
         labels: Optional[List[str]] = None,
+        assignees: Optional[List[str]] = None,
     ) -> "Issue":
         payload = {"title": title, "issue_content": body}
         if labels is not None:
             payload["tag"] = ",".join(labels)
         if private:
             payload["private"] = "true"
+        if assignees and len(assignees) > 1:
+            raise PagureAPIException("Pagure does not support multiple assignees")
+        elif assignees:
+            payload["assignee"] = assignees[0]
         new_issue = project._call_project_api("new_issue", data=payload, method="POST")[
             "issue"
         ]

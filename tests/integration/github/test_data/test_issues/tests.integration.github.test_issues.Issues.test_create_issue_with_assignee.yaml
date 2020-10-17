@@ -7,7 +7,7 @@ requests.sessions:
     GET:
       https://api.github.com:443/repos/packit/hello-world:
       - metadata:
-          latency: 0.6848068237304688
+          latency: 0.6408507823944092
           module_call_list:
           - unittest.case
           - requre.online_replacing
@@ -86,8 +86,8 @@ requests.sessions:
             network_count: 18
             node_id: MDEwOlJlcG9zaXRvcnkxODQ2MzUxMjQ=
             notifications_url: https://api.github.com/repos/packit/hello-world/notifications{?since,all,participating}
-            open_issues: 37
-            open_issues_count: 37
+            open_issues: 36
+            open_issues_count: 36
             organization:
               avatar_url: https://avatars3.githubusercontent.com/u/46870917?v=4
               events_url: https://api.github.com/users/packit/events{/privacy}
@@ -187,80 +187,7 @@ requests.sessions:
             X-RateLimit-Limit: '5000'
             X-RateLimit-Remaining: '4972'
             X-RateLimit-Reset: '1572953901'
-            X-RateLimit-Used: '4'
-            X-XSS-Protection: 1; mode=block
-          raw: !!binary ""
-          reason: OK
-          status_code: 200
-      https://api.github.com:443/repos/packit/hello-world/issues/155/labels:
-      - metadata:
-          latency: 0.3942141532897949
-          module_call_list:
-          - unittest.case
-          - requre.online_replacing
-          - tests.integration.github.test_issues
-          - ogr.services.github.issue
-          - github.PaginatedList
-          - github.Requester
-          - requests.sessions
-          - requre.objects
-          - requre.cassette
-          - requests.sessions
-          - send
-        output:
-          __store_indicator: 2
-          _content:
-          - color: ededed
-            default: false
-            description: null
-            id: 2438202556
-            name: label1
-            node_id: MDU6TGFiZWwyNDM4MjAyNTU2
-            url: https://api.github.com/repos/packit/hello-world/labels/label1
-          - color: ededed
-            default: false
-            description: null
-            id: 2438202557
-            name: label2
-            node_id: MDU6TGFiZWwyNDM4MjAyNTU3
-            url: https://api.github.com/repos/packit/hello-world/labels/label2
-          _next: null
-          elapsed: 0.2
-          encoding: utf-8
-          headers:
-            Access-Control-Allow-Origin: '*'
-            Access-Control-Expose-Headers: ETag, Link, Location, Retry-After, X-GitHub-OTP,
-              X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Used, X-RateLimit-Reset,
-              X-OAuth-Scopes, X-Accepted-OAuth-Scopes, X-Poll-Interval, X-GitHub-Media-Type,
-              Deprecation, Sunset
-            Cache-Control: private, max-age=60, s-maxage=60
-            Content-Encoding: gzip
-            Content-Security-Policy: default-src 'self';script-src 'self' 'nonce-YqLDC0BS8d7iY8mKO7VtBbIne'
-              https://apps.fedoraproject.org; style-src 'self' 'nonce-YqLDC0BS8d7iY8mKO7VtBbIne';
-              object-src 'none';base-uri 'self';img-src 'self' https:;
-            Content-Type: application/json; charset=utf-8
-            Date: Fri, 01 Nov 2019 13-36-03 GMT
-            ETag: W/"1e51b8e1c48787a433405211e9e0fe61"
-            Last-Modified: Mon, 19 Oct 2020 14:54:24 GMT
-            Referrer-Policy: origin-when-cross-origin, strict-origin-when-cross-origin
-            Server: GitHub.com
-            Status: 200 OK
-            Strict-Transport-Security: max-age=31536000; includeSubdomains; preload
-            Transfer-Encoding: chunked
-            Vary: Accept, Authorization, Cookie, X-GitHub-OTP, Accept-Encoding, Accept,
-              X-Requested-With, Accept-Encoding
-            X-Accepted-OAuth-Scopes: repo
-            X-Content-Type-Options: nosniff
-            X-Frame-Options: deny
-            X-GitHub-Media-Type: github.v3; format=json
-            X-GitHub-Request-Id: 18FB:AA1A:99616C4:B8092CB:5CC15425
-            X-OAuth-Scopes: admin:enterprise, admin:gpg_key, admin:org, admin:org_hook,
-              admin:public_key, admin:repo_hook, delete:packages, delete_repo, gist,
-              notifications, repo, user, workflow, write:discussion, write:packages
-            X-RateLimit-Limit: '5000'
-            X-RateLimit-Remaining: '4972'
-            X-RateLimit-Reset: '1572953901'
-            X-RateLimit-Used: '6'
+            X-RateLimit-Used: '2'
             X-XSS-Protection: 1; mode=block
           raw: !!binary ""
           reason: OK
@@ -268,7 +195,7 @@ requests.sessions:
     POST:
       https://api.github.com:443/repos/packit/hello-world/issues:
       - metadata:
-          latency: 0.9364349842071533
+          latency: 1.3052031993865967
           module_call_list:
           - unittest.case
           - requre.online_replacing
@@ -286,18 +213,54 @@ requests.sessions:
           __store_indicator: 2
           _content:
             active_lock_reason: null
-            assignee: null
-            assignees: []
+            assignee:
+              avatar_url: https://avatars1.githubusercontent.com/u/20214043?v=4
+              events_url: https://api.github.com/users/lachmanfrantisek/events{/privacy}
+              followers_url: https://api.github.com/users/lachmanfrantisek/followers
+              following_url: https://api.github.com/users/lachmanfrantisek/following{/other_user}
+              gists_url: https://api.github.com/users/lachmanfrantisek/gists{/gist_id}
+              gravatar_id: ''
+              html_url: https://github.com/lachmanfrantisek
+              id: 20214043
+              login: lachmanfrantisek
+              node_id: MDQ6VXNlcjIwMjE0MDQz
+              organizations_url: https://api.github.com/users/lachmanfrantisek/orgs
+              received_events_url: https://api.github.com/users/lachmanfrantisek/received_events
+              repos_url: https://api.github.com/users/lachmanfrantisek/repos
+              site_admin: false
+              starred_url: https://api.github.com/users/lachmanfrantisek/starred{/owner}{/repo}
+              subscriptions_url: https://api.github.com/users/lachmanfrantisek/subscriptions
+              type: User
+              url: https://api.github.com/users/lachmanfrantisek
+            assignees:
+            - avatar_url: https://avatars1.githubusercontent.com/u/20214043?v=4
+              events_url: https://api.github.com/users/lachmanfrantisek/events{/privacy}
+              followers_url: https://api.github.com/users/lachmanfrantisek/followers
+              following_url: https://api.github.com/users/lachmanfrantisek/following{/other_user}
+              gists_url: https://api.github.com/users/lachmanfrantisek/gists{/gist_id}
+              gravatar_id: ''
+              html_url: https://github.com/lachmanfrantisek
+              id: 20214043
+              login: lachmanfrantisek
+              node_id: MDQ6VXNlcjIwMjE0MDQz
+              organizations_url: https://api.github.com/users/lachmanfrantisek/orgs
+              received_events_url: https://api.github.com/users/lachmanfrantisek/received_events
+              repos_url: https://api.github.com/users/lachmanfrantisek/repos
+              site_admin: false
+              starred_url: https://api.github.com/users/lachmanfrantisek/starred{/owner}{/repo}
+              subscriptions_url: https://api.github.com/users/lachmanfrantisek/subscriptions
+              type: User
+              url: https://api.github.com/users/lachmanfrantisek
             author_association: COLLABORATOR
             body: This is a description
             closed_at: null
             closed_by: null
             comments: 0
-            comments_url: https://api.github.com/repos/packit/hello-world/issues/155/comments
-            created_at: '2020-10-19T14:54:24Z'
-            events_url: https://api.github.com/repos/packit/hello-world/issues/155/events
-            html_url: https://github.com/packit/hello-world/issues/155
-            id: 724704426
+            comments_url: https://api.github.com/repos/packit/hello-world/issues/154/comments
+            created_at: '2020-10-19T14:53:30Z'
+            events_url: https://api.github.com/repos/packit/hello-world/issues/154/events
+            html_url: https://github.com/packit/hello-world/issues/154
+            id: 724703681
             labels:
             - color: ededed
               default: false
@@ -313,17 +276,17 @@ requests.sessions:
               name: label2
               node_id: MDU6TGFiZWwyNDM4MjAyNTU3
               url: https://api.github.com/repos/packit/hello-world/labels/label2
-            labels_url: https://api.github.com/repos/packit/hello-world/issues/155/labels{/name}
+            labels_url: https://api.github.com/repos/packit/hello-world/issues/154/labels{/name}
             locked: false
             milestone: null
-            node_id: MDU6SXNzdWU3MjQ3MDQ0MjY=
-            number: 155
+            node_id: MDU6SXNzdWU3MjQ3MDM2ODE=
+            number: 154
             performed_via_github_app: null
             repository_url: https://api.github.com/repos/packit/hello-world
             state: open
             title: This is a title
-            updated_at: '2020-10-19T14:54:24Z'
-            url: https://api.github.com/repos/packit/hello-world/issues/155
+            updated_at: '2020-10-19T14:53:31Z'
+            url: https://api.github.com/repos/packit/hello-world/issues/154
             user:
               avatar_url: https://avatars2.githubusercontent.com/u/22324802?v=4
               events_url: https://api.github.com/users/shreyaspapi/events{/privacy}
@@ -353,14 +316,14 @@ requests.sessions:
               X-OAuth-Scopes, X-Accepted-OAuth-Scopes, X-Poll-Interval, X-GitHub-Media-Type,
               Deprecation, Sunset
             Cache-Control: private, max-age=60, s-maxage=60
-            Content-Length: '2213'
+            Content-Length: '4217'
             Content-Security-Policy: default-src 'self';script-src 'self' 'nonce-YqLDC0BS8d7iY8mKO7VtBbIne'
               https://apps.fedoraproject.org; style-src 'self' 'nonce-YqLDC0BS8d7iY8mKO7VtBbIne';
               object-src 'none';base-uri 'self';img-src 'self' https:;
             Content-Type: application/json; charset=utf-8
             Date: Fri, 01 Nov 2019 13-36-03 GMT
             ETag: W/"1e51b8e1c48787a433405211e9e0fe61"
-            Location: https://api.github.com/repos/packit/hello-world/issues/155
+            Location: https://api.github.com/repos/packit/hello-world/issues/154
             Referrer-Policy: origin-when-cross-origin, strict-origin-when-cross-origin
             Server: GitHub.com
             Status: 201 Created
@@ -378,7 +341,7 @@ requests.sessions:
             X-RateLimit-Limit: '5000'
             X-RateLimit-Remaining: '4972'
             X-RateLimit-Reset: '1572953901'
-            X-RateLimit-Used: '5'
+            X-RateLimit-Used: '3'
             X-XSS-Protection: 1; mode=block
           raw: !!binary ""
           reason: Created

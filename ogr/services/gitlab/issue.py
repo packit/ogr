@@ -66,6 +66,10 @@ class GitlabIssue(BaseIssue):
         return self._raw_issue.web_url
 
     @property
+    def assignees(self) -> list:
+        return self._raw_issue.assignees
+
+    @property
     def description(self) -> str:
         return self._raw_issue.description
 
@@ -96,10 +100,14 @@ class GitlabIssue(BaseIssue):
         body: str,
         private: Optional[bool] = None,
         labels: Optional[List[str]] = None,
+        assignees: Optional[List[str]] = None,
     ) -> "Issue":
         data = {"title": title, "description": body}
         if labels:
             data["labels"] = ",".join(labels)
+        if assignees:
+            data["assignee_ids"] = ",".join(assignees)
+
         issue = project.gitlab_repo.issues.create(data, confidential=private)
         return GitlabIssue(issue, project)
 

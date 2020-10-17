@@ -425,9 +425,25 @@ class GitlabProject(BaseGitProject):
         body: str,
         private: Optional[bool] = None,
         labels: Optional[List[str]] = None,
+        assignees: Optional[List[str]] = None,
     ) -> Issue:
+
+        ids = []
+        for user in assignees or []:
+            users_list = self.service.gitlab_instance.users.list(username=user)
+
+            if not users_list:
+                raise GitlabAPIException(f"Unable to find '{user}' username")
+
+            ids.append(str(users_list[0].id))
+
         return GitlabIssue.create(
-            project=self, title=title, body=body, private=private, labels=labels
+            project=self,
+            title=title,
+            body=body,
+            private=private,
+            labels=labels,
+            assignees=ids,
         )
 
     def get_pr(self, pr_id: int) -> PullRequest:

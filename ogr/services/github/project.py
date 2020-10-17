@@ -283,10 +283,13 @@ class GithubProject(BaseGitProject):
         body: str,
         private: Optional[bool] = None,
         labels: Optional[List[str]] = None,
+        assignees: Optional[List[str]] = None,
     ) -> Issue:
         if private:
             raise NotImplementedError("Private issues are not supported by Github")
-        return GithubIssue.create(project=self, title=title, body=body, labels=labels)
+        return GithubIssue.create(
+            project=self, title=title, body=body, labels=labels, assignees=assignees
+        )
 
     def get_pr_list(self, status: PRStatus = PRStatus.open) -> List[PullRequest]:
         return GithubPullRequest.get_list(project=self, status=status)

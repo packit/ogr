@@ -64,6 +64,19 @@ class Issues(GitlabTests):
         assert issue2.title == issue_title
         assert issue2.description == issue_desc
 
+    def test_create_issue_with_assignee(self):
+        issue_title = "This is a example issue on gitlab"
+        issue_desc = "Description for issue"
+        assign = ["mfocko"]
+        project = self.service.get_project(repo="ogr-tests", namespace="packit-service")
+        issue = project.create_issue(
+            title=issue_title, body=issue_desc, assignees=assign
+        )
+
+        assert issue.title == issue_title
+        assert issue.assignees[0]["username"] == assign[0]
+        assert issue.description == issue_desc
+
     def test_create_private_issue(self):
         """
         see class comment in case of fail
