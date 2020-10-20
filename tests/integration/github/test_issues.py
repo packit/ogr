@@ -8,6 +8,9 @@ from ogr.exceptions import GithubAPIException
 
 @record_requests_for_all_methods()
 class Issues(GithubTests):
+    title = "This is a title"
+    description = "This is a description"
+
     def test_issue_list(self):
         issue_list = self.ogr_fork.get_issue_list()
         assert isinstance(issue_list, list)
@@ -26,18 +29,30 @@ class Issues(GithubTests):
         assert len(issue_list) >= 3
 
     def test_create_issue(self):
-        title = "This is an issue"
-        description = "Example of Issue description"
         labels = ["label1", "label2"]
-        project = self.service.get_project(namespace="shreyaspapi", repo="test")
-        issue = project.create_issue(title=title, body=description, labels=labels)
-        assert issue.title == title
-        assert issue.description == description
+        issue = self.hello_world_project.create_issue(
+            title=self.title, body=self.description, labels=labels
+        )
+        assert issue.title == self.title
+        assert issue.description == self.description
         for issue_label, label in zip(issue.labels, labels):
             assert issue_label.name == label
 
+    def test_create_private_issue(self):
         with self.assertRaises(NotImplementedError):
-            project.create_issue(title=title, body=description, private=True)
+            self.hello_world_project.create_issue(
+                title=self.title, body=self.description, private=True
+            )
+
+    def test_create_issue_with_assignee(self):
+        labels = ["label1", "label2"]
+        assignee = ["lachmanfrantisek"]
+        issue = self.hello_world_project.create_issue(
+            title=self.title, body=self.description, labels=labels, assignees=assignee
+        )
+        assert issue.title == self.title
+        assert issue.description == self.description
+        assert issue.assignees[0].login == assignee[0]
 
     def test_issue_without_label(self):
         project = self.service.get_project(namespace="shreyaspapi", repo="test")

@@ -67,6 +67,10 @@ class GithubIssue(BaseIssue):
         return self._raw_issue.html_url
 
     @property
+    def assignees(self) -> list:
+        return self._raw_issue.assignees
+
+    @property
     def description(self) -> str:
         return self._raw_issue.body
 
@@ -96,9 +100,10 @@ class GithubIssue(BaseIssue):
         body: str,
         private: Optional[bool] = None,
         labels: Optional[List[str]] = None,
+        assignees: Optional[list] = None,
     ) -> "Issue":
         github_issue = project.github_repo.create_issue(
-            title=title, body=body, labels=labels or []
+            title=title, body=body, labels=labels or [], assignees=assignees or []
         )
         return GithubIssue(github_issue, project)
 

@@ -228,9 +228,15 @@ class PagureProject(BaseGitProject):
         body: str,
         private: Optional[bool] = None,
         labels: Optional[List[str]] = None,
+        assignees: Optional[List[str]] = None,
     ) -> Issue:
         return PagureIssue.create(
-            project=self, title=title, body=body, labels=labels, private=private
+            project=self,
+            title=title,
+            body=body,
+            labels=labels,
+            private=private,
+            assignees=assignees,
         )
 
     def get_pr_list(

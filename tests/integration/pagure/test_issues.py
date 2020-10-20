@@ -73,6 +73,17 @@ class Issues(PagureTests):
         for issue_label, label in zip(issue.labels, labels):
             assert issue_label == label
 
+    def test_create_issue_with_assignees(self):
+        random_str = "something"
+        project = self.service.get_project(repo="hello-112111", namespace="testing")
+        assignee = ["mfocko"]
+        issue = project.create_issue(
+            title=random_str, body=random_str, assignees=assignee
+        )
+        assert issue.title == random_str
+        assert issue.description == random_str
+        assert issue.assignee == assignee[0]
+
     def test_issue_without_label(self):
         title = "This is an issue"
         description = "Example of Issue description"
