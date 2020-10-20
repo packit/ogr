@@ -4,6 +4,8 @@ from requre.online_replacing import record_requests_for_all_methods
 
 from tests.integration.gitlab.base import GitlabTests
 
+from ogr import GitlabService
+
 
 @record_requests_for_all_methods()
 class Service(GitlabTests):
@@ -80,3 +82,8 @@ class Service(GitlabTests):
             repo=name_of_the_repo, namespace=namespace_of_the_repo
         )
         assert project.gitlab_repo
+
+    def test_service_without_auth(self):
+        service = GitlabService()
+        assert service.gitlab_instance
+        assert service.get_project(namespace="gnachman", repo="iterm2").exists()

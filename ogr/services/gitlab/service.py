@@ -50,7 +50,8 @@ class GitlabService(BaseGitService):
                 private_token=self.token,
                 ssl_verify=self.ssl_verify,
             )
-            self._gitlab_instance.auth()
+            if self.token:
+                self._gitlab_instance.auth()
         return self._gitlab_instance
 
     @property
