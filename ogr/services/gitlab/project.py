@@ -199,6 +199,9 @@ class GitlabProject(BaseGitProject):
     def can_merge_pr(self, username) -> bool:
         return username in self.who_can_merge_pr()
 
+    def delete(self) -> None:
+        self.gitlab_repo.delete()
+
     def _get_collaborators_with_given_access(
         self, access_levels: List[int]
     ) -> List[str]:

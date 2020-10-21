@@ -291,6 +291,9 @@ class GithubProject(BaseGitProject):
             project=self, title=title, body=body, labels=labels, assignees=assignees
         )
 
+    def delete(self) -> None:
+        self.github_repo.delete()
+
     def get_pr_list(self, status: PRStatus = PRStatus.open) -> List[PullRequest]:
         return GithubPullRequest.get_list(project=self, status=status)
 

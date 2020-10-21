@@ -104,3 +104,7 @@ class GenericCommands(PagureTests):
             ).full_repo_name
             == f"fork/{self.user}/Fedora-Infra/ansible"
         )
+
+    def test_delete(self):
+        project = self.service.get_project(repo="delete-project", namespace="testing")
+        project.delete()

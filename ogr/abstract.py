@@ -810,6 +810,10 @@ class GitProject:
         self.repo = repo
         self.namespace = namespace
 
+    def delete(self) -> None:
+        """Delete the project."""
+        raise NotImplementedError()
+
     def exists(self) -> bool:
         """
         Check the existence of the repo.

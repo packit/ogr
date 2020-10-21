@@ -1,0 +1,221 @@
+_requre:
+  DataTypes: 1
+  key_strategy: StorageKeysInspectSimple
+  version_storage_file: 2
+requests.sessions:
+  send:
+    DELETE:
+      https://api.github.com:443/repos/shreyaspapi/delete-project:
+      - metadata:
+          latency: 0.664161205291748
+          module_call_list:
+          - unittest.case
+          - requre.online_replacing
+          - tests.integration.github.test_generic_commands
+          - ogr.services.github.project
+          - github.Repository
+          - github.Requester
+          - requests.sessions
+          - requre.objects
+          - requre.cassette
+          - requests.sessions
+          - send
+        output:
+          __store_indicator: 1
+          _content: ''
+          _next: null
+          elapsed: 0.2
+          encoding: null
+          headers:
+            Access-Control-Allow-Origin: '*'
+            Access-Control-Expose-Headers: ETag, Link, Location, Retry-After, X-GitHub-OTP,
+              X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Used, X-RateLimit-Reset,
+              X-OAuth-Scopes, X-Accepted-OAuth-Scopes, X-Poll-Interval, X-GitHub-Media-Type,
+              Deprecation, Sunset
+            Content-Security-Policy: default-src 'self';script-src 'self' 'nonce-YqLDC0BS8d7iY8mKO7VtBbIne'
+              https://apps.fedoraproject.org; style-src 'self' 'nonce-YqLDC0BS8d7iY8mKO7VtBbIne';
+              object-src 'none';base-uri 'self';img-src 'self' https:;
+            Date: Fri, 01 Nov 2019 13-36-03 GMT
+            Referrer-Policy: origin-when-cross-origin, strict-origin-when-cross-origin
+            Server: GitHub.com
+            Status: 204 No Content
+            Strict-Transport-Security: max-age=31536000; includeSubdomains; preload
+            Vary: Accept-Encoding, Accept, X-Requested-With, Accept-Encoding
+            X-Accepted-OAuth-Scopes: delete_repo
+            X-Content-Type-Options: nosniff
+            X-Frame-Options: deny
+            X-GitHub-Media-Type: github.v3; format=json
+            X-GitHub-Request-Id: 18FB:AA1A:99616C4:B8092CB:5CC15425
+            X-OAuth-Scopes: admin:enterprise, admin:gpg_key, admin:org, admin:org_hook,
+              admin:public_key, admin:repo_hook, delete:packages, delete_repo, gist,
+              notifications, repo, user, workflow, write:discussion, write:packages
+            X-RateLimit-Limit: '5000'
+            X-RateLimit-Remaining: '4972'
+            X-RateLimit-Reset: '1572953901'
+            X-RateLimit-Used: '2'
+            X-XSS-Protection: 1; mode=block
+          raw: !!binary ""
+          reason: No Content
+          status_code: 204
+    GET:
+      https://api.github.com:443/repos/shreyaspapi/delete-project:
+      - metadata:
+          latency: 0.513031005859375
+          module_call_list:
+          - unittest.case
+          - requre.online_replacing
+          - tests.integration.github.test_generic_commands
+          - ogr.services.github.project
+          - github.MainClass
+          - github.Requester
+          - requests.sessions
+          - requre.objects
+          - requre.cassette
+          - requests.sessions
+          - send
+        output:
+          __store_indicator: 2
+          _content:
+            allow_merge_commit: true
+            allow_rebase_merge: true
+            allow_squash_merge: true
+            archive_url: https://api.github.com/repos/shreyaspapi/delete-project/{archive_format}{/ref}
+            archived: false
+            assignees_url: https://api.github.com/repos/shreyaspapi/delete-project/assignees{/user}
+            blobs_url: https://api.github.com/repos/shreyaspapi/delete-project/git/blobs{/sha}
+            branches_url: https://api.github.com/repos/shreyaspapi/delete-project/branches{/branch}
+            clone_url: https://github.com/shreyaspapi/delete-project.git
+            collaborators_url: https://api.github.com/repos/shreyaspapi/delete-project/collaborators{/collaborator}
+            comments_url: https://api.github.com/repos/shreyaspapi/delete-project/comments{/number}
+            commits_url: https://api.github.com/repos/shreyaspapi/delete-project/commits{/sha}
+            compare_url: https://api.github.com/repos/shreyaspapi/delete-project/compare/{base}...{head}
+            contents_url: https://api.github.com/repos/shreyaspapi/delete-project/contents/{+path}
+            contributors_url: https://api.github.com/repos/shreyaspapi/delete-project/contributors
+            created_at: '2020-10-21T10:58:25Z'
+            default_branch: main
+            delete_branch_on_merge: false
+            deployments_url: https://api.github.com/repos/shreyaspapi/delete-project/deployments
+            description: null
+            disabled: false
+            downloads_url: https://api.github.com/repos/shreyaspapi/delete-project/downloads
+            events_url: https://api.github.com/repos/shreyaspapi/delete-project/events
+            fork: false
+            forks: 0
+            forks_count: 0
+            forks_url: https://api.github.com/repos/shreyaspapi/delete-project/forks
+            full_name: shreyaspapi/delete-project
+            git_commits_url: https://api.github.com/repos/shreyaspapi/delete-project/git/commits{/sha}
+            git_refs_url: https://api.github.com/repos/shreyaspapi/delete-project/git/refs{/sha}
+            git_tags_url: https://api.github.com/repos/shreyaspapi/delete-project/git/tags{/sha}
+            git_url: git://github.com/shreyaspapi/delete-project.git
+            has_downloads: true
+            has_issues: true
+            has_pages: false
+            has_projects: true
+            has_wiki: true
+            homepage: null
+            hooks_url: https://api.github.com/repos/shreyaspapi/delete-project/hooks
+            html_url: https://github.com/shreyaspapi/delete-project
+            id: 305995080
+            issue_comment_url: https://api.github.com/repos/shreyaspapi/delete-project/issues/comments{/number}
+            issue_events_url: https://api.github.com/repos/shreyaspapi/delete-project/issues/events{/number}
+            issues_url: https://api.github.com/repos/shreyaspapi/delete-project/issues{/number}
+            keys_url: https://api.github.com/repos/shreyaspapi/delete-project/keys{/key_id}
+            labels_url: https://api.github.com/repos/shreyaspapi/delete-project/labels{/name}
+            language: null
+            languages_url: https://api.github.com/repos/shreyaspapi/delete-project/languages
+            license: null
+            merges_url: https://api.github.com/repos/shreyaspapi/delete-project/merges
+            milestones_url: https://api.github.com/repos/shreyaspapi/delete-project/milestones{/number}
+            mirror_url: null
+            name: delete-project
+            network_count: 0
+            node_id: MDEwOlJlcG9zaXRvcnkzMDU5OTUwODA=
+            notifications_url: https://api.github.com/repos/shreyaspapi/delete-project/notifications{?since,all,participating}
+            open_issues: 0
+            open_issues_count: 0
+            owner:
+              avatar_url: https://avatars2.githubusercontent.com/u/22324802?v=4
+              events_url: https://api.github.com/users/shreyaspapi/events{/privacy}
+              followers_url: https://api.github.com/users/shreyaspapi/followers
+              following_url: https://api.github.com/users/shreyaspapi/following{/other_user}
+              gists_url: https://api.github.com/users/shreyaspapi/gists{/gist_id}
+              gravatar_id: ''
+              html_url: https://github.com/shreyaspapi
+              id: 22324802
+              login: shreyaspapi
+              node_id: MDQ6VXNlcjIyMzI0ODAy
+              organizations_url: https://api.github.com/users/shreyaspapi/orgs
+              received_events_url: https://api.github.com/users/shreyaspapi/received_events
+              repos_url: https://api.github.com/users/shreyaspapi/repos
+              site_admin: false
+              starred_url: https://api.github.com/users/shreyaspapi/starred{/owner}{/repo}
+              subscriptions_url: https://api.github.com/users/shreyaspapi/subscriptions
+              type: User
+              url: https://api.github.com/users/shreyaspapi
+            permissions:
+              admin: true
+              pull: true
+              push: true
+            private: false
+            pulls_url: https://api.github.com/repos/shreyaspapi/delete-project/pulls{/number}
+            pushed_at: '2020-10-21T10:58:27Z'
+            releases_url: https://api.github.com/repos/shreyaspapi/delete-project/releases{/id}
+            size: 0
+            ssh_url: git@github.com:shreyaspapi/delete-project.git
+            stargazers_count: 0
+            stargazers_url: https://api.github.com/repos/shreyaspapi/delete-project/stargazers
+            statuses_url: https://api.github.com/repos/shreyaspapi/delete-project/statuses/{sha}
+            subscribers_count: 1
+            subscribers_url: https://api.github.com/repos/shreyaspapi/delete-project/subscribers
+            subscription_url: https://api.github.com/repos/shreyaspapi/delete-project/subscription
+            svn_url: https://github.com/shreyaspapi/delete-project
+            tags_url: https://api.github.com/repos/shreyaspapi/delete-project/tags
+            teams_url: https://api.github.com/repos/shreyaspapi/delete-project/teams
+            temp_clone_token: ''
+            trees_url: https://api.github.com/repos/shreyaspapi/delete-project/git/trees{/sha}
+            updated_at: '2020-10-21T10:58:25Z'
+            url: https://api.github.com/repos/shreyaspapi/delete-project
+            watchers: 0
+            watchers_count: 0
+          _next: null
+          elapsed: 0.2
+          encoding: utf-8
+          headers:
+            Access-Control-Allow-Origin: '*'
+            Access-Control-Expose-Headers: ETag, Link, Location, Retry-After, X-GitHub-OTP,
+              X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Used, X-RateLimit-Reset,
+              X-OAuth-Scopes, X-Accepted-OAuth-Scopes, X-Poll-Interval, X-GitHub-Media-Type,
+              Deprecation, Sunset
+            Cache-Control: private, max-age=60, s-maxage=60
+            Content-Encoding: gzip
+            Content-Security-Policy: default-src 'self';script-src 'self' 'nonce-YqLDC0BS8d7iY8mKO7VtBbIne'
+              https://apps.fedoraproject.org; style-src 'self' 'nonce-YqLDC0BS8d7iY8mKO7VtBbIne';
+              object-src 'none';base-uri 'self';img-src 'self' https:;
+            Content-Type: application/json; charset=utf-8
+            Date: Fri, 01 Nov 2019 13-36-03 GMT
+            ETag: W/"1e51b8e1c48787a433405211e9e0fe61"
+            Last-Modified: Wed, 21 Oct 2020 10:58:25 GMT
+            Referrer-Policy: origin-when-cross-origin, strict-origin-when-cross-origin
+            Server: GitHub.com
+            Status: 200 OK
+            Strict-Transport-Security: max-age=31536000; includeSubdomains; preload
+            Transfer-Encoding: chunked
+            Vary: Accept, Authorization, Cookie, X-GitHub-OTP, Accept-Encoding, Accept,
+              X-Requested-With, Accept-Encoding
+            X-Accepted-OAuth-Scopes: repo
+            X-Content-Type-Options: nosniff
+            X-Frame-Options: deny
+            X-GitHub-Media-Type: github.v3; format=json
+            X-GitHub-Request-Id: 18FB:AA1A:99616C4:B8092CB:5CC15425
+            X-OAuth-Scopes: admin:enterprise, admin:gpg_key, admin:org, admin:org_hook,
+              admin:public_key, admin:repo_hook, delete:packages, delete_repo, gist,
+              notifications, repo, user, workflow, write:discussion, write:packages
+            X-RateLimit-Limit: '5000'
+            X-RateLimit-Remaining: '4972'
+            X-RateLimit-Reset: '1572953901'
+            X-RateLimit-Used: '1'
+            X-XSS-Protection: 1; mode=block
+          raw: !!binary ""
+          reason: OK
+          status_code: 200

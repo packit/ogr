@@ -195,3 +195,9 @@ class GenericCommands(GitlabTests):
 
     def test_is_not_private(self):
         assert not self.project.is_private()
+
+    def test_delete(self):
+        project = self.service.get_project(
+            repo="delete-project", namespace="shreyaspapi"
+        )
+        project.delete()
