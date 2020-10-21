@@ -222,6 +222,9 @@ class PagureProject(BaseGitProject):
     def get_issue(self, issue_id: int) -> Issue:
         return PagureIssue.get(project=self, id=issue_id)
 
+    def delete(self) -> None:
+        self._call_project_api_raw("delete", method="POST")
+
     def create_issue(
         self,
         title: str,
