@@ -1,3 +1,14 @@
+# 0.18.0
+
+## Features
+
+- Project now have delete functionality (@shreyaspapi).
+- Newly created issues can have assignees (@shreyaspapi).
+
+## Minor
+
+- Ogr authenticates to Gitlab only if token is provided (@mfocko).
+
 # 0.17.0
 
 ## Features
