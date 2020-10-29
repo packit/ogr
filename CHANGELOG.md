@@ -1,3 +1,14 @@
+# 0.18.0
+
+## Features
+
+- Project now have delete functionality (@shreyaspapi).
+- Newly created issues can have assignees (@shreyaspapi).
+
+## Minor
+
+- It is now possible to use GitLab annonymously without specifying an authentication token. (@mfocko).
+
 # 0.17.0
 
 ## Features
