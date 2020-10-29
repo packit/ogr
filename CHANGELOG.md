@@ -7,7 +7,7 @@
 
 ## Minor
 
-- Ogr authenticates to Gitlab only if token is provided (@mfocko).
+- It is now possible to use GitLab annonymously without specifying an authentication token. (@mfocko).
 
 # 0.17.0
 
