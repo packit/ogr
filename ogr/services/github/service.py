@@ -20,8 +20,9 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-from typing import Optional, Type
+from typing import Optional, Type, List
 
+import re
 import github
 import github.GithubObject
 from github import (
@@ -178,3 +179,40 @@ class GithubService(BaseGitService):
     def get_pygithub_instance(self, namespace: str, repo: str) -> PyGithubInstance:
         token = self.authentication.get_token(namespace, repo)
         return PyGithubInstance(login_or_token=token)
+
+    def list_projects(
+        self,
+        namespace: str = None,
+        user: str = None,
+        search_patter: str = None,
+        language: str = None,
+    ) -> List["GitProject"]:
+        g = self.github
+
+        # Get the locals for the function
+        passed_args = locals()
+
+        # Get the arguments which are not None and remove self and g
+        args_for_query = {
+            k: v
+            for k, v in passed_args.items()
+            if v and k not in ["self", "g", "search_patter"]
+        }
+
+        # Join the arguments by space
+        search_query = " ".join([f"{k}:{v}" for k, v in args_for_query.items()])
+
+        projects = [
+            GithubProject(
+                repo=repo.name,
+                namespace=repo.owner.login,
+                github_repo=repo,
+                service=self,
+            )
+            for repo in g.search_repositories(search_query, order="asc")
+        ]
+
+        if search_patter:
+            projects = [p for p in projects if re.search(search_patter, p.repo)]
+
+        return projects
