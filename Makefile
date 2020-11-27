@@ -41,4 +41,4 @@ remove-response-files-gitlab:
 remove-response-files: remove-response-files-github remove-response-files-pagure remove-response-files-gitlab
 
 requre-purge-files:
-	pre-commit run --all-files requre-purge --verbose
+	pre-commit run --all-files requre-purge --verbose --hook-stage manual
