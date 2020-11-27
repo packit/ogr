@@ -93,6 +93,68 @@ from ogr.parsing import parse_git_repo, RepoUrl
             ),
         ),
         ("https://fail@more@at@domain.com", None),
+        (
+            "git@gitlab.com:packit-service/src/libvirt.git",
+            RepoUrl(
+                repo="libvirt",
+                namespace="packit-service/src",
+                hostname="gitlab.com",
+                scheme="git+ssh"
+            )
+        ),
+        ("git@git.mfocko.xyz:2222:mfocko/dotfiles.git", None),
+        (
+            "ssh://git@pagure.io/forks/mfocko/fedora-infra/ansible.git",
+            RepoUrl(
+                repo="ansible",
+                namespace="fedora-infra",
+                username="mfocko",
+                is_fork=True,
+                hostname="pagure.io",
+                scheme="http"
+            )
+        ),
+        (
+            "ssh://git@pagure.io:forks/mfocko/fedora-infra/ansible.git",
+            RepoUrl(
+                repo="ansible",
+                namespace="fedora-infra",
+                username="mfocko",
+                is_fork=True,
+                hostname="pagure.io",
+                scheme="http"
+            )
+        ),
+        (
+            "https://xfocko:myLamePassword@git.mfocko.xyz/mfocko/dotfiles.git",
+            RepoUrl(
+                repo="dotfiles",
+                namespace="mfocko",
+                # shouldn't be set, right? or which one should it be?
+                # based on namespace?
+                username="xfocko",
+                hostname="git.mfocko.xyz",
+                scheme="https"
+            )
+        ),
+        (
+            "ssh://git@pagure.io/playground-mfocko.git",
+            RepoUrl(
+                repo="playground-mfocko",
+                namespace=None,
+                hostname="pagure.io",
+                scheme="http" # <-- shouldn't we rather default to HTTPS?
+            )
+        ),
+        (
+            "https://pagure.io/playground-mfocko.git",
+            RepoUrl(
+                repo="playground-mfocko",
+                namespace=None,
+                hostname="pagure.io",
+                scheme="https"
+            )
+        )
     ],
 )
 def test_parse_git_repo(url, result):
