@@ -1,6 +1,6 @@
 # HOWTO: https://pre-commit.com/#usage
 # pip3 install pre-commit
-# pre-commit install
+# pre-commit install -t pre-commit -t pre-push
 
 repos:
   - repo: https://github.com/psf/black
@@ -37,7 +37,9 @@ repos:
       - id: check-rebase
         args:
           - git://github.com/packit-service/ogr.git
+        stages: [manual, push]
   - repo: https://github.com/packit/requre
     rev: 0.2.2
     hooks:
       - id: requre-purge
+        stages: [manual, push]
