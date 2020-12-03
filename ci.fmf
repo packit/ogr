@@ -12,4 +12,4 @@
       execute:
         how: shell
         script:
-        - pwd; cd ~/git-source && pwd && make check
+        - cd ~/git-source || :; pwd && ls -lah && make check
