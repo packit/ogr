@@ -23,6 +23,7 @@ jobs:
     trigger: release
     metadata:
       dist_git_branches: fedora-all
+
   - job: copr_build
     trigger: pull_request
     metadata:
@@ -33,6 +34,14 @@ jobs:
     metadata:
       targets:
         - fedora-all
+
+  - job: production_build
+    trigger: pull_request
+    metadata:
+      scratch: True
+      targets:
+        - fedora-development
+
   - job: copr_build
     trigger: commit
     metadata:
