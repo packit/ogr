@@ -20,21 +20,26 @@ actions:
 jobs:
   - job: sync_from_downstream
     trigger: commit
+
   - job: propose_downstream
     trigger: release
     metadata:
-      dist_git_branches: fedora-all
+      dist_git_branches:
+        - fedora-all
+        - epel-8
 
   - job: copr_build
     trigger: pull_request
     metadata:
       targets:
         - fedora-all
+        - epel-8
   - job: tests
     trigger: pull_request
     metadata:
       targets:
         - fedora-all
+        - epel-8
 
   - job: production_build
     trigger: pull_request
