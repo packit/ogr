@@ -1,18 +1,18 @@
 # 0.18.1
 
-* Add str for GitProject (used in mocking tests)
-* Fix str representation of GitlabCommitFlag
-* Add __str__ for CommitComment
-* Add an abstract class with binding of repr to str
-* Trigger scratch koji build for fedora-devel on PRs
-* [ci.fmf] there's no git-source/ in 'new' Testing Farm
-* Do not pass username to the PagureProject if not fork
-* Fix parsing of ssh urls and default to https protocol
-* Update parsing tests
-* Add more tests to parsing
-* [pre-commit.ci] pre-commit autoupdate
-* Turn off requre in pre-commit CI and move rebase to pre-push
-* Do not skip bug and security issues by stalebot
+- Add str for GitProject (used in mocking tests)
+- Fix str representation of GitlabCommitFlag
+- Add **str** for CommitComment
+- Add an abstract class with binding of repr to str
+- Trigger scratch koji build for fedora-devel on PRs
+- [ci.fmf] there's no git-source/ in 'new' Testing Farm
+- Do not pass username to the PagureProject if not fork
+- Fix parsing of ssh urls and default to https protocol
+- Update parsing tests
+- Add more tests to parsing
+- [pre-commit.ci] pre-commit autoupdate
+- Turn off requre in pre-commit CI and move rebase to pre-push
+- Do not skip bug and security issues by stalebot
 
 # 0.18.0
 
