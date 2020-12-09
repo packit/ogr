@@ -31,7 +31,7 @@ class GitlabUser(BaseGitUser):
         super().__init__(service=service)
 
     def __str__(self) -> str:
-        return f'Gitlab(username="{self.get_username()}")'
+        return f'GitlabUser(username="{self.get_username()}")'
 
     @property
     def _gitlab_user(self):
