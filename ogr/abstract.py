@@ -42,7 +42,12 @@ except ImportError:
 AnyComment = TypeVar("AnyComment", bound="Comment")
 
 
-class Comment:
+class OgrAbstractClass:
+    def __repr__(self) -> str:
+        return f"<{str(self)}>"
+
+
+class Comment(OgrAbstractClass):
     def __init__(
         self,
         raw_comment: Optional[Any] = None,
@@ -131,7 +136,7 @@ class IssueStatus(IntEnum):
     all = 3
 
 
-class Issue:
+class Issue(OgrAbstractClass):
     def __init__(self, raw_issue: Any, project: "GitProject") -> None:
         self._raw_issue = raw_issue
         self.project = project
@@ -302,7 +307,7 @@ class PRStatus(IntEnum):
     all = 4
 
 
-class PullRequest:
+class PullRequest(OgrAbstractClass):
     @deprecate_and_set_removal(
         since="0.9.0",
         remove_in="0.14.0 (or 1.0.0 if it comes sooner)",
@@ -580,7 +585,7 @@ class CommitStatus(Enum):
     running = 6
 
 
-class CommitFlag:
+class CommitFlag(OgrAbstractClass):
     _states: Dict[str, CommitStatus] = dict()
 
     def __init__(
@@ -613,10 +618,10 @@ class CommitFlag:
             f"commit='{self.commit}', "
             f"state='{self.state.name}', "
             f"context='{self.context}', "
-            f"uid='{self.uid}',"
-            f"comment='{self.comment}',"
-            f"url='{self.url}'"
-            f"created='{self.created}'"
+            f"uid='{self.uid}', "
+            f"comment='{self.comment}', "
+            f"url='{self.url}', "
+            f"created='{self.created}', "
             f"edited='{self.edited}')"
         )
 
@@ -655,14 +660,17 @@ class CommitFlag:
         raise NotImplementedError()
 
 
-class CommitComment:
+class CommitComment(OgrAbstractClass):
     def __init__(self, sha: str, comment: str, author: str) -> None:
         self.sha = sha
         self.comment = comment
         self.author = author
 
+    def __str__(self) -> str:
+        return f"CommitComment(commit={self.sha}, author={self.author}, comment={self.comment})"
 
-class GitTag:
+
+class GitTag(OgrAbstractClass):
     def __init__(self, name: str, commit_sha: str) -> None:
         self.name = name
         self.commit_sha = commit_sha
@@ -679,7 +687,7 @@ class AccessLevel(IntEnum):
     maintain = 5
 
 
-class Release:
+class Release(OgrAbstractClass):
     def __init__(
         self,
         tag_name: str,
@@ -732,7 +740,7 @@ class Release:
         raise NotImplementedError()
 
 
-class GitService:
+class GitService(OgrAbstractClass):
     instance_url: Optional[str] = None
 
     def __init__(self, **_: Any) -> None:
@@ -796,7 +804,7 @@ class GitService:
         raise NotImplementedError()
 
 
-class GitProject:
+class GitProject(OgrAbstractClass):
     def __init__(self, repo: str, service: GitService, namespace: str) -> None:
         """
         :param repo: name of the project
@@ -1423,7 +1431,7 @@ class GitProject:
         raise NotImplementedError
 
 
-class GitUser:
+class GitUser(OgrAbstractClass):
     def __init__(self, service: GitService) -> None:
         self.service = service
 
