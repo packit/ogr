@@ -618,10 +618,10 @@ class CommitFlag(OgrAbstractClass):
             f"commit='{self.commit}', "
             f"state='{self.state.name}', "
             f"context='{self.context}', "
-            f"uid='{self.uid}',"
-            f"comment='{self.comment}',"
-            f"url='{self.url}'"
-            f"created='{self.created}'"
+            f"uid='{self.uid}', "
+            f"comment='{self.comment}', "
+            f"url='{self.url}', "
+            f"created='{self.created}', "
             f"edited='{self.edited}')"
         )
 
