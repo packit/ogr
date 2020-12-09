@@ -666,6 +666,9 @@ class CommitComment(OgrAbstractClass):
         self.comment = comment
         self.author = author
 
+    def __str__(self) -> str:
+        return f"CommitComment(commit={self.sha}, author={self.author}, comment={self.comment})"
+
 
 class GitTag(OgrAbstractClass):
     def __init__(self, name: str, commit_sha: str) -> None:
