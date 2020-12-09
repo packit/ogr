@@ -419,7 +419,7 @@ class PullRequest(OgrAbstractClass):
             f"author='{self.author}', "
             f"source_branch='{self.source_branch}', "
             f"target_branch='{self.target_branch}', "
-            f"created='{self.created}'), "
+            f"created='{self.created}')"
         )
 
     @staticmethod
@@ -725,8 +725,8 @@ class Release(OgrAbstractClass):
             f"title='{self.title}', "
             f"body='{self.body}', "
             f"tag_name='{self.tag_name}', "
-            f"url='{self.url}',"
-            f"created_at='{self.created_at}',"
+            f"url='{self.url}', "
+            f"created_at='{self.created_at}', "
             f"tarball_url='{self.tarball_url}')"
         )
 
@@ -745,6 +745,9 @@ class GitService(OgrAbstractClass):
 
     def __init__(self, **_: Any) -> None:
         pass
+
+    def __str__(self) -> str:
+        return f"GitService(instance_url={self.instance_url})"
 
     def get_project(self, **kwargs: Any) -> "GitProject":
         """
@@ -817,6 +820,9 @@ class GitProject(OgrAbstractClass):
         self.service = service
         self.repo = repo
         self.namespace = namespace
+
+    def __str__(self) -> str:
+        return f"GitProject(namespace={self.namespace}, repo={self.repo}, service={self.service})"
 
     def delete(self) -> None:
         """Delete the project."""
