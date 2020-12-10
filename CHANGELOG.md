@@ -6,7 +6,7 @@
 
 ## Fixes
 
-- Parsing bug of gitlabs URL's with subnamespace was fixed and parsing was improved.
+- A bug in parsing GitLab URLs with sub-namespace was fixed and parsing was improved.
 
 # 0.18.0
 
