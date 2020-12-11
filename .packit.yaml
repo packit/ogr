@@ -8,6 +8,7 @@ upstream_project_url: https://github.com/packit/ogr
 # we are setting this so we can use packit from ogr's dist-git
 # packit can't know what's the upstream name when running from distgit
 upstream_package_name: ogr
+copy_upstream_release_description: true
 actions:
   # we need this b/c `git archive` doesn't put all the metadata in the tarball:
   #   LookupError: setuptools-scm was unable to detect version for '/builddir/build/BUILD/ogr-0.11.1'.
