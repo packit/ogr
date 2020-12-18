@@ -882,6 +882,11 @@ class GitProject(OgrAbstractClass):
         """
         raise NotImplementedError()
 
+    @property
+    def default_branch(self) -> str:
+        """ Return default branch (usually 'main' or 'master'). """
+        raise NotImplementedError()
+
     def get_description(self) -> str:
         """
         Project description.
@@ -1398,22 +1403,22 @@ class GitProject(OgrAbstractClass):
         """
         raise NotImplementedError
 
-    def get_file_content(self, path: str, ref: str = "master") -> str:
+    def get_file_content(self, path: str, ref: str = None) -> str:
         """
         Get a content of the file in the repo.
 
-        :param ref: branch or commit (defaults to master)
+        :param ref: branch or commit (defaults to repo's default branch)
         :param path: str
         :return: str or FileNotFoundError if there is no such file
         """
         raise NotImplementedError
 
     def get_files(
-        self, ref: str = "master", filter_regex: str = None, recursive: bool = False
+        self, ref: str = None, filter_regex: str = None, recursive: bool = False
     ) -> List[str]:
         """
         Get a list of file paths of the repo.
-        :param ref: branch or commit (defaults to master)
+        :param ref: branch or commit (defaults to repo's default branch)
         :param filter_regex: filter the paths with re.search
         :param recursive: whether to return only top directory files or all files recursively
         :return: [str]
