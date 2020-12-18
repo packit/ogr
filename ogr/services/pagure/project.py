@@ -178,6 +178,11 @@ class PagureProject(BaseGitProject):
         return_value = self._call_project_api("git", "branches", method="GET")
         return return_value["branches"]
 
+    @property
+    def default_branch(self) -> str:
+        return_value = self._call_project_api("git", "branches", method="GET")
+        return return_value["default"]
+
     def get_description(self) -> str:
         return self.get_project_info()["description"]
 
@@ -426,7 +431,8 @@ class PagureProject(BaseGitProject):
         """
         self.service.change_token(new_token)
 
-    def get_file_content(self, path: str, ref="master") -> str:
+    def get_file_content(self, path: str, ref=None) -> str:
+        ref = ref or self.default_branch
         try:
             result = self._call_project_api_raw(
                 "raw", ref, "f", path, add_api_endpoint_part=False

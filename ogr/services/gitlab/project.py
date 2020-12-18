@@ -95,6 +95,10 @@ class GitlabProject(BaseGitProject):
             )
         return None
 
+    @property
+    def default_branch(self) -> Optional[str]:
+        return self.gitlab_repo.attributes.get("default_branch")
+
     def __str__(self) -> str:
         return f'GitlabProject(namespace="{self.namespace}", repo="{self.repo}")'
 
@@ -379,7 +383,8 @@ class GitlabProject(BaseGitProject):
     def get_branches(self) -> List[str]:
         return [branch.name for branch in self.gitlab_repo.branches.list(all=True)]
 
-    def get_file_content(self, path, ref="master") -> str:
+    def get_file_content(self, path, ref=None) -> str:
+        ref = ref or self.default_branch
         try:
             file = self.gitlab_repo.files.get(file_path=path, ref=ref)
             return file.decode().decode()
@@ -387,15 +392,16 @@ class GitlabProject(BaseGitProject):
             raise FileNotFoundError(f"File '{path}' on {ref} not found", ex)
 
     def get_files(
-        self, ref: str = "master", filter_regex: str = None, recursive: bool = False
+        self, ref: str = None, filter_regex: str = None, recursive: bool = False
     ) -> List[str]:
         """
         Get a list of file paths of the repo.
-        :param ref: branch or commit (defaults to master)
+        :param ref: branch or commit (defaults to repo's default branch)
         :param filter_regex: filter the paths with re.search
         :param recursive: whether to return only top directory files or all files recursively
         :return: [str]
         """
+        ref = ref or self.default_branch
         paths = [
             file_dict["path"]
             for file_dict in self.gitlab_repo.repository_tree(

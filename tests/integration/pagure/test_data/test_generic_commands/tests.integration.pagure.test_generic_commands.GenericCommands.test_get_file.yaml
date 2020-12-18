@@ -5,9 +5,55 @@ _requre:
 requests.sessions:
   send:
     GET:
+      https://pagure.io/api/0/ogr-tests/git/branches:
+      - metadata:
+          latency: 0.2878444194793701
+          module_call_list:
+          - unittest.case
+          - requre.online_replacing
+          - tests.integration.pagure.test_generic_commands
+          - ogr.services.pagure.project
+          - ogr.services.pagure.service
+          - requests.sessions
+          - requre.objects
+          - requre.cassette
+          - requests.sessions
+          - send
+        output:
+          __store_indicator: 2
+          _content:
+            branches:
+            - master
+            - testPR
+            default: master
+            total_branches: 2
+          _next: null
+          elapsed: 0.2
+          encoding: null
+          headers:
+            Connection: Keep-Alive
+            Content-Length: '100'
+            Content-Security-Policy: default-src 'self';script-src 'self' 'nonce-YqLDC0BS8d7iY8mKO7VtBbIne'
+              https://apps.fedoraproject.org; style-src 'self' 'nonce-YqLDC0BS8d7iY8mKO7VtBbIne';
+              object-src 'none';base-uri 'self';img-src 'self' https:;
+            Content-Type: application/json
+            Date: Fri, 01 Nov 2019 13-36-03 GMT
+            Keep-Alive: timeout=5, max=99
+            Referrer-Policy: same-origin
+            Server: Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1g mod_wsgi/4.6.4
+              Python/3.6
+            Set-Cookie: pagure=eyJfcGVybWFuZW50Ijp0cnVlLCJjc3JmX3Rva2VuIjoiN2RjNDI0NzQyMWFmZTY5NGNmMGZmMzRkZjJlYTU1ZDVhMDQ0ZDE5OCJ9.Er4kGQ.2WMJMZhj60eh7S_2GKP8UaLaUis;
+              Expires=Mon, 18-Jan-2021 11:29:29 GMT; Secure; HttpOnly; Path=/
+            Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
+            X-Content-Type-Options: nosniff
+            X-Frame-Options: ALLOW-FROM https://pagure.io/
+            X-Xss-Protection: 1; mode=block
+          raw: !!binary ""
+          reason: OK
+          status_code: 200
       https://pagure.io/ogr-tests/raw/master/f/README.md:
       - metadata:
-          latency: 0.2514309883117676
+          latency: 0.24428677558898926
           module_call_list:
           - unittest.case
           - requre.online_replacing
@@ -31,23 +77,23 @@ requests.sessions:
             '
           _next: null
           elapsed: 0.2
-          encoding: ascii
+          encoding: utf-8
           headers:
             Connection: Keep-Alive
             Content-Length: '77'
             Content-Security-Policy: default-src 'self';script-src 'self' 'nonce-YqLDC0BS8d7iY8mKO7VtBbIne'
               https://apps.fedoraproject.org; style-src 'self' 'nonce-YqLDC0BS8d7iY8mKO7VtBbIne';
               object-src 'none';base-uri 'self';img-src 'self' https:;
-            Content-Type: text/plain; charset=ascii
+            Content-Type: text/markdown; charset=utf-8
             Date: Fri, 01 Nov 2019 13-36-03 GMT
-            Keep-Alive: timeout=5, max=99
+            Keep-Alive: timeout=5, max=98
             Referrer-Policy: same-origin
-            Server: Apache/2.4.6 (Red Hat Enterprise Linux) OpenSSL/1.0.2k-fips mod_wsgi/3.4
-              Python/2.7.5
-            Set-Cookie: pagure=eyJfcGVybWFuZW50Ijp0cnVlLCJjc3JmIjp7IiBiIjoiWWpkaFlqZG1NREF6TlRreFlXRTRZelUxTmpkbE1XUm1NV0l5TjJKak9UUTRPVEJpWVRFM1pnPT0ifX0.Eikaew.kjs60VLNsX_isbzOY_jOGf77UIw;
-              Expires=Sun, 27-Sep-2020 10:20:43 GMT; Secure; HttpOnly; Path=/
+            Server: Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1g mod_wsgi/4.6.4
+              Python/3.6
+            Set-Cookie: pagure=eyJfcGVybWFuZW50Ijp0cnVlLCJjc3JmX3Rva2VuIjoiN2RjNDI0NzQyMWFmZTY5NGNmMGZmMzRkZjJlYTU1ZDVhMDQ0ZDE5OCJ9.Er4kGQ.2WMJMZhj60eh7S_2GKP8UaLaUis;
+              Expires=Mon, 18-Jan-2021 11:29:29 GMT; Secure; HttpOnly; Path=/
             Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
-            X-Content-Type-Options: nosniff
+            X-Content-Type-Options: nosniff, nosniff
             X-Frame-Options: ALLOW-FROM https://pagure.io/
             X-Xss-Protection: 1; mode=block
           raw: !!binary ""
@@ -56,7 +102,7 @@ requests.sessions:
     POST:
       https://pagure.io/api/0/-/whoami:
       - metadata:
-          latency: 0.8299000263214111
+          latency: 0.9431819915771484
           module_call_list:
           - unittest.case
           - requre.online_replacing
@@ -73,13 +119,13 @@ requests.sessions:
         output:
           __store_indicator: 2
           _content:
-            username: mfocko
+            username: jpopelka
           _next: null
           elapsed: 0.2
           encoding: null
           headers:
             Connection: Keep-Alive
-            Content-Length: '26'
+            Content-Length: '29'
             Content-Security-Policy: default-src 'self';script-src 'self' 'nonce-YqLDC0BS8d7iY8mKO7VtBbIne'
               https://apps.fedoraproject.org; style-src 'self' 'nonce-YqLDC0BS8d7iY8mKO7VtBbIne';
               object-src 'none';base-uri 'self';img-src 'self' https:;
@@ -87,10 +133,10 @@ requests.sessions:
             Date: Fri, 01 Nov 2019 13-36-03 GMT
             Keep-Alive: timeout=5, max=100
             Referrer-Policy: same-origin
-            Server: Apache/2.4.6 (Red Hat Enterprise Linux) OpenSSL/1.0.2k-fips mod_wsgi/3.4
-              Python/2.7.5
-            Set-Cookie: pagure=eyJfcGVybWFuZW50Ijp0cnVlLCJjc3JmIjp7IiBiIjoiWWpkaFlqZG1NREF6TlRreFlXRTRZelUxTmpkbE1XUm1NV0l5TjJKak9UUTRPVEJpWVRFM1pnPT0ifX0.Eikaew.kjs60VLNsX_isbzOY_jOGf77UIw;
-              Expires=Sun, 27-Sep-2020 10:20:43 GMT; Secure; HttpOnly; Path=/
+            Server: Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1g mod_wsgi/4.6.4
+              Python/3.6
+            Set-Cookie: pagure=eyJfcGVybWFuZW50Ijp0cnVlLCJjc3JmX3Rva2VuIjoiN2RjNDI0NzQyMWFmZTY5NGNmMGZmMzRkZjJlYTU1ZDVhMDQ0ZDE5OCJ9.Er4kGQ.2WMJMZhj60eh7S_2GKP8UaLaUis;
+              Expires=Mon, 18-Jan-2021 11:29:29 GMT; Secure; HttpOnly; Path=/
             Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
             X-Content-Type-Options: nosniff
             X-Frame-Options: ALLOW-FROM https://pagure.io/
