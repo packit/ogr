@@ -48,7 +48,16 @@ class GitlabCommitFlag(BaseCommitFlag):
         return "failed" if state == CommitStatus.failure else state.name
 
     def __str__(self) -> str:
-        return "Gitlab" + super().__str__()
+        return (
+            f"GitlabCommitFlag("
+            f"commit='{self.commit}', "
+            f"state='{self.state.name}', "
+            f"context='{self.context}', "
+            f"uid='{self.uid}', "
+            f"comment='{self.comment}', "
+            f"url='{self.url}', "
+            f"created='{self.created}')"
+        )
 
     def _from_raw_commit_flag(self):
         self.commit = self._raw_commit_flag.sha
