@@ -160,6 +160,10 @@ class GithubProject(BaseGitProject):
             else None
         )
 
+    @property
+    def default_branch(self):
+        return self.github_repo.default_branch
+
     def get_branches(self) -> List[str]:
         return [branch.name for branch in self.github_repo.get_branches()]
 
@@ -421,7 +425,8 @@ class GithubProject(BaseGitProject):
     def change_token(self, new_token: str):
         raise NotImplementedError
 
-    def get_file_content(self, path: str, ref="master") -> str:
+    def get_file_content(self, path: str, ref=None) -> str:
+        ref = ref or self.default_branch
         try:
             return self.github_repo.get_contents(
                 path=path, ref=ref
@@ -430,15 +435,16 @@ class GithubProject(BaseGitProject):
             raise FileNotFoundError(f"File '{path}' on {ref} not found", ex)
 
     def get_files(
-        self, ref: str = "master", filter_regex: str = None, recursive: bool = False
+        self, ref: str = None, filter_regex: str = None, recursive: bool = False
     ) -> List[str]:
         """
         Get a list of file paths of the repo.
-        :param ref: branch or commit (defaults to master)
+        :param ref: branch or commit (defaults to repo's default branch)
         :param filter_regex: filter the paths with re.search
         :param recursive: whether to return only top directory files or all files recursively
         :return: [str]
         """
+        ref = ref or self.default_branch
         paths = []
         contents = self.github_repo.get_contents(path="", ref=ref)
 

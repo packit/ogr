@@ -83,7 +83,7 @@ class RepoUrl:
         if "@" in potential_url:
             split = potential_url.split("@")
             if len(split) == 2:
-                potential_url = "http://" + split[1]
+                potential_url = "https://" + split[1]
             else:
                 # more @s ?
                 return None
@@ -92,7 +92,7 @@ class RepoUrl:
         if not potential_url.startswith(
             ("http://", "https://", "git://", "git+https://")
         ):
-            potential_url = "http://" + potential_url
+            potential_url = "https://" + potential_url
 
         return urlparse(potential_url)
 
@@ -100,14 +100,26 @@ class RepoUrl:
         self.hostname = parsed_url.hostname
         self.scheme = parsed_url.scheme
 
-    def _parse_username(self, parsed: ParseResult) -> None:
+    def _parse_username(self, parsed: ParseResult) -> bool:
         if ":" not in parsed.netloc:
-            return
+            return True
 
-        # e.g. domain.com:foo or domain.com:1234, where foo is username, but 1234 is port number
         split = parsed.netloc.split(":")
-        if split[1] and not split[1].isnumeric():
+        if len(split) > 2:
+            # in case there is port:namespace
+            return False
+
+        if not split[1]:
+            return True
+
+        if split[1] == "forks":
+            self.is_fork = True
+        elif not split[1].isnumeric():
+            # e.g. domain.com:foo or domain.com:1234,
+            # where foo is username, but 1234 is port number
             self.username = split[1]
+
+        return True
 
     @staticmethod
     def _prepare_path(parsed: ParseResult) -> Tuple[str, List[str]]:
@@ -120,6 +132,29 @@ class RepoUrl:
 
         return path, path.split("/")
 
+    def _check_fork(self, splits: List[str]) -> List[str]:
+        if self.is_fork:
+            # we got pagure fork but SSH url
+            self.username = splits[0]
+            return splits[1:-1]
+
+        # path contains username/reponame
+        # or some/namespace/reponame
+        # or fork/username/some/namespace/reponame
+        self.is_fork = (
+            splits[0] in ("fork", "forks") and len(splits) >= 3
+        )  # pagure fork
+        if self.is_fork:
+            # fork/username/namespace/repo format
+            self.username = splits[1]
+            return splits[2:-1]
+
+        if self.username:
+            return [self.username] + splits[:-1]
+
+        self.username = splits[0]
+        return splits[:-1]
+
     def _parsed_path(self, path: str, splits: List[str]) -> Optional["RepoUrl"]:
         if len(splits) == 1:
             self.namespace = self.username
@@ -127,20 +162,11 @@ class RepoUrl:
 
             return self
 
-        if self.username or len(splits) < 2:
+        if len(splits) < 2:
             # invalid cases
             return None
 
-        # path contains username/reponame
-        # or some/namespace/reponame
-        # or fork/username/some/namespace/reponame
-        self.is_fork = "fork" == splits[0] and len(splits) >= 3  # pagure fork
-        if self.is_fork:
-            # fork/username/namespace/repo format
-            self.username = splits[1]
-            namespace_parts = splits[2:-1]
-        else:
-            namespace_parts = splits[:-1]
+        namespace_parts = self._check_fork(splits)
 
         self.namespace = "/".join(namespace_parts)
         self.repo = splits[-1]
@@ -158,7 +184,9 @@ class RepoUrl:
             return None
 
         repo._set_hostname_and_scheme(parsed_url)
-        repo._parse_username(parsed_url)
+        if not repo._parse_username(parsed_url):
+            # failed parsing username
+            return None
 
         return repo if repo._parsed_path(*cls._prepare_path(parsed_url)) else None
 

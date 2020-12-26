@@ -4,30 +4,46 @@ from ogr.parsing import parse_git_repo, RepoUrl
 
 
 @pytest.mark.parametrize(
-    "url,result",
+    "url,expected",
     [
         (
             "https://host.name/namespace/repo",
             RepoUrl(
-                repo="repo", namespace="namespace", scheme="https", hostname="host.name"
+                repo="repo",
+                namespace="namespace",
+                scheme="https",
+                hostname="host.name",
+                username="namespace",
             ),
         ),
         (
             "https://host.name/namespace/repo.git",
             RepoUrl(
-                repo="repo", namespace="namespace", scheme="https", hostname="host.name"
+                repo="repo",
+                namespace="namespace",
+                scheme="https",
+                hostname="host.name",
+                username="namespace",
             ),
         ),
         (
             "http://host.name/namespace/repo",
             RepoUrl(
-                repo="repo", namespace="namespace", scheme="http", hostname="host.name"
+                repo="repo",
+                namespace="namespace",
+                scheme="http",
+                hostname="host.name",
+                username="namespace",
             ),
         ),
         (
             "git://host.name/namespace/repo",
             RepoUrl(
-                repo="repo", namespace="namespace", scheme="git", hostname="host.name"
+                repo="repo",
+                namespace="namespace",
+                scheme="git",
+                hostname="host.name",
+                username="namespace",
             ),
         ),
         (
@@ -37,6 +53,7 @@ from ogr.parsing import parse_git_repo, RepoUrl
                 namespace="namespace",
                 scheme="git+https",
                 hostname="host.name",
+                username="namespace",
             ),
         ),
         (
@@ -44,19 +61,19 @@ from ogr.parsing import parse_git_repo, RepoUrl
             RepoUrl(
                 repo="repo",
                 namespace="namespace",
-                scheme="http",
+                scheme="https",
                 hostname="host.name",
                 username="namespace",
             ),
         ),
-        ("host.name/repo", RepoUrl(repo="repo", scheme="http", hostname="host.name")),
+        ("host.name/repo", RepoUrl(repo="repo", scheme="https", hostname="host.name")),
         (
             "host.name/fork/user/namespace/repo",
             RepoUrl(
                 repo="repo",
                 username="user",
                 namespace="namespace",
-                scheme="http",
+                scheme="https",
                 hostname="host.name",
                 is_fork=True,
             ),
@@ -65,7 +82,7 @@ from ogr.parsing import parse_git_repo, RepoUrl
             "https://host.name/namespace/repo/",
             RepoUrl(
                 repo="repo",
-                username=None,
+                username="namespace",
                 namespace="namespace",
                 scheme="https",
                 hostname="host.name",
@@ -75,7 +92,7 @@ from ogr.parsing import parse_git_repo, RepoUrl
             "https://host.name/multi/part/namespace/repo/",
             RepoUrl(
                 repo="repo",
-                username=None,
+                username="multi",
                 namespace="multi/part/namespace",
                 scheme="https",
                 hostname="host.name",
@@ -93,8 +110,90 @@ from ogr.parsing import parse_git_repo, RepoUrl
             ),
         ),
         ("https://fail@more@at@domain.com", None),
+        (
+            "git@gitlab.com:packit-service/src/libvirt.git",
+            RepoUrl(
+                repo="libvirt",
+                namespace="packit-service/src",
+                username="packit-service",
+                hostname="gitlab.com",
+                scheme="https",
+            ),
+        ),
+        ("git@git.mfocko.xyz:2222:mfocko/dotfiles.git", None),
+        (
+            "https://pagure.io/fork/mfocko/fedora-infra/ansible.git",
+            RepoUrl(
+                repo="ansible",
+                namespace="fedora-infra",
+                username="mfocko",
+                is_fork=True,
+                hostname="pagure.io",
+                scheme="https",
+            ),
+        ),
+        (
+            "ssh://git@pagure.io/forks/mfocko/fedora-infra/ansible.git",
+            RepoUrl(
+                repo="ansible",
+                namespace="fedora-infra",
+                username="mfocko",
+                is_fork=True,
+                hostname="pagure.io",
+                scheme="https",
+            ),
+        ),
+        (
+            "ssh://git@pagure.io:forks/mfocko/fedora-infra/ansible.git",
+            RepoUrl(
+                repo="ansible",
+                namespace="fedora-infra",
+                username="mfocko",
+                is_fork=True,
+                hostname="pagure.io",
+                scheme="https",
+            ),
+        ),
+        (
+            "https://xfocko:myLamePassword@git.mfocko.xyz/mfocko/dotfiles.git",
+            RepoUrl(
+                repo="dotfiles",
+                namespace="mfocko",
+                hostname="git.mfocko.xyz",
+                scheme="https",
+                username="mfocko",
+            ),
+        ),
+        (
+            "ssh://git@pagure.io/playground-mfocko.git",
+            RepoUrl(
+                repo="playground-mfocko",
+                namespace=None,
+                hostname="pagure.io",
+                scheme="https",
+            ),
+        ),
+        (
+            "https://pagure.io/playground-mfocko.git",
+            RepoUrl(
+                repo="playground-mfocko",
+                namespace=None,
+                hostname="pagure.io",
+                scheme="https",
+            ),
+        ),
+        (
+            "git://github.com/packit/dotfiles.git",
+            RepoUrl(
+                repo="dotfiles",
+                namespace="packit",
+                username="packit",
+                hostname="github.com",
+                scheme="git",
+            ),
+        ),
     ],
 )
-def test_parse_git_repo(url, result):
+def test_parse_git_repo(url, expected):
     repo_url = parse_git_repo(potential_url=url)
-    assert repo_url == result
+    assert repo_url == expected

@@ -42,7 +42,12 @@ except ImportError:
 AnyComment = TypeVar("AnyComment", bound="Comment")
 
 
-class Comment:
+class OgrAbstractClass:
+    def __repr__(self) -> str:
+        return f"<{str(self)}>"
+
+
+class Comment(OgrAbstractClass):
     def __init__(
         self,
         raw_comment: Optional[Any] = None,
@@ -131,7 +136,7 @@ class IssueStatus(IntEnum):
     all = 3
 
 
-class Issue:
+class Issue(OgrAbstractClass):
     def __init__(self, raw_issue: Any, project: "GitProject") -> None:
         self._raw_issue = raw_issue
         self.project = project
@@ -302,7 +307,7 @@ class PRStatus(IntEnum):
     all = 4
 
 
-class PullRequest:
+class PullRequest(OgrAbstractClass):
     @deprecate_and_set_removal(
         since="0.9.0",
         remove_in="0.14.0 (or 1.0.0 if it comes sooner)",
@@ -414,7 +419,7 @@ class PullRequest:
             f"author='{self.author}', "
             f"source_branch='{self.source_branch}', "
             f"target_branch='{self.target_branch}', "
-            f"created='{self.created}'), "
+            f"created='{self.created}')"
         )
 
     @staticmethod
@@ -580,7 +585,7 @@ class CommitStatus(Enum):
     running = 6
 
 
-class CommitFlag:
+class CommitFlag(OgrAbstractClass):
     _states: Dict[str, CommitStatus] = dict()
 
     def __init__(
@@ -613,10 +618,10 @@ class CommitFlag:
             f"commit='{self.commit}', "
             f"state='{self.state.name}', "
             f"context='{self.context}', "
-            f"uid='{self.uid}',"
-            f"comment='{self.comment}',"
-            f"url='{self.url}'"
-            f"created='{self.created}'"
+            f"uid='{self.uid}', "
+            f"comment='{self.comment}', "
+            f"url='{self.url}', "
+            f"created='{self.created}', "
             f"edited='{self.edited}')"
         )
 
@@ -655,14 +660,17 @@ class CommitFlag:
         raise NotImplementedError()
 
 
-class CommitComment:
+class CommitComment(OgrAbstractClass):
     def __init__(self, sha: str, comment: str, author: str) -> None:
         self.sha = sha
         self.comment = comment
         self.author = author
 
+    def __str__(self) -> str:
+        return f"CommitComment(commit={self.sha}, author={self.author}, comment={self.comment})"
 
-class GitTag:
+
+class GitTag(OgrAbstractClass):
     def __init__(self, name: str, commit_sha: str) -> None:
         self.name = name
         self.commit_sha = commit_sha
@@ -679,7 +687,7 @@ class AccessLevel(IntEnum):
     maintain = 5
 
 
-class Release:
+class Release(OgrAbstractClass):
     def __init__(
         self,
         tag_name: str,
@@ -717,8 +725,8 @@ class Release:
             f"title='{self.title}', "
             f"body='{self.body}', "
             f"tag_name='{self.tag_name}', "
-            f"url='{self.url}',"
-            f"created_at='{self.created_at}',"
+            f"url='{self.url}', "
+            f"created_at='{self.created_at}', "
             f"tarball_url='{self.tarball_url}')"
         )
 
@@ -732,11 +740,14 @@ class Release:
         raise NotImplementedError()
 
 
-class GitService:
+class GitService(OgrAbstractClass):
     instance_url: Optional[str] = None
 
     def __init__(self, **_: Any) -> None:
         pass
+
+    def __str__(self) -> str:
+        return f"GitService(instance_url={self.instance_url})"
 
     def get_project(self, **kwargs: Any) -> "GitProject":
         """
@@ -812,7 +823,7 @@ class GitService:
         raise NotImplementedError
 
 
-class GitProject:
+class GitProject(OgrAbstractClass):
     def __init__(self, repo: str, service: GitService, namespace: str) -> None:
         """
         :param repo: name of the project
@@ -825,6 +836,9 @@ class GitProject:
         self.service = service
         self.repo = repo
         self.namespace = namespace
+
+    def __str__(self) -> str:
+        return f"GitProject(namespace={self.namespace}, repo={self.repo}, service={self.service})"
 
     def delete(self) -> None:
         """Delete the project."""
@@ -882,6 +896,11 @@ class GitProject:
 
         :return: [str]
         """
+        raise NotImplementedError()
+
+    @property
+    def default_branch(self) -> str:
+        """ Return default branch (usually 'main' or 'master'). """
         raise NotImplementedError()
 
     def get_description(self) -> str:
@@ -1400,22 +1419,22 @@ class GitProject:
         """
         raise NotImplementedError
 
-    def get_file_content(self, path: str, ref: str = "master") -> str:
+    def get_file_content(self, path: str, ref: str = None) -> str:
         """
         Get a content of the file in the repo.
 
-        :param ref: branch or commit (defaults to master)
+        :param ref: branch or commit (defaults to repo's default branch)
         :param path: str
         :return: str or FileNotFoundError if there is no such file
         """
         raise NotImplementedError
 
     def get_files(
-        self, ref: str = "master", filter_regex: str = None, recursive: bool = False
+        self, ref: str = None, filter_regex: str = None, recursive: bool = False
     ) -> List[str]:
         """
         Get a list of file paths of the repo.
-        :param ref: branch or commit (defaults to master)
+        :param ref: branch or commit (defaults to repo's default branch)
         :param filter_regex: filter the paths with re.search
         :param recursive: whether to return only top directory files or all files recursively
         :return: [str]
@@ -1439,7 +1458,7 @@ class GitProject:
         raise NotImplementedError
 
 
-class GitUser:
+class GitUser(OgrAbstractClass):
     def __init__(self, service: GitService) -> None:
         self.service = service
 

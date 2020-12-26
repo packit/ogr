@@ -1,4 +1,3 @@
-BASE_IMAGE := registry.fedoraproject.org/fedora:30
 TEST_TARGET := ./tests/
 PY_PACKAGE := ogr
 OGR_IMAGE := ogr
@@ -30,15 +29,15 @@ check-pypi-packaging:
 		'
 
 remove-response-files-github:
-	rm -rf ./tests/integration/test_data/test_github*
+	rm -rf ./tests/integration/github/test_data/
 
 remove-response-files-pagure:
-	rm -rf ./tests/integration/test_data/test_pagure*
+	rm -rf ./tests/integration/pagure/test_data/
 
 remove-response-files-gitlab:
-	rm -rf ./tests/integration/test_data/test_gitlab*
+	rm -rf ./tests/integration/gitlab/test_data/
 
 remove-response-files: remove-response-files-github remove-response-files-pagure remove-response-files-gitlab
 
 requre-purge-files:
-	pre-commit run --all-files requre-purge --verbose
+	pre-commit run --all-files requre-purge --verbose --hook-stage manual

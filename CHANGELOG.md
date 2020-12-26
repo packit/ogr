@@ -1,3 +1,13 @@
+# 0.18.1
+
+## Minor
+
+- Added and polished `__str__` and `__repr__` methods.
+
+## Fixes
+
+- A bug in parsing GitLab URLs with sub-namespace was fixed and parsing was improved.
+
 # 0.18.0
 
 ## Features

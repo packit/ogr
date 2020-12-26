@@ -21,7 +21,7 @@
 # SOFTWARE.
 
 import logging
-from typing import List, Optional
+from typing import List, Optional, Union
 
 import requests
 
@@ -47,6 +47,7 @@ class PagureService(BaseGitService):
         instance_url: str = "https://src.fedoraproject.org",
         read_only: bool = False,
         insecure: bool = False,
+        max_retries: Union[int, requests.packages.urllib3.util.Retry] = 5,
         **_,
     ) -> None:
         super().__init__()
@@ -56,7 +57,7 @@ class PagureService(BaseGitService):
 
         self.session = requests.session()
 
-        adapter = requests.adapters.HTTPAdapter(max_retries=5)
+        adapter = requests.adapters.HTTPAdapter(max_retries=max_retries)
 
         self.insecure = insecure
         if self.insecure:
@@ -106,6 +107,9 @@ class PagureService(BaseGitService):
 
     def get_project_from_url(self, url: str) -> "PagureProject":
         repo_url = parse_git_repo(potential_url=url)
+        if not repo_url.is_fork:
+            repo_url.username = None
+
         project = self.get_project(
             repo=repo_url.repo,
             namespace=repo_url.namespace,
