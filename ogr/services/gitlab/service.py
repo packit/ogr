@@ -19,7 +19,7 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
-from typing import Optional
+from typing import Optional, List
 
 import gitlab
 
@@ -123,3 +123,31 @@ class GitlabService(BaseGitService):
         return GitlabProject(
             repo=repo, namespace=namespace, service=self, gitlab_repo=new_project
         )
+
+    def list_projects(
+        self,
+        namespace: str = None,
+        user: str = None,
+        search_patter: str = None,
+        language: str = None,
+    ) -> List["GitProject"]:
+        gl = self.gitlab_instance
+
+        if namespace:
+            group = gl.groups.get(namespace)
+            projects = group.projects.list()
+        if user:
+            u = gl.users.list(username=user)[0]
+            projects = u.projects.list()
+
+        gitlab_projects = [
+            GitlabProject(
+                repo=p.attributes["path"],
+                namespace=p.attributes["namespace"]["full_path"],
+                gitlab_repo=p,
+                service=self,
+            )
+            for p in projects
+        ]
+
+        return gitlab_projects
