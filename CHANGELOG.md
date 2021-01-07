@@ -1,3 +1,12 @@
+# 0.19.0
+
+## Features
+
+- Add and implement `GitProject.default_branch` property, by [@jpopelka](https://github.com/jpopelka), [#515](https://github.com/packit-service/ogr/pull/515)
+  - All git forges support changing of a default branch of a repo/project. All newly created Github projects have had 'main' as a default branch instead of 'master' [since October 2020](https://docs.github.com/en/free-pro-team@latest/github/administering-a-repository/changing-the-default-branch).
+- PagureService: Make retries parametrizable via `max_retries` argument, by [@csomh](https://github.com/csomh), [#514](https://github.com/packit-service/ogr/pull/514)
+  - This way users of a PagureService object can control how failures of API calls are retried.
+
 # 0.18.1
 
 ## Minor
