@@ -286,3 +286,12 @@ class PagureService(BaseGitService):
         except PagureAPIException as ex:
             self.__handle_project_create_fail(ex, namespace)
         return PagureProject(repo=repo, namespace=namespace, service=self)
+
+    def list_projects(
+        self,
+        namespace: str = None,
+        user: str = None,
+        search_patter: str = None,
+        language: str = None,
+    ) -> List["GitProject"]:
+        raise NotImplementedError
