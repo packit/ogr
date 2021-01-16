@@ -810,6 +810,22 @@ class GitService(OgrAbstractClass):
         """
         raise NotImplementedError()
 
+    def list_projects(
+        self,
+        namespace: str = None,
+        user: str = None,
+        search_pattern: str = None,
+        language: str = None,
+    ) -> List["GitProject"]:
+        """
+        List projects for given criteria
+
+        :param namespace: str
+        :param owner: str
+        :param search_pattern: str
+        """
+        raise NotImplementedError
+
 
 class GitProject(OgrAbstractClass):
     def __init__(self, repo: str, service: GitService, namespace: str) -> None:

@@ -25,10 +25,10 @@ from typing import List, Optional, Union
 
 import requests
 
-from ogr.exceptions import PagureAPIException, OgrException
+from ogr.exceptions import PagureAPIException, OgrException, OperationNotSupported
 from ogr.factory import use_for_service
 from ogr.parsing import parse_git_repo
-from ogr.services.base import BaseGitService
+from ogr.services.base import BaseGitService, GitProject
 from ogr.services.pagure.project import PagureProject
 from ogr.services.pagure.user import PagureUser
 from ogr.utils import RequestResponse
@@ -289,3 +289,12 @@ class PagureService(BaseGitService):
         except PagureAPIException as ex:
             self.__handle_project_create_fail(ex, namespace)
         return PagureProject(repo=repo, namespace=namespace, service=self)
+
+    def list_projects(
+        self,
+        namespace: str = None,
+        user: str = None,
+        search_pattern: str = None,
+        language: str = None,
+    ) -> List[GitProject]:
+        raise OperationNotSupported

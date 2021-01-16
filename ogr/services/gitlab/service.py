@@ -20,14 +20,14 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 import logging
-from typing import Optional
+from typing import Optional, List
 
 import gitlab
 
 from ogr.abstract import GitUser
-from ogr.exceptions import GitlabAPIException
+from ogr.exceptions import GitlabAPIException, OperationNotSupported
 from ogr.factory import use_for_service
-from ogr.services.base import BaseGitService
+from ogr.services.base import BaseGitService, GitProject
 from ogr.services.gitlab.project import GitlabProject
 from ogr.services.gitlab.user import GitlabUser
 
@@ -129,3 +129,47 @@ class GitlabService(BaseGitService):
         return GitlabProject(
             repo=repo, namespace=namespace, service=self, gitlab_repo=new_project
         )
+
+    def list_projects(
+        self,
+        namespace: str = None,
+        user: str = None,
+        search_pattern: str = None,
+        language: str = None,
+    ) -> List[GitProject]:
+
+        if namespace:
+            group = self.gitlab_instance.groups.get(namespace)
+            projects = group.projects.list(all=True)
+        elif user:
+            user_object = self.gitlab_instance.users.list(username=user)[0]
+            projects = user_object.projects.list(all=True)
+        else:
+            raise OperationNotSupported
+
+        gitlab_projects: List[GitProject]
+
+        if language:
+            # group.projects.list gives us a GroupProject instance
+            # in order to be able to filter by language we need Project instance
+            projects_to_convert = [
+                self.gitlab_instance.projects.get(item.attributes["id"])
+                for item in projects
+                if language
+                in self.gitlab_instance.projects.get(item.attributes["id"])
+                .languages()
+                .keys()
+            ]
+        else:
+            projects_to_convert = projects
+        gitlab_projects = [
+            GitlabProject(
+                repo=project.attributes["path"],
+                namespace=project.attributes["namespace"]["full_path"],
+                gitlab_repo=project,
+                service=self,
+            )
+            for project in projects_to_convert
+        ]
+
+        return gitlab_projects
