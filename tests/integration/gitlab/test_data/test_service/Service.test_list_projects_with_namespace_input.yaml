@@ -1,0 +1,2397 @@
+_requre:
+  DataTypes: 1
+  key_strategy: StorageKeysInspectSimple
+  version_storage_file: 3
+requests.sessions:
+  send:
+    GET:
+      https://gitlab.com/api/v4/groups/470642/projects:
+      - metadata:
+          latency: 0.4061298370361328
+          module_call_list:
+          - unittest.case
+          - requre.online_replacing
+          - tests.integration.gitlab.test_service
+          - ogr.services.gitlab.service
+          - gitlab.exceptions
+          - gitlab.mixins
+          - gitlab
+          - requre.objects
+          - requre.cassette
+          - requests.sessions
+          - send
+        output:
+          __store_indicator: 2
+          _content:
+          - _links:
+              events: https://gitlab.com/api/v4/projects/23168514/events
+              issues: https://gitlab.com/api/v4/projects/23168514/issues
+              labels: https://gitlab.com/api/v4/projects/23168514/labels
+              members: https://gitlab.com/api/v4/projects/23168514/members
+              merge_requests: https://gitlab.com/api/v4/projects/23168514/merge_requests
+              repo_branches: https://gitlab.com/api/v4/projects/23168514/repository/branches
+              self: https://gitlab.com/api/v4/projects/23168514
+            allow_merge_on_skipped_pipeline: null
+            analytics_access_level: enabled
+            approvals_before_merge: 0
+            archived: false
+            auto_cancel_pending_pipelines: enabled
+            auto_devops_deploy_strategy: continuous
+            auto_devops_enabled: false
+            autoclose_referenced_issues: true
+            avatar_url: https://assets.gitlab-static.net/uploads/-/system/project/avatar/23168514/inkscape-themes.png
+            build_coverage_regex: null
+            build_timeout: 3600
+            builds_access_level: enabled
+            can_create_merge_request_in: true
+            ci_config_path: ''
+            ci_default_git_depth: 50
+            ci_forward_deployment_enabled: true
+            compliance_frameworks: []
+            container_expiration_policy:
+              cadence: 1d
+              enabled: false
+              keep_n: 10
+              name_regex: .*
+              name_regex_keep: null
+              next_run_at: '2020-12-18T14:48:10.089Z'
+              older_than: 90d
+            container_registry_enabled: true
+            container_registry_image_prefix: registry.gitlab.com/inkscape/themes
+            created_at: '2020-12-17T14:48:10.058Z'
+            creator_id: 401528
+            default_branch: master
+            description: This repository contains all the extra themes we want to
+              test and ship in Inkscape. It works like the extensions repository inviting
+              more non-technical users/designers to get involved and permission to
+              modify things.
+            emails_disabled: null
+            empty_repo: false
+            external_authorization_classification_label: ''
+            forking_access_level: enabled
+            forks_count: 2
+            http_url_to_repo: https://gitlab.com/inkscape/themes.git
+            id: 23168514
+            import_status: none
+            issues_access_level: enabled
+            issues_enabled: true
+            issues_template: null
+            jobs_enabled: true
+            last_activity_at: '2021-04-10T13:39:14.951Z'
+            lfs_enabled: true
+            marked_for_deletion_at: null
+            marked_for_deletion_on: null
+            merge_method: merge
+            merge_requests_access_level: enabled
+            merge_requests_enabled: true
+            merge_requests_template: null
+            mirror: false
+            name: themes
+            name_with_namespace: Inkscape / themes
+            namespace:
+              avatar_url: /uploads/-/system/group/avatar/470642/inkscape.png
+              full_path: inkscape
+              id: 470642
+              kind: group
+              name: Inkscape
+              parent_id: null
+              path: inkscape
+              web_url: https://gitlab.com/groups/inkscape
+            only_allow_merge_if_all_discussions_are_resolved: false
+            only_allow_merge_if_pipeline_succeeds: false
+            open_issues_count: 1
+            operations_access_level: enabled
+            packages_enabled: true
+            pages_access_level: enabled
+            path: themes
+            path_with_namespace: inkscape/themes
+            printing_merge_request_link_enabled: true
+            public_jobs: true
+            readme_url: https://gitlab.com/inkscape/themes/-/blob/master/README.md
+            remove_source_branch_after_merge: true
+            repository_access_level: enabled
+            request_access_enabled: true
+            requirements_enabled: true
+            resolve_outdated_diff_discussions: false
+            restrict_user_defined_variables: false
+            security_and_compliance_enabled: false
+            service_desk_address: incoming+inkscape-themes-23168514-issue-@incoming.gitlab.com
+            service_desk_enabled: true
+            shared_runners_enabled: true
+            shared_with_groups:
+            - expires_at: null
+              group_access_level: 40
+              group_full_path: inkscape/bug-wranglers
+              group_id: 4445779
+              group_name: Inkscape Bug Wranglers
+            snippets_access_level: enabled
+            snippets_enabled: true
+            ssh_url_to_repo: git@gitlab.com:inkscape/themes.git
+            star_count: 0
+            suggestion_commit_message: null
+            tag_list:
+            - app
+            - css
+            - gtk
+            - themes
+            visibility: public
+            web_url: https://gitlab.com/inkscape/themes
+            wiki_access_level: enabled
+            wiki_enabled: true
+          - _links:
+              events: https://gitlab.com/api/v4/projects/20961968/events
+              issues: https://gitlab.com/api/v4/projects/20961968/issues
+              labels: https://gitlab.com/api/v4/projects/20961968/labels
+              members: https://gitlab.com/api/v4/projects/20961968/members
+              merge_requests: https://gitlab.com/api/v4/projects/20961968/merge_requests
+              repo_branches: https://gitlab.com/api/v4/projects/20961968/repository/branches
+              self: https://gitlab.com/api/v4/projects/20961968
+            allow_merge_on_skipped_pipeline: null
+            analytics_access_level: enabled
+            approvals_before_merge: 0
+            archived: false
+            auto_cancel_pending_pipelines: enabled
+            auto_devops_deploy_strategy: continuous
+            auto_devops_enabled: false
+            autoclose_referenced_issues: true
+            avatar_url: https://assets.gitlab-static.net/uploads/-/system/project/avatar/20961968/libcroco.png
+            build_coverage_regex: null
+            build_timeout: 3600
+            builds_access_level: enabled
+            can_create_merge_request_in: true
+            ci_config_path: ''
+            ci_default_git_depth: 50
+            ci_forward_deployment_enabled: true
+            compliance_frameworks: []
+            container_expiration_policy:
+              cadence: 1d
+              enabled: true
+              keep_n: 10
+              name_regex: null
+              name_regex_keep: null
+              next_run_at: '2020-10-20T23:48:03.347Z'
+              older_than: 90d
+            container_registry_enabled: true
+            container_registry_image_prefix: registry.gitlab.com/inkscape/libcroco
+            created_at: '2020-09-06T09:08:26.440Z'
+            creator_id: 401528
+            default_branch: master
+            description: Libcroco is a standalone css2 parsing and manipulation library.
+              The parser provides a low level event driven SAC like api and a css
+              object model like api. Libcroco provides a CSS2 selection engine and
+              an experimental xml/css rendering engine.
+            emails_disabled: null
+            empty_repo: false
+            external_authorization_classification_label: ''
+            forking_access_level: enabled
+            forks_count: 1
+            http_url_to_repo: https://gitlab.com/inkscape/libcroco.git
+            id: 20961968
+            import_status: none
+            issues_access_level: enabled
+            issues_enabled: true
+            issues_template: null
+            jobs_enabled: true
+            last_activity_at: '2021-02-17T09:49:12.486Z'
+            lfs_enabled: true
+            marked_for_deletion_at: null
+            marked_for_deletion_on: null
+            merge_method: merge
+            merge_requests_access_level: enabled
+            merge_requests_enabled: true
+            merge_requests_template: null
+            mirror: false
+            name: libcroco
+            name_with_namespace: Inkscape / libcroco
+            namespace:
+              avatar_url: /uploads/-/system/group/avatar/470642/inkscape.png
+              full_path: inkscape
+              id: 470642
+              kind: group
+              name: Inkscape
+              parent_id: null
+              path: inkscape
+              web_url: https://gitlab.com/groups/inkscape
+            only_allow_merge_if_all_discussions_are_resolved: false
+            only_allow_merge_if_pipeline_succeeds: false
+            open_issues_count: 0
+            operations_access_level: enabled
+            packages_enabled: true
+            pages_access_level: enabled
+            path: libcroco
+            path_with_namespace: inkscape/libcroco
+            printing_merge_request_link_enabled: true
+            public_jobs: true
+            readme_url: https://gitlab.com/inkscape/libcroco/-/blob/master/README
+            remove_source_branch_after_merge: true
+            repository_access_level: enabled
+            request_access_enabled: true
+            requirements_enabled: true
+            resolve_outdated_diff_discussions: false
+            restrict_user_defined_variables: false
+            security_and_compliance_enabled: false
+            service_desk_address: incoming+inkscape-libcroco-20961968-issue-@incoming.gitlab.com
+            service_desk_enabled: true
+            shared_runners_enabled: true
+            shared_with_groups: []
+            snippets_access_level: enabled
+            snippets_enabled: true
+            ssh_url_to_repo: git@gitlab.com:inkscape/libcroco.git
+            star_count: 0
+            suggestion_commit_message: null
+            tag_list: []
+            visibility: public
+            web_url: https://gitlab.com/inkscape/libcroco
+            wiki_access_level: enabled
+            wiki_enabled: true
+          - _links:
+              events: https://gitlab.com/api/v4/projects/16468356/events
+              issues: https://gitlab.com/api/v4/projects/16468356/issues
+              labels: https://gitlab.com/api/v4/projects/16468356/labels
+              members: https://gitlab.com/api/v4/projects/16468356/members
+              merge_requests: https://gitlab.com/api/v4/projects/16468356/merge_requests
+              repo_branches: https://gitlab.com/api/v4/projects/16468356/repository/branches
+              self: https://gitlab.com/api/v4/projects/16468356
+            allow_merge_on_skipped_pipeline: null
+            analytics_access_level: enabled
+            approvals_before_merge: 0
+            archived: false
+            auto_cancel_pending_pipelines: enabled
+            auto_devops_deploy_strategy: continuous
+            auto_devops_enabled: false
+            autoclose_referenced_issues: true
+            avatar_url: https://assets.gitlab-static.net/uploads/-/system/project/avatar/16468356/ux.png
+            build_coverage_regex: null
+            build_timeout: 3600
+            builds_access_level: enabled
+            can_create_merge_request_in: true
+            ci_config_path: null
+            ci_default_git_depth: 50
+            ci_forward_deployment_enabled: null
+            compliance_frameworks: []
+            container_expiration_policy:
+              cadence: 7d
+              enabled: false
+              keep_n: null
+              name_regex: null
+              name_regex_keep: null
+              next_run_at: '2020-01-29T19:45:22.293Z'
+              older_than: null
+            container_registry_enabled: true
+            container_registry_image_prefix: registry.gitlab.com/inkscape/ux
+            created_at: '2020-01-22T19:45:22.267Z'
+            creator_id: 401528
+            default_branch: master
+            description: Design and user experience discussion, process, testing,
+              events and decision making.
+            emails_disabled: null
+            empty_repo: false
+            external_authorization_classification_label: ''
+            forking_access_level: enabled
+            forks_count: 1
+            http_url_to_repo: https://gitlab.com/inkscape/ux.git
+            id: 16468356
+            import_status: none
+            issues_access_level: enabled
+            issues_enabled: true
+            issues_template: null
+            jobs_enabled: true
+            last_activity_at: '2021-04-17T15:51:18.884Z'
+            lfs_enabled: true
+            marked_for_deletion_at: null
+            marked_for_deletion_on: null
+            merge_method: merge
+            merge_requests_access_level: enabled
+            merge_requests_enabled: true
+            merge_requests_template: null
+            mirror: false
+            name: Inkscape UX
+            name_with_namespace: Inkscape / Inkscape UX
+            namespace:
+              avatar_url: /uploads/-/system/group/avatar/470642/inkscape.png
+              full_path: inkscape
+              id: 470642
+              kind: group
+              name: Inkscape
+              parent_id: null
+              path: inkscape
+              web_url: https://gitlab.com/groups/inkscape
+            only_allow_merge_if_all_discussions_are_resolved: false
+            only_allow_merge_if_pipeline_succeeds: false
+            open_issues_count: 51
+            operations_access_level: enabled
+            packages_enabled: true
+            pages_access_level: enabled
+            path: ux
+            path_with_namespace: inkscape/ux
+            printing_merge_request_link_enabled: true
+            public_jobs: true
+            readme_url: https://gitlab.com/inkscape/ux/-/blob/master/README.md
+            remove_source_branch_after_merge: true
+            repository_access_level: enabled
+            request_access_enabled: true
+            requirements_enabled: true
+            resolve_outdated_diff_discussions: false
+            restrict_user_defined_variables: false
+            security_and_compliance_enabled: false
+            service_desk_address: incoming+inkscape-ux-16468356-issue-@incoming.gitlab.com
+            service_desk_enabled: true
+            shared_runners_enabled: true
+            shared_with_groups: []
+            snippets_access_level: enabled
+            snippets_enabled: true
+            ssh_url_to_repo: git@gitlab.com:inkscape/ux.git
+            star_count: 3
+            suggestion_commit_message: null
+            tag_list: []
+            visibility: public
+            web_url: https://gitlab.com/inkscape/ux
+            wiki_access_level: enabled
+            wiki_enabled: true
+          - _links:
+              events: https://gitlab.com/api/v4/projects/10403243/events
+              issues: https://gitlab.com/api/v4/projects/10403243/issues
+              labels: https://gitlab.com/api/v4/projects/10403243/labels
+              members: https://gitlab.com/api/v4/projects/10403243/members
+              merge_requests: https://gitlab.com/api/v4/projects/10403243/merge_requests
+              repo_branches: https://gitlab.com/api/v4/projects/10403243/repository/branches
+              self: https://gitlab.com/api/v4/projects/10403243
+            allow_merge_on_skipped_pipeline: null
+            analytics_access_level: enabled
+            approvals_before_merge: 0
+            archived: false
+            auto_cancel_pending_pipelines: enabled
+            auto_devops_deploy_strategy: continuous
+            auto_devops_enabled: false
+            autoclose_referenced_issues: true
+            avatar_url: https://assets.gitlab-static.net/uploads/-/system/project/avatar/10403243/temp_inbox_mountain_envelope.png
+            build_coverage_regex: null
+            build_timeout: 3600
+            builds_access_level: disabled
+            can_create_merge_request_in: true
+            ci_config_path: null
+            ci_default_git_depth: null
+            ci_forward_deployment_enabled: null
+            compliance_frameworks: []
+            container_registry_enabled: false
+            container_registry_image_prefix: registry.gitlab.com/inkscape/inbox
+            created_at: '2019-01-17T03:40:33.158Z'
+            creator_id: 266859
+            default_branch: master
+            description: This inbox is a "friendly feedback zone", we welcome questions,
+              comments, ideas, and bug reports that pertain to the Inkscape software,
+              its related components, and the project in general.
+            emails_disabled: null
+            empty_repo: false
+            external_authorization_classification_label: ''
+            forking_access_level: enabled
+            forks_count: 3
+            http_url_to_repo: https://gitlab.com/inkscape/inbox.git
+            id: 10403243
+            import_status: none
+            issues_access_level: enabled
+            issues_enabled: true
+            issues_template: "<!--\r\n    See our full bug reporting guidelines at\
+              \ https://inkscape.org/contribute/report-bugs/\r\n    Writing a good\
+              \ bug report will ensure we'll be able to help efficiently. \U0001F642\
+              \r\n-->\r\n\r\n#### Summary:\r\n<!-- Summarize the issue/suggestion\
+              \ concisely: -->\r\n\r\n... (write here)\r\n\r\n#### Steps to reproduce:\r\
+              \n<!-- Describe what you did (step-by-step) so we can reproduce: -->\r\
+              \n\r\n- open Inkscape\r\n- ...\r\n\r\n#### What happened?\r\n\r\n...\r\
+              \n\r\n#### What should have happened?\r\n\r\n...\r\n\r\nSample attachments:\r\
+              \n\r\n<!-- Attach the sample file(s) highlighting the issue, if appropriate.\
+              \ -->\r\n\r\n#### Version Info:\r\n\r\n```\r\n- Inkscape Version: ...\
+              \ <!-- (run inkscape -V or copy from Help \u2192 About Inkscape, top\
+              \ right) -->\r\n- Operating System: ...\r\n- Operating System version:\
+              \ ...\r\n```\r\n\r\n<!--\r\n    \u2764\uFE0F Thank you for filling in\
+              \ a new bug report, we appreciate the help! \u2764\uFE0F\r\n    Please\
+              \ be patient while we try to find the time to look into your issue.\r\
+              \n    Remember that Inkscape is developed by volunteers in their spare\
+              \ time, we'll try our best to respond to all reports.\r\n-->\r\n\r\n\
+              <!--\r\n    Please be careful when/after writing #  for example in logs,\
+              \ code, or versions of linux\r\n    - use inline code span - single\
+              \ backticks (`) before and after it, like this - `#1618`\r\n    - use\
+              \ multi-line code block - triple backticks (```) to fence/enclose console\
+              \ logs\r\n    - attach long logs as a text file.\r\n-->\r\n"
+            jobs_enabled: false
+            last_activity_at: '2021-04-19T22:24:14.615Z'
+            lfs_enabled: false
+            marked_for_deletion_at: null
+            marked_for_deletion_on: null
+            merge_method: merge
+            merge_requests_access_level: enabled
+            merge_requests_enabled: true
+            merge_requests_template: null
+            mirror: false
+            name: Inbox
+            name_with_namespace: Inkscape / Inbox
+            namespace:
+              avatar_url: /uploads/-/system/group/avatar/470642/inkscape.png
+              full_path: inkscape
+              id: 470642
+              kind: group
+              name: Inkscape
+              parent_id: null
+              path: inkscape
+              web_url: https://gitlab.com/groups/inkscape
+            only_allow_merge_if_all_discussions_are_resolved: false
+            only_allow_merge_if_pipeline_succeeds: false
+            open_issues_count: 1260
+            operations_access_level: enabled
+            packages_enabled: false
+            pages_access_level: disabled
+            path: inbox
+            path_with_namespace: inkscape/inbox
+            printing_merge_request_link_enabled: true
+            public_jobs: true
+            readme_url: null
+            remove_source_branch_after_merge: null
+            repository_access_level: enabled
+            request_access_enabled: false
+            requirements_enabled: true
+            resolve_outdated_diff_discussions: false
+            restrict_user_defined_variables: false
+            security_and_compliance_enabled: false
+            service_desk_address: null
+            service_desk_enabled: false
+            shared_runners_enabled: true
+            shared_with_groups:
+            - expires_at: null
+              group_access_level: 30
+              group_full_path: inkscape/devel
+              group_id: 4575604
+              group_name: Inkscape Developers
+            - expires_at: null
+              group_access_level: 40
+              group_full_path: inkscape/bug-wranglers
+              group_id: 4445779
+              group_name: Inkscape Bug Wranglers
+            snippets_access_level: disabled
+            snippets_enabled: false
+            ssh_url_to_repo: git@gitlab.com:inkscape/inbox.git
+            star_count: 27
+            suggestion_commit_message: null
+            tag_list: []
+            visibility: public
+            web_url: https://gitlab.com/inkscape/inbox
+            wiki_access_level: disabled
+            wiki_enabled: false
+          - _links:
+              events: https://gitlab.com/api/v4/projects/5833962/events
+              issues: https://gitlab.com/api/v4/projects/5833962/issues
+              labels: https://gitlab.com/api/v4/projects/5833962/labels
+              members: https://gitlab.com/api/v4/projects/5833962/members
+              merge_requests: https://gitlab.com/api/v4/projects/5833962/merge_requests
+              repo_branches: https://gitlab.com/api/v4/projects/5833962/repository/branches
+              self: https://gitlab.com/api/v4/projects/5833962
+            allow_merge_on_skipped_pipeline: null
+            analytics_access_level: enabled
+            approvals_before_merge: 1
+            archived: false
+            auto_cancel_pending_pipelines: enabled
+            auto_devops_deploy_strategy: continuous
+            auto_devops_enabled: false
+            autoclose_referenced_issues: true
+            avatar_url: https://assets.gitlab-static.net/uploads/-/system/project/avatar/5833962/addons.png
+            build_coverage_regex: null
+            build_timeout: 3600
+            builds_access_level: enabled
+            can_create_merge_request_in: true
+            ci_config_path: null
+            ci_default_git_depth: null
+            ci_forward_deployment_enabled: null
+            compliance_frameworks: []
+            container_registry_enabled: false
+            container_registry_image_prefix: registry.gitlab.com/inkscape/extensions
+            created_at: '2018-03-22T00:29:09.053Z'
+            creator_id: 401528
+            default_branch: master
+            description: Python extensions for Inkscape core, separated out from main
+              repository.
+            emails_disabled: null
+            empty_repo: false
+            external_authorization_classification_label: ''
+            forking_access_level: enabled
+            forks_count: 67
+            http_url_to_repo: https://gitlab.com/inkscape/extensions.git
+            id: 5833962
+            import_status: none
+            issues_access_level: enabled
+            issues_enabled: true
+            issues_template: null
+            jobs_enabled: true
+            last_activity_at: '2021-04-19T05:05:31.710Z'
+            lfs_enabled: false
+            marked_for_deletion_at: null
+            marked_for_deletion_on: null
+            merge_method: merge
+            merge_requests_access_level: enabled
+            merge_requests_enabled: true
+            merge_requests_template: ''
+            mirror: false
+            name: extensions
+            name_with_namespace: Inkscape / extensions
+            namespace:
+              avatar_url: /uploads/-/system/group/avatar/470642/inkscape.png
+              full_path: inkscape
+              id: 470642
+              kind: group
+              name: Inkscape
+              parent_id: null
+              path: inkscape
+              web_url: https://gitlab.com/groups/inkscape
+            only_allow_merge_if_all_discussions_are_resolved: true
+            only_allow_merge_if_pipeline_succeeds: false
+            open_issues_count: 156
+            operations_access_level: enabled
+            packages_enabled: false
+            pages_access_level: enabled
+            path: extensions
+            path_with_namespace: inkscape/extensions
+            printing_merge_request_link_enabled: true
+            public_jobs: true
+            readme_url: https://gitlab.com/inkscape/extensions/-/blob/master/README.md
+            remove_source_branch_after_merge: null
+            repository_access_level: enabled
+            request_access_enabled: false
+            requirements_enabled: true
+            resolve_outdated_diff_discussions: false
+            restrict_user_defined_variables: false
+            security_and_compliance_enabled: false
+            service_desk_address: incoming+inkscape-extensions-5833962-issue-@incoming.gitlab.com
+            service_desk_enabled: true
+            shared_runners_enabled: true
+            shared_with_groups:
+            - expires_at: null
+              group_access_level: 30
+              group_full_path: inkscape/devel
+              group_id: 4575604
+              group_name: Inkscape Developers
+            - expires_at: null
+              group_access_level: 30
+              group_full_path: inkscape/bug-wranglers
+              group_id: 4445779
+              group_name: Inkscape Bug Wranglers
+            snippets_access_level: disabled
+            snippets_enabled: false
+            ssh_url_to_repo: git@gitlab.com:inkscape/extensions.git
+            star_count: 35
+            suggestion_commit_message: null
+            tag_list:
+            - addin
+            - additional
+            - addon
+            - core
+            - extension
+            - inkscape
+            - python
+            visibility: public
+            web_url: https://gitlab.com/inkscape/extensions
+            wiki_access_level: enabled
+            wiki_enabled: true
+          - _links:
+              events: https://gitlab.com/api/v4/projects/3507798/events
+              issues: https://gitlab.com/api/v4/projects/3507798/issues
+              labels: https://gitlab.com/api/v4/projects/3507798/labels
+              members: https://gitlab.com/api/v4/projects/3507798/members
+              merge_requests: https://gitlab.com/api/v4/projects/3507798/merge_requests
+              repo_branches: https://gitlab.com/api/v4/projects/3507798/repository/branches
+              self: https://gitlab.com/api/v4/projects/3507798
+            allow_merge_on_skipped_pipeline: null
+            analytics_access_level: disabled
+            approvals_before_merge: 0
+            archived: false
+            auto_cancel_pending_pipelines: enabled
+            auto_devops_deploy_strategy: continuous
+            auto_devops_enabled: false
+            autoclose_referenced_issues: true
+            avatar_url: null
+            build_coverage_regex: null
+            build_timeout: 3600
+            builds_access_level: enabled
+            can_create_merge_request_in: true
+            ci_config_path: null
+            ci_default_git_depth: null
+            ci_forward_deployment_enabled: null
+            compliance_frameworks: []
+            container_registry_enabled: true
+            container_registry_image_prefix: registry.gitlab.com/inkscape/inkscape-ci-docker
+            created_at: '2017-06-15T03:46:48.634Z'
+            creator_id: 402261
+            default_branch: master
+            description: CI Base Image for Inkscape builds
+            emails_disabled: null
+            empty_repo: false
+            external_authorization_classification_label: ''
+            forking_access_level: enabled
+            forks_count: 13
+            http_url_to_repo: https://gitlab.com/inkscape/inkscape-ci-docker.git
+            id: 3507798
+            import_status: none
+            issues_access_level: enabled
+            issues_enabled: true
+            issues_template: null
+            jobs_enabled: true
+            last_activity_at: '2021-03-27T22:35:18.849Z'
+            lfs_enabled: false
+            marked_for_deletion_at: null
+            marked_for_deletion_on: null
+            merge_method: ff
+            merge_requests_access_level: enabled
+            merge_requests_enabled: true
+            merge_requests_template: ''
+            mirror: false
+            name: inkscape-ci-docker
+            name_with_namespace: Inkscape / inkscape-ci-docker
+            namespace:
+              avatar_url: /uploads/-/system/group/avatar/470642/inkscape.png
+              full_path: inkscape
+              id: 470642
+              kind: group
+              name: Inkscape
+              parent_id: null
+              path: inkscape
+              web_url: https://gitlab.com/groups/inkscape
+            only_allow_merge_if_all_discussions_are_resolved: false
+            only_allow_merge_if_pipeline_succeeds: false
+            open_issues_count: 1
+            operations_access_level: disabled
+            packages_enabled: false
+            pages_access_level: disabled
+            path: inkscape-ci-docker
+            path_with_namespace: inkscape/inkscape-ci-docker
+            printing_merge_request_link_enabled: true
+            public_jobs: true
+            readme_url: https://gitlab.com/inkscape/inkscape-ci-docker/-/blob/master/README.md
+            remove_source_branch_after_merge: null
+            repository_access_level: enabled
+            request_access_enabled: false
+            requirements_enabled: true
+            resolve_outdated_diff_discussions: false
+            restrict_user_defined_variables: false
+            security_and_compliance_enabled: false
+            service_desk_address: null
+            service_desk_enabled: null
+            shared_runners_enabled: true
+            shared_with_groups:
+            - expires_at: null
+              group_access_level: 30
+              group_full_path: inkscape/devel
+              group_id: 4575604
+              group_name: Inkscape Developers
+            snippets_access_level: disabled
+            snippets_enabled: false
+            ssh_url_to_repo: git@gitlab.com:inkscape/inkscape-ci-docker.git
+            star_count: 5
+            suggestion_commit_message: null
+            tag_list: []
+            visibility: public
+            web_url: https://gitlab.com/inkscape/inkscape-ci-docker
+            wiki_access_level: disabled
+            wiki_enabled: false
+          - _links:
+              events: https://gitlab.com/api/v4/projects/3472737/events
+              issues: https://gitlab.com/api/v4/projects/3472737/issues
+              labels: https://gitlab.com/api/v4/projects/3472737/labels
+              members: https://gitlab.com/api/v4/projects/3472737/members
+              merge_requests: https://gitlab.com/api/v4/projects/3472737/merge_requests
+              repo_branches: https://gitlab.com/api/v4/projects/3472737/repository/branches
+              self: https://gitlab.com/api/v4/projects/3472737
+            allow_merge_on_skipped_pipeline: false
+            analytics_access_level: enabled
+            approvals_before_merge: 0
+            archived: false
+            auto_cancel_pending_pipelines: enabled
+            auto_devops_deploy_strategy: continuous
+            auto_devops_enabled: false
+            autoclose_referenced_issues: true
+            avatar_url: https://assets.gitlab-static.net/uploads/-/system/project/avatar/3472737/inkscape.png
+            build_coverage_regex: ''
+            build_timeout: 18600
+            builds_access_level: enabled
+            can_create_merge_request_in: true
+            ci_config_path: null
+            ci_default_git_depth: null
+            ci_forward_deployment_enabled: null
+            compliance_frameworks: []
+            container_registry_enabled: false
+            container_registry_image_prefix: registry.gitlab.com/inkscape/inkscape
+            created_at: '2017-06-09T14:16:35.615Z'
+            creator_id: 402261
+            default_branch: master
+            description: Inkscape vector image editor
+            emails_disabled: null
+            empty_repo: false
+            external_authorization_classification_label: ''
+            forking_access_level: enabled
+            forks_count: 730
+            http_url_to_repo: https://gitlab.com/inkscape/inkscape.git
+            id: 3472737
+            import_status: none
+            issues_access_level: enabled
+            issues_enabled: true
+            issues_template: "<!-- Please report new issues at https://inkscape.org/report;\
+              \ this tracker is for staff-confirmed issues only.\r\n     See our full\
+              \ bug reporting guidelines at https://inkscape.org/contribute/report-bugs/\
+              \ -->\r\n\r\n#### Steps to reproduce:\r\n<!-- Describe what you did\
+              \ (step-by-step) so we can reproduce: -->\r\n\r\n- open Inkscape\r\n\
+              - ...\r\n\r\n#### What happened?\r\n\r\n...\r\n\r\n#### What should\
+              \ have happened?\r\n\r\n...\r\n\r\n#### Inkscape Version and Operating\
+              \ System:\r\n\r\n- Inkscape Version: ... <!-- (run inkscape -V or copy\
+              \ from Help \u2192 About Inkscape, top right) -->\r\n- Operating System:\
+              \ ...\r\n- Operating System version: ...\r\n\r\n<!-- Example file:\r\
+              \nAttach a sample file (or files) highlighting the issue, if appropriate.\
+              \ -->"
+            jobs_enabled: true
+            last_activity_at: '2021-04-20T04:54:26.632Z'
+            lfs_enabled: false
+            marked_for_deletion_at: null
+            marked_for_deletion_on: null
+            merge_method: ff
+            merge_requests_access_level: enabled
+            merge_requests_enabled: true
+            merge_requests_template: ''
+            mirror: false
+            name: inkscape
+            name_with_namespace: Inkscape / inkscape
+            namespace:
+              avatar_url: /uploads/-/system/group/avatar/470642/inkscape.png
+              full_path: inkscape
+              id: 470642
+              kind: group
+              name: Inkscape
+              parent_id: null
+              path: inkscape
+              web_url: https://gitlab.com/groups/inkscape
+            only_allow_merge_if_all_discussions_are_resolved: true
+            only_allow_merge_if_pipeline_succeeds: false
+            open_issues_count: 1150
+            operations_access_level: disabled
+            packages_enabled: false
+            pages_access_level: enabled
+            path: inkscape
+            path_with_namespace: inkscape/inkscape
+            printing_merge_request_link_enabled: true
+            public_jobs: true
+            readme_url: https://gitlab.com/inkscape/inkscape/-/blob/master/README.md
+            remove_source_branch_after_merge: true
+            repository_access_level: enabled
+            request_access_enabled: false
+            requirements_enabled: true
+            resolve_outdated_diff_discussions: false
+            restrict_user_defined_variables: false
+            security_and_compliance_enabled: false
+            service_desk_address: null
+            service_desk_enabled: null
+            shared_runners_enabled: true
+            shared_with_groups:
+            - expires_at: null
+              group_access_level: 30
+              group_full_path: inkscape/devel
+              group_id: 4575604
+              group_name: Inkscape Developers
+            - expires_at: null
+              group_access_level: 20
+              group_full_path: inkscape/bug-wranglers
+              group_id: 4445779
+              group_name: Inkscape Bug Wranglers
+            snippets_access_level: disabled
+            snippets_enabled: false
+            ssh_url_to_repo: git@gitlab.com:inkscape/inkscape.git
+            star_count: 2208
+            suggestion_commit_message: ''
+            tag_list: []
+            visibility: public
+            web_url: https://gitlab.com/inkscape/inkscape
+            wiki_access_level: disabled
+            wiki_enabled: false
+          - _links:
+              events: https://gitlab.com/api/v4/projects/2324563/events
+              issues: https://gitlab.com/api/v4/projects/2324563/issues
+              labels: https://gitlab.com/api/v4/projects/2324563/labels
+              members: https://gitlab.com/api/v4/projects/2324563/members
+              merge_requests: https://gitlab.com/api/v4/projects/2324563/merge_requests
+              repo_branches: https://gitlab.com/api/v4/projects/2324563/repository/branches
+              self: https://gitlab.com/api/v4/projects/2324563
+            allow_merge_on_skipped_pipeline: null
+            analytics_access_level: enabled
+            approvals_before_merge: 0
+            archived: false
+            auto_cancel_pending_pipelines: enabled
+            auto_devops_deploy_strategy: continuous
+            auto_devops_enabled: false
+            autoclose_referenced_issues: true
+            avatar_url: https://assets.gitlab-static.net/uploads/-/system/project/avatar/2324563/inkscape-web-i18n.png
+            build_coverage_regex: null
+            build_timeout: 3600
+            builds_access_level: private
+            can_create_merge_request_in: true
+            ci_config_path: null
+            ci_default_git_depth: null
+            ci_forward_deployment_enabled: null
+            compliance_frameworks: []
+            container_registry_enabled: false
+            container_registry_image_prefix: registry.gitlab.com/inkscape/inkscape-web-i18n
+            created_at: '2017-01-17T01:07:35.318Z'
+            creator_id: 401528
+            default_branch: master
+            description: Translations for the inkscape-web project
+            emails_disabled: null
+            empty_repo: false
+            external_authorization_classification_label: ''
+            forking_access_level: enabled
+            forks_count: 16
+            http_url_to_repo: https://gitlab.com/inkscape/inkscape-web-i18n.git
+            id: 2324563
+            import_status: none
+            issues_access_level: enabled
+            issues_enabled: true
+            issues_template: ''
+            jobs_enabled: false
+            last_activity_at: '2021-04-18T13:07:35.676Z'
+            lfs_enabled: true
+            marked_for_deletion_at: null
+            marked_for_deletion_on: null
+            merge_method: ff
+            merge_requests_access_level: enabled
+            merge_requests_enabled: true
+            merge_requests_template: ''
+            mirror: false
+            name: inkscape-web-i18n
+            name_with_namespace: Inkscape / inkscape-web-i18n
+            namespace:
+              avatar_url: /uploads/-/system/group/avatar/470642/inkscape.png
+              full_path: inkscape
+              id: 470642
+              kind: group
+              name: Inkscape
+              parent_id: null
+              path: inkscape
+              web_url: https://gitlab.com/groups/inkscape
+            only_allow_merge_if_all_discussions_are_resolved: false
+            only_allow_merge_if_pipeline_succeeds: false
+            open_issues_count: 0
+            operations_access_level: enabled
+            packages_enabled: null
+            pages_access_level: enabled
+            path: inkscape-web-i18n
+            path_with_namespace: inkscape/inkscape-web-i18n
+            printing_merge_request_link_enabled: true
+            public_jobs: true
+            readme_url: https://gitlab.com/inkscape/inkscape-web-i18n/-/blob/master/README.md
+            remove_source_branch_after_merge: false
+            repository_access_level: enabled
+            request_access_enabled: true
+            requirements_enabled: true
+            resolve_outdated_diff_discussions: false
+            restrict_user_defined_variables: false
+            security_and_compliance_enabled: false
+            service_desk_address: null
+            service_desk_enabled: null
+            shared_runners_enabled: true
+            shared_with_groups: []
+            snippets_access_level: disabled
+            snippets_enabled: false
+            ssh_url_to_repo: git@gitlab.com:inkscape/inkscape-web-i18n.git
+            star_count: 4
+            suggestion_commit_message: ''
+            tag_list: []
+            visibility: public
+            web_url: https://gitlab.com/inkscape/inkscape-web-i18n
+            wiki_access_level: disabled
+            wiki_enabled: false
+          - _links:
+              events: https://gitlab.com/api/v4/projects/2313989/events
+              issues: https://gitlab.com/api/v4/projects/2313989/issues
+              labels: https://gitlab.com/api/v4/projects/2313989/labels
+              members: https://gitlab.com/api/v4/projects/2313989/members
+              merge_requests: https://gitlab.com/api/v4/projects/2313989/merge_requests
+              repo_branches: https://gitlab.com/api/v4/projects/2313989/repository/branches
+              self: https://gitlab.com/api/v4/projects/2313989
+            allow_merge_on_skipped_pipeline: null
+            analytics_access_level: enabled
+            approvals_before_merge: 0
+            archived: false
+            auto_cancel_pending_pipelines: enabled
+            auto_devops_deploy_strategy: continuous
+            auto_devops_enabled: false
+            autoclose_referenced_issues: true
+            avatar_url: https://assets.gitlab-static.net/uploads/-/system/project/avatar/2313989/inkscape-web.png
+            build_coverage_regex: null
+            build_timeout: 3600
+            builds_access_level: private
+            can_create_merge_request_in: true
+            ci_config_path: null
+            ci_default_git_depth: null
+            ci_forward_deployment_enabled: null
+            compliance_frameworks: []
+            container_registry_enabled: false
+            container_registry_image_prefix: registry.gitlab.com/inkscape/inkscape-web
+            created_at: '2017-01-15T01:50:48.396Z'
+            creator_id: 401528
+            default_branch: master
+            description: The inkscape website, a django based cms with apps for uploading
+              images, managing projects.
+            emails_disabled: false
+            empty_repo: false
+            external_authorization_classification_label: ''
+            forking_access_level: enabled
+            forks_count: 32
+            http_url_to_repo: https://gitlab.com/inkscape/inkscape-web.git
+            id: 2313989
+            import_status: none
+            issues_access_level: enabled
+            issues_enabled: true
+            issues_template: ''
+            jobs_enabled: false
+            last_activity_at: '2021-04-19T11:28:49.919Z'
+            lfs_enabled: false
+            marked_for_deletion_at: null
+            marked_for_deletion_on: null
+            merge_method: ff
+            merge_requests_access_level: enabled
+            merge_requests_enabled: true
+            merge_requests_template: ''
+            mirror: false
+            name: inkscape-web
+            name_with_namespace: Inkscape / inkscape-web
+            namespace:
+              avatar_url: /uploads/-/system/group/avatar/470642/inkscape.png
+              full_path: inkscape
+              id: 470642
+              kind: group
+              name: Inkscape
+              parent_id: null
+              path: inkscape
+              web_url: https://gitlab.com/groups/inkscape
+            only_allow_merge_if_all_discussions_are_resolved: false
+            only_allow_merge_if_pipeline_succeeds: false
+            open_issues_count: 227
+            operations_access_level: enabled
+            packages_enabled: false
+            pages_access_level: enabled
+            path: inkscape-web
+            path_with_namespace: inkscape/inkscape-web
+            printing_merge_request_link_enabled: true
+            public_jobs: true
+            readme_url: https://gitlab.com/inkscape/inkscape-web/-/blob/master/README.md
+            remove_source_branch_after_merge: null
+            repository_access_level: enabled
+            request_access_enabled: true
+            requirements_enabled: true
+            resolve_outdated_diff_discussions: null
+            restrict_user_defined_variables: false
+            security_and_compliance_enabled: false
+            service_desk_address: null
+            service_desk_enabled: null
+            shared_runners_enabled: true
+            shared_with_groups:
+            - expires_at: null
+              group_access_level: 40
+              group_full_path: inkscape/bug-wranglers
+              group_id: 4445779
+              group_name: Inkscape Bug Wranglers
+            snippets_access_level: disabled
+            snippets_enabled: false
+            ssh_url_to_repo: git@gitlab.com:inkscape/inkscape-web.git
+            star_count: 50
+            suggestion_commit_message: null
+            tag_list: []
+            visibility: public
+            web_url: https://gitlab.com/inkscape/inkscape-web
+            wiki_access_level: enabled
+            wiki_enabled: true
+          - _links:
+              events: https://gitlab.com/api/v4/projects/839044/events
+              issues: https://gitlab.com/api/v4/projects/839044/issues
+              labels: https://gitlab.com/api/v4/projects/839044/labels
+              members: https://gitlab.com/api/v4/projects/839044/members
+              merge_requests: https://gitlab.com/api/v4/projects/839044/merge_requests
+              repo_branches: https://gitlab.com/api/v4/projects/839044/repository/branches
+              self: https://gitlab.com/api/v4/projects/839044
+            allow_merge_on_skipped_pipeline: null
+            analytics_access_level: enabled
+            approvals_before_merge: 0
+            archived: false
+            auto_cancel_pending_pipelines: enabled
+            auto_devops_deploy_strategy: continuous
+            auto_devops_enabled: false
+            autoclose_referenced_issues: true
+            avatar_url: https://assets.gitlab-static.net/uploads/-/system/project/avatar/839044/2geom-logo.png
+            build_coverage_regex: null
+            build_timeout: 3600
+            builds_access_level: enabled
+            can_create_merge_request_in: true
+            ci_config_path: null
+            ci_default_git_depth: null
+            ci_forward_deployment_enabled: null
+            compliance_frameworks: []
+            container_registry_enabled: false
+            container_registry_image_prefix: registry.gitlab.com/inkscape/lib2geom
+            created_at: '2016-02-07T23:31:25.049Z'
+            creator_id: 119391
+            default_branch: master
+            description: Easy to use 2D geometry library in C++
+            emails_disabled: null
+            empty_repo: false
+            external_authorization_classification_label: ''
+            forking_access_level: enabled
+            forks_count: 14
+            http_url_to_repo: https://gitlab.com/inkscape/lib2geom.git
+            id: 839044
+            import_status: finished
+            issues_access_level: enabled
+            issues_enabled: true
+            issues_template: ''
+            jobs_enabled: true
+            last_activity_at: '2021-04-16T06:03:33.187Z'
+            lfs_enabled: false
+            marked_for_deletion_at: null
+            marked_for_deletion_on: null
+            merge_method: ff
+            merge_requests_access_level: enabled
+            merge_requests_enabled: true
+            merge_requests_template: ''
+            mirror: false
+            name: lib2geom
+            name_with_namespace: Inkscape / lib2geom
+            namespace:
+              avatar_url: /uploads/-/system/group/avatar/470642/inkscape.png
+              full_path: inkscape
+              id: 470642
+              kind: group
+              name: Inkscape
+              parent_id: null
+              path: inkscape
+              web_url: https://gitlab.com/groups/inkscape
+            only_allow_merge_if_all_discussions_are_resolved: false
+            only_allow_merge_if_pipeline_succeeds: false
+            open_issues_count: 22
+            operations_access_level: enabled
+            packages_enabled: false
+            pages_access_level: enabled
+            path: lib2geom
+            path_with_namespace: inkscape/lib2geom
+            printing_merge_request_link_enabled: true
+            public_jobs: true
+            readme_url: https://gitlab.com/inkscape/lib2geom/-/blob/master/README.md
+            remove_source_branch_after_merge: null
+            repository_access_level: enabled
+            request_access_enabled: false
+            requirements_enabled: true
+            resolve_outdated_diff_discussions: false
+            restrict_user_defined_variables: false
+            security_and_compliance_enabled: false
+            service_desk_address: null
+            service_desk_enabled: null
+            shared_runners_enabled: true
+            shared_with_groups:
+            - expires_at: null
+              group_access_level: 30
+              group_full_path: inkscape/devel
+              group_id: 4575604
+              group_name: Inkscape Developers
+            - expires_at: null
+              group_access_level: 20
+              group_full_path: inkscape/bug-wranglers
+              group_id: 4445779
+              group_name: Inkscape Bug Wranglers
+            snippets_access_level: disabled
+            snippets_enabled: false
+            ssh_url_to_repo: git@gitlab.com:inkscape/lib2geom.git
+            star_count: 15
+            suggestion_commit_message: null
+            tag_list: []
+            visibility: public
+            web_url: https://gitlab.com/inkscape/lib2geom
+            wiki_access_level: disabled
+            wiki_enabled: false
+          _next: null
+          elapsed: 0.40557
+          encoding: null
+          headers:
+            CF-Cache-Status: DYNAMIC
+            CF-RAY: 642bd49caf3bab9a-YYZ
+            Cache-Control: max-age=0, private, must-revalidate
+            Connection: keep-alive
+            Content-Encoding: gzip
+            Content-Type: application/json
+            Date: Tue, 20 Apr 2021 05:04:12 GMT
+            Etag: W/"2e7d858d6793ca88f8fb070d7de0b0ae"
+            Expect-CT: max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
+            GitLab-LB: fe-06-lb-gprd
+            GitLab-SV: api-03-sv-gprd
+            Link: <https://gitlab.com/api/v4/groups/470642/projects?id=470642&include_subgroups=false&order_by=created_at&owned=false&page=1&per_page=20&simple=false&sort=desc&starred=false&with_custom_attributes=false&with_issues_enabled=false&with_merge_requests_enabled=false&with_security_reports=false&with_shared=true>;
+              rel="first", <https://gitlab.com/api/v4/groups/470642/projects?id=470642&include_subgroups=false&order_by=created_at&owned=false&page=1&per_page=20&simple=false&sort=desc&starred=false&with_custom_attributes=false&with_issues_enabled=false&with_merge_requests_enabled=false&with_security_reports=false&with_shared=true>;
+              rel="last"
+            Referrer-Policy: strict-origin-when-cross-origin
+            Server: cloudflare
+            Strict-Transport-Security: max-age=31536000
+            Transfer-Encoding: chunked
+            Vary: Accept-Encoding, Origin
+            X-Content-Type-Options: nosniff
+            X-Frame-Options: SAMEORIGIN
+            X-Gitlab-Feature-Category: subgroups
+            X-Next-Page: ''
+            X-Page: '1'
+            X-Per-Page: '20'
+            X-Prev-Page: ''
+            X-Request-Id: 01F3PTM7H09C1ZS0M352J8SKP3
+            X-Runtime: '0.304707'
+            X-Total: '10'
+            X-Total-Pages: '1'
+            cf-request-id: 098f4335e70000ab9a6bbc0000000001
+          raw: !!binary ""
+          reason: OK
+          status_code: 200
+      https://gitlab.com/api/v4/groups/inkscape:
+      - metadata:
+          latency: 2.855059862136841
+          module_call_list:
+          - unittest.case
+          - requre.online_replacing
+          - tests.integration.gitlab.test_service
+          - ogr.services.gitlab.service
+          - gitlab.exceptions
+          - gitlab.mixins
+          - gitlab
+          - requre.objects
+          - requre.cassette
+          - requests.sessions
+          - send
+        output:
+          __store_indicator: 2
+          _content:
+            auto_devops_enabled: null
+            avatar_url: https://assets.gitlab-static.net/uploads/-/system/group/avatar/470642/inkscape.png
+            created_at: '2016-02-07T21:59:26.475Z'
+            default_branch_protection: 2
+            description: "Inkscape - Draw freely\r\n\r\nGet started: https://inkscape.org\r\
+              \nFor reporting issues, please visit https://gitlab.com/inkscape/inbox/-/issues"
+            emails_disabled: null
+            extra_shared_runners_minutes_limit: null
+            full_name: Inkscape
+            full_path: inkscape
+            id: 470642
+            ldap_access: null
+            ldap_cn: null
+            lfs_enabled: true
+            mentions_disabled: null
+            name: Inkscape
+            parent_id: null
+            path: inkscape
+            prevent_forking_outside_group: null
+            project_creation_level: developer
+            projects:
+            - _links:
+                events: https://gitlab.com/api/v4/projects/23168514/events
+                issues: https://gitlab.com/api/v4/projects/23168514/issues
+                labels: https://gitlab.com/api/v4/projects/23168514/labels
+                members: https://gitlab.com/api/v4/projects/23168514/members
+                merge_requests: https://gitlab.com/api/v4/projects/23168514/merge_requests
+                repo_branches: https://gitlab.com/api/v4/projects/23168514/repository/branches
+                self: https://gitlab.com/api/v4/projects/23168514
+              allow_merge_on_skipped_pipeline: null
+              analytics_access_level: enabled
+              approvals_before_merge: 0
+              archived: false
+              auto_cancel_pending_pipelines: enabled
+              auto_devops_deploy_strategy: continuous
+              auto_devops_enabled: false
+              autoclose_referenced_issues: true
+              avatar_url: https://assets.gitlab-static.net/uploads/-/system/project/avatar/23168514/inkscape-themes.png
+              build_coverage_regex: null
+              build_timeout: 3600
+              builds_access_level: enabled
+              can_create_merge_request_in: true
+              ci_config_path: ''
+              ci_default_git_depth: 50
+              ci_forward_deployment_enabled: true
+              compliance_frameworks: []
+              container_expiration_policy:
+                cadence: 1d
+                enabled: false
+                keep_n: 10
+                name_regex: .*
+                name_regex_keep: null
+                next_run_at: '2020-12-18T14:48:10.089Z'
+                older_than: 90d
+              container_registry_enabled: true
+              container_registry_image_prefix: registry.gitlab.com/inkscape/themes
+              created_at: '2020-12-17T14:48:10.058Z'
+              creator_id: 401528
+              default_branch: master
+              description: This repository contains all the extra themes we want to
+                test and ship in Inkscape. It works like the extensions repository
+                inviting more non-technical users/designers to get involved and permission
+                to modify things.
+              emails_disabled: null
+              empty_repo: false
+              external_authorization_classification_label: ''
+              forking_access_level: enabled
+              forks_count: 2
+              http_url_to_repo: https://gitlab.com/inkscape/themes.git
+              id: 23168514
+              import_status: none
+              issues_access_level: enabled
+              issues_enabled: true
+              issues_template: null
+              jobs_enabled: true
+              last_activity_at: '2021-04-10T13:39:14.951Z'
+              lfs_enabled: true
+              marked_for_deletion_at: null
+              marked_for_deletion_on: null
+              merge_method: merge
+              merge_requests_access_level: enabled
+              merge_requests_enabled: true
+              merge_requests_template: null
+              mirror: false
+              name: themes
+              name_with_namespace: Inkscape / themes
+              namespace:
+                avatar_url: /uploads/-/system/group/avatar/470642/inkscape.png
+                full_path: inkscape
+                id: 470642
+                kind: group
+                name: Inkscape
+                parent_id: null
+                path: inkscape
+                web_url: https://gitlab.com/groups/inkscape
+              only_allow_merge_if_all_discussions_are_resolved: false
+              only_allow_merge_if_pipeline_succeeds: false
+              open_issues_count: 1
+              operations_access_level: enabled
+              packages_enabled: true
+              pages_access_level: enabled
+              path: themes
+              path_with_namespace: inkscape/themes
+              printing_merge_request_link_enabled: true
+              public_jobs: true
+              readme_url: https://gitlab.com/inkscape/themes/-/blob/master/README.md
+              remove_source_branch_after_merge: true
+              repository_access_level: enabled
+              request_access_enabled: true
+              requirements_enabled: true
+              resolve_outdated_diff_discussions: false
+              restrict_user_defined_variables: false
+              security_and_compliance_enabled: false
+              service_desk_address: incoming+inkscape-themes-23168514-issue-@incoming.gitlab.com
+              service_desk_enabled: true
+              shared_runners_enabled: true
+              shared_with_groups:
+              - expires_at: null
+                group_access_level: 40
+                group_full_path: inkscape/bug-wranglers
+                group_id: 4445779
+                group_name: Inkscape Bug Wranglers
+              snippets_access_level: enabled
+              snippets_enabled: true
+              ssh_url_to_repo: git@gitlab.com:inkscape/themes.git
+              star_count: 0
+              suggestion_commit_message: null
+              tag_list:
+              - app
+              - css
+              - gtk
+              - themes
+              visibility: public
+              web_url: https://gitlab.com/inkscape/themes
+              wiki_access_level: enabled
+              wiki_enabled: true
+            - _links:
+                events: https://gitlab.com/api/v4/projects/20961968/events
+                issues: https://gitlab.com/api/v4/projects/20961968/issues
+                labels: https://gitlab.com/api/v4/projects/20961968/labels
+                members: https://gitlab.com/api/v4/projects/20961968/members
+                merge_requests: https://gitlab.com/api/v4/projects/20961968/merge_requests
+                repo_branches: https://gitlab.com/api/v4/projects/20961968/repository/branches
+                self: https://gitlab.com/api/v4/projects/20961968
+              allow_merge_on_skipped_pipeline: null
+              analytics_access_level: enabled
+              approvals_before_merge: 0
+              archived: false
+              auto_cancel_pending_pipelines: enabled
+              auto_devops_deploy_strategy: continuous
+              auto_devops_enabled: false
+              autoclose_referenced_issues: true
+              avatar_url: https://assets.gitlab-static.net/uploads/-/system/project/avatar/20961968/libcroco.png
+              build_coverage_regex: null
+              build_timeout: 3600
+              builds_access_level: enabled
+              can_create_merge_request_in: true
+              ci_config_path: ''
+              ci_default_git_depth: 50
+              ci_forward_deployment_enabled: true
+              compliance_frameworks: []
+              container_expiration_policy:
+                cadence: 1d
+                enabled: true
+                keep_n: 10
+                name_regex: null
+                name_regex_keep: null
+                next_run_at: '2020-10-20T23:48:03.347Z'
+                older_than: 90d
+              container_registry_enabled: true
+              container_registry_image_prefix: registry.gitlab.com/inkscape/libcroco
+              created_at: '2020-09-06T09:08:26.440Z'
+              creator_id: 401528
+              default_branch: master
+              description: Libcroco is a standalone css2 parsing and manipulation
+                library. The parser provides a low level event driven SAC like api
+                and a css object model like api. Libcroco provides a CSS2 selection
+                engine and an experimental xml/css rendering engine.
+              emails_disabled: null
+              empty_repo: false
+              external_authorization_classification_label: ''
+              forking_access_level: enabled
+              forks_count: 1
+              http_url_to_repo: https://gitlab.com/inkscape/libcroco.git
+              id: 20961968
+              import_status: none
+              issues_access_level: enabled
+              issues_enabled: true
+              issues_template: null
+              jobs_enabled: true
+              last_activity_at: '2021-02-17T09:49:12.486Z'
+              lfs_enabled: true
+              marked_for_deletion_at: null
+              marked_for_deletion_on: null
+              merge_method: merge
+              merge_requests_access_level: enabled
+              merge_requests_enabled: true
+              merge_requests_template: null
+              mirror: false
+              name: libcroco
+              name_with_namespace: Inkscape / libcroco
+              namespace:
+                avatar_url: /uploads/-/system/group/avatar/470642/inkscape.png
+                full_path: inkscape
+                id: 470642
+                kind: group
+                name: Inkscape
+                parent_id: null
+                path: inkscape
+                web_url: https://gitlab.com/groups/inkscape
+              only_allow_merge_if_all_discussions_are_resolved: false
+              only_allow_merge_if_pipeline_succeeds: false
+              open_issues_count: 0
+              operations_access_level: enabled
+              packages_enabled: true
+              pages_access_level: enabled
+              path: libcroco
+              path_with_namespace: inkscape/libcroco
+              printing_merge_request_link_enabled: true
+              public_jobs: true
+              readme_url: https://gitlab.com/inkscape/libcroco/-/blob/master/README
+              remove_source_branch_after_merge: true
+              repository_access_level: enabled
+              request_access_enabled: true
+              requirements_enabled: true
+              resolve_outdated_diff_discussions: false
+              restrict_user_defined_variables: false
+              security_and_compliance_enabled: false
+              service_desk_address: incoming+inkscape-libcroco-20961968-issue-@incoming.gitlab.com
+              service_desk_enabled: true
+              shared_runners_enabled: true
+              shared_with_groups: []
+              snippets_access_level: enabled
+              snippets_enabled: true
+              ssh_url_to_repo: git@gitlab.com:inkscape/libcroco.git
+              star_count: 0
+              suggestion_commit_message: null
+              tag_list: []
+              visibility: public
+              web_url: https://gitlab.com/inkscape/libcroco
+              wiki_access_level: enabled
+              wiki_enabled: true
+            - _links:
+                events: https://gitlab.com/api/v4/projects/16468356/events
+                issues: https://gitlab.com/api/v4/projects/16468356/issues
+                labels: https://gitlab.com/api/v4/projects/16468356/labels
+                members: https://gitlab.com/api/v4/projects/16468356/members
+                merge_requests: https://gitlab.com/api/v4/projects/16468356/merge_requests
+                repo_branches: https://gitlab.com/api/v4/projects/16468356/repository/branches
+                self: https://gitlab.com/api/v4/projects/16468356
+              allow_merge_on_skipped_pipeline: null
+              analytics_access_level: enabled
+              approvals_before_merge: 0
+              archived: false
+              auto_cancel_pending_pipelines: enabled
+              auto_devops_deploy_strategy: continuous
+              auto_devops_enabled: false
+              autoclose_referenced_issues: true
+              avatar_url: https://assets.gitlab-static.net/uploads/-/system/project/avatar/16468356/ux.png
+              build_coverage_regex: null
+              build_timeout: 3600
+              builds_access_level: enabled
+              can_create_merge_request_in: true
+              ci_config_path: null
+              ci_default_git_depth: 50
+              ci_forward_deployment_enabled: null
+              compliance_frameworks: []
+              container_expiration_policy:
+                cadence: 7d
+                enabled: false
+                keep_n: null
+                name_regex: null
+                name_regex_keep: null
+                next_run_at: '2020-01-29T19:45:22.293Z'
+                older_than: null
+              container_registry_enabled: true
+              container_registry_image_prefix: registry.gitlab.com/inkscape/ux
+              created_at: '2020-01-22T19:45:22.267Z'
+              creator_id: 401528
+              default_branch: master
+              description: Design and user experience discussion, process, testing,
+                events and decision making.
+              emails_disabled: null
+              empty_repo: false
+              external_authorization_classification_label: ''
+              forking_access_level: enabled
+              forks_count: 1
+              http_url_to_repo: https://gitlab.com/inkscape/ux.git
+              id: 16468356
+              import_status: none
+              issues_access_level: enabled
+              issues_enabled: true
+              issues_template: null
+              jobs_enabled: true
+              last_activity_at: '2021-04-17T15:51:18.884Z'
+              lfs_enabled: true
+              marked_for_deletion_at: null
+              marked_for_deletion_on: null
+              merge_method: merge
+              merge_requests_access_level: enabled
+              merge_requests_enabled: true
+              merge_requests_template: null
+              mirror: false
+              name: Inkscape UX
+              name_with_namespace: Inkscape / Inkscape UX
+              namespace:
+                avatar_url: /uploads/-/system/group/avatar/470642/inkscape.png
+                full_path: inkscape
+                id: 470642
+                kind: group
+                name: Inkscape
+                parent_id: null
+                path: inkscape
+                web_url: https://gitlab.com/groups/inkscape
+              only_allow_merge_if_all_discussions_are_resolved: false
+              only_allow_merge_if_pipeline_succeeds: false
+              open_issues_count: 51
+              operations_access_level: enabled
+              packages_enabled: true
+              pages_access_level: enabled
+              path: ux
+              path_with_namespace: inkscape/ux
+              printing_merge_request_link_enabled: true
+              public_jobs: true
+              readme_url: https://gitlab.com/inkscape/ux/-/blob/master/README.md
+              remove_source_branch_after_merge: true
+              repository_access_level: enabled
+              request_access_enabled: true
+              requirements_enabled: true
+              resolve_outdated_diff_discussions: false
+              restrict_user_defined_variables: false
+              security_and_compliance_enabled: false
+              service_desk_address: incoming+inkscape-ux-16468356-issue-@incoming.gitlab.com
+              service_desk_enabled: true
+              shared_runners_enabled: true
+              shared_with_groups: []
+              snippets_access_level: enabled
+              snippets_enabled: true
+              ssh_url_to_repo: git@gitlab.com:inkscape/ux.git
+              star_count: 3
+              suggestion_commit_message: null
+              tag_list: []
+              visibility: public
+              web_url: https://gitlab.com/inkscape/ux
+              wiki_access_level: enabled
+              wiki_enabled: true
+            - _links:
+                events: https://gitlab.com/api/v4/projects/10403243/events
+                issues: https://gitlab.com/api/v4/projects/10403243/issues
+                labels: https://gitlab.com/api/v4/projects/10403243/labels
+                members: https://gitlab.com/api/v4/projects/10403243/members
+                merge_requests: https://gitlab.com/api/v4/projects/10403243/merge_requests
+                repo_branches: https://gitlab.com/api/v4/projects/10403243/repository/branches
+                self: https://gitlab.com/api/v4/projects/10403243
+              allow_merge_on_skipped_pipeline: null
+              analytics_access_level: enabled
+              approvals_before_merge: 0
+              archived: false
+              auto_cancel_pending_pipelines: enabled
+              auto_devops_deploy_strategy: continuous
+              auto_devops_enabled: false
+              autoclose_referenced_issues: true
+              avatar_url: https://assets.gitlab-static.net/uploads/-/system/project/avatar/10403243/temp_inbox_mountain_envelope.png
+              build_coverage_regex: null
+              build_timeout: 3600
+              builds_access_level: disabled
+              can_create_merge_request_in: true
+              ci_config_path: null
+              ci_default_git_depth: null
+              ci_forward_deployment_enabled: null
+              compliance_frameworks: []
+              container_registry_enabled: false
+              container_registry_image_prefix: registry.gitlab.com/inkscape/inbox
+              created_at: '2019-01-17T03:40:33.158Z'
+              creator_id: 266859
+              default_branch: master
+              description: This inbox is a "friendly feedback zone", we welcome questions,
+                comments, ideas, and bug reports that pertain to the Inkscape software,
+                its related components, and the project in general.
+              emails_disabled: null
+              empty_repo: false
+              external_authorization_classification_label: ''
+              forking_access_level: enabled
+              forks_count: 3
+              http_url_to_repo: https://gitlab.com/inkscape/inbox.git
+              id: 10403243
+              import_status: none
+              issues_access_level: enabled
+              issues_enabled: true
+              issues_template: "<!--\r\n    See our full bug reporting guidelines\
+                \ at https://inkscape.org/contribute/report-bugs/\r\n    Writing a\
+                \ good bug report will ensure we'll be able to help efficiently. \U0001F642\
+                \r\n-->\r\n\r\n#### Summary:\r\n<!-- Summarize the issue/suggestion\
+                \ concisely: -->\r\n\r\n... (write here)\r\n\r\n#### Steps to reproduce:\r\
+                \n<!-- Describe what you did (step-by-step) so we can reproduce: -->\r\
+                \n\r\n- open Inkscape\r\n- ...\r\n\r\n#### What happened?\r\n\r\n\
+                ...\r\n\r\n#### What should have happened?\r\n\r\n...\r\n\r\nSample\
+                \ attachments:\r\n\r\n<!-- Attach the sample file(s) highlighting\
+                \ the issue, if appropriate. -->\r\n\r\n#### Version Info:\r\n\r\n\
+                ```\r\n- Inkscape Version: ... <!-- (run inkscape -V or copy from\
+                \ Help \u2192 About Inkscape, top right) -->\r\n- Operating System:\
+                \ ...\r\n- Operating System version: ...\r\n```\r\n\r\n<!--\r\n  \
+                \  \u2764\uFE0F Thank you for filling in a new bug report, we appreciate\
+                \ the help! \u2764\uFE0F\r\n    Please be patient while we try to\
+                \ find the time to look into your issue.\r\n    Remember that Inkscape\
+                \ is developed by volunteers in their spare time, we'll try our best\
+                \ to respond to all reports.\r\n-->\r\n\r\n<!--\r\n    Please be careful\
+                \ when/after writing #  for example in logs, code, or versions of\
+                \ linux\r\n    - use inline code span - single backticks (`) before\
+                \ and after it, like this - `#1618`\r\n    - use multi-line code block\
+                \ - triple backticks (```) to fence/enclose console logs\r\n    -\
+                \ attach long logs as a text file.\r\n-->\r\n"
+              jobs_enabled: false
+              last_activity_at: '2021-04-19T22:24:14.615Z'
+              lfs_enabled: false
+              marked_for_deletion_at: null
+              marked_for_deletion_on: null
+              merge_method: merge
+              merge_requests_access_level: enabled
+              merge_requests_enabled: true
+              merge_requests_template: null
+              mirror: false
+              name: Inbox
+              name_with_namespace: Inkscape / Inbox
+              namespace:
+                avatar_url: /uploads/-/system/group/avatar/470642/inkscape.png
+                full_path: inkscape
+                id: 470642
+                kind: group
+                name: Inkscape
+                parent_id: null
+                path: inkscape
+                web_url: https://gitlab.com/groups/inkscape
+              only_allow_merge_if_all_discussions_are_resolved: false
+              only_allow_merge_if_pipeline_succeeds: false
+              open_issues_count: 1260
+              operations_access_level: enabled
+              packages_enabled: false
+              pages_access_level: disabled
+              path: inbox
+              path_with_namespace: inkscape/inbox
+              printing_merge_request_link_enabled: true
+              public_jobs: true
+              readme_url: null
+              remove_source_branch_after_merge: null
+              repository_access_level: enabled
+              request_access_enabled: false
+              requirements_enabled: true
+              resolve_outdated_diff_discussions: false
+              restrict_user_defined_variables: false
+              security_and_compliance_enabled: false
+              service_desk_address: null
+              service_desk_enabled: false
+              shared_runners_enabled: true
+              shared_with_groups:
+              - expires_at: null
+                group_access_level: 30
+                group_full_path: inkscape/devel
+                group_id: 4575604
+                group_name: Inkscape Developers
+              - expires_at: null
+                group_access_level: 40
+                group_full_path: inkscape/bug-wranglers
+                group_id: 4445779
+                group_name: Inkscape Bug Wranglers
+              snippets_access_level: disabled
+              snippets_enabled: false
+              ssh_url_to_repo: git@gitlab.com:inkscape/inbox.git
+              star_count: 27
+              suggestion_commit_message: null
+              tag_list: []
+              visibility: public
+              web_url: https://gitlab.com/inkscape/inbox
+              wiki_access_level: disabled
+              wiki_enabled: false
+            - _links:
+                events: https://gitlab.com/api/v4/projects/5833962/events
+                issues: https://gitlab.com/api/v4/projects/5833962/issues
+                labels: https://gitlab.com/api/v4/projects/5833962/labels
+                members: https://gitlab.com/api/v4/projects/5833962/members
+                merge_requests: https://gitlab.com/api/v4/projects/5833962/merge_requests
+                repo_branches: https://gitlab.com/api/v4/projects/5833962/repository/branches
+                self: https://gitlab.com/api/v4/projects/5833962
+              allow_merge_on_skipped_pipeline: null
+              analytics_access_level: enabled
+              approvals_before_merge: 1
+              archived: false
+              auto_cancel_pending_pipelines: enabled
+              auto_devops_deploy_strategy: continuous
+              auto_devops_enabled: false
+              autoclose_referenced_issues: true
+              avatar_url: https://assets.gitlab-static.net/uploads/-/system/project/avatar/5833962/addons.png
+              build_coverage_regex: null
+              build_timeout: 3600
+              builds_access_level: enabled
+              can_create_merge_request_in: true
+              ci_config_path: null
+              ci_default_git_depth: null
+              ci_forward_deployment_enabled: null
+              compliance_frameworks: []
+              container_registry_enabled: false
+              container_registry_image_prefix: registry.gitlab.com/inkscape/extensions
+              created_at: '2018-03-22T00:29:09.053Z'
+              creator_id: 401528
+              default_branch: master
+              description: Python extensions for Inkscape core, separated out from
+                main repository.
+              emails_disabled: null
+              empty_repo: false
+              external_authorization_classification_label: ''
+              forking_access_level: enabled
+              forks_count: 67
+              http_url_to_repo: https://gitlab.com/inkscape/extensions.git
+              id: 5833962
+              import_status: none
+              issues_access_level: enabled
+              issues_enabled: true
+              issues_template: null
+              jobs_enabled: true
+              last_activity_at: '2021-04-19T05:05:31.710Z'
+              lfs_enabled: false
+              marked_for_deletion_at: null
+              marked_for_deletion_on: null
+              merge_method: merge
+              merge_requests_access_level: enabled
+              merge_requests_enabled: true
+              merge_requests_template: ''
+              mirror: false
+              name: extensions
+              name_with_namespace: Inkscape / extensions
+              namespace:
+                avatar_url: /uploads/-/system/group/avatar/470642/inkscape.png
+                full_path: inkscape
+                id: 470642
+                kind: group
+                name: Inkscape
+                parent_id: null
+                path: inkscape
+                web_url: https://gitlab.com/groups/inkscape
+              only_allow_merge_if_all_discussions_are_resolved: true
+              only_allow_merge_if_pipeline_succeeds: false
+              open_issues_count: 156
+              operations_access_level: enabled
+              packages_enabled: false
+              pages_access_level: enabled
+              path: extensions
+              path_with_namespace: inkscape/extensions
+              printing_merge_request_link_enabled: true
+              public_jobs: true
+              readme_url: https://gitlab.com/inkscape/extensions/-/blob/master/README.md
+              remove_source_branch_after_merge: null
+              repository_access_level: enabled
+              request_access_enabled: false
+              requirements_enabled: true
+              resolve_outdated_diff_discussions: false
+              restrict_user_defined_variables: false
+              security_and_compliance_enabled: false
+              service_desk_address: incoming+inkscape-extensions-5833962-issue-@incoming.gitlab.com
+              service_desk_enabled: true
+              shared_runners_enabled: true
+              shared_with_groups:
+              - expires_at: null
+                group_access_level: 30
+                group_full_path: inkscape/devel
+                group_id: 4575604
+                group_name: Inkscape Developers
+              - expires_at: null
+                group_access_level: 30
+                group_full_path: inkscape/bug-wranglers
+                group_id: 4445779
+                group_name: Inkscape Bug Wranglers
+              snippets_access_level: disabled
+              snippets_enabled: false
+              ssh_url_to_repo: git@gitlab.com:inkscape/extensions.git
+              star_count: 35
+              suggestion_commit_message: null
+              tag_list:
+              - addin
+              - additional
+              - addon
+              - core
+              - extension
+              - inkscape
+              - python
+              visibility: public
+              web_url: https://gitlab.com/inkscape/extensions
+              wiki_access_level: enabled
+              wiki_enabled: true
+            - _links:
+                events: https://gitlab.com/api/v4/projects/3507798/events
+                issues: https://gitlab.com/api/v4/projects/3507798/issues
+                labels: https://gitlab.com/api/v4/projects/3507798/labels
+                members: https://gitlab.com/api/v4/projects/3507798/members
+                merge_requests: https://gitlab.com/api/v4/projects/3507798/merge_requests
+                repo_branches: https://gitlab.com/api/v4/projects/3507798/repository/branches
+                self: https://gitlab.com/api/v4/projects/3507798
+              allow_merge_on_skipped_pipeline: null
+              analytics_access_level: disabled
+              approvals_before_merge: 0
+              archived: false
+              auto_cancel_pending_pipelines: enabled
+              auto_devops_deploy_strategy: continuous
+              auto_devops_enabled: false
+              autoclose_referenced_issues: true
+              avatar_url: null
+              build_coverage_regex: null
+              build_timeout: 3600
+              builds_access_level: enabled
+              can_create_merge_request_in: true
+              ci_config_path: null
+              ci_default_git_depth: null
+              ci_forward_deployment_enabled: null
+              compliance_frameworks: []
+              container_registry_enabled: true
+              container_registry_image_prefix: registry.gitlab.com/inkscape/inkscape-ci-docker
+              created_at: '2017-06-15T03:46:48.634Z'
+              creator_id: 402261
+              default_branch: master
+              description: CI Base Image for Inkscape builds
+              emails_disabled: null
+              empty_repo: false
+              external_authorization_classification_label: ''
+              forking_access_level: enabled
+              forks_count: 13
+              http_url_to_repo: https://gitlab.com/inkscape/inkscape-ci-docker.git
+              id: 3507798
+              import_status: none
+              issues_access_level: enabled
+              issues_enabled: true
+              issues_template: null
+              jobs_enabled: true
+              last_activity_at: '2021-03-27T22:35:18.849Z'
+              lfs_enabled: false
+              marked_for_deletion_at: null
+              marked_for_deletion_on: null
+              merge_method: ff
+              merge_requests_access_level: enabled
+              merge_requests_enabled: true
+              merge_requests_template: ''
+              mirror: false
+              name: inkscape-ci-docker
+              name_with_namespace: Inkscape / inkscape-ci-docker
+              namespace:
+                avatar_url: /uploads/-/system/group/avatar/470642/inkscape.png
+                full_path: inkscape
+                id: 470642
+                kind: group
+                name: Inkscape
+                parent_id: null
+                path: inkscape
+                web_url: https://gitlab.com/groups/inkscape
+              only_allow_merge_if_all_discussions_are_resolved: false
+              only_allow_merge_if_pipeline_succeeds: false
+              open_issues_count: 1
+              operations_access_level: disabled
+              packages_enabled: false
+              pages_access_level: disabled
+              path: inkscape-ci-docker
+              path_with_namespace: inkscape/inkscape-ci-docker
+              printing_merge_request_link_enabled: true
+              public_jobs: true
+              readme_url: https://gitlab.com/inkscape/inkscape-ci-docker/-/blob/master/README.md
+              remove_source_branch_after_merge: null
+              repository_access_level: enabled
+              request_access_enabled: false
+              requirements_enabled: true
+              resolve_outdated_diff_discussions: false
+              restrict_user_defined_variables: false
+              security_and_compliance_enabled: false
+              service_desk_address: null
+              service_desk_enabled: null
+              shared_runners_enabled: true
+              shared_with_groups:
+              - expires_at: null
+                group_access_level: 30
+                group_full_path: inkscape/devel
+                group_id: 4575604
+                group_name: Inkscape Developers
+              snippets_access_level: disabled
+              snippets_enabled: false
+              ssh_url_to_repo: git@gitlab.com:inkscape/inkscape-ci-docker.git
+              star_count: 5
+              suggestion_commit_message: null
+              tag_list: []
+              visibility: public
+              web_url: https://gitlab.com/inkscape/inkscape-ci-docker
+              wiki_access_level: disabled
+              wiki_enabled: false
+            - _links:
+                events: https://gitlab.com/api/v4/projects/3472737/events
+                issues: https://gitlab.com/api/v4/projects/3472737/issues
+                labels: https://gitlab.com/api/v4/projects/3472737/labels
+                members: https://gitlab.com/api/v4/projects/3472737/members
+                merge_requests: https://gitlab.com/api/v4/projects/3472737/merge_requests
+                repo_branches: https://gitlab.com/api/v4/projects/3472737/repository/branches
+                self: https://gitlab.com/api/v4/projects/3472737
+              allow_merge_on_skipped_pipeline: false
+              analytics_access_level: enabled
+              approvals_before_merge: 0
+              archived: false
+              auto_cancel_pending_pipelines: enabled
+              auto_devops_deploy_strategy: continuous
+              auto_devops_enabled: false
+              autoclose_referenced_issues: true
+              avatar_url: https://assets.gitlab-static.net/uploads/-/system/project/avatar/3472737/inkscape.png
+              build_coverage_regex: ''
+              build_timeout: 18600
+              builds_access_level: enabled
+              can_create_merge_request_in: true
+              ci_config_path: null
+              ci_default_git_depth: null
+              ci_forward_deployment_enabled: null
+              compliance_frameworks: []
+              container_registry_enabled: false
+              container_registry_image_prefix: registry.gitlab.com/inkscape/inkscape
+              created_at: '2017-06-09T14:16:35.615Z'
+              creator_id: 402261
+              default_branch: master
+              description: Inkscape vector image editor
+              emails_disabled: null
+              empty_repo: false
+              external_authorization_classification_label: ''
+              forking_access_level: enabled
+              forks_count: 730
+              http_url_to_repo: https://gitlab.com/inkscape/inkscape.git
+              id: 3472737
+              import_status: none
+              issues_access_level: enabled
+              issues_enabled: true
+              issues_template: "<!-- Please report new issues at https://inkscape.org/report;\
+                \ this tracker is for staff-confirmed issues only.\r\n     See our\
+                \ full bug reporting guidelines at https://inkscape.org/contribute/report-bugs/\
+                \ -->\r\n\r\n#### Steps to reproduce:\r\n<!-- Describe what you did\
+                \ (step-by-step) so we can reproduce: -->\r\n\r\n- open Inkscape\r\
+                \n- ...\r\n\r\n#### What happened?\r\n\r\n...\r\n\r\n#### What should\
+                \ have happened?\r\n\r\n...\r\n\r\n#### Inkscape Version and Operating\
+                \ System:\r\n\r\n- Inkscape Version: ... <!-- (run inkscape -V or\
+                \ copy from Help \u2192 About Inkscape, top right) -->\r\n- Operating\
+                \ System: ...\r\n- Operating System version: ...\r\n\r\n<!-- Example\
+                \ file:\r\nAttach a sample file (or files) highlighting the issue,\
+                \ if appropriate. -->"
+              jobs_enabled: true
+              last_activity_at: '2021-04-20T04:54:26.632Z'
+              lfs_enabled: false
+              marked_for_deletion_at: null
+              marked_for_deletion_on: null
+              merge_method: ff
+              merge_requests_access_level: enabled
+              merge_requests_enabled: true
+              merge_requests_template: ''
+              mirror: false
+              name: inkscape
+              name_with_namespace: Inkscape / inkscape
+              namespace:
+                avatar_url: /uploads/-/system/group/avatar/470642/inkscape.png
+                full_path: inkscape
+                id: 470642
+                kind: group
+                name: Inkscape
+                parent_id: null
+                path: inkscape
+                web_url: https://gitlab.com/groups/inkscape
+              only_allow_merge_if_all_discussions_are_resolved: true
+              only_allow_merge_if_pipeline_succeeds: false
+              open_issues_count: 1150
+              operations_access_level: disabled
+              packages_enabled: false
+              pages_access_level: enabled
+              path: inkscape
+              path_with_namespace: inkscape/inkscape
+              printing_merge_request_link_enabled: true
+              public_jobs: true
+              readme_url: https://gitlab.com/inkscape/inkscape/-/blob/master/README.md
+              remove_source_branch_after_merge: true
+              repository_access_level: enabled
+              request_access_enabled: false
+              requirements_enabled: true
+              resolve_outdated_diff_discussions: false
+              restrict_user_defined_variables: false
+              security_and_compliance_enabled: false
+              service_desk_address: null
+              service_desk_enabled: null
+              shared_runners_enabled: true
+              shared_with_groups:
+              - expires_at: null
+                group_access_level: 30
+                group_full_path: inkscape/devel
+                group_id: 4575604
+                group_name: Inkscape Developers
+              - expires_at: null
+                group_access_level: 20
+                group_full_path: inkscape/bug-wranglers
+                group_id: 4445779
+                group_name: Inkscape Bug Wranglers
+              snippets_access_level: disabled
+              snippets_enabled: false
+              ssh_url_to_repo: git@gitlab.com:inkscape/inkscape.git
+              star_count: 2208
+              suggestion_commit_message: ''
+              tag_list: []
+              visibility: public
+              web_url: https://gitlab.com/inkscape/inkscape
+              wiki_access_level: disabled
+              wiki_enabled: false
+            - _links:
+                events: https://gitlab.com/api/v4/projects/2324563/events
+                issues: https://gitlab.com/api/v4/projects/2324563/issues
+                labels: https://gitlab.com/api/v4/projects/2324563/labels
+                members: https://gitlab.com/api/v4/projects/2324563/members
+                merge_requests: https://gitlab.com/api/v4/projects/2324563/merge_requests
+                repo_branches: https://gitlab.com/api/v4/projects/2324563/repository/branches
+                self: https://gitlab.com/api/v4/projects/2324563
+              allow_merge_on_skipped_pipeline: null
+              analytics_access_level: enabled
+              approvals_before_merge: 0
+              archived: false
+              auto_cancel_pending_pipelines: enabled
+              auto_devops_deploy_strategy: continuous
+              auto_devops_enabled: false
+              autoclose_referenced_issues: true
+              avatar_url: https://assets.gitlab-static.net/uploads/-/system/project/avatar/2324563/inkscape-web-i18n.png
+              build_coverage_regex: null
+              build_timeout: 3600
+              builds_access_level: private
+              can_create_merge_request_in: true
+              ci_config_path: null
+              ci_default_git_depth: null
+              ci_forward_deployment_enabled: null
+              compliance_frameworks: []
+              container_registry_enabled: false
+              container_registry_image_prefix: registry.gitlab.com/inkscape/inkscape-web-i18n
+              created_at: '2017-01-17T01:07:35.318Z'
+              creator_id: 401528
+              default_branch: master
+              description: Translations for the inkscape-web project
+              emails_disabled: null
+              empty_repo: false
+              external_authorization_classification_label: ''
+              forking_access_level: enabled
+              forks_count: 16
+              http_url_to_repo: https://gitlab.com/inkscape/inkscape-web-i18n.git
+              id: 2324563
+              import_status: none
+              issues_access_level: enabled
+              issues_enabled: true
+              issues_template: ''
+              jobs_enabled: false
+              last_activity_at: '2021-04-18T13:07:35.676Z'
+              lfs_enabled: true
+              marked_for_deletion_at: null
+              marked_for_deletion_on: null
+              merge_method: ff
+              merge_requests_access_level: enabled
+              merge_requests_enabled: true
+              merge_requests_template: ''
+              mirror: false
+              name: inkscape-web-i18n
+              name_with_namespace: Inkscape / inkscape-web-i18n
+              namespace:
+                avatar_url: /uploads/-/system/group/avatar/470642/inkscape.png
+                full_path: inkscape
+                id: 470642
+                kind: group
+                name: Inkscape
+                parent_id: null
+                path: inkscape
+                web_url: https://gitlab.com/groups/inkscape
+              only_allow_merge_if_all_discussions_are_resolved: false
+              only_allow_merge_if_pipeline_succeeds: false
+              open_issues_count: 0
+              operations_access_level: enabled
+              packages_enabled: null
+              pages_access_level: enabled
+              path: inkscape-web-i18n
+              path_with_namespace: inkscape/inkscape-web-i18n
+              printing_merge_request_link_enabled: true
+              public_jobs: true
+              readme_url: https://gitlab.com/inkscape/inkscape-web-i18n/-/blob/master/README.md
+              remove_source_branch_after_merge: false
+              repository_access_level: enabled
+              request_access_enabled: true
+              requirements_enabled: true
+              resolve_outdated_diff_discussions: false
+              restrict_user_defined_variables: false
+              security_and_compliance_enabled: false
+              service_desk_address: null
+              service_desk_enabled: null
+              shared_runners_enabled: true
+              shared_with_groups: []
+              snippets_access_level: disabled
+              snippets_enabled: false
+              ssh_url_to_repo: git@gitlab.com:inkscape/inkscape-web-i18n.git
+              star_count: 4
+              suggestion_commit_message: ''
+              tag_list: []
+              visibility: public
+              web_url: https://gitlab.com/inkscape/inkscape-web-i18n
+              wiki_access_level: disabled
+              wiki_enabled: false
+            - _links:
+                events: https://gitlab.com/api/v4/projects/2313989/events
+                issues: https://gitlab.com/api/v4/projects/2313989/issues
+                labels: https://gitlab.com/api/v4/projects/2313989/labels
+                members: https://gitlab.com/api/v4/projects/2313989/members
+                merge_requests: https://gitlab.com/api/v4/projects/2313989/merge_requests
+                repo_branches: https://gitlab.com/api/v4/projects/2313989/repository/branches
+                self: https://gitlab.com/api/v4/projects/2313989
+              allow_merge_on_skipped_pipeline: null
+              analytics_access_level: enabled
+              approvals_before_merge: 0
+              archived: false
+              auto_cancel_pending_pipelines: enabled
+              auto_devops_deploy_strategy: continuous
+              auto_devops_enabled: false
+              autoclose_referenced_issues: true
+              avatar_url: https://assets.gitlab-static.net/uploads/-/system/project/avatar/2313989/inkscape-web.png
+              build_coverage_regex: null
+              build_timeout: 3600
+              builds_access_level: private
+              can_create_merge_request_in: true
+              ci_config_path: null
+              ci_default_git_depth: null
+              ci_forward_deployment_enabled: null
+              compliance_frameworks: []
+              container_registry_enabled: false
+              container_registry_image_prefix: registry.gitlab.com/inkscape/inkscape-web
+              created_at: '2017-01-15T01:50:48.396Z'
+              creator_id: 401528
+              default_branch: master
+              description: The inkscape website, a django based cms with apps for
+                uploading images, managing projects.
+              emails_disabled: false
+              empty_repo: false
+              external_authorization_classification_label: ''
+              forking_access_level: enabled
+              forks_count: 32
+              http_url_to_repo: https://gitlab.com/inkscape/inkscape-web.git
+              id: 2313989
+              import_status: none
+              issues_access_level: enabled
+              issues_enabled: true
+              issues_template: ''
+              jobs_enabled: false
+              last_activity_at: '2021-04-19T11:28:49.919Z'
+              lfs_enabled: false
+              marked_for_deletion_at: null
+              marked_for_deletion_on: null
+              merge_method: ff
+              merge_requests_access_level: enabled
+              merge_requests_enabled: true
+              merge_requests_template: ''
+              mirror: false
+              name: inkscape-web
+              name_with_namespace: Inkscape / inkscape-web
+              namespace:
+                avatar_url: /uploads/-/system/group/avatar/470642/inkscape.png
+                full_path: inkscape
+                id: 470642
+                kind: group
+                name: Inkscape
+                parent_id: null
+                path: inkscape
+                web_url: https://gitlab.com/groups/inkscape
+              only_allow_merge_if_all_discussions_are_resolved: false
+              only_allow_merge_if_pipeline_succeeds: false
+              open_issues_count: 227
+              operations_access_level: enabled
+              packages_enabled: false
+              pages_access_level: enabled
+              path: inkscape-web
+              path_with_namespace: inkscape/inkscape-web
+              printing_merge_request_link_enabled: true
+              public_jobs: true
+              readme_url: https://gitlab.com/inkscape/inkscape-web/-/blob/master/README.md
+              remove_source_branch_after_merge: null
+              repository_access_level: enabled
+              request_access_enabled: true
+              requirements_enabled: true
+              resolve_outdated_diff_discussions: null
+              restrict_user_defined_variables: false
+              security_and_compliance_enabled: false
+              service_desk_address: null
+              service_desk_enabled: null
+              shared_runners_enabled: true
+              shared_with_groups:
+              - expires_at: null
+                group_access_level: 40
+                group_full_path: inkscape/bug-wranglers
+                group_id: 4445779
+                group_name: Inkscape Bug Wranglers
+              snippets_access_level: disabled
+              snippets_enabled: false
+              ssh_url_to_repo: git@gitlab.com:inkscape/inkscape-web.git
+              star_count: 50
+              suggestion_commit_message: null
+              tag_list: []
+              visibility: public
+              web_url: https://gitlab.com/inkscape/inkscape-web
+              wiki_access_level: enabled
+              wiki_enabled: true
+            - _links:
+                events: https://gitlab.com/api/v4/projects/839044/events
+                issues: https://gitlab.com/api/v4/projects/839044/issues
+                labels: https://gitlab.com/api/v4/projects/839044/labels
+                members: https://gitlab.com/api/v4/projects/839044/members
+                merge_requests: https://gitlab.com/api/v4/projects/839044/merge_requests
+                repo_branches: https://gitlab.com/api/v4/projects/839044/repository/branches
+                self: https://gitlab.com/api/v4/projects/839044
+              allow_merge_on_skipped_pipeline: null
+              analytics_access_level: enabled
+              approvals_before_merge: 0
+              archived: false
+              auto_cancel_pending_pipelines: enabled
+              auto_devops_deploy_strategy: continuous
+              auto_devops_enabled: false
+              autoclose_referenced_issues: true
+              avatar_url: https://assets.gitlab-static.net/uploads/-/system/project/avatar/839044/2geom-logo.png
+              build_coverage_regex: null
+              build_timeout: 3600
+              builds_access_level: enabled
+              can_create_merge_request_in: true
+              ci_config_path: null
+              ci_default_git_depth: null
+              ci_forward_deployment_enabled: null
+              compliance_frameworks: []
+              container_registry_enabled: false
+              container_registry_image_prefix: registry.gitlab.com/inkscape/lib2geom
+              created_at: '2016-02-07T23:31:25.049Z'
+              creator_id: 119391
+              default_branch: master
+              description: Easy to use 2D geometry library in C++
+              emails_disabled: null
+              empty_repo: false
+              external_authorization_classification_label: ''
+              forking_access_level: enabled
+              forks_count: 14
+              http_url_to_repo: https://gitlab.com/inkscape/lib2geom.git
+              id: 839044
+              import_status: finished
+              issues_access_level: enabled
+              issues_enabled: true
+              issues_template: ''
+              jobs_enabled: true
+              last_activity_at: '2021-04-16T06:03:33.187Z'
+              lfs_enabled: false
+              marked_for_deletion_at: null
+              marked_for_deletion_on: null
+              merge_method: ff
+              merge_requests_access_level: enabled
+              merge_requests_enabled: true
+              merge_requests_template: ''
+              mirror: false
+              name: lib2geom
+              name_with_namespace: Inkscape / lib2geom
+              namespace:
+                avatar_url: /uploads/-/system/group/avatar/470642/inkscape.png
+                full_path: inkscape
+                id: 470642
+                kind: group
+                name: Inkscape
+                parent_id: null
+                path: inkscape
+                web_url: https://gitlab.com/groups/inkscape
+              only_allow_merge_if_all_discussions_are_resolved: false
+              only_allow_merge_if_pipeline_succeeds: false
+              open_issues_count: 22
+              operations_access_level: enabled
+              packages_enabled: false
+              pages_access_level: enabled
+              path: lib2geom
+              path_with_namespace: inkscape/lib2geom
+              printing_merge_request_link_enabled: true
+              public_jobs: true
+              readme_url: https://gitlab.com/inkscape/lib2geom/-/blob/master/README.md
+              remove_source_branch_after_merge: null
+              repository_access_level: enabled
+              request_access_enabled: false
+              requirements_enabled: true
+              resolve_outdated_diff_discussions: false
+              restrict_user_defined_variables: false
+              security_and_compliance_enabled: false
+              service_desk_address: null
+              service_desk_enabled: null
+              shared_runners_enabled: true
+              shared_with_groups:
+              - expires_at: null
+                group_access_level: 30
+                group_full_path: inkscape/devel
+                group_id: 4575604
+                group_name: Inkscape Developers
+              - expires_at: null
+                group_access_level: 20
+                group_full_path: inkscape/bug-wranglers
+                group_id: 4445779
+                group_name: Inkscape Bug Wranglers
+              snippets_access_level: disabled
+              snippets_enabled: false
+              ssh_url_to_repo: git@gitlab.com:inkscape/lib2geom.git
+              star_count: 15
+              suggestion_commit_message: null
+              tag_list: []
+              visibility: public
+              web_url: https://gitlab.com/inkscape/lib2geom
+              wiki_access_level: disabled
+              wiki_enabled: false
+            request_access_enabled: false
+            require_two_factor_authentication: false
+            share_with_group_lock: false
+            shared_projects: []
+            shared_runners_minutes_limit: 2000
+            shared_with_groups: []
+            subgroup_creation_level: owner
+            two_factor_grace_period: 48
+            visibility: public
+            web_url: https://gitlab.com/groups/inkscape
+          _next: null
+          elapsed: 2.854455
+          encoding: null
+          headers:
+            CF-Cache-Status: DYNAMIC
+            CF-RAY: 642bd48abb5cab9a-YYZ
+            Cache-Control: max-age=0, private, must-revalidate
+            Connection: keep-alive
+            Content-Encoding: gzip
+            Content-Type: application/json
+            Date: Tue, 20 Apr 2021 05:04:11 GMT
+            Etag: W/"13fcf87fe943e8a758132f0d4fec66de"
+            Expect-CT: max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
+            GitLab-LB: fe-11-lb-gprd
+            GitLab-SV: api-26-sv-gprd
+            Referrer-Policy: strict-origin-when-cross-origin
+            Server: cloudflare
+            Strict-Transport-Security: max-age=31536000
+            Transfer-Encoding: chunked
+            Vary: Accept-Encoding, Origin
+            X-Content-Type-Options: nosniff
+            X-Frame-Options: SAMEORIGIN
+            X-Gitlab-Feature-Category: subgroups
+            X-Request-Id: 01F3PTM4QAK7T225D6J8EJ9YVK
+            X-Runtime: '1.831220'
+            cf-request-id: 098f432ab80000ab9a8c980000000001
+          raw: !!binary ""
+          reason: OK
+          status_code: 200
+      https://gitlab.com/api/v4/user:
+      - metadata:
+          latency: 0.4818727970123291
+          module_call_list:
+          - unittest.case
+          - requre.online_replacing
+          - tests.integration.gitlab.test_service
+          - ogr.services.gitlab.service
+          - gitlab
+          - gitlab.exceptions
+          - gitlab.mixins
+          - gitlab
+          - requre.objects
+          - requre.cassette
+          - requests.sessions
+          - send
+        output:
+          __store_indicator: 2
+          _content:
+            avatar_url: https://secure.gravatar.com/avatar/fe0e8f3b93f995cfa6dfe990e475fbe2?s=80&d=identicon
+            bio: ''
+            bio_html: ''
+            bot: false
+            can_create_group: true
+            can_create_project: true
+            color_scheme_id: 1
+            commit_email: berkaykosar@sabanciuniv.edu
+            confirmed_at: '2021-01-07T01:39:34.473Z'
+            created_at: '2020-12-29T02:32:05.403Z'
+            current_sign_in_at: '2021-04-12T02:29:56.454Z'
+            email: berkaykosar@sabanciuniv.edu
+            external: false
+            extra_shared_runners_minutes_limit: null
+            followers: 0
+            following: 0
+            id: 7897635
+            identities: []
+            job_title: ''
+            last_activity_on: '2021-04-20'
+            last_sign_in_at: '2021-01-07T01:34:47.658Z'
+            linkedin: ''
+            location: null
+            name: Arda  Kosar
+            organization: null
+            private_profile: false
+            projects_limit: 100000
+            public_email: ''
+            shared_runners_minutes_limit: null
+            skype: ''
+            state: active
+            theme_id: 1
+            twitter: ''
+            two_factor_enabled: false
+            username: abkosar
+            web_url: https://gitlab.com/abkosar
+            website_url: ''
+            work_information: null
+          _next: null
+          elapsed: 0.481307
+          encoding: null
+          headers:
+            CF-Cache-Status: DYNAMIC
+            CF-RAY: 642bd4882a8eab9a-YYZ
+            Cache-Control: max-age=0, private, must-revalidate
+            Connection: keep-alive
+            Content-Encoding: gzip
+            Content-Type: application/json
+            Date: Tue, 20 Apr 2021 05:04:09 GMT
+            Etag: W/"98358ff607eba0b3a17b6f4953341766"
+            Expect-CT: max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
+            GitLab-LB: fe-01-lb-gprd
+            GitLab-SV: api-19-sv-gprd
+            Referrer-Policy: strict-origin-when-cross-origin
+            Server: cloudflare
+            Set-Cookie: __cfduid=d12e50ad1407c4b63437cbc3d682c91011618895049; expires=Thu,
+              20-May-21 05:04:09 GMT; path=/; domain=.gitlab.com; HttpOnly; SameSite=Lax;
+              Secure
+            Strict-Transport-Security: max-age=31536000
+            Transfer-Encoding: chunked
+            Vary: Accept-Encoding, Origin
+            X-Content-Type-Options: nosniff
+            X-Frame-Options: SAMEORIGIN
+            X-Gitlab-Feature-Category: users
+            X-Request-Id: 01F3PTM4B05FHB852ZK9D691G5
+            X-Runtime: '0.102532'
+            cf-request-id: 098f43291d0000ab9a6120e000000001
+          raw: !!binary ""
+          reason: OK
+          status_code: 200
