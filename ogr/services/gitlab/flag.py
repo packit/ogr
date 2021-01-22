@@ -27,7 +27,7 @@ from typing import List, Union
 import gitlab
 
 from ogr.abstract import CommitFlag, CommitStatus
-from ogr.exceptions import GitlabAPIException
+from ogr.exceptions import GitlabAPIException, OperationNotSupported
 from ogr.services import gitlab as ogr_gitlab
 from ogr.services.base import BaseCommitFlag
 
@@ -119,6 +119,7 @@ class GitlabCommitFlag(BaseCommitFlag):
 
     @property
     def edited(self) -> datetime.datetime:
-        # Gitlab edited not implemented
-        # https://github.com/packit/ogr/issues/344
-        raise NotImplementedError()
+        raise OperationNotSupported(
+            "GitLab doesn't support edited on commit flags, for more info "
+            "see https://github.com/packit/ogr/issues/413#issuecomment-729623702"
+        )
