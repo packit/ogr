@@ -28,7 +28,7 @@ import requests
 from ogr.exceptions import PagureAPIException, OgrException
 from ogr.factory import use_for_service
 from ogr.parsing import parse_git_repo
-from ogr.services.base import BaseGitService
+from ogr.services.base import BaseGitService, GitProject
 from ogr.services.pagure.project import PagureProject
 from ogr.services.pagure.user import PagureUser
 from ogr.utils import RequestResponse
@@ -293,5 +293,5 @@ class PagureService(BaseGitService):
         user: str = None,
         search_patter: str = None,
         language: str = None,
-    ) -> List["GitProject"]:
+    ) -> List[GitProject]:
         raise NotImplementedError

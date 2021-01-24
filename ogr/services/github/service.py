@@ -34,7 +34,7 @@ from github import (
 from ogr.abstract import GitUser
 from ogr.exceptions import GithubAPIException
 from ogr.factory import use_for_service
-from ogr.services.base import BaseGitService
+from ogr.services.base import BaseGitService, GitProject
 from ogr.services.github.project import GithubProject
 from ogr.services.github.auth_providers import (
     GithubAuthentication,
@@ -186,7 +186,7 @@ class GithubService(BaseGitService):
         user: str = None,
         search_patter: str = None,
         language: str = None,
-    ) -> List["GitProject"]:
+    ) -> List[GitProject]:
         g = self.github
 
         # Get the locals for the function
@@ -202,6 +202,7 @@ class GithubService(BaseGitService):
         # Join the arguments by space
         search_query = " ".join([f"{k}:{v}" for k, v in args_for_query.items()])
 
+        projects: List[GitProject]
         projects = [
             GithubProject(
                 repo=repo.name,

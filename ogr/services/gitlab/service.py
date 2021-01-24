@@ -26,7 +26,7 @@ import gitlab
 from ogr.abstract import GitUser
 from ogr.exceptions import GitlabAPIException
 from ogr.factory import use_for_service
-from ogr.services.base import BaseGitService
+from ogr.services.base import BaseGitService, GitProject
 from ogr.services.gitlab.project import GitlabProject
 from ogr.services.gitlab.user import GitlabUser
 
@@ -130,7 +130,7 @@ class GitlabService(BaseGitService):
         user: str = None,
         search_patter: str = None,
         language: str = None,
-    ) -> List["GitProject"]:
+    ) -> List[GitProject]:
         gl = self.gitlab_instance
 
         if namespace:
@@ -140,6 +140,7 @@ class GitlabService(BaseGitService):
             u = gl.users.list(username=user)[0]
             projects = u.projects.list()
 
+        gitlab_projects: List[GitProject]
         gitlab_projects = [
             GitlabProject(
                 repo=p.attributes["path"],
