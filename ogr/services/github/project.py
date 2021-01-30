@@ -124,6 +124,15 @@ class GithubProject(BaseGitProject):
             logger.debug(f"Project {self.repo}/{user_login} does not exist: {ex}")
             return None
 
+    def exists(self) -> bool:
+        try:
+            _ = self.github_repo
+            return True
+        except UnknownObjectException as ex:
+            if "Not Found" in str(ex):
+                return False
+            raise GithubAPIException from ex
+
     def is_private(self) -> bool:
         """
         Is this repo private? (accessible only by users with granted access)
