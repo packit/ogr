@@ -321,3 +321,10 @@ class PullRequests(GitlabTests):
         prs_after = len(other_fork.get_pr_list(status=PRStatus.open))
         self.project.get_pr(pr_fork_fork.id).close()
         assert prs_after == prs_before + 1
+
+    def test_commits_url(self):
+        pr = self.project.get_pr(3)
+        assert (
+            pr.commits_url
+            == "https://gitlab.com/packit-service/ogr-tests/-/merge_requests/3/commits"
+        )

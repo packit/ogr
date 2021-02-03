@@ -404,6 +404,10 @@ class PullRequest(OgrAbstractClass):
     def target_project(self) -> "GitProject":
         raise NotImplementedError()
 
+    @property
+    def commits_url(self) -> str:
+        raise NotImplementedError()
+
     def __str__(self) -> str:
         description = (
             f"{self.description[:10]}..." if self.description is not None else "None"
