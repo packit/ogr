@@ -205,6 +205,14 @@ class GenericCommands(GithubTests):
     def test_full_repo_name(self):
         assert self.ogr_project.full_repo_name == "packit/ogr"
 
+    def test_project_exists(self):
+        assert self.ogr_project.exists()
+
+    def test_project_not_exists(self):
+        assert not self.service.get_project(
+            repo="some-non-existing-repo", namespace="some-none-existing-namespace"
+        ).exists()
+
     def test_is_private(self):
         # The repository bellow needs to be a private repository which can be
         # accessed by the user who's GITHUB_TOKEN is used for
