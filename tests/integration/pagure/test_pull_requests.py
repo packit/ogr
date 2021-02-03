@@ -82,3 +82,9 @@ class PullRequests(PagureTests):
         patch = pr.patch
         assert isinstance(patch, bytes)
         assert "\nDate: Nov 26 2019 19:01:46 +0000\n" in patch.decode()
+
+    def test_commits_url(self):
+        pr = self.ogr_project.get_pr(5)
+        assert (
+            pr.commits_url == "https://pagure.io/ogr-tests/pull-request/5#commit_list"
+        )

@@ -319,3 +319,9 @@ class PullRequests(GithubTests):
         source_project = pr.source_project
         assert source_project.namespace == self.service.user.get_username()
         assert source_project.repo == "repo_created_for_test_in_group"
+
+    def test_commits_url(self):
+        pr = self.hello_world_project.get_pr(113)
+        assert (
+            pr.commits_url == "https://github.com/packit/hello-world/pull/113/commits"
+        )

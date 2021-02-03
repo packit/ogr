@@ -106,6 +106,10 @@ class PagurePullRequest(BasePullRequest):
         return f"{self.url}#request_diff"
 
     @property
+    def commits_url(self) -> str:
+        return f"{self.url}#commit_list"
+
+    @property
     def patch(self) -> bytes:
         request_response = self._target_project._call_project_api_raw(
             "pull-request", f"{self.id}.patch", add_api_endpoint_part=False

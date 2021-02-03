@@ -102,6 +102,10 @@ class GithubPullRequest(BasePullRequest):
         return f"{self._raw_pr.html_url}/files"
 
     @property
+    def commits_url(self) -> str:
+        return f"{self._raw_pr.html_url}/commits"
+
+    @property
     def head_commit(self) -> str:
         return self._raw_pr.head.sha
 
