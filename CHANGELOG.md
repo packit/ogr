@@ -1,3 +1,14 @@
+# 0.20.0
+
+## Features
+
+- Add and implement `commits_url` property on pull requests (by [@mfocko](https://github.com/mfocko)).
+- Implemented `project.exists` for GitHub projects (by [@path2himanshu](https://github.com/path2himanshu)).
+
+## Minor
+
+- Raise more informative exception for `edited` property on GitLab's commit flag (by [@mfocko](https://github.com/mfocko)).
+
 # 0.19.0
 
 ## Features
