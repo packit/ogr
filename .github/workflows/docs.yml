@@ -1,0 +1,36 @@
+name: Deploy documentation
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout branch
+        uses: actions/checkout@v2
+      - name: Build and push docs
+        run: |
+          git config user.name Packit
+          git config user.email user-cont-team@redhat.com
+
+          python3 -m pip install --upgrade pip
+          python3 -m pip install setuptools
+          python3 -m pip install .
+          python3 -m pip install pdoc3 pygments
+
+          python3 -m pdoc --html -o built_docs ogr
+          mv built_docs/ogr docs
+          touch .nojekyll
+
+          COMMIT_SHA=$(git log -1 --format=%h)
+          git checkout --orphan gh-pages
+          git rm --cached '*'
+          git add docs .nojekyll
+
+          git commit -m "Update docs for $COMMIT_SHA"
+          git push --force origin gh-pages
+        shell: bash
