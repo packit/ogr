@@ -1,7 +1,8 @@
 # Copyright Contributors to the Packit project.
 # SPDX-License-Identifier: MIT
 
-from typing import Optional
+from typing import Optional, Union
+from urllib3.util import Retry
 
 import github
 
@@ -9,9 +10,9 @@ from ogr.services.github.auth_providers.abstract import GithubAuthentication
 
 
 class TokenAuthentication(GithubAuthentication):
-    def __init__(self, token: str, **_) -> None:
+    def __init__(self, token: str, max_retries: Union[int, Retry]=0, **_) -> None:
         self._token = token
-        self._pygithub_instance = github.Github(login_or_token=token)
+        self._pygithub_instance = github.Github(login_or_token=token, retry=max_retries)
 
     def __eq__(self, o: object) -> bool:
         return issubclass(o.__class__, TokenAuthentication) and (
@@ -32,5 +33,7 @@ class TokenAuthentication(GithubAuthentication):
         return self._token
 
     @staticmethod
-    def try_create(token: str = None, **_) -> Optional["TokenAuthentication"]:
-        return TokenAuthentication(token)
+    def try_create(
+        token: str = None, max_retries: Union[int, Retry]=0, **_
+    ) -> Optional["TokenAuthentication"]:
+        return TokenAuthentication(token, max_retries=max_retries)
