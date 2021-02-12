@@ -21,7 +21,7 @@
 # SOFTWARE.
 
 import logging
-from typing import List, Optional, Dict, Set
+from typing import List, Optional, Dict, Set, Iterable
 from urllib.parse import urlparse
 
 from ogr.abstract import (
@@ -49,7 +49,7 @@ from ogr.services.pagure.flag import PagureCommitFlag
 from ogr.services.pagure.issue import PagureIssue
 from ogr.services.pagure.pull_request import PagurePullRequest
 from ogr.services.pagure.release import PagureRelease
-from ogr.utils import RequestResponse
+from ogr.utils import RequestResponse, filter_paths
 
 logger = logging.getLogger(__name__)
 
@@ -545,3 +545,31 @@ class PagureProject(BaseGitProject):
         fork = f"fork/{self._user}/" if self.is_fork else ""
         namespace = f"{self.namespace}/" if self.namespace else ""
         return f"{fork}{namespace}{self.repo}"
+
+    def __get_files(
+        self, path: str, ref: str = None, recursive: bool = False
+    ) -> Iterable[str]:
+        subfolders = ["."]
+
+        while subfolders:
+            path = subfolders.pop()
+            split_path = []
+            if path != ".":
+                split_path = ["f"] + path.split("/")
+            response = self._call_project_api("tree", ref, *split_path)
+
+            for file in response["content"]:
+                if file["type"] == "file":
+                    yield file["path"]
+                elif recursive and file["type"] == "folder":
+                    subfolders.append(file["path"])
+
+    def get_files(
+        self, ref: str = None, filter_regex: str = None, recursive: bool = False
+    ) -> List[str]:
+        ref = ref or self.default_branch
+        paths = list(self.__get_files(".", ref, recursive))
+        if filter_regex:
+            paths = filter_paths(paths, filter_regex)
+
+        return paths

@@ -58,6 +58,25 @@ class GenericCommands(PagureTests):
         assert isinstance(file_content, str)
         assert "Testing repository for python-ogr" in file_content
 
+    def test_get_files(self):
+        files = self.ogr_project.get_files()
+        assert files
+        assert len(files) >= 1
+        assert "README.md" in files
+
+        files = self.ogr_project.get_files(ref="for-testing-get-files", recursive=True)
+        assert files
+        assert len(files) >= 7
+        assert "a/b/c/some_header.h" in files
+        assert "a/b/c" not in files
+
+        files = self.ogr_project.get_files(
+            ref="for-testing-get-files", filter_regex=".*.c", recursive=True
+        )
+        assert files
+        assert len(files) >= 3
+        assert set(("a/b/lib.c", "a/b/main.c", "a/b/some_other_lib.c")).issubset(files)
+
     def test_nonexisting_file(self):
         with self.assertRaises(Exception) as _:
             self.ogr_project.get_file_content(".blablabla_nonexisting_file")
