@@ -83,7 +83,7 @@ class PagureProject(BaseGitProject):
         self,
         *args,
         add_fork_part: bool = True,
-        add_api_endpoint_part=True,
+        add_api_endpoint_part: bool = True,
         method: str = None,
         params: dict = None,
         data: dict = None,
@@ -91,13 +91,20 @@ class PagureProject(BaseGitProject):
         """
         Call project API endpoint.
 
-        :param args: str parts of the url (e.g. "a", "b" will call "project/a/b")
-        :param add_fork_part: If the projects is a fork, use "fork/username" prefix, True by default
-        :param add_api_endpoint_part: Add part with API endpoint "/api/0/"
-        :param method: "GET"/"POST"/...
-        :param params: http(s) query parameters
-        :param data: data to be sent
-        :return: dict
+        Args:
+            *args: String parts of the URL, e.g. `"a", "b"` will call `project/a/b`
+            add_fork_part: If the project is a fork, use `fork/username` prefix.
+
+                Defaults to `True`.
+            add_api_endpoint_part: Add part with API endpoint (`/api/0/`).
+
+                Defaults to `True`.
+            method: Method of the HTTP request, e.g. `"GET"`, `"POST"`, etc.
+            params: HTTP(S) query parameters in form of a dictionary.
+            data: Data to be sent in form of a dictionary.
+
+        Returns:
+            Dictionary representing response.
         """
         request_url = self._get_project_url(
             *args,
@@ -113,7 +120,7 @@ class PagureProject(BaseGitProject):
         self,
         *args,
         add_fork_part: bool = True,
-        add_api_endpoint_part=True,
+        add_api_endpoint_part: bool = True,
         method: str = None,
         params: dict = None,
         data: dict = None,
@@ -121,13 +128,20 @@ class PagureProject(BaseGitProject):
         """
         Call project API endpoint.
 
-        :param args: str parts of the url (e.g. "a", "b" will call "project/a/b")
-        :param add_fork_part: If the projects is a fork, use "fork/username" prefix, True by default
-        :param add_api_endpoint_part: Add part with API endpoint "/api/0/"
-        :param method: "GET"/"POST"/...
-        :param params: http(s) query parameters
-        :param data: data to be sent
-        :return: RequestResponse
+        Args:
+            *args: String parts of the URL, e.g. `"a", "b"` will call `project/a/b`
+            add_fork_part: If the project is a fork, use `fork/username` prefix.
+
+                Defaults to `True`.
+            add_api_endpoint_part: Add part with API endpoint (`/api/0/`).
+
+                Defaults to `True`.
+            method: Method of the HTTP request, e.g. `"GET"`, `"POST"`, etc.
+            params: HTTP(S) query parameters in form of a dictionary.
+            data: Data to be sent in form of a dictionary.
+
+        Returns:
+            `RequestResponse` object containing response.
         """
         request_url = self._get_project_url(
             *args,
@@ -168,18 +182,10 @@ class PagureProject(BaseGitProject):
 
     @property
     def description(self) -> str:
-        """
-        Returns:
-            Project description.
-        """
         return self.get_project_info()["description"]
 
     @description.setter
     def description(self, new_description: str) -> None:
-        """
-        Args:
-            new_description: description to set for project.
-        """
         raise OperationNotSupported("Not possible on Pagure")
 
     def get_owners(self) -> List[str]:
@@ -281,14 +287,6 @@ class PagureProject(BaseGitProject):
         )
 
     def get_fork(self, create: bool = True) -> Optional["PagureProject"]:
-        """
-        Provide GitProject instance of a fork of this project.
-
-        Returns None if this is a fork.
-
-        :param create: create a fork if it doesn't exist
-        :return: instance of GitProject or None
-        """
         if self.is_fork:
             raise OgrException("Cannot create fork from fork.")
 
@@ -313,11 +311,6 @@ class PagureProject(BaseGitProject):
         return response.ok
 
     def is_private(self) -> bool:
-        """
-        Is this repo private? (accessible only by users with granted access)
-
-        :return: if yes, return True
-        """
         host = urlparse(self.service.instance_url).hostname
         if host in [
             "git.centos.org",
@@ -334,11 +327,6 @@ class PagureProject(BaseGitProject):
         )
 
     def is_forked(self) -> bool:
-        """
-        Is this repo forked by the authenticated user?
-
-        :return: if yes, return True
-        """
         f = self._construct_fork_project()
         return bool(f.exists() and f.parent.exists())
 
@@ -351,9 +339,6 @@ class PagureProject(BaseGitProject):
 
     @property
     def parent(self) -> Optional["PagureProject"]:
-        """
-        Return parent project if this project is a fork, otherwise return None
-        """
         if self.get_is_fork_from_api():
             return PagureProject(
                 repo=self.repo,
@@ -367,23 +352,9 @@ class PagureProject(BaseGitProject):
         return return_value["urls"]
 
     def add_user(self, user: str, access_level: AccessLevel) -> None:
-        """
-        AccessLevel.pull => ticket
-        AccessLevel.triage => ticket
-        AccessLevel.push => commit
-        AccessLevel.admin => commit
-        AccessLevel.maintain => admin
-        """
         self.add_user_or_group(user, access_level, "user")
 
     def add_group(self, group: str, access_level: AccessLevel):
-        """
-        AccessLevel.pull => ticket
-        AccessLevel.triage => ticket
-        AccessLevel.push => commit
-        AccessLevel.admin => commit
-        AccessLevel.maintain => admin
-        """
         self.add_user_or_group(group, access_level, "group")
 
     def add_user_or_group(
@@ -411,11 +382,6 @@ class PagureProject(BaseGitProject):
             raise PagureAPIException("You are not allowed to modify ACL's")
 
     def change_token(self, new_token: str) -> None:
-        """
-        Change an API token.
-
-        Only for this instance.
-        """
         self.service.change_token(new_token)
 
     def get_file_content(self, path: str, ref=None) -> str:
@@ -489,11 +455,6 @@ class PagureProject(BaseGitProject):
         )
 
     def get_forks(self) -> List["PagureProject"]:
-        """
-        Get forks of the project.
-
-        :return: [PagureProject]
-        """
         forks_url = self.service.get_api_url("projects")
         projects_response = self.service.call_api(
             url=forks_url, params={"fork": True, "pattern": self.repo}
@@ -510,21 +471,10 @@ class PagureProject(BaseGitProject):
         ]
 
     def get_web_url(self) -> str:
-        """
-        Get web URL of the project.
-
-        :return: str
-        """
         return f'{self.service.instance_url}/{self.get_project_info()["url_path"]}'
 
     @property
     def full_repo_name(self) -> str:
-        """
-        Get repo name with namespace
-        e.g. 'rpms/python-docker-py'
-
-        :return: str
-        """
         fork = f"fork/{self._user}/" if self.is_fork else ""
         namespace = f"{self.namespace}/" if self.namespace else ""
         return f"{fork}{namespace}{self.repo}"

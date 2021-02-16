@@ -64,9 +64,6 @@ class GitlabProject(BaseGitProject):
 
     @property
     def parent(self) -> Optional["GitlabProject"]:
-        """
-        Return parent project if this project is a fork, otherwise return None
-        """
         if self.is_fork:
             parent_dict = self.gitlab_repo.attributes["forked_from_project"]
             return GitlabProject(
@@ -115,11 +112,6 @@ class GitlabProject(BaseGitProject):
             raise GitlabAPIException from ex
 
     def is_private(self) -> bool:
-        """
-        Is this repo private? (accessible only by users with granted access)
-
-        :return: if yes, return True
-        """
         return self.gitlab_repo.attributes["visibility"] == "private"
 
     def is_forked(self) -> bool:
@@ -130,30 +122,14 @@ class GitlabProject(BaseGitProject):
 
     @property
     def description(self) -> str:
-        """
-        Returns:
-            Project description.
-        """
         return self.gitlab_repo.attributes["description"]
 
     @description.setter
     def description(self, new_description: str) -> None:
-        """
-        Args:
-            new_description: description to set for project.
-        """
         self.gitlab_repo.description = new_description
         self.gitlab_repo.save()
 
     def get_fork(self, create: bool = True) -> Optional["GitlabProject"]:
-        """
-        Provide GitlabProject instance of a fork of this project.
-
-        Returns None if this is a fork.
-
-        :param create: create a fork if it doesn't exist
-        :return: instance of GitlabProject
-        """
         username = self.service.user.get_username()
         for fork in self.get_forks():
             if fork.gitlab_repo.namespace["full_path"] == username:
@@ -215,7 +191,9 @@ class GitlabProject(BaseGitProject):
             30 => Developer access
             40 => Maintainer access
             50 => Owner access
-        :return: List of usernames
+
+        Returns:
+            List of usernames.
         """
         response = []
         for member in self.gitlab_repo.members.all(all=True):
@@ -230,13 +208,6 @@ class GitlabProject(BaseGitProject):
         return response
 
     def add_user(self, user: str, access_level: AccessLevel) -> None:
-        """
-        AccessLevel.pull => Guest access
-        AccessLevel.triage => Reporter access
-        AccessLevel.push => Developer access
-        AccessLevel.admin => Maintainer access
-        AccessLevel.maintain => Owner access # Only valid for groups
-        """
         access_dict = {
             AccessLevel.pull: gitlab.GUEST_ACCESS,
             AccessLevel.triage: gitlab.REPORTER_ACCESS,
@@ -287,15 +258,6 @@ class GitlabProject(BaseGitProject):
     def commit_comment(
         self, commit: str, body: str, filename: str = None, row: int = None
     ) -> "CommitComment":
-        """
-        Create comment on a commit.
-
-        :param commit: str The SHA of the commit needing a comment.
-        :param body: str The text of the comment
-        :param filename: str The relative path to the file that necessitates a comment
-        :param row: int Line index in the diff to comment on.
-        :return: CommitComment
-        """
         try:
             commit_object = self.gitlab_repo.commits.get(commit)
         except gitlab.exceptions.GitlabGetError:
@@ -320,26 +282,10 @@ class GitlabProject(BaseGitProject):
         context: str,
         trim: bool = False,
     ) -> "CommitFlag":
-        """
-        Create a status on a commit
-
-        :param commit: The SHA of the commit.
-        :param state: The state of the status.
-        :param target_url: The target URL to associate with this status.
-        :param description: A short description of the status
-        :param context: A label to differentiate this status from the status of other systems.
-        :param trim: Whether to trim the description to 140 characters
-        :return: CommitFlag
-        """
         pass
 
     @indirect(GitlabCommitFlag.get)
     def get_commit_statuses(self, commit: str) -> List[CommitFlag]:
-        """
-        Get the statuses of a commit in a project.
-        :param commit: The SHA of the commit.
-        :return: [CommitFlag]
-        """
         pass
 
     def get_git_urls(self) -> Dict[str, str]:
@@ -349,12 +295,6 @@ class GitlabProject(BaseGitProject):
         }
 
     def fork_create(self) -> "GitlabProject":
-        """
-        Fork this project using the authenticated user.
-        This may raise an exception if the fork already exists.
-
-        :return: fork GitlabProject instance
-        """
         try:
             fork = self.gitlab_repo.forks.create({})
         except gitlab.GitlabCreateError:
@@ -384,13 +324,6 @@ class GitlabProject(BaseGitProject):
     def get_files(
         self, ref: str = None, filter_regex: str = None, recursive: bool = False
     ) -> List[str]:
-        """
-        Get a list of file paths of the repo.
-        :param ref: branch or commit (defaults to repo's default branch)
-        :param filter_regex: filter the paths with re.search
-        :param recursive: whether to return only top directory files or all files recursively
-        :return: [str]
-        """
         ref = ref or self.default_branch
         paths = [
             file_dict["path"]
@@ -485,18 +418,14 @@ class GitlabProject(BaseGitProject):
 
     def list_labels(self):
         """
-        TODO: Not in API yet.
         Get list of labels in the repository.
-        :return: [Label]
+
+        Returns:
+            List of labels in the repository.
         """
         return list(self.gitlab_repo.labels.list())
 
     def get_forks(self) -> List["GitlabProject"]:
-        """
-        Get forks of the project.
-
-        :return: [GitlabProject]
-        """
         try:
             forks = self.gitlab_repo.forks.list()
         except KeyError:
@@ -517,11 +446,13 @@ class GitlabProject(BaseGitProject):
 
     def update_labels(self, labels):
         """
-        TODO: Not in API yet.
         Update the labels of the repository. (No deletion, only add not existing ones.)
 
-        :param labels: [str]
-        :return: int - number of added labels
+        Args:
+            labels: List of labels to be added.
+
+        Returns:
+            Number of added labels.
         """
         current_label_names = [la.name for la in list(self.gitlab_repo.labels.list())]
         changes = 0
@@ -565,9 +496,4 @@ class GitlabProject(BaseGitProject):
         )
 
     def get_web_url(self) -> str:
-        """
-        Get web URL of the project.
-
-        :return: str
-        """
         return self.gitlab_repo.web_url

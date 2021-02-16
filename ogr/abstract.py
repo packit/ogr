@@ -12,11 +12,11 @@ from ogr.exceptions import OgrException
 from ogr.parsing import parse_git_repo
 
 try:
-    from functools import cached_property
+    from functools import cached_property as _cached_property
 except ImportError:
     from functools import lru_cache
 
-    def cached_property(func):  # type: ignore
+    def _cached_property(func):  # type: ignore
         return property(lru_cache()(func))
 
 
@@ -77,7 +77,7 @@ class Comment(OgrAbstractClass):
         raise NotImplementedError()
 
     @property
-    def comment(self):
+    def comment(self) -> str:
         warnings.warn(
             "Using deprecated property, that will be removed in 0.14.0"
             " (or 1.0.0 if it comes sooner). Please use body. "
@@ -86,6 +86,7 @@ class Comment(OgrAbstractClass):
 
     @property
     def body(self) -> str:
+        """Body of the comment."""
         return self._body
 
     @body.setter
@@ -94,14 +95,17 @@ class Comment(OgrAbstractClass):
 
     @property
     def author(self) -> str:
+        """Login of the author of the comment."""
         return self._author
 
     @property
     def created(self) -> datetime.datetime:
+        """Datetime of creation of the comment."""
         return self._created
 
     @property
     def edited(self) -> datetime.datetime:
+        """Datetime of last edit of the comment."""
         return self._edited
 
     def get_reactions(self) -> List[Reaction]:
@@ -112,7 +116,7 @@ class Comment(OgrAbstractClass):
         """
         Reacts to a comment.
 
-        Colons in between reaction are not needed: e.g. comment.add_reaction("+1")
+        Colons in between reaction are not needed, e.g. `comment.add_reaction("+1")`.
 
         Args:
             reaction: String representing specific reaction to be added.
@@ -126,6 +130,7 @@ class Comment(OgrAbstractClass):
 class IssueComment(Comment):
     @property
     def issue(self) -> "Issue":
+        """Issue of issue comment."""
         return self._parent
 
     def __str__(self) -> str:
@@ -135,6 +140,7 @@ class IssueComment(Comment):
 class PRComment(Comment):
     @property
     def pull_request(self) -> "PullRequest":
+        """Pull request of pull request comment."""
         return self._parent
 
     def __str__(self) -> str:
@@ -142,50 +148,66 @@ class PRComment(Comment):
 
 
 class IssueStatus(IntEnum):
+    """Enumeration for issue statuses."""
+
     open = 1
     closed = 2
     all = 3
 
 
 class Issue(OgrAbstractClass):
+    """
+    Attributes:
+        project (GitProject): Project of the issue.
+    """
+
     def __init__(self, raw_issue: Any, project: "GitProject") -> None:
         self._raw_issue = raw_issue
         self.project = project
 
     @property
     def title(self) -> str:
+        """Title of the issue."""
         raise NotImplementedError()
 
     @property
     def private(self) -> bool:
+        """`True` if issue is confidential, `False` otherwise."""
         raise NotImplementedError()
 
     @property
     def id(self) -> int:
+        """ID of the issue."""
         raise NotImplementedError()
 
     @property
     def status(self) -> IssueStatus:
+        """Status of the issue."""
         raise NotImplementedError()
 
     @property
     def url(self) -> str:
+        """Web URL of the issue."""
         raise NotImplementedError()
 
     @property
     def description(self) -> str:
+        """Description of the issue."""
         raise NotImplementedError()
 
     @property
     def author(self) -> str:
+        """Username of the author of the issue."""
         raise NotImplementedError()
 
     @property
     def created(self) -> datetime.datetime:
+        """Datetime of the creation of the issue."""
         raise NotImplementedError()
 
     @property
     def labels(self) -> List:
+        """Labels of the issue."""
         raise NotImplementedError()
 
     def __str__(self) -> str:
@@ -213,14 +235,27 @@ class Issue(OgrAbstractClass):
         assignees: Optional[List[str]] = None,
     ) -> "Issue":
         """
-        Open new Issue.
+        Open new issue.
 
-        :param project: Any
-        :param title: str
-        :param body: str
-        :param labels: list
-        :param assignees: list
-        :return: Issue
+        Args:
+            project (GitProject): Project where the issue is to be opened.
+            title: Title of the issue.
+            body: Description of the issue.
+            private: Is the new issue supposed to be confidential?
+
+                **Supported only by GitLab and Pagure.**
+
+                Defaults to unset.
+            labels: List of labels that are to be added to
+                the issue.
+
+                Defaults to no labels.
+            assignees: List of usernames of the assignees.
+
+                Defaults to no assignees.
+
+        Returns:
+            Object that represents newly created issue.
         """
         raise NotImplementedError()
 
@@ -229,9 +264,12 @@ class Issue(OgrAbstractClass):
         """
         Get issue.
 
-        :param project: Any
-        :param id: int
-        :return: Issue
+        Args:
+            project (GitProject): Project where the issue is to be opened.
+            issue_id: ID of the issue.
+
+        Returns:
+            Object that represents requested issue.
         """
         raise NotImplementedError()
 
@@ -246,20 +284,33 @@ class Issue(OgrAbstractClass):
         """
         List of issues.
 
-        :param project: Any
-        :param status: IssueStatus enum
-        :param author: str username of author
-        :param assignee: str username of assignee
-        :param labels: List[str] list of labels
-        :return: [Issue]
+        Args:
+            project (GitProject): Project where the issue is to be opened.
+            status: Status of the issues that are to be
+                included in the list.
+
+                Defaults to `IssueStatus.open`.
+            author: Username of the author of the issues.
+
+                Defaults to no filtering by author.
+            assignee: Username of the assignee on the issues.
+
+                Defaults to no filtering by assignees.
+            labels: Filter issues that have set specific labels.
+
+                Defaults to no filtering by labels.
+
+        Returns:
+            List of objects that represent requested issues.
         """
         raise NotImplementedError()
 
     def _get_all_comments(self) -> List[IssueComment]:
         """
-        Get list of issue comments.
+        Get list of all issue comments.
 
-        :return: [IssueComment]
+        Returns:
+            List of all comments on the issue.
         """
         raise NotImplementedError()
 
@@ -269,19 +320,32 @@ class Issue(OgrAbstractClass):
         """
         Get list of issue comments.
 
-        :param filter_regex: filter the comments' content with re.search
-        :param reverse: reverse order of comments
-        :param author: filter comments by author
-        :return: [IssueComment]
+        Args:
+            filter_regex: Filter the comments' content with `re.search`.
+
+                Defaults to `None`, which means no filtering.
+            reverse: Whether the comments are to be returned in
+                reversed order.
+
+                Defaults to `False`.
+            author: Filter the comments by author.
+
+                Defaults to `None`, which means no filtering.
+
+        Returns:
+            List of issue comments.
         """
         raise NotImplementedError()
 
     def can_close(self, username: str) -> bool:
         """
-        Check if user have permissions to modify an Issue.
+        Check if user have permissions to modify an issue.
 
-        :param username: str
-        :return: true if user can close issue, false otherwise
+        Args:
+            username: Login of the user.
+
+        Returns:
+            `True` if user can close the issue, `False` otherwise.
         """
         raise NotImplementedError()
 
@@ -289,8 +353,11 @@ class Issue(OgrAbstractClass):
         """
         Add new comment to the issue.
 
-        :param body: str
-        :return: IssueComment
+        Args:
+            body: Text contents of the comment.
+
+        Returns:
+            Object that represents posted comment.
         """
         raise NotImplementedError()
 
@@ -298,15 +365,17 @@ class Issue(OgrAbstractClass):
         """
         Close an issue.
 
-        :return: Issue
+        Returns:
+            Issue itself.
         """
         raise NotImplementedError()
 
     def add_label(self, *labels: str) -> None:
         """
-        Add labels the the Issue.
+        Add labels to the issue.
 
-        :param labels: [str]
+        Args:
+            *labels: Labels to be added.
         """
         raise NotImplementedError()
 
@@ -314,7 +383,8 @@ class Issue(OgrAbstractClass):
         """
         Assign users to an issue.
 
-        :param assignees: [str]
+        Args:
+            *assignees: List of logins of the assignees.
         """
         raise NotImplementedError()
 
@@ -332,6 +402,8 @@ class Issue(OgrAbstractClass):
 
 
 class PRStatus(IntEnum):
+    """Enumeration that represents statuses of pull requests."""
+
     open = 1
     closed = 2
     merged = 3
@@ -339,6 +411,8 @@ class PRStatus(IntEnum):
 
 
 class CommitStatus(Enum):
+    """Enumeration that represents possible state of commit statuses."""
+
     pending = 1
     success = 2
     failure = 3
@@ -348,6 +422,8 @@ class CommitStatus(Enum):
 
 
 class MergeCommitStatus(Enum):
+    """Enumeration that represents possible states of merge states of PR/MR."""
+
     can_be_merged = 1
     cannot_be_merged = 2
     unchecked = 3
@@ -386,6 +462,7 @@ class PullRequest(OgrAbstractClass):
 
     @property
     def title(self) -> str:
+        """Title of the pull request."""
         return self._title
 
     @title.setter
@@ -394,18 +471,22 @@ class PullRequest(OgrAbstractClass):
 
     @property
     def id(self) -> int:
+        """ID of the pull request."""
         return self._id
 
     @property
     def status(self) -> PRStatus:
+        """Status of the pull request."""
         return self._status
 
     @property
     def url(self) -> str:
+        """Web URL of the pull request."""
         return self._url
 
     @property
     def description(self) -> str:
+        """Description of the pull request."""
         return self._description
 
     @description.setter
@@ -414,54 +495,71 @@ class PullRequest(OgrAbstractClass):
 
     @property
     def author(self) -> str:
+        """Login of the author of the pull request."""
         return self._author
 
     @property
     def source_branch(self) -> str:
+        """Name of the source branch (from which the changes are pulled)."""
         return self._source_branch
 
     @property
     def target_branch(self) -> str:
+        """Name of the target branch (where the changes are being merged)."""
         return self._target_branch
 
     @property
     def created(self) -> datetime.datetime:
+        """Datetime of creating the pull request."""
         return self._created
 
     @property
     def labels(self) -> List[Any]:
+        """Labels of the pull request."""
         raise NotImplementedError()
 
     @property
     def diff_url(self) -> str:
+        """Web URL to the diff of the pull request."""
         raise NotImplementedError()
 
     @property
     def patch(self) -> bytes:
+        """Patch of the pull request."""
         raise NotImplementedError()
 
     @property
     def head_commit(self) -> str:
+        """Commit hash of the HEAD commit of the pull request."""
         raise NotImplementedError
 
     @property
     def merge_commit_sha(self) -> str:
+        """
+        Commit hash of the merge commit of the pull request.
+
+        Before merging represents test merge commit, if git forge supports it.
+        """
         raise NotImplementedError()
 
     @property
     def merge_commit_status(self) -> MergeCommitStatus:
+        """Current status of the test merge commit."""
         raise NotImplementedError()
 
     @property
     def source_project(self) -> "GitProject":
+        """Object that represents source project (from which the changes are pulled)."""
         raise NotImplementedError()
 
     @property
     def target_project(self) -> "GitProject":
+        """Object that represents target project (where changes are merged)."""
         raise NotImplementedError()
 
     @property
     def commits_url(self) -> str:
+        """Web URL to the list of commits in the pull request."""
         raise NotImplementedError()
 
     def __str__(self) -> str:
@@ -492,37 +590,49 @@ class PullRequest(OgrAbstractClass):
         fork_username: str = None,
     ) -> "PullRequest":
         """
-        Create a new pull request.
+        Create new pull request.
 
-        :param project: Any
-        :param title: str
-        :param body: str
-        :param target_branch: str
-        :param source_branch: str
-        :param fork_username: str The username/namespace of the forked repository.
-        :return: PullRequest
+        Args:
+            project (GitProject): Project where the pull request will be created.
+            title: Title of the pull request.
+            body: Description of the pull request.
+            target_branch: Branch in the project where the changes are being
+                merged.
+            source_branch: Branch from which the changes are being pulled.
+            fork_username: The username/namespace of the forked repository.
+
+        Returns:
+            Object that represents newly created pull request.
         """
         raise NotImplementedError()
 
     @staticmethod
     def get(project: Any, id: int) -> "PullRequest":
         """
-        Get pull request
+        Get pull request.
 
-        :param project: Any
-        :param id: int
-        :return: PullRequest
+        Args:
+            project (GitProject): Project where the pull request is located.
+            id: ID of the pull request.
+
+        Returns:
+            Object that represents pull request.
         """
         raise NotImplementedError()
 
     @staticmethod
     def get_list(project: Any, status: PRStatus = PRStatus.open) -> List["PullRequest"]:
         """
-        List of pull requests
+        List of pull requests.
 
-        :param project: Any
-        :param status: PRStatus enum
-        :return: [PullRequest]
+        Args:
+            project (GitProject): Project where the pull requests are located.
+            status: Filters out the pull requests.
+
+                Defaults to `PRStatus.open`.
+
+        Returns:
+            List of pull requests with requested status.
         """
         raise NotImplementedError()
 
@@ -530,20 +640,27 @@ class PullRequest(OgrAbstractClass):
         self, title: Optional[str] = None, description: Optional[str] = None
     ) -> "PullRequest":
         """
-        Update pull-request information.
+        Update pull request information.
 
-        :param title: str The title of the pull request
-        :param description str The description of the pull request
-        :return: PullRequest
+        Args:
+            title: The new title of the pull request.
+
+                Defaults to `None`, which means no updating.
+            description: The new description of the pull request.
+
+                Defaults to `None`, which means no updating.
+
+        Returns:
+            Pull request itself.
         """
         raise NotImplementedError()
 
     def _get_all_comments(self) -> List[PRComment]:
         """
-        Get list of pull-request comments.
+        Get list of all pull request comments.
 
-        :param pr_id: int
-        :return: [PRComment]
+        Returns:
+            List of all comments on the pull request.
         """
         raise NotImplementedError()
 
@@ -554,20 +671,29 @@ class PullRequest(OgrAbstractClass):
         author: Optional[str] = None,
     ) -> List["PRComment"]:
         """
-        Get list of pull-request comments.
+        Get list of pull request comments.
 
-        :param filter_regex: filter the comments' content with re.search
-        :param reverse: reverse order of comments
-        :param author: filter comments by author
-        :return: [PRComment]
+        Args:
+            filter_regex: Filter the comments' content with `re.search`.
+
+                Defaults to `None`, which means no filtering.
+            reverse: Whether the comments are to be returned in
+                reversed order.
+
+                Defaults to `False`.
+            author: Filter the comments by author.
+
+                Defaults to `None`, which means no filtering.
+
+        Returns:
+            List of pull request comments.
         """
         raise NotImplementedError()
 
     def get_all_commits(self) -> List[str]:
         """
-        Return list of pull-request commits (sha).
-
-        :return: [str]
+        Returns:
+            List of commit hashes of commits in pull request.
         """
         raise NotImplementedError()
 
@@ -575,12 +701,19 @@ class PullRequest(OgrAbstractClass):
         self, filter_regex: str, reverse: bool = False, description: bool = True
     ) -> Optional[Match[str]]:
         """
-        Find match in pull-request description or comments.
+        Find match in pull request description or comments.
 
-        :param description: bool (search in description?)
-        :param filter_regex: filter the comments' content with re.search
-        :param reverse: reverse order of comments
-        :return: re.Match or None
+        Args:
+            filter_regex: Regex that is used to filter the comments' content with `re.search`.
+            reverse: Reverse order of the comments.
+
+                Defaults to `False`.
+            description: Whether description is included in the search.
+
+                Defaults to `True`.
+
+        Returns:
+            `re.Match` if found, `None` otherwise.
         """
         raise NotImplementedError()
 
@@ -594,19 +727,29 @@ class PullRequest(OgrAbstractClass):
         """
         Add new comment to the pull request.
 
-        :param body: str
-        :param commit: str
-        :param filename: str
-        :param row: int
-        :return: PRComment
+        Args:
+            body: Body of the comment.
+            commit: Commit hash to which comment is related.
+
+                Defaults to generic comment.
+            filename: Path to the file to which comment is related.
+
+                Defaults to no relation to the file.
+            row: Line number to which the comment is related.
+
+                Defaults to no relation to the line.
+
+        Returns:
+            Newly created comment.
         """
         raise NotImplementedError()
 
     def close(self) -> "PullRequest":
         """
-        Close the pull-request.
+        Close the pull request.
 
-        :return:  PullRequest
+        Returns:
+            Pull request itself.
         """
         raise NotImplementedError()
 
@@ -614,16 +757,17 @@ class PullRequest(OgrAbstractClass):
         """
         Merge the pull request.
 
-        :return: PullRequest
+        Returns:
+            Pull request itself.
         """
         raise NotImplementedError()
 
     def add_label(self, *labels: str) -> None:
         """
-        Add labels the the Pull Request.
+        Add labels to the pull request.
 
-        :param pr_id: int
-        :param *labels: str
+        Args:
+            *labels: Labels to be added.
         """
         raise NotImplementedError()
 
@@ -631,7 +775,8 @@ class PullRequest(OgrAbstractClass):
         """
         Returns statuses for latest commit on pull request.
 
-        :return: [CommitFlag]
+        Returns:
+            List of commit statuses of the latest commit.
         """
         raise NotImplementedError()
 
@@ -690,17 +835,42 @@ class CommitFlag(OgrAbstractClass):
 
     @classmethod
     def _state_from_str(cls, state: str) -> CommitStatus:
+        """
+        Transforms state from string to enumeration.
+
+        Args:
+            state: String representation of a state.
+
+        Returns:
+            Commit status.
+        """
         raise NotImplementedError()
 
     @classmethod
     def _validate_state(cls, state: Union[CommitStatus, str]) -> CommitStatus:
+        """
+        Validates state of the commit status (if it can be used with forge).
+        """
         raise NotImplementedError()
 
     def _from_raw_commit_flag(self) -> None:
+        """
+        Sets attributes based on the raw flag that has been given through constructor.
+        """
         raise NotImplementedError()
 
     @staticmethod
     def get(project: Any, commit: str) -> List["CommitFlag"]:
+        """
+        Acquire commit statuses for given commit in the project.
+
+        Args:
+            project (GitProject): Project where the commit is located.
+            commit: Commit hash for which we request statuses.
+
+        Returns:
+            List of commit statuses for the commit.
+        """
         raise NotImplementedError()
 
     @staticmethod
@@ -712,18 +882,38 @@ class CommitFlag(OgrAbstractClass):
         description: str,
         context: str,
     ) -> "CommitFlag":
+        """
+        Set a new commit status.
+
+        Args:
+            project (GitProject): Project where the commit is located.
+            commit: Commit hash for which we set status.
+            state: State for the commit status.
+            target_url: URL for the commit status.
+            description: Description of the commit status.
+            context: Identifier to group related commit statuses.
+        """
         raise NotImplementedError()
 
     @property
     def created(self) -> datetime.datetime:
+        """Datetime of creating the commit status."""
         raise NotImplementedError()
 
     @property
     def edited(self) -> datetime.datetime:
+        """Datetime of editing the commit status."""
         raise NotImplementedError()
 
 
 class CommitComment(OgrAbstractClass):
+    """
+    Attributes:
+        sha (str): Hash of the related commit.
+        comment (str): Body of the comment.
+        author (str): Login of the author.
+    """
+
     def __init__(self, sha: str, comment: str, author: str) -> None:
         self.sha = sha
         self.comment = comment
@@ -734,6 +924,14 @@ class CommitComment(OgrAbstractClass):
 
 
 class GitTag(OgrAbstractClass):
+    """
+    Class representing a git tag.
+
+    Attributes:
+        name (str): Name of the tag.
+        commit_sha (str): Commit hash of the tag.
+    """
+
     def __init__(self, name: str, commit_sha: str) -> None:
         self.name = name
         self.commit_sha = commit_sha
@@ -743,6 +941,18 @@ class GitTag(OgrAbstractClass):
 
 
 class AccessLevel(IntEnum):
+    """
+    Enumeration representing an access level to the repository.
+
+    | Value from enumeration | GitHub   | GitLab                  | Pagure |
+    | ---------------------- | -------- | ----------------------- | ------ |
+    | `AccessLevel.pull`     | pull     | guest                   | ticket |
+    | `AccessLevel.triage`   | triage   | reporter                | ticket |
+    | `AccessLevel.push`     | push     | developer               | commit |
+    | `AccessLevel.admin`    | admin    | maintainer              | commit |
+    | `AccessLevel.maintain` | maintain | owner (only for groups) | admin  |
+    """
+
     pull = 1
     triage = 2
     push = 3
@@ -751,6 +961,18 @@ class AccessLevel(IntEnum):
 
 
 class Release(OgrAbstractClass):
+    """
+    Object that represents release.
+
+    Attributes:
+        tag_name (str): Name of the related tag.
+        url (str, optional): URL of the release.
+        created_at (str): Datetime of creating the release.
+        tarball_url (str): URL of the tarball.
+        git_tag (GitTag): Object that represents related tag.
+        project (GitProject): Project on which the release is created.
+    """
+
     def __init__(
         self,
         tag_name: str,
@@ -769,13 +991,21 @@ class Release(OgrAbstractClass):
 
     @property
     def title(self) -> str:
+        """Title of the release."""
         raise NotImplementedError()
 
     @property
     def body(self) -> str:
+        """Body of the release."""
         raise NotImplementedError()
 
     def save_archive(self, filename: str) -> None:
+        """
+        Save tarball of the release to requested `filename`.
+
+        Args:
+            filename: Path to the file to save archive to.
+        """
         response = urlopen(self.tarball_url)
         data = response.read()
 
@@ -797,13 +1027,19 @@ class Release(OgrAbstractClass):
         """
         Edit name and message of a release.
 
-        :param name: str
-        :param message: str
+        Args:
+            name: Name of the release.
+            message: Description of the release.
         """
         raise NotImplementedError()
 
 
 class GitService(OgrAbstractClass):
+    """
+    Attributes:
+        instance_url (str): URL of the git forge instance.
+    """
+
     instance_url: Optional[str] = None
 
     def __init__(self, **_: Any) -> None:
@@ -814,42 +1050,47 @@ class GitService(OgrAbstractClass):
 
     def get_project(self, **kwargs: Any) -> "GitProject":
         """
-        Get the GitProject instance
+        Get the requested project.
 
-        :param namespace: str
-        :param user: str
-        :param repo: str
-        :return: GitProject
+        Args:
+            namespace (str): Namespace of the project.
+            user (str): Username of the project's owner.
+            repo (str): Repository name.
+
+        Returns:
+            Object that represents git project.
         """
         raise NotImplementedError
 
     def get_project_from_url(self, url: str) -> "GitProject":
+        """
+        Args:
+            url: URL of the git repository.
+
+        Returns:
+            Object that represents project from the parsed URL.
+        """
         repo_url = parse_git_repo(potential_url=url)
         if not repo_url:
             raise OgrException(f"Failed to find repository for url: {url}")
         return self.get_project(repo=repo_url.repo, namespace=repo_url.namespace)
 
-    @cached_property
+    @_cached_property
     def hostname(self) -> Optional[str]:
-        """
-        Hostname of the service.
-        """
+        """Hostname of the service."""
         raise NotImplementedError
 
     @property
     def user(self) -> "GitUser":
-        """
-        GitUser instance for used token.
-
-        :return: GitUser
-        """
+        """User authenticated through the service."""
         raise NotImplementedError
 
     def change_token(self, new_token: str) -> None:
         """
-        Change an API token.
+        Change an API token. Only for the current instance and newly created projects.
 
-        Only for this instance and newly created Projects via get_project.
+        Args:
+            new_token: New token to be set.
         """
         raise NotImplementedError
 
@@ -860,12 +1101,17 @@ class GitService(OgrAbstractClass):
         description: Optional[str] = None,
     ) -> "GitProject":
         """
-        Create a new project.
+        Create new project.
 
-        :param repo: str
-        :param namespace: Optional[str]
-        :param description: str
-        :return: GitProject
+        Args:
+            repo: Name of the newly created project.
+            namespace: Namespace of the newly created project.
+
+                Defaults to currently authenticated user.
+            description: Description of the newly created project.
+
+        Returns:
+            Object that represents newly created project.
         """
         raise NotImplementedError()
 
@@ -877,11 +1123,14 @@ class GitService(OgrAbstractClass):
         language: str = None,
     ) -> List["GitProject"]:
         """
-        List projects for given criteria
+        List projects for given criteria.
 
-        :param namespace: str
-        :param owner: str
-        :param search_pattern: str
+        Args:
+            namespace: Namespace to list projects from.
+            user: Login of the owner of the projects.
+            search_pattern: Regular expression that repository name should match.
+            language: Language to be present in the project, e.g. `"python"` or
+                `"html"`.
         """
         raise NotImplementedError
 
@@ -889,12 +1138,16 @@ class GitService(OgrAbstractClass):
 class GitProject(OgrAbstractClass):
     def __init__(self, repo: str, service: GitService, namespace: str) -> None:
         """
-        :param repo: name of the project
-        :param service: GitService instance
-        :param namespace:   github: username or org name
-                            gitlab: username or org name
-                            pagure: namespace (e.g. "rpms")
-                                for forks: "fork/{username}/{namespace}"
+        Args:
+            repo: Name of the project.
+            service: GitService instance.
+            namespace: Namespace of the project.
+
+                - GitHub: username or org name.
+                - GitLab: username or org name.
+                - Pagure: namespace (e.g. `"rpms"`).
+
+                  In case of forks: `"fork/{username}/{namespace}"`.
         """
         self.service = service
         self.repo = repo
@@ -927,66 +1180,60 @@ class GitProject(OgrAbstractClass):
         """
         Check the existence of the repo.
 
-        :return: True if the project exists, False otherwise
+        Returns:
+            `True` if the project exists, `False` otherwise.
         """
         raise NotImplementedError()
 
     def is_private(self) -> bool:
         """
-        Is this repo private (accessible only by users with permissions)
+        Is this repository private (accessible only by users with permissions).
 
-        :return: if yes, return True
+        Returns:
+            `True`, if the repository is private.
         """
         raise NotImplementedError()
 
     def is_forked(self) -> bool:
         """
-        Is this repo forked by the authenticated user?
+        Is this repository forked by the authenticated user?
 
-        :return: if yes, return True
+        Returns:
+            `True`, if the repository is fork.
         """
         raise NotImplementedError()
 
     @property
     def is_fork(self) -> bool:
-        """True if the project is a fork."""
+        """`True` if the project is a fork."""
         raise NotImplementedError()
 
     @property
     def full_repo_name(self) -> str:
-        """
-        Get repo name with namespace
-        e.g. 'rpms/python-docker-py'
-
-        :return: str
-        """
+        """Get repo name with namespace, e.g. `rpms/python-docker-py`."""
         raise NotImplementedError()
 
     @property
     def parent(self) -> Optional["GitProject"]:
-        """
-        Return parent project if this project is a fork, otherwise return None
-        """
+        """Parent project if the project is a fork, otherwise `None`."""
         raise NotImplementedError()
 
     def get_branches(self) -> List[str]:
         """
-        List of project branches.
-
-        :return: [str]
+        Returns:
+            List with names of branches in the project.
         """
         raise NotImplementedError()
 
     @property
     def default_branch(self) -> str:
-        """Return default branch (usually 'main' or 'master')."""
+        """Default branch (usually `main`, `master` or `trunk`)."""
         raise NotImplementedError()
 
     def get_description(self) -> str:
         """
-        Project description.
-
-        :return: str
+        Returns:
+            Project description.
         """
         raise NotImplementedError()
 
@@ -994,48 +1241,54 @@ class GitProject(OgrAbstractClass):
         """
         Provide GitProject instance of a fork of this project.
 
-        Returns None if this is a fork.
+        Args:
+            create: Create fork if it does not exist.
 
-        :param create: create a fork if it doesn't exist
-        :return: instance of GitProject or None
+        Returns:
+            `None` if the project is fork itself or there is no fork, otherwise
+            instance of a fork if is to be created or exists already.
         """
         raise NotImplementedError()
 
     def get_owners(self) -> List[str]:
         """
-        Get all project owners
-        :return: List of usernames
+        Returns:
+            List of usernames of project owners.
         """
         raise NotImplementedError()
 
     def who_can_close_issue(self) -> Set[str]:
         """
-        Get all usernames who have permissions to modify an Issue
-        :return: Set of usernames
+        Returns:
+            Names of all users who have permission to modify an issue.
         """
         raise NotImplementedError()
 
     def who_can_merge_pr(self) -> Set[str]:
         """
-        Get all usernames who have permissions to modify a PR
-        :return: Set of usernames
+        Returns:
+            Names of all users who have permission to modify pull request.
         """
         raise NotImplementedError()
 
     def can_close_issue(self, username: str, issue: Issue) -> bool:
         """
-        Check if user have permissions to modify an Issue
-        :param username: str
-        :param issue: Issue
-        :return: true if user can close issue, false otherwise
+        Args:
+            username: Username.
+            issue: Specific issue object.
+
+        Returns:
+            `True` if user can close given issue, `False` otherwise.
         """
         raise NotImplementedError()
 
     def can_merge_pr(self, username: str) -> bool:
         """
-        Check if user have permissions to modify an Pr
-        :param username: str
-        :return: true if user can close PR, false otherwise
+        Args:
+            username: Username.
+
+        Returns:
+            `True` if user merge pull request, `False` otherwise.
         """
         raise NotImplementedError()
 
@@ -1043,20 +1296,16 @@ class GitProject(OgrAbstractClass):
         """
         Add user to project.
 
-        :param user: str username
-        :param access_level: AccessLevel enum
-        :return: None
+        Args:
+            user: Username of the user.
+            access_level: Permissions for the user.
         """
         raise NotImplementedError()
 
     def request_access(self) -> None:
         """
-        Access request will be sent to the project,
-        you cannot specifically ask for role.
-        The selection of the role and approval needs to be
-        done by the user with maintainer/admin rights.
-
-        :return: None
+        Request an access to the project (cannot specify access level to be granted;
+        needs to be approved and specified by the user with maintainer/admin rights).
         """
         raise NotImplementedError()
 
@@ -1064,9 +1313,9 @@ class GitProject(OgrAbstractClass):
         """
         Add group to project.
 
-        :param group: str group name
-        :param access_level: AccessLevel enum
-        :return: None
+        Args:
+            group: Name of the group.
+            access_level: Permissions for the group.
         """
         raise NotImplementedError
 
@@ -1078,40 +1327,61 @@ class GitProject(OgrAbstractClass):
         labels: Optional[List[str]] = None,
     ) -> List["Issue"]:
         """
-        List of issues (dics)
+        List of issues.
 
-        :param status: IssueStatus enum
-        :param author: str username of author
-        :param assignee: str username of assignee
-        :param labels: List[str] list of labels
-        :return: [Issue]
+        Args:
+            status: Status of the issues that are to be
+                included in the list.
+
+                Defaults to `IssueStatus.open`.
+            author: Username of the author of the issues.
+
+                Defaults to no filtering by author.
+            assignee: Username of the assignee on the issues.
+
+                Defaults to no filtering by assignees.
+            labels: Filter issues that have set specific labels.
+
+                Defaults to no filtering by labels.
+
+        Returns:
+            List of objects that represent requested issues.
         """
         raise NotImplementedError()
 
     def get_issue(self, issue_id: int) -> "Issue":
         """
-        Get issue
+        Get issue.
 
-        :param issue_id: int
-        :return: Issue
+        Args:
+            issue_id: ID of the issue.
+
+        Returns:
+            Object that represents requested issue.
         """
         raise NotImplementedError()
 
     def get_issue_info(self, issue_id: int) -> "Issue":
         """
-        Get issue info
+        Get issue info.
 
-        :param issue_id: int
-        :return: Issue
+        Args:
+            issue_id: ID of the issue.
+
+        Returns:
+            Object that represents requested issue.
         """
         raise NotImplementedError()
 
     def _get_all_issue_comments(self, issue_id: int) -> List["IssueComment"]:
         """
-        Get list of issue comments.
+        Get list of all issue comments.
 
-        :param issue_id: int
-        :return: [IssueComment]
+        Args:
+            issue_id: ID of the issue.
+
+        Returns:
+            List of all comments on the issue.
         """
         raise NotImplementedError()
 
@@ -1123,13 +1393,23 @@ class GitProject(OgrAbstractClass):
         author: Optional[str] = None,
     ) -> List["IssueComment"]:
         """
-        Get list of Issue comments.
+        Get list of issue comments.
 
-        :param issue_id: int
-        :param filter_regex: filter the comments' content with re.search
-        :param reverse: reverse order of comments
-        :param author: filter comments by author
-        :return: [IssueComment]
+        Args:
+            issue_id: ID of the issue.
+            filter_regex: Filter the comments' content with `re.search`.
+
+                Defaults to `None`, which means no filtering.
+            reverse: Whether the comments are to be returned in
+                reversed order.
+
+                Defaults to `False`.
+            author: Filter the comments by author.
+
+                Defaults to `None`, which means no filtering.
+
+        Returns:
+            List of issue comments.
         """
         raise NotImplementedError()
 
@@ -1137,9 +1417,12 @@ class GitProject(OgrAbstractClass):
         """
         Add new comment to the issue.
 
-        :param issue_id: int
-        :param body: str
-        :return: IssueComment
+        Args:
+            issue_id: ID of the issue to comment on.
+            body: Body of the comment.
+
+        Returns:
+            Object that represents newly created issue comment.
         """
         raise NotImplementedError()
 
@@ -1152,69 +1435,98 @@ class GitProject(OgrAbstractClass):
         assignees: Optional[List[str]] = None,
     ) -> Issue:
         """
-        Open new Issue.
-        Private issues are only supported by Gitlab and Pagure.
+        Open new issue.
 
-        :param title: str
-        :param body: str
-        :param private: bool
-        :param labels: [str]
-        :param assignees: [str]
-        :return: Issue
+        Args:
+            title: Title of the issue.
+            body: Description of the issue.
+            private: Is the new issue supposed to be confidential?
+
+                **Supported only by GitLab and Pagure.**
+
+                Defaults to unset.
+            labels: List of labels that are to be added to
+                the issue.
+
+                Defaults to no labels.
+            assignees: List of usernames of the assignees.
+
+                Defaults to no assignees.
+
+        Returns:
+            Object that represents newly created issue.
         """
         raise NotImplementedError()
 
     def issue_close(self, issue_id: int) -> Issue:
         """
-        Close an issue
+        Close the issue.
 
-        :param issue_id: int
-        :return: Issue
+        Args:
+            issue_id: ID of the issue to close.
+
+        Returns:
+            Issue object that was closed.
         """
         raise NotImplementedError()
 
     def get_issue_labels(self, issue_id: int) -> List[Any]:
         """
-        Get list of issue's labels.
+        Get list of labels on the issue.
 
-        :issue_id: int
-        :return: [GithubLabel]
+        Args:
+            issue_id: ID of the pull request.
+
+        Returns:
+            List of issue labels.
         """
         raise NotImplementedError()
 
     def add_issue_labels(self, issue_id: int, labels: List[str]) -> None:
         """
-        Add labels the the Issue.
+        Add labels to the issue.
 
-        :param issue_id: int
-        :param labels: [str]
+        Args:
+            issue_id: ID of the issue that is to be modified.
+            labels: List of labels that are to be added.
         """
         raise NotImplementedError()
 
     def get_pr_list(self, status: PRStatus = PRStatus.open) -> List["PullRequest"]:
         """
-        List of pull requests (dics)
+        List of pull requests.
 
-        :param status: PRStatus enum
-        :return: [PullRequest]
+        Args:
+            status: Status of the pull requests that are to be included in the list.
+
+                Defaults to `PRStatus.open`.
+
+        Returns:
+            List of objects that represent pull requests with requested status.
         """
         raise NotImplementedError()
 
     def get_pr(self, pr_id: int) -> "PullRequest":
         """
-        Get pull request
+        Get pull request.
 
-        :param pr_id: int
-        :return: PullRequest
+        Args:
+            pr_id: ID of the pull request.
+
+        Returns:
+            Object that represents requested pull request.
         """
         raise NotImplementedError()
 
     def get_pr_info(self, pr_id: int) -> "PullRequest":
         """
-        Get pull request info
+        Get pull request info.
 
-        :param pr_id: int
-        :return: PullRequest
+        Args:
+            pr_id: ID of the pull request.
+
+        Returns:
+            Object that represents requested pull request.
         """
         raise NotImplementedError()
 
@@ -1222,29 +1534,36 @@ class GitProject(OgrAbstractClass):
         self, pr_id: int, title: Optional[str] = None, description: Optional[str] = None
     ) -> PullRequest:
         """
-        Update pull-request information.
+        Update pull request information.
 
-        :param pr_id: int The ID of the pull request
-        :param title: str The title of the pull request
-        :param description str The description of the pull request
-        :return: PullRequest
+        Args:
+            pr_id: The ID of the pull request.
+            title: The new title of the pull request.
+
+                Defaults to `None`, which means title is not being updated.
+            description: The description of the pull request.
+
+                Defaults to `None`, which means description is not being updated.
+
+        Returns:
+            Pull request object that represents updated pull request.
         """
         raise NotImplementedError()
 
     def get_tags(self) -> List["GitTag"]:
         """
-        Return list of tags.
-
-        :return: [GitTags]
+        Returns:
+            List of objects that represent tags.
         """
         raise NotImplementedError()
 
     def get_sha_from_tag(self, tag_name: str) -> str:
         """
-        Search tag name in existing tags and return sha
+        Args:
+            tag_name: Name of the tag.
 
-        :param tag_name: str
-        :return: str
+        Returns:
+            Commit hash of the commit from the requested tag.
         """
         raise NotImplementedError()
 
@@ -1255,37 +1574,47 @@ class GitProject(OgrAbstractClass):
         tag_name: Optional[str] = None,
     ) -> Release:
         """
-        Get a single release
+        Get a single release.
 
-        :param identifier: int
-        :param name: str
-        :param tag_name: str
-        :return: Release
+        Args:
+            identifier: Identifier of the release.
+
+                Defaults to `None`, which means not being used.
+            name: Name of the release.
+
+                Defaults to `None`, which means not being used.
+            tag_name: Tag that the release is tied to.
+
+                Defaults to `None`, which means not being used.
+
+        Returns:
+            Object that represents release that satisfies requested condition.
         """
         raise NotImplementedError()
 
     def get_latest_release(self) -> Optional[Release]:
         """
-        Get a latest release
-
-        :return: Release
+        Returns:
+            Object that represents the latest release.
         """
         raise NotImplementedError()
 
     def get_releases(self) -> List[Release]:
         """
-        Return list of releases
-
-        :return: [Release]
+        Returns:
+            List of the objects that represent releases.
         """
         raise NotImplementedError()
 
     def _get_all_pr_comments(self, pr_id: int) -> List[PRComment]:
         """
-        Get list of pull-request comments.
+        Get list of all pull request comments.
 
-        :param pr_id: int
-        :return: [PRComment]
+        Args:
+            pr_id: ID of the pull request.
+
+        Returns:
+            List of all comments on the pull request.
         """
         raise NotImplementedError()
 
@@ -1297,22 +1626,35 @@ class GitProject(OgrAbstractClass):
         author: Optional[str] = None,
     ) -> List["PRComment"]:
         """
-        Get list of pull-request comments.
+        Get list of pull request comments.
 
-        :param pr_id: int
-        :param filter_regex: filter the comments' content with re.search
-        :param reverse: reverse order of comments
-        :param author: filter comments by author
-        :return: [PRComment]
+        Args:
+            pr_id: ID of the pull request.
+            filter_regex: Filter the comments' content with `re.search`.
+
+                Defaults to `None`, which means no filtering.
+            reverse: Whether the comments are to be returned in
+                reversed order.
+
+                Defaults to `False`.
+            author: Filter the comments by author.
+
+                Defaults to `None`, which means no filtering.
+
+        Returns:
+            List of pull request comments.
         """
         raise NotImplementedError()
 
     def get_all_pr_commits(self, pr_id: int) -> List[str]:
         """
-        Return list of pull-request commits (sha).
+        Get all commits on requested pull request.
 
-        :param pr_id: int
-        :return: [str]
+        Args:
+            pr_id: ID of the pull request.
+
+        Returns:
+            List of the commit hashes.
         """
         raise NotImplementedError()
 
@@ -1324,13 +1666,20 @@ class GitProject(OgrAbstractClass):
         description: bool = True,
     ) -> Optional[Match[str]]:
         """
-        Find match in pull-request description or comments.
+        Find match in pull request description or comments.
 
-        :param description: bool (search in description?)
-        :param pr_id: int
-        :param filter_regex: filter the comments' content with re.search
-        :param reverse: reverse order of comments
-        :return: re.Match or None
+        Args:
+            pr_id: ID of the pull request to search in.
+            filter_regex: Regex that is used to filter the comments' content with `re.search`.
+            reverse: Reverse order of the comments.
+
+                Defaults to `False`.
+            description: Whether description is included in the search.
+
+                Defaults to `True`.
+
+        Returns:
+            `re.Match` if found, `None` otherwise.
         """
         raise NotImplementedError()
 
@@ -1343,14 +1692,19 @@ class GitProject(OgrAbstractClass):
         fork_username: str = None,
     ) -> "PullRequest":
         """
-        Create a new pull request.
+        Create new pull request.
 
-        :param title: str
-        :param body: str
-        :param target_branch: str
-        :param source_branch: str
-        :param fork_username: str The username of forked repository
-        :return: PullRequest
+        Args:
+            title: Title of the pull request.
+            body: Description of the pull request.
+            target_branch: Name of the branch where the changes are merged.
+            source_branch: Name of the branch from which the changes are pulled.
+            fork_username: The username of forked repository.
+
+                Defaults to `None`.
+
+        Returns:
+            Object that represents newly created pull request.
         """
         raise NotImplementedError()
 
@@ -1363,14 +1717,19 @@ class GitProject(OgrAbstractClass):
         fork_username: str = None,
     ) -> "PullRequest":
         """
-        Create a new pull request.
+        Create new pull request.
 
-        :param title: str
-        :param body: str
-        :param target_branch: str
-        :param source_branch: str
-        :param fork_username: str The username of forked repository
-        :return: PullRequest
+        Args:
+            title: Title of the pull request.
+            body: Description of the pull request.
+            target_branch: Name of the branch where the changes are merged.
+            source_branch: Name of the branch from which the changes are pulled.
+            fork_username: The username of forked repository.
+
+                Defaults to `None`.
+
+        Returns:
+            Object that represents newly created pull request.
         """
         raise NotImplementedError()
 
@@ -1385,12 +1744,21 @@ class GitProject(OgrAbstractClass):
         """
         Add new comment to the pull request.
 
-        :param pr_id: int
-        :param body: str
-        :param commit: str
-        :param filename: str
-        :param row: int
-        :return: PRComment
+        Args:
+            pr_id: ID of the pull request to comment on.
+            body: Body of the comment.
+            commit: Commit hash, if comment is related to specific commit.
+
+                Defaults to `None`, which means normal comment on the pull request.
+            filename: Name of the file that is related to the comment.
+
+                Defaults to `None`, which means no relation to file.
+            row: Number of the row that the comment is related to.
+
+                Defaults to `None`, which means no relation to the row.
+
+        Returns:
+            Object that represents newly created PR comment.
         """
         raise NotImplementedError()
 
@@ -1404,11 +1772,18 @@ class GitProject(OgrAbstractClass):
         """
         Add new comment to a commit.
 
-        :param commit: str
-        :param body: str
-        :param filename: str
-        :param row: int
-        :return: CommitComment
+        Args:
+            commit: Hash of the commit.
+            body: Body of the comment.
+            filename: Name of the file that is related to the comment.
+
+                Defaults to `None`, which means no relation to file.
+            row: Number of the row that the comment is related to.
+
+                Defaults to `None`, which means no relation to the row.
+
+        Returns:
+            Object that represents newly created commit comment.
         """
         raise NotImplementedError()
 
@@ -1422,33 +1797,44 @@ class GitProject(OgrAbstractClass):
         trim: bool = False,
     ) -> "CommitFlag":
         """
-        Create a status on a commit
+        Create a status on a commit.
 
-        :param commit: The SHA of the commit.
-        :param state: The state of the status.
-        :param target_url: The target URL to associate with this status.
-        :param description: A short description of the status
-        :param context: A label to differentiate this status from the status of other systems.
-        :param trim: Whether to trim the description to 140 characters
-        :return:
+        Args:
+            commit: The hash of the commit.
+            state: The state of the status.
+            target_url: The target URL to associate with this status.
+            description: A short description of the status.
+            context: A label to differentiate this status from the status of other systems.
+            trim: Whether to trim the description to 140 characters.
+
+                Defaults to `False`.
+
+        Returns:
+            Object that represents created commit status.
         """
         raise NotImplementedError()
 
     def get_commit_statuses(self, commit: str) -> List[CommitFlag]:
         """
-        Get status of the commit.
+        Get statuses of the commit.
 
-        :param commit: str
-        :return: [CommitFlag]
+        Args:
+            commit: Hash of the commit.
+
+        Returns:
+            List of all commit statuses on the commit.
         """
         raise NotImplementedError()
 
     def pr_close(self, pr_id: int) -> "PullRequest":
         """
-        Close the pull-request.
+        Close the pull request.
 
-        :param pr_id: int
-        :return:  PullRequest
+        Args:
+            pr_id: ID of the pull request to close.
+
+        Returns:
+            Pull request object that was closed.
         """
         raise NotImplementedError()
 
@@ -1456,45 +1842,63 @@ class GitProject(OgrAbstractClass):
         """
         Merge the pull request.
 
-        :param pr_id: int
-        :return: PullRequest
+        Args:
+            pr_id: ID of the pull request to merge.
+
+        Returns:
+            Pull request object that was merged.
         """
         raise NotImplementedError()
 
     def get_pr_labels(self, pr_id: int) -> List[Any]:
         """
-        Get list of pr's labels.
-        :pr_id: int
-        :return: [GithubLabel]
+        Get list of labels on the pull request.
+
+        Args:
+            pr_id: ID of the pull request.
+
+        Returns:
+            List of PR labels.
         """
         raise NotImplementedError()
 
     def add_pr_labels(self, pr_id: int, labels: List[str]) -> None:
         """
-        Add labels the the Pull Request.
+        Add labels to the pull request.
 
-        :param pr_id: int
-        :param labels: [str]
+        Args:
+            pr_id: ID of the pull request that is to be modified.
+            labels: List of labels that are to be added.
         """
         raise NotImplementedError()
 
     def get_git_urls(self) -> Dict[str, str]:
+        """
+        Get git URLs for the project.
+
+        Returns:
+            Dictionary with at least SSH and HTTP URLs for the current project.
+        """
         raise NotImplementedError()
 
     def fork_create(self) -> "GitProject":
         """
         Fork this project using the authenticated user.
-        This may raise an exception if the fork already exists.
 
-        :return: fork GitProject instance
+        Returns:
+            Fork of the current project.
+
+        Raises:
+            In case the fork already exists.
         """
         raise NotImplementedError()
 
     def change_token(self, new_token: str) -> None:
         """
-        Change an API token.
+        Change an API token. Only for the current instance.
 
-        Only for this instance.
+        Args:
+            new_token: New token to be set.
         """
         raise NotImplementedError
 
@@ -1502,9 +1906,17 @@ class GitProject(OgrAbstractClass):
         """
         Get a content of the file in the repo.
 
-        :param ref: branch or commit (defaults to repo's default branch)
-        :param path: str
-        :return: str or FileNotFoundError if there is no such file
+        Args:
+            path: Path to the file.
+            ref: Branch or commit.
+
+                Defaults to repo's default branch.
+
+        Returns:
+            Contents of the file as string.
+
+        Raises:
+            FileNotFoundError: if there is no such file.
         """
         raise NotImplementedError
 
@@ -1513,42 +1925,71 @@ class GitProject(OgrAbstractClass):
     ) -> List[str]:
         """
         Get a list of file paths of the repo.
-        :param ref: branch or commit (defaults to repo's default branch)
-        :param filter_regex: filter the paths with re.search
-        :param recursive: whether to return only top directory files or all files recursively
-        :return: [str]
+
+        Args:
+            ref: Branch or commit.
+
+                Defaults to repo's default branch.
+            filter_regex: Filter the paths with `re.search`.
+
+                Defaults to `None`, which means no filtering.
+            recursive: Whether to return only top directory files
+                or all files recursively.
+
+                Defaults to `False`, which means only top-level directory.
+
+        Returns:
+            List of paths of the files in the repo.
         """
         raise NotImplementedError
 
     def get_forks(self) -> Sequence["GitProject"]:
         """
-        Get forks of the project.
-
-        :return: [GitProject]
+        Returns:
+            All forks of the project.
         """
-        raise NotImplementedError
+        raise NotImplementedError()
 
     def get_web_url(self) -> str:
         """
-        Get web URL of the project.
-
-        :return: str
+        Returns:
+            Web URL of the project.
         """
-        raise NotImplementedError
+        raise NotImplementedError()
 
 
 class GitUser(OgrAbstractClass):
+    """
+    Represents currently authenticated user through service.
+    """
+
     def __init__(self, service: GitService) -> None:
         self.service = service
 
     def get_username(self) -> str:
+        """
+        Returns:
+            Login of the user.
+        """
         raise NotImplementedError()
 
     def get_email(self) -> str:
+        """
+        Returns:
+            Email of the user.
+        """
         raise NotImplementedError()
 
     def get_projects(self) -> Sequence["GitProject"]:
-        raise NotImplementedError
+        """
+        Returns:
+            Sequence of projects in user's namespace.
+        """
+        raise NotImplementedError()
 
     def get_forks(self) -> Sequence["GitProject"]:
-        raise NotImplementedError
+        """
+        Returns:
+            Sequence of forks in user's namespace.
+        """
+        raise NotImplementedError()

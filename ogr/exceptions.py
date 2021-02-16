@@ -5,11 +5,13 @@ from typing import Optional, Dict, Any
 
 
 class OgrException(Exception):
-    """Something went wrong during our execution"""
+    """Something went wrong during our execution."""
+
+    pass
 
 
 class PagureAPIException(OgrException):
-    """Exception related to Pagure API"""
+    """Exception related to Pagure API."""
 
     def __init__(
         self,
@@ -23,7 +25,7 @@ class PagureAPIException(OgrException):
 
 
 class GithubAPIException(OgrException):
-    """Exception related to Github API"""
+    """Exception related to Github API."""
 
     def __init__(self, *args: Any, github_error: Optional[str] = None) -> None:
         super().__init__(*args)
@@ -31,7 +33,7 @@ class GithubAPIException(OgrException):
 
 
 class GitlabAPIException(OgrException):
-    """Exception related to Gitlab API"""
+    """Exception related to Gitlab API."""
 
     def __init__(self, *args: Any, gitlab_error: Optional[str] = None) -> None:
         super().__init__(*args)

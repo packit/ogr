@@ -35,7 +35,8 @@ class GithubRelease(Release):
         """
         Edit name and message of a release.
 
-        :param name: str
-        :param message: str
+        Args:
+            name: New name of the release.
+            message: New message for the release.
         """
         self.raw_release = self.raw_release.update_release(name=name, message=message)

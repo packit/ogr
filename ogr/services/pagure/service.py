@@ -112,9 +112,20 @@ class PagureService(BaseGitService):
     def call_api(
         self, url: str, method: str = None, params: dict = None, data=None
     ) -> dict:
-        """Method used to call the API.
-        It returns the raw JSON returned by the API or raises an exception
-        if something goes wrong.
+        """
+        Call API endpoint.
+
+        Args:
+            url: URL to be called.
+            method: Method of the HTTP request, e.g. `"GET"`, `"POST"`, etc.
+            params: HTTP(S) query parameters in form of a dictionary.
+            data: Data to be sent in form of a dictionary.
+
+        Returns:
+            Dictionary representing response.
+
+        Raises:
+            PagureAPIException, if error occurs.
         """
         response = self.call_api_raw(url=url, method=method, params=params, data=data)
 
@@ -153,6 +164,20 @@ class PagureService(BaseGitService):
     def call_api_raw(
         self, url: str, method: str = None, params: dict = None, data=None
     ):
+        """
+        Call API endpoint and returns raw response.
+
+        Args:
+            url: URL to be called.
+            method: Method of the HTTP request, e.g. `"GET"`, `"POST"`, etc.
+            params: HTTP(S) query parameters in form of a dictionary.
+            data: Data to be sent in form of a dictionary.
+
+        Returns:
+            `RequestResponse` object that represents the response from the API
+            endpoint.
+        """
+
         method = method or "GET"
         try:
             response = self.get_raw_request(
@@ -167,6 +192,24 @@ class PagureService(BaseGitService):
     def get_raw_request(
         self, url, method="GET", params=None, data=None, header=None
     ) -> RequestResponse:
+        """
+        Call API endpoint and wrap the response in `RequestResponse` type.
+
+        Args:
+            url: URL to be called.
+            method: Method of the HTTP request, e.g. `"GET"`, `"POST"`, etc.
+
+                Defaults to `"GET"`.
+            params: HTTP(S) query parameters in form of a dictionary.
+            data: Data to be sent in form of a dictionary.
+            header: Header of the HTTP request.
+
+        Returns:
+            `RequestResponse` object representing the response.
+
+        Raises:
+            ValueError, if JSON cannot be retrieved.
+        """
 
         response = self.session.request(
             method=method,
@@ -193,15 +236,21 @@ class PagureService(BaseGitService):
 
     @property
     def api_url(self):
+        """URL to the Pagure API."""
         return f"{self.instance_url}/api/0/"
 
-    def get_api_url(self, *args, add_api_endpoint_part=True) -> str:
+    def get_api_url(self, *args, add_api_endpoint_part: bool = True) -> str:
         """
         Get a URL from its parts.
 
-        :param args: str parts of the url (e.g. "a", "b" will call "/a/b")
-        :param add_api_endpoint_part: Add part with API endpoint "/api/0/", True by default
-        :return: str
+        Args:
+            *args: String parts of the URL, e.g. `"a", "b"` will call `project/a/b`
+            add_api_endpoint_part: Add part with API endpoint (`/api/0/`).
+
+                Defaults to `True`.
+
+        Returns:
+            String
         """
         args_list: List[str] = []
 
@@ -213,8 +262,8 @@ class PagureService(BaseGitService):
 
     def get_api_version(self) -> str:
         """
-        Get Pagure API version.
-        :return:
+        Returns:
+            Version of the Pagure API.
         """
         request_url = self.get_api_url("version")
         return_value = self.call_api(request_url)
@@ -222,8 +271,8 @@ class PagureService(BaseGitService):
 
     def get_error_codes(self):
         """
-        Get a dictionary of all error codes.
-        :return:
+        Returns:
+            Dictionary with all error codes.
         """
         request_url = self.get_api_url("error_codes")
         return_value = self.call_api(request_url)

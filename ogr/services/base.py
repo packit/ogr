@@ -35,9 +35,6 @@ except ImportError:
 class BaseGitService(GitService):
     @cached_property
     def hostname(self) -> Optional[str]:
-        """
-        Hostname of the service.
-        """
         parsed_url = parse_git_repo(potential_url=self.instance_url)
         return parsed_url.hostname if parsed_url else None
 
@@ -51,12 +48,6 @@ class BaseGitService(GitService):
 class BaseGitProject(GitProject):
     @property
     def full_repo_name(self) -> str:
-        """
-        Get repo name with namespace
-        e.g. 'rpms/python-docker-py'
-
-        :return: str
-        """
         return f"{self.namespace}/{self.repo}"
 
     @deprecate_and_set_removal(
@@ -67,15 +58,6 @@ class BaseGitProject(GitProject):
     def get_pr_comments(
         self, pr_id, filter_regex: str = None, reverse: bool = False, author: str = None
     ) -> List[PRComment]:
-        """
-        Get list of pull-request comments.
-
-        :param pr_id: int
-        :param filter_regex: filter the comments' content with re.search
-        :param reverse: reverse order of comments
-        :param author: filter comments by author
-        :return: [PRComment]
-        """
         return self.get_pr(pr_id).get_comments(filter_regex, reverse, author)
 
     @deprecate_and_set_removal(
@@ -90,15 +72,6 @@ class BaseGitProject(GitProject):
         reverse: bool = False,
         description: bool = True,
     ) -> Optional[Match[str]]:
-        """
-        Find match in pull-request description or comments.
-
-        :param description: bool (search in description?)
-        :param pr_id: int
-        :param filter_regex: filter the comments' content with re.search
-        :param reverse: reverse order of comments
-        :return: re.Match or None
-        """
         return self.get_pr(pr_id).search(filter_regex, reverse, description)
 
     @if_readonly(return_function=GitProjectReadOnly.pr_close)

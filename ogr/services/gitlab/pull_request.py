@@ -198,12 +198,18 @@ class GitlabPullRequest(BasePullRequest):
         fork_username: str, project: "ogr_gitlab.GitlabProject"
     ) -> "ogr_gitlab.GitlabProject":
         """
-        Returns project of a requested user. Internal method, in case the fork
+        Returns forked project of a requested user. Internal method, in case the fork
         doesn't exist, raises GitlabAPIException.
 
-        :param fork_username: username of a user that owns requested fork
-        :param project: project to search forks of
-        :return: requested fork
+        Args:
+            fork_username: Username of a user that owns requested fork.
+            project: Project to search forks of.
+
+        Returns:
+            Requested fork.
+
+        Raises:
+            GitlabAPIException, in case the fork doesn't exist.
         """
         forks = list(
             filter(

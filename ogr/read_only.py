@@ -23,6 +23,18 @@ from ogr.deprecation import deprecate_and_set_removal
 def log_output(
     text: str, default_prefix: str = DEFAULT_RO_PREFIX_STRING, namespace: str = __name__
 ) -> None:
+    """
+    Logs output.
+
+    Args:
+        text: Text message to be logged.
+        default_prefix: Prefix of the log message.
+
+            Defaults to `DEFAULT_RO_PREFIX_STRING`.
+        namespace: Namespace where the message comes from.
+
+            Defaults to `__name__`.
+    """
     logger = logging.getLogger(namespace)
     logger.warning(f"{default_prefix} {text}")
 
@@ -34,14 +46,25 @@ def if_readonly(
     log_message: str = "",
 ) -> Any:
     """
-    Decorator to log  function and ovewrite return value of object methods
-    Ignore function name as first parameter and ignore every other parameters
+    Decorator to log function and ovewrite return value of object methods.
+    Ignore function name as first parameter and ignore every other parameters.
 
-    :param return_value: returned Any value if given, return_function has higher prio if set
-    :param return_function: return function and give there parameters also
-           original caller object return_function(self, *args, **kwargs)
-    :param log_message: str string to put to logger output
-    :return: Any type what is expected that function or return value returns
+    Args:
+        return_value: Returned value if given, `return_function`
+            has higher priority if set.
+
+            Defaults to `None`.
+        return_function: Returned function with applies
+            arguments and original caller.
+
+            Defaults to `None`.
+        log_message: String to be put to logger output.
+
+            Defaults to `""`.
+
+    Returns:
+        Any value that is expected to be returned from the function call or the
+        specificied return value.
     """
 
     def decorator_readonly(func):
