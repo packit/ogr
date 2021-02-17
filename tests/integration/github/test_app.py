@@ -1,3 +1,7 @@
+# Copyright Contributors to the Packit project.
+# SPDX-License-Identifier: MIT
+
+import os
 import tempfile
 from pathlib import Path
 import pytest

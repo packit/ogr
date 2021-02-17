@@ -1,3 +1,6 @@
+# Copyright Contributors to the Packit project.
+# SPDX-License-Identifier: MIT
+
 import pytest
 from gitlab import GitlabGetError
 from requre.online_replacing import record_requests_for_all_methods

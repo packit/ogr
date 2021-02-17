@@ -1,3 +1,6 @@
+# Copyright Contributors to the Packit project.
+# SPDX-License-Identifier: MIT
+
 import os
 from requre.online_replacing import record_requests_for_all_methods
 from requre.utils import get_datafile_filename
