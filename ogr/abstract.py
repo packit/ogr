@@ -1173,7 +1173,7 @@ class GitProject(OgrAbstractClass):
         """
         raise NotImplementedError()
 
-    def get_latest_release(self) -> Release:
+    def get_latest_release(self) -> Optional[Release]:
         """
         Get a latest release
 
