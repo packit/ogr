@@ -25,6 +25,7 @@ from typing import Optional, Dict, List, Set, Union
 
 import github
 from github import UnknownObjectException
+from github.GithubException import GithubException
 from github.Repository import Repository
 from github.CommitComment import CommitComment as GithubCommitComment
 from github.GitRelease import GitRelease as PyGithubRelease
@@ -574,11 +575,17 @@ class GithubProject(BaseGitProject):
             raw_release=release, git_tag=self.get_tag_from_tag_name(release.tag_name)
         )
 
-    def get_latest_release(self) -> GithubRelease:
-        release = self.github_repo.get_latest_release()
-        return self._release_from_github_object(
-            raw_release=release, git_tag=self.get_tag_from_tag_name(release.tag_name)
-        )
+    def get_latest_release(self) -> Optional[GithubRelease]:
+        try:
+            release = self.github_repo.get_latest_release()
+            return self._release_from_github_object(
+                raw_release=release,
+                git_tag=self.get_tag_from_tag_name(release.tag_name),
+            )
+        except GithubException as ex:
+            if ex.status == 404:
+                return None
+            raise GithubAPIException from ex
 
     def get_releases(self) -> List[Release]:
         releases = self.github_repo.get_releases()

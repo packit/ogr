@@ -57,3 +57,7 @@ class Releases(GithubTests):
         assert release.tag_name == last_version
         assert release.title == last_version
         assert "Creating issues in Github" in release.body
+
+    def test_latest_release_doesnt_exist(self):
+        project = self.service.project_create(repo="ogr-playground")
+        assert project.get_latest_release() is None

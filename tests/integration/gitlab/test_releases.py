@@ -57,3 +57,10 @@ class Releases(GitlabTests):
         assert latest_release.title == release.title
         assert latest_release.tag_name == release.tag_name
         assert latest_release.body == release.body
+
+    def test_get_latest_release_doesnt_exist(self):
+        project = self.service.project_create(repo="ogr-playground")
+        try:
+            assert project.get_latest_release() is None
+        except OperationNotSupported:
+            self.skipTest("This version of python-gitlab does not support releases.")
