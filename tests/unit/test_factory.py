@@ -4,6 +4,8 @@ import pytest
 from flexmock import Mock
 from flexmock import flexmock
 
+from urllib3.util import Retry
+
 from ogr import PagureService, GitlabService, GithubService
 from ogr.exceptions import OgrException
 from ogr.factory import get_service_class, get_project, get_instances_from_dict
@@ -341,6 +343,66 @@ def test_get_instances_from_dict(instances_in_dict, result_instances: Set):
 )
 def test_get_instances_from_dict_multiple_auth(instances_in_dict, result_instances):
     assert get_instances_from_dict(instances=instances_in_dict) == result_instances
+
+
+@pytest.mark.parametrize(
+    "instances_in_dict,result_max_retries_total",
+    [
+        (
+            {
+                "github.com": {
+                    "token": "abcd",
+                }
+            },
+            0,
+        ),
+        (
+            {
+                "github.com": {
+                    "token": "abcd",
+                    "max_retries": "3",
+                }
+            },
+            3,
+        ),
+        (
+            {
+                "github.com": {
+                    "token": "abcd",
+                    "max_retries": 3,
+                }
+            },
+            3,
+        ),
+        (
+            {
+                "github.com": {
+                    "tokman_instance_url": "http://localhost",
+                    "max_retries": 3,
+                }
+            },
+            3,
+        ),
+        (
+            {
+                "github.com": {
+                    "github_app_id": "123",
+                    "max_retries": 3,
+                }
+            },
+            3,
+        ),
+    ],
+)
+def test_get_github_instance_with_retries(instances_in_dict, result_max_retries_total):
+    instances = get_instances_from_dict(instances_in_dict)
+
+    assert instances
+    ghs_instance = instances.pop()
+    assert isinstance(ghs_instance, GithubService)
+    max_retries = ghs_instance._max_retries
+    assert isinstance(max_retries, Retry)
+    assert max_retries.total == result_max_retries_total
 
 
 @pytest.mark.parametrize(

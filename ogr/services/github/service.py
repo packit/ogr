@@ -20,8 +20,9 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-from typing import Optional, Type
+from typing import Optional, Type, Union
 
+from urllib3.util import Retry
 import github
 import github.GithubObject
 from github import (
@@ -59,6 +60,7 @@ class GithubService(BaseGitService):
         github_app_private_key_path: str = None,
         tokman_instance_url: str = None,
         github_authentication: GithubAuthentication = None,
+        max_retries: Union[int, Retry] = 0,
         **_,
     ):
         """
@@ -71,6 +73,19 @@ class GithubService(BaseGitService):
         self.read_only = read_only
         self.authentication = github_authentication
 
+        if isinstance(max_retries, Retry):
+            self._max_retries = max_retries
+        else:
+            self._max_retries = Retry(
+                total=int(max_retries),
+                read=0,
+                # Retry mechanism active for these HTTP methods:
+                method_whitelist=["DELETE", "GET", "PATCH", "POST", "PUT"],
+                # Only retry on following HTTP status codes
+                status_forcelist=[500, 503, 403, 401],
+                raise_on_status=False,
+            )
+
         if not self.authentication:
             self.__set_authentication(
                 token=token,
@@ -78,6 +93,7 @@ class GithubService(BaseGitService):
                 github_app_private_key=github_app_private_key,
                 github_app_private_key_path=github_app_private_key_path,
                 tokman_instance_url=tokman_instance_url,
+                max_retries=self._max_retries,
             )
 
     def __set_authentication(self, **kwargs):
@@ -177,4 +193,4 @@ class GithubService(BaseGitService):
 
     def get_pygithub_instance(self, namespace: str, repo: str) -> PyGithubInstance:
         token = self.authentication.get_token(namespace, repo)
-        return PyGithubInstance(login_or_token=token)
+        return PyGithubInstance(login_or_token=token, retry=self._max_retries)
