@@ -10,7 +10,7 @@ from ogr.services.github.auth_providers.abstract import GithubAuthentication
 
 
 class TokenAuthentication(GithubAuthentication):
-    def __init__(self, token: str, max_retries: Union[int, Retry]=0, **_) -> None:
+    def __init__(self, token: str, max_retries: Union[int, Retry] = 0, **_) -> None:
         self._token = token
         self._pygithub_instance = github.Github(login_or_token=token, retry=max_retries)
 
@@ -34,6 +34,6 @@ class TokenAuthentication(GithubAuthentication):
 
     @staticmethod
     def try_create(
-        token: str = None, max_retries: Union[int, Retry]=0, **_
+        token: str = None, max_retries: Union[int, Retry] = 0, **_
     ) -> Optional["TokenAuthentication"]:
         return TokenAuthentication(token, max_retries=max_retries)
