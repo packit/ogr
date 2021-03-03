@@ -1,3 +1,15 @@
+# 0.22.0
+
+## Features
+
+- The retry mechanism of a `GithubService` can be customized using
+  `max_retries`. [#537](https://github.com/packit/ogr/pull/537)
+
+## Minor
+
+- `get_latest_release()` returns `None`, instead of raising an exception, when
+  there were no release in the project, yet. [#542](https://github.com/packit/ogr/pull/542)
+
 # 0.21.0
 
 ## Features
