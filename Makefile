@@ -1,3 +1,4 @@
+BASE_IMAGE := fedora:latest
 TEST_TARGET := ./tests/
 PY_PACKAGE := ogr
 OGR_IMAGE := ogr
@@ -12,6 +13,9 @@ check:
 	@#`python3 -m pytest` doesn't work here b/c the way requre overrides import system:
 	@#`AttributeError: module 'importlib_metadata' has no attribute 'distributions'
 	PYTHONPATH=$(CURDIR) PYTHONDONTWRITEBYTECODE=1 pytest-3 --verbose --showlocals $(TEST_TARGET)
+
+check-in-container:
+	podman run --rm -it -v $(CURDIR):/src:Z -w /src $(OGR_IMAGE) pytest-3 $(TEST_TARGET)
 
 shell:
 	podman run --rm -ti -v $(CURDIR):/src:Z -w /src $(OGR_IMAGE) bash
@@ -41,3 +45,5 @@ remove-response-files: remove-response-files-github remove-response-files-pagure
 
 requre-purge-files:
 	pre-commit run --all-files requre-purge --verbose --hook-stage manual
+
+.PHONY: build
