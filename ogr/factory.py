@@ -69,6 +69,7 @@ def get_project(
     url,
     service_mapping_update: Dict[str, Type[GitService]] = None,
     custom_instances: Iterable[GitService] = None,
+    force_custom_instance: bool = True,
     **kwargs,
 ) -> GitProject:
     """
@@ -77,6 +78,8 @@ def get_project(
     :param url: str (url of the project, e.g. "https://github.com/packit/ogr")
     :param service_mapping_update: custom mapping from  service url (str) to service class
     :param custom_instances: list of instances that will be used when creating a project instance
+    :param force_custom_instance: force picking a Git service from the custom_instances list,
+        if there is any provided, raise an error if that's not possible
     :param kwargs: arguments forwarded to __init__ of the matching service
     :return: GitProject using the matching implementation
     """
@@ -88,6 +91,7 @@ def get_project(
     kls = get_service_class(url=url, service_mapping_update=mapping)
     parsed_repo_url = parse_git_repo(url)
 
+    service = None
     if custom_instances:
         for service_inst in custom_instances:
             if (
@@ -97,11 +101,12 @@ def get_project(
                 service = service_inst
                 break
         else:
-            raise OgrException(
-                f"Instance of type {kls.__name__} "
-                f"matching instance url '{url}' was not provided."
-            )
-    else:
+            if force_custom_instance:
+                raise OgrException(
+                    f"Instance of type {kls.__name__} "
+                    f"matching instance url '{url}' was not provided."
+                )
+    if not service:
         service = kls(instance_url=parsed_repo_url.get_instance_url(), **kwargs)
     return service.get_project_from_url(url=url)
 

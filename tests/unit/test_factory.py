@@ -59,12 +59,13 @@ def test_get_service_class_not_found(url, mapping):
 
 
 @pytest.mark.parametrize(
-    "url,mapping,instances,result",
+    "url,mapping,instances,force_custom_instance,result",
     [
         (
             "https://github.com/packit-service/ogr",
             None,
             None,
+            True,
             GithubProject(
                 namespace="packit-service", repo="ogr", service=GithubService()
             ),
@@ -73,6 +74,7 @@ def test_get_service_class_not_found(url, mapping):
             "github.com/packit-service/ogr",
             None,
             None,
+            True,
             GithubProject(
                 namespace="packit-service", repo="ogr", service=GithubService()
             ),
@@ -81,6 +83,7 @@ def test_get_service_class_not_found(url, mapping):
             "git@github.com:packit-service/ogr.git",
             None,
             None,
+            True,
             GithubProject(
                 namespace="packit-service", repo="ogr", service=GithubService()
             ),
@@ -89,6 +92,7 @@ def test_get_service_class_not_found(url, mapping):
             "https://some-url/packit-service/ogr",
             {"some-url": GithubService},
             None,
+            True,
             GithubProject(
                 namespace="packit-service", repo="ogr", service=GithubService()
             ),
@@ -97,6 +101,7 @@ def test_get_service_class_not_found(url, mapping):
             "https://github.com/packit-service/ogr",
             {"github.com": PagureService},
             None,
+            True,
             PagureProject(
                 namespace="packit-service",
                 repo="ogr",
@@ -107,6 +112,7 @@ def test_get_service_class_not_found(url, mapping):
             "https://src.fedoraproject.org/rpms/python-ogr",
             None,
             None,
+            True,
             PagureProject(
                 namespace="rpms",
                 repo="python-ogr",
@@ -117,6 +123,7 @@ def test_get_service_class_not_found(url, mapping):
             "https://pagure.io/ogr",
             None,
             None,
+            True,
             PagureProject(
                 repo="ogr",
                 namespace=None,
@@ -133,6 +140,7 @@ def test_get_service_class_not_found(url, mapping):
                     get_project_from_url=lambda url: "project",
                 )
             ],
+            True,
             "project",
         ),
         (
@@ -150,12 +158,14 @@ def test_get_service_class_not_found(url, mapping):
                     get_project_from_url=lambda url: "right-project",
                 ),
             ],
+            True,
             "right-project",
         ),
         (
             "https://gitlab.gnome.org/lbarcziova/testing-ogr-repo",
             None,
             None,
+            True,
             GitlabProject(
                 repo="testing-ogr-repo",
                 namespace="lbarcziova",
@@ -166,6 +176,7 @@ def test_get_service_class_not_found(url, mapping):
             "https://src.stg.fedoraproject.org/rpms/python-dockerpty.git",
             None,
             [PagureService(instance_url="https://src.stg.fedoraproject.org")],
+            True,
             PagureProject(
                 repo="python-dockerpty",
                 namespace="rpms",
@@ -179,17 +190,34 @@ def test_get_service_class_not_found(url, mapping):
                 PagureService(instance_url="https://src.stg.fedoraproject.org"),
                 PagureService(instance_url="https://src.fedoraproject.org"),
             ],
+            False,
             PagureProject(
                 repo="python-dockerpty",
                 namespace="rpms",
                 service=PagureService(instance_url="https://src.fedoraproject.org"),
             ),
         ),
+        (
+            "https://github.com/packit/ogr",
+            None,
+            [
+                PagureService(instance_url="https://src.fedoraproject.org"),
+            ],
+            False,
+            GithubProject(
+                repo="ogr",
+                namespace="packit",
+                service=GithubService(instance_url="https://github.com/packit/ogr"),
+            ),
+        ),
     ],
 )
-def test_get_project(url, mapping, instances, result):
+def test_get_project(url, mapping, instances, force_custom_instance, result):
     project = get_project(
-        url=url, service_mapping_update=mapping, custom_instances=instances
+        url=url,
+        service_mapping_update=mapping,
+        custom_instances=instances,
+        force_custom_instance=force_custom_instance,
     )
     assert project == result
 
