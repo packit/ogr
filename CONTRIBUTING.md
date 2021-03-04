@@ -40,6 +40,16 @@ Running tests locally:
 make prepare-check && make check
 ```
 
+Or you can run them in a container:
+
+    make build
+    make check-in-container
+
+The above builds a local image with all the dependencies using
+[ansible-bender](https://github.com/ansible-community/ansible-bender), and
+runs the tests in a container created from that image. `TEST_TARGET` can be
+set to select a subset of the tests.
+
 As a CI we use [Zuul](https://softwarefactory-project.io/zuul/t/local/builds?project=packit-service/ogr) with a configuration in [.zuul.yaml](.zuul.yaml).
 If you want to re-run CI/tests in a pull request, just include `recheck` in a comment.
 
