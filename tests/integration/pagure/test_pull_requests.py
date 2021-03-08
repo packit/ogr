@@ -6,7 +6,7 @@ from ogr.abstract import PRStatus, CommitStatus
 
 @record_requests_for_all_methods()
 class PullRequests(PagureTests):
-    def test_pr_create(self):
+    def test_pr_create_from_fork(self):
         pr = self.ogr_fork.create_pr(
             title="Testing PR",
             body="Body of the testing PR.",
@@ -14,6 +14,20 @@ class PullRequests(PagureTests):
             source_branch="master",
         )
         assert pr.title == "Testing PR"
+        assert pr.description == "Body of the testing PR."
+        assert pr.target_branch == "master"
+        assert pr.source_branch == "master"
+        assert pr.status == PRStatus.open
+
+    def test_pr_create_from_parent(self):
+        pr = self.ogr_project.create_pr(
+            title="Testing PR 2",
+            body="Body of the testing PR.",
+            target_branch="master",
+            source_branch="master",
+            fork_username=self.user,
+        )
+        assert pr.title == "Testing PR 2"
         assert pr.description == "Body of the testing PR."
         assert pr.target_branch == "master"
         assert pr.source_branch == "master"

@@ -175,6 +175,16 @@ class PagurePullRequest(BasePullRequest):
 
             # running the call from the parent project
             caller = caller.parent
+        elif fork_username:
+            fork_project = project.service.get_project(
+                username=fork_username,
+                repo=project.repo,
+                namespace=project.namespace,
+                is_fork=True,
+            )
+            data["repo_from_username"] = fork_username
+            data["repo_from"] = fork_project.repo
+            data["repo_from_namespace"] = fork_project.namespace
 
         response = caller._call_project_api(
             "pull-request", "new", method="POST", data=data
