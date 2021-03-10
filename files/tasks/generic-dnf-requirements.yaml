@@ -11,5 +11,6 @@
   dnf:
     name:
       - rpmautospec-rpm-macros
-    enablerepo: updates-testing
+  # rpmautospec-rpm-macros is not in epel
+  when: ansible_distribution == 'Fedora'
   become: true
