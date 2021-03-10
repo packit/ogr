@@ -272,6 +272,7 @@ class PagureProject(BaseGitProject):
             body=body,
             target_branch=target_branch,
             source_branch=source_branch,
+            fork_username=fork_username,
         )
 
     @if_readonly(return_function=GitProjectReadOnly.fork_create)
