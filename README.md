@@ -16,7 +16,9 @@ Library for one API for many git forges. (e.g. GitHub, GitLab, Pagure).
 - GitLab
 - Pagure
 
-## Usage
+## To start using ogr:
+
+See [Documentation of Index of Sub-modules, Functions & Classes](https://packit.github.io/ogr)
 
 For examples of how to use `ogr` see [Jupyter examples](examples).
 
