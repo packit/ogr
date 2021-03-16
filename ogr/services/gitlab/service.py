@@ -35,7 +35,7 @@ from ogr.services.gitlab.user import GitlabUser
 class GitlabService(BaseGitService):
     name = "gitlab"
 
-    def __init__(self, token=None, instance_url=None, ssl_verify=True):
+    def __init__(self, token=None, instance_url=None, ssl_verify=True, **_):
         super().__init__(token=token)
         self.instance_url = instance_url or "https://gitlab.com"
         self.token = token
