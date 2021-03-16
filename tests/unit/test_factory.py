@@ -367,6 +367,20 @@ def test_get_instances_from_dict(instances_in_dict, result_instances: Set):
             },
             {GithubService(tokman_instance_url="http://localhost")},
         ),
+        (
+            {
+                "gitlab.com": {
+                    "type": "gitlab",
+                    "instance_url": "https://gitlab.com",
+                    "token": "my_very_secret_token",
+                }
+            },
+            {
+                GitlabService(
+                    instance_url="https://gitlab.com", token="my_very_secret_token"
+                )
+            },
+        ),
     ],
 )
 def test_get_instances_from_dict_multiple_auth(instances_in_dict, result_instances):
