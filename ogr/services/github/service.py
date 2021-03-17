@@ -20,6 +20,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
+import logging
 from typing import Optional, Type, Union
 
 from urllib3.util import Retry
@@ -44,6 +45,8 @@ from ogr.services.github.auth_providers import (
 )
 from ogr.services.github.user import GithubUser
 
+logger = logging.getLogger(__name__)
+
 
 @use_for_service("github.com")
 class GithubService(BaseGitService):
@@ -61,7 +64,7 @@ class GithubService(BaseGitService):
         tokman_instance_url: str = None,
         github_authentication: GithubAuthentication = None,
         max_retries: Union[int, Retry] = 0,
-        **_,
+        **kwargs,
     ):
         """
         If multiple authentication methods are provided, they are prioritised:
@@ -95,6 +98,8 @@ class GithubService(BaseGitService):
                 tokman_instance_url=tokman_instance_url,
                 max_retries=self._max_retries,
             )
+
+        logger.warning(f"Ignored keyword arguments: {kwargs}")
 
     def __set_authentication(self, **kwargs):
         auth_methods = [

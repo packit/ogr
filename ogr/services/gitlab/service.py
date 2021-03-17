@@ -19,6 +19,7 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
+import logging
 from typing import Optional
 
 import gitlab
@@ -30,17 +31,21 @@ from ogr.services.base import BaseGitService
 from ogr.services.gitlab.project import GitlabProject
 from ogr.services.gitlab.user import GitlabUser
 
+logger = logging.getLogger(__name__)
+
 
 @use_for_service("gitlab")
 class GitlabService(BaseGitService):
     name = "gitlab"
 
-    def __init__(self, token=None, instance_url=None, ssl_verify=True):
+    def __init__(self, token=None, instance_url=None, ssl_verify=True, **kwargs):
         super().__init__(token=token)
         self.instance_url = instance_url or "https://gitlab.com"
         self.token = token
         self.ssl_verify = ssl_verify
         self._gitlab_instance = None
+
+        logger.warning(f"Ignored keyword arguments: {kwargs}")
 
     @property
     def gitlab_instance(self) -> gitlab.Gitlab:
