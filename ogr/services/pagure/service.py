@@ -48,7 +48,7 @@ class PagureService(BaseGitService):
         read_only: bool = False,
         insecure: bool = False,
         max_retries: Union[int, requests.packages.urllib3.util.Retry] = 5,
-        **_,
+        **kwargs,
     ) -> None:
         super().__init__()
         self.instance_url = instance_url
@@ -66,6 +66,8 @@ class PagureService(BaseGitService):
             self.session.mount("https://", adapter)
 
         self.header = {"Authorization": "token " + self._token} if self._token else {}
+
+        logger.warning(f"Ignored keyword arguments: {kwargs}")
 
     def __str__(self) -> str:
         token_str = (
