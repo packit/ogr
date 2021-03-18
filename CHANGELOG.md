@@ -1,3 +1,10 @@
+# 0.23.0
+
+- Fixed authentication of 'gitlab' type.
+- Pagure: enable creating PRs from fork via fork_username.
+- Allow ignoring custom instances when creating a project.
+- Package is now PEP-561 compliant and mypy is able to use the type information when importing it.
+
 # 0.22.0
 
 ## Features
