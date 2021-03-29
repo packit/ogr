@@ -24,6 +24,7 @@ from typing import Optional
 
 from ogr.abstract import Release, GitTag
 from ogr.services import gitlab as ogr_gitlab
+from ogr.exceptions import OperationNotSupported
 
 
 class GitlabRelease(Release):
@@ -49,3 +50,6 @@ class GitlabRelease(Release):
     @property
     def body(self):
         return self.raw_release.description
+
+    def edit_release(self, name: str, message: str) -> None:
+        raise OperationNotSupported("edit_release not supported on GitLab")

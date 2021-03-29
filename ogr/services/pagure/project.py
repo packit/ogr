@@ -210,7 +210,7 @@ class PagureProject(BaseGitProject):
         return username in self.who_can_merge_pr()
 
     def request_access(self):
-        raise NotImplementedError("Not possible on Pagure")
+        raise OperationNotSupported("Not possible on Pagure")
 
     def get_issue_list(
         self,
@@ -341,7 +341,7 @@ class PagureProject(BaseGitProject):
         ]:
             # private repositories are not allowed on generally used pagure instances
             return False
-        raise NotImplementedError(
+        raise OperationNotSupported(
             f"is_private is not implemented for {self.service.instance_url}."
             f"Please open issue in https://github.com/packit/ogr"
         )
@@ -492,6 +492,12 @@ class PagureProject(BaseGitProject):
         # git tag for Pagure is shown as Release in Pagure UI
         git_tags = self.get_tags()
         return [self._release_from_git_tag(git_tag) for git_tag in git_tags]
+
+    def get_release(self, identifier=None, name=None, tag_name=None) -> PagureRelease:
+        raise OperationNotSupported
+
+    def get_latest_release(self) -> Optional[PagureRelease]:
+        raise OperationNotSupported
 
     def _release_from_git_tag(self, git_tag: GitTag) -> PagureRelease:
         return PagureRelease(

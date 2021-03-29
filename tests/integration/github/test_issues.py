@@ -3,7 +3,7 @@ from requre.online_replacing import record_requests_for_all_methods
 
 from tests.integration.github.base import GithubTests
 from ogr.abstract import IssueStatus
-from ogr.exceptions import GithubAPIException
+from ogr.exceptions import GithubAPIException, OperationNotSupported
 
 
 @record_requests_for_all_methods()
@@ -39,7 +39,7 @@ class Issues(GithubTests):
             assert issue_label.name == label
 
     def test_create_private_issue(self):
-        with self.assertRaises(NotImplementedError):
+        with self.assertRaises(OperationNotSupported):
             self.hello_world_project.create_issue(
                 title=self.title, body=self.description, private=True
             )

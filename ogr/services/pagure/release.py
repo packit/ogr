@@ -22,6 +22,7 @@
 
 from ogr.abstract import GitTag, Release
 from ogr.services import pagure as ogr_pagure
+from ogr.exceptions import OperationNotSupported
 
 
 class PagureRelease(Release):
@@ -45,3 +46,6 @@ class PagureRelease(Release):
     @property
     def body(self):
         return ""
+
+    def edit_release(self, name: str, message: str) -> None:
+        raise OperationNotSupported("edit_release not supported on Pagure")
