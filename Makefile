@@ -2,12 +2,25 @@ BASE_IMAGE := fedora:latest
 TEST_TARGET ?= ./tests/
 PY_PACKAGE := ogr
 OGR_IMAGE := ogr
+IS_FEDORA := $(shell uname -r | grep -c "\.fc[1-9]")
+ifeq ($(IS_FEDORA), 1)
+    PACKAGE_CHECKER := rpm -q --quiet
+    PACKAGE_INSTALLER := dnf install
+else
+    PACKAGE_CHECKER := :
+    PACKAGE_INSTALLER := :
+endif
+
+prepare-build:
+	if ! $(PACKAGE_CHECKER) ansible-bender ; then sudo $(PACKAGE_INSTALLER) ansible-bender ; fi
+	if ! $(PACKAGE_CHECKER) podman ; then sudo $(PACKAGE_INSTALLER) podman ; fi
 
 build: recipe.yaml
 	ansible-bender build --build-volumes $(CURDIR):/src:Z -- ./recipe.yaml $(BASE_IMAGE) $(OGR_IMAGE)
 
 prepare-check:
-	sudo dnf install python3-tox python36
+	if ! $(PACKAGE_CHECKER) python3-requre ; then sudo $(PACKAGE_INSTALLER) python3-requre ; fi
+	if ! $(PACKAGE_CHECKER) python3-flexmock ; then sudo $(PACKAGE_INSTALLER)  python3-flexmock ; fi
 
 check:
 	@#`python3 -m pytest` doesn't work here b/c the way requre overrides import system:
