@@ -1,4 +1,4 @@
-# One Git library to Rule
+# Git library to Rule
 
 ![PyPI](https://img.shields.io/pypi/v/ogr.svg)
 ![PyPI - License](https://img.shields.io/pypi/l/ogr.svg)
