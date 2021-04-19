@@ -22,7 +22,7 @@ repos:
       - id: end-of-file-fixer
       - id: trailing-whitespace
   - repo: https://github.com/PyCQA/flake8
-    rev: 3.9.0
+    rev: 3.9.1
     hooks:
       - id: flake8
         args: [--max-line-length=100]
@@ -32,7 +32,7 @@ repos:
       - id: mypy
         args: [--no-strict-optional, --ignore-missing-imports]
   - repo: https://github.com/packit/pre-commit-hooks
-    rev: bec7c9ff9a985ececa53ac8078dc60ca9603f9d7
+    rev: 5cdbd6e14e148297801cfb20a8dcc6293218dde9
     hooks:
       - id: check-rebase
         args:
