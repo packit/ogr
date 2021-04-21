@@ -433,15 +433,13 @@ class PagureProject(BaseGitProject):
 
     def get_file_content(self, path: str, ref=None) -> str:
         ref = ref or self.default_branch
-        try:
-            result = self._call_project_api_raw(
-                "raw", ref, "f", path, add_api_endpoint_part=False
-            )
-            if not result or result.reason == "NOT FOUND":
-                raise FileNotFoundError(f"File '{path}' on {ref} not found")
-            return result.content.decode()
-        except PagureAPIException as ex:
-            raise FileNotFoundError(f"Problem with getting file '{path}' on {ref}", ex)
+        result = self._call_project_api_raw(
+            "raw", ref, "f", path, add_api_endpoint_part=False
+        )
+
+        if not result or result.reason == "NOT FOUND":
+            raise FileNotFoundError(f"File '{path}' on {ref} not found")
+        return result.content.decode()
 
     def get_sha_from_tag(self, tag_name: str) -> str:
         tags_dict = self.get_tags_dict()
