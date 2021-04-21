@@ -37,7 +37,6 @@ from ogr.abstract import (
     AccessLevel,
 )
 from ogr.exceptions import (
-    OurPagureRawRequest,
     PagureAPIException,
     OgrException,
     OperationNotSupported,
@@ -441,7 +440,7 @@ class PagureProject(BaseGitProject):
             if not result or result.reason == "NOT FOUND":
                 raise FileNotFoundError(f"File '{path}' on {ref} not found")
             return result.content.decode()
-        except OurPagureRawRequest as ex:
+        except PagureAPIException as ex:
             raise FileNotFoundError(f"Problem with getting file '{path}' on {ref}", ex)
 
     def get_sha_from_tag(self, tag_name: str) -> str:
