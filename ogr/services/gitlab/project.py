@@ -389,7 +389,9 @@ class GitlabProject(BaseGitProject):
             file = self.gitlab_repo.files.get(file_path=path, ref=ref)
             return file.decode().decode()
         except gitlab.exceptions.GitlabGetError as ex:
-            raise FileNotFoundError(f"File '{path}' on {ref} not found", ex)
+            if ex.response_code == 404:
+                raise FileNotFoundError(f"File '{path}' on {ref} not found", ex)
+            raise GitlabAPIException(ex)
 
     def get_files(
         self, ref: str = None, filter_regex: str = None, recursive: bool = False

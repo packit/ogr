@@ -56,9 +56,5 @@ class GitlabAPIException(OgrException):
         self.gitlab_error = gitlab_error
 
 
-class OurPagureRawRequest(OgrException):
-    """ Mocking Exceptions for pagure raw request """
-
-
 class OperationNotSupported(OgrException):
     """ Raise when the operation is not supported by the backend. """

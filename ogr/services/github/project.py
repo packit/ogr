@@ -441,8 +441,10 @@ class GithubProject(BaseGitProject):
             return self.github_repo.get_contents(
                 path=path, ref=ref
             ).decoded_content.decode()
-        except UnknownObjectException as ex:
-            raise FileNotFoundError(f"File '{path}' on {ref} not found", ex)
+        except (UnknownObjectException, GithubException) as ex:
+            if ex.status == 404:
+                raise FileNotFoundError(f"File '{path}' on {ref} not found", ex)
+            raise GithubAPIException(ex)
 
     def get_files(
         self, ref: str = None, filter_regex: str = None, recursive: bool = False
