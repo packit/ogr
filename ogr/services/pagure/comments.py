@@ -24,6 +24,7 @@ import datetime
 from typing import Optional, Dict, Any
 
 from ogr.abstract import Comment, IssueComment, PRComment
+from ogr.exceptions import OperationNotSupported
 
 
 class PagureComment(Comment):
@@ -45,7 +46,7 @@ class PagureComment(Comment):
 
     @body.setter
     def body(self, new_body: str) -> None:
-        raise NotImplementedError()
+        raise OperationNotSupported()
 
 
 class PagureIssueComment(PagureComment, IssueComment):

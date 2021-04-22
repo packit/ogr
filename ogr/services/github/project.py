@@ -42,7 +42,7 @@ from ogr.abstract import (
     CommitStatus,
     AccessLevel,
 )
-from ogr.exceptions import GithubAPIException
+from ogr.exceptions import GithubAPIException, OperationNotSupported
 from ogr.read_only import if_readonly, GitProjectReadOnly
 from ogr.services import github as ogr_github
 from ogr.services.base import BaseGitProject
@@ -206,7 +206,7 @@ class GithubProject(BaseGitProject):
             raise GithubAPIException("User already added")
 
     def request_access(self):
-        raise NotImplementedError("Not possible on GitHub")
+        raise OperationNotSupported("Not possible on GitHub")
 
     def get_fork(self, create: bool = True) -> Optional["GithubProject"]:
         """
@@ -300,7 +300,7 @@ class GithubProject(BaseGitProject):
         assignees: Optional[List[str]] = None,
     ) -> Issue:
         if private:
-            raise NotImplementedError("Private issues are not supported by Github")
+            raise OperationNotSupported("Private issues are not supported by Github")
         return GithubIssue.create(
             project=self, title=title, body=body, labels=labels, assignees=assignees
         )
@@ -433,7 +433,7 @@ class GithubProject(BaseGitProject):
         )
 
     def change_token(self, new_token: str):
-        raise NotImplementedError
+        raise OperationNotSupported
 
     def get_file_content(self, path: str, ref=None) -> str:
         ref = ref or self.default_branch
