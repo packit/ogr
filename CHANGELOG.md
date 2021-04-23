@@ -1,3 +1,8 @@
+# 0.24.0
+
+- Exceptions for non-supported features were refactored.
+- Behaviour of Github.get_file_content() was unified with GitLab and Pagure.
+
 # 0.23.0
 
 - Fixed authentication of 'gitlab' type.
