@@ -888,7 +888,7 @@ class GitProject(OgrAbstractClass):
 
     @property
     def default_branch(self) -> str:
-        """ Return default branch (usually 'main' or 'master'). """
+        """Return default branch (usually 'main' or 'master')."""
         raise NotImplementedError()
 
     def get_description(self) -> str:
