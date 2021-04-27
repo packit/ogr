@@ -1,5 +1,5 @@
 BASE_IMAGE := fedora:latest
-TEST_TARGET := ./tests/
+TEST_TARGET ?= ./tests/
 PY_PACKAGE := ogr
 OGR_IMAGE := ogr
 
@@ -12,10 +12,10 @@ prepare-check:
 check:
 	@#`python3 -m pytest` doesn't work here b/c the way requre overrides import system:
 	@#`AttributeError: module 'importlib_metadata' has no attribute 'distributions'
-	PYTHONPATH=$(CURDIR) PYTHONDONTWRITEBYTECODE=1 pytest-3 --verbose --showlocals $(TEST_TARGET)
+	PYTHONPATH=$(CURDIR) PYTHONDONTWRITEBYTECODE=1 pytest --verbose --showlocals $(TEST_TARGET)
 
 check-in-container:
-	podman run --rm -it -v $(CURDIR):/src:Z -w /src $(OGR_IMAGE) pytest-3 $(TEST_TARGET)
+	podman run --rm -it -v $(CURDIR):/src:Z -w /src $(OGR_IMAGE) make check
 
 shell:
 	podman run --rm -ti -v $(CURDIR):/src:Z -w /src $(OGR_IMAGE) bash

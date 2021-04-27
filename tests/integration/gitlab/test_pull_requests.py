@@ -1,3 +1,6 @@
+# Copyright Contributors to the Packit project.
+# SPDX-License-Identifier: MIT
+
 from requre.online_replacing import record_requests_for_all_methods
 
 from tests.integration.gitlab.base import GitlabTests
@@ -71,10 +74,14 @@ class PullRequests(GitlabTests):
         """
         Create new PR and update pull request ID to this test before this test
         """
-        pull_request_id = 53
+        pull_request_id = 71
         pr_for_merging = self.project.get_pr(pr_id=pull_request_id)
         assert pr_for_merging.status == PRStatus.open
 
+        # WARNING: this produces different PUT calls depending on
+        # the version of python-gitlab (<2.7.0 or >=2.7.0).
+        # Duplicate and manually fix the URL in the requre cassette
+        # in order to work around this.
         merged_pr = pr_for_merging.merge()
         assert merged_pr.status == PRStatus.merged
 
