@@ -1,25 +1,7 @@
-# MIT License
-#
-# Copyright (c) 2018-2019 Red Hat, Inc.
+# Copyright Contributors to the Packit project.
+# SPDX-License-Identifier: MIT
 
-# Permission is hereby granted, free of charge, to any person obtaining a copy
-# of this software and associated documentation files (the "Software"), to deal
-# in the Software without restriction, including without limitation the rights
-# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-# copies of the Software, and to permit persons to whom the Software is
-# furnished to do so, subject to the following conditions:
-#
-# The above copyright notice and this permission notice shall be included in all
-# copies or substantial portions of the Software.
-#
-# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-# SOFTWARE.
-
+from collections import namedtuple
 from typing import Optional, List
 
 from ogr.services import github as ogr_github
@@ -53,9 +35,15 @@ class GithubUser(BaseGitUser):
         if not user_emails:
             return None
 
-        for email_dict in user_emails:
-            if email_dict["primary"]:
-                return email_dict["email"]
+        # To work around the braking change introduced by pygithub==1.55
+        # https://pygithub.readthedocs.io/en/latest/changes.html#version-1-55-april-26-2021
+        if isinstance(user_emails[0], dict):
+            EmailData = namedtuple("EmailData", user_emails[0].keys())  # type: ignore
+        for email in user_emails:
+            if "EmailData" in locals():
+                email = EmailData(**email)  # type: ignore
+            if email.primary:
+                return email.email
 
         # Return the first email we received
         return user_emails[0]["email"]
