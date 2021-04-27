@@ -1,3 +1,7 @@
+# 0.24.1
+
+- Fixed problems with imports from 'gitlab' modules.
+
 # 0.24.0
 
 - Exceptions for non-supported features were refactored.
