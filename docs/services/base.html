@@ -1,0 +1,1318 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.9.2" />
+<title>ogr.services.base API documentation</title>
+<meta name="description" content="" />
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
+<link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js" integrity="sha256-Uv3H6lx7dJmRfRvH8TH6kJD1TSK1aFcwgx+mdg3epi8=" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => hljs.initHighlighting())</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>ogr.services.base</code></h1>
+</header>
+<section id="section-intro">
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python"># MIT License
+#
+# Copyright (c) 2018-2019 Red Hat, Inc.
+
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the &#34;Software&#34;), to deal
+# in the Software without restriction, including without limitation the rights
+# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+# copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
+#
+# The above copyright notice and this permission notice shall be included in all
+# copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED &#34;AS IS&#34;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+# SOFTWARE.
+
+import datetime
+from typing import List, Optional, Match, Any, Union
+import warnings
+
+from ogr.abstract import (
+    GitService,
+    GitProject,
+    GitUser,
+    PRComment,
+    PRStatus,
+    IssueComment,
+    Issue,
+    PullRequest,
+    CommitFlag,
+    CommitStatus,
+)
+from ogr.deprecation import deprecate_and_set_removal
+from ogr.exceptions import OgrException
+from ogr.parsing import parse_git_repo
+from ogr.read_only import if_readonly, GitProjectReadOnly
+from ogr.utils import search_in_comments, filter_comments
+
+try:
+    from functools import cached_property
+except ImportError:
+    from functools import lru_cache
+
+    def cached_property(func):  # type: ignore
+        return property(lru_cache()(func))
+
+
+class BaseGitService(GitService):
+    @cached_property
+    def hostname(self) -&gt; Optional[str]:
+        &#34;&#34;&#34;
+        Hostname of the service.
+        &#34;&#34;&#34;
+        parsed_url = parse_git_repo(potential_url=self.instance_url)
+        return parsed_url.hostname if parsed_url else None
+
+    def get_project_from_url(self, url: str) -&gt; &#34;GitProject&#34;:
+        repo_url = parse_git_repo(potential_url=url)
+        if not repo_url:
+            raise OgrException(f&#34;Cannot parse project url: &#39;{url}&#39;&#34;)
+        return self.get_project(repo=repo_url.repo, namespace=repo_url.namespace)
+
+
+class BaseGitProject(GitProject):
+    @property
+    def full_repo_name(self) -&gt; str:
+        &#34;&#34;&#34;
+        Get repo name with namespace
+        e.g. &#39;rpms/python-docker-py&#39;
+
+        :return: str
+        &#34;&#34;&#34;
+        return f&#34;{self.namespace}/{self.repo}&#34;
+
+    @deprecate_and_set_removal(
+        since=&#34;0.9.0&#34;,
+        remove_in=&#34;0.14.0 (or 1.0.0 if it comes sooner)&#34;,
+        message=&#34;Use methods on PullRequest objects&#34;,
+    )
+    def get_pr_comments(
+        self, pr_id, filter_regex: str = None, reverse: bool = False, author: str = None
+    ) -&gt; List[PRComment]:
+        &#34;&#34;&#34;
+        Get list of pull-request comments.
+
+        :param pr_id: int
+        :param filter_regex: filter the comments&#39; content with re.search
+        :param reverse: reverse order of comments
+        :param author: filter comments by author
+        :return: [PRComment]
+        &#34;&#34;&#34;
+        return self.get_pr(pr_id).get_comments(filter_regex, reverse, author)
+
+    @deprecate_and_set_removal(
+        since=&#34;0.9.0&#34;,
+        remove_in=&#34;0.14.0 (or 1.0.0 if it comes sooner)&#34;,
+        message=&#34;Use methods on PullRequest objects&#34;,
+    )
+    def search_in_pr(
+        self,
+        pr_id: int,
+        filter_regex: str,
+        reverse: bool = False,
+        description: bool = True,
+    ) -&gt; Optional[Match[str]]:
+        &#34;&#34;&#34;
+        Find match in pull-request description or comments.
+
+        :param description: bool (search in description?)
+        :param pr_id: int
+        :param filter_regex: filter the comments&#39; content with re.search
+        :param reverse: reverse order of comments
+        :return: re.Match or None
+        &#34;&#34;&#34;
+        return self.get_pr(pr_id).search(filter_regex, reverse, description)
+
+    @if_readonly(return_function=GitProjectReadOnly.pr_close)
+    @deprecate_and_set_removal(
+        since=&#34;0.9.0&#34;,
+        remove_in=&#34;0.14.0 (or 1.0.0 if it comes sooner)&#34;,
+        message=&#34;Use methods on PullRequest objects&#34;,
+    )
+    def pr_close(self, pr_id: int) -&gt; &#34;PullRequest&#34;:
+        return self.get_pr(pr_id).close()
+
+    @if_readonly(return_function=GitProjectReadOnly.pr_merge)
+    @deprecate_and_set_removal(
+        since=&#34;0.9.0&#34;,
+        remove_in=&#34;0.14.0 (or 1.0.0 if it comes sooner)&#34;,
+        message=&#34;Use methods on PullRequest objects&#34;,
+    )
+    def pr_merge(self, pr_id: int) -&gt; &#34;PullRequest&#34;:
+        return self.get_pr(pr_id).merge()
+
+    @deprecate_and_set_removal(
+        since=&#34;0.9.0&#34;,
+        remove_in=&#34;0.14.0 (or 1.0.0 if it comes sooner)&#34;,
+        message=&#34;Use methods on PullRequest objects&#34;,
+    )
+    def get_pr_labels(self, pr_id: int) -&gt; List[Any]:
+        return self.get_pr(pr_id).labels
+
+    @deprecate_and_set_removal(
+        since=&#34;0.9.0&#34;,
+        remove_in=&#34;0.14.0 (or 1.0.0 if it comes sooner)&#34;,
+        message=&#34;Use methods on PullRequest objects&#34;,
+    )
+    def add_pr_labels(self, pr_id: int, labels: List[str]) -&gt; None:
+        return self.get_pr(pr_id).add_label(*labels)
+
+    @deprecate_and_set_removal(
+        since=&#34;0.9.0&#34;,
+        remove_in=&#34;0.14.0 (or 1.0.0 if it comes sooner)&#34;,
+        message=&#34;Use methods on PullRequest objects&#34;,
+    )
+    def get_pr_info(self, pr_id: int) -&gt; &#34;PullRequest&#34;:
+        return self.get_pr(pr_id)
+
+    @deprecate_and_set_removal(
+        since=&#34;0.9.0&#34;,
+        remove_in=&#34;0.14.0 (or 1.0.0 if it comes sooner)&#34;,
+        message=&#34;Use methods on PullRequest objects&#34;,
+    )
+    def update_pr_info(
+        self, pr_id: int, title: Optional[str] = None, description: Optional[str] = None
+    ) -&gt; &#34;PullRequest&#34;:
+        return self.get_pr(pr_id).update_info(title, description)
+
+    @deprecate_and_set_removal(
+        since=&#34;0.9.0&#34;,
+        remove_in=&#34;0.14.0 (or 1.0.0 if it comes sooner)&#34;,
+        message=&#34;Use methods on PullRequest objects&#34;,
+    )
+    def get_all_pr_commits(self, pr_id: int) -&gt; List[str]:
+        return self.get_pr(pr_id).get_all_commits()
+
+    @deprecate_and_set_removal(
+        since=&#34;0.9.0&#34;,
+        remove_in=&#34;0.14.0 (or 1.0.0 if it comes sooner)&#34;,
+        message=&#34;Use methods on PullRequest objects&#34;,
+    )
+    def _get_all_pr_comments(self, pr_id: int) -&gt; List[PRComment]:
+        return self.get_pr(pr_id)._get_all_comments()
+
+    @if_readonly(
+        return_function=GitProjectReadOnly.pr_comment,
+        log_message=&#34;Create Comment to PR&#34;,
+    )
+    @deprecate_and_set_removal(
+        since=&#34;0.9.0&#34;,
+        remove_in=&#34;0.14.0 (or 1.0.0 if it comes sooner)&#34;,
+        message=&#34;Use methods on PullRequest objects&#34;,
+    )
+    def pr_comment(
+        self,
+        pr_id: int,
+        body: str,
+        commit: str = None,
+        filename: str = None,
+        row: int = None,
+    ) -&gt; PRComment:
+        return self.get_pr(pr_id).comment(body, commit, filename, row)
+
+    @deprecate_and_set_removal(
+        since=&#34;0.9.0&#34;,
+        remove_in=&#34;0.14.0 (or 1.0.0 if it comes sooner)&#34;,
+        message=&#34;Use methods on Issue objects&#34;,
+    )
+    def get_issue_comments(
+        self,
+        issue_id,
+        filter_regex: str = None,
+        reverse: bool = False,
+        author: str = None,
+    ) -&gt; List[IssueComment]:
+        return self.get_issue(issue_id).get_comments(filter_regex, reverse, author)
+
+    @deprecate_and_set_removal(
+        since=&#34;0.9.0&#34;,
+        remove_in=&#34;0.14.0 (or 1.0.0 if it comes sooner)&#34;,
+        message=&#34;Use create_pr&#34;,
+    )
+    def pr_create(
+        self,
+        title: str,
+        body: str,
+        target_branch: str,
+        source_branch: str,
+        fork_username: str = None,
+    ) -&gt; &#34;PullRequest&#34;:
+        return self.create_pr(
+            title=title,
+            body=body,
+            target_branch=target_branch,
+            source_branch=source_branch,
+            fork_username=fork_username,
+        )
+
+    @deprecate_and_set_removal(
+        since=&#34;0.9.0&#34;,
+        remove_in=&#34;0.14.0 (or 1.0.0 if it comes sooner)&#34;,
+        message=&#34;Use methods on Issue objects&#34;,
+    )
+    def can_close_issue(self, username: str, issue: Issue) -&gt; bool:
+        return issue.can_close(username)
+
+    @deprecate_and_set_removal(
+        since=&#34;0.9.0&#34;,
+        remove_in=&#34;0.14.0 (or 1.0.0 if it comes sooner)&#34;,
+        message=&#34;Use methods on Issue objects&#34;,
+    )
+    def get_issue_info(self, issue_id: int) -&gt; Issue:
+        return self.get_issue(issue_id)
+
+    @deprecate_and_set_removal(
+        since=&#34;0.9.0&#34;,
+        remove_in=&#34;0.14.0 (or 1.0.0 if it comes sooner)&#34;,
+        message=&#34;Use methods on Issue objects&#34;,
+    )
+    def _get_all_issue_comments(self, issue_id: int) -&gt; List[&#34;IssueComment&#34;]:
+        return self.get_issue(issue_id)._get_all_comments()
+
+    @deprecate_and_set_removal(
+        since=&#34;0.9.0&#34;,
+        remove_in=&#34;0.14.0 (or 1.0.0 if it comes sooner)&#34;,
+        message=&#34;Use methods on Issue objects&#34;,
+    )
+    def issue_comment(self, issue_id: int, body: str) -&gt; &#34;IssueComment&#34;:
+        return self.get_issue(issue_id).comment(body)
+
+    @deprecate_and_set_removal(
+        since=&#34;0.9.0&#34;,
+        remove_in=&#34;0.14.0 (or 1.0.0 if it comes sooner)&#34;,
+        message=&#34;Use methods on Issue objects&#34;,
+    )
+    def issue_close(self, issue_id: int) -&gt; Issue:
+        return self.get_issue(issue_id).close()
+
+    @deprecate_and_set_removal(
+        since=&#34;0.9.0&#34;,
+        remove_in=&#34;0.14.0 (or 1.0.0 if it comes sooner)&#34;,
+        message=&#34;Use methods on Issue objects&#34;,
+    )
+    def get_issue_labels(self, issue_id: int) -&gt; List[Any]:
+        return self.get_issue(issue_id).labels
+
+    @deprecate_and_set_removal(
+        since=&#34;0.9.0&#34;,
+        remove_in=&#34;0.14.0 (or 1.0.0 if it comes sooner)&#34;,
+        message=&#34;Use methods on Issue objects&#34;,
+    )
+    def add_issue_labels(self, issue_id: int, labels: List[str]) -&gt; None:
+        self.get_issue(issue_id).add_label(*labels)
+
+
+class BasePullRequest(PullRequest):
+    def __init__(self, raw_pr: Any, project: &#34;GitProject&#34;) -&gt; None:
+        self._raw_pr = raw_pr
+        self._target_project = project
+
+    @property
+    def title(self) -&gt; str:
+        raise NotImplementedError()
+
+    @title.setter
+    def title(self, new_title: str) -&gt; None:
+        raise NotImplementedError()
+
+    @property
+    def id(self) -&gt; int:
+        raise NotImplementedError()
+
+    @property
+    def status(self) -&gt; PRStatus:
+        raise NotImplementedError()
+
+    @property
+    def url(self) -&gt; str:
+        raise NotImplementedError()
+
+    @property
+    def description(self) -&gt; str:
+        raise NotImplementedError()
+
+    @description.setter
+    def description(self, new_description: str) -&gt; None:
+        raise NotImplementedError
+
+    @property
+    def author(self) -&gt; str:
+        raise NotImplementedError()
+
+    @property
+    def source_branch(self) -&gt; str:
+        raise NotImplementedError()
+
+    @property
+    def target_branch(self) -&gt; str:
+        raise NotImplementedError()
+
+    @property
+    def created(self) -&gt; datetime.datetime:
+        raise NotImplementedError()
+
+    @property
+    def labels(self) -&gt; List[Any]:
+        raise NotImplementedError()
+
+    @property
+    def target_project(self) -&gt; &#34;GitProject&#34;:
+        return self._target_project
+
+    @property
+    def project(self) -&gt; &#34;GitProject&#34;:
+        warnings.warn(
+            &#34;Using deprecated property, that will be removed in 0.16.0&#34;
+            &#34; (or 1.0.0 if it comes sooner). Please use target_project.&#34;
+        )
+        return self.target_project
+
+    def get_comments(
+        self, filter_regex: str = None, reverse: bool = False, author: str = None
+    ):
+        all_comments = self._get_all_comments()
+        return filter_comments(all_comments, filter_regex, reverse, author)
+
+    def search(
+        self, filter_regex: str, reverse: bool = False, description: bool = True
+    ):
+        all_comments: List[Any] = self.get_comments(reverse=reverse)
+        if description:
+            description_content = self.description
+            if reverse:
+                all_comments.append(description_content)
+            else:
+                all_comments.insert(0, description_content)
+
+        return search_in_comments(comments=all_comments, filter_regex=filter_regex)
+
+    def get_statuses(self) -&gt; List[CommitFlag]:
+        commit = self.get_all_commits()[-1]
+        return self.target_project.get_commit_statuses(commit)
+
+
+class BaseGitUser(GitUser):
+    pass
+
+
+class BaseIssue(Issue):
+    def get_comments(
+        self, filter_regex: str = None, reverse: bool = False, author: str = None
+    ) -&gt; List[IssueComment]:
+        all_comments: List[IssueComment] = self._get_all_comments()
+        return filter_comments(all_comments, filter_regex, reverse, author)
+
+    def can_close(self, username: str) -&gt; bool:
+        return username == self.author or username in self.project.who_can_close_issue()
+
+
+class BaseCommitFlag(CommitFlag):
+    @classmethod
+    def _state_from_str(cls, state: str) -&gt; CommitStatus:
+        if state not in cls._states:
+            raise ValueError(&#34;Invalid state given&#34;)
+        return cls._states[state]
+
+    @classmethod
+    def _validate_state(cls, state: Union[CommitStatus, str]) -&gt; CommitStatus:
+        if isinstance(state, str):
+            warnings.warn(
+                &#34;Using the string representation of commit states, that will be removed in 0.14.0&#34;
+                &#34; (or 1.0.0 if it comes sooner). Please use CommitStatus enum instead. &#34;
+            )
+            state = cls._state_from_str(state)
+
+        if state not in cls._states.values():
+            raise ValueError(&#34;Invalid state given&#34;)
+
+        return state</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="ogr.services.base.BaseCommitFlag"><code class="flex name class">
+<span>class <span class="ident">BaseCommitFlag</span></span>
+<span>(</span><span>raw_commit_flag: Union[Any, NoneType] = None, project: Union[ForwardRef('GitProject'), NoneType] = None, commit: Union[str, NoneType] = None, state: Union[<a title="ogr.abstract.CommitStatus" href="../abstract.html#ogr.abstract.CommitStatus">CommitStatus</a>, NoneType] = None, context: Union[str, NoneType] = None, comment: Union[str, NoneType] = None, uid: Union[str, NoneType] = None, url: Union[str, NoneType] = None)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class BaseCommitFlag(CommitFlag):
+    @classmethod
+    def _state_from_str(cls, state: str) -&gt; CommitStatus:
+        if state not in cls._states:
+            raise ValueError(&#34;Invalid state given&#34;)
+        return cls._states[state]
+
+    @classmethod
+    def _validate_state(cls, state: Union[CommitStatus, str]) -&gt; CommitStatus:
+        if isinstance(state, str):
+            warnings.warn(
+                &#34;Using the string representation of commit states, that will be removed in 0.14.0&#34;
+                &#34; (or 1.0.0 if it comes sooner). Please use CommitStatus enum instead. &#34;
+            )
+            state = cls._state_from_str(state)
+
+        if state not in cls._states.values():
+            raise ValueError(&#34;Invalid state given&#34;)
+
+        return state</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="ogr.abstract.CommitFlag" href="../abstract.html#ogr.abstract.CommitFlag">CommitFlag</a></li>
+<li><a title="ogr.abstract.OgrAbstractClass" href="../abstract.html#ogr.abstract.OgrAbstractClass">OgrAbstractClass</a></li>
+</ul>
+<h3>Subclasses</h3>
+<ul class="hlist">
+<li><a title="ogr.services.github.flag.GithubCommitFlag" href="github/flag.html#ogr.services.github.flag.GithubCommitFlag">GithubCommitFlag</a></li>
+<li><a title="ogr.services.gitlab.flag.GitlabCommitFlag" href="gitlab/flag.html#ogr.services.gitlab.flag.GitlabCommitFlag">GitlabCommitFlag</a></li>
+<li><a title="ogr.services.pagure.flag.PagureCommitFlag" href="pagure/flag.html#ogr.services.pagure.flag.PagureCommitFlag">PagureCommitFlag</a></li>
+</ul>
+</dd>
+<dt id="ogr.services.base.BaseGitProject"><code class="flex name class">
+<span>class <span class="ident">BaseGitProject</span></span>
+<span>(</span><span>repo: str, service: <a title="ogr.abstract.GitService" href="../abstract.html#ogr.abstract.GitService">GitService</a>, namespace: str)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>:param repo: name of the project
+:param service: GitService instance
+:param namespace:
+github: username or org name
+gitlab: username or org name
+pagure: namespace (e.g. "rpms")
+for forks: "fork/{username}/{namespace}"</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class BaseGitProject(GitProject):
+    @property
+    def full_repo_name(self) -&gt; str:
+        &#34;&#34;&#34;
+        Get repo name with namespace
+        e.g. &#39;rpms/python-docker-py&#39;
+
+        :return: str
+        &#34;&#34;&#34;
+        return f&#34;{self.namespace}/{self.repo}&#34;
+
+    @deprecate_and_set_removal(
+        since=&#34;0.9.0&#34;,
+        remove_in=&#34;0.14.0 (or 1.0.0 if it comes sooner)&#34;,
+        message=&#34;Use methods on PullRequest objects&#34;,
+    )
+    def get_pr_comments(
+        self, pr_id, filter_regex: str = None, reverse: bool = False, author: str = None
+    ) -&gt; List[PRComment]:
+        &#34;&#34;&#34;
+        Get list of pull-request comments.
+
+        :param pr_id: int
+        :param filter_regex: filter the comments&#39; content with re.search
+        :param reverse: reverse order of comments
+        :param author: filter comments by author
+        :return: [PRComment]
+        &#34;&#34;&#34;
+        return self.get_pr(pr_id).get_comments(filter_regex, reverse, author)
+
+    @deprecate_and_set_removal(
+        since=&#34;0.9.0&#34;,
+        remove_in=&#34;0.14.0 (or 1.0.0 if it comes sooner)&#34;,
+        message=&#34;Use methods on PullRequest objects&#34;,
+    )
+    def search_in_pr(
+        self,
+        pr_id: int,
+        filter_regex: str,
+        reverse: bool = False,
+        description: bool = True,
+    ) -&gt; Optional[Match[str]]:
+        &#34;&#34;&#34;
+        Find match in pull-request description or comments.
+
+        :param description: bool (search in description?)
+        :param pr_id: int
+        :param filter_regex: filter the comments&#39; content with re.search
+        :param reverse: reverse order of comments
+        :return: re.Match or None
+        &#34;&#34;&#34;
+        return self.get_pr(pr_id).search(filter_regex, reverse, description)
+
+    @if_readonly(return_function=GitProjectReadOnly.pr_close)
+    @deprecate_and_set_removal(
+        since=&#34;0.9.0&#34;,
+        remove_in=&#34;0.14.0 (or 1.0.0 if it comes sooner)&#34;,
+        message=&#34;Use methods on PullRequest objects&#34;,
+    )
+    def pr_close(self, pr_id: int) -&gt; &#34;PullRequest&#34;:
+        return self.get_pr(pr_id).close()
+
+    @if_readonly(return_function=GitProjectReadOnly.pr_merge)
+    @deprecate_and_set_removal(
+        since=&#34;0.9.0&#34;,
+        remove_in=&#34;0.14.0 (or 1.0.0 if it comes sooner)&#34;,
+        message=&#34;Use methods on PullRequest objects&#34;,
+    )
+    def pr_merge(self, pr_id: int) -&gt; &#34;PullRequest&#34;:
+        return self.get_pr(pr_id).merge()
+
+    @deprecate_and_set_removal(
+        since=&#34;0.9.0&#34;,
+        remove_in=&#34;0.14.0 (or 1.0.0 if it comes sooner)&#34;,
+        message=&#34;Use methods on PullRequest objects&#34;,
+    )
+    def get_pr_labels(self, pr_id: int) -&gt; List[Any]:
+        return self.get_pr(pr_id).labels
+
+    @deprecate_and_set_removal(
+        since=&#34;0.9.0&#34;,
+        remove_in=&#34;0.14.0 (or 1.0.0 if it comes sooner)&#34;,
+        message=&#34;Use methods on PullRequest objects&#34;,
+    )
+    def add_pr_labels(self, pr_id: int, labels: List[str]) -&gt; None:
+        return self.get_pr(pr_id).add_label(*labels)
+
+    @deprecate_and_set_removal(
+        since=&#34;0.9.0&#34;,
+        remove_in=&#34;0.14.0 (or 1.0.0 if it comes sooner)&#34;,
+        message=&#34;Use methods on PullRequest objects&#34;,
+    )
+    def get_pr_info(self, pr_id: int) -&gt; &#34;PullRequest&#34;:
+        return self.get_pr(pr_id)
+
+    @deprecate_and_set_removal(
+        since=&#34;0.9.0&#34;,
+        remove_in=&#34;0.14.0 (or 1.0.0 if it comes sooner)&#34;,
+        message=&#34;Use methods on PullRequest objects&#34;,
+    )
+    def update_pr_info(
+        self, pr_id: int, title: Optional[str] = None, description: Optional[str] = None
+    ) -&gt; &#34;PullRequest&#34;:
+        return self.get_pr(pr_id).update_info(title, description)
+
+    @deprecate_and_set_removal(
+        since=&#34;0.9.0&#34;,
+        remove_in=&#34;0.14.0 (or 1.0.0 if it comes sooner)&#34;,
+        message=&#34;Use methods on PullRequest objects&#34;,
+    )
+    def get_all_pr_commits(self, pr_id: int) -&gt; List[str]:
+        return self.get_pr(pr_id).get_all_commits()
+
+    @deprecate_and_set_removal(
+        since=&#34;0.9.0&#34;,
+        remove_in=&#34;0.14.0 (or 1.0.0 if it comes sooner)&#34;,
+        message=&#34;Use methods on PullRequest objects&#34;,
+    )
+    def _get_all_pr_comments(self, pr_id: int) -&gt; List[PRComment]:
+        return self.get_pr(pr_id)._get_all_comments()
+
+    @if_readonly(
+        return_function=GitProjectReadOnly.pr_comment,
+        log_message=&#34;Create Comment to PR&#34;,
+    )
+    @deprecate_and_set_removal(
+        since=&#34;0.9.0&#34;,
+        remove_in=&#34;0.14.0 (or 1.0.0 if it comes sooner)&#34;,
+        message=&#34;Use methods on PullRequest objects&#34;,
+    )
+    def pr_comment(
+        self,
+        pr_id: int,
+        body: str,
+        commit: str = None,
+        filename: str = None,
+        row: int = None,
+    ) -&gt; PRComment:
+        return self.get_pr(pr_id).comment(body, commit, filename, row)
+
+    @deprecate_and_set_removal(
+        since=&#34;0.9.0&#34;,
+        remove_in=&#34;0.14.0 (or 1.0.0 if it comes sooner)&#34;,
+        message=&#34;Use methods on Issue objects&#34;,
+    )
+    def get_issue_comments(
+        self,
+        issue_id,
+        filter_regex: str = None,
+        reverse: bool = False,
+        author: str = None,
+    ) -&gt; List[IssueComment]:
+        return self.get_issue(issue_id).get_comments(filter_regex, reverse, author)
+
+    @deprecate_and_set_removal(
+        since=&#34;0.9.0&#34;,
+        remove_in=&#34;0.14.0 (or 1.0.0 if it comes sooner)&#34;,
+        message=&#34;Use create_pr&#34;,
+    )
+    def pr_create(
+        self,
+        title: str,
+        body: str,
+        target_branch: str,
+        source_branch: str,
+        fork_username: str = None,
+    ) -&gt; &#34;PullRequest&#34;:
+        return self.create_pr(
+            title=title,
+            body=body,
+            target_branch=target_branch,
+            source_branch=source_branch,
+            fork_username=fork_username,
+        )
+
+    @deprecate_and_set_removal(
+        since=&#34;0.9.0&#34;,
+        remove_in=&#34;0.14.0 (or 1.0.0 if it comes sooner)&#34;,
+        message=&#34;Use methods on Issue objects&#34;,
+    )
+    def can_close_issue(self, username: str, issue: Issue) -&gt; bool:
+        return issue.can_close(username)
+
+    @deprecate_and_set_removal(
+        since=&#34;0.9.0&#34;,
+        remove_in=&#34;0.14.0 (or 1.0.0 if it comes sooner)&#34;,
+        message=&#34;Use methods on Issue objects&#34;,
+    )
+    def get_issue_info(self, issue_id: int) -&gt; Issue:
+        return self.get_issue(issue_id)
+
+    @deprecate_and_set_removal(
+        since=&#34;0.9.0&#34;,
+        remove_in=&#34;0.14.0 (or 1.0.0 if it comes sooner)&#34;,
+        message=&#34;Use methods on Issue objects&#34;,
+    )
+    def _get_all_issue_comments(self, issue_id: int) -&gt; List[&#34;IssueComment&#34;]:
+        return self.get_issue(issue_id)._get_all_comments()
+
+    @deprecate_and_set_removal(
+        since=&#34;0.9.0&#34;,
+        remove_in=&#34;0.14.0 (or 1.0.0 if it comes sooner)&#34;,
+        message=&#34;Use methods on Issue objects&#34;,
+    )
+    def issue_comment(self, issue_id: int, body: str) -&gt; &#34;IssueComment&#34;:
+        return self.get_issue(issue_id).comment(body)
+
+    @deprecate_and_set_removal(
+        since=&#34;0.9.0&#34;,
+        remove_in=&#34;0.14.0 (or 1.0.0 if it comes sooner)&#34;,
+        message=&#34;Use methods on Issue objects&#34;,
+    )
+    def issue_close(self, issue_id: int) -&gt; Issue:
+        return self.get_issue(issue_id).close()
+
+    @deprecate_and_set_removal(
+        since=&#34;0.9.0&#34;,
+        remove_in=&#34;0.14.0 (or 1.0.0 if it comes sooner)&#34;,
+        message=&#34;Use methods on Issue objects&#34;,
+    )
+    def get_issue_labels(self, issue_id: int) -&gt; List[Any]:
+        return self.get_issue(issue_id).labels
+
+    @deprecate_and_set_removal(
+        since=&#34;0.9.0&#34;,
+        remove_in=&#34;0.14.0 (or 1.0.0 if it comes sooner)&#34;,
+        message=&#34;Use methods on Issue objects&#34;,
+    )
+    def add_issue_labels(self, issue_id: int, labels: List[str]) -&gt; None:
+        self.get_issue(issue_id).add_label(*labels)</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="ogr.abstract.GitProject" href="../abstract.html#ogr.abstract.GitProject">GitProject</a></li>
+<li><a title="ogr.abstract.OgrAbstractClass" href="../abstract.html#ogr.abstract.OgrAbstractClass">OgrAbstractClass</a></li>
+</ul>
+<h3>Subclasses</h3>
+<ul class="hlist">
+<li><a title="ogr.services.github.project.GithubProject" href="github/project.html#ogr.services.github.project.GithubProject">GithubProject</a></li>
+<li><a title="ogr.services.gitlab.project.GitlabProject" href="gitlab/project.html#ogr.services.gitlab.project.GitlabProject">GitlabProject</a></li>
+<li><a title="ogr.services.pagure.project.PagureProject" href="pagure/project.html#ogr.services.pagure.project.PagureProject">PagureProject</a></li>
+</ul>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="ogr.abstract.GitProject" href="../abstract.html#ogr.abstract.GitProject">GitProject</a></b></code>:
+<ul class="hlist">
+<li><code><a title="ogr.abstract.GitProject.add_group" href="../abstract.html#ogr.abstract.GitProject.add_group">add_group</a></code></li>
+<li><code><a title="ogr.abstract.GitProject.add_issue_labels" href="../abstract.html#ogr.abstract.GitProject.add_issue_labels">add_issue_labels</a></code></li>
+<li><code><a title="ogr.abstract.GitProject.add_pr_labels" href="../abstract.html#ogr.abstract.GitProject.add_pr_labels">add_pr_labels</a></code></li>
+<li><code><a title="ogr.abstract.GitProject.add_user" href="../abstract.html#ogr.abstract.GitProject.add_user">add_user</a></code></li>
+<li><code><a title="ogr.abstract.GitProject.can_close_issue" href="../abstract.html#ogr.abstract.GitProject.can_close_issue">can_close_issue</a></code></li>
+<li><code><a title="ogr.abstract.GitProject.can_merge_pr" href="../abstract.html#ogr.abstract.GitProject.can_merge_pr">can_merge_pr</a></code></li>
+<li><code><a title="ogr.abstract.GitProject.change_token" href="../abstract.html#ogr.abstract.GitProject.change_token">change_token</a></code></li>
+<li><code><a title="ogr.abstract.GitProject.commit_comment" href="../abstract.html#ogr.abstract.GitProject.commit_comment">commit_comment</a></code></li>
+<li><code><a title="ogr.abstract.GitProject.create_issue" href="../abstract.html#ogr.abstract.GitProject.create_issue">create_issue</a></code></li>
+<li><code><a title="ogr.abstract.GitProject.create_pr" href="../abstract.html#ogr.abstract.GitProject.create_pr">create_pr</a></code></li>
+<li><code><a title="ogr.abstract.GitProject.default_branch" href="../abstract.html#ogr.abstract.GitProject.default_branch">default_branch</a></code></li>
+<li><code><a title="ogr.abstract.GitProject.delete" href="../abstract.html#ogr.abstract.GitProject.delete">delete</a></code></li>
+<li><code><a title="ogr.abstract.GitProject.exists" href="../abstract.html#ogr.abstract.GitProject.exists">exists</a></code></li>
+<li><code><a title="ogr.abstract.GitProject.fork_create" href="../abstract.html#ogr.abstract.GitProject.fork_create">fork_create</a></code></li>
+<li><code><a title="ogr.abstract.GitProject.full_repo_name" href="../abstract.html#ogr.abstract.GitProject.full_repo_name">full_repo_name</a></code></li>
+<li><code><a title="ogr.abstract.GitProject.get_all_pr_commits" href="../abstract.html#ogr.abstract.GitProject.get_all_pr_commits">get_all_pr_commits</a></code></li>
+<li><code><a title="ogr.abstract.GitProject.get_branches" href="../abstract.html#ogr.abstract.GitProject.get_branches">get_branches</a></code></li>
+<li><code><a title="ogr.abstract.GitProject.get_commit_statuses" href="../abstract.html#ogr.abstract.GitProject.get_commit_statuses">get_commit_statuses</a></code></li>
+<li><code><a title="ogr.abstract.GitProject.get_description" href="../abstract.html#ogr.abstract.GitProject.get_description">get_description</a></code></li>
+<li><code><a title="ogr.abstract.GitProject.get_file_content" href="../abstract.html#ogr.abstract.GitProject.get_file_content">get_file_content</a></code></li>
+<li><code><a title="ogr.abstract.GitProject.get_files" href="../abstract.html#ogr.abstract.GitProject.get_files">get_files</a></code></li>
+<li><code><a title="ogr.abstract.GitProject.get_fork" href="../abstract.html#ogr.abstract.GitProject.get_fork">get_fork</a></code></li>
+<li><code><a title="ogr.abstract.GitProject.get_forks" href="../abstract.html#ogr.abstract.GitProject.get_forks">get_forks</a></code></li>
+<li><code><a title="ogr.abstract.GitProject.get_issue" href="../abstract.html#ogr.abstract.GitProject.get_issue">get_issue</a></code></li>
+<li><code><a title="ogr.abstract.GitProject.get_issue_comments" href="../abstract.html#ogr.abstract.GitProject.get_issue_comments">get_issue_comments</a></code></li>
+<li><code><a title="ogr.abstract.GitProject.get_issue_info" href="../abstract.html#ogr.abstract.GitProject.get_issue_info">get_issue_info</a></code></li>
+<li><code><a title="ogr.abstract.GitProject.get_issue_labels" href="../abstract.html#ogr.abstract.GitProject.get_issue_labels">get_issue_labels</a></code></li>
+<li><code><a title="ogr.abstract.GitProject.get_issue_list" href="../abstract.html#ogr.abstract.GitProject.get_issue_list">get_issue_list</a></code></li>
+<li><code><a title="ogr.abstract.GitProject.get_latest_release" href="../abstract.html#ogr.abstract.GitProject.get_latest_release">get_latest_release</a></code></li>
+<li><code><a title="ogr.abstract.GitProject.get_owners" href="../abstract.html#ogr.abstract.GitProject.get_owners">get_owners</a></code></li>
+<li><code><a title="ogr.abstract.GitProject.get_pr" href="../abstract.html#ogr.abstract.GitProject.get_pr">get_pr</a></code></li>
+<li><code><a title="ogr.abstract.GitProject.get_pr_comments" href="../abstract.html#ogr.abstract.GitProject.get_pr_comments">get_pr_comments</a></code></li>
+<li><code><a title="ogr.abstract.GitProject.get_pr_info" href="../abstract.html#ogr.abstract.GitProject.get_pr_info">get_pr_info</a></code></li>
+<li><code><a title="ogr.abstract.GitProject.get_pr_labels" href="../abstract.html#ogr.abstract.GitProject.get_pr_labels">get_pr_labels</a></code></li>
+<li><code><a title="ogr.abstract.GitProject.get_pr_list" href="../abstract.html#ogr.abstract.GitProject.get_pr_list">get_pr_list</a></code></li>
+<li><code><a title="ogr.abstract.GitProject.get_release" href="../abstract.html#ogr.abstract.GitProject.get_release">get_release</a></code></li>
+<li><code><a title="ogr.abstract.GitProject.get_releases" href="../abstract.html#ogr.abstract.GitProject.get_releases">get_releases</a></code></li>
+<li><code><a title="ogr.abstract.GitProject.get_sha_from_tag" href="../abstract.html#ogr.abstract.GitProject.get_sha_from_tag">get_sha_from_tag</a></code></li>
+<li><code><a title="ogr.abstract.GitProject.get_tags" href="../abstract.html#ogr.abstract.GitProject.get_tags">get_tags</a></code></li>
+<li><code><a title="ogr.abstract.GitProject.get_web_url" href="../abstract.html#ogr.abstract.GitProject.get_web_url">get_web_url</a></code></li>
+<li><code><a title="ogr.abstract.GitProject.is_fork" href="../abstract.html#ogr.abstract.GitProject.is_fork">is_fork</a></code></li>
+<li><code><a title="ogr.abstract.GitProject.is_forked" href="../abstract.html#ogr.abstract.GitProject.is_forked">is_forked</a></code></li>
+<li><code><a title="ogr.abstract.GitProject.is_private" href="../abstract.html#ogr.abstract.GitProject.is_private">is_private</a></code></li>
+<li><code><a title="ogr.abstract.GitProject.issue_close" href="../abstract.html#ogr.abstract.GitProject.issue_close">issue_close</a></code></li>
+<li><code><a title="ogr.abstract.GitProject.issue_comment" href="../abstract.html#ogr.abstract.GitProject.issue_comment">issue_comment</a></code></li>
+<li><code><a title="ogr.abstract.GitProject.parent" href="../abstract.html#ogr.abstract.GitProject.parent">parent</a></code></li>
+<li><code><a title="ogr.abstract.GitProject.pr_close" href="../abstract.html#ogr.abstract.GitProject.pr_close">pr_close</a></code></li>
+<li><code><a title="ogr.abstract.GitProject.pr_comment" href="../abstract.html#ogr.abstract.GitProject.pr_comment">pr_comment</a></code></li>
+<li><code><a title="ogr.abstract.GitProject.pr_create" href="../abstract.html#ogr.abstract.GitProject.pr_create">pr_create</a></code></li>
+<li><code><a title="ogr.abstract.GitProject.pr_merge" href="../abstract.html#ogr.abstract.GitProject.pr_merge">pr_merge</a></code></li>
+<li><code><a title="ogr.abstract.GitProject.request_access" href="../abstract.html#ogr.abstract.GitProject.request_access">request_access</a></code></li>
+<li><code><a title="ogr.abstract.GitProject.search_in_pr" href="../abstract.html#ogr.abstract.GitProject.search_in_pr">search_in_pr</a></code></li>
+<li><code><a title="ogr.abstract.GitProject.set_commit_status" href="../abstract.html#ogr.abstract.GitProject.set_commit_status">set_commit_status</a></code></li>
+<li><code><a title="ogr.abstract.GitProject.update_pr_info" href="../abstract.html#ogr.abstract.GitProject.update_pr_info">update_pr_info</a></code></li>
+<li><code><a title="ogr.abstract.GitProject.who_can_close_issue" href="../abstract.html#ogr.abstract.GitProject.who_can_close_issue">who_can_close_issue</a></code></li>
+<li><code><a title="ogr.abstract.GitProject.who_can_merge_pr" href="../abstract.html#ogr.abstract.GitProject.who_can_merge_pr">who_can_merge_pr</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+<dt id="ogr.services.base.BaseGitService"><code class="flex name class">
+<span>class <span class="ident">BaseGitService</span></span>
+<span>(</span><span>**_: Any)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class BaseGitService(GitService):
+    @cached_property
+    def hostname(self) -&gt; Optional[str]:
+        &#34;&#34;&#34;
+        Hostname of the service.
+        &#34;&#34;&#34;
+        parsed_url = parse_git_repo(potential_url=self.instance_url)
+        return parsed_url.hostname if parsed_url else None
+
+    def get_project_from_url(self, url: str) -&gt; &#34;GitProject&#34;:
+        repo_url = parse_git_repo(potential_url=url)
+        if not repo_url:
+            raise OgrException(f&#34;Cannot parse project url: &#39;{url}&#39;&#34;)
+        return self.get_project(repo=repo_url.repo, namespace=repo_url.namespace)</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="ogr.abstract.GitService" href="../abstract.html#ogr.abstract.GitService">GitService</a></li>
+<li><a title="ogr.abstract.OgrAbstractClass" href="../abstract.html#ogr.abstract.OgrAbstractClass">OgrAbstractClass</a></li>
+</ul>
+<h3>Subclasses</h3>
+<ul class="hlist">
+<li><a title="ogr.services.github.service.GithubService" href="github/service.html#ogr.services.github.service.GithubService">GithubService</a></li>
+<li><a title="ogr.services.gitlab.service.GitlabService" href="gitlab/service.html#ogr.services.gitlab.service.GitlabService">GitlabService</a></li>
+<li><a title="ogr.services.pagure.service.PagureService" href="pagure/service.html#ogr.services.pagure.service.PagureService">PagureService</a></li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="ogr.services.base.BaseGitService.instance_url"><code class="name">var <span class="ident">instance_url</span> : Union[str, NoneType]</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Methods</h3>
+<dl>
+<dt id="ogr.services.base.BaseGitService.get_project_from_url"><code class="name flex">
+<span>def <span class="ident">get_project_from_url</span></span>(<span>self, url: str) ‑> <a title="ogr.abstract.GitProject" href="../abstract.html#ogr.abstract.GitProject">GitProject</a></span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_project_from_url(self, url: str) -&gt; &#34;GitProject&#34;:
+    repo_url = parse_git_repo(potential_url=url)
+    if not repo_url:
+        raise OgrException(f&#34;Cannot parse project url: &#39;{url}&#39;&#34;)
+    return self.get_project(repo=repo_url.repo, namespace=repo_url.namespace)</code></pre>
+</details>
+</dd>
+</dl>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="ogr.abstract.GitService" href="../abstract.html#ogr.abstract.GitService">GitService</a></b></code>:
+<ul class="hlist">
+<li><code><a title="ogr.abstract.GitService.change_token" href="../abstract.html#ogr.abstract.GitService.change_token">change_token</a></code></li>
+<li><code><a title="ogr.abstract.GitService.get_project" href="../abstract.html#ogr.abstract.GitService.get_project">get_project</a></code></li>
+<li><code><a title="ogr.abstract.GitService.hostname" href="../abstract.html#ogr.abstract.GitService.hostname">hostname</a></code></li>
+<li><code><a title="ogr.abstract.GitService.project_create" href="../abstract.html#ogr.abstract.GitService.project_create">project_create</a></code></li>
+<li><code><a title="ogr.abstract.GitService.user" href="../abstract.html#ogr.abstract.GitService.user">user</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+<dt id="ogr.services.base.BaseGitUser"><code class="flex name class">
+<span>class <span class="ident">BaseGitUser</span></span>
+<span>(</span><span>service: <a title="ogr.abstract.GitService" href="../abstract.html#ogr.abstract.GitService">GitService</a>)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class BaseGitUser(GitUser):
+    pass</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="ogr.abstract.GitUser" href="../abstract.html#ogr.abstract.GitUser">GitUser</a></li>
+<li><a title="ogr.abstract.OgrAbstractClass" href="../abstract.html#ogr.abstract.OgrAbstractClass">OgrAbstractClass</a></li>
+</ul>
+<h3>Subclasses</h3>
+<ul class="hlist">
+<li><a title="ogr.services.github.user.GithubUser" href="github/user.html#ogr.services.github.user.GithubUser">GithubUser</a></li>
+<li><a title="ogr.services.gitlab.user.GitlabUser" href="gitlab/user.html#ogr.services.gitlab.user.GitlabUser">GitlabUser</a></li>
+<li><a title="ogr.services.pagure.user.PagureUser" href="pagure/user.html#ogr.services.pagure.user.PagureUser">PagureUser</a></li>
+</ul>
+</dd>
+<dt id="ogr.services.base.BaseIssue"><code class="flex name class">
+<span>class <span class="ident">BaseIssue</span></span>
+<span>(</span><span>raw_issue: Any, project: GitProject)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class BaseIssue(Issue):
+    def get_comments(
+        self, filter_regex: str = None, reverse: bool = False, author: str = None
+    ) -&gt; List[IssueComment]:
+        all_comments: List[IssueComment] = self._get_all_comments()
+        return filter_comments(all_comments, filter_regex, reverse, author)
+
+    def can_close(self, username: str) -&gt; bool:
+        return username == self.author or username in self.project.who_can_close_issue()</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="ogr.abstract.Issue" href="../abstract.html#ogr.abstract.Issue">Issue</a></li>
+<li><a title="ogr.abstract.OgrAbstractClass" href="../abstract.html#ogr.abstract.OgrAbstractClass">OgrAbstractClass</a></li>
+</ul>
+<h3>Subclasses</h3>
+<ul class="hlist">
+<li><a title="ogr.services.github.issue.GithubIssue" href="github/issue.html#ogr.services.github.issue.GithubIssue">GithubIssue</a></li>
+<li><a title="ogr.services.gitlab.issue.GitlabIssue" href="gitlab/issue.html#ogr.services.gitlab.issue.GitlabIssue">GitlabIssue</a></li>
+<li><a title="ogr.services.pagure.issue.PagureIssue" href="pagure/issue.html#ogr.services.pagure.issue.PagureIssue">PagureIssue</a></li>
+</ul>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="ogr.abstract.Issue" href="../abstract.html#ogr.abstract.Issue">Issue</a></b></code>:
+<ul class="hlist">
+<li><code><a title="ogr.abstract.Issue.add_label" href="../abstract.html#ogr.abstract.Issue.add_label">add_label</a></code></li>
+<li><code><a title="ogr.abstract.Issue.can_close" href="../abstract.html#ogr.abstract.Issue.can_close">can_close</a></code></li>
+<li><code><a title="ogr.abstract.Issue.close" href="../abstract.html#ogr.abstract.Issue.close">close</a></code></li>
+<li><code><a title="ogr.abstract.Issue.comment" href="../abstract.html#ogr.abstract.Issue.comment">comment</a></code></li>
+<li><code><a title="ogr.abstract.Issue.create" href="../abstract.html#ogr.abstract.Issue.create">create</a></code></li>
+<li><code><a title="ogr.abstract.Issue.get" href="../abstract.html#ogr.abstract.Issue.get">get</a></code></li>
+<li><code><a title="ogr.abstract.Issue.get_comments" href="../abstract.html#ogr.abstract.Issue.get_comments">get_comments</a></code></li>
+<li><code><a title="ogr.abstract.Issue.get_list" href="../abstract.html#ogr.abstract.Issue.get_list">get_list</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+<dt id="ogr.services.base.BasePullRequest"><code class="flex name class">
+<span>class <span class="ident">BasePullRequest</span></span>
+<span>(</span><span>raw_pr: Any, project: GitProject)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class BasePullRequest(PullRequest):
+    def __init__(self, raw_pr: Any, project: &#34;GitProject&#34;) -&gt; None:
+        self._raw_pr = raw_pr
+        self._target_project = project
+
+    @property
+    def title(self) -&gt; str:
+        raise NotImplementedError()
+
+    @title.setter
+    def title(self, new_title: str) -&gt; None:
+        raise NotImplementedError()
+
+    @property
+    def id(self) -&gt; int:
+        raise NotImplementedError()
+
+    @property
+    def status(self) -&gt; PRStatus:
+        raise NotImplementedError()
+
+    @property
+    def url(self) -&gt; str:
+        raise NotImplementedError()
+
+    @property
+    def description(self) -&gt; str:
+        raise NotImplementedError()
+
+    @description.setter
+    def description(self, new_description: str) -&gt; None:
+        raise NotImplementedError
+
+    @property
+    def author(self) -&gt; str:
+        raise NotImplementedError()
+
+    @property
+    def source_branch(self) -&gt; str:
+        raise NotImplementedError()
+
+    @property
+    def target_branch(self) -&gt; str:
+        raise NotImplementedError()
+
+    @property
+    def created(self) -&gt; datetime.datetime:
+        raise NotImplementedError()
+
+    @property
+    def labels(self) -&gt; List[Any]:
+        raise NotImplementedError()
+
+    @property
+    def target_project(self) -&gt; &#34;GitProject&#34;:
+        return self._target_project
+
+    @property
+    def project(self) -&gt; &#34;GitProject&#34;:
+        warnings.warn(
+            &#34;Using deprecated property, that will be removed in 0.16.0&#34;
+            &#34; (or 1.0.0 if it comes sooner). Please use target_project.&#34;
+        )
+        return self.target_project
+
+    def get_comments(
+        self, filter_regex: str = None, reverse: bool = False, author: str = None
+    ):
+        all_comments = self._get_all_comments()
+        return filter_comments(all_comments, filter_regex, reverse, author)
+
+    def search(
+        self, filter_regex: str, reverse: bool = False, description: bool = True
+    ):
+        all_comments: List[Any] = self.get_comments(reverse=reverse)
+        if description:
+            description_content = self.description
+            if reverse:
+                all_comments.append(description_content)
+            else:
+                all_comments.insert(0, description_content)
+
+        return search_in_comments(comments=all_comments, filter_regex=filter_regex)
+
+    def get_statuses(self) -&gt; List[CommitFlag]:
+        commit = self.get_all_commits()[-1]
+        return self.target_project.get_commit_statuses(commit)</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="ogr.abstract.PullRequest" href="../abstract.html#ogr.abstract.PullRequest">PullRequest</a></li>
+<li><a title="ogr.abstract.OgrAbstractClass" href="../abstract.html#ogr.abstract.OgrAbstractClass">OgrAbstractClass</a></li>
+</ul>
+<h3>Subclasses</h3>
+<ul class="hlist">
+<li><a title="ogr.services.github.pull_request.GithubPullRequest" href="github/pull_request.html#ogr.services.github.pull_request.GithubPullRequest">GithubPullRequest</a></li>
+<li><a title="ogr.services.gitlab.pull_request.GitlabPullRequest" href="gitlab/pull_request.html#ogr.services.gitlab.pull_request.GitlabPullRequest">GitlabPullRequest</a></li>
+<li><a title="ogr.services.pagure.pull_request.PagurePullRequest" href="pagure/pull_request.html#ogr.services.pagure.pull_request.PagurePullRequest">PagurePullRequest</a></li>
+</ul>
+<h3>Instance variables</h3>
+<dl>
+<dt id="ogr.services.base.BasePullRequest.author"><code class="name">var <span class="ident">author</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def author(self) -&gt; str:
+    raise NotImplementedError()</code></pre>
+</details>
+</dd>
+<dt id="ogr.services.base.BasePullRequest.created"><code class="name">var <span class="ident">created</span> : datetime.datetime</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def created(self) -&gt; datetime.datetime:
+    raise NotImplementedError()</code></pre>
+</details>
+</dd>
+<dt id="ogr.services.base.BasePullRequest.description"><code class="name">var <span class="ident">description</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def description(self) -&gt; str:
+    raise NotImplementedError()</code></pre>
+</details>
+</dd>
+<dt id="ogr.services.base.BasePullRequest.id"><code class="name">var <span class="ident">id</span> : int</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def id(self) -&gt; int:
+    raise NotImplementedError()</code></pre>
+</details>
+</dd>
+<dt id="ogr.services.base.BasePullRequest.labels"><code class="name">var <span class="ident">labels</span> : List[Any]</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def labels(self) -&gt; List[Any]:
+    raise NotImplementedError()</code></pre>
+</details>
+</dd>
+<dt id="ogr.services.base.BasePullRequest.project"><code class="name">var <span class="ident">project</span> : <a title="ogr.abstract.GitProject" href="../abstract.html#ogr.abstract.GitProject">GitProject</a></code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def project(self) -&gt; &#34;GitProject&#34;:
+    warnings.warn(
+        &#34;Using deprecated property, that will be removed in 0.16.0&#34;
+        &#34; (or 1.0.0 if it comes sooner). Please use target_project.&#34;
+    )
+    return self.target_project</code></pre>
+</details>
+</dd>
+<dt id="ogr.services.base.BasePullRequest.source_branch"><code class="name">var <span class="ident">source_branch</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def source_branch(self) -&gt; str:
+    raise NotImplementedError()</code></pre>
+</details>
+</dd>
+<dt id="ogr.services.base.BasePullRequest.status"><code class="name">var <span class="ident">status</span> : <a title="ogr.abstract.PRStatus" href="../abstract.html#ogr.abstract.PRStatus">PRStatus</a></code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def status(self) -&gt; PRStatus:
+    raise NotImplementedError()</code></pre>
+</details>
+</dd>
+<dt id="ogr.services.base.BasePullRequest.target_branch"><code class="name">var <span class="ident">target_branch</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def target_branch(self) -&gt; str:
+    raise NotImplementedError()</code></pre>
+</details>
+</dd>
+<dt id="ogr.services.base.BasePullRequest.target_project"><code class="name">var <span class="ident">target_project</span> : <a title="ogr.abstract.GitProject" href="../abstract.html#ogr.abstract.GitProject">GitProject</a></code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def target_project(self) -&gt; &#34;GitProject&#34;:
+    return self._target_project</code></pre>
+</details>
+</dd>
+<dt id="ogr.services.base.BasePullRequest.title"><code class="name">var <span class="ident">title</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def title(self) -&gt; str:
+    raise NotImplementedError()</code></pre>
+</details>
+</dd>
+<dt id="ogr.services.base.BasePullRequest.url"><code class="name">var <span class="ident">url</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def url(self) -&gt; str:
+    raise NotImplementedError()</code></pre>
+</details>
+</dd>
+</dl>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="ogr.abstract.PullRequest" href="../abstract.html#ogr.abstract.PullRequest">PullRequest</a></b></code>:
+<ul class="hlist">
+<li><code><a title="ogr.abstract.PullRequest.add_label" href="../abstract.html#ogr.abstract.PullRequest.add_label">add_label</a></code></li>
+<li><code><a title="ogr.abstract.PullRequest.close" href="../abstract.html#ogr.abstract.PullRequest.close">close</a></code></li>
+<li><code><a title="ogr.abstract.PullRequest.comment" href="../abstract.html#ogr.abstract.PullRequest.comment">comment</a></code></li>
+<li><code><a title="ogr.abstract.PullRequest.create" href="../abstract.html#ogr.abstract.PullRequest.create">create</a></code></li>
+<li><code><a title="ogr.abstract.PullRequest.get" href="../abstract.html#ogr.abstract.PullRequest.get">get</a></code></li>
+<li><code><a title="ogr.abstract.PullRequest.get_all_commits" href="../abstract.html#ogr.abstract.PullRequest.get_all_commits">get_all_commits</a></code></li>
+<li><code><a title="ogr.abstract.PullRequest.get_comments" href="../abstract.html#ogr.abstract.PullRequest.get_comments">get_comments</a></code></li>
+<li><code><a title="ogr.abstract.PullRequest.get_list" href="../abstract.html#ogr.abstract.PullRequest.get_list">get_list</a></code></li>
+<li><code><a title="ogr.abstract.PullRequest.get_statuses" href="../abstract.html#ogr.abstract.PullRequest.get_statuses">get_statuses</a></code></li>
+<li><code><a title="ogr.abstract.PullRequest.merge" href="../abstract.html#ogr.abstract.PullRequest.merge">merge</a></code></li>
+<li><code><a title="ogr.abstract.PullRequest.search" href="../abstract.html#ogr.abstract.PullRequest.search">search</a></code></li>
+<li><code><a title="ogr.abstract.PullRequest.update_info" href="../abstract.html#ogr.abstract.PullRequest.update_info">update_info</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="ogr.services" href="index.html">ogr.services</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="ogr.services.base.BaseCommitFlag" href="#ogr.services.base.BaseCommitFlag">BaseCommitFlag</a></code></h4>
+</li>
+<li>
+<h4><code><a title="ogr.services.base.BaseGitProject" href="#ogr.services.base.BaseGitProject">BaseGitProject</a></code></h4>
+</li>
+<li>
+<h4><code><a title="ogr.services.base.BaseGitService" href="#ogr.services.base.BaseGitService">BaseGitService</a></code></h4>
+<ul class="">
+<li><code><a title="ogr.services.base.BaseGitService.get_project_from_url" href="#ogr.services.base.BaseGitService.get_project_from_url">get_project_from_url</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitService.instance_url" href="#ogr.services.base.BaseGitService.instance_url">instance_url</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="ogr.services.base.BaseGitUser" href="#ogr.services.base.BaseGitUser">BaseGitUser</a></code></h4>
+</li>
+<li>
+<h4><code><a title="ogr.services.base.BaseIssue" href="#ogr.services.base.BaseIssue">BaseIssue</a></code></h4>
+</li>
+<li>
+<h4><code><a title="ogr.services.base.BasePullRequest" href="#ogr.services.base.BasePullRequest">BasePullRequest</a></code></h4>
+<ul class="two-column">
+<li><code><a title="ogr.services.base.BasePullRequest.author" href="#ogr.services.base.BasePullRequest.author">author</a></code></li>
+<li><code><a title="ogr.services.base.BasePullRequest.created" href="#ogr.services.base.BasePullRequest.created">created</a></code></li>
+<li><code><a title="ogr.services.base.BasePullRequest.description" href="#ogr.services.base.BasePullRequest.description">description</a></code></li>
+<li><code><a title="ogr.services.base.BasePullRequest.id" href="#ogr.services.base.BasePullRequest.id">id</a></code></li>
+<li><code><a title="ogr.services.base.BasePullRequest.labels" href="#ogr.services.base.BasePullRequest.labels">labels</a></code></li>
+<li><code><a title="ogr.services.base.BasePullRequest.project" href="#ogr.services.base.BasePullRequest.project">project</a></code></li>
+<li><code><a title="ogr.services.base.BasePullRequest.source_branch" href="#ogr.services.base.BasePullRequest.source_branch">source_branch</a></code></li>
+<li><code><a title="ogr.services.base.BasePullRequest.status" href="#ogr.services.base.BasePullRequest.status">status</a></code></li>
+<li><code><a title="ogr.services.base.BasePullRequest.target_branch" href="#ogr.services.base.BasePullRequest.target_branch">target_branch</a></code></li>
+<li><code><a title="ogr.services.base.BasePullRequest.target_project" href="#ogr.services.base.BasePullRequest.target_project">target_project</a></code></li>
+<li><code><a title="ogr.services.base.BasePullRequest.title" href="#ogr.services.base.BasePullRequest.title">title</a></code></li>
+<li><code><a title="ogr.services.base.BasePullRequest.url" href="#ogr.services.base.BasePullRequest.url">url</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.9.2</a>.</p>
+</footer>
+</body>
+</html>

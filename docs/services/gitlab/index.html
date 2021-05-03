@@ -1,0 +1,2469 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.9.2" />
+<title>ogr.services.gitlab API documentation</title>
+<meta name="description" content="" />
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
+<link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js" integrity="sha256-Uv3H6lx7dJmRfRvH8TH6kJD1TSK1aFcwgx+mdg3epi8=" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => hljs.initHighlighting())</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>ogr.services.gitlab</code></h1>
+</header>
+<section id="section-intro">
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python"># MIT License
+#
+# Copyright (c) 2018-2019 Red Hat, Inc.
+
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the &#34;Software&#34;), to deal
+# in the Software without restriction, including without limitation the rights
+# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+# copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
+#
+# The above copyright notice and this permission notice shall be included in all
+# copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED &#34;AS IS&#34;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+# SOFTWARE.
+
+from ogr.services.gitlab.release import GitlabRelease
+from ogr.services.gitlab.user import GitlabUser
+from ogr.services.gitlab.project import GitlabProject
+from ogr.services.gitlab.service import GitlabService
+from ogr.services.gitlab.comments import GitlabIssueComment, GitlabPRComment
+from ogr.services.gitlab.issue import GitlabIssue
+from ogr.services.gitlab.pull_request import GitlabPullRequest
+
+__all__ = [
+    GitlabIssue.__name__,
+    GitlabPullRequest.__name__,
+    GitlabIssueComment.__name__,
+    GitlabPRComment.__name__,
+    GitlabRelease.__name__,
+    GitlabUser.__name__,
+    GitlabProject.__name__,
+    GitlabService.__name__,
+]</code></pre>
+</details>
+</section>
+<section>
+<h2 class="section-title" id="header-submodules">Sub-modules</h2>
+<dl>
+<dt><code class="name"><a title="ogr.services.gitlab.comments" href="comments.html">ogr.services.gitlab.comments</a></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt><code class="name"><a title="ogr.services.gitlab.flag" href="flag.html">ogr.services.gitlab.flag</a></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt><code class="name"><a title="ogr.services.gitlab.issue" href="issue.html">ogr.services.gitlab.issue</a></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt><code class="name"><a title="ogr.services.gitlab.project" href="project.html">ogr.services.gitlab.project</a></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt><code class="name"><a title="ogr.services.gitlab.pull_request" href="pull_request.html">ogr.services.gitlab.pull_request</a></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt><code class="name"><a title="ogr.services.gitlab.release" href="release.html">ogr.services.gitlab.release</a></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt><code class="name"><a title="ogr.services.gitlab.service" href="service.html">ogr.services.gitlab.service</a></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt><code class="name"><a title="ogr.services.gitlab.user" href="user.html">ogr.services.gitlab.user</a></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="ogr.services.gitlab.GitlabIssue"><code class="flex name class">
+<span>class <span class="ident">GitlabIssue</span></span>
+<span>(</span><span>raw_issue: Any, project: GitProject)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class GitlabIssue(BaseIssue):
+    _raw_issue: _GitlabIssue
+
+    @property
+    def title(self) -&gt; str:
+        return self._raw_issue.title
+
+    @title.setter
+    def title(self, new_title: str) -&gt; None:
+        self._raw_issue.title = new_title
+        self._raw_issue.save()
+
+    @property
+    def id(self) -&gt; int:
+        return self._raw_issue.iid
+
+    @property
+    def private(self) -&gt; bool:
+        return self._raw_issue.confidential
+
+    @property
+    def status(self) -&gt; IssueStatus:
+        return (
+            IssueStatus.open
+            if self._raw_issue.state == &#34;opened&#34;
+            else IssueStatus[self._raw_issue.state]
+        )
+
+    @property
+    def url(self) -&gt; str:
+        return self._raw_issue.web_url
+
+    @property
+    def assignees(self) -&gt; list:
+        return self._raw_issue.assignees
+
+    @property
+    def description(self) -&gt; str:
+        return self._raw_issue.description
+
+    @description.setter
+    def description(self, new_description: str) -&gt; None:
+        self._raw_issue.description = new_description
+        self._raw_issue.save()
+
+    @property
+    def author(self) -&gt; str:
+        return self._raw_issue.author[&#34;username&#34;]
+
+    @property
+    def created(self) -&gt; datetime.datetime:
+        return self._raw_issue.created_at
+
+    @property
+    def labels(self) -&gt; List:
+        return self._raw_issue.labels
+
+    def __str__(self) -&gt; str:
+        return &#34;Gitlab&#34; + super().__str__()
+
+    @staticmethod
+    def create(
+        project: &#34;ogr_gitlab.GitlabProject&#34;,
+        title: str,
+        body: str,
+        private: Optional[bool] = None,
+        labels: Optional[List[str]] = None,
+        assignees: Optional[List[str]] = None,
+    ) -&gt; &#34;Issue&#34;:
+        data = {&#34;title&#34;: title, &#34;description&#34;: body}
+        if labels:
+            data[&#34;labels&#34;] = &#34;,&#34;.join(labels)
+        if assignees:
+            data[&#34;assignee_ids&#34;] = &#34;,&#34;.join(assignees)
+
+        issue = project.gitlab_repo.issues.create(data, confidential=private)
+        return GitlabIssue(issue, project)
+
+    @staticmethod
+    def get(project: &#34;ogr_gitlab.GitlabProject&#34;, id: int) -&gt; &#34;Issue&#34;:
+        try:
+            return GitlabIssue(project.gitlab_repo.issues.get(id), project)
+        except gitlab.exceptions.GitlabGetError as ex:
+            raise GitlabAPIException(f&#34;Issue {id} was not found. &#34;, ex)
+
+    @staticmethod
+    def get_list(
+        project: &#34;ogr_gitlab.GitlabProject&#34;,
+        status: IssueStatus = IssueStatus.open,
+        author: Optional[str] = None,
+        assignee: Optional[str] = None,
+        labels: Optional[List[str]] = None,
+    ) -&gt; List[&#34;Issue&#34;]:
+        # Gitlab API has status &#39;opened&#39;, not &#39;open&#39;
+        parameters: Dict[str, Union[str, List[str], bool]] = {
+            &#34;state&#34;: status.name if status != IssueStatus.open else &#34;opened&#34;,
+            &#34;order_by&#34;: &#34;updated_at&#34;,
+            &#34;sort&#34;: &#34;desc&#34;,
+            &#34;all&#34;: True,
+        }
+        if author:
+            parameters[&#34;author_username&#34;] = author
+        if assignee:
+            parameters[&#34;assignee_username&#34;] = assignee
+        if labels:
+            parameters[&#34;labels&#34;] = labels
+
+        issues = project.gitlab_repo.issues.list(**parameters)
+        return [GitlabIssue(issue, project) for issue in issues]
+
+    def _get_all_comments(self) -&gt; List[IssueComment]:
+        return [
+            GitlabIssueComment(parent=self, raw_comment=raw_comment)
+            for raw_comment in self._raw_issue.notes.list(sort=&#34;asc&#34;, all=True)
+        ]
+
+    def comment(self, body: str) -&gt; IssueComment:
+        comment = self._raw_issue.notes.create({&#34;body&#34;: body})
+        return GitlabIssueComment(parent=self, raw_comment=comment)
+
+    def close(self) -&gt; &#34;Issue&#34;:
+        self._raw_issue.state_event = &#34;close&#34;
+        self._raw_issue.save()
+        return self
+
+    def add_label(self, *labels: str) -&gt; None:
+        for label in labels:
+            self._raw_issue.labels.append(label)
+        self._raw_issue.save()</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="ogr.services.base.BaseIssue" href="../base.html#ogr.services.base.BaseIssue">BaseIssue</a></li>
+<li><a title="ogr.abstract.Issue" href="../../abstract.html#ogr.abstract.Issue">Issue</a></li>
+<li><a title="ogr.abstract.OgrAbstractClass" href="../../abstract.html#ogr.abstract.OgrAbstractClass">OgrAbstractClass</a></li>
+</ul>
+<h3>Instance variables</h3>
+<dl>
+<dt id="ogr.services.gitlab.GitlabIssue.assignees"><code class="name">var <span class="ident">assignees</span> : list</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def assignees(self) -&gt; list:
+    return self._raw_issue.assignees</code></pre>
+</details>
+</dd>
+<dt id="ogr.services.gitlab.GitlabIssue.author"><code class="name">var <span class="ident">author</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def author(self) -&gt; str:
+    return self._raw_issue.author[&#34;username&#34;]</code></pre>
+</details>
+</dd>
+<dt id="ogr.services.gitlab.GitlabIssue.created"><code class="name">var <span class="ident">created</span> : datetime.datetime</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def created(self) -&gt; datetime.datetime:
+    return self._raw_issue.created_at</code></pre>
+</details>
+</dd>
+<dt id="ogr.services.gitlab.GitlabIssue.description"><code class="name">var <span class="ident">description</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def description(self) -&gt; str:
+    return self._raw_issue.description</code></pre>
+</details>
+</dd>
+<dt id="ogr.services.gitlab.GitlabIssue.id"><code class="name">var <span class="ident">id</span> : int</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def id(self) -&gt; int:
+    return self._raw_issue.iid</code></pre>
+</details>
+</dd>
+<dt id="ogr.services.gitlab.GitlabIssue.labels"><code class="name">var <span class="ident">labels</span> : List</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def labels(self) -&gt; List:
+    return self._raw_issue.labels</code></pre>
+</details>
+</dd>
+<dt id="ogr.services.gitlab.GitlabIssue.private"><code class="name">var <span class="ident">private</span> : bool</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def private(self) -&gt; bool:
+    return self._raw_issue.confidential</code></pre>
+</details>
+</dd>
+<dt id="ogr.services.gitlab.GitlabIssue.status"><code class="name">var <span class="ident">status</span> : <a title="ogr.abstract.IssueStatus" href="../../abstract.html#ogr.abstract.IssueStatus">IssueStatus</a></code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def status(self) -&gt; IssueStatus:
+    return (
+        IssueStatus.open
+        if self._raw_issue.state == &#34;opened&#34;
+        else IssueStatus[self._raw_issue.state]
+    )</code></pre>
+</details>
+</dd>
+<dt id="ogr.services.gitlab.GitlabIssue.title"><code class="name">var <span class="ident">title</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def title(self) -&gt; str:
+    return self._raw_issue.title</code></pre>
+</details>
+</dd>
+<dt id="ogr.services.gitlab.GitlabIssue.url"><code class="name">var <span class="ident">url</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def url(self) -&gt; str:
+    return self._raw_issue.web_url</code></pre>
+</details>
+</dd>
+</dl>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="ogr.services.base.BaseIssue" href="../base.html#ogr.services.base.BaseIssue">BaseIssue</a></b></code>:
+<ul class="hlist">
+<li><code><a title="ogr.services.base.BaseIssue.add_label" href="../../abstract.html#ogr.abstract.Issue.add_label">add_label</a></code></li>
+<li><code><a title="ogr.services.base.BaseIssue.can_close" href="../../abstract.html#ogr.abstract.Issue.can_close">can_close</a></code></li>
+<li><code><a title="ogr.services.base.BaseIssue.close" href="../../abstract.html#ogr.abstract.Issue.close">close</a></code></li>
+<li><code><a title="ogr.services.base.BaseIssue.comment" href="../../abstract.html#ogr.abstract.Issue.comment">comment</a></code></li>
+<li><code><a title="ogr.services.base.BaseIssue.create" href="../../abstract.html#ogr.abstract.Issue.create">create</a></code></li>
+<li><code><a title="ogr.services.base.BaseIssue.get" href="../../abstract.html#ogr.abstract.Issue.get">get</a></code></li>
+<li><code><a title="ogr.services.base.BaseIssue.get_comments" href="../../abstract.html#ogr.abstract.Issue.get_comments">get_comments</a></code></li>
+<li><code><a title="ogr.services.base.BaseIssue.get_list" href="../../abstract.html#ogr.abstract.Issue.get_list">get_list</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+<dt id="ogr.services.gitlab.GitlabIssueComment"><code class="flex name class">
+<span>class <span class="ident">GitlabIssueComment</span></span>
+<span>(</span><span>raw_comment: Union[Any, NoneType] = None, parent: Union[Any, NoneType] = None, body: Union[str, NoneType] = None, author: Union[str, NoneType] = None, created: Union[datetime.datetime, NoneType] = None, edited: Union[datetime.datetime, NoneType] = None)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class GitlabIssueComment(GitlabComment, IssueComment):
+    def __str__(self) -&gt; str:
+        return &#34;Gitlab&#34; + super().__str__()</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="ogr.services.gitlab.comments.GitlabComment" href="comments.html#ogr.services.gitlab.comments.GitlabComment">GitlabComment</a></li>
+<li><a title="ogr.abstract.IssueComment" href="../../abstract.html#ogr.abstract.IssueComment">IssueComment</a></li>
+<li><a title="ogr.abstract.Comment" href="../../abstract.html#ogr.abstract.Comment">Comment</a></li>
+<li><a title="ogr.abstract.OgrAbstractClass" href="../../abstract.html#ogr.abstract.OgrAbstractClass">OgrAbstractClass</a></li>
+</ul>
+</dd>
+<dt id="ogr.services.gitlab.GitlabPRComment"><code class="flex name class">
+<span>class <span class="ident">GitlabPRComment</span></span>
+<span>(</span><span>raw_comment: Union[Any, NoneType] = None, parent: Union[Any, NoneType] = None, body: Union[str, NoneType] = None, author: Union[str, NoneType] = None, created: Union[datetime.datetime, NoneType] = None, edited: Union[datetime.datetime, NoneType] = None)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class GitlabPRComment(GitlabComment, PRComment):
+    def __str__(self) -&gt; str:
+        return &#34;Gitlab&#34; + super().__str__()</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="ogr.services.gitlab.comments.GitlabComment" href="comments.html#ogr.services.gitlab.comments.GitlabComment">GitlabComment</a></li>
+<li><a title="ogr.abstract.PRComment" href="../../abstract.html#ogr.abstract.PRComment">PRComment</a></li>
+<li><a title="ogr.abstract.Comment" href="../../abstract.html#ogr.abstract.Comment">Comment</a></li>
+<li><a title="ogr.abstract.OgrAbstractClass" href="../../abstract.html#ogr.abstract.OgrAbstractClass">OgrAbstractClass</a></li>
+</ul>
+</dd>
+<dt id="ogr.services.gitlab.GitlabProject"><code class="flex name class">
+<span>class <span class="ident">GitlabProject</span></span>
+<span>(</span><span>repo: str, service: ogr_gitlab.GitlabService, namespace: str, gitlab_repo=None, **unprocess_kwargs)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>:param repo: name of the project
+:param service: GitService instance
+:param namespace:
+github: username or org name
+gitlab: username or org name
+pagure: namespace (e.g. "rpms")
+for forks: "fork/{username}/{namespace}"</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class GitlabProject(BaseGitProject):
+    service: &#34;ogr_gitlab.GitlabService&#34;
+
+    def __init__(
+        self,
+        repo: str,
+        service: &#34;ogr_gitlab.GitlabService&#34;,
+        namespace: str,
+        gitlab_repo=None,
+        **unprocess_kwargs,
+    ) -&gt; None:
+        if unprocess_kwargs:
+            logger.warning(
+                f&#34;GitlabProject will not process these kwargs: {unprocess_kwargs}&#34;
+            )
+        super().__init__(repo, service, namespace)
+        self._gitlab_repo = gitlab_repo
+        self.read_only = False
+
+    @property
+    def gitlab_repo(self) -&gt; GitlabObjectsProject:
+        if not self._gitlab_repo:
+            self._gitlab_repo = self.service.gitlab_instance.projects.get(
+                f&#34;{self.namespace}/{self.repo}&#34;
+            )
+        return self._gitlab_repo
+
+    @property
+    def is_fork(self) -&gt; bool:
+        return bool(&#34;forked_from_project&#34; in self.gitlab_repo.attributes)
+
+    @property
+    def parent(self) -&gt; Optional[&#34;GitlabProject&#34;]:
+        &#34;&#34;&#34;
+        Return parent project if this project is a fork, otherwise return None
+        &#34;&#34;&#34;
+        if self.is_fork:
+            parent_dict = self.gitlab_repo.attributes[&#34;forked_from_project&#34;]
+            return GitlabProject(
+                repo=parent_dict[&#34;path&#34;],
+                service=self.service,
+                namespace=parent_dict[&#34;namespace&#34;][&#34;full_path&#34;],
+            )
+        return None
+
+    @property
+    def default_branch(self) -&gt; Optional[str]:
+        return self.gitlab_repo.attributes.get(&#34;default_branch&#34;)
+
+    def __str__(self) -&gt; str:
+        return f&#39;GitlabProject(namespace=&#34;{self.namespace}&#34;, repo=&#34;{self.repo}&#34;)&#39;
+
+    def __eq__(self, o: object) -&gt; bool:
+        if not isinstance(o, GitlabProject):
+            return False
+
+        return (
+            self.repo == o.repo
+            and self.namespace == o.namespace
+            and self.service == o.service
+        )
+
+    def _construct_fork_project(self) -&gt; Optional[&#34;GitlabProject&#34;]:
+        user_login = self.service.user.get_username()
+        try:
+            project = GitlabProject(
+                repo=self.repo, service=self.service, namespace=user_login
+            )
+            if project.gitlab_repo:
+                return project
+        except Exception as ex:
+            logger.debug(f&#34;Project {self.repo}/{user_login} does not exist: {ex}&#34;)
+        return None
+
+    def exists(self) -&gt; bool:
+        try:
+            _ = self.gitlab_repo
+            return True
+        except gitlab.exceptions.GitlabGetError as ex:
+            if &#34;404 Project Not Found&#34; in str(ex):
+                return False
+            raise GitlabAPIException from ex
+
+    def is_private(self) -&gt; bool:
+        &#34;&#34;&#34;
+        Is this repo private? (accessible only by users with granted access)
+
+        :return: if yes, return True
+        &#34;&#34;&#34;
+        return self.gitlab_repo.attributes[&#34;visibility&#34;] == &#34;private&#34;
+
+    def is_forked(self) -&gt; bool:
+        return bool(self._construct_fork_project())
+
+    def get_description(self) -&gt; str:
+        return self.gitlab_repo.attributes[&#34;description&#34;]
+
+    def get_fork(self, create: bool = True) -&gt; Optional[&#34;GitlabProject&#34;]:
+        &#34;&#34;&#34;
+        Provide GitlabProject instance of a fork of this project.
+
+        Returns None if this is a fork.
+
+        :param create: create a fork if it doesn&#39;t exist
+        :return: instance of GitlabProject
+        &#34;&#34;&#34;
+        username = self.service.user.get_username()
+        for fork in self.get_forks():
+            if fork.gitlab_repo.namespace[&#34;full_path&#34;] == username:
+                return fork
+
+        if not self.is_forked():
+            if create:
+                return self.fork_create()
+            else:
+                logger.info(
+                    f&#34;Fork of {self.gitlab_repo.attributes[&#39;name&#39;]}&#34;
+                    &#34; does not exist and we were asked not to create it.&#34;
+                )
+                return None
+        return self._construct_fork_project()
+
+    def get_owners(self) -&gt; List[str]:
+        return self._get_collaborators_with_given_access(
+            access_levels=[gitlab.OWNER_ACCESS]
+        )
+
+    def who_can_close_issue(self) -&gt; Set[str]:
+        return set(
+            self._get_collaborators_with_given_access(
+                access_levels=[
+                    gitlab.REPORTER_ACCESS,
+                    gitlab.DEVELOPER_ACCESS,
+                    gitlab.MAINTAINER_ACCESS,
+                    gitlab.OWNER_ACCESS,
+                ]
+            )
+        )
+
+    def who_can_merge_pr(self) -&gt; Set[str]:
+        return set(
+            self._get_collaborators_with_given_access(
+                access_levels=[
+                    gitlab.DEVELOPER_ACCESS,
+                    gitlab.MAINTAINER_ACCESS,
+                    gitlab.OWNER_ACCESS,
+                ]
+            )
+        )
+
+    def can_merge_pr(self, username) -&gt; bool:
+        return username in self.who_can_merge_pr()
+
+    def delete(self) -&gt; None:
+        self.gitlab_repo.delete()
+
+    def _get_collaborators_with_given_access(
+        self, access_levels: List[int]
+    ) -&gt; List[str]:
+        &#34;&#34;&#34;
+        Get all project collaborators with one of the given access levels.
+        Access levels:
+            10 =&gt; Guest access
+            20 =&gt; Reporter access
+            30 =&gt; Developer access
+            40 =&gt; Maintainer access
+            50 =&gt; Owner access
+        :return: List of usernames
+        &#34;&#34;&#34;
+        response = []
+        for member in self.gitlab_repo.members.all(all=True):
+            if isinstance(member, dict):
+                access_level = member[&#34;access_level&#34;]
+                username = member[&#34;username&#34;]
+            else:
+                access_level = member.access_level
+                username = member.username
+            if access_level in access_levels:
+                response.append(username)
+        return response
+
+    def add_user(self, user: str, access_level: AccessLevel) -&gt; None:
+        &#34;&#34;&#34;
+        AccessLevel.pull =&gt; Guest access
+        AccessLevel.triage =&gt; Reporter access
+        AccessLevel.push =&gt; Developer access
+        AccessLevel.admin =&gt; Maintainer access
+        AccessLevel.maintain =&gt; Owner access # Only valid for groups
+        &#34;&#34;&#34;
+        access_dict = {
+            AccessLevel.pull: gitlab.GUEST_ACCESS,
+            AccessLevel.triage: gitlab.REPORTER_ACCESS,
+            AccessLevel.push: gitlab.DEVELOPER_ACCESS,
+            AccessLevel.admin: gitlab.MAINTAINER_ACCESS,
+            AccessLevel.maintain: gitlab.OWNER_ACCESS,
+        }
+        try:
+            user_id = self.service.gitlab_instance.users.list(username=user)[0].id
+        except Exception as e:
+            raise GitlabAPIException(f&#34;User {user} not found&#34;, e)
+        try:
+            self.gitlab_repo.members.create(
+                {&#34;user_id&#34;: user_id, &#34;access_level&#34;: access_dict[access_level]}
+            )
+        except Exception as e:
+            raise GitlabAPIException(f&#34;User {user} already exists&#34;, e)
+
+    def request_access(self) -&gt; None:
+        try:
+            self.gitlab_repo.accessrequests.create({})
+        except gitlab.exceptions.GitlabCreateError as e:
+            raise GitlabAPIException(&#34;Unable to request access&#34;, e)
+
+    def get_pr_list(self, status: PRStatus = PRStatus.open) -&gt; List[&#34;PullRequest&#34;]:
+        return GitlabPullRequest.get_list(project=self, status=status)
+
+    def get_sha_from_tag(self, tag_name: str) -&gt; str:
+        try:
+            tag = self.gitlab_repo.tags.get(tag_name)
+            return tag.attributes[&#34;commit&#34;][&#34;id&#34;]
+        except gitlab.exceptions.GitlabGetError as ex:
+            logger.error(f&#34;Tag {tag_name} was not found.&#34;)
+            raise GitlabAPIException(f&#34;Tag {tag_name} was not found.&#34;, ex)
+
+    def create_pr(
+        self,
+        title: str,
+        body: str,
+        target_branch: str,
+        source_branch: str,
+        fork_username: str = None,
+    ) -&gt; &#34;PullRequest&#34;:
+        return GitlabPullRequest.create(
+            project=self,
+            title=title,
+            body=body,
+            target_branch=target_branch,
+            source_branch=source_branch,
+            fork_username=fork_username,
+        )
+
+    def commit_comment(
+        self, commit: str, body: str, filename: str = None, row: int = None
+    ) -&gt; &#34;CommitComment&#34;:
+        &#34;&#34;&#34;
+        Create comment on a commit.
+
+        :param commit: str The SHA of the commit needing a comment.
+        :param body: str The text of the comment
+        :param filename: str The relative path to the file that necessitates a comment
+        :param row: int Line index in the diff to comment on.
+        :return: CommitComment
+        &#34;&#34;&#34;
+        try:
+            commit_object = self.gitlab_repo.commits.get(commit)
+        except gitlab.exceptions.GitlabGetError:
+            logger.error(f&#34;Commit {commit} was not found.&#34;)
+            raise GitlabAPIException(f&#34;Commit {commit} was not found.&#34;)
+
+        if filename and row:
+            raw_comment = commit_object.comments.create(
+                {&#34;note&#34;: body, &#34;path&#34;: filename, &#34;line&#34;: row, &#34;line_type&#34;: &#34;new&#34;}
+            )
+        else:
+            raw_comment = commit_object.comments.create({&#34;note&#34;: body})
+        return self._commit_comment_from_gitlab_object(raw_comment, commit)
+
+    def set_commit_status(
+        self,
+        commit: str,
+        state: Union[CommitStatus, str],
+        target_url: str,
+        description: str,
+        context: str,
+        trim: bool = False,
+    ) -&gt; &#34;CommitFlag&#34;:
+        &#34;&#34;&#34;
+        Create a status on a commit
+
+        :param commit: The SHA of the commit.
+        :param state: The state of the status.
+        :param target_url: The target URL to associate with this status.
+        :param description: A short description of the status
+        :param context: A label to differentiate this status from the status of other systems.
+        :param trim: Whether to trim the description to 140 characters
+        :return: CommitFlag
+        &#34;&#34;&#34;
+        return GitlabCommitFlag.set(
+            project=self,
+            commit=commit,
+            state=state,
+            target_url=target_url,
+            description=description,
+            context=context,
+            trim=trim,
+        )
+
+    def get_commit_statuses(self, commit: str) -&gt; List[CommitFlag]:
+        &#34;&#34;&#34;
+        Get the statuses of a commit in a project.
+        :param commit: The SHA of the commit.
+        :return: [CommitFlag]
+        &#34;&#34;&#34;
+        return GitlabCommitFlag.get(project=self, commit=commit)
+
+    def get_git_urls(self) -&gt; Dict[str, str]:
+        return {
+            &#34;git&#34;: self.gitlab_repo.attributes[&#34;http_url_to_repo&#34;],
+            &#34;ssh&#34;: self.gitlab_repo.attributes[&#34;ssh_url_to_repo&#34;],
+        }
+
+    def fork_create(self) -&gt; &#34;GitlabProject&#34;:
+        &#34;&#34;&#34;
+        Fork this project using the authenticated user.
+        This may raise an exception if the fork already exists.
+
+        :return: fork GitlabProject instance
+        &#34;&#34;&#34;
+        try:
+            fork = self.gitlab_repo.forks.create({})
+        except gitlab.GitlabCreateError:
+            logger.error(f&#34;Repo {self.gitlab_repo} cannot be forked&#34;)
+            raise GitlabAPIException(f&#34;Repo {self.gitlab_repo} cannot be forked&#34;)
+        return GitlabProject(
+            namespace=fork.namespace[&#34;full_path&#34;], service=self.service, repo=fork.path
+        )
+
+    def change_token(self, new_token: str):
+        self.service.change_token(new_token)
+
+    def get_branches(self) -&gt; List[str]:
+        return [branch.name for branch in self.gitlab_repo.branches.list(all=True)]
+
+    def get_file_content(self, path, ref=None) -&gt; str:
+        ref = ref or self.default_branch
+        try:
+            file = self.gitlab_repo.files.get(file_path=path, ref=ref)
+            return file.decode().decode()
+        except gitlab.exceptions.GitlabGetError as ex:
+            if ex.response_code == 404:
+                raise FileNotFoundError(f&#34;File &#39;{path}&#39; on {ref} not found&#34;, ex)
+            raise GitlabAPIException(ex)
+
+    def get_files(
+        self, ref: str = None, filter_regex: str = None, recursive: bool = False
+    ) -&gt; List[str]:
+        &#34;&#34;&#34;
+        Get a list of file paths of the repo.
+        :param ref: branch or commit (defaults to repo&#39;s default branch)
+        :param filter_regex: filter the paths with re.search
+        :param recursive: whether to return only top directory files or all files recursively
+        :return: [str]
+        &#34;&#34;&#34;
+        ref = ref or self.default_branch
+        paths = [
+            file_dict[&#34;path&#34;]
+            for file_dict in self.gitlab_repo.repository_tree(
+                ref=ref, recursive=recursive, all=True
+            )
+            if file_dict[&#34;type&#34;] != &#34;tree&#34;
+        ]
+        if filter_regex:
+            paths = filter_paths(paths, filter_regex)
+
+        return paths
+
+    def get_issue_list(
+        self,
+        status: IssueStatus = IssueStatus.open,
+        author: Optional[str] = None,
+        assignee: Optional[str] = None,
+        labels: Optional[List[str]] = None,
+    ) -&gt; List[Issue]:
+        return GitlabIssue.get_list(
+            project=self, status=status, author=author, assignee=assignee, labels=labels
+        )
+
+    def get_issue(self, issue_id: int) -&gt; Issue:
+        return GitlabIssue.get(project=self, id=issue_id)
+
+    def create_issue(
+        self,
+        title: str,
+        body: str,
+        private: Optional[bool] = None,
+        labels: Optional[List[str]] = None,
+        assignees: Optional[List[str]] = None,
+    ) -&gt; Issue:
+
+        ids = []
+        for user in assignees or []:
+            users_list = self.service.gitlab_instance.users.list(username=user)
+
+            if not users_list:
+                raise GitlabAPIException(f&#34;Unable to find &#39;{user}&#39; username&#34;)
+
+            ids.append(str(users_list[0].id))
+
+        return GitlabIssue.create(
+            project=self,
+            title=title,
+            body=body,
+            private=private,
+            labels=labels,
+            assignees=ids,
+        )
+
+    def get_pr(self, pr_id: int) -&gt; PullRequest:
+        return GitlabPullRequest.get(project=self, id=pr_id)
+
+    def get_tags(self) -&gt; List[&#34;GitTag&#34;]:
+        tags = self.gitlab_repo.tags.list()
+        return [GitTag(tag.name, tag.commit[&#34;id&#34;]) for tag in tags]
+
+    def _git_tag_from_tag_name(self, tag_name: str) -&gt; GitTag:
+        git_tag = self.gitlab_repo.tags.get(tag_name)
+        return GitTag(name=git_tag.name, commit_sha=git_tag.commit[&#34;id&#34;])
+
+    def get_releases(self) -&gt; List[Release]:
+        if not hasattr(self.gitlab_repo, &#34;releases&#34;):
+            raise OperationNotSupported(
+                &#34;This version of python-gitlab does not support release, please upgrade.&#34;
+            )
+        releases = self.gitlab_repo.releases.list(all=True)
+        return [
+            self._release_from_gitlab_object(
+                raw_release=release,
+                git_tag=self._git_tag_from_tag_name(release.tag_name),
+            )
+            for release in releases
+        ]
+
+    def get_release(self, identifier=None, name=None, tag_name=None) -&gt; GitlabRelease:
+        release = self.gitlab_repo.releases.get(tag_name)
+        return self._release_from_gitlab_object(
+            raw_release=release, git_tag=self._git_tag_from_tag_name(release.tag_name)
+        )
+
+    def create_release(
+        self, name: str, tag_name: str, description: str, ref=None
+    ) -&gt; GitlabRelease:
+        release = self.gitlab_repo.releases.create(
+            {&#34;name&#34;: name, &#34;tag_name&#34;: tag_name, &#34;description&#34;: description, &#34;ref&#34;: ref}
+        )
+        return self._release_from_gitlab_object(
+            raw_release=release, git_tag=self._git_tag_from_tag_name(release.tag_name)
+        )
+
+    def get_latest_release(self) -&gt; Optional[GitlabRelease]:
+        releases = self.gitlab_repo.releases.list()
+        # list of releases sorted by released_at
+        return (
+            self._release_from_gitlab_object(
+                raw_release=releases[0],
+                git_tag=self._git_tag_from_tag_name(releases[0].tag_name),
+            )
+            if releases
+            else None
+        )
+
+    def list_labels(self):
+        &#34;&#34;&#34;
+        TODO: Not in API yet.
+        Get list of labels in the repository.
+        :return: [Label]
+        &#34;&#34;&#34;
+        return list(self.gitlab_repo.labels.list())
+
+    def get_forks(self) -&gt; List[&#34;GitlabProject&#34;]:
+        &#34;&#34;&#34;
+        Get forks of the project.
+
+        :return: [GitlabProject]
+        &#34;&#34;&#34;
+        try:
+            forks = self.gitlab_repo.forks.list()
+        except KeyError:
+            # &gt; item = self._data[self._current]
+            # &gt; KeyError: 0
+            # looks like some API weirdness
+            raise OperationNotSupported(
+                &#34;Please upgrade python-gitlab to a newer version.&#34;
+            )
+        return [
+            GitlabProject(
+                repo=fork.path,
+                namespace=fork.namespace[&#34;full_path&#34;],
+                service=self.service,
+            )
+            for fork in forks
+        ]
+
+    def update_labels(self, labels):
+        &#34;&#34;&#34;
+        TODO: Not in API yet.
+        Update the labels of the repository. (No deletion, only add not existing ones.)
+
+        :param labels: [str]
+        :return: int - number of added labels
+        &#34;&#34;&#34;
+        current_label_names = [la.name for la in list(self.gitlab_repo.labels.list())]
+        changes = 0
+        for label in labels:
+            if label.name not in current_label_names:
+                color = self._normalize_label_color(color=label.color)
+                self.gitlab_repo.labels.create(
+                    {
+                        &#34;name&#34;: label.name,
+                        &#34;color&#34;: color,
+                        &#34;description&#34;: label.description or &#34;&#34;,
+                    }
+                )
+
+                changes += 1
+        return changes
+
+    @staticmethod
+    def _normalize_label_color(color):
+        if not color.startswith(&#34;#&#34;):
+            return &#34;#{}&#34;.format(color)
+        return color
+
+    @staticmethod
+    def _commit_comment_from_gitlab_object(raw_comment, commit) -&gt; CommitComment:
+        return CommitComment(
+            sha=commit, comment=raw_comment.note, author=raw_comment.author[&#34;username&#34;]
+        )
+
+    def _release_from_gitlab_object(
+        self, raw_release, git_tag: GitTag
+    ) -&gt; GitlabRelease:
+        return GitlabRelease(
+            tag_name=raw_release.tag_name,
+            url=None,
+            created_at=raw_release.created_at,
+            tarball_url=raw_release.assets[&#34;sources&#34;][1][&#34;url&#34;],
+            git_tag=git_tag,
+            project=self,
+            raw_release=raw_release,
+        )
+
+    def get_web_url(self) -&gt; str:
+        &#34;&#34;&#34;
+        Get web URL of the project.
+
+        :return: str
+        &#34;&#34;&#34;
+        return self.gitlab_repo.web_url</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="ogr.services.base.BaseGitProject" href="../base.html#ogr.services.base.BaseGitProject">BaseGitProject</a></li>
+<li><a title="ogr.abstract.GitProject" href="../../abstract.html#ogr.abstract.GitProject">GitProject</a></li>
+<li><a title="ogr.abstract.OgrAbstractClass" href="../../abstract.html#ogr.abstract.OgrAbstractClass">OgrAbstractClass</a></li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="ogr.services.gitlab.GitlabProject.service"><code class="name">var <span class="ident">service</span> : <a title="ogr.services.gitlab.service.GitlabService" href="service.html#ogr.services.gitlab.service.GitlabService">GitlabService</a></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Instance variables</h3>
+<dl>
+<dt id="ogr.services.gitlab.GitlabProject.gitlab_repo"><code class="name">var <span class="ident">gitlab_repo</span> : gitlab.v4.objects.projects.Project</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def gitlab_repo(self) -&gt; GitlabObjectsProject:
+    if not self._gitlab_repo:
+        self._gitlab_repo = self.service.gitlab_instance.projects.get(
+            f&#34;{self.namespace}/{self.repo}&#34;
+        )
+    return self._gitlab_repo</code></pre>
+</details>
+</dd>
+</dl>
+<h3>Methods</h3>
+<dl>
+<dt id="ogr.services.gitlab.GitlabProject.add_user"><code class="name flex">
+<span>def <span class="ident">add_user</span></span>(<span>self, user: str, access_level: <a title="ogr.abstract.AccessLevel" href="../../abstract.html#ogr.abstract.AccessLevel">AccessLevel</a>) ‑> NoneType</span>
+</code></dt>
+<dd>
+<div class="desc"><p>AccessLevel.pull =&gt; Guest access
+AccessLevel.triage =&gt; Reporter access
+AccessLevel.push =&gt; Developer access
+AccessLevel.admin =&gt; Maintainer access
+AccessLevel.maintain =&gt; Owner access # Only valid for groups</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def add_user(self, user: str, access_level: AccessLevel) -&gt; None:
+    &#34;&#34;&#34;
+    AccessLevel.pull =&gt; Guest access
+    AccessLevel.triage =&gt; Reporter access
+    AccessLevel.push =&gt; Developer access
+    AccessLevel.admin =&gt; Maintainer access
+    AccessLevel.maintain =&gt; Owner access # Only valid for groups
+    &#34;&#34;&#34;
+    access_dict = {
+        AccessLevel.pull: gitlab.GUEST_ACCESS,
+        AccessLevel.triage: gitlab.REPORTER_ACCESS,
+        AccessLevel.push: gitlab.DEVELOPER_ACCESS,
+        AccessLevel.admin: gitlab.MAINTAINER_ACCESS,
+        AccessLevel.maintain: gitlab.OWNER_ACCESS,
+    }
+    try:
+        user_id = self.service.gitlab_instance.users.list(username=user)[0].id
+    except Exception as e:
+        raise GitlabAPIException(f&#34;User {user} not found&#34;, e)
+    try:
+        self.gitlab_repo.members.create(
+            {&#34;user_id&#34;: user_id, &#34;access_level&#34;: access_dict[access_level]}
+        )
+    except Exception as e:
+        raise GitlabAPIException(f&#34;User {user} already exists&#34;, e)</code></pre>
+</details>
+</dd>
+<dt id="ogr.services.gitlab.GitlabProject.commit_comment"><code class="name flex">
+<span>def <span class="ident">commit_comment</span></span>(<span>self, commit: str, body: str, filename: str = None, row: int = None) ‑> <a title="ogr.abstract.CommitComment" href="../../abstract.html#ogr.abstract.CommitComment">CommitComment</a></span>
+</code></dt>
+<dd>
+<div class="desc"><p>Create comment on a commit.</p>
+<p>:param commit: str The SHA of the commit needing a comment.
+:param body: str The text of the comment
+:param filename: str The relative path to the file that necessitates a comment
+:param row: int Line index in the diff to comment on.
+:return: CommitComment</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def commit_comment(
+    self, commit: str, body: str, filename: str = None, row: int = None
+) -&gt; &#34;CommitComment&#34;:
+    &#34;&#34;&#34;
+    Create comment on a commit.
+
+    :param commit: str The SHA of the commit needing a comment.
+    :param body: str The text of the comment
+    :param filename: str The relative path to the file that necessitates a comment
+    :param row: int Line index in the diff to comment on.
+    :return: CommitComment
+    &#34;&#34;&#34;
+    try:
+        commit_object = self.gitlab_repo.commits.get(commit)
+    except gitlab.exceptions.GitlabGetError:
+        logger.error(f&#34;Commit {commit} was not found.&#34;)
+        raise GitlabAPIException(f&#34;Commit {commit} was not found.&#34;)
+
+    if filename and row:
+        raw_comment = commit_object.comments.create(
+            {&#34;note&#34;: body, &#34;path&#34;: filename, &#34;line&#34;: row, &#34;line_type&#34;: &#34;new&#34;}
+        )
+    else:
+        raw_comment = commit_object.comments.create({&#34;note&#34;: body})
+    return self._commit_comment_from_gitlab_object(raw_comment, commit)</code></pre>
+</details>
+</dd>
+<dt id="ogr.services.gitlab.GitlabProject.create_release"><code class="name flex">
+<span>def <span class="ident">create_release</span></span>(<span>self, name: str, tag_name: str, description: str, ref=None) ‑> <a title="ogr.services.gitlab.release.GitlabRelease" href="release.html#ogr.services.gitlab.release.GitlabRelease">GitlabRelease</a></span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def create_release(
+    self, name: str, tag_name: str, description: str, ref=None
+) -&gt; GitlabRelease:
+    release = self.gitlab_repo.releases.create(
+        {&#34;name&#34;: name, &#34;tag_name&#34;: tag_name, &#34;description&#34;: description, &#34;ref&#34;: ref}
+    )
+    return self._release_from_gitlab_object(
+        raw_release=release, git_tag=self._git_tag_from_tag_name(release.tag_name)
+    )</code></pre>
+</details>
+</dd>
+<dt id="ogr.services.gitlab.GitlabProject.fork_create"><code class="name flex">
+<span>def <span class="ident">fork_create</span></span>(<span>self) ‑> <a title="ogr.services.gitlab.project.GitlabProject" href="project.html#ogr.services.gitlab.project.GitlabProject">GitlabProject</a></span>
+</code></dt>
+<dd>
+<div class="desc"><p>Fork this project using the authenticated user.
+This may raise an exception if the fork already exists.</p>
+<p>:return: fork GitlabProject instance</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def fork_create(self) -&gt; &#34;GitlabProject&#34;:
+    &#34;&#34;&#34;
+    Fork this project using the authenticated user.
+    This may raise an exception if the fork already exists.
+
+    :return: fork GitlabProject instance
+    &#34;&#34;&#34;
+    try:
+        fork = self.gitlab_repo.forks.create({})
+    except gitlab.GitlabCreateError:
+        logger.error(f&#34;Repo {self.gitlab_repo} cannot be forked&#34;)
+        raise GitlabAPIException(f&#34;Repo {self.gitlab_repo} cannot be forked&#34;)
+    return GitlabProject(
+        namespace=fork.namespace[&#34;full_path&#34;], service=self.service, repo=fork.path
+    )</code></pre>
+</details>
+</dd>
+<dt id="ogr.services.gitlab.GitlabProject.get_commit_statuses"><code class="name flex">
+<span>def <span class="ident">get_commit_statuses</span></span>(<span>self, commit: str) ‑> List[<a title="ogr.abstract.CommitFlag" href="../../abstract.html#ogr.abstract.CommitFlag">CommitFlag</a>]</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Get the statuses of a commit in a project.
+:param commit: The SHA of the commit.
+:return: [CommitFlag]</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_commit_statuses(self, commit: str) -&gt; List[CommitFlag]:
+    &#34;&#34;&#34;
+    Get the statuses of a commit in a project.
+    :param commit: The SHA of the commit.
+    :return: [CommitFlag]
+    &#34;&#34;&#34;
+    return GitlabCommitFlag.get(project=self, commit=commit)</code></pre>
+</details>
+</dd>
+<dt id="ogr.services.gitlab.GitlabProject.get_fork"><code class="name flex">
+<span>def <span class="ident">get_fork</span></span>(<span>self, create: bool = True) ‑> Union[<a title="ogr.services.gitlab.project.GitlabProject" href="project.html#ogr.services.gitlab.project.GitlabProject">GitlabProject</a>, NoneType]</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Provide GitlabProject instance of a fork of this project.</p>
+<p>Returns None if this is a fork.</p>
+<p>:param create: create a fork if it doesn't exist
+:return: instance of GitlabProject</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_fork(self, create: bool = True) -&gt; Optional[&#34;GitlabProject&#34;]:
+    &#34;&#34;&#34;
+    Provide GitlabProject instance of a fork of this project.
+
+    Returns None if this is a fork.
+
+    :param create: create a fork if it doesn&#39;t exist
+    :return: instance of GitlabProject
+    &#34;&#34;&#34;
+    username = self.service.user.get_username()
+    for fork in self.get_forks():
+        if fork.gitlab_repo.namespace[&#34;full_path&#34;] == username:
+            return fork
+
+    if not self.is_forked():
+        if create:
+            return self.fork_create()
+        else:
+            logger.info(
+                f&#34;Fork of {self.gitlab_repo.attributes[&#39;name&#39;]}&#34;
+                &#34; does not exist and we were asked not to create it.&#34;
+            )
+            return None
+    return self._construct_fork_project()</code></pre>
+</details>
+</dd>
+<dt id="ogr.services.gitlab.GitlabProject.get_forks"><code class="name flex">
+<span>def <span class="ident">get_forks</span></span>(<span>self) ‑> List[<a title="ogr.services.gitlab.project.GitlabProject" href="project.html#ogr.services.gitlab.project.GitlabProject">GitlabProject</a>]</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Get forks of the project.</p>
+<p>:return: [GitlabProject]</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_forks(self) -&gt; List[&#34;GitlabProject&#34;]:
+    &#34;&#34;&#34;
+    Get forks of the project.
+
+    :return: [GitlabProject]
+    &#34;&#34;&#34;
+    try:
+        forks = self.gitlab_repo.forks.list()
+    except KeyError:
+        # &gt; item = self._data[self._current]
+        # &gt; KeyError: 0
+        # looks like some API weirdness
+        raise OperationNotSupported(
+            &#34;Please upgrade python-gitlab to a newer version.&#34;
+        )
+    return [
+        GitlabProject(
+            repo=fork.path,
+            namespace=fork.namespace[&#34;full_path&#34;],
+            service=self.service,
+        )
+        for fork in forks
+    ]</code></pre>
+</details>
+</dd>
+<dt id="ogr.services.gitlab.GitlabProject.get_git_urls"><code class="name flex">
+<span>def <span class="ident">get_git_urls</span></span>(<span>self) ‑> Dict[str, str]</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_git_urls(self) -&gt; Dict[str, str]:
+    return {
+        &#34;git&#34;: self.gitlab_repo.attributes[&#34;http_url_to_repo&#34;],
+        &#34;ssh&#34;: self.gitlab_repo.attributes[&#34;ssh_url_to_repo&#34;],
+    }</code></pre>
+</details>
+</dd>
+<dt id="ogr.services.gitlab.GitlabProject.is_private"><code class="name flex">
+<span>def <span class="ident">is_private</span></span>(<span>self) ‑> bool</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Is this repo private? (accessible only by users with granted access)</p>
+<p>:return: if yes, return True</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def is_private(self) -&gt; bool:
+    &#34;&#34;&#34;
+    Is this repo private? (accessible only by users with granted access)
+
+    :return: if yes, return True
+    &#34;&#34;&#34;
+    return self.gitlab_repo.attributes[&#34;visibility&#34;] == &#34;private&#34;</code></pre>
+</details>
+</dd>
+<dt id="ogr.services.gitlab.GitlabProject.list_labels"><code class="name flex">
+<span>def <span class="ident">list_labels</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>TODO: Not in API yet.
+Get list of labels in the repository.
+:return: [Label]</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def list_labels(self):
+    &#34;&#34;&#34;
+    TODO: Not in API yet.
+    Get list of labels in the repository.
+    :return: [Label]
+    &#34;&#34;&#34;
+    return list(self.gitlab_repo.labels.list())</code></pre>
+</details>
+</dd>
+<dt id="ogr.services.gitlab.GitlabProject.set_commit_status"><code class="name flex">
+<span>def <span class="ident">set_commit_status</span></span>(<span>self, commit: str, state: Union[<a title="ogr.abstract.CommitStatus" href="../../abstract.html#ogr.abstract.CommitStatus">CommitStatus</a>, str], target_url: str, description: str, context: str, trim: bool = False) ‑> <a title="ogr.abstract.CommitFlag" href="../../abstract.html#ogr.abstract.CommitFlag">CommitFlag</a></span>
+</code></dt>
+<dd>
+<div class="desc"><p>Create a status on a commit</p>
+<p>:param commit: The SHA of the commit.
+:param state: The state of the status.
+:param target_url: The target URL to associate with this status.
+:param description: A short description of the status
+:param context: A label to differentiate this status from the status of other systems.
+:param trim: Whether to trim the description to 140 characters
+:return: CommitFlag</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def set_commit_status(
+    self,
+    commit: str,
+    state: Union[CommitStatus, str],
+    target_url: str,
+    description: str,
+    context: str,
+    trim: bool = False,
+) -&gt; &#34;CommitFlag&#34;:
+    &#34;&#34;&#34;
+    Create a status on a commit
+
+    :param commit: The SHA of the commit.
+    :param state: The state of the status.
+    :param target_url: The target URL to associate with this status.
+    :param description: A short description of the status
+    :param context: A label to differentiate this status from the status of other systems.
+    :param trim: Whether to trim the description to 140 characters
+    :return: CommitFlag
+    &#34;&#34;&#34;
+    return GitlabCommitFlag.set(
+        project=self,
+        commit=commit,
+        state=state,
+        target_url=target_url,
+        description=description,
+        context=context,
+        trim=trim,
+    )</code></pre>
+</details>
+</dd>
+<dt id="ogr.services.gitlab.GitlabProject.update_labels"><code class="name flex">
+<span>def <span class="ident">update_labels</span></span>(<span>self, labels)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>TODO: Not in API yet.
+Update the labels of the repository. (No deletion, only add not existing ones.)</p>
+<p>:param labels: [str]
+:return: int - number of added labels</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def update_labels(self, labels):
+    &#34;&#34;&#34;
+    TODO: Not in API yet.
+    Update the labels of the repository. (No deletion, only add not existing ones.)
+
+    :param labels: [str]
+    :return: int - number of added labels
+    &#34;&#34;&#34;
+    current_label_names = [la.name for la in list(self.gitlab_repo.labels.list())]
+    changes = 0
+    for label in labels:
+        if label.name not in current_label_names:
+            color = self._normalize_label_color(color=label.color)
+            self.gitlab_repo.labels.create(
+                {
+                    &#34;name&#34;: label.name,
+                    &#34;color&#34;: color,
+                    &#34;description&#34;: label.description or &#34;&#34;,
+                }
+            )
+
+            changes += 1
+    return changes</code></pre>
+</details>
+</dd>
+</dl>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="ogr.services.base.BaseGitProject" href="../base.html#ogr.services.base.BaseGitProject">BaseGitProject</a></b></code>:
+<ul class="hlist">
+<li><code><a title="ogr.services.base.BaseGitProject.add_group" href="../../abstract.html#ogr.abstract.GitProject.add_group">add_group</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitProject.can_merge_pr" href="../../abstract.html#ogr.abstract.GitProject.can_merge_pr">can_merge_pr</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitProject.change_token" href="../../abstract.html#ogr.abstract.GitProject.change_token">change_token</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitProject.create_issue" href="../../abstract.html#ogr.abstract.GitProject.create_issue">create_issue</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitProject.create_pr" href="../../abstract.html#ogr.abstract.GitProject.create_pr">create_pr</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitProject.default_branch" href="../../abstract.html#ogr.abstract.GitProject.default_branch">default_branch</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitProject.delete" href="../../abstract.html#ogr.abstract.GitProject.delete">delete</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitProject.exists" href="../../abstract.html#ogr.abstract.GitProject.exists">exists</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitProject.full_repo_name" href="../../abstract.html#ogr.abstract.GitProject.full_repo_name">full_repo_name</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitProject.get_branches" href="../../abstract.html#ogr.abstract.GitProject.get_branches">get_branches</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitProject.get_description" href="../../abstract.html#ogr.abstract.GitProject.get_description">get_description</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitProject.get_file_content" href="../../abstract.html#ogr.abstract.GitProject.get_file_content">get_file_content</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitProject.get_files" href="../../abstract.html#ogr.abstract.GitProject.get_files">get_files</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitProject.get_issue" href="../../abstract.html#ogr.abstract.GitProject.get_issue">get_issue</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitProject.get_issue_list" href="../../abstract.html#ogr.abstract.GitProject.get_issue_list">get_issue_list</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitProject.get_latest_release" href="../../abstract.html#ogr.abstract.GitProject.get_latest_release">get_latest_release</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitProject.get_owners" href="../../abstract.html#ogr.abstract.GitProject.get_owners">get_owners</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitProject.get_pr" href="../../abstract.html#ogr.abstract.GitProject.get_pr">get_pr</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitProject.get_pr_comments" href="../../abstract.html#ogr.abstract.GitProject.get_pr_comments">get_pr_comments</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitProject.get_pr_list" href="../../abstract.html#ogr.abstract.GitProject.get_pr_list">get_pr_list</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitProject.get_release" href="../../abstract.html#ogr.abstract.GitProject.get_release">get_release</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitProject.get_releases" href="../../abstract.html#ogr.abstract.GitProject.get_releases">get_releases</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitProject.get_sha_from_tag" href="../../abstract.html#ogr.abstract.GitProject.get_sha_from_tag">get_sha_from_tag</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitProject.get_tags" href="../../abstract.html#ogr.abstract.GitProject.get_tags">get_tags</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitProject.get_web_url" href="../../abstract.html#ogr.abstract.GitProject.get_web_url">get_web_url</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitProject.is_fork" href="../../abstract.html#ogr.abstract.GitProject.is_fork">is_fork</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitProject.is_forked" href="../../abstract.html#ogr.abstract.GitProject.is_forked">is_forked</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitProject.parent" href="../../abstract.html#ogr.abstract.GitProject.parent">parent</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitProject.request_access" href="../../abstract.html#ogr.abstract.GitProject.request_access">request_access</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitProject.search_in_pr" href="../../abstract.html#ogr.abstract.GitProject.search_in_pr">search_in_pr</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitProject.who_can_close_issue" href="../../abstract.html#ogr.abstract.GitProject.who_can_close_issue">who_can_close_issue</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitProject.who_can_merge_pr" href="../../abstract.html#ogr.abstract.GitProject.who_can_merge_pr">who_can_merge_pr</a></code></li>
+</ul>
+</li>
+<li><code><b><a title="ogr.abstract.GitProject" href="../../abstract.html#ogr.abstract.GitProject">GitProject</a></b></code>:
+<ul class="hlist">
+<li><code><a title="ogr.abstract.GitProject.add_issue_labels" href="../../abstract.html#ogr.abstract.GitProject.add_issue_labels">add_issue_labels</a></code></li>
+<li><code><a title="ogr.abstract.GitProject.add_pr_labels" href="../../abstract.html#ogr.abstract.GitProject.add_pr_labels">add_pr_labels</a></code></li>
+<li><code><a title="ogr.abstract.GitProject.can_close_issue" href="../../abstract.html#ogr.abstract.GitProject.can_close_issue">can_close_issue</a></code></li>
+<li><code><a title="ogr.abstract.GitProject.get_all_pr_commits" href="../../abstract.html#ogr.abstract.GitProject.get_all_pr_commits">get_all_pr_commits</a></code></li>
+<li><code><a title="ogr.abstract.GitProject.get_issue_comments" href="../../abstract.html#ogr.abstract.GitProject.get_issue_comments">get_issue_comments</a></code></li>
+<li><code><a title="ogr.abstract.GitProject.get_issue_info" href="../../abstract.html#ogr.abstract.GitProject.get_issue_info">get_issue_info</a></code></li>
+<li><code><a title="ogr.abstract.GitProject.get_issue_labels" href="../../abstract.html#ogr.abstract.GitProject.get_issue_labels">get_issue_labels</a></code></li>
+<li><code><a title="ogr.abstract.GitProject.get_pr_info" href="../../abstract.html#ogr.abstract.GitProject.get_pr_info">get_pr_info</a></code></li>
+<li><code><a title="ogr.abstract.GitProject.get_pr_labels" href="../../abstract.html#ogr.abstract.GitProject.get_pr_labels">get_pr_labels</a></code></li>
+<li><code><a title="ogr.abstract.GitProject.issue_close" href="../../abstract.html#ogr.abstract.GitProject.issue_close">issue_close</a></code></li>
+<li><code><a title="ogr.abstract.GitProject.issue_comment" href="../../abstract.html#ogr.abstract.GitProject.issue_comment">issue_comment</a></code></li>
+<li><code><a title="ogr.abstract.GitProject.pr_close" href="../../abstract.html#ogr.abstract.GitProject.pr_close">pr_close</a></code></li>
+<li><code><a title="ogr.abstract.GitProject.pr_comment" href="../../abstract.html#ogr.abstract.GitProject.pr_comment">pr_comment</a></code></li>
+<li><code><a title="ogr.abstract.GitProject.pr_create" href="../../abstract.html#ogr.abstract.GitProject.pr_create">pr_create</a></code></li>
+<li><code><a title="ogr.abstract.GitProject.pr_merge" href="../../abstract.html#ogr.abstract.GitProject.pr_merge">pr_merge</a></code></li>
+<li><code><a title="ogr.abstract.GitProject.update_pr_info" href="../../abstract.html#ogr.abstract.GitProject.update_pr_info">update_pr_info</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+<dt id="ogr.services.gitlab.GitlabPullRequest"><code class="flex name class">
+<span>class <span class="ident">GitlabPullRequest</span></span>
+<span>(</span><span>raw_pr: Any, project: GitProject)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class GitlabPullRequest(BasePullRequest):
+    _raw_pr: _GitlabMergeRequest
+    _target_project: &#34;ogr_gitlab.GitlabProject&#34;
+    _source_project: &#34;ogr_gitlab.GitlabProject&#34; = None
+
+    @property
+    def title(self) -&gt; str:
+        return self._raw_pr.title
+
+    @title.setter
+    def title(self, new_title: str) -&gt; None:
+        self._raw_pr.title = new_title
+        self._raw_pr.save()
+
+    @property
+    def id(self) -&gt; int:
+        return self._raw_pr.iid
+
+    @property
+    def status(self) -&gt; PRStatus:
+        return (
+            PRStatus.open
+            if self._raw_pr.state == &#34;opened&#34;
+            else PRStatus[self._raw_pr.state]
+        )
+
+    @property
+    def url(self) -&gt; str:
+        return self._raw_pr.web_url
+
+    @property
+    def description(self) -&gt; str:
+        return self._raw_pr.description
+
+    @description.setter
+    def description(self, new_description: str) -&gt; None:
+        self._raw_pr.description = new_description
+        self._raw_pr.save()
+
+    @property
+    def author(self) -&gt; str:
+        return self._raw_pr.author[&#34;username&#34;]
+
+    @property
+    def source_branch(self) -&gt; str:
+        return self._raw_pr.source_branch
+
+    @property
+    def target_branch(self) -&gt; str:
+        return self._raw_pr.target_branch
+
+    @property
+    def created(self) -&gt; datetime.datetime:
+        return self._raw_pr.created_at
+
+    @property
+    def labels(self) -&gt; List[str]:
+        return self._raw_pr.labels
+
+    @property
+    def diff_url(self) -&gt; str:
+        return f&#34;{self._raw_pr.web_url}/diffs&#34;
+
+    @property
+    def commits_url(self) -&gt; str:
+        return f&#34;{self._raw_pr.web_url}/commits&#34;
+
+    @property
+    def head_commit(self) -&gt; str:
+        return self._raw_pr.sha
+
+    @property
+    def source_project(self) -&gt; &#34;ogr_gitlab.GitlabProject&#34;:
+        if self._source_project is None:
+            self._source_project = (
+                self._target_project.service.get_project_from_project_id(
+                    self._raw_pr.attributes[&#34;source_project_id&#34;]
+                )
+            )
+        return self._source_project
+
+    def __str__(self) -&gt; str:
+        return &#34;Gitlab&#34; + super().__str__()
+
+    @staticmethod
+    def create(
+        project: &#34;ogr_gitlab.GitlabProject&#34;,
+        title: str,
+        body: str,
+        target_branch: str,
+        source_branch: str,
+        fork_username: str = None,
+    ) -&gt; &#34;PullRequest&#34;:
+        &#34;&#34;&#34;
+        How to create PR:
+        -  upstream -&gt; upstream - call on upstream, fork_username unset
+        -  fork -&gt; upstream - call on fork, fork_username unset
+           also can call on upstream with fork_username, not supported way of using
+        -  fork -&gt; fork - call on fork, fork_username set
+        -  fork -&gt; other_fork - call on fork, fork_username set to other_fork owner
+        &#34;&#34;&#34;
+        repo = project.gitlab_repo
+        parameters = {
+            &#34;source_branch&#34;: source_branch,
+            &#34;target_branch&#34;: target_branch,
+            &#34;title&#34;: title,
+            &#34;description&#34;: body,
+        }
+        target_id = None
+
+        if project.is_fork and fork_username is None:
+            # handles fork -&gt; upstream (called on fork)
+            target_id = project.parent.gitlab_repo.attributes[&#34;id&#34;]
+        elif fork_username and fork_username != project.namespace:
+            # handles fork -&gt; upstream
+            #   (username of fork owner specified by fork_username)
+            # handles fork -&gt; other_fork
+            #   (username of other_fork owner specified by fork_username)
+
+            other_project = GitlabPullRequest.__get_fork(
+                fork_username,
+                project if project.parent is None else project.parent,
+            )
+
+            target_id = other_project.gitlab_repo.attributes[&#34;id&#34;]
+            if project.parent is None:
+                target_id = repo.attributes[&#34;id&#34;]
+                repo = other_project.gitlab_repo
+        # otherwise handles PR from the same project to same project
+
+        if target_id is not None:
+            parameters[&#34;target_project_id&#34;] = target_id
+
+        mr = repo.mergerequests.create(parameters)
+        return GitlabPullRequest(mr, project)
+
+    @staticmethod
+    def __get_fork(
+        fork_username: str, project: &#34;ogr_gitlab.GitlabProject&#34;
+    ) -&gt; &#34;ogr_gitlab.GitlabProject&#34;:
+        &#34;&#34;&#34;
+        Returns project of a requested user. Internal method, in case the fork
+        doesn&#39;t exist, raises GitlabAPIException.
+
+        :param fork_username: username of a user that owns requested fork
+        :param project: project to search forks of
+        :return: requested fork
+        &#34;&#34;&#34;
+        forks = list(
+            filter(
+                lambda fork: fork.gitlab_repo.namespace[&#34;full_path&#34;] == fork_username,
+                project.get_forks(),
+            )
+        )
+        if not forks:
+            raise GitlabAPIException(&#34;Requested fork doesn&#39;t exist&#34;)
+        return forks[0]
+
+    @staticmethod
+    def get(project: &#34;ogr_gitlab.GitlabProject&#34;, id: int) -&gt; &#34;PullRequest&#34;:
+        mr = project.gitlab_repo.mergerequests.get(id)
+        return GitlabPullRequest(mr, project)
+
+    @staticmethod
+    def get_list(
+        project: &#34;ogr_gitlab.GitlabProject&#34;, status: PRStatus = PRStatus.open
+    ) -&gt; List[&#34;PullRequest&#34;]:
+        # Gitlab API has status &#39;opened&#39;, not &#39;open&#39;
+        mrs = project.gitlab_repo.mergerequests.list(
+            state=status.name if status != PRStatus.open else &#34;opened&#34;,
+            order_by=&#34;updated_at&#34;,
+            sort=&#34;desc&#34;,
+        )
+        return [GitlabPullRequest(mr, project) for mr in mrs]
+
+    def update_info(
+        self, title: Optional[str] = None, description: Optional[str] = None
+    ) -&gt; &#34;PullRequest&#34;:
+        if title:
+            self._raw_pr.title = title
+        if description:
+            self._raw_pr.description = description
+
+        self._raw_pr.save()
+        return self
+
+    def _get_all_comments(self) -&gt; List[PRComment]:
+        return [
+            GitlabPRComment(parent=self, raw_comment=raw_comment)
+            for raw_comment in self._raw_pr.notes.list(sort=&#34;asc&#34;, all=True)
+        ]
+
+    def get_all_commits(self) -&gt; List[str]:
+        return [commit.id for commit in self._raw_pr.commits()]
+
+    def comment(
+        self,
+        body: str,
+        commit: Optional[str] = None,
+        filename: Optional[str] = None,
+        row: Optional[int] = None,
+    ) -&gt; &#34;PRComment&#34;:
+        comment = self._raw_pr.notes.create({&#34;body&#34;: body})
+        return GitlabPRComment(parent=self, raw_comment=comment)
+
+    def close(self) -&gt; &#34;PullRequest&#34;:
+        self._raw_pr.state_event = &#34;close&#34;
+        self._raw_pr.save()
+        return self
+
+    def merge(self) -&gt; &#34;PullRequest&#34;:
+        self._raw_pr.merge()
+        return self
+
+    def add_label(self, *labels: str) -&gt; None:
+        self._raw_pr.labels += labels
+        self._raw_pr.save()</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="ogr.services.base.BasePullRequest" href="../base.html#ogr.services.base.BasePullRequest">BasePullRequest</a></li>
+<li><a title="ogr.abstract.PullRequest" href="../../abstract.html#ogr.abstract.PullRequest">PullRequest</a></li>
+<li><a title="ogr.abstract.OgrAbstractClass" href="../../abstract.html#ogr.abstract.OgrAbstractClass">OgrAbstractClass</a></li>
+</ul>
+<h3>Static methods</h3>
+<dl>
+<dt id="ogr.services.gitlab.GitlabPullRequest.create"><code class="name flex">
+<span>def <span class="ident">create</span></span>(<span>project: ogr_gitlab.GitlabProject, title: str, body: str, target_branch: str, source_branch: str, fork_username: str = None) ‑> <a title="ogr.abstract.PullRequest" href="../../abstract.html#ogr.abstract.PullRequest">PullRequest</a></span>
+</code></dt>
+<dd>
+<div class="desc"><p>How to create PR:
+-
+upstream -&gt; upstream - call on upstream, fork_username unset
+-
+fork -&gt; upstream - call on fork, fork_username unset
+also can call on upstream with fork_username, not supported way of using
+-
+fork -&gt; fork - call on fork, fork_username set
+-
+fork -&gt; other_fork - call on fork, fork_username set to other_fork owner</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@staticmethod
+def create(
+    project: &#34;ogr_gitlab.GitlabProject&#34;,
+    title: str,
+    body: str,
+    target_branch: str,
+    source_branch: str,
+    fork_username: str = None,
+) -&gt; &#34;PullRequest&#34;:
+    &#34;&#34;&#34;
+    How to create PR:
+    -  upstream -&gt; upstream - call on upstream, fork_username unset
+    -  fork -&gt; upstream - call on fork, fork_username unset
+       also can call on upstream with fork_username, not supported way of using
+    -  fork -&gt; fork - call on fork, fork_username set
+    -  fork -&gt; other_fork - call on fork, fork_username set to other_fork owner
+    &#34;&#34;&#34;
+    repo = project.gitlab_repo
+    parameters = {
+        &#34;source_branch&#34;: source_branch,
+        &#34;target_branch&#34;: target_branch,
+        &#34;title&#34;: title,
+        &#34;description&#34;: body,
+    }
+    target_id = None
+
+    if project.is_fork and fork_username is None:
+        # handles fork -&gt; upstream (called on fork)
+        target_id = project.parent.gitlab_repo.attributes[&#34;id&#34;]
+    elif fork_username and fork_username != project.namespace:
+        # handles fork -&gt; upstream
+        #   (username of fork owner specified by fork_username)
+        # handles fork -&gt; other_fork
+        #   (username of other_fork owner specified by fork_username)
+
+        other_project = GitlabPullRequest.__get_fork(
+            fork_username,
+            project if project.parent is None else project.parent,
+        )
+
+        target_id = other_project.gitlab_repo.attributes[&#34;id&#34;]
+        if project.parent is None:
+            target_id = repo.attributes[&#34;id&#34;]
+            repo = other_project.gitlab_repo
+    # otherwise handles PR from the same project to same project
+
+    if target_id is not None:
+        parameters[&#34;target_project_id&#34;] = target_id
+
+    mr = repo.mergerequests.create(parameters)
+    return GitlabPullRequest(mr, project)</code></pre>
+</details>
+</dd>
+</dl>
+<h3>Instance variables</h3>
+<dl>
+<dt id="ogr.services.gitlab.GitlabPullRequest.author"><code class="name">var <span class="ident">author</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def author(self) -&gt; str:
+    return self._raw_pr.author[&#34;username&#34;]</code></pre>
+</details>
+</dd>
+<dt id="ogr.services.gitlab.GitlabPullRequest.commits_url"><code class="name">var <span class="ident">commits_url</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def commits_url(self) -&gt; str:
+    return f&#34;{self._raw_pr.web_url}/commits&#34;</code></pre>
+</details>
+</dd>
+<dt id="ogr.services.gitlab.GitlabPullRequest.created"><code class="name">var <span class="ident">created</span> : datetime.datetime</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def created(self) -&gt; datetime.datetime:
+    return self._raw_pr.created_at</code></pre>
+</details>
+</dd>
+<dt id="ogr.services.gitlab.GitlabPullRequest.description"><code class="name">var <span class="ident">description</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def description(self) -&gt; str:
+    return self._raw_pr.description</code></pre>
+</details>
+</dd>
+<dt id="ogr.services.gitlab.GitlabPullRequest.diff_url"><code class="name">var <span class="ident">diff_url</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def diff_url(self) -&gt; str:
+    return f&#34;{self._raw_pr.web_url}/diffs&#34;</code></pre>
+</details>
+</dd>
+<dt id="ogr.services.gitlab.GitlabPullRequest.head_commit"><code class="name">var <span class="ident">head_commit</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def head_commit(self) -&gt; str:
+    return self._raw_pr.sha</code></pre>
+</details>
+</dd>
+<dt id="ogr.services.gitlab.GitlabPullRequest.id"><code class="name">var <span class="ident">id</span> : int</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def id(self) -&gt; int:
+    return self._raw_pr.iid</code></pre>
+</details>
+</dd>
+<dt id="ogr.services.gitlab.GitlabPullRequest.labels"><code class="name">var <span class="ident">labels</span> : List[str]</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def labels(self) -&gt; List[str]:
+    return self._raw_pr.labels</code></pre>
+</details>
+</dd>
+<dt id="ogr.services.gitlab.GitlabPullRequest.source_branch"><code class="name">var <span class="ident">source_branch</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def source_branch(self) -&gt; str:
+    return self._raw_pr.source_branch</code></pre>
+</details>
+</dd>
+<dt id="ogr.services.gitlab.GitlabPullRequest.source_project"><code class="name">var <span class="ident">source_project</span> : <a title="ogr.services.gitlab.project.GitlabProject" href="project.html#ogr.services.gitlab.project.GitlabProject">GitlabProject</a></code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def source_project(self) -&gt; &#34;ogr_gitlab.GitlabProject&#34;:
+    if self._source_project is None:
+        self._source_project = (
+            self._target_project.service.get_project_from_project_id(
+                self._raw_pr.attributes[&#34;source_project_id&#34;]
+            )
+        )
+    return self._source_project</code></pre>
+</details>
+</dd>
+<dt id="ogr.services.gitlab.GitlabPullRequest.status"><code class="name">var <span class="ident">status</span> : <a title="ogr.abstract.PRStatus" href="../../abstract.html#ogr.abstract.PRStatus">PRStatus</a></code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def status(self) -&gt; PRStatus:
+    return (
+        PRStatus.open
+        if self._raw_pr.state == &#34;opened&#34;
+        else PRStatus[self._raw_pr.state]
+    )</code></pre>
+</details>
+</dd>
+<dt id="ogr.services.gitlab.GitlabPullRequest.target_branch"><code class="name">var <span class="ident">target_branch</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def target_branch(self) -&gt; str:
+    return self._raw_pr.target_branch</code></pre>
+</details>
+</dd>
+<dt id="ogr.services.gitlab.GitlabPullRequest.title"><code class="name">var <span class="ident">title</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def title(self) -&gt; str:
+    return self._raw_pr.title</code></pre>
+</details>
+</dd>
+<dt id="ogr.services.gitlab.GitlabPullRequest.url"><code class="name">var <span class="ident">url</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def url(self) -&gt; str:
+    return self._raw_pr.web_url</code></pre>
+</details>
+</dd>
+</dl>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="ogr.services.base.BasePullRequest" href="../base.html#ogr.services.base.BasePullRequest">BasePullRequest</a></b></code>:
+<ul class="hlist">
+<li><code><a title="ogr.services.base.BasePullRequest.add_label" href="../../abstract.html#ogr.abstract.PullRequest.add_label">add_label</a></code></li>
+<li><code><a title="ogr.services.base.BasePullRequest.close" href="../../abstract.html#ogr.abstract.PullRequest.close">close</a></code></li>
+<li><code><a title="ogr.services.base.BasePullRequest.comment" href="../../abstract.html#ogr.abstract.PullRequest.comment">comment</a></code></li>
+<li><code><a title="ogr.services.base.BasePullRequest.get" href="../../abstract.html#ogr.abstract.PullRequest.get">get</a></code></li>
+<li><code><a title="ogr.services.base.BasePullRequest.get_all_commits" href="../../abstract.html#ogr.abstract.PullRequest.get_all_commits">get_all_commits</a></code></li>
+<li><code><a title="ogr.services.base.BasePullRequest.get_comments" href="../../abstract.html#ogr.abstract.PullRequest.get_comments">get_comments</a></code></li>
+<li><code><a title="ogr.services.base.BasePullRequest.get_list" href="../../abstract.html#ogr.abstract.PullRequest.get_list">get_list</a></code></li>
+<li><code><a title="ogr.services.base.BasePullRequest.get_statuses" href="../../abstract.html#ogr.abstract.PullRequest.get_statuses">get_statuses</a></code></li>
+<li><code><a title="ogr.services.base.BasePullRequest.merge" href="../../abstract.html#ogr.abstract.PullRequest.merge">merge</a></code></li>
+<li><code><a title="ogr.services.base.BasePullRequest.search" href="../../abstract.html#ogr.abstract.PullRequest.search">search</a></code></li>
+<li><code><a title="ogr.services.base.BasePullRequest.update_info" href="../../abstract.html#ogr.abstract.PullRequest.update_info">update_info</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+<dt id="ogr.services.gitlab.GitlabRelease"><code class="flex name class">
+<span>class <span class="ident">GitlabRelease</span></span>
+<span>(</span><span>tag_name: str, url: Union[str, NoneType], created_at: str, tarball_url: str, git_tag: <a title="ogr.abstract.GitTag" href="../../abstract.html#ogr.abstract.GitTag">GitTag</a>, project: ogr_gitlab.GitlabProject, raw_release)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class GitlabRelease(Release):
+    project: &#34;ogr_gitlab.GitlabProject&#34;
+
+    def __init__(
+        self,
+        tag_name: str,
+        url: Optional[str],
+        created_at: str,
+        tarball_url: str,
+        git_tag: GitTag,
+        project: &#34;ogr_gitlab.GitlabProject&#34;,
+        raw_release,
+    ) -&gt; None:
+        super().__init__(tag_name, url, created_at, tarball_url, git_tag, project)
+        self.raw_release = raw_release
+
+    @property
+    def title(self):
+        return self.raw_release.name
+
+    @property
+    def body(self):
+        return self.raw_release.description
+
+    def edit_release(self, name: str, message: str) -&gt; None:
+        raise OperationNotSupported(&#34;edit_release not supported on GitLab&#34;)</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="ogr.abstract.Release" href="../../abstract.html#ogr.abstract.Release">Release</a></li>
+<li><a title="ogr.abstract.OgrAbstractClass" href="../../abstract.html#ogr.abstract.OgrAbstractClass">OgrAbstractClass</a></li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="ogr.services.gitlab.GitlabRelease.project"><code class="name">var <span class="ident">project</span> : <a title="ogr.services.gitlab.project.GitlabProject" href="project.html#ogr.services.gitlab.project.GitlabProject">GitlabProject</a></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Instance variables</h3>
+<dl>
+<dt id="ogr.services.gitlab.GitlabRelease.body"><code class="name">var <span class="ident">body</span></code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def body(self):
+    return self.raw_release.description</code></pre>
+</details>
+</dd>
+<dt id="ogr.services.gitlab.GitlabRelease.title"><code class="name">var <span class="ident">title</span></code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def title(self):
+    return self.raw_release.name</code></pre>
+</details>
+</dd>
+</dl>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="ogr.abstract.Release" href="../../abstract.html#ogr.abstract.Release">Release</a></b></code>:
+<ul class="hlist">
+<li><code><a title="ogr.abstract.Release.edit_release" href="../../abstract.html#ogr.abstract.Release.edit_release">edit_release</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+<dt id="ogr.services.gitlab.GitlabService"><code class="flex name class">
+<span>class <span class="ident">GitlabService</span></span>
+<span>(</span><span>token=None, instance_url=None, ssl_verify=True, **kwargs)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class GitlabService(BaseGitService):
+    name = &#34;gitlab&#34;
+
+    def __init__(self, token=None, instance_url=None, ssl_verify=True, **kwargs):
+        super().__init__(token=token)
+        self.instance_url = instance_url or &#34;https://gitlab.com&#34;
+        self.token = token
+        self.ssl_verify = ssl_verify
+        self._gitlab_instance = None
+
+        logger.warning(f&#34;Ignored keyword arguments: {kwargs}&#34;)
+
+    @property
+    def gitlab_instance(self) -&gt; gitlab.Gitlab:
+        if not self._gitlab_instance:
+            self._gitlab_instance = gitlab.Gitlab(
+                url=self.instance_url,
+                private_token=self.token,
+                ssl_verify=self.ssl_verify,
+            )
+            if self.token:
+                self._gitlab_instance.auth()
+        return self._gitlab_instance
+
+    @property
+    def user(self) -&gt; GitUser:
+        return GitlabUser(service=self)
+
+    def __str__(self) -&gt; str:
+        token_str = (
+            f&#34;, token=&#39;{self.token[:1]}***{self.token[-1:]}&#39;&#34; if self.token else &#34;&#34;
+        )
+        ssl_str = &#34;, ssl_verify=False&#34; if not self.ssl_verify else &#34;&#34;
+        str_result = (
+            f&#34;GitlabService(instance_url=&#39;{self.instance_url}&#39;&#34;
+            f&#34;{token_str}&#34;
+            f&#34;{ssl_str})&#34;
+        )
+        return str_result
+
+    def __eq__(self, o: object) -&gt; bool:
+        if not issubclass(o.__class__, GitlabService):
+            return False
+
+        return (
+            self.token == o.token  # type: ignore
+            and self.instance_url == o.instance_url  # type: ignore
+            and self.ssl_verify == o.ssl_verify  # type: ignore
+        )
+
+    def __hash__(self) -&gt; int:
+        return hash(str(self))
+
+    def get_project(
+        self, repo=None, namespace=None, is_fork=False, **kwargs
+    ) -&gt; &#34;GitlabProject&#34;:
+        if is_fork:
+            namespace = self.user.get_username()
+        return GitlabProject(repo=repo, namespace=namespace, service=self, **kwargs)
+
+    def get_project_from_project_id(self, iid: int) -&gt; &#34;GitlabProject&#34;:
+        gitlab_repo = self.gitlab_instance.projects.get(iid)
+        return GitlabProject(
+            repo=gitlab_repo.attributes[&#34;path&#34;],
+            namespace=gitlab_repo.attributes[&#34;namespace&#34;][&#34;full_path&#34;],
+            service=self,
+            gitlab_repo=gitlab_repo,
+        )
+
+    def change_token(self, new_token: str) -&gt; None:
+        self.token = new_token
+        self._gitlab_instance = None
+
+    def project_create(
+        self,
+        repo: str,
+        namespace: Optional[str] = None,
+        description: Optional[str] = None,
+    ) -&gt; &#34;GitlabProject&#34;:
+        data = {&#34;name&#34;: repo}
+        if namespace:
+            try:
+                group = self.gitlab_instance.groups.get(namespace)
+            except gitlab.GitlabGetError:
+                raise GitlabAPIException(f&#34;Group {namespace} not found.&#34;)
+            data[&#34;namespace_id&#34;] = group.id
+
+        if description:
+            data[&#34;description&#34;] = description
+        new_project = self.gitlab_instance.projects.create(data)
+        return GitlabProject(
+            repo=repo, namespace=namespace, service=self, gitlab_repo=new_project
+        )</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="ogr.services.base.BaseGitService" href="../base.html#ogr.services.base.BaseGitService">BaseGitService</a></li>
+<li><a title="ogr.abstract.GitService" href="../../abstract.html#ogr.abstract.GitService">GitService</a></li>
+<li><a title="ogr.abstract.OgrAbstractClass" href="../../abstract.html#ogr.abstract.OgrAbstractClass">OgrAbstractClass</a></li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="ogr.services.gitlab.GitlabService.instance_url"><code class="name">var <span class="ident">instance_url</span> : Union[str, NoneType]</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="ogr.services.gitlab.GitlabService.name"><code class="name">var <span class="ident">name</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Instance variables</h3>
+<dl>
+<dt id="ogr.services.gitlab.GitlabService.gitlab_instance"><code class="name">var <span class="ident">gitlab_instance</span> : gitlab.client.Gitlab</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def gitlab_instance(self) -&gt; gitlab.Gitlab:
+    if not self._gitlab_instance:
+        self._gitlab_instance = gitlab.Gitlab(
+            url=self.instance_url,
+            private_token=self.token,
+            ssl_verify=self.ssl_verify,
+        )
+        if self.token:
+            self._gitlab_instance.auth()
+    return self._gitlab_instance</code></pre>
+</details>
+</dd>
+</dl>
+<h3>Methods</h3>
+<dl>
+<dt id="ogr.services.gitlab.GitlabService.get_project_from_project_id"><code class="name flex">
+<span>def <span class="ident">get_project_from_project_id</span></span>(<span>self, iid: int) ‑> <a title="ogr.services.gitlab.project.GitlabProject" href="project.html#ogr.services.gitlab.project.GitlabProject">GitlabProject</a></span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_project_from_project_id(self, iid: int) -&gt; &#34;GitlabProject&#34;:
+    gitlab_repo = self.gitlab_instance.projects.get(iid)
+    return GitlabProject(
+        repo=gitlab_repo.attributes[&#34;path&#34;],
+        namespace=gitlab_repo.attributes[&#34;namespace&#34;][&#34;full_path&#34;],
+        service=self,
+        gitlab_repo=gitlab_repo,
+    )</code></pre>
+</details>
+</dd>
+</dl>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="ogr.services.base.BaseGitService" href="../base.html#ogr.services.base.BaseGitService">BaseGitService</a></b></code>:
+<ul class="hlist">
+<li><code><a title="ogr.services.base.BaseGitService.change_token" href="../../abstract.html#ogr.abstract.GitService.change_token">change_token</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitService.get_project" href="../../abstract.html#ogr.abstract.GitService.get_project">get_project</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitService.hostname" href="../../abstract.html#ogr.abstract.GitService.hostname">hostname</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitService.project_create" href="../../abstract.html#ogr.abstract.GitService.project_create">project_create</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitService.user" href="../../abstract.html#ogr.abstract.GitService.user">user</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+<dt id="ogr.services.gitlab.GitlabUser"><code class="flex name class">
+<span>class <span class="ident">GitlabUser</span></span>
+<span>(</span><span>service: ogr_gitlab.GitlabService)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class GitlabUser(BaseGitUser):
+    service: &#34;ogr_gitlab.GitlabService&#34;
+
+    def __init__(self, service: &#34;ogr_gitlab.GitlabService&#34;) -&gt; None:
+        super().__init__(service=service)
+
+    def __str__(self) -&gt; str:
+        return f&#39;GitlabUser(username=&#34;{self.get_username()}&#34;)&#39;
+
+    @property
+    def _gitlab_user(self):
+        return self.service.gitlab_instance.user
+
+    def get_username(self) -&gt; str:
+        return self._gitlab_user.username
+
+    def get_email(self) -&gt; str:
+        return self._gitlab_user.email
+
+    def get_projects(self) -&gt; List[&#34;ogr_gitlab.GitlabProject&#34;]:
+        raise OperationNotSupported
+
+    def get_forks(self) -&gt; List[&#34;ogr_gitlab.GitlabProject&#34;]:
+        raise OperationNotSupported</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="ogr.services.base.BaseGitUser" href="../base.html#ogr.services.base.BaseGitUser">BaseGitUser</a></li>
+<li><a title="ogr.abstract.GitUser" href="../../abstract.html#ogr.abstract.GitUser">GitUser</a></li>
+<li><a title="ogr.abstract.OgrAbstractClass" href="../../abstract.html#ogr.abstract.OgrAbstractClass">OgrAbstractClass</a></li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="ogr.services.gitlab.GitlabUser.service"><code class="name">var <span class="ident">service</span> : <a title="ogr.services.gitlab.service.GitlabService" href="service.html#ogr.services.gitlab.service.GitlabService">GitlabService</a></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Methods</h3>
+<dl>
+<dt id="ogr.services.gitlab.GitlabUser.get_email"><code class="name flex">
+<span>def <span class="ident">get_email</span></span>(<span>self) ‑> str</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_email(self) -&gt; str:
+    return self._gitlab_user.email</code></pre>
+</details>
+</dd>
+<dt id="ogr.services.gitlab.GitlabUser.get_forks"><code class="name flex">
+<span>def <span class="ident">get_forks</span></span>(<span>self) ‑> List[<a title="ogr.services.gitlab.project.GitlabProject" href="project.html#ogr.services.gitlab.project.GitlabProject">GitlabProject</a>]</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_forks(self) -&gt; List[&#34;ogr_gitlab.GitlabProject&#34;]:
+    raise OperationNotSupported</code></pre>
+</details>
+</dd>
+<dt id="ogr.services.gitlab.GitlabUser.get_projects"><code class="name flex">
+<span>def <span class="ident">get_projects</span></span>(<span>self) ‑> List[<a title="ogr.services.gitlab.project.GitlabProject" href="project.html#ogr.services.gitlab.project.GitlabProject">GitlabProject</a>]</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_projects(self) -&gt; List[&#34;ogr_gitlab.GitlabProject&#34;]:
+    raise OperationNotSupported</code></pre>
+</details>
+</dd>
+<dt id="ogr.services.gitlab.GitlabUser.get_username"><code class="name flex">
+<span>def <span class="ident">get_username</span></span>(<span>self) ‑> str</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_username(self) -&gt; str:
+    return self._gitlab_user.username</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="ogr.services" href="../index.html">ogr.services</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-submodules">Sub-modules</a></h3>
+<ul>
+<li><code><a title="ogr.services.gitlab.comments" href="comments.html">ogr.services.gitlab.comments</a></code></li>
+<li><code><a title="ogr.services.gitlab.flag" href="flag.html">ogr.services.gitlab.flag</a></code></li>
+<li><code><a title="ogr.services.gitlab.issue" href="issue.html">ogr.services.gitlab.issue</a></code></li>
+<li><code><a title="ogr.services.gitlab.project" href="project.html">ogr.services.gitlab.project</a></code></li>
+<li><code><a title="ogr.services.gitlab.pull_request" href="pull_request.html">ogr.services.gitlab.pull_request</a></code></li>
+<li><code><a title="ogr.services.gitlab.release" href="release.html">ogr.services.gitlab.release</a></code></li>
+<li><code><a title="ogr.services.gitlab.service" href="service.html">ogr.services.gitlab.service</a></code></li>
+<li><code><a title="ogr.services.gitlab.user" href="user.html">ogr.services.gitlab.user</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="ogr.services.gitlab.GitlabIssue" href="#ogr.services.gitlab.GitlabIssue">GitlabIssue</a></code></h4>
+<ul class="two-column">
+<li><code><a title="ogr.services.gitlab.GitlabIssue.assignees" href="#ogr.services.gitlab.GitlabIssue.assignees">assignees</a></code></li>
+<li><code><a title="ogr.services.gitlab.GitlabIssue.author" href="#ogr.services.gitlab.GitlabIssue.author">author</a></code></li>
+<li><code><a title="ogr.services.gitlab.GitlabIssue.created" href="#ogr.services.gitlab.GitlabIssue.created">created</a></code></li>
+<li><code><a title="ogr.services.gitlab.GitlabIssue.description" href="#ogr.services.gitlab.GitlabIssue.description">description</a></code></li>
+<li><code><a title="ogr.services.gitlab.GitlabIssue.id" href="#ogr.services.gitlab.GitlabIssue.id">id</a></code></li>
+<li><code><a title="ogr.services.gitlab.GitlabIssue.labels" href="#ogr.services.gitlab.GitlabIssue.labels">labels</a></code></li>
+<li><code><a title="ogr.services.gitlab.GitlabIssue.private" href="#ogr.services.gitlab.GitlabIssue.private">private</a></code></li>
+<li><code><a title="ogr.services.gitlab.GitlabIssue.status" href="#ogr.services.gitlab.GitlabIssue.status">status</a></code></li>
+<li><code><a title="ogr.services.gitlab.GitlabIssue.title" href="#ogr.services.gitlab.GitlabIssue.title">title</a></code></li>
+<li><code><a title="ogr.services.gitlab.GitlabIssue.url" href="#ogr.services.gitlab.GitlabIssue.url">url</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="ogr.services.gitlab.GitlabIssueComment" href="#ogr.services.gitlab.GitlabIssueComment">GitlabIssueComment</a></code></h4>
+</li>
+<li>
+<h4><code><a title="ogr.services.gitlab.GitlabPRComment" href="#ogr.services.gitlab.GitlabPRComment">GitlabPRComment</a></code></h4>
+</li>
+<li>
+<h4><code><a title="ogr.services.gitlab.GitlabProject" href="#ogr.services.gitlab.GitlabProject">GitlabProject</a></code></h4>
+<ul class="two-column">
+<li><code><a title="ogr.services.gitlab.GitlabProject.add_user" href="#ogr.services.gitlab.GitlabProject.add_user">add_user</a></code></li>
+<li><code><a title="ogr.services.gitlab.GitlabProject.commit_comment" href="#ogr.services.gitlab.GitlabProject.commit_comment">commit_comment</a></code></li>
+<li><code><a title="ogr.services.gitlab.GitlabProject.create_release" href="#ogr.services.gitlab.GitlabProject.create_release">create_release</a></code></li>
+<li><code><a title="ogr.services.gitlab.GitlabProject.fork_create" href="#ogr.services.gitlab.GitlabProject.fork_create">fork_create</a></code></li>
+<li><code><a title="ogr.services.gitlab.GitlabProject.get_commit_statuses" href="#ogr.services.gitlab.GitlabProject.get_commit_statuses">get_commit_statuses</a></code></li>
+<li><code><a title="ogr.services.gitlab.GitlabProject.get_fork" href="#ogr.services.gitlab.GitlabProject.get_fork">get_fork</a></code></li>
+<li><code><a title="ogr.services.gitlab.GitlabProject.get_forks" href="#ogr.services.gitlab.GitlabProject.get_forks">get_forks</a></code></li>
+<li><code><a title="ogr.services.gitlab.GitlabProject.get_git_urls" href="#ogr.services.gitlab.GitlabProject.get_git_urls">get_git_urls</a></code></li>
+<li><code><a title="ogr.services.gitlab.GitlabProject.gitlab_repo" href="#ogr.services.gitlab.GitlabProject.gitlab_repo">gitlab_repo</a></code></li>
+<li><code><a title="ogr.services.gitlab.GitlabProject.is_private" href="#ogr.services.gitlab.GitlabProject.is_private">is_private</a></code></li>
+<li><code><a title="ogr.services.gitlab.GitlabProject.list_labels" href="#ogr.services.gitlab.GitlabProject.list_labels">list_labels</a></code></li>
+<li><code><a title="ogr.services.gitlab.GitlabProject.service" href="#ogr.services.gitlab.GitlabProject.service">service</a></code></li>
+<li><code><a title="ogr.services.gitlab.GitlabProject.set_commit_status" href="#ogr.services.gitlab.GitlabProject.set_commit_status">set_commit_status</a></code></li>
+<li><code><a title="ogr.services.gitlab.GitlabProject.update_labels" href="#ogr.services.gitlab.GitlabProject.update_labels">update_labels</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="ogr.services.gitlab.GitlabPullRequest" href="#ogr.services.gitlab.GitlabPullRequest">GitlabPullRequest</a></code></h4>
+<ul class="two-column">
+<li><code><a title="ogr.services.gitlab.GitlabPullRequest.author" href="#ogr.services.gitlab.GitlabPullRequest.author">author</a></code></li>
+<li><code><a title="ogr.services.gitlab.GitlabPullRequest.commits_url" href="#ogr.services.gitlab.GitlabPullRequest.commits_url">commits_url</a></code></li>
+<li><code><a title="ogr.services.gitlab.GitlabPullRequest.create" href="#ogr.services.gitlab.GitlabPullRequest.create">create</a></code></li>
+<li><code><a title="ogr.services.gitlab.GitlabPullRequest.created" href="#ogr.services.gitlab.GitlabPullRequest.created">created</a></code></li>
+<li><code><a title="ogr.services.gitlab.GitlabPullRequest.description" href="#ogr.services.gitlab.GitlabPullRequest.description">description</a></code></li>
+<li><code><a title="ogr.services.gitlab.GitlabPullRequest.diff_url" href="#ogr.services.gitlab.GitlabPullRequest.diff_url">diff_url</a></code></li>
+<li><code><a title="ogr.services.gitlab.GitlabPullRequest.head_commit" href="#ogr.services.gitlab.GitlabPullRequest.head_commit">head_commit</a></code></li>
+<li><code><a title="ogr.services.gitlab.GitlabPullRequest.id" href="#ogr.services.gitlab.GitlabPullRequest.id">id</a></code></li>
+<li><code><a title="ogr.services.gitlab.GitlabPullRequest.labels" href="#ogr.services.gitlab.GitlabPullRequest.labels">labels</a></code></li>
+<li><code><a title="ogr.services.gitlab.GitlabPullRequest.source_branch" href="#ogr.services.gitlab.GitlabPullRequest.source_branch">source_branch</a></code></li>
+<li><code><a title="ogr.services.gitlab.GitlabPullRequest.source_project" href="#ogr.services.gitlab.GitlabPullRequest.source_project">source_project</a></code></li>
+<li><code><a title="ogr.services.gitlab.GitlabPullRequest.status" href="#ogr.services.gitlab.GitlabPullRequest.status">status</a></code></li>
+<li><code><a title="ogr.services.gitlab.GitlabPullRequest.target_branch" href="#ogr.services.gitlab.GitlabPullRequest.target_branch">target_branch</a></code></li>
+<li><code><a title="ogr.services.gitlab.GitlabPullRequest.title" href="#ogr.services.gitlab.GitlabPullRequest.title">title</a></code></li>
+<li><code><a title="ogr.services.gitlab.GitlabPullRequest.url" href="#ogr.services.gitlab.GitlabPullRequest.url">url</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="ogr.services.gitlab.GitlabRelease" href="#ogr.services.gitlab.GitlabRelease">GitlabRelease</a></code></h4>
+<ul class="">
+<li><code><a title="ogr.services.gitlab.GitlabRelease.body" href="#ogr.services.gitlab.GitlabRelease.body">body</a></code></li>
+<li><code><a title="ogr.services.gitlab.GitlabRelease.project" href="#ogr.services.gitlab.GitlabRelease.project">project</a></code></li>
+<li><code><a title="ogr.services.gitlab.GitlabRelease.title" href="#ogr.services.gitlab.GitlabRelease.title">title</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="ogr.services.gitlab.GitlabService" href="#ogr.services.gitlab.GitlabService">GitlabService</a></code></h4>
+<ul class="">
+<li><code><a title="ogr.services.gitlab.GitlabService.get_project_from_project_id" href="#ogr.services.gitlab.GitlabService.get_project_from_project_id">get_project_from_project_id</a></code></li>
+<li><code><a title="ogr.services.gitlab.GitlabService.gitlab_instance" href="#ogr.services.gitlab.GitlabService.gitlab_instance">gitlab_instance</a></code></li>
+<li><code><a title="ogr.services.gitlab.GitlabService.instance_url" href="#ogr.services.gitlab.GitlabService.instance_url">instance_url</a></code></li>
+<li><code><a title="ogr.services.gitlab.GitlabService.name" href="#ogr.services.gitlab.GitlabService.name">name</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="ogr.services.gitlab.GitlabUser" href="#ogr.services.gitlab.GitlabUser">GitlabUser</a></code></h4>
+<ul class="">
+<li><code><a title="ogr.services.gitlab.GitlabUser.get_email" href="#ogr.services.gitlab.GitlabUser.get_email">get_email</a></code></li>
+<li><code><a title="ogr.services.gitlab.GitlabUser.get_forks" href="#ogr.services.gitlab.GitlabUser.get_forks">get_forks</a></code></li>
+<li><code><a title="ogr.services.gitlab.GitlabUser.get_projects" href="#ogr.services.gitlab.GitlabUser.get_projects">get_projects</a></code></li>
+<li><code><a title="ogr.services.gitlab.GitlabUser.get_username" href="#ogr.services.gitlab.GitlabUser.get_username">get_username</a></code></li>
+<li><code><a title="ogr.services.gitlab.GitlabUser.service" href="#ogr.services.gitlab.GitlabUser.service">service</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.9.2</a>.</p>
+</footer>
+</body>
+</html>
