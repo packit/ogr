@@ -4,12 +4,13 @@ PY_PACKAGE := ogr
 OGR_IMAGE := ogr
 
 build: recipe.yaml
+	if ! test -x /usr/bin/ansible-bender ; then sudo dnf -y install ansible-bender ; fi
+	if ! test -x /usr/bin/podman ; then sudo dnf -y install podman ; fi
 	ansible-bender build --build-volumes $(CURDIR):/src:Z -- ./recipe.yaml $(BASE_IMAGE) $(OGR_IMAGE)
 
-prepare-check:
-	sudo dnf install python3-tox python36
-
 check:
+	if ! test -x /usr/bin/requre-patch ; then sudo dnf -y install python3-requre ; fi
+	if ! test -d /usr/share/doc/python3-flexmock ; then sudo dnf -y install python3-flexmock ; fi
 	@#`python3 -m pytest` doesn't work here b/c the way requre overrides import system:
 	@#`AttributeError: module 'importlib_metadata' has no attribute 'distributions'
 	PYTHONPATH=$(CURDIR) PYTHONDONTWRITEBYTECODE=1 pytest --verbose --showlocals $(TEST_TARGET)

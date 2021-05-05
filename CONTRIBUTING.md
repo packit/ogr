@@ -5,7 +5,7 @@ Please follow common guidelines for our projects [here](https://github.com/packi
 ## Reporting Bugs
 
 - [List of known issues](https://github.com/packit/ogr/issues) and in case you need to create a new issue, you can do so [here](https://github.com/packit/ogr/issues/new).
-- Getting a version of `ogr`:<br>
+- Getting the version of `ogr`:<br>
   `rpm -q python3-ogr` or `pip3 freeze | grep ogr`
 
 ## Documentation
@@ -22,7 +22,7 @@ Here are some links to the documentation that could be helpful when contributing
 - GitLab (through `Python-Gitlab`)
   - [Python-Gitlab documentation](https://python-gitlab.readthedocs.io/)
   - for details also see [official GitLab API docs](https://docs.gitlab.com/ee/api/)
-- Pagure (through `requests`) - API is dependant on deployed version of Pagure service;
+- Pagure (through `requests`) - API is dependent on deployed version of Pagure service;
   `ogr` is majorly used on (links lead directly to API docs)
   - [src.fedoraproject.org](https://src.fedoraproject.org/api/0/)
   - [pagure.io](https://pagure.io/api/0/)
@@ -30,25 +30,40 @@ Here are some links to the documentation that could be helpful when contributing
 
 ## Testing
 
-Tests are stored in [tests](/tests) directory.
-
-We use [Tox](https://pypi.org/project/tox) with configuration in [tox.ini](tox.ini).
+Tests are stored in the [tests](/tests) directory.
 
 Running tests locally:
 
 ```
-make prepare-check && make check
+make check
 ```
+
+The following packages are installed by 'make check'
+if they are not installed already:
+
+    python3-flexmock
+    python3-requre
 
 Or you can run them in a container:
 
     make build
     make check-in-container
 
-The above builds a local image with all the dependencies using
-[ansible-bender](https://github.com/ansible-community/ansible-bender), and
-runs the tests in a container created from that image. `TEST_TARGET` can be
-set to select a subset of the tests.
+The following packages are installed by 'make build'
+if they are not installed already:
+
+    podman
+    ansible-bender
+
+The 'make build' command builds a local image with all the dependencies using
+[ansible-bender](https://github.com/ansible-community/ansible-bender);
+the 'make check-in-container' command runs the tests in a container created
+from that image. `TEST_TARGET` can be set to select a subset of the tests.
+
+NOTE that 'make build' uses approximately 7.1 GB of disk space; see /etc/containers/storage.conf
+for the location of this storage. It is typically /var/lib/containers/storage for root,
+$HOME/.local/share/containers/storage for non-root users. ('make check-in-container' does not use
+appreciably more storage.)
 
 As a CI we use [Zuul](https://softwarefactory-project.io/zuul/t/local/builds?project=packit-service/ogr) with a configuration in [.zuul.yaml](.zuul.yaml).
 If you want to re-run CI/tests in a pull request, just include `recheck` in a comment.
@@ -78,12 +93,6 @@ Use [ansible-bender](https://pypi.org/project/ansible-bender) to build container
 
 ```
 make build
-```
-
-Install packages needed to run tests:
-
-```
-make prepare-check
 ```
 
 Run tests locally:
