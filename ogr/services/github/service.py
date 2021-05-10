@@ -99,7 +99,8 @@ class GithubService(BaseGitService):
                 max_retries=self._max_retries,
             )
 
-        logger.warning(f"Ignored keyword arguments: {kwargs}")
+        if kwargs:
+            logger.warning(f"Ignored keyword arguments: {kwargs}")
 
     def __set_authentication(self, **kwargs):
         auth_methods = [
