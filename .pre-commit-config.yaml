@@ -4,11 +4,11 @@
 
 repos:
   - repo: https://github.com/psf/black
-    rev: 21.4b2
+    rev: 21.5b1
     hooks:
       - id: black
   - repo: https://github.com/pre-commit/mirrors-prettier
-    rev: v2.2.1
+    rev: v2.3.0
     hooks:
       - id: prettier
   - repo: https://github.com/pre-commit/pre-commit-hooks
@@ -22,7 +22,7 @@ repos:
       - id: end-of-file-fixer
       - id: trailing-whitespace
   - repo: https://github.com/PyCQA/flake8
-    rev: 3.9.1
+    rev: 3.9.2
     hooks:
       - id: flake8
         args: [--max-line-length=100]
@@ -39,7 +39,7 @@ repos:
           - git://github.com/packit-service/ogr.git
         stages: [manual, push]
   - repo: https://github.com/packit/requre
-    rev: 0.7.1
+    rev: 0.8.0
     hooks:
       - id: requre-purge
         stages: [manual, push]
