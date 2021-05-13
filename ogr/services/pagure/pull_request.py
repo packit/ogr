@@ -192,8 +192,8 @@ class PagurePullRequest(BasePullRequest):
         return PagurePullRequest(response, project)
 
     @staticmethod
-    def get(project: "ogr_pagure.PagureProject", id: int) -> "PullRequest":
-        raw_pr = project._call_project_api("pull-request", str(id))
+    def get(project: "ogr_pagure.PagureProject", pr_id: int) -> "PullRequest":
+        raw_pr = project._call_project_api("pull-request", str(pr_id))
         return PagurePullRequest(raw_pr, project)
 
     @staticmethod
