@@ -291,6 +291,7 @@ class GithubProject(BaseGitProject):
     def get_issue(self, issue_id: int) -> Issue:
         pass
 
+    @indirect(GithubIssue.create)
     def create_issue(
         self,
         title: str,
@@ -299,10 +300,7 @@ class GithubProject(BaseGitProject):
         labels: Optional[List[str]] = None,
         assignees: Optional[List[str]] = None,
     ) -> Issue:
-        if private:
-            raise OperationNotSupported("Private issues are not supported by Github")
-
-        return GithubIssue.create(self, title, body, private, labels, assignees)
+        pass
 
     def delete(self) -> None:
         self.github_repo.delete()

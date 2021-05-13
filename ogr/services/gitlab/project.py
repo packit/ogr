@@ -400,6 +400,7 @@ class GitlabProject(BaseGitProject):
     def get_issue(self, issue_id: int) -> Issue:
         pass
 
+    @indirect(GitlabIssue.create)
     def create_issue(
         self,
         title: str,
@@ -408,16 +409,7 @@ class GitlabProject(BaseGitProject):
         labels: Optional[List[str]] = None,
         assignees: Optional[List[str]] = None,
     ) -> Issue:
-        assignee_ids = []
-        for user in assignees or []:
-            users_list = self.service.gitlab_instance.users.list(username=user)
-
-            if not users_list:
-                raise GitlabAPIException(f"Unable to find '{user}' username")
-
-            assignee_ids.append(str(users_list[0].id))
-
-        return GitlabIssue.create(self, title, body, private, labels, assignee_ids)
+        pass
 
     @indirect(GitlabPullRequest.get)
     def get_pr(self, pr_id: int) -> PullRequest:

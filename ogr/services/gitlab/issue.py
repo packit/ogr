@@ -102,11 +102,20 @@ class GitlabIssue(BaseIssue):
         labels: Optional[List[str]] = None,
         assignees: Optional[List[str]] = None,
     ) -> "Issue":
+        assignee_ids = []
+        for user in assignees or []:
+            users_list = project.service.gitlab_instance.users.list(username=user)
+
+            if not users_list:
+                raise GitlabAPIException(f"Unable to find '{user}' username")
+
+            assignee_ids.append(str(users_list[0].id))
+
         data = {"title": title, "description": body}
         if labels:
             data["labels"] = ",".join(labels)
         if assignees:
-            data["assignee_ids"] = ",".join(assignees)
+            data["assignee_ids"] = ",".join(assignee_ids)
 
         issue = project.gitlab_repo.issues.create(data, confidential=private)
         return GitlabIssue(issue, project)
