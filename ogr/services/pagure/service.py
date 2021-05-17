@@ -67,7 +67,8 @@ class PagureService(BaseGitService):
 
         self.header = {"Authorization": "token " + self._token} if self._token else {}
 
-        logger.warning(f"Ignored keyword arguments: {kwargs}")
+        if kwargs:
+            logger.warning(f"Ignored keyword arguments: {kwargs}")
 
     def __str__(self) -> str:
         token_str = (

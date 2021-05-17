@@ -45,7 +45,8 @@ class GitlabService(BaseGitService):
         self.ssl_verify = ssl_verify
         self._gitlab_instance = None
 
-        logger.warning(f"Ignored keyword arguments: {kwargs}")
+        if kwargs:
+            logger.warning(f"Ignored keyword arguments: {kwargs}")
 
     @property
     def gitlab_instance(self) -> gitlab.Gitlab:
