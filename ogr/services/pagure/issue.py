@@ -74,7 +74,10 @@ class PagureIssue(BaseIssue):
     @property
     def assignee(self) -> str:
         self.__update()
-        return self._raw_issue["assignee"]["name"]
+        try:
+            return self._raw_issue["assignee"]["name"]
+        except Exception:
+            return None
 
     @property
     def description(self) -> str:
@@ -203,3 +206,11 @@ class PagureIssue(BaseIssue):
         )
         self.__dirty = True
         return self
+
+    def add_assignee(self, *assignees: str) -> None:
+        if len(assignees) > 1:
+            raise PagureAPIException("Pagure does not support multiple assignees")
+        payload = {"assignee": assignees[0]}
+        self.project._call_project_api(
+            "issue", str(self.id), "assign", data=payload, method="POST"
+        )

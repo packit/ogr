@@ -164,3 +164,6 @@ class GithubIssue(BaseIssue):
     def add_label(self, *labels: str) -> None:
         for label in labels:
             self._raw_issue.add_to_labels(label)
+
+    def add_assignee(self, *assignees: str) -> None:
+        self._raw_issue.edit(assignees=list(assignees))

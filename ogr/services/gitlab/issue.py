@@ -67,7 +67,10 @@ class GitlabIssue(BaseIssue):
 
     @property
     def assignees(self) -> list:
-        return self._raw_issue.assignees
+        try:
+            return self._raw_issue.assignees
+        except AttributeError:
+            return None  # if issue has no assignees, the attribute is not present
 
     @property
     def description(self) -> str:
@@ -170,4 +173,19 @@ class GitlabIssue(BaseIssue):
     def add_label(self, *labels: str) -> None:
         for label in labels:
             self._raw_issue.labels.append(label)
+        self._raw_issue.save()
+
+    def add_assignee(self, *assignees: str) -> None:
+        assignee_ids = self._raw_issue.__dict__.get("assignee_ids") or []
+        for assignee in assignees:
+            users = self.project.service.gitlab_instance.users.list(  # type: ignore
+                username=assignee
+            )
+            if not users:
+                raise GitlabAPIException(f"Unable to find '{assignee}' username")
+            uid = str(users[0].id)
+            if uid not in assignee_ids:
+                assignee_ids.append(str(users[0].id))
+
+        self._raw_issue.assignee_ids = assignee_ids
         self._raw_issue.save()
