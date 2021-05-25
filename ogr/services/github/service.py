@@ -21,8 +21,9 @@
 # SOFTWARE.
 
 import logging
-from typing import Optional, Type, Union
+from typing import Optional, Type, Union, List
 
+import re
 from urllib3.util import Retry
 import github
 import github.GithubObject
@@ -35,7 +36,7 @@ from github import (
 from ogr.abstract import GitUser
 from ogr.exceptions import GithubAPIException
 from ogr.factory import use_for_service
-from ogr.services.base import BaseGitService
+from ogr.services.base import BaseGitService, GitProject
 from ogr.services.github.project import GithubProject
 from ogr.services.github.auth_providers import (
     GithubAuthentication,
@@ -200,3 +201,39 @@ class GithubService(BaseGitService):
     def get_pygithub_instance(self, namespace: str, repo: str) -> PyGithubInstance:
         token = self.authentication.get_token(namespace, repo)
         return PyGithubInstance(login_or_token=token, retry=self._max_retries)
+
+    def list_projects(
+        self,
+        namespace: str = None,
+        user: str = None,
+        search_pattern: str = None,
+        language: str = None,
+    ) -> List[GitProject]:
+
+        search_query = ""
+
+        if user:
+            search_query += f"user:{user}"
+
+        if language:
+            search_query += f" language:{language}"
+
+        projects: List[GitProject]
+        projects = [
+            GithubProject(
+                repo=repo.name,
+                namespace=repo.owner.login,
+                github_repo=repo,
+                service=self,
+            )
+            for repo in self.github.search_repositories(search_query, order="asc")
+        ]
+
+        if search_pattern:
+            projects = [
+                project
+                for project in projects
+                if re.search(search_pattern, project.repo)
+            ]
+
+        return projects
