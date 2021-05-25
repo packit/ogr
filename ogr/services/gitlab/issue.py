@@ -102,21 +102,30 @@ class GitlabIssue(BaseIssue):
         labels: Optional[List[str]] = None,
         assignees: Optional[List[str]] = None,
     ) -> "Issue":
+        assignee_ids = []
+        for user in assignees or []:
+            users_list = project.service.gitlab_instance.users.list(username=user)
+
+            if not users_list:
+                raise GitlabAPIException(f"Unable to find '{user}' username")
+
+            assignee_ids.append(str(users_list[0].id))
+
         data = {"title": title, "description": body}
         if labels:
             data["labels"] = ",".join(labels)
         if assignees:
-            data["assignee_ids"] = ",".join(assignees)
+            data["assignee_ids"] = ",".join(assignee_ids)
 
         issue = project.gitlab_repo.issues.create(data, confidential=private)
         return GitlabIssue(issue, project)
 
     @staticmethod
-    def get(project: "ogr_gitlab.GitlabProject", id: int) -> "Issue":
+    def get(project: "ogr_gitlab.GitlabProject", issue_id: int) -> "Issue":
         try:
-            return GitlabIssue(project.gitlab_repo.issues.get(id), project)
+            return GitlabIssue(project.gitlab_repo.issues.get(issue_id), project)
         except gitlab.exceptions.GitlabGetError as ex:
-            raise GitlabAPIException(f"Issue {id} was not found. ", ex)
+            raise GitlabAPIException(f"Issue {issue_id} was not found. ", ex)
 
     @staticmethod
     def get_list(

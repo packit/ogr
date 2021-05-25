@@ -48,7 +48,7 @@ from ogr.services.pagure.flag import PagureCommitFlag
 from ogr.services.pagure.issue import PagureIssue
 from ogr.services.pagure.pull_request import PagurePullRequest
 from ogr.services.pagure.release import PagureRelease
-from ogr.utils import RequestResponse, filter_paths
+from ogr.utils import RequestResponse, filter_paths, indirect
 
 logger = logging.getLogger(__name__)
 
@@ -212,6 +212,7 @@ class PagureProject(BaseGitProject):
     def request_access(self):
         raise OperationNotSupported("Not possible on Pagure")
 
+    @indirect(PagureIssue.get_list)
     def get_issue_list(
         self,
         status: IssueStatus = IssueStatus.open,
@@ -219,16 +220,16 @@ class PagureProject(BaseGitProject):
         assignee: Optional[str] = None,
         labels: Optional[List[str]] = None,
     ) -> List[Issue]:
-        return PagureIssue.get_list(
-            project=self, status=status, author=author, assignee=assignee, labels=labels
-        )
+        pass
 
+    @indirect(PagureIssue.get)
     def get_issue(self, issue_id: int) -> Issue:
-        return PagureIssue.get(project=self, id=issue_id)
+        pass
 
     def delete(self) -> None:
         self._call_project_api_raw("delete", method="POST")
 
+    @indirect(PagureIssue.create)
     def create_issue(
         self,
         title: str,
@@ -237,26 +238,20 @@ class PagureProject(BaseGitProject):
         labels: Optional[List[str]] = None,
         assignees: Optional[List[str]] = None,
     ) -> Issue:
-        return PagureIssue.create(
-            project=self,
-            title=title,
-            body=body,
-            labels=labels,
-            private=private,
-            assignees=assignees,
-        )
+        pass
 
+    @indirect(PagurePullRequest.get_list)
     def get_pr_list(
         self, status: PRStatus = PRStatus.open, assignee=None, author=None
     ) -> List[PullRequest]:
-        return PagurePullRequest.get_list(
-            project=self, status=status, assignee=assignee, author=author
-        )
+        pass
 
+    @indirect(PagurePullRequest.get)
     def get_pr(self, pr_id: int) -> PullRequest:
-        return PagurePullRequest.get(project=self, id=pr_id)
+        pass
 
     @if_readonly(return_function=GitProjectReadOnly.create_pr)
+    @indirect(PagurePullRequest.create)
     def create_pr(
         self,
         title: str,
@@ -265,14 +260,7 @@ class PagureProject(BaseGitProject):
         source_branch: str,
         fork_username: str = None,
     ) -> PullRequest:
-        return PagurePullRequest.create(
-            project=self,
-            title=title,
-            body=body,
-            target_branch=target_branch,
-            source_branch=source_branch,
-            fork_username=fork_username,
-        )
+        pass
 
     @if_readonly(return_function=GitProjectReadOnly.fork_create)
     def fork_create(self) -> "PagureProject":
@@ -454,6 +442,7 @@ class PagureProject(BaseGitProject):
         raise OperationNotSupported("Commit comments are not supported on Pagure.")
 
     @if_readonly(return_function=GitProjectReadOnly.set_commit_status)
+    @indirect(PagureCommitFlag.set)
     def set_commit_status(
         self,
         commit: str,
@@ -465,20 +454,11 @@ class PagureProject(BaseGitProject):
         uid: str = None,
         trim: bool = False,
     ) -> "CommitFlag":
-        return PagureCommitFlag.set(
-            project=self,
-            commit=commit,
-            state=state,
-            target_url=target_url,
-            description=description,
-            context=context,
-            percent=percent,
-            trim=trim,
-            uid=uid,
-        )
+        pass
 
+    @indirect(PagureCommitFlag.get)
     def get_commit_statuses(self, commit: str) -> List[CommitFlag]:
-        return PagureCommitFlag.get(project=self, commit=commit)
+        pass
 
     def get_tags(self) -> List[GitTag]:
         response = self._call_project_api("git", "tags", params={"with_commits": True})

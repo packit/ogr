@@ -50,7 +50,7 @@ from ogr.services.github.flag import GithubCommitFlag
 from ogr.services.github.issue import GithubIssue
 from ogr.services.github.pull_request import GithubPullRequest
 from ogr.services.github.release import GithubRelease
-from ogr.utils import filter_paths
+from ogr.utils import filter_paths, indirect
 
 logger = logging.getLogger(__name__)
 
@@ -277,6 +277,7 @@ class GithubProject(BaseGitProject):
             collaborators[user.login] = permission
         return collaborators
 
+    @indirect(GithubIssue.get_list)
     def get_issue_list(
         self,
         status: IssueStatus = IssueStatus.open,
@@ -284,13 +285,13 @@ class GithubProject(BaseGitProject):
         assignee: Optional[str] = None,
         labels: Optional[List[str]] = None,
     ) -> List[Issue]:
-        return GithubIssue.get_list(
-            project=self, status=status, author=author, assignee=assignee, labels=labels
-        )
+        pass
 
+    @indirect(GithubIssue.get)
     def get_issue(self, issue_id: int) -> Issue:
-        return GithubIssue.get(project=self, id=issue_id)
+        pass
 
+    @indirect(GithubIssue.create)
     def create_issue(
         self,
         title: str,
@@ -299,20 +300,18 @@ class GithubProject(BaseGitProject):
         labels: Optional[List[str]] = None,
         assignees: Optional[List[str]] = None,
     ) -> Issue:
-        if private:
-            raise OperationNotSupported("Private issues are not supported by Github")
-        return GithubIssue.create(
-            project=self, title=title, body=body, labels=labels, assignees=assignees
-        )
+        pass
 
     def delete(self) -> None:
         self.github_repo.delete()
 
+    @indirect(GithubPullRequest.get_list)
     def get_pr_list(self, status: PRStatus = PRStatus.open) -> List[PullRequest]:
-        return GithubPullRequest.get_list(project=self, status=status)
+        pass
 
+    @indirect(GithubPullRequest.get)
     def get_pr(self, pr_id: int) -> PullRequest:
-        return GithubPullRequest.get(project=self, id=pr_id)
+        pass
 
     def get_sha_from_tag(self, tag_name: str) -> str:
         # TODO: This is ugly. Can we do it better?
@@ -330,6 +329,7 @@ class GithubProject(BaseGitProject):
         return None
 
     @if_readonly(return_function=GitProjectReadOnly.create_pr)
+    @indirect(GithubPullRequest.create)
     def create_pr(
         self,
         title: str,
@@ -338,14 +338,7 @@ class GithubProject(BaseGitProject):
         source_branch: str,
         fork_username: str = None,
     ) -> PullRequest:
-        return GithubPullRequest.create(
-            project=self,
-            title=title,
-            body=body,
-            target_branch=target_branch,
-            source_branch=source_branch,
-            fork_username=fork_username,
-        )
+        pass
 
     @if_readonly(
         return_function=GitProjectReadOnly.commit_comment,
@@ -376,6 +369,7 @@ class GithubProject(BaseGitProject):
         return_function=GitProjectReadOnly.set_commit_status,
         log_message="Create a status on a commit",
     )
+    @indirect(GithubCommitFlag.set)
     def set_commit_status(
         self,
         commit: str,
@@ -397,16 +391,9 @@ class GithubProject(BaseGitProject):
             github.GithubException
         :return:
         """
-        return GithubCommitFlag.set(
-            project=self,
-            commit=commit,
-            state=state,
-            target_url=target_url,
-            description=description,
-            context=context,
-            trim=trim,
-        )
+        pass
 
+    @indirect(GithubCommitFlag.get)
     def get_commit_statuses(self, commit: str) -> List[CommitFlag]:
         """
         Get status of the commit.
@@ -414,7 +401,7 @@ class GithubProject(BaseGitProject):
         :param commit: str
         :return: [CommitFlag]
         """
-        return GithubCommitFlag.get(project=self, commit=commit)
+        pass
 
     def get_git_urls(self) -> Dict[str, str]:
         return {"git": self.github_repo.clone_url, "ssh": self.github_repo.ssh_url}

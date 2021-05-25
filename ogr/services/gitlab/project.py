@@ -26,7 +26,7 @@ from ogr.services.gitlab.flag import GitlabCommitFlag
 from ogr.services.gitlab.issue import GitlabIssue
 from ogr.services.gitlab.pull_request import GitlabPullRequest
 from ogr.services.gitlab.release import GitlabRelease
-from ogr.utils import filter_paths
+from ogr.utils import filter_paths, indirect
 
 logger = logging.getLogger(__name__)
 
@@ -244,8 +244,9 @@ class GitlabProject(BaseGitProject):
         except gitlab.exceptions.GitlabCreateError as e:
             raise GitlabAPIException("Unable to request access", e)
 
+    @indirect(GitlabPullRequest.get_list)
     def get_pr_list(self, status: PRStatus = PRStatus.open) -> List["PullRequest"]:
-        return GitlabPullRequest.get_list(project=self, status=status)
+        pass
 
     def get_sha_from_tag(self, tag_name: str) -> str:
         try:
@@ -255,6 +256,7 @@ class GitlabProject(BaseGitProject):
             logger.error(f"Tag {tag_name} was not found.")
             raise GitlabAPIException(f"Tag {tag_name} was not found.", ex)
 
+    @indirect(GitlabPullRequest.create)
     def create_pr(
         self,
         title: str,
@@ -263,14 +265,7 @@ class GitlabProject(BaseGitProject):
         source_branch: str,
         fork_username: str = None,
     ) -> "PullRequest":
-        return GitlabPullRequest.create(
-            project=self,
-            title=title,
-            body=body,
-            target_branch=target_branch,
-            source_branch=source_branch,
-            fork_username=fork_username,
-        )
+        pass
 
     def commit_comment(
         self, commit: str, body: str, filename: str = None, row: int = None
@@ -298,6 +293,7 @@ class GitlabProject(BaseGitProject):
             raw_comment = commit_object.comments.create({"note": body})
         return self._commit_comment_from_gitlab_object(raw_comment, commit)
 
+    @indirect(GitlabCommitFlag.set)
     def set_commit_status(
         self,
         commit: str,
@@ -318,23 +314,16 @@ class GitlabProject(BaseGitProject):
         :param trim: Whether to trim the description to 140 characters
         :return: CommitFlag
         """
-        return GitlabCommitFlag.set(
-            project=self,
-            commit=commit,
-            state=state,
-            target_url=target_url,
-            description=description,
-            context=context,
-            trim=trim,
-        )
+        pass
 
+    @indirect(GitlabCommitFlag.get)
     def get_commit_statuses(self, commit: str) -> List[CommitFlag]:
         """
         Get the statuses of a commit in a project.
         :param commit: The SHA of the commit.
         :return: [CommitFlag]
         """
-        return GitlabCommitFlag.get(project=self, commit=commit)
+        pass
 
     def get_git_urls(self) -> Dict[str, str]:
         return {
@@ -397,6 +386,7 @@ class GitlabProject(BaseGitProject):
 
         return paths
 
+    @indirect(GitlabIssue.get_list)
     def get_issue_list(
         self,
         status: IssueStatus = IssueStatus.open,
@@ -404,13 +394,13 @@ class GitlabProject(BaseGitProject):
         assignee: Optional[str] = None,
         labels: Optional[List[str]] = None,
     ) -> List[Issue]:
-        return GitlabIssue.get_list(
-            project=self, status=status, author=author, assignee=assignee, labels=labels
-        )
+        pass
 
+    @indirect(GitlabIssue.get)
     def get_issue(self, issue_id: int) -> Issue:
-        return GitlabIssue.get(project=self, id=issue_id)
+        pass
 
+    @indirect(GitlabIssue.create)
     def create_issue(
         self,
         title: str,
@@ -419,27 +409,11 @@ class GitlabProject(BaseGitProject):
         labels: Optional[List[str]] = None,
         assignees: Optional[List[str]] = None,
     ) -> Issue:
+        pass
 
-        ids = []
-        for user in assignees or []:
-            users_list = self.service.gitlab_instance.users.list(username=user)
-
-            if not users_list:
-                raise GitlabAPIException(f"Unable to find '{user}' username")
-
-            ids.append(str(users_list[0].id))
-
-        return GitlabIssue.create(
-            project=self,
-            title=title,
-            body=body,
-            private=private,
-            labels=labels,
-            assignees=ids,
-        )
-
+    @indirect(GitlabPullRequest.get)
     def get_pr(self, pr_id: int) -> PullRequest:
-        return GitlabPullRequest.get(project=self, id=pr_id)
+        pass
 
     def get_tags(self) -> List["GitTag"]:
         tags = self.gitlab_repo.tags.list()

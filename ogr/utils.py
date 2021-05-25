@@ -20,9 +20,10 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
+import functools
 import logging
 import re
-from typing import List, Union, Match, Optional, Dict, Tuple, Any
+from typing import Callable, List, Union, Match, Optional, Dict, Tuple, Any
 
 from ogr.abstract import AnyComment, Comment
 
@@ -152,3 +153,25 @@ def filter_paths(paths: List[str], filter_regex: str) -> List[str]:
     """
     pattern = re.compile(filter_regex)
     return [path for path in paths if (not pattern or bool(pattern.search(path)))]
+
+
+def indirect(specialized_function: Callable) -> Any:
+    """
+    Decorator to wrap methods on GitProjects that call specialized classes.
+
+    Args:
+        specialized_function (Callable): Static method of the specialized class
+            that takes as first argument the GitProject itself.
+
+    Returns:
+        Decorator that calls `specialized_function` once called.
+    """
+
+    def indirect_caller(func):
+        @functools.wraps(func)
+        def indirectly_called(self, *args, **kwargs):
+            return specialized_function(self, *args, **kwargs)
+
+        return indirectly_called
+
+    return indirect_caller
