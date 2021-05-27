@@ -1,3 +1,4 @@
+from typing import Optional
 from unittest import TestCase
 
 import pytest
@@ -6,6 +7,10 @@ from flexmock import flexmock
 from ogr import GithubService
 from ogr.services.github.project import GithubProject
 from ogr.services.github.pull_request import GithubPullRequest
+from ogr.services.github.check_run import (
+    create_github_check_run_output,
+    GithubCheckRunOutput,
+)
 
 
 @pytest.fixture
@@ -104,3 +109,33 @@ class TestGithubProject:
 class TestGitHubService(TestCase):
     def test_hostname(self):
         assert GithubService().hostname == "github.com"
+
+
+@pytest.mark.parametrize(
+    "title, summary, text, expected",
+    (
+        (
+            "test",
+            "test summary",
+            None,
+            {
+                "title": "test",
+                "summary": "test summary",
+            },
+        ),
+        (
+            "bigger output",
+            "no summary",
+            "# Random title\n\n- [ ] TODO list\n---\n_italics_",
+            {
+                "title": "bigger output",
+                "summary": "no summary",
+                "text": "# Random title\n\n- [ ] TODO list\n---\n_italics_",
+            },
+        ),
+    ),
+)
+def test_create_github_check_run_output(
+    title: str, summary: str, text: Optional[str], expected: GithubCheckRunOutput
+) -> None:
+    assert create_github_check_run_output(title, summary, text) == expected
