@@ -32,36 +32,23 @@ Here are some links to the documentation that could be helpful when contributing
 
 Tests are stored in the [tests](/tests) directory.
 
-Running tests locally:
+We recommend running tests in a container. You need to have `podman` or
+`docker` installed for this.
 
-```
-make prepare-check && make check
-```
+To build the test image run:
 
-The following packages are installed by 'make prepare-check'
-if they are not installed already:
+    make build-test-image
 
-    python3-flexmock
-    python3-requre
+You can run the test now with:
 
-Or you can run tests in a container:
-
-    make prepare-build
-    make build
     make check-in-container
 
-The following packages are installed by 'make prepare-build'
-if they are not installed already:
-
-    podman
-    ansible-bender
-
-The 'make build' command builds a local image with all the dependencies using
+The 'make build-test-image' command builds a local image with all the dependencies using
 [ansible-bender](https://github.com/ansible-community/ansible-bender);
 the 'make check-in-container' command runs the tests in a container created
 from that image. `TEST_TARGET` can be set to select a subset of the tests.
 
-NOTE that 'make build' uses several GB of disk space; consult 'man
+NOTE that 'make build-test-image' uses several GB of disk space; consult 'man
 containers-storage.conf' for more about container storage
 configuration ('make check-in-container' does not use appreciably more
 storage).
@@ -69,7 +56,7 @@ storage).
 As a CI we use [Zuul](https://softwarefactory-project.io/zuul/t/local/builds?project=packit-service/ogr) with a configuration in [.zuul.yaml](.zuul.yaml).
 If you want to re-run CI/tests in a pull request, just include `recheck` in a comment.
 
-When running the tests we are using the pregenerated responses that are saved in the ./tests/integration/test_data.
+When running the tests we use the pregenerated responses that are saved in ./tests/integration/test_data.
 If you need to generate a new file, just run the tests and provide environment variables for the service, e.g. `GITHUB_TOKEN`, `GITLAB_TOKEN`, `PAGURE_TOKEN`. Some API endpoints of Pagure require setting up token for a project: `PAGURE_OGR_TEST_TOKEN`.
 The missing file will be automatically generated from the real response. Do not forget to commit the file as well.
 
@@ -77,6 +64,14 @@ If you need to regenerate a response file, just remove it and rerun the tests.
 (There are Makefile targets for removing the response files: `remove-response-files`, `remove-response-files-github`, `remove-response-files-gitlab`, `remove-response-files-pagure`.)
 
 In case you (re)generate response files, don't forget to run `pre-commit` that includes cleanup of response files.
+
+Running tests locally:
+
+`make check` is also available to run the tests in the environment of your
+choice, but first you'll need to make sure to install all the package and test
+dependencies, starting with python3-requre and python3-flexmock.
+For now it is up to the reader to figure out how to do this on
+their system.
 
 ## Makefile
 
@@ -93,32 +88,31 @@ Here are some important and useful targets of [Makefile](/Makefile):
 Use [ansible-bender](https://pypi.org/project/ansible-bender) to build container image from [recipe.yaml](recipe.yaml):
 
 ```
-make prepare-build
-make build
+make build-test-image
 ```
 
-Install packages needed to run tests:
-
-```
-make prepare-check
-```
-
-Run tests locally:
-
-```
-make check
-```
-
-Start shell in a container from the image previously built with `make build`:
+Start shell in a container from the image previously built with `make build-test-image`:
 
 ```
 make shell
+```
+
+Run tests in a container:
+
+```
+make check-in-container
 ```
 
 In a container, do basic checks to verify that ogr can be distributed, installed and imported:
 
 ```
 make check-pypi-packaging
+```
+
+Run tests locally:
+
+```
+make check
 ```
 
 ---
