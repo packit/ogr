@@ -75,7 +75,7 @@ class GenericCommands(PagureTests):
         )
         assert files
         assert len(files) >= 3
-        assert set(("a/b/lib.c", "a/b/main.c", "a/b/some_other_lib.c")).issubset(files)
+        assert {"a/b/lib.c", "a/b/main.c", "a/b/some_other_lib.c"}.issubset(files)
 
     def test_nonexisting_file(self):
         with self.assertRaises(Exception) as _:
