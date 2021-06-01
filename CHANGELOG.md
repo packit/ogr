@@ -1,3 +1,8 @@
+# 0.25.0
+
+- Add support for listing of projects in GitLab and Github (by our external
+  contributor [@abkosar](https://github.com/abkosar))
+
 # 0.24.1
 
 - Fixed problems with imports from 'gitlab' modules.
