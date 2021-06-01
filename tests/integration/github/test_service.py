@@ -84,11 +84,11 @@ class Service(GithubTests):
         user = "packit"
         projects = self.service.list_projects(user=user)
         assert len(projects) == 26
-        assert set(p.namespace for p in projects) == {"packit"}
+        assert {p.namespace for p in projects} == {"packit"}
 
     def test_list_projects_with_user_language_input(self):
         user = "packit"
         language = "python"
         projects = self.service.list_projects(user=user, language=language)
         assert len(projects) == 15
-        assert set(p.namespace for p in projects) == {"packit"}
+        assert {p.namespace for p in projects} == {"packit"}

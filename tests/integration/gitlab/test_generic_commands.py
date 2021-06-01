@@ -169,7 +169,7 @@ class GenericCommands(GitlabTests):
 
     def test_get_owners(self):
         owners = self.project.get_owners()
-        assert set(("lachmanfrantisek", "lbarcziova")).issubset(set(owners))
+        assert {"lachmanfrantisek", "lbarcziova"}.issubset(set(owners))
 
     def test_issue_permissions(self):
         users = self.project.who_can_close_issue()
