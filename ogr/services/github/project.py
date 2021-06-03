@@ -20,7 +20,14 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
+import datetime
 import logging
+from ogr.services.github.check_run import (
+    GithubCheckRun,
+    GithubCheckRunOutput,
+    GithubCheckRunResult,
+    GithubCheckRunStatus,
+)
 from typing import Optional, Dict, List, Set, Union
 
 import github
@@ -401,6 +408,39 @@ class GithubProject(BaseGitProject):
         :param commit: str
         :return: [CommitFlag]
         """
+        pass
+
+    @indirect(GithubCheckRun.get)
+    def get_check_run(
+        self,
+        check_run_id: Optional[int] = None,
+        commit_sha: Optional[str] = None,
+    ) -> Optional["GithubCheckRun"]:
+        pass
+
+    @indirect(GithubCheckRun.create)
+    def create_check_run(
+        self,
+        name: str,
+        commit_sha: str,
+        url: Optional[str] = None,
+        external_id: Optional[str] = None,
+        status: GithubCheckRunStatus = GithubCheckRunStatus.queued,
+        started_at: Optional[datetime.datetime] = None,
+        conclusion: Optional[GithubCheckRunResult] = None,
+        completed_at: Optional[datetime.datetime] = None,
+        output: Optional[GithubCheckRunOutput] = None,
+        actions: Optional[List[Dict[str, str]]] = None,
+    ) -> "GithubCheckRun":
+        pass
+
+    @indirect(GithubCheckRun.get_list)
+    def get_check_runs(
+        self,
+        commit_sha: str,
+        name: Optional[str] = None,
+        status: Optional[GithubCheckRunStatus] = None,
+    ) -> List["GithubCheckRun"]:
         pass
 
     def get_git_urls(self) -> Dict[str, str]:
