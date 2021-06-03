@@ -113,7 +113,9 @@ $ pip3 install --user git+https://github.com/packit/ogr.git
 
 ### Tests
 
-Run `make prepare-check` before first `make check`.
+Make sure to install prerequisite packages before first `make check`,
+`make build`, or `make check-in-container`. See CONTRIBUTING.md for
+details.
 
 # Contribution notes
 
