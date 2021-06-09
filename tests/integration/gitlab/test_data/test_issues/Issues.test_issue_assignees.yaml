@@ -1,0 +1,688 @@
+_requre:
+  DataTypes: 1
+  key_strategy: StorageKeysInspectSimple
+  version_storage_file: 3
+requests.sessions:
+  send:
+    GET:
+      https://gitlab.com/api/v4/projects/26978624/issues/1:
+      - metadata:
+          latency: 0.39066386222839355
+          module_call_list:
+          - unittest.case
+          - requre.online_replacing
+          - tests.integration.gitlab.test_issues
+          - ogr.utils
+          - ogr.services.gitlab.issue
+          - gitlab.exceptions
+          - gitlab.mixins
+          - gitlab.client
+          - requre.objects
+          - requre.cassette
+          - requests.sessions
+          - send
+        output:
+          __store_indicator: 2
+          _content:
+            _links:
+              award_emoji: https://gitlab.com/api/v4/projects/26978624/issues/1/award_emoji
+              notes: https://gitlab.com/api/v4/projects/26978624/issues/1/notes
+              project: https://gitlab.com/api/v4/projects/26978624
+              self: https://gitlab.com/api/v4/projects/26978624/issues/1
+            assignee: null
+            assignees: []
+            author:
+              avatar_url: https://secure.gravatar.com/avatar/1804053228f97cb0eaa23d9a87054c40?s=80&d=identicon
+              id: 8919946
+              name: Kevin Postlethwait
+              state: active
+              username: kpostlet
+              web_url: https://gitlab.com/kpostlet
+            blocking_issues_count: 0
+            closed_at: null
+            closed_by: null
+            confidential: false
+            created_at: '2021-05-27T22:01:38.343Z'
+            description: ''
+            discussion_locked: null
+            downvotes: 0
+            due_date: null
+            has_tasks: false
+            health_status: null
+            id: 87841611
+            iid: 1
+            issue_type: issue
+            labels: []
+            merge_requests_count: 0
+            milestone: null
+            moved_to_id: null
+            project_id: 26978624
+            references:
+              full: kpostlet/ogr-tests#1
+              relative: '#1'
+              short: '#1'
+            service_desk_reply_to: null
+            state: opened
+            subscribed: true
+            task_completion_status:
+              completed_count: 0
+              count: 0
+            time_stats:
+              human_time_estimate: null
+              human_total_time_spent: null
+              time_estimate: 0
+              total_time_spent: 0
+            title: foobar
+            type: ISSUE
+            updated_at: '2021-06-02T19:47:12.621Z'
+            upvotes: 0
+            user_notes_count: 0
+            web_url: https://gitlab.com/kpostlet/ogr-tests/-/issues/1
+            weight: null
+          _next: null
+          elapsed: 0.389974
+          encoding: null
+          headers:
+            CF-Cache-Status: DYNAMIC
+            CF-RAY: 65933638bec15e89-IAD
+            Cache-Control: max-age=0, private, must-revalidate
+            Connection: keep-alive
+            Content-Encoding: gzip
+            Content-Type: application/json
+            Date: Wed, 02 Jun 2021 19:50:38 GMT
+            Etag: W/"7106034220985b616773acbb9880a50f"
+            Expect-CT: max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
+            GitLab-LB: fe-04-lb-gprd
+            GitLab-SV: api-gke-us-east1-c
+            Referrer-Policy: strict-origin-when-cross-origin
+            Server: cloudflare
+            Strict-Transport-Security: max-age=31536000
+            Transfer-Encoding: chunked
+            Vary: Origin
+            X-Content-Type-Options: nosniff
+            X-Frame-Options: SAMEORIGIN
+            X-Gitlab-Feature-Category: issue_tracking
+            X-Request-Id: 01F774E7XQF1W1M0K6DK75DBMP
+            X-Runtime: '0.072558'
+            cf-request-id: 0a6fe0377500005e89748dd000000001
+          raw: !!binary ""
+          reason: OK
+          status_code: 200
+      - metadata:
+          latency: 0.7731468677520752
+          module_call_list:
+          - unittest.case
+          - requre.online_replacing
+          - tests.integration.gitlab.test_issues
+          - ogr.utils
+          - ogr.services.gitlab.issue
+          - gitlab.exceptions
+          - gitlab.mixins
+          - gitlab.client
+          - requre.objects
+          - requre.cassette
+          - requests.sessions
+          - send
+        output:
+          __store_indicator: 2
+          _content:
+            _links:
+              award_emoji: https://gitlab.com/api/v4/projects/26978624/issues/1/award_emoji
+              notes: https://gitlab.com/api/v4/projects/26978624/issues/1/notes
+              project: https://gitlab.com/api/v4/projects/26978624
+              self: https://gitlab.com/api/v4/projects/26978624/issues/1
+            assignee:
+              avatar_url: https://secure.gravatar.com/avatar/1804053228f97cb0eaa23d9a87054c40?s=80&d=identicon
+              id: 8919946
+              name: Kevin Postlethwait
+              state: active
+              username: kpostlet
+              web_url: https://gitlab.com/kpostlet
+            assignees:
+            - avatar_url: https://secure.gravatar.com/avatar/1804053228f97cb0eaa23d9a87054c40?s=80&d=identicon
+              id: 8919946
+              name: Kevin Postlethwait
+              state: active
+              username: kpostlet
+              web_url: https://gitlab.com/kpostlet
+            author:
+              avatar_url: https://secure.gravatar.com/avatar/1804053228f97cb0eaa23d9a87054c40?s=80&d=identicon
+              id: 8919946
+              name: Kevin Postlethwait
+              state: active
+              username: kpostlet
+              web_url: https://gitlab.com/kpostlet
+            blocking_issues_count: 0
+            closed_at: null
+            closed_by: null
+            confidential: false
+            created_at: '2021-05-27T22:01:38.343Z'
+            description: ''
+            discussion_locked: null
+            downvotes: 0
+            due_date: null
+            has_tasks: false
+            health_status: null
+            id: 87841611
+            iid: 1
+            issue_type: issue
+            labels: []
+            merge_requests_count: 0
+            milestone: null
+            moved_to_id: null
+            project_id: 26978624
+            references:
+              full: kpostlet/ogr-tests#1
+              relative: '#1'
+              short: '#1'
+            service_desk_reply_to: null
+            state: opened
+            subscribed: true
+            task_completion_status:
+              completed_count: 0
+              count: 0
+            time_stats:
+              human_time_estimate: null
+              human_total_time_spent: null
+              time_estimate: 0
+              total_time_spent: 0
+            title: foobar
+            type: ISSUE
+            updated_at: '2021-06-02T19:50:38.989Z'
+            upvotes: 0
+            user_notes_count: 0
+            web_url: https://gitlab.com/kpostlet/ogr-tests/-/issues/1
+            weight: null
+          _next: null
+          elapsed: 0.772707
+          encoding: null
+          headers:
+            CF-Cache-Status: DYNAMIC
+            CF-RAY: 6593363f49355e89-IAD
+            Cache-Control: max-age=0, private, must-revalidate
+            Connection: keep-alive
+            Content-Encoding: gzip
+            Content-Type: application/json
+            Date: Wed, 02 Jun 2021 19:50:39 GMT
+            Etag: W/"226387f14f35d3f3d0bdbe5a7db1482f"
+            Expect-CT: max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
+            GitLab-LB: fe-09-lb-gprd
+            GitLab-SV: gke-cny-api
+            Referrer-Policy: strict-origin-when-cross-origin
+            Server: cloudflare
+            Strict-Transport-Security: max-age=31536000
+            Transfer-Encoding: chunked
+            Vary: Origin
+            X-Content-Type-Options: nosniff
+            X-Frame-Options: SAMEORIGIN
+            X-Gitlab-Feature-Category: issue_tracking
+            X-Request-Id: 01F774E8Y8V87N4WVVARM2X6NK
+            X-Runtime: '0.295147'
+            cf-request-id: 0a6fe03b9000005e89661c7000000001
+          raw: !!binary ""
+          reason: OK
+          status_code: 200
+      https://gitlab.com/api/v4/projects/kpostlet%2Fogr-tests:
+      - metadata:
+          latency: 0.40716123580932617
+          module_call_list:
+          - unittest.case
+          - requre.online_replacing
+          - tests.integration.gitlab.test_issues
+          - ogr.utils
+          - ogr.services.gitlab.issue
+          - ogr.services.gitlab.project
+          - gitlab.exceptions
+          - gitlab.mixins
+          - gitlab.client
+          - requre.objects
+          - requre.cassette
+          - requests.sessions
+          - send
+        output:
+          __store_indicator: 2
+          _content:
+            _links:
+              events: https://gitlab.com/api/v4/projects/26978624/events
+              issues: https://gitlab.com/api/v4/projects/26978624/issues
+              labels: https://gitlab.com/api/v4/projects/26978624/labels
+              members: https://gitlab.com/api/v4/projects/26978624/members
+              merge_requests: https://gitlab.com/api/v4/projects/26978624/merge_requests
+              repo_branches: https://gitlab.com/api/v4/projects/26978624/repository/branches
+              self: https://gitlab.com/api/v4/projects/26978624
+            allow_merge_on_skipped_pipeline: null
+            analytics_access_level: enabled
+            approvals_before_merge: 0
+            archived: false
+            auto_cancel_pending_pipelines: enabled
+            auto_devops_deploy_strategy: continuous
+            auto_devops_enabled: false
+            autoclose_referenced_issues: true
+            avatar_url: null
+            build_coverage_regex: null
+            build_git_strategy: fetch
+            build_timeout: 3600
+            builds_access_level: enabled
+            can_create_merge_request_in: true
+            ci_config_path: null
+            ci_default_git_depth: 50
+            ci_forward_deployment_enabled: true
+            compliance_frameworks: []
+            container_expiration_policy:
+              cadence: 1d
+              enabled: false
+              keep_n: 10
+              name_regex: .*
+              name_regex_keep: null
+              next_run_at: '2021-05-28T21:56:21.432Z'
+              older_than: 90d
+            container_registry_enabled: true
+            container_registry_image_prefix: registry.gitlab.com/kpostlet/ogr-tests
+            created_at: '2021-05-27T21:56:21.408Z'
+            creator_id: 8919946
+            default_branch: master
+            description: Testing repository for python-ogr package.  |  https://github.com/packit-service/ogr
+            emails_disabled: null
+            empty_repo: false
+            external_authorization_classification_label: ''
+            forked_from_project:
+              avatar_url: null
+              created_at: '2019-09-10T10:28:09.946Z'
+              default_branch: master
+              description: Testing repository for python-ogr package.  |  https://github.com/packit-service/ogr
+              forks_count: 7
+              http_url_to_repo: https://gitlab.com/packit-service/ogr-tests.git
+              id: 14233409
+              last_activity_at: '2021-04-27T07:13:35.566Z'
+              name: ogr-tests
+              name_with_namespace: packit-service / ogr-tests
+              namespace:
+                avatar_url: /uploads/-/system/group/avatar/6032704/logo-square-small-borders.png
+                full_path: packit-service
+                id: 6032704
+                kind: group
+                name: packit-service
+                parent_id: null
+                path: packit-service
+                web_url: https://gitlab.com/groups/packit-service
+              path: ogr-tests
+              path_with_namespace: packit-service/ogr-tests
+              readme_url: https://gitlab.com/packit-service/ogr-tests/-/blob/master/README.md
+              ssh_url_to_repo: git@gitlab.com:packit-service/ogr-tests.git
+              star_count: 0
+              tag_list: []
+              web_url: https://gitlab.com/packit-service/ogr-tests
+            forking_access_level: enabled
+            forks_count: 0
+            http_url_to_repo: https://gitlab.com/kpostlet/ogr-tests.git
+            id: 26978624
+            import_error: null
+            import_status: finished
+            issues_access_level: enabled
+            issues_enabled: true
+            issues_template: null
+            jobs_enabled: true
+            last_activity_at: '2021-05-27T21:56:21.408Z'
+            lfs_enabled: true
+            marked_for_deletion_at: null
+            marked_for_deletion_on: null
+            merge_method: merge
+            merge_requests_access_level: enabled
+            merge_requests_enabled: true
+            merge_requests_template: null
+            mirror: false
+            name: ogr-tests
+            name_with_namespace: Kevin Postlethwait / ogr-tests
+            namespace:
+              avatar_url: https://secure.gravatar.com/avatar/1804053228f97cb0eaa23d9a87054c40?s=80&d=identicon
+              full_path: kpostlet
+              id: 12115824
+              kind: user
+              name: Kevin Postlethwait
+              parent_id: null
+              path: kpostlet
+              web_url: https://gitlab.com/kpostlet
+            only_allow_merge_if_all_discussions_are_resolved: false
+            only_allow_merge_if_pipeline_succeeds: false
+            open_issues_count: 1
+            operations_access_level: enabled
+            owner:
+              avatar_url: https://secure.gravatar.com/avatar/1804053228f97cb0eaa23d9a87054c40?s=80&d=identicon
+              id: 8919946
+              name: Kevin Postlethwait
+              state: active
+              username: kpostlet
+              web_url: https://gitlab.com/kpostlet
+            packages_enabled: true
+            pages_access_level: enabled
+            path: ogr-tests
+            path_with_namespace: kpostlet/ogr-tests
+            permissions:
+              group_access: null
+              project_access:
+                access_level: 40
+                notification_level: 3
+            printing_merge_request_link_enabled: true
+            public_jobs: true
+            readme_url: https://gitlab.com/kpostlet/ogr-tests/-/blob/master/README.md
+            remove_source_branch_after_merge: true
+            repository_access_level: enabled
+            request_access_enabled: true
+            requirements_enabled: true
+            resolve_outdated_diff_discussions: false
+            restrict_user_defined_variables: false
+            runners_token: gwuso9y7a_v9enu6T2Gx
+            security_and_compliance_enabled: true
+            service_desk_address: incoming+kpostlet-ogr-tests-26978624-issue-@incoming.gitlab.com
+            service_desk_enabled: true
+            shared_runners_enabled: true
+            shared_with_groups: []
+            snippets_access_level: enabled
+            snippets_enabled: true
+            ssh_url_to_repo: git@gitlab.com:kpostlet/ogr-tests.git
+            star_count: 0
+            suggestion_commit_message: null
+            tag_list: []
+            visibility: public
+            web_url: https://gitlab.com/kpostlet/ogr-tests
+            wiki_access_level: enabled
+            wiki_enabled: true
+          _next: null
+          elapsed: 0.406173
+          encoding: null
+          headers:
+            CF-Cache-Status: DYNAMIC
+            CF-RAY: 659336361af95e89-IAD
+            Cache-Control: max-age=0, private, must-revalidate
+            Connection: keep-alive
+            Content-Encoding: gzip
+            Content-Type: application/json
+            Date: Wed, 02 Jun 2021 19:50:38 GMT
+            Etag: W/"9d2ab448298218ef9ba105d38aad84f1"
+            Expect-CT: max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
+            GitLab-LB: fe-05-lb-gprd
+            GitLab-SV: api-gke-us-east1-d
+            Referrer-Policy: strict-origin-when-cross-origin
+            Server: cloudflare
+            Strict-Transport-Security: max-age=31536000
+            Transfer-Encoding: chunked
+            Vary: Origin
+            X-Content-Type-Options: nosniff
+            X-Frame-Options: SAMEORIGIN
+            X-Gitlab-Feature-Category: projects
+            X-Request-Id: 01F774E7GHNKKJXXSSXZF9R41K
+            X-Runtime: '0.136618'
+            cf-request-id: 0a6fe035cb00005e8977a7f000000001
+          raw: !!binary ""
+          reason: OK
+          status_code: 200
+      https://gitlab.com/api/v4/user:
+      - metadata:
+          latency: 0.3278024196624756
+          module_call_list:
+          - unittest.case
+          - requre.online_replacing
+          - tests.integration.gitlab.test_issues
+          - ogr.utils
+          - ogr.services.gitlab.issue
+          - ogr.services.gitlab.project
+          - ogr.services.gitlab.service
+          - gitlab.client
+          - gitlab.exceptions
+          - gitlab.mixins
+          - gitlab.client
+          - requre.objects
+          - requre.cassette
+          - requests.sessions
+          - send
+        output:
+          __store_indicator: 2
+          _content:
+            avatar_url: https://secure.gravatar.com/avatar/1804053228f97cb0eaa23d9a87054c40?s=80&d=identicon
+            bio: ''
+            bio_html: ''
+            bot: false
+            can_create_group: true
+            can_create_project: true
+            color_scheme_id: 1
+            commit_email: kpostlet@redhat.com
+            confirmed_at: '2021-05-18T18:21:49.438Z'
+            created_at: '2021-05-18T18:21:49.501Z'
+            current_sign_in_at: '2021-05-27T21:56:05.406Z'
+            email: kpostlet@redhat.com
+            external: false
+            extra_shared_runners_minutes_limit: null
+            followers: 0
+            following: 0
+            id: 8919946
+            identities:
+            - extern_uid: '102547849534309033904'
+              provider: google_oauth2
+              saml_provider_id: null
+            job_title: ''
+            last_activity_on: '2021-06-02'
+            last_sign_in_at: '2021-05-18T18:21:49.570Z'
+            linkedin: ''
+            location: null
+            name: Kevin Postlethwait
+            organization: null
+            private_profile: false
+            projects_limit: 100000
+            public_email: ''
+            shared_runners_minutes_limit: null
+            skype: ''
+            state: active
+            theme_id: 1
+            twitter: ''
+            two_factor_enabled: false
+            username: kpostlet
+            web_url: https://gitlab.com/kpostlet
+            website_url: ''
+            work_information: null
+          _next: null
+          elapsed: 0.32762
+          encoding: null
+          headers:
+            CF-Cache-Status: DYNAMIC
+            CF-RAY: 6593363458a15e89-IAD
+            Cache-Control: max-age=0, private, must-revalidate
+            Connection: keep-alive
+            Content-Encoding: gzip
+            Content-Type: application/json
+            Date: Wed, 02 Jun 2021 19:50:37 GMT
+            Etag: W/"d571862a01b82de7cad1394e49171104"
+            Expect-CT: max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
+            GitLab-LB: fe-11-lb-gprd
+            GitLab-SV: api-gke-us-east1-d
+            Referrer-Policy: strict-origin-when-cross-origin
+            Server: cloudflare
+            Strict-Transport-Security: max-age=31536000
+            Transfer-Encoding: chunked
+            Vary: Origin
+            X-Content-Type-Options: nosniff
+            X-Frame-Options: SAMEORIGIN
+            X-Gitlab-Feature-Category: users
+            X-Request-Id: 01F774E77YXVD3CRYFZWR5CXA5
+            X-Runtime: '0.034922'
+            cf-request-id: 0a6fe034b700005e89ad29e000000001
+          raw: !!binary ""
+          reason: OK
+          status_code: 200
+      https://gitlab.com/api/v4/users?username=kpostlet:
+      - metadata:
+          latency: 0.1709280014038086
+          module_call_list:
+          - unittest.case
+          - requre.online_replacing
+          - tests.integration.gitlab.test_issues
+          - ogr.services.gitlab.issue
+          - gitlab.exceptions
+          - gitlab.mixins
+          - gitlab.client
+          - requre.objects
+          - requre.cassette
+          - requests.sessions
+          - send
+        output:
+          __store_indicator: 2
+          _content:
+          - avatar_url: https://secure.gravatar.com/avatar/1804053228f97cb0eaa23d9a87054c40?s=80&d=identicon
+            id: 8919946
+            name: Kevin Postlethwait
+            state: active
+            username: kpostlet
+            web_url: https://gitlab.com/kpostlet
+          _next: null
+          elapsed: 0.170004
+          encoding: null
+          headers:
+            CF-Cache-Status: DYNAMIC
+            CF-RAY: 6593363b3afd5e89-IAD
+            Cache-Control: max-age=0, private, must-revalidate
+            Connection: keep-alive
+            Content-Encoding: gzip
+            Content-Type: application/json
+            Date: Wed, 02 Jun 2021 19:50:38 GMT
+            Etag: W/"c89cafa722673e5a7a589a3adfd452fc"
+            Expect-CT: max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
+            GitLab-LB: fe-04-lb-gprd
+            GitLab-SV: api-gke-us-east1-c
+            Link: <https://gitlab.com/api/v4/users?active=false&admins=false&blocked=false&external=false&page=1&per_page=20&skip_ldap=false&username=kpostlet&with_custom_attributes=false>;
+              rel="first", <https://gitlab.com/api/v4/users?active=false&admins=false&blocked=false&external=false&page=1&per_page=20&skip_ldap=false&username=kpostlet&with_custom_attributes=false>;
+              rel="last"
+            Referrer-Policy: strict-origin-when-cross-origin
+            Server: cloudflare
+            Strict-Transport-Security: max-age=31536000
+            Transfer-Encoding: chunked
+            Vary: Origin
+            X-Content-Type-Options: nosniff
+            X-Frame-Options: SAMEORIGIN
+            X-Gitlab-Feature-Category: users
+            X-Next-Page: ''
+            X-Page: '1'
+            X-Per-Page: '20'
+            X-Prev-Page: ''
+            X-Request-Id: 01F774E8BATHQCVDVFWNRM66M2
+            X-Runtime: '0.031121'
+            X-Total: '1'
+            X-Total-Pages: '1'
+            cf-request-id: 0a6fe0390800005e8971904000000001
+          raw: !!binary ""
+          reason: OK
+          status_code: 200
+    PUT:
+      https://gitlab.com/api/v4/projects/26978624/issues/1:
+      - metadata:
+          latency: 0.45549964904785156
+          module_call_list:
+          - unittest.case
+          - requre.online_replacing
+          - tests.integration.gitlab.test_issues
+          - ogr.services.gitlab.issue
+          - gitlab.mixins
+          - gitlab.exceptions
+          - gitlab.mixins
+          - gitlab.client
+          - requre.objects
+          - requre.cassette
+          - requests.sessions
+          - send
+        output:
+          __store_indicator: 2
+          _content:
+            _links:
+              award_emoji: https://gitlab.com/api/v4/projects/26978624/issues/1/award_emoji
+              notes: https://gitlab.com/api/v4/projects/26978624/issues/1/notes
+              project: https://gitlab.com/api/v4/projects/26978624
+              self: https://gitlab.com/api/v4/projects/26978624/issues/1
+            assignee:
+              avatar_url: https://secure.gravatar.com/avatar/1804053228f97cb0eaa23d9a87054c40?s=80&d=identicon
+              id: 8919946
+              name: Kevin Postlethwait
+              state: active
+              username: kpostlet
+              web_url: https://gitlab.com/kpostlet
+            assignees:
+            - avatar_url: https://secure.gravatar.com/avatar/1804053228f97cb0eaa23d9a87054c40?s=80&d=identicon
+              id: 8919946
+              name: Kevin Postlethwait
+              state: active
+              username: kpostlet
+              web_url: https://gitlab.com/kpostlet
+            author:
+              avatar_url: https://secure.gravatar.com/avatar/1804053228f97cb0eaa23d9a87054c40?s=80&d=identicon
+              id: 8919946
+              name: Kevin Postlethwait
+              state: active
+              username: kpostlet
+              web_url: https://gitlab.com/kpostlet
+            blocking_issues_count: 0
+            closed_at: null
+            closed_by: null
+            confidential: false
+            created_at: '2021-05-27T22:01:38.343Z'
+            description: ''
+            discussion_locked: null
+            downvotes: 0
+            due_date: null
+            has_tasks: false
+            health_status: null
+            id: 87841611
+            iid: 1
+            issue_type: issue
+            labels: []
+            merge_requests_count: 0
+            milestone: null
+            moved_to_id: null
+            project_id: 26978624
+            references:
+              full: kpostlet/ogr-tests#1
+              relative: '#1'
+              short: '#1'
+            service_desk_reply_to: null
+            state: opened
+            subscribed: true
+            task_completion_status:
+              completed_count: 0
+              count: 0
+            time_stats:
+              human_time_estimate: null
+              human_total_time_spent: null
+              time_estimate: 0
+              total_time_spent: 0
+            title: foobar
+            type: ISSUE
+            updated_at: '2021-06-02T19:50:38.989Z'
+            upvotes: 0
+            user_notes_count: 0
+            web_url: https://gitlab.com/kpostlet/ogr-tests/-/issues/1
+            weight: null
+          _next: null
+          elapsed: 0.454809
+          encoding: null
+          headers:
+            CF-Cache-Status: DYNAMIC
+            CF-RAY: 6593363c6cb35e89-IAD
+            Cache-Control: max-age=0, private, must-revalidate
+            Connection: keep-alive
+            Content-Encoding: gzip
+            Content-Type: application/json
+            Date: Wed, 02 Jun 2021 19:50:39 GMT
+            Etag: W/"226387f14f35d3f3d0bdbe5a7db1482f"
+            Expect-CT: max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
+            GitLab-LB: fe-03-lb-gprd
+            GitLab-SV: api-gke-us-east1-b
+            Referrer-Policy: strict-origin-when-cross-origin
+            Server: cloudflare
+            Strict-Transport-Security: max-age=31536000
+            Transfer-Encoding: chunked
+            Vary: Origin
+            X-Content-Type-Options: nosniff
+            X-Frame-Options: SAMEORIGIN
+            X-Gitlab-Feature-Category: issue_tracking
+            X-Request-Id: 01F774E8JWRS98ZGG21GVBSHN9
+            X-Runtime: '0.247808'
+            cf-request-id: 0a6fe039bc00005e89ae2c8000000001
+          raw: !!binary ""
+          reason: OK
+          status_code: 200

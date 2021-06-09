@@ -299,6 +299,14 @@ class Issue(OgrAbstractClass):
         """
         raise NotImplementedError()
 
+    def add_assignee(self, *assignees: str) -> None:
+        """
+        Assign users to an issue.
+
+        :param assignees: [str]
+        """
+        raise NotImplementedError()
+
 
 class PRStatus(IntEnum):
     open = 1

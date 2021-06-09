@@ -110,6 +110,22 @@ class Issues(GithubTests):
         assert labels[0].name == "test_lb1"
         assert labels[1].name == "test_lb2"
 
+    def test_issue_assignees(self):
+        """
+        Remove the assignees from this issue before regenerating the response files:
+        https://github.com/packit/ogr/issues/4
+        """
+        project = self.service.get_project(repo="ogr", namespace="KPostOffice")
+        issue = project.get_issue(4)
+        print(self.service.user.get_username())
+        assignees = issue.assignees
+
+        assert not assignees
+        issue.add_assignee("KPostOffice")
+        assignees = project.get_issue(4).assignees
+        assert len(assignees) == 1
+        assert assignees[0].login == "KPostOffice"
+
     def test_list_contains_only_issues(self):
         issue_list_all = self.ogr_project.get_issue_list(status=IssueStatus.all)
         issue_ids = [issue.id for issue in issue_list_all]

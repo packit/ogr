@@ -84,6 +84,22 @@ class Issues(PagureTests):
         assert issue.description == random_str
         assert issue.assignee == assignee[0]
 
+    def test_issue_assignees(self):
+        """
+        Remove the assignees from this issue before regenerating the response files:
+        https://pagure.io/testing/hello-112111/issue/4
+        """
+
+        project = self.service.get_project(
+            repo="hello-112111", namespace="testing", is_fork=True
+        )
+        issue = project.get_issue(4)
+
+        assert not project.get_issue(4).assignee
+        issue.add_assignee("kpostlet")
+        assignee = project.get_issue(4).assignee
+        assert assignee == "kpostlet"
+
     def test_issue_without_label(self):
         title = "This is an issue"
         description = "Example of Issue description"

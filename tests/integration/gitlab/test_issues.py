@@ -143,6 +143,21 @@ class Issues(GitlabTests):
         assert labels[0] == "test_lb1"
         assert labels[1] == "test_lb2"
 
+    def test_issue_assignees(self):
+        """
+        Remove the assignees from this issue before regenerating the response files:
+        https://github.com/packit-service/ogr-tests/issues/1
+        """
+        project = self.service.get_project(repo="ogr-tests", namespace="kpostlet")
+        issue = project.get_issue(1)
+        assignees = issue.assignees
+
+        assert not assignees
+        issue.add_assignee("kpostlet")
+        assignees = project.get_issue(1).assignees
+        assert len(assignees) == 1
+        assert assignees[0]["username"] == "kpostlet"
+
     def test_issue_list_labels(self):
         issue_list = self.project.get_issue_list(
             status=IssueStatus.all, labels=["testing-label-for-test-issue-list-labels"]
