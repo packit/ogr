@@ -117,6 +117,22 @@ class GithubProject(BaseGitProject):
             and self.read_only == o.read_only
         )
 
+    @property
+    def description(self) -> str:
+        """
+        Returns:
+            Project description.
+        """
+        return self.github_repo.description
+
+    @description.setter
+    def description(self, new_description: str) -> None:
+        """
+        Args:
+            new_description: description to set for project.
+        """
+        self.github_repo.edit(description=new_description)
+
     def _construct_fork_project(self) -> Optional["GithubProject"]:
         gh_user = self.github_instance.get_user()
         user_login = gh_user.login

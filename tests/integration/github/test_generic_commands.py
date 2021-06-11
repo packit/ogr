@@ -27,6 +27,21 @@ class GenericCommands(GithubTests):
         description = self.ogr_project.get_description()
         assert description.startswith("One Git library to Rule")
 
+    def test_description_property(self):
+        description = self.hello_world_project.description
+        assert description == "The most progresive command-line tool in the world."
+
+    def test_description_setter(self):
+        old_description = self.hello_world_project.description
+        assert old_description == "The most progresive command-line tool in the world."
+        self.hello_world_project.description = "Different description"
+        assert self.hello_world_project.description == "Different description"
+        self.hello_world_project.description = old_description
+        assert (
+            self.hello_world_project.description
+            == "The most progresive command-line tool in the world."
+        )
+
     def test_branches(self):
         branches = self.ogr_project.get_branches()
         assert branches

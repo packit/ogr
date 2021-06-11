@@ -868,6 +868,22 @@ class GitProject(OgrAbstractClass):
     def __str__(self) -> str:
         return f"GitProject(namespace={self.namespace}, repo={self.repo}, service={self.service})"
 
+    @property
+    def description(self) -> str:
+        """
+        Returns:
+            Project description.
+        """
+        raise NotImplementedError()
+
+    @description.setter
+    def description(self, new_description: str) -> None:
+        """
+        Args:
+            new_description: description to set for project.
+        """
+        raise NotImplementedError()
+
     def delete(self) -> None:
         """Delete the project."""
         raise NotImplementedError()
