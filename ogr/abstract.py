@@ -315,6 +315,23 @@ class PRStatus(IntEnum):
     all = 4
 
 
+class CommitStatus(Enum):
+    pending = 1
+    success = 2
+    failure = 3
+    error = 4
+    canceled = 5
+    running = 6
+
+
+class MergeCommitStatus(Enum):
+    can_be_merged = 1
+    cannot_be_merged = 2
+    unchecked = 3
+    checking = 4
+    cannot_be_merged_recheck = 5
+
+
 class PullRequest(OgrAbstractClass):
     @deprecate_and_set_removal(
         since="0.9.0",
@@ -403,6 +420,14 @@ class PullRequest(OgrAbstractClass):
     @property
     def head_commit(self) -> str:
         raise NotImplementedError
+
+    @property
+    def merge_commit_sha(self) -> str:
+        raise NotImplementedError()
+
+    @property
+    def merge_commit_status(self) -> MergeCommitStatus:
+        raise NotImplementedError()
 
     @property
     def source_project(self) -> "GitProject":
@@ -586,15 +611,6 @@ class PullRequest(OgrAbstractClass):
         :return: [CommitFlag]
         """
         raise NotImplementedError()
-
-
-class CommitStatus(Enum):
-    pending = 1
-    success = 2
-    failure = 3
-    error = 4
-    canceled = 5
-    running = 6
 
 
 class CommitFlag(OgrAbstractClass):

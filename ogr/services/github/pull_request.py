@@ -31,7 +31,7 @@ from github.Repository import Repository as _GithubRepository
 from github.IssueComment import IssueComment as _GithubIssueComment
 from github.PullRequestComment import PullRequestComment as _GithubPullRequestComment
 
-from ogr.abstract import PRComment, PRStatus, PullRequest
+from ogr.abstract import PRComment, PRStatus, PullRequest, MergeCommitStatus
 from ogr.exceptions import GithubAPIException
 from ogr.services import github as ogr_github
 from ogr.services.base import BasePullRequest
@@ -108,6 +108,17 @@ class GithubPullRequest(BasePullRequest):
     @property
     def head_commit(self) -> str:
         return self._raw_pr.head.sha
+
+    @property
+    def merge_commit_sha(self) -> str:
+        return self._raw_pr.merge_commit_sha
+
+    @property
+    def merge_commit_status(self) -> MergeCommitStatus:
+        if self._raw_pr.mergeable:
+            return MergeCommitStatus.can_be_merged
+        else:
+            return MergeCommitStatus.cannot_be_merged
 
     @property
     def source_project(self) -> "ogr_github.GithubProject":

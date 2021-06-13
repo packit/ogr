@@ -1,7 +1,7 @@
 from requre.online_replacing import record_requests_for_all_methods
 
 from tests.integration.github.base import GithubTests
-from ogr.abstract import PRStatus
+from ogr.abstract import PRStatus, MergeCommitStatus
 
 
 @record_requests_for_all_methods()
@@ -259,6 +259,23 @@ class PullRequests(GithubTests):
             self.hello_world_project.get_pr(113).head_commit
             == "7cf6d0cbeca285ecbeb19a0067cb243783b3c768"
         )
+
+    def test_merge_commit_sha(self):
+        pr240 = self.hello_world_project.get_pr(240)
+        assert pr240.head_commit == "dabfd3862702e49b6877da7f224e6d6458eb961a"
+        assert pr240.merge_commit_sha == "f502aae6920d82948f2dba0b70c9260fb1e34822"
+        assert pr240.merge_commit_status == MergeCommitStatus.cannot_be_merged
+        # ^ Because it's already merged
+        pr111 = self.hello_world_project.get_pr(111)
+        assert pr111.head_commit == "1abb19255a7c1bec7ffcae2487f022b23175af2b"
+        assert pr111.merge_commit_sha == "8512ef316918edc39c4a6eee13e6cc45344d03ac"
+        assert pr111.merge_commit_status == MergeCommitStatus.cannot_be_merged
+        # ^ Conflicts
+        pr112 = self.hello_world_project.get_pr(112)
+        assert pr112.head_commit == "9ab13fa4b4944510022730708045f42aea106cef"
+        assert pr112.merge_commit_sha == "0dc8211e10e37370f49364495249f5c693a9eff7"
+        assert pr112.merge_commit_status == MergeCommitStatus.can_be_merged
+        # ^ Not (yet) merged; good thing! (invalid specfile):
 
     def test_source_project_upstream_branch(self):
         # Tests source project for PR from upstream to upstream.

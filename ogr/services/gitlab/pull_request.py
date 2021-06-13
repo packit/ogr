@@ -21,11 +21,11 @@
 # SOFTWARE.
 
 import datetime
-from typing import List, Optional
+from typing import Dict, List, Optional
 
 from gitlab.v4.objects import MergeRequest as _GitlabMergeRequest
 
-from ogr.abstract import PullRequest, PRComment, PRStatus
+from ogr.abstract import PullRequest, PRComment, PRStatus, MergeCommitStatus
 from ogr.exceptions import GitlabAPIException
 from ogr.services import gitlab as ogr_gitlab
 from ogr.services.base import BasePullRequest
@@ -36,6 +36,13 @@ class GitlabPullRequest(BasePullRequest):
     _raw_pr: _GitlabMergeRequest
     _target_project: "ogr_gitlab.GitlabProject"
     _source_project: "ogr_gitlab.GitlabProject" = None
+    _merge_commit_status: Dict[str, MergeCommitStatus] = {
+        "can_be_merged": MergeCommitStatus.can_be_merged,
+        "cannot_be_merged": MergeCommitStatus.cannot_be_merged,
+        "unchecked": MergeCommitStatus.unchecked,
+        "checking": MergeCommitStatus.checking,
+        "cannot_be_merged_recheck": MergeCommitStatus.cannot_be_merged_recheck,
+    }
 
     @property
     def title(self) -> str:
@@ -102,6 +109,19 @@ class GitlabPullRequest(BasePullRequest):
     @property
     def head_commit(self) -> str:
         return self._raw_pr.sha
+
+    @property
+    def merge_commit_sha(self) -> str:
+        return self._raw_pr.merge_commit_sha
+
+    @property
+    def merge_commit_status(self) -> MergeCommitStatus:
+        status = self._raw_pr.merge_status
+        assert status in self._merge_commit_status
+        if status in self._merge_commit_status:
+            return self._merge_commit_status[status]
+        else:
+            raise GitlabAPIException(f"Invalid merge_status {status}")
 
     @property
     def source_project(self) -> "ogr_gitlab.GitlabProject":

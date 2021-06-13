@@ -4,7 +4,7 @@
 from requre.online_replacing import record_requests_for_all_methods
 
 from tests.integration.gitlab.base import GitlabTests
-from ogr.abstract import PRStatus, CommitStatus
+from ogr.abstract import PRStatus, CommitStatus, MergeCommitStatus
 
 
 @record_requests_for_all_methods()
@@ -173,6 +173,21 @@ class PullRequests(GitlabTests):
             self.project.get_pr(19).head_commit
             == "59b1a9bab5b5198c619270646410867788685c16"
         )
+
+    def test_merge_commit_sha(self):
+        pr1 = self.project.get_pr(1)
+        pr12 = self.project.get_pr(12)
+        pr19 = self.project.get_pr(19)
+        pr79 = self.project.get_pr(79)
+        assert pr1.merge_commit_sha == "101a42bbbe174d04b465d49caf274dc3b4defeca"
+        assert pr1.merge_commit_status == MergeCommitStatus.can_be_merged
+        assert pr12.merge_commit_sha == "f6de56d97ec3ec74cd5194e79175162d9f969195"
+        assert pr12.merge_commit_status == MergeCommitStatus.can_be_merged
+        assert pr19.merge_commit_sha == "b8e18207cfdad954f1b3a96db34d0706b272e6cf"
+        assert pr19.merge_commit_status == MergeCommitStatus.can_be_merged
+        assert pr79.head_commit == "45e3737aea87a9fd14adcf6a42070cb4f8665ada"
+        assert pr79.merge_commit_sha is None
+        assert pr79.merge_commit_status == MergeCommitStatus.cannot_be_merged
 
     def test_source_project_upstream_branch(self):
         pr = self.project.get_pr(23)
