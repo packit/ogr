@@ -1,3 +1,9 @@
+# 0.26.0
+
+- Add a function for setting assignees of issues, by [@KPostOffice](https://github.com/KPostOffice), [#589](https://github.com/packit-service/ogr/pull/589)
+- 'make check' is now aligned with other Packit projects, by [@bcrocker15](https://github.com/bcrocker15), [#593](https://github.com/packit-service/ogr/pull/593)
+- Implement support for GitHub [check runs](https://docs.github.com/en/rest/reference/checks#check-runs), by [@mfocko](https://github.com/mfocko), [#592](https://github.com/packit-service/ogr/pull/592)
+
 # 0.25.0
 
 - Add support for listing of projects in GitLab and Github (by our external
