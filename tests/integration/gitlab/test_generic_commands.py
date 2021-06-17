@@ -84,6 +84,27 @@ class GenericCommands(GitlabTests):
         assert description
         assert description.startswith("Testing repository for python-ogr package.")
 
+    def test_description_property(self):
+        description = self.project.description
+        assert (
+            description == "Testing repository for python-ogr package.  |"
+            "  https://github.com/packit-service/ogr"
+        )
+
+    def test_description_setter(self):
+        old_description = self.project.description
+        assert (
+            old_description == "Testing repository for python-ogr package.  |"
+            "  https://github.com/packit-service/ogr"
+        )
+        self.project.description = "Different description"
+        assert self.project.description == "Different description"
+        self.project.description = old_description
+        assert (
+            self.project.description == "Testing repository for python-ogr package.  |"
+            "  https://github.com/packit-service/ogr"
+        )
+
     def test_get_git_urls(self):
         urls = self.project.get_git_urls()
         assert urls
