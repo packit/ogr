@@ -1485,3 +1485,8 @@ class GitUser(OgrAbstractClass):
 
     def get_forks(self) -> Sequence["GitProject"]:
         raise NotImplementedError
+
+
+class Secrets(OgrAbstractClass):
+    def __init__(self) -> None:
+        pass

@@ -35,6 +35,7 @@ from ogr.abstract import (
     PullRequest,
     CommitFlag,
     CommitStatus,
+    Secrets,
 )
 from ogr.deprecation import deprecate_and_set_removal
 from ogr.exceptions import OgrException
@@ -423,3 +424,7 @@ class BaseCommitFlag(CommitFlag):
             raise ValueError("Invalid state given")
 
         return state
+
+
+class BaseSecrets(Secrets):
+    pass
