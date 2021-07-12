@@ -117,7 +117,6 @@ class GitlabPullRequest(BasePullRequest):
     @property
     def merge_commit_status(self) -> MergeCommitStatus:
         status = self._raw_pr.merge_status
-        assert status in self._merge_commit_status
         if status in self._merge_commit_status:
             return self._merge_commit_status[status]
         else:
