@@ -21,6 +21,7 @@
 # SOFTWARE.
 
 import datetime
+import requests
 from typing import Dict, List, Optional
 
 from gitlab.v4.objects import MergeRequest as _GitlabMergeRequest
@@ -105,6 +106,17 @@ class GitlabPullRequest(BasePullRequest):
     @property
     def commits_url(self) -> str:
         return f"{self._raw_pr.web_url}/commits"
+
+    @property
+    def patch(self) -> bytes:
+        response = requests.get(f"{self.url}.patch")
+
+        if not response.ok:
+            raise GitlabAPIException(
+                f"Couldn't get patch from {self.url}.patch because {response.reason}."
+            )
+
+        return response.content
 
     @property
     def head_commit(self) -> str:
