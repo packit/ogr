@@ -185,6 +185,22 @@ class PagureProject(BaseGitProject):
     def get_description(self) -> str:
         return self.get_project_info()["description"]
 
+    @property
+    def description(self) -> str:
+        """
+        Returns:
+            Project description.
+        """
+        return self.get_project_info()["description"]
+
+    @description.setter
+    def description(self, new_description: str) -> None:
+        """
+        Args:
+            new_description: description to set for project.
+        """
+        raise OperationNotSupported("Not possible on Pagure")
+
     def get_owners(self) -> List[str]:
         project = self.get_project_info()
         return project["access_users"]["owner"]

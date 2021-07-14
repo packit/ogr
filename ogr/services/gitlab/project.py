@@ -128,6 +128,23 @@ class GitlabProject(BaseGitProject):
     def get_description(self) -> str:
         return self.gitlab_repo.attributes["description"]
 
+    @property
+    def description(self) -> str:
+        """
+        Returns:
+            Project description.
+        """
+        return self.gitlab_repo.attributes["description"]
+
+    @description.setter
+    def description(self, new_description: str) -> None:
+        """
+        Args:
+            new_description: description to set for project.
+        """
+        self.gitlab_repo.description = new_description
+        self.gitlab_repo.save()
+
     def get_fork(self, create: bool = True) -> Optional["GitlabProject"]:
         """
         Provide GitlabProject instance of a fork of this project.

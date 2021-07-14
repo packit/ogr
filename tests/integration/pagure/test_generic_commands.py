@@ -30,6 +30,10 @@ class GenericCommands(PagureTests):
         description = self.ogr_project.get_description()
         assert description.startswith("Testing repository for python-ogr package")
 
+    def test_description_property(self):
+        description = self.ogr_project.description
+        assert description.startswith("Testing repository for python-ogr package")
+
     def test_branches(self):
         branches = self.ogr_project.get_branches()
         assert branches

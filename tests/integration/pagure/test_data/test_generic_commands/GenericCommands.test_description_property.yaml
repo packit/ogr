@@ -1,0 +1,138 @@
+_requre:
+  DataTypes: 1
+  key_strategy: StorageKeysInspectSimple
+  version_storage_file: 3
+requests.sessions:
+  send:
+    GET:
+      https://pagure.io/api/0/ogr-tests:
+      - metadata:
+          latency: 0.40950918197631836
+          module_call_list:
+          - unittest.main
+          - teamcity.unittestpy
+          - unittest.runner
+          - unittest.suite
+          - unittest.case
+          - requre.record_and_replace
+          - test_generic_commands
+          - ogr.services.pagure.project
+          - ogr.services.pagure.service
+          - requests.sessions
+          - requre.objects
+          - requre.cassette
+          - requests.sessions
+          - send
+        output:
+          __store_indicator: 2
+          _content:
+            access_groups:
+              admin: []
+              collaborator: []
+              commit: []
+              ticket: []
+            access_users:
+              admin:
+              - jscotka
+              - lbarczio
+              - mfocko
+              collaborator: []
+              commit: []
+              owner:
+              - lachmanfrantisek
+              ticket: []
+            close_status: []
+            custom_keys: []
+            date_created: '1570568389'
+            date_modified: '1570568529'
+            description: Testing repository for python-ogr package.
+            full_url: https://pagure.io/ogr-tests
+            fullname: ogr-tests
+            id: 6826
+            milestones: {}
+            name: ogr-tests
+            namespace: null
+            parent: null
+            priorities: {}
+            tags: []
+            url_path: ogr-tests
+            user:
+              full_url: https://pagure.io/user/lachmanfrantisek
+              fullname: "Franti\u0161ek Lachman"
+              name: lachmanfrantisek
+              url_path: user/lachmanfrantisek
+          _next: null
+          elapsed: 0.408046
+          encoding: null
+          headers:
+            Connection: Keep-Alive
+            Content-Length: '927'
+            Content-Security-Policy: default-src 'self';script-src 'self' 'nonce-BGNvqUq2yrrdPFhsZfKYfgZHU';
+              style-src 'self' 'nonce-BGNvqUq2yrrdPFhsZfKYfgZHU'; object-src 'none';base-uri
+              'self';img-src 'self' https:;connect-src 'self' https://pagure.io:8088;frame-src
+              https://docs.pagure.org;frame-ancestors https://pagure.io;
+            Content-Type: application/json
+            Date: Thu, 17 Jun 2021 21:08:23 GMT
+            Keep-Alive: timeout=5, max=99
+            Referrer-Policy: same-origin
+            Server: Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1g mod_wsgi/4.6.4
+              Python/3.6
+            Set-Cookie: pagure=eyJfcGVybWFuZW50Ijp0cnVlLCJjc3JmX3Rva2VuIjoiOTdmMjkxNTlkOGNhNzc0ZTM2NTc4OWE4MjczNjk2MzAwMTkyYTgwOCJ9.E61LRw.pNaz6ZqeM3wGy3QD8SqBQreXDBo;
+              Expires=Sun, 18-Jul-2021 21:08:23 GMT; Secure; HttpOnly; Path=/
+            Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
+            X-Content-Type-Options: nosniff
+            X-Frame-Options: ALLOW-FROM https://pagure.io/
+            X-Xss-Protection: 1; mode=block
+          raw: !!binary ""
+          reason: OK
+          status_code: 200
+    POST:
+      https://pagure.io/api/0/-/whoami:
+      - metadata:
+          latency: 0.5989177227020264
+          module_call_list:
+          - unittest.main
+          - teamcity.unittestpy
+          - unittest.runner
+          - unittest.suite
+          - unittest.case
+          - requre.record_and_replace
+          - test_generic_commands
+          - tests.integration.pagure.base
+          - ogr.services.pagure.service
+          - ogr.services.pagure.user
+          - ogr.services.pagure.service
+          - requests.sessions
+          - requre.objects
+          - requre.cassette
+          - requests.sessions
+          - send
+        output:
+          __store_indicator: 2
+          _content:
+            username: lachmanfrantisek
+          _next: null
+          elapsed: 0.596669
+          encoding: null
+          headers:
+            Connection: Keep-Alive
+            Content-Length: '37'
+            Content-Security-Policy: default-src 'self';script-src 'self' 'nonce-fFRHSH221FbhieFqgkZL6yXLV';
+              style-src 'self' 'nonce-fFRHSH221FbhieFqgkZL6yXLV'; object-src 'none';base-uri
+              'self';img-src 'self' https:;connect-src 'self' https://pagure.io:8088;frame-src
+              https://docs.pagure.org;frame-ancestors https://pagure.io;
+            Content-Type: application/json
+            Date: Thu, 17 Jun 2021 21:08:22 GMT
+            Keep-Alive: timeout=5, max=100
+            Referrer-Policy: same-origin
+            Server: Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1g mod_wsgi/4.6.4
+              Python/3.6
+            Set-Cookie: pagure=eyJfcGVybWFuZW50Ijp0cnVlLCJjc3JmX3Rva2VuIjoiOTdmMjkxNTlkOGNhNzc0ZTM2NTc4OWE4MjczNjk2MzAwMTkyYTgwOCJ9.E61LRg.ZqeidL_YuxVcWOfAztha5uyupDM;
+              Expires=Sun, 18-Jul-2021 21:08:22 GMT; Secure; HttpOnly; Path=/
+            Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
+            X-Content-Type-Options: nosniff
+            X-Frame-Options: ALLOW-FROM https://pagure.io/
+            X-Xss-Protection: 1; mode=block
+          raw: !!binary ""
+          reason: OK
+          status_code: 200
