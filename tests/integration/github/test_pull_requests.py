@@ -342,3 +342,9 @@ class PullRequests(GithubTests):
         assert (
             pr.commits_url == "https://github.com/packit/hello-world/pull/113/commits"
         )
+
+    def test_pr_patch(self):
+        pr = self.hello_world_project.get_pr(113)
+        patch = pr.patch
+        assert isinstance(patch, bytes)
+        assert "\nDate: Mon, 18 Nov 2019 12:42:35 +0100\n" in patch.decode()

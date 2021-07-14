@@ -22,6 +22,7 @@
 
 import datetime
 import logging
+import requests
 from typing import Optional, List, Union
 
 from github import UnknownObjectException
@@ -100,6 +101,17 @@ class GithubPullRequest(BasePullRequest):
     @property
     def diff_url(self) -> str:
         return f"{self._raw_pr.html_url}/files"
+
+    @property
+    def patch(self) -> bytes:
+        response = requests.get(self._raw_pr.patch_url)
+
+        if not response.ok:
+            raise GithubAPIException(
+                f"Couldn't get patch from {self._raw_pr.patch_url} because {response.reason}."
+            )
+
+        return response.content
 
     @property
     def commits_url(self) -> str:
