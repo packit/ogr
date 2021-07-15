@@ -350,3 +350,9 @@ class PullRequests(GitlabTests):
             pr.commits_url
             == "https://gitlab.com/packit-service/ogr-tests/-/merge_requests/3/commits"
         )
+
+    def test_pr_patch(self):
+        pr = self.project.get_pr(3)
+        patch = pr.patch
+        assert isinstance(patch, bytes)
+        assert "\nDate: Wed, 11 Sep 2019 14:50:41 +0200\n" in patch.decode()
