@@ -1,3 +1,9 @@
+# 0.27.0
+
+- Implement description get/set property in projects. (#600)
+- Support using the merge ref instead of the head ref in a pull request. (#601)
+- Implement patch property in GithubPullRequest and GitlabPullRequest. (#613, #614)
+
 # 0.26.0
 
 - Add a function for setting assignees of issues, by [@KPostOffice](https://github.com/KPostOffice), [#589](https://github.com/packit-service/ogr/pull/589)
