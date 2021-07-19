@@ -576,11 +576,17 @@ class GithubProject(BaseGitProject):
         :param labels: [str]
         :return: int - number of added labels
         """
-        current_label_names = [la.name for la in list(self.github_repo.get_labels())]
+        current_labels = {
+            label.name: label for label in list(self.github_repo.get_labels())
+        }
         changes = 0
         for label in labels:
-            if label.name not in current_label_names:
-                color = self._normalize_label_color(color=label.color)
+            color = self._normalize_label_color(color=label.color)
+            if label.name in current_labels:
+                current_labels.get(label.name).edit(
+                    name=label.name, description=label.description, color=color
+                )
+            elif label.name not in current_labels:
                 self.github_repo.create_label(
                     name=label.name, color=color, description=label.description or ""
                 )
