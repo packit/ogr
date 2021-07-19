@@ -36,10 +36,12 @@ from github.GithubException import GithubException
 from github.Repository import Repository
 from github.CommitComment import CommitComment as GithubCommitComment
 from github.GitRelease import GitRelease as PyGithubRelease
+from github.Label import Label as PyGithubLabel
 
 from ogr.abstract import (
     Issue,
     IssueStatus,
+    OgrAbstractClass,
     PullRequest,
     PRStatus,
     Release,
@@ -60,6 +62,42 @@ from ogr.services.github.release import GithubRelease
 from ogr.utils import filter_paths, indirect
 
 logger = logging.getLogger(__name__)
+
+
+class GithubLabel(OgrAbstractClass):
+    def __init__(self, project: "GithubProject", github_label_obj: PyGithubLabel):
+        self._github_label_obj = github_label_obj
+        self.project = project
+
+    @property
+    def name(self) -> str:
+        return self._github_label_obj.name
+
+    @name.setter
+    def name(self, name: str):
+        self._github_label_obj.edit(
+            name=name, description=self.description, color=self.color
+        )
+
+    @property
+    def description(self) -> str:
+        return self._github_label_obj.description
+
+    @description.setter
+    def description(self, description: str):
+        self._github_label_obj.edit(
+            name=self.name, description=description, color=self.color
+        )
+
+    @property
+    def color(self) -> str:
+        return self._github_label_obj.color
+
+    @color.setter
+    def color(self, color: str):
+        self._github_label_obj.edit(
+            name=self.name, description=self.description, color=color
+        )
 
 
 class GithubProject(BaseGitProject):
@@ -562,12 +600,15 @@ class GithubProject(BaseGitProject):
             sha=raw_commitcoment.commit_id,
         )
 
-    def get_labels(self):
+    def get_labels(self) -> List[GithubLabel]:
         """
         Get list of labels in the repository.
         :return: [Label]
         """
-        return list(self.github_repo.get_labels())
+        return [
+            GithubLabel(project=self, github_label_obj=label)
+            for label in self.github_repo.get_labels()
+        ]
 
     def update_labels(self, labels):
         """
