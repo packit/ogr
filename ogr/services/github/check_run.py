@@ -154,9 +154,13 @@ class GithubCheckRun(OgrAbstractClass):
         self.raw_check_run.edit(started_at=started_at)
 
     @property
-    def conclusion(self) -> GithubCheckRunResult:
+    def conclusion(self) -> Optional[GithubCheckRunResult]:
         """Conclusion/result of the check run."""
-        return GithubCheckRunResult(self.raw_check_run.conclusion)
+        return (
+            GithubCheckRunResult(self.raw_check_run.conclusion)
+            if self.raw_check_run.conclusion
+            else None
+        )
 
     @property
     def completed_at(self) -> Optional[datetime.datetime]:
