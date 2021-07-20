@@ -28,7 +28,7 @@ from ogr.services.github.check_run import (
     GithubCheckRunResult,
     GithubCheckRunStatus,
 )
-from typing import Optional, Dict, List, Set, Union
+from typing import Optional, Dict, List, Set, Tuple, Union
 
 import github
 from github import UnknownObjectException
@@ -610,7 +610,7 @@ class GithubProject(BaseGitProject):
             for label in self.github_repo.get_labels()
         ]
 
-    def update_labels(self, labels):
+    def update_labels(self, labels) -> Tuple[int, int]:
         """
         Update the labels of the repository. (No deletion, only add not existing ones.)
 
@@ -620,20 +620,25 @@ class GithubProject(BaseGitProject):
         current_labels = {
             label.name: label for label in list(self.github_repo.get_labels())
         }
-        changes = 0
+        added, updated = 0, 0
         for label in labels:
             color = self._normalize_label_color(color=label.color)
             if label.name in current_labels:
-                current_labels.get(label.name).edit(
-                    name=label.name, description=label.description, color=color
-                )
+                label_to_edit = current_labels.get(label.name)
+                if (
+                    label_to_edit.description != label.description
+                    or label_to_edit.color != color
+                ):
+                    current_labels.get(label.name).edit(
+                        name=label.name, description=label.description, color=color
+                    )
+                    updated += 1
             elif label.name not in current_labels:
                 self.github_repo.create_label(
                     name=label.name, color=color, description=label.description or ""
                 )
-
-                changes += 1
-        return changes
+                added += 1
+        return added, updated
 
     @staticmethod
     def _normalize_label_color(color):
