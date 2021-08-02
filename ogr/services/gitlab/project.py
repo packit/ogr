@@ -93,17 +93,23 @@ class GitlabProject(BaseGitProject):
             and self.service == o.service
         )
 
-    def _construct_fork_project(self) -> Optional["GitlabProject"]:
-        user_login = self.service.user.get_username()
+    def _get_project_in_namespace(self, namespace: str) -> Optional["GitlabProject"]:
         try:
             project = GitlabProject(
-                repo=self.repo, service=self.service, namespace=user_login
+                repo=self.repo, service=self.service, namespace=namespace
             )
             if project.gitlab_repo:
                 return project
         except Exception as ex:
-            logger.debug(f"Project {self.repo}/{user_login} does not exist: {ex}")
+            logger.debug(f"Project {namespace}/{self.repo} does not exist: {ex}")
         return None
+
+    def _construct_fork_project(self) -> Optional["GitlabProject"]:
+        user_login = self.service.user.get_username()
+        project_in_forks_group = self._get_project_in_namespace(f"{user_login}/forks")
+        if project_in_forks_group:
+            return project_in_forks_group
+        return self._get_project_in_namespace(user_login)
 
     def exists(self) -> bool:
         try:
@@ -156,7 +162,10 @@ class GitlabProject(BaseGitProject):
         """
         username = self.service.user.get_username()
         for fork in self.get_forks():
-            if fork.gitlab_repo.namespace["full_path"] == username:
+            if fork.gitlab_repo.namespace["full_path"] in (
+                f"{username}/forks",
+                username,
+            ):
                 return fork
 
         if not self.is_forked():
@@ -355,8 +364,26 @@ class GitlabProject(BaseGitProject):
 
         :return: fork GitlabProject instance
         """
+        username = self.service.user.get_username()
+
         try:
-            fork = self.gitlab_repo.forks.create({})
+            # First try to create the fork in {username}/forks namespace.
+            fork = self.gitlab_repo.forks.create(
+                data={"namespace_path": f"{username}/forks"}
+            )
+        except gitlab.GitlabCreateError:
+            # There's most likely no {username}/forks namespace (group).
+            pass
+        else:
+            return GitlabProject(
+                namespace=fork.namespace["full_path"],
+                service=self.service,
+                repo=fork.path,
+            )
+
+        try:
+            # By default Gitlab creates a fork in a namespace of the authenticated user.
+            fork = self.gitlab_repo.forks.create(data={})
         except gitlab.GitlabCreateError:
             logger.error(f"Repo {self.gitlab_repo} cannot be forked")
             raise GitlabAPIException(f"Repo {self.gitlab_repo} cannot be forked")
