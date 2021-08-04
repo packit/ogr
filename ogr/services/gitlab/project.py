@@ -102,7 +102,7 @@ class GitlabProject(BaseGitProject):
             if project.gitlab_repo:
                 return project
         except Exception as ex:
-            logger.debug(f"Project {self.repo}/{user_login} does not exist: {ex}")
+            logger.debug(f"Project {user_login}/{self.repo} does not exist: {ex}")
         return None
 
     def exists(self) -> bool:
@@ -360,6 +360,7 @@ class GitlabProject(BaseGitProject):
         except gitlab.GitlabCreateError:
             logger.error(f"Repo {self.gitlab_repo} cannot be forked")
             raise GitlabAPIException(f"Repo {self.gitlab_repo} cannot be forked")
+        logger.debug(f"Forked to {fork.namespace['full_path']}/{fork.path}")
         return GitlabProject(
             namespace=fork.namespace["full_path"], service=self.service, repo=fork.path
         )
