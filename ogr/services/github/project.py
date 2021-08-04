@@ -145,7 +145,7 @@ class GithubProject(BaseGitProject):
                 return None
             return project
         except github.GithubException as ex:
-            logger.debug(f"Project {self.repo}/{user_login} does not exist: {ex}")
+            logger.debug(f"Project {user_login}/{self.repo} does not exist: {ex}")
             return None
 
     def exists(self) -> bool:
@@ -471,9 +471,11 @@ class GithubProject(BaseGitProject):
         :return: fork GithubProject instance
         """
         gh_user = self.github_instance.get_user()
-        return self.service.get_project_from_github_repository(
+        fork = self.service.get_project_from_github_repository(
             gh_user.create_fork(self.github_repo)
         )
+        logger.debug(f"Forked to {fork.namespace}/{fork.repo}")
+        return fork
 
     def change_token(self, new_token: str):
         raise OperationNotSupported

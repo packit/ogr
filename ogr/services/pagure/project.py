@@ -286,7 +286,9 @@ class PagureProject(BaseGitProject):
             method="POST",
             data={"repo": self.repo, "namespace": self.namespace, "wait": True},
         )
-        return self._construct_fork_project()
+        fork = self._construct_fork_project()
+        logger.debug(f"Forked to {fork.full_repo_name}")
+        return fork
 
     def _construct_fork_project(self) -> "PagureProject":
         return PagureProject(
