@@ -175,19 +175,39 @@ class PullRequests(GitlabTests):
         )
 
     def test_merge_commit_sha(self):
-        pr1 = self.project.get_pr(1)
-        pr12 = self.project.get_pr(12)
-        pr19 = self.project.get_pr(19)
-        pr79 = self.project.get_pr(79)
-        assert pr1.merge_commit_sha == "101a42bbbe174d04b465d49caf274dc3b4defeca"
-        assert pr1.merge_commit_status == MergeCommitStatus.can_be_merged
-        assert pr12.merge_commit_sha == "f6de56d97ec3ec74cd5194e79175162d9f969195"
-        assert pr12.merge_commit_status == MergeCommitStatus.can_be_merged
-        assert pr19.merge_commit_sha == "b8e18207cfdad954f1b3a96db34d0706b272e6cf"
-        assert pr19.merge_commit_status == MergeCommitStatus.can_be_merged
-        assert pr79.head_commit == "45e3737aea87a9fd14adcf6a42070cb4f8665ada"
-        assert pr79.merge_commit_sha is None
-        assert pr79.merge_commit_status == MergeCommitStatus.cannot_be_merged
+        # merged PR
+        merged = self.project.get_pr(1)
+        assert merged.merge_commit_status == MergeCommitStatus.can_be_merged
+        assert merged.merge_commit_sha == "101a42bbbe174d04b465d49caf274dc3b4defeca"
+
+    def test_test_merge_commit_sha(self):
+        # open PR with no conflicts
+        open_mergeable = self.project.get_pr(77)
+        assert open_mergeable.merge_commit_status == MergeCommitStatus.can_be_merged
+        try:
+            assert open_mergeable.merge_commit_sha  # cannot provide specific value
+        except AttributeError:
+            self.skipTest(
+                "installed version of python-gitlab does not support merge_ref"
+            )
+
+        # open PR with conflicts
+        conflicting = self.project.get_pr(25)
+        assert conflicting.merge_commit_status == MergeCommitStatus.cannot_be_merged
+        assert conflicting.merge_commit_sha is None
+
+        # closed PR with no conflicts
+        closed = self.project.get_pr(78)
+        assert closed.merge_commit_status == MergeCommitStatus.can_be_merged
+        assert closed.merge_commit_sha
+
+        # closed PR with conflicts
+        closed_with_conflict = self.project.get_pr(79)
+        assert (
+            closed_with_conflict.merge_commit_status
+            == MergeCommitStatus.cannot_be_merged
+        )
+        assert closed_with_conflict.merge_commit_sha is None
 
     def test_source_project_upstream_branch(self):
         pr = self.project.get_pr(23)

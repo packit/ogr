@@ -25,6 +25,7 @@ import requests
 from typing import Dict, List, Optional
 
 from gitlab.v4.objects import MergeRequest as _GitlabMergeRequest
+from gitlab.exceptions import GitlabGetError
 
 from ogr.abstract import PullRequest, PRComment, PRStatus, MergeCommitStatus
 from ogr.exceptions import GitlabAPIException
@@ -123,8 +124,20 @@ class GitlabPullRequest(BasePullRequest):
         return self._raw_pr.sha
 
     @property
-    def merge_commit_sha(self) -> str:
-        return self._raw_pr.merge_commit_sha
+    def merge_commit_sha(self) -> Optional[str]:
+        # when merged => return merge_commit_sha
+        # otherwise => return test merge if possible
+        if self.status == PRStatus.merged:
+            return self._raw_pr.merge_commit_sha
+
+        # works for test merge only with python-gitlab>=2.10.0
+        try:
+            response = self._raw_pr.merge_ref()
+        except GitlabGetError as ex:
+            if ex.response_code == 400:
+                return None
+            raise
+        return response.get("commit_id")
 
     @property
     def merge_commit_status(self) -> MergeCommitStatus:
