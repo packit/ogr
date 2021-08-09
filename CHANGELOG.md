@@ -1,3 +1,11 @@
+# 0.28.0
+
+- Getting `conclusion` from GitHub's Check Run no longer raises an exception when
+  it's not defined, it returns None instead now. (#618)
+- When using parsing functions, `pkgs.[stg.]fedoraproject.org` are mapped to
+  PagureService. (#620)
+- Fix inconsistency of `merge_commit_sha` for GitLab's PRs. (#626)
+
 # 0.27.0
 
 - Implement description get/set property in projects. (#600)
