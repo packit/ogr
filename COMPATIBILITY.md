@@ -30,7 +30,6 @@ In case you find any error, please [create a new issue](https://github.com/packi
 | `add_label`       |   ✔    |   ✔    |   ✘    |
 | `get_all_commits` |   ✔    |   ✔    |   ✘    |
 | `labels`          |   ✔    |   ✔    |   ✘    |
-| `patch`           |   ✘    |   ✘    |   ✔    |
 
 ## Release
 
@@ -47,14 +46,12 @@ In case you find any error, please [create a new issue](https://github.com/packi
 
 ## Project
 
-|                            | GitHub | GitLab |         Pagure          |
-| -------------------------- | :----: | :----: | :---------------------: |
-| `change_token`             |   ✘    |   ✔    |            ✔            |
-| `get_release`              |   ✔    |   ✔    |            ✘            |
-| `get_latest_release`       |   ✔    |   ✔    |            ✘            |
-| `get_files`                |   ✔    |   ✔    |            ✘            |
-| `create_issue` with labels |   ✘    |   ✘    |            ✔            |
-| `is_private`               |   ✔    |   ✔    | ✘ (may not be accurate) |
+|                      | GitHub | GitLab |         Pagure          |
+| -------------------- | :----: | :----: | :---------------------: |
+| `change_token`       |   ✘    |   ✔    |            ✔            |
+| `get_release`        |   ✔    |   ✔    |            ✘            |
+| `get_latest_release` |   ✔    |   ✔    |            ✘            |
+| `is_private`         |   ✔    |   ✔    | ✘ (may not be accurate) |
 
 ## User
 
