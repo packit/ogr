@@ -1,3 +1,8 @@
+# 0.29.0
+
+- Update compatibility.md: remove fully supported properties. (#632)
+- Let contributors know about changing the COMPATIBILITY.md (#633)
+
 # 0.28.0
 
 - Getting `conclusion` from GitHub's Check Run no longer raises an exception when
