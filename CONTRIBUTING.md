@@ -1,6 +1,7 @@
 # Contributing Guidelines
 
-Please follow common guidelines for our projects [here](https://github.com/packit/contributing).
+- Please follow common guidelines for our projects [here](https://github.com/packit/contributing).
+- Once you are done, please check out our [COMPATIBILITY.md](https://github.com/packit/ogr/blob/main/COMPATIBILITY.md) file and include your changes here (if necessary).
 
 ## Reporting Bugs
 
