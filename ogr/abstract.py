@@ -47,6 +47,18 @@ class OgrAbstractClass:
         return f"<{str(self)}>"
 
 
+class Reaction(OgrAbstractClass):
+    def __init__(self, raw_reaction: Any) -> None:
+        self._raw_reaction = raw_reaction
+
+    def __str__(self):
+        return f"Reaction(raw_reaction={self._raw_reaction})"
+
+    def delete(self) -> None:
+        """Delete a reaction."""
+        raise NotImplementedError()
+
+
 class Comment(OgrAbstractClass):
     def __init__(
         self,
@@ -110,6 +122,24 @@ class Comment(OgrAbstractClass):
     @property
     def edited(self) -> datetime.datetime:
         return self._edited
+
+    def get_reactions(self) -> List[Reaction]:
+        """Returns list of reactions."""
+        raise NotImplementedError()
+
+    def add_reaction(self, reaction: str) -> Reaction:
+        """
+        Reacts to a comment.
+
+        Colons in between reaction are not needed: e.g. comment.add_reaction("+1")
+
+        Args:
+            reaction: String representing specific reaction to be added.
+
+        Returns:
+            Object representing newly added reaction.
+        """
+        raise NotImplementedError()
 
 
 class IssueComment(Comment):

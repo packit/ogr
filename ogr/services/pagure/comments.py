@@ -21,7 +21,7 @@
 # SOFTWARE.
 
 import datetime
-from typing import Optional, Dict, Any
+from typing import Any, Dict, Optional
 
 from ogr.abstract import Comment, IssueComment, PRComment
 from ogr.exceptions import OperationNotSupported
