@@ -1,0 +1,885 @@
+_requre:
+  DataTypes: 1
+  key_strategy: StorageKeysInspectSimple
+  version_storage_file: 3
+requests.sessions:
+  send:
+    DELETE:
+      https://api.github.com:443/reactions/126117286:
+      - metadata:
+          latency: 0.4113008975982666
+          module_call_list:
+          - unittest.case
+          - requre.record_and_replace
+          - tests.integration.github.test_comments
+          - ogr.services.github.comments
+          - github.Reaction
+          - github.Requester
+          - requests.sessions
+          - requre.objects
+          - requre.cassette
+          - requests.sessions
+          - send
+        output:
+          __store_indicator: 1
+          _content: ''
+          _next: null
+          elapsed: 0.410842
+          encoding: null
+          headers:
+            Access-Control-Allow-Origin: '*'
+            Access-Control-Expose-Headers: ETag, Link, Location, Retry-After, X-GitHub-OTP,
+              X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Used, X-RateLimit-Resource,
+              X-RateLimit-Reset, X-OAuth-Scopes, X-Accepted-OAuth-Scopes, X-Poll-Interval,
+              X-GitHub-Media-Type, Deprecation, Sunset
+            Content-Security-Policy: default-src 'none'
+            Date: Mon, 30 Aug 2021 13:11:23 GMT
+            Deprecation: Sat, 01 Feb 2020 00:00:00 GMT
+            Link: <https://developer.github.com/changes/2020-02-26-new-delete-reactions-endpoints/>;
+              rel="deprecation"; type="text/html", <https://api.github.com/repositories/397631468/issues/comments/908330325/reactions/126117286>;
+              rel="alternate"
+            Referrer-Policy: origin-when-cross-origin, strict-origin-when-cross-origin
+            Server: GitHub.com
+            Strict-Transport-Security: max-age=31536000; includeSubdomains; preload
+            Sunset: Mon, 01 Feb 2021 00:00:00 GMT
+            Vary: Accept-Encoding, Accept, X-Requested-With
+            X-Accepted-OAuth-Scopes: ''
+            X-Content-Type-Options: nosniff
+            X-Frame-Options: deny
+            X-GitHub-Media-Type: github.squirrel-girl-preview
+            X-GitHub-Request-Id: A9CE:E447:1569366:1622EB1:612CD8FA
+            X-OAuth-Scopes: admin:org, manage_billing:enterprise, repo, write:discussion,
+              write:packages
+            X-RateLimit-Limit: '5000'
+            X-RateLimit-Remaining: '4994'
+            X-RateLimit-Reset: '1630332680'
+            X-RateLimit-Resource: core
+            X-RateLimit-Used: '6'
+            X-XSS-Protection: '0'
+          raw: !!binary ""
+          reason: No Content
+          status_code: 204
+    GET:
+      https://api.github.com:443/repos/nikromen/playground:
+      - metadata:
+          latency: 0.41611433029174805
+          module_call_list:
+          - unittest.case
+          - requre.record_and_replace
+          - tests.integration.github.test_comments
+          - ogr.utils
+          - ogr.services.github.pull_request
+          - ogr.services.github.project
+          - github.MainClass
+          - github.Requester
+          - requests.sessions
+          - requre.objects
+          - requre.cassette
+          - requests.sessions
+          - send
+        output:
+          __store_indicator: 2
+          _content:
+            allow_auto_merge: false
+            allow_merge_commit: true
+            allow_rebase_merge: true
+            allow_squash_merge: true
+            archive_url: https://api.github.com/repos/nikromen/playground/{archive_format}{/ref}
+            archived: false
+            assignees_url: https://api.github.com/repos/nikromen/playground/assignees{/user}
+            blobs_url: https://api.github.com/repos/nikromen/playground/git/blobs{/sha}
+            branches_url: https://api.github.com/repos/nikromen/playground/branches{/branch}
+            clone_url: https://github.com/nikromen/playground.git
+            collaborators_url: https://api.github.com/repos/nikromen/playground/collaborators{/collaborator}
+            comments_url: https://api.github.com/repos/nikromen/playground/comments{/number}
+            commits_url: https://api.github.com/repos/nikromen/playground/commits{/sha}
+            compare_url: https://api.github.com/repos/nikromen/playground/compare/{base}...{head}
+            contents_url: https://api.github.com/repos/nikromen/playground/contents/{+path}
+            contributors_url: https://api.github.com/repos/nikromen/playground/contributors
+            created_at: '2021-08-18T14:32:28Z'
+            default_branch: main
+            delete_branch_on_merge: false
+            deployments_url: https://api.github.com/repos/nikromen/playground/deployments
+            description: null
+            disabled: false
+            downloads_url: https://api.github.com/repos/nikromen/playground/downloads
+            events_url: https://api.github.com/repos/nikromen/playground/events
+            fork: false
+            forks: 1
+            forks_count: 1
+            forks_url: https://api.github.com/repos/nikromen/playground/forks
+            full_name: nikromen/playground
+            git_commits_url: https://api.github.com/repos/nikromen/playground/git/commits{/sha}
+            git_refs_url: https://api.github.com/repos/nikromen/playground/git/refs{/sha}
+            git_tags_url: https://api.github.com/repos/nikromen/playground/git/tags{/sha}
+            git_url: git://github.com/nikromen/playground.git
+            has_downloads: true
+            has_issues: true
+            has_pages: false
+            has_projects: true
+            has_wiki: true
+            homepage: null
+            hooks_url: https://api.github.com/repos/nikromen/playground/hooks
+            html_url: https://github.com/nikromen/playground
+            id: 397631468
+            issue_comment_url: https://api.github.com/repos/nikromen/playground/issues/comments{/number}
+            issue_events_url: https://api.github.com/repos/nikromen/playground/issues/events{/number}
+            issues_url: https://api.github.com/repos/nikromen/playground/issues{/number}
+            keys_url: https://api.github.com/repos/nikromen/playground/keys{/key_id}
+            labels_url: https://api.github.com/repos/nikromen/playground/labels{/name}
+            language: null
+            languages_url: https://api.github.com/repos/nikromen/playground/languages
+            license: null
+            merges_url: https://api.github.com/repos/nikromen/playground/merges
+            milestones_url: https://api.github.com/repos/nikromen/playground/milestones{/number}
+            mirror_url: null
+            name: playground
+            network_count: 1
+            node_id: MDEwOlJlcG9zaXRvcnkzOTc2MzE0Njg=
+            notifications_url: https://api.github.com/repos/nikromen/playground/notifications{?since,all,participating}
+            open_issues: 3
+            open_issues_count: 3
+            owner:
+              avatar_url: https://avatars.githubusercontent.com/u/70757578?v=4
+              events_url: https://api.github.com/users/nikromen/events{/privacy}
+              followers_url: https://api.github.com/users/nikromen/followers
+              following_url: https://api.github.com/users/nikromen/following{/other_user}
+              gists_url: https://api.github.com/users/nikromen/gists{/gist_id}
+              gravatar_id: ''
+              html_url: https://github.com/nikromen
+              id: 70757578
+              login: nikromen
+              node_id: MDQ6VXNlcjcwNzU3NTc4
+              organizations_url: https://api.github.com/users/nikromen/orgs
+              received_events_url: https://api.github.com/users/nikromen/received_events
+              repos_url: https://api.github.com/users/nikromen/repos
+              site_admin: false
+              starred_url: https://api.github.com/users/nikromen/starred{/owner}{/repo}
+              subscriptions_url: https://api.github.com/users/nikromen/subscriptions
+              type: User
+              url: https://api.github.com/users/nikromen
+            permissions:
+              admin: true
+              maintain: true
+              pull: true
+              push: true
+              triage: true
+            private: false
+            pulls_url: https://api.github.com/repos/nikromen/playground/pulls{/number}
+            pushed_at: '2021-08-30T09:22:05Z'
+            releases_url: https://api.github.com/repos/nikromen/playground/releases{/id}
+            size: 2
+            ssh_url: git@github.com:nikromen/playground.git
+            stargazers_count: 1
+            stargazers_url: https://api.github.com/repos/nikromen/playground/stargazers
+            statuses_url: https://api.github.com/repos/nikromen/playground/statuses/{sha}
+            subscribers_count: 1
+            subscribers_url: https://api.github.com/repos/nikromen/playground/subscribers
+            subscription_url: https://api.github.com/repos/nikromen/playground/subscription
+            svn_url: https://github.com/nikromen/playground
+            tags_url: https://api.github.com/repos/nikromen/playground/tags
+            teams_url: https://api.github.com/repos/nikromen/playground/teams
+            temp_clone_token: ''
+            trees_url: https://api.github.com/repos/nikromen/playground/git/trees{/sha}
+            updated_at: '2021-08-30T09:22:08Z'
+            url: https://api.github.com/repos/nikromen/playground
+            watchers: 1
+            watchers_count: 1
+          _next: null
+          elapsed: 0.415635
+          encoding: utf-8
+          headers:
+            Access-Control-Allow-Origin: '*'
+            Access-Control-Expose-Headers: ETag, Link, Location, Retry-After, X-GitHub-OTP,
+              X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Used, X-RateLimit-Resource,
+              X-RateLimit-Reset, X-OAuth-Scopes, X-Accepted-OAuth-Scopes, X-Poll-Interval,
+              X-GitHub-Media-Type, Deprecation, Sunset
+            Cache-Control: private, max-age=60, s-maxage=60
+            Content-Encoding: gzip
+            Content-Security-Policy: default-src 'none'
+            Content-Type: application/json; charset=utf-8
+            Date: Mon, 30 Aug 2021 13:11:20 GMT
+            ETag: W/"1d6813ccf44f004e4dba19de6e486b114cd386d3c31e48d17df9470201009e18"
+            Last-Modified: Mon, 30 Aug 2021 09:22:08 GMT
+            Referrer-Policy: origin-when-cross-origin, strict-origin-when-cross-origin
+            Server: GitHub.com
+            Strict-Transport-Security: max-age=31536000; includeSubdomains; preload
+            Transfer-Encoding: chunked
+            Vary: Accept, Authorization, Cookie, X-GitHub-OTP, Accept-Encoding, Accept,
+              X-Requested-With
+            X-Accepted-OAuth-Scopes: repo
+            X-Content-Type-Options: nosniff
+            X-Frame-Options: deny
+            X-GitHub-Media-Type: github.v3; format=json
+            X-GitHub-Request-Id: A9CE:E447:156918B:1622CC5:612CD8F8
+            X-OAuth-Scopes: admin:org, manage_billing:enterprise, repo, write:discussion,
+              write:packages
+            X-RateLimit-Limit: '5000'
+            X-RateLimit-Remaining: '4999'
+            X-RateLimit-Reset: '1630332680'
+            X-RateLimit-Resource: core
+            X-RateLimit-Used: '1'
+            X-XSS-Protection: '0'
+          raw: !!binary ""
+          reason: OK
+          status_code: 200
+      https://api.github.com:443/repos/nikromen/playground/issues/comments/908330325/reactions:
+      - metadata:
+          latency: 0.1839134693145752
+          module_call_list:
+          - unittest.case
+          - requre.record_and_replace
+          - tests.integration.github.test_comments
+          - ogr.services.github.comments
+          - github.PaginatedList
+          - github.Requester
+          - requests.sessions
+          - requre.objects
+          - requre.cassette
+          - requests.sessions
+          - send
+        output:
+          __store_indicator: 2
+          _content:
+          - content: '+1'
+            created_at: '2021-08-30T13:11:22Z'
+            id: 126117286
+            node_id: MDg6UmVhY3Rpb24xMjYxMTcyODY=
+            user:
+              avatar_url: https://avatars.githubusercontent.com/u/70757578?v=4
+              events_url: https://api.github.com/users/nikromen/events{/privacy}
+              followers_url: https://api.github.com/users/nikromen/followers
+              following_url: https://api.github.com/users/nikromen/following{/other_user}
+              gists_url: https://api.github.com/users/nikromen/gists{/gist_id}
+              gravatar_id: ''
+              html_url: https://github.com/nikromen
+              id: 70757578
+              login: nikromen
+              node_id: MDQ6VXNlcjcwNzU3NTc4
+              organizations_url: https://api.github.com/users/nikromen/orgs
+              received_events_url: https://api.github.com/users/nikromen/received_events
+              repos_url: https://api.github.com/users/nikromen/repos
+              site_admin: false
+              starred_url: https://api.github.com/users/nikromen/starred{/owner}{/repo}
+              subscriptions_url: https://api.github.com/users/nikromen/subscriptions
+              type: User
+              url: https://api.github.com/users/nikromen
+          _next: null
+          elapsed: 0.183386
+          encoding: utf-8
+          headers:
+            Access-Control-Allow-Origin: '*'
+            Access-Control-Expose-Headers: ETag, Link, Location, Retry-After, X-GitHub-OTP,
+              X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Used, X-RateLimit-Resource,
+              X-RateLimit-Reset, X-OAuth-Scopes, X-Accepted-OAuth-Scopes, X-Poll-Interval,
+              X-GitHub-Media-Type, Deprecation, Sunset
+            Cache-Control: private, max-age=60, s-maxage=60
+            Content-Encoding: gzip
+            Content-Security-Policy: default-src 'none'
+            Content-Type: application/json; charset=utf-8
+            Date: Mon, 30 Aug 2021 13:11:22 GMT
+            ETag: W/"1f651314dc6511978847d888daa7611a9fe956db04d13e91835076f591febfdb"
+            Referrer-Policy: origin-when-cross-origin, strict-origin-when-cross-origin
+            Server: GitHub.com
+            Strict-Transport-Security: max-age=31536000; includeSubdomains; preload
+            Transfer-Encoding: chunked
+            Vary: Accept, Authorization, Cookie, X-GitHub-OTP, Accept-Encoding, Accept,
+              X-Requested-With
+            X-Accepted-OAuth-Scopes: ''
+            X-Content-Type-Options: nosniff
+            X-Frame-Options: deny
+            X-GitHub-Media-Type: github.squirrel-girl-preview
+            X-GitHub-Request-Id: A9CE:E447:156933D:1622E85:612CD8FA
+            X-OAuth-Scopes: admin:org, manage_billing:enterprise, repo, write:discussion,
+              write:packages
+            X-RateLimit-Limit: '5000'
+            X-RateLimit-Remaining: '4995'
+            X-RateLimit-Reset: '1630332680'
+            X-RateLimit-Resource: core
+            X-RateLimit-Used: '5'
+            X-XSS-Protection: '0'
+          raw: !!binary ""
+          reason: OK
+          status_code: 200
+      - metadata:
+          latency: 0.17773079872131348
+          module_call_list:
+          - unittest.case
+          - requre.record_and_replace
+          - tests.integration.github.test_comments
+          - ogr.services.github.comments
+          - github.PaginatedList
+          - github.Requester
+          - requests.sessions
+          - requre.objects
+          - requre.cassette
+          - requests.sessions
+          - send
+        output:
+          __store_indicator: 2
+          _content: []
+          _next: null
+          elapsed: 0.177376
+          encoding: utf-8
+          headers:
+            Access-Control-Allow-Origin: '*'
+            Access-Control-Expose-Headers: ETag, Link, Location, Retry-After, X-GitHub-OTP,
+              X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Used, X-RateLimit-Resource,
+              X-RateLimit-Reset, X-OAuth-Scopes, X-Accepted-OAuth-Scopes, X-Poll-Interval,
+              X-GitHub-Media-Type, Deprecation, Sunset
+            Cache-Control: private, max-age=60, s-maxage=60
+            Content-Length: '2'
+            Content-Security-Policy: default-src 'none'
+            Content-Type: application/json; charset=utf-8
+            Date: Mon, 30 Aug 2021 13:11:23 GMT
+            ETag: '"774db146ace6f23c1792e6780512bc0cb0bfbeed73967866379a1992b0c004af"'
+            Referrer-Policy: origin-when-cross-origin, strict-origin-when-cross-origin
+            Server: GitHub.com
+            Strict-Transport-Security: max-age=31536000; includeSubdomains; preload
+            Vary: Accept, Authorization, Cookie, X-GitHub-OTP, Accept-Encoding, Accept,
+              X-Requested-With
+            X-Accepted-OAuth-Scopes: ''
+            X-Content-Type-Options: nosniff
+            X-Frame-Options: deny
+            X-GitHub-Media-Type: github.squirrel-girl-preview
+            X-GitHub-Request-Id: A9CE:E447:15693BE:1622F0C:612CD8FB
+            X-OAuth-Scopes: admin:org, manage_billing:enterprise, repo, write:discussion,
+              write:packages
+            X-RateLimit-Limit: '5000'
+            X-RateLimit-Remaining: '4993'
+            X-RateLimit-Reset: '1630332680'
+            X-RateLimit-Resource: core
+            X-RateLimit-Used: '7'
+            X-XSS-Protection: '0'
+          raw: !!binary ""
+          reason: OK
+          status_code: 200
+      https://api.github.com:443/repos/nikromen/playground/pulls/4:
+      - metadata:
+          latency: 0.5912549495697021
+          module_call_list:
+          - unittest.case
+          - requre.record_and_replace
+          - tests.integration.github.test_comments
+          - ogr.utils
+          - ogr.services.github.pull_request
+          - github.Repository
+          - github.Requester
+          - requests.sessions
+          - requre.objects
+          - requre.cassette
+          - requests.sessions
+          - send
+        output:
+          __store_indicator: 2
+          _content:
+            _links:
+              comments:
+                href: https://api.github.com/repos/nikromen/playground/issues/4/comments
+              commits:
+                href: https://api.github.com/repos/nikromen/playground/pulls/4/commits
+              html:
+                href: https://github.com/nikromen/playground/pull/4
+              issue:
+                href: https://api.github.com/repos/nikromen/playground/issues/4
+              review_comment:
+                href: https://api.github.com/repos/nikromen/playground/pulls/comments{/number}
+              review_comments:
+                href: https://api.github.com/repos/nikromen/playground/pulls/4/comments
+              self:
+                href: https://api.github.com/repos/nikromen/playground/pulls/4
+              statuses:
+                href: https://api.github.com/repos/nikromen/playground/statuses/f733652ae1d1b0021eb765fef3d192e678f0f703
+            active_lock_reason: null
+            additions: 1
+            assignee: null
+            assignees: []
+            author_association: OWNER
+            auto_merge: null
+            base:
+              label: nikromen:main
+              ref: main
+              repo:
+                archive_url: https://api.github.com/repos/nikromen/playground/{archive_format}{/ref}
+                archived: false
+                assignees_url: https://api.github.com/repos/nikromen/playground/assignees{/user}
+                blobs_url: https://api.github.com/repos/nikromen/playground/git/blobs{/sha}
+                branches_url: https://api.github.com/repos/nikromen/playground/branches{/branch}
+                clone_url: https://github.com/nikromen/playground.git
+                collaborators_url: https://api.github.com/repos/nikromen/playground/collaborators{/collaborator}
+                comments_url: https://api.github.com/repos/nikromen/playground/comments{/number}
+                commits_url: https://api.github.com/repos/nikromen/playground/commits{/sha}
+                compare_url: https://api.github.com/repos/nikromen/playground/compare/{base}...{head}
+                contents_url: https://api.github.com/repos/nikromen/playground/contents/{+path}
+                contributors_url: https://api.github.com/repos/nikromen/playground/contributors
+                created_at: '2021-08-18T14:32:28Z'
+                default_branch: main
+                deployments_url: https://api.github.com/repos/nikromen/playground/deployments
+                description: null
+                disabled: false
+                downloads_url: https://api.github.com/repos/nikromen/playground/downloads
+                events_url: https://api.github.com/repos/nikromen/playground/events
+                fork: false
+                forks: 1
+                forks_count: 1
+                forks_url: https://api.github.com/repos/nikromen/playground/forks
+                full_name: nikromen/playground
+                git_commits_url: https://api.github.com/repos/nikromen/playground/git/commits{/sha}
+                git_refs_url: https://api.github.com/repos/nikromen/playground/git/refs{/sha}
+                git_tags_url: https://api.github.com/repos/nikromen/playground/git/tags{/sha}
+                git_url: git://github.com/nikromen/playground.git
+                has_downloads: true
+                has_issues: true
+                has_pages: false
+                has_projects: true
+                has_wiki: true
+                homepage: null
+                hooks_url: https://api.github.com/repos/nikromen/playground/hooks
+                html_url: https://github.com/nikromen/playground
+                id: 397631468
+                issue_comment_url: https://api.github.com/repos/nikromen/playground/issues/comments{/number}
+                issue_events_url: https://api.github.com/repos/nikromen/playground/issues/events{/number}
+                issues_url: https://api.github.com/repos/nikromen/playground/issues{/number}
+                keys_url: https://api.github.com/repos/nikromen/playground/keys{/key_id}
+                labels_url: https://api.github.com/repos/nikromen/playground/labels{/name}
+                language: null
+                languages_url: https://api.github.com/repos/nikromen/playground/languages
+                license: null
+                merges_url: https://api.github.com/repos/nikromen/playground/merges
+                milestones_url: https://api.github.com/repos/nikromen/playground/milestones{/number}
+                mirror_url: null
+                name: playground
+                node_id: MDEwOlJlcG9zaXRvcnkzOTc2MzE0Njg=
+                notifications_url: https://api.github.com/repos/nikromen/playground/notifications{?since,all,participating}
+                open_issues: 3
+                open_issues_count: 3
+                owner:
+                  avatar_url: https://avatars.githubusercontent.com/u/70757578?v=4
+                  events_url: https://api.github.com/users/nikromen/events{/privacy}
+                  followers_url: https://api.github.com/users/nikromen/followers
+                  following_url: https://api.github.com/users/nikromen/following{/other_user}
+                  gists_url: https://api.github.com/users/nikromen/gists{/gist_id}
+                  gravatar_id: ''
+                  html_url: https://github.com/nikromen
+                  id: 70757578
+                  login: nikromen
+                  node_id: MDQ6VXNlcjcwNzU3NTc4
+                  organizations_url: https://api.github.com/users/nikromen/orgs
+                  received_events_url: https://api.github.com/users/nikromen/received_events
+                  repos_url: https://api.github.com/users/nikromen/repos
+                  site_admin: false
+                  starred_url: https://api.github.com/users/nikromen/starred{/owner}{/repo}
+                  subscriptions_url: https://api.github.com/users/nikromen/subscriptions
+                  type: User
+                  url: https://api.github.com/users/nikromen
+                private: false
+                pulls_url: https://api.github.com/repos/nikromen/playground/pulls{/number}
+                pushed_at: '2021-08-30T09:22:05Z'
+                releases_url: https://api.github.com/repos/nikromen/playground/releases{/id}
+                size: 2
+                ssh_url: git@github.com:nikromen/playground.git
+                stargazers_count: 1
+                stargazers_url: https://api.github.com/repos/nikromen/playground/stargazers
+                statuses_url: https://api.github.com/repos/nikromen/playground/statuses/{sha}
+                subscribers_url: https://api.github.com/repos/nikromen/playground/subscribers
+                subscription_url: https://api.github.com/repos/nikromen/playground/subscription
+                svn_url: https://github.com/nikromen/playground
+                tags_url: https://api.github.com/repos/nikromen/playground/tags
+                teams_url: https://api.github.com/repos/nikromen/playground/teams
+                trees_url: https://api.github.com/repos/nikromen/playground/git/trees{/sha}
+                updated_at: '2021-08-30T09:22:08Z'
+                url: https://api.github.com/repos/nikromen/playground
+                watchers: 1
+                watchers_count: 1
+              sha: ccec590dc3277dd5f3caa9d9363ec6d40c1b1503
+              user:
+                avatar_url: https://avatars.githubusercontent.com/u/70757578?v=4
+                events_url: https://api.github.com/users/nikromen/events{/privacy}
+                followers_url: https://api.github.com/users/nikromen/followers
+                following_url: https://api.github.com/users/nikromen/following{/other_user}
+                gists_url: https://api.github.com/users/nikromen/gists{/gist_id}
+                gravatar_id: ''
+                html_url: https://github.com/nikromen
+                id: 70757578
+                login: nikromen
+                node_id: MDQ6VXNlcjcwNzU3NTc4
+                organizations_url: https://api.github.com/users/nikromen/orgs
+                received_events_url: https://api.github.com/users/nikromen/received_events
+                repos_url: https://api.github.com/users/nikromen/repos
+                site_admin: false
+                starred_url: https://api.github.com/users/nikromen/starred{/owner}{/repo}
+                subscriptions_url: https://api.github.com/users/nikromen/subscriptions
+                type: User
+                url: https://api.github.com/users/nikromen
+            body: null
+            changed_files: 2
+            closed_at: null
+            comments: 2
+            comments_url: https://api.github.com/repos/nikromen/playground/issues/4/comments
+            commits: 2
+            commits_url: https://api.github.com/repos/nikromen/playground/pulls/4/commits
+            created_at: '2021-08-26T13:26:02Z'
+            deletions: 0
+            diff_url: https://github.com/nikromen/playground/pull/4.diff
+            draft: false
+            head:
+              label: nikromen:ogr-test-reaction
+              ref: ogr-test-reaction
+              repo:
+                archive_url: https://api.github.com/repos/nikromen/playground/{archive_format}{/ref}
+                archived: false
+                assignees_url: https://api.github.com/repos/nikromen/playground/assignees{/user}
+                blobs_url: https://api.github.com/repos/nikromen/playground/git/blobs{/sha}
+                branches_url: https://api.github.com/repos/nikromen/playground/branches{/branch}
+                clone_url: https://github.com/nikromen/playground.git
+                collaborators_url: https://api.github.com/repos/nikromen/playground/collaborators{/collaborator}
+                comments_url: https://api.github.com/repos/nikromen/playground/comments{/number}
+                commits_url: https://api.github.com/repos/nikromen/playground/commits{/sha}
+                compare_url: https://api.github.com/repos/nikromen/playground/compare/{base}...{head}
+                contents_url: https://api.github.com/repos/nikromen/playground/contents/{+path}
+                contributors_url: https://api.github.com/repos/nikromen/playground/contributors
+                created_at: '2021-08-18T14:32:28Z'
+                default_branch: main
+                deployments_url: https://api.github.com/repos/nikromen/playground/deployments
+                description: null
+                disabled: false
+                downloads_url: https://api.github.com/repos/nikromen/playground/downloads
+                events_url: https://api.github.com/repos/nikromen/playground/events
+                fork: false
+                forks: 1
+                forks_count: 1
+                forks_url: https://api.github.com/repos/nikromen/playground/forks
+                full_name: nikromen/playground
+                git_commits_url: https://api.github.com/repos/nikromen/playground/git/commits{/sha}
+                git_refs_url: https://api.github.com/repos/nikromen/playground/git/refs{/sha}
+                git_tags_url: https://api.github.com/repos/nikromen/playground/git/tags{/sha}
+                git_url: git://github.com/nikromen/playground.git
+                has_downloads: true
+                has_issues: true
+                has_pages: false
+                has_projects: true
+                has_wiki: true
+                homepage: null
+                hooks_url: https://api.github.com/repos/nikromen/playground/hooks
+                html_url: https://github.com/nikromen/playground
+                id: 397631468
+                issue_comment_url: https://api.github.com/repos/nikromen/playground/issues/comments{/number}
+                issue_events_url: https://api.github.com/repos/nikromen/playground/issues/events{/number}
+                issues_url: https://api.github.com/repos/nikromen/playground/issues{/number}
+                keys_url: https://api.github.com/repos/nikromen/playground/keys{/key_id}
+                labels_url: https://api.github.com/repos/nikromen/playground/labels{/name}
+                language: null
+                languages_url: https://api.github.com/repos/nikromen/playground/languages
+                license: null
+                merges_url: https://api.github.com/repos/nikromen/playground/merges
+                milestones_url: https://api.github.com/repos/nikromen/playground/milestones{/number}
+                mirror_url: null
+                name: playground
+                node_id: MDEwOlJlcG9zaXRvcnkzOTc2MzE0Njg=
+                notifications_url: https://api.github.com/repos/nikromen/playground/notifications{?since,all,participating}
+                open_issues: 3
+                open_issues_count: 3
+                owner:
+                  avatar_url: https://avatars.githubusercontent.com/u/70757578?v=4
+                  events_url: https://api.github.com/users/nikromen/events{/privacy}
+                  followers_url: https://api.github.com/users/nikromen/followers
+                  following_url: https://api.github.com/users/nikromen/following{/other_user}
+                  gists_url: https://api.github.com/users/nikromen/gists{/gist_id}
+                  gravatar_id: ''
+                  html_url: https://github.com/nikromen
+                  id: 70757578
+                  login: nikromen
+                  node_id: MDQ6VXNlcjcwNzU3NTc4
+                  organizations_url: https://api.github.com/users/nikromen/orgs
+                  received_events_url: https://api.github.com/users/nikromen/received_events
+                  repos_url: https://api.github.com/users/nikromen/repos
+                  site_admin: false
+                  starred_url: https://api.github.com/users/nikromen/starred{/owner}{/repo}
+                  subscriptions_url: https://api.github.com/users/nikromen/subscriptions
+                  type: User
+                  url: https://api.github.com/users/nikromen
+                private: false
+                pulls_url: https://api.github.com/repos/nikromen/playground/pulls{/number}
+                pushed_at: '2021-08-30T09:22:05Z'
+                releases_url: https://api.github.com/repos/nikromen/playground/releases{/id}
+                size: 2
+                ssh_url: git@github.com:nikromen/playground.git
+                stargazers_count: 1
+                stargazers_url: https://api.github.com/repos/nikromen/playground/stargazers
+                statuses_url: https://api.github.com/repos/nikromen/playground/statuses/{sha}
+                subscribers_url: https://api.github.com/repos/nikromen/playground/subscribers
+                subscription_url: https://api.github.com/repos/nikromen/playground/subscription
+                svn_url: https://github.com/nikromen/playground
+                tags_url: https://api.github.com/repos/nikromen/playground/tags
+                teams_url: https://api.github.com/repos/nikromen/playground/teams
+                trees_url: https://api.github.com/repos/nikromen/playground/git/trees{/sha}
+                updated_at: '2021-08-30T09:22:08Z'
+                url: https://api.github.com/repos/nikromen/playground
+                watchers: 1
+                watchers_count: 1
+              sha: f733652ae1d1b0021eb765fef3d192e678f0f703
+              user:
+                avatar_url: https://avatars.githubusercontent.com/u/70757578?v=4
+                events_url: https://api.github.com/users/nikromen/events{/privacy}
+                followers_url: https://api.github.com/users/nikromen/followers
+                following_url: https://api.github.com/users/nikromen/following{/other_user}
+                gists_url: https://api.github.com/users/nikromen/gists{/gist_id}
+                gravatar_id: ''
+                html_url: https://github.com/nikromen
+                id: 70757578
+                login: nikromen
+                node_id: MDQ6VXNlcjcwNzU3NTc4
+                organizations_url: https://api.github.com/users/nikromen/orgs
+                received_events_url: https://api.github.com/users/nikromen/received_events
+                repos_url: https://api.github.com/users/nikromen/repos
+                site_admin: false
+                starred_url: https://api.github.com/users/nikromen/starred{/owner}{/repo}
+                subscriptions_url: https://api.github.com/users/nikromen/subscriptions
+                type: User
+                url: https://api.github.com/users/nikromen
+            html_url: https://github.com/nikromen/playground/pull/4
+            id: 720520204
+            issue_url: https://api.github.com/repos/nikromen/playground/issues/4
+            labels: []
+            locked: false
+            maintainer_can_modify: false
+            merge_commit_sha: dd582f5506be7cb54bbceb6d80428df6a67bdb97
+            mergeable: null
+            mergeable_state: unknown
+            merged: false
+            merged_at: null
+            merged_by: null
+            milestone: null
+            node_id: MDExOlB1bGxSZXF1ZXN0NzIwNTIwMjA0
+            number: 4
+            patch_url: https://github.com/nikromen/playground/pull/4.patch
+            rebaseable: null
+            requested_reviewers: []
+            requested_teams: []
+            review_comment_url: https://api.github.com/repos/nikromen/playground/pulls/comments{/number}
+            review_comments: 0
+            review_comments_url: https://api.github.com/repos/nikromen/playground/pulls/4/comments
+            state: open
+            statuses_url: https://api.github.com/repos/nikromen/playground/statuses/f733652ae1d1b0021eb765fef3d192e678f0f703
+            title: Ogr test PR create and delete reaction
+            updated_at: '2021-08-26T14:05:11Z'
+            url: https://api.github.com/repos/nikromen/playground/pulls/4
+            user:
+              avatar_url: https://avatars.githubusercontent.com/u/70757578?v=4
+              events_url: https://api.github.com/users/nikromen/events{/privacy}
+              followers_url: https://api.github.com/users/nikromen/followers
+              following_url: https://api.github.com/users/nikromen/following{/other_user}
+              gists_url: https://api.github.com/users/nikromen/gists{/gist_id}
+              gravatar_id: ''
+              html_url: https://github.com/nikromen
+              id: 70757578
+              login: nikromen
+              node_id: MDQ6VXNlcjcwNzU3NTc4
+              organizations_url: https://api.github.com/users/nikromen/orgs
+              received_events_url: https://api.github.com/users/nikromen/received_events
+              repos_url: https://api.github.com/users/nikromen/repos
+              site_admin: false
+              starred_url: https://api.github.com/users/nikromen/starred{/owner}{/repo}
+              subscriptions_url: https://api.github.com/users/nikromen/subscriptions
+              type: User
+              url: https://api.github.com/users/nikromen
+          _next: null
+          elapsed: 0.590559
+          encoding: utf-8
+          headers:
+            Access-Control-Allow-Origin: '*'
+            Access-Control-Expose-Headers: ETag, Link, Location, Retry-After, X-GitHub-OTP,
+              X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Used, X-RateLimit-Resource,
+              X-RateLimit-Reset, X-OAuth-Scopes, X-Accepted-OAuth-Scopes, X-Poll-Interval,
+              X-GitHub-Media-Type, Deprecation, Sunset
+            Cache-Control: private, max-age=60, s-maxage=60
+            Content-Encoding: gzip
+            Content-Security-Policy: default-src 'none'
+            Content-Type: application/json; charset=utf-8
+            Date: Mon, 30 Aug 2021 13:11:21 GMT
+            ETag: W/"c5d0d9c2ba5ca2e83c67410c9c83fe0f24472fedd93fc39e1d28acc1e4191740"
+            Last-Modified: Thu, 26 Aug 2021 14:05:11 GMT
+            Referrer-Policy: origin-when-cross-origin, strict-origin-when-cross-origin
+            Server: GitHub.com
+            Strict-Transport-Security: max-age=31536000; includeSubdomains; preload
+            Transfer-Encoding: chunked
+            Vary: Accept, Authorization, Cookie, X-GitHub-OTP, Accept-Encoding, Accept,
+              X-Requested-With
+            X-Accepted-OAuth-Scopes: ''
+            X-Content-Type-Options: nosniff
+            X-Frame-Options: deny
+            X-GitHub-Media-Type: github.v3; format=json
+            X-GitHub-Request-Id: A9CE:E447:15691CF:1622D13:612CD8F8
+            X-OAuth-Scopes: admin:org, manage_billing:enterprise, repo, write:discussion,
+              write:packages
+            X-RateLimit-Limit: '5000'
+            X-RateLimit-Remaining: '4998'
+            X-RateLimit-Reset: '1630332680'
+            X-RateLimit-Resource: core
+            X-RateLimit-Used: '2'
+            X-XSS-Protection: '0'
+          raw: !!binary ""
+          reason: OK
+          status_code: 200
+    POST:
+      https://api.github.com:443/repos/nikromen/playground/issues/4/comments:
+      - metadata:
+          latency: 0.7030596733093262
+          module_call_list:
+          - unittest.case
+          - requre.record_and_replace
+          - tests.integration.github.test_comments
+          - ogr.services.github.pull_request
+          - github.PullRequest
+          - github.Requester
+          - requests.sessions
+          - requre.objects
+          - requre.cassette
+          - requests.sessions
+          - send
+        output:
+          __store_indicator: 2
+          _content:
+            author_association: OWNER
+            body: 08/30/2021
+            created_at: '2021-08-30T13:11:21Z'
+            html_url: https://github.com/nikromen/playground/pull/4#issuecomment-908330325
+            id: 908330325
+            issue_url: https://api.github.com/repos/nikromen/playground/issues/4
+            node_id: IC_kwDOF7Nf7M42JAVV
+            performed_via_github_app: null
+            updated_at: '2021-08-30T13:11:21Z'
+            url: https://api.github.com/repos/nikromen/playground/issues/comments/908330325
+            user:
+              avatar_url: https://avatars.githubusercontent.com/u/70757578?u=46aa1242156b152c00c419f596535012962c1fff&v=4
+              events_url: https://api.github.com/users/nikromen/events{/privacy}
+              followers_url: https://api.github.com/users/nikromen/followers
+              following_url: https://api.github.com/users/nikromen/following{/other_user}
+              gists_url: https://api.github.com/users/nikromen/gists{/gist_id}
+              gravatar_id: ''
+              html_url: https://github.com/nikromen
+              id: 70757578
+              login: nikromen
+              node_id: MDQ6VXNlcjcwNzU3NTc4
+              organizations_url: https://api.github.com/users/nikromen/orgs
+              received_events_url: https://api.github.com/users/nikromen/received_events
+              repos_url: https://api.github.com/users/nikromen/repos
+              site_admin: false
+              starred_url: https://api.github.com/users/nikromen/starred{/owner}{/repo}
+              subscriptions_url: https://api.github.com/users/nikromen/subscriptions
+              type: User
+              url: https://api.github.com/users/nikromen
+          _next: null
+          elapsed: 0.702667
+          encoding: utf-8
+          headers:
+            Access-Control-Allow-Origin: '*'
+            Access-Control-Expose-Headers: ETag, Link, Location, Retry-After, X-GitHub-OTP,
+              X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Used, X-RateLimit-Resource,
+              X-RateLimit-Reset, X-OAuth-Scopes, X-Accepted-OAuth-Scopes, X-Poll-Interval,
+              X-GitHub-Media-Type, Deprecation, Sunset
+            Cache-Control: private, max-age=60, s-maxage=60
+            Content-Length: '1396'
+            Content-Security-Policy: default-src 'none'
+            Content-Type: application/json; charset=utf-8
+            Date: Mon, 30 Aug 2021 13:11:22 GMT
+            ETag: '"50d1d94692e3db7daa948cfd94d0cd54a6b335a4034a93c798b18e3cf013aeff"'
+            Location: https://api.github.com/repos/nikromen/playground/issues/comments/908330325
+            Referrer-Policy: origin-when-cross-origin, strict-origin-when-cross-origin
+            Server: GitHub.com
+            Strict-Transport-Security: max-age=31536000; includeSubdomains; preload
+            Vary: Accept, Authorization, Cookie, X-GitHub-OTP, Accept-Encoding, Accept,
+              X-Requested-With
+            X-Accepted-OAuth-Scopes: ''
+            X-Content-Type-Options: nosniff
+            X-Frame-Options: deny
+            X-GitHub-Media-Type: github.v3; format=json
+            X-GitHub-Request-Id: A9CE:E447:1569261:1622DA1:612CD8F9
+            X-OAuth-Scopes: admin:org, manage_billing:enterprise, repo, write:discussion,
+              write:packages
+            X-RateLimit-Limit: '5000'
+            X-RateLimit-Remaining: '4997'
+            X-RateLimit-Reset: '1630332680'
+            X-RateLimit-Resource: core
+            X-RateLimit-Used: '3'
+            X-XSS-Protection: '0'
+          raw: !!binary ""
+          reason: Created
+          status_code: 201
+      https://api.github.com:443/repos/nikromen/playground/issues/comments/908330325/reactions:
+      - metadata:
+          latency: 0.4031953811645508
+          module_call_list:
+          - unittest.case
+          - requre.record_and_replace
+          - tests.integration.github.test_comments
+          - ogr.services.github.comments
+          - github.IssueComment
+          - github.Requester
+          - requests.sessions
+          - requre.objects
+          - requre.cassette
+          - requests.sessions
+          - send
+        output:
+          __store_indicator: 2
+          _content:
+            content: '+1'
+            created_at: '2021-08-30T13:11:22Z'
+            id: 126117286
+            node_id: MDg6UmVhY3Rpb24xMjYxMTcyODY=
+            user:
+              avatar_url: https://avatars.githubusercontent.com/u/70757578?v=4
+              events_url: https://api.github.com/users/nikromen/events{/privacy}
+              followers_url: https://api.github.com/users/nikromen/followers
+              following_url: https://api.github.com/users/nikromen/following{/other_user}
+              gists_url: https://api.github.com/users/nikromen/gists{/gist_id}
+              gravatar_id: ''
+              html_url: https://github.com/nikromen
+              id: 70757578
+              login: nikromen
+              node_id: MDQ6VXNlcjcwNzU3NTc4
+              organizations_url: https://api.github.com/users/nikromen/orgs
+              received_events_url: https://api.github.com/users/nikromen/received_events
+              repos_url: https://api.github.com/users/nikromen/repos
+              site_admin: false
+              starred_url: https://api.github.com/users/nikromen/starred{/owner}{/repo}
+              subscriptions_url: https://api.github.com/users/nikromen/subscriptions
+              type: User
+              url: https://api.github.com/users/nikromen
+          _next: null
+          elapsed: 0.402789
+          encoding: utf-8
+          headers:
+            Access-Control-Allow-Origin: '*'
+            Access-Control-Expose-Headers: ETag, Link, Location, Retry-After, X-GitHub-OTP,
+              X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Used, X-RateLimit-Resource,
+              X-RateLimit-Reset, X-OAuth-Scopes, X-Accepted-OAuth-Scopes, X-Poll-Interval,
+              X-GitHub-Media-Type, Deprecation, Sunset
+            Cache-Control: private, max-age=60, s-maxage=60
+            Content-Length: '1023'
+            Content-Security-Policy: default-src 'none'
+            Content-Type: application/json; charset=utf-8
+            Date: Mon, 30 Aug 2021 13:11:22 GMT
+            ETag: '"f7908e99a68d54af6d3ac04f693c0a9ece954f4a3730bb2aed0da4a0a2ec386d"'
+            Referrer-Policy: origin-when-cross-origin, strict-origin-when-cross-origin
+            Server: GitHub.com
+            Strict-Transport-Security: max-age=31536000; includeSubdomains; preload
+            Vary: Accept, Authorization, Cookie, X-GitHub-OTP, Accept-Encoding, Accept,
+              X-Requested-With
+            X-Accepted-OAuth-Scopes: ''
+            X-Content-Type-Options: nosniff
+            X-Frame-Options: deny
+            X-GitHub-Media-Type: github.squirrel-girl-preview
+            X-GitHub-Request-Id: A9CE:E447:15692F1:1622E32:612CD8FA
+            X-OAuth-Scopes: admin:org, manage_billing:enterprise, repo, write:discussion,
+              write:packages
+            X-RateLimit-Limit: '5000'
+            X-RateLimit-Remaining: '4996'
+            X-RateLimit-Reset: '1630332680'
+            X-RateLimit-Resource: core
+            X-RateLimit-Used: '4'
+            X-XSS-Protection: '0'
+          raw: !!binary ""
+          reason: Created
+          status_code: 201

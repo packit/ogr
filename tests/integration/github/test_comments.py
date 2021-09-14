@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from requre.online_replacing import record_requests_for_all_methods
 
 from tests.integration.github.base import GithubTests
@@ -121,3 +123,44 @@ class Comments(GithubTests):
 
         comments[0].body = before_comment
         assert comments[0].body == before_comment
+
+    def test_pr_react_to_comment_and_delete(self):
+        pr = self.service.get_project(repo="playground", namespace="nikromen").get_pr(4)
+        pr_comment = pr.comment(datetime.now().strftime("%m/%d/%Y"))
+
+        reaction = pr_comment.add_reaction("+1")
+        assert len(pr_comment.get_reactions()) == 1
+
+        reaction.delete()
+        assert len(pr_comment.get_reactions()) == 0
+
+    def test_issue_react_to_comment_and_delete(self):
+        issue = self.service.get_project(
+            repo="playground", namespace="nikromen"
+        ).get_issue(5)
+        issue_comment = issue.comment(datetime.now().strftime("%m/%d/%Y"))
+
+        reaction = issue_comment.add_reaction("confused")
+        assert len(issue_comment.get_reactions()) == 1
+
+        reaction.delete()
+        assert len(issue_comment.get_reactions()) == 0
+
+    def test_get_reactions(self):
+        pr = self.service.get_project(repo="playground", namespace="nikromen").get_pr(4)
+        pr_comment = pr.comment(datetime.now().strftime("%m/%d/%Y"))
+
+        pr_comment.add_reaction("+1")
+        pr_comment.add_reaction("-1")
+        pr_comment.add_reaction("confused")
+        assert len(pr_comment.get_reactions()) == 3
+
+        issue = self.service.get_project(
+            repo="playground", namespace="nikromen"
+        ).get_issue(5)
+        issue_comment = issue.comment(datetime.now().strftime("%m/%d/%Y"))
+
+        issue_comment.add_reaction("+1")
+        issue_comment.add_reaction("-1")
+        issue_comment.add_reaction("confused")
+        assert len(pr_comment.get_reactions()) == 3

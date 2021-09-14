@@ -10,12 +10,16 @@ In case you find any error, please [create a new issue](https://github.com/packi
 |                  | GitHub | GitLab | Pagure |
 | ---------------- | :----: | :----: | :----: |
 | `body` (get/set) |  ✔/✔   |  ✔/✔   |  ✔/✘   |
+| `add_reaction`   |   ✔    |   ✔    |   ✘    |
+| `get_reactions`  |   ✔    |   ✔    |   ✘    |
 
 ### `PRComment`
 
 |                  | GitHub | GitLab | Pagure |
 | ---------------- | :----: | :----: | :----: |
 | `body` (get/set) |  ✔/✔   |  ✔/✔   |  ✔/✘   |
+| `add_reaction`   |   ✔    |   ✔    |   ✘    |
+| `get_reactions`  |   ✔    |   ✔    |   ✘    |
 
 ## Issue
 
@@ -60,3 +64,9 @@ In case you find any error, please [create a new issue](https://github.com/packi
 | `get_projects` |   ✔    |   ✘    |   ✔    |
 | `get_forks`    |   ✔    |   ✘    |   ✔    |
 | `get_email`    |   ✔    |   ✔    |   ✘    |
+
+## Reaction
+
+|          | GitHub | GitLab | Pagure |
+| -------- | :----: | :----: | :----: |
+| `delete` |   ✔    |   ✔    |   ✘    |

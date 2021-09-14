@@ -1,0 +1,715 @@
+_requre:
+  DataTypes: 1
+  key_strategy: StorageKeysInspectSimple
+  version_storage_file: 3
+requests.sessions:
+  send:
+    DELETE:
+      https://gitlab.com/api/v4/projects/29121611/merge_requests/2/notes/664139821/award_emoji/9204749:
+      - metadata:
+          latency: 0.3995964527130127
+          module_call_list:
+          - unittest.case
+          - requre.record_and_replace
+          - tests.integration.gitlab.test_comments
+          - ogr.services.gitlab.comments
+          - gitlab.mixins
+          - gitlab.exceptions
+          - gitlab.mixins
+          - gitlab.client
+          - requre.objects
+          - requre.cassette
+          - requests.sessions
+          - send
+        output:
+          __store_indicator: 1
+          _content: ''
+          _next: null
+          elapsed: 0.399216
+          encoding: null
+          headers:
+            CF-Cache-Status: DYNAMIC
+            CF-RAY: 686e47f3e82df9da-PRG
+            Cache-Control: no-cache
+            Connection: keep-alive
+            Date: Mon, 30 Aug 2021 13:14:15 GMT
+            Expect-CT: max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
+            GitLab-LB: fe-10-lb-gprd
+            GitLab-SV: localhost
+            RateLimit-Limit: '2000'
+            RateLimit-Observed: '7'
+            RateLimit-Remaining: '1993'
+            RateLimit-Reset: '1630329315'
+            RateLimit-ResetTime: Mon, 30 Aug 2021 13:15:15 GMT
+            Referrer-Policy: strict-origin-when-cross-origin
+            Server: cloudflare
+            Strict-Transport-Security: max-age=31536000
+            Vary: Origin
+            X-Content-Type-Options: nosniff
+            X-Frame-Options: SAMEORIGIN
+            X-Request-Id: 01FEBK4D6HVFS8SHRZD02C8BGR
+            X-Runtime: '0.066950'
+          raw: !!binary ""
+          reason: No Content
+          status_code: 204
+    GET:
+      https://gitlab.com/api/v4/projects/29121611/merge_requests/2:
+      - metadata:
+          latency: 0.5053701400756836
+          module_call_list:
+          - unittest.case
+          - requre.record_and_replace
+          - tests.integration.gitlab.test_comments
+          - ogr.utils
+          - ogr.services.gitlab.pull_request
+          - gitlab.exceptions
+          - gitlab.mixins
+          - gitlab.client
+          - requre.objects
+          - requre.cassette
+          - requests.sessions
+          - send
+        output:
+          __store_indicator: 2
+          _content:
+            approvals_before_merge: null
+            assignee: null
+            assignees: []
+            author:
+              avatar_url: https://secure.gravatar.com/avatar/6b309d0b529f4fc4946923d7d049c598?s=80&d=identicon
+              id: 9288169
+              name: nikromen
+              state: active
+              username: nikromen
+              web_url: https://gitlab.com/nikromen
+            blocking_discussions_resolved: true
+            changes_count: '2'
+            closed_at: null
+            closed_by: null
+            created_at: '2021-08-26T14:11:31.363Z'
+            description: ''
+            diff_refs:
+              base_sha: d0a2d9d2842794315b7b1541e3880a7653559847
+              head_sha: c48297b0d9ff73e4f72a4ee0db88eb99afba3040
+              start_sha: d0a2d9d2842794315b7b1541e3880a7653559847
+            discussion_locked: null
+            downvotes: 0
+            draft: false
+            first_contribution: false
+            first_deployed_to_production_at: null
+            force_remove_source_branch: true
+            has_conflicts: false
+            head_pipeline: null
+            id: 114126052
+            iid: 2
+            labels: []
+            latest_build_finished_at: null
+            latest_build_started_at: null
+            merge_commit_sha: null
+            merge_error: null
+            merge_status: can_be_merged
+            merge_when_pipeline_succeeds: false
+            merged_at: null
+            merged_by: null
+            milestone: null
+            pipeline: null
+            project_id: 29121611
+            reference: '!2'
+            references:
+              full: nikromen/playground!2
+              relative: '!2'
+              short: '!2'
+            reviewers: []
+            sha: c48297b0d9ff73e4f72a4ee0db88eb99afba3040
+            should_remove_source_branch: null
+            source_branch: ogr-reaction-test
+            source_project_id: 29121611
+            squash: false
+            squash_commit_sha: null
+            state: opened
+            subscribed: true
+            target_branch: main
+            target_project_id: 29121611
+            task_completion_status:
+              completed_count: 0
+              count: 0
+            time_stats:
+              human_time_estimate: null
+              human_total_time_spent: null
+              time_estimate: 0
+              total_time_spent: 0
+            title: Ogr MR test
+            updated_at: '2021-08-26T14:16:34.073Z'
+            upvotes: 0
+            user:
+              can_merge: true
+            user_notes_count: 2
+            web_url: https://gitlab.com/nikromen/playground/-/merge_requests/2
+            work_in_progress: false
+          _next: null
+          elapsed: 0.50469
+          encoding: null
+          headers:
+            CF-Cache-Status: DYNAMIC
+            CF-RAY: 686e47e7baf2f9da-PRG
+            Cache-Control: max-age=0, private, must-revalidate
+            Connection: keep-alive
+            Content-Encoding: gzip
+            Content-Type: application/json
+            Date: Mon, 30 Aug 2021 13:14:13 GMT
+            Etag: W/"ea42c8cc8bccf9b6b544320b8e63045d"
+            Expect-CT: max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
+            GitLab-LB: fe-16-lb-gprd
+            GitLab-SV: localhost
+            RateLimit-Limit: '2000'
+            RateLimit-Observed: '3'
+            RateLimit-Remaining: '1997'
+            RateLimit-Reset: '1630329313'
+            RateLimit-ResetTime: Mon, 30 Aug 2021 13:15:13 GMT
+            Referrer-Policy: strict-origin-when-cross-origin
+            Server: cloudflare
+            Strict-Transport-Security: max-age=31536000
+            Transfer-Encoding: chunked
+            Vary: Origin
+            X-Content-Type-Options: nosniff
+            X-Frame-Options: SAMEORIGIN
+            X-Request-Id: 01FEBK4B9RR3GQT2XDWJ840XTM
+            X-Runtime: '0.131469'
+          raw: !!binary ""
+          reason: OK
+          status_code: 200
+      https://gitlab.com/api/v4/projects/29121611/merge_requests/2/notes/664139821/award_emoji:
+      - metadata:
+          latency: 0.4008498191833496
+          module_call_list:
+          - unittest.case
+          - requre.record_and_replace
+          - tests.integration.gitlab.test_comments
+          - ogr.services.gitlab.comments
+          - gitlab.exceptions
+          - gitlab.mixins
+          - gitlab.client
+          - requre.objects
+          - requre.cassette
+          - requests.sessions
+          - send
+        output:
+          __store_indicator: 2
+          _content:
+          - awardable_id: 664139821
+            awardable_type: Note
+            created_at: '2021-08-30T13:14:14.364Z'
+            id: 9204749
+            name: thumbsup
+            updated_at: '2021-08-30T13:14:14.364Z'
+            user:
+              avatar_url: https://secure.gravatar.com/avatar/6b309d0b529f4fc4946923d7d049c598?s=80&d=identicon
+              id: 9288169
+              name: nikromen
+              state: active
+              username: nikromen
+              web_url: https://gitlab.com/nikromen
+          _next: null
+          elapsed: 0.400295
+          encoding: null
+          headers:
+            CF-Cache-Status: DYNAMIC
+            CF-RAY: 686e47f14c44f9da-PRG
+            Cache-Control: max-age=0, private, must-revalidate
+            Connection: keep-alive
+            Content-Encoding: gzip
+            Content-Type: application/json
+            Date: Mon, 30 Aug 2021 13:14:14 GMT
+            Etag: W/"c83aecb3dec791d9f9009194dab51b61"
+            Expect-CT: max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
+            GitLab-LB: fe-06-lb-gprd
+            GitLab-SV: localhost
+            Link: <https://gitlab.com/api/v4/projects/29121611/merge_requests/2/notes/664139821/award_emoji?id=29121611&merge_request_iid=2&page=1&per_page=20>;
+              rel="first", <https://gitlab.com/api/v4/projects/29121611/merge_requests/2/notes/664139821/award_emoji?id=29121611&merge_request_iid=2&page=1&per_page=20>;
+              rel="last"
+            RateLimit-Limit: '2000'
+            RateLimit-Observed: '6'
+            RateLimit-Remaining: '1994'
+            RateLimit-Reset: '1630329314'
+            RateLimit-ResetTime: Mon, 30 Aug 2021 13:15:14 GMT
+            Referrer-Policy: strict-origin-when-cross-origin
+            Server: cloudflare
+            Strict-Transport-Security: max-age=31536000
+            Transfer-Encoding: chunked
+            Vary: Origin
+            X-Content-Type-Options: nosniff
+            X-Frame-Options: SAMEORIGIN
+            X-Next-Page: ''
+            X-Page: '1'
+            X-Per-Page: '20'
+            X-Prev-Page: ''
+            X-Request-Id: 01FEBK4CSW49PEHRYVY1WZW8ES
+            X-Runtime: '0.079755'
+            X-Total: '1'
+            X-Total-Pages: '1'
+          raw: !!binary ""
+          reason: OK
+          status_code: 200
+      - metadata:
+          latency: 0.40095043182373047
+          module_call_list:
+          - unittest.case
+          - requre.record_and_replace
+          - tests.integration.gitlab.test_comments
+          - ogr.services.gitlab.comments
+          - gitlab.exceptions
+          - gitlab.mixins
+          - gitlab.client
+          - requre.objects
+          - requre.cassette
+          - requests.sessions
+          - send
+        output:
+          __store_indicator: 2
+          _content: []
+          _next: null
+          elapsed: 0.400568
+          encoding: null
+          headers:
+            CF-Cache-Status: DYNAMIC
+            CF-RAY: 686e47f67c61f9da-PRG
+            Cache-Control: max-age=0, private, must-revalidate
+            Connection: keep-alive
+            Content-Length: '2'
+            Content-Type: application/json
+            Date: Mon, 30 Aug 2021 13:14:15 GMT
+            Etag: W/"4f53cda18c2baa0c0354bb5f9a3ecbe5"
+            Expect-CT: max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
+            GitLab-LB: fe-18-lb-gprd
+            GitLab-SV: localhost
+            Link: <https://gitlab.com/api/v4/projects/29121611/merge_requests/2/notes/664139821/award_emoji?id=29121611&merge_request_iid=2&page=1&per_page=20>;
+              rel="first", <https://gitlab.com/api/v4/projects/29121611/merge_requests/2/notes/664139821/award_emoji?id=29121611&merge_request_iid=2&page=1&per_page=20>;
+              rel="last"
+            RateLimit-Limit: '2000'
+            RateLimit-Observed: '7'
+            RateLimit-Remaining: '1993'
+            RateLimit-Reset: '1630329315'
+            RateLimit-ResetTime: Mon, 30 Aug 2021 13:15:15 GMT
+            Referrer-Policy: strict-origin-when-cross-origin
+            Server: cloudflare
+            Strict-Transport-Security: max-age=31536000
+            Vary: Origin
+            X-Content-Type-Options: nosniff
+            X-Frame-Options: SAMEORIGIN
+            X-Next-Page: ''
+            X-Page: '1'
+            X-Per-Page: '20'
+            X-Prev-Page: ''
+            X-Request-Id: 01FEBK4DKFHS3DTGZ1ESM8GBCK
+            X-Runtime: '0.044845'
+            X-Total: '0'
+            X-Total-Pages: '1'
+          raw: !!binary ""
+          reason: OK
+          status_code: 200
+      https://gitlab.com/api/v4/projects/nikromen%2Fplayground:
+      - metadata:
+          latency: 0.49512624740600586
+          module_call_list:
+          - unittest.case
+          - requre.record_and_replace
+          - tests.integration.gitlab.test_comments
+          - ogr.utils
+          - ogr.services.gitlab.pull_request
+          - ogr.services.gitlab.project
+          - gitlab.v4.objects.projects
+          - gitlab.exceptions
+          - gitlab.mixins
+          - gitlab.client
+          - requre.objects
+          - requre.cassette
+          - requests.sessions
+          - send
+        output:
+          __store_indicator: 2
+          _content:
+            _links:
+              events: https://gitlab.com/api/v4/projects/29121611/events
+              issues: https://gitlab.com/api/v4/projects/29121611/issues
+              labels: https://gitlab.com/api/v4/projects/29121611/labels
+              members: https://gitlab.com/api/v4/projects/29121611/members
+              merge_requests: https://gitlab.com/api/v4/projects/29121611/merge_requests
+              repo_branches: https://gitlab.com/api/v4/projects/29121611/repository/branches
+              self: https://gitlab.com/api/v4/projects/29121611
+            allow_merge_on_skipped_pipeline: null
+            analytics_access_level: enabled
+            approvals_before_merge: 0
+            archived: false
+            auto_cancel_pending_pipelines: enabled
+            auto_devops_deploy_strategy: continuous
+            auto_devops_enabled: false
+            autoclose_referenced_issues: true
+            avatar_url: null
+            build_coverage_regex: null
+            build_git_strategy: fetch
+            build_timeout: 3600
+            builds_access_level: enabled
+            can_create_merge_request_in: true
+            ci_config_path: ''
+            ci_default_git_depth: 50
+            ci_forward_deployment_enabled: true
+            ci_job_token_scope_enabled: true
+            compliance_frameworks: []
+            container_expiration_policy:
+              cadence: 1d
+              enabled: false
+              keep_n: 10
+              name_regex: .*
+              name_regex_keep: null
+              next_run_at: '2021-08-26T12:40:34.268Z'
+              older_than: 90d
+            container_registry_access_level: enabled
+            container_registry_enabled: true
+            container_registry_image_prefix: registry.gitlab.com/nikromen/playground
+            created_at: '2021-08-25T12:40:34.217Z'
+            creator_id: 9288169
+            default_branch: main
+            description: ''
+            emails_disabled: null
+            empty_repo: false
+            external_authorization_classification_label: ''
+            forking_access_level: enabled
+            forks_count: 0
+            http_url_to_repo: https://gitlab.com/nikromen/playground.git
+            id: 29121611
+            import_error: null
+            import_status: none
+            issues_access_level: enabled
+            issues_enabled: true
+            issues_template: null
+            jobs_enabled: true
+            keep_latest_artifact: true
+            last_activity_at: '2021-08-26T14:14:51.674Z'
+            lfs_enabled: true
+            marked_for_deletion_at: null
+            marked_for_deletion_on: null
+            merge_method: merge
+            merge_pipelines_enabled: false
+            merge_requests_access_level: enabled
+            merge_requests_enabled: true
+            merge_requests_template: null
+            merge_trains_enabled: false
+            mirror: false
+            name: playground
+            name_with_namespace: nikromen / playground
+            namespace:
+              avatar_url: https://secure.gravatar.com/avatar/6b309d0b529f4fc4946923d7d049c598?s=80&d=identicon
+              full_path: nikromen
+              id: 12677986
+              kind: user
+              name: nikromen
+              parent_id: null
+              path: nikromen
+              web_url: https://gitlab.com/nikromen
+            only_allow_merge_if_all_discussions_are_resolved: false
+            only_allow_merge_if_pipeline_succeeds: false
+            open_issues_count: 2
+            operations_access_level: enabled
+            owner:
+              avatar_url: https://secure.gravatar.com/avatar/6b309d0b529f4fc4946923d7d049c598?s=80&d=identicon
+              id: 9288169
+              name: nikromen
+              state: active
+              username: nikromen
+              web_url: https://gitlab.com/nikromen
+            packages_enabled: true
+            pages_access_level: enabled
+            path: playground
+            path_with_namespace: nikromen/playground
+            permissions:
+              group_access: null
+              project_access:
+                access_level: 40
+                notification_level: 3
+            printing_merge_request_link_enabled: true
+            public_jobs: true
+            readme_url: null
+            remove_source_branch_after_merge: true
+            repository_access_level: enabled
+            request_access_enabled: true
+            requirements_enabled: true
+            resolve_outdated_diff_discussions: false
+            restrict_user_defined_variables: false
+            runners_token: DQzRpGbLk4Td2ocgUhWF
+            security_and_compliance_enabled: true
+            service_desk_address: incoming+nikromen-playground-29121611-issue-@incoming.gitlab.com
+            service_desk_enabled: true
+            shared_runners_enabled: true
+            shared_with_groups: []
+            snippets_access_level: enabled
+            snippets_enabled: true
+            squash_option: default_off
+            ssh_url_to_repo: git@gitlab.com:nikromen/playground.git
+            star_count: 0
+            suggestion_commit_message: null
+            tag_list: []
+            topics: []
+            visibility: public
+            web_url: https://gitlab.com/nikromen/playground
+            wiki_access_level: enabled
+            wiki_enabled: true
+          _next: null
+          elapsed: 0.494437
+          encoding: null
+          headers:
+            CF-Cache-Status: DYNAMIC
+            CF-RAY: 686e47e48d98f9da-PRG
+            Cache-Control: max-age=0, private, must-revalidate
+            Connection: keep-alive
+            Content-Encoding: gzip
+            Content-Type: application/json
+            Date: Mon, 30 Aug 2021 13:14:12 GMT
+            Etag: W/"b050032a5d52d79c8f78738219306403"
+            Expect-CT: max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
+            GitLab-LB: fe-12-lb-gprd
+            GitLab-SV: localhost
+            RateLimit-Limit: '2000'
+            RateLimit-Observed: '2'
+            RateLimit-Remaining: '1998'
+            RateLimit-Reset: '1630329312'
+            RateLimit-ResetTime: Mon, 30 Aug 2021 13:15:12 GMT
+            Referrer-Policy: strict-origin-when-cross-origin
+            Server: cloudflare
+            Strict-Transport-Security: max-age=31536000
+            Transfer-Encoding: chunked
+            Vary: Origin
+            X-Content-Type-Options: nosniff
+            X-Frame-Options: SAMEORIGIN
+            X-Request-Id: 01FEBK4AT0C4SWADGFYV412WVZ
+            X-Runtime: '0.112405'
+          raw: !!binary ""
+          reason: OK
+          status_code: 200
+      https://gitlab.com/api/v4/user:
+      - metadata:
+          latency: 0.5242791175842285
+          module_call_list:
+          - unittest.case
+          - requre.record_and_replace
+          - tests.integration.gitlab.test_comments
+          - ogr.utils
+          - ogr.services.gitlab.pull_request
+          - ogr.services.gitlab.project
+          - ogr.services.gitlab.service
+          - gitlab.client
+          - gitlab.exceptions
+          - gitlab.mixins
+          - gitlab.client
+          - requre.objects
+          - requre.cassette
+          - requests.sessions
+          - send
+        output:
+          __store_indicator: 2
+          _content:
+            avatar_url: https://secure.gravatar.com/avatar/6b309d0b529f4fc4946923d7d049c598?s=80&d=identicon
+            bio: ''
+            bio_html: ''
+            bot: false
+            can_create_group: true
+            can_create_project: true
+            color_scheme_id: 1
+            commit_email: j1.kyjovsky@gmail.com
+            confirmed_at: '2021-07-09T12:48:35.134Z'
+            created_at: '2021-07-09T12:48:35.203Z'
+            current_sign_in_at: '2021-08-11T12:00:18.932Z'
+            email: j1.kyjovsky@gmail.com
+            external: false
+            extra_shared_runners_minutes_limit: null
+            followers: 0
+            following: 0
+            id: 9288169
+            identities:
+            - extern_uid: '70757578'
+              provider: github
+              saml_provider_id: null
+            job_title: ''
+            last_activity_on: '2021-08-30'
+            last_sign_in_at: '2021-07-09T12:48:35.310Z'
+            linkedin: ''
+            location: null
+            name: nikromen
+            organization: null
+            private_profile: false
+            projects_limit: 100000
+            pronouns: null
+            public_email: ''
+            shared_runners_minutes_limit: null
+            skype: ''
+            state: active
+            theme_id: 1
+            twitter: ''
+            two_factor_enabled: false
+            username: nikromen
+            web_url: https://gitlab.com/nikromen
+            website_url: ''
+            work_information: null
+          _next: null
+          elapsed: 0.523667
+          encoding: null
+          headers:
+            CF-Cache-Status: DYNAMIC
+            CF-RAY: 686e47e1afc2f9da-PRG
+            Cache-Control: max-age=0, private, must-revalidate
+            Connection: keep-alive
+            Content-Encoding: gzip
+            Content-Type: application/json
+            Date: Mon, 30 Aug 2021 13:14:12 GMT
+            Etag: W/"08e1395614cf6f7a57ed08514b4c51c2"
+            Expect-CT: max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
+            GitLab-LB: fe-14-lb-gprd
+            GitLab-SV: localhost
+            RateLimit-Limit: '2000'
+            RateLimit-Observed: '1'
+            RateLimit-Remaining: '1999'
+            RateLimit-Reset: '1630329312'
+            RateLimit-ResetTime: Mon, 30 Aug 2021 13:15:12 GMT
+            Referrer-Policy: strict-origin-when-cross-origin
+            Server: cloudflare
+            Strict-Transport-Security: max-age=31536000
+            Transfer-Encoding: chunked
+            Vary: Origin
+            X-Content-Type-Options: nosniff
+            X-Frame-Options: SAMEORIGIN
+            X-Request-Id: 01FEBK4ABP9B77M0AFCVNJ56FF
+            X-Runtime: '0.090481'
+          raw: !!binary ""
+          reason: OK
+          status_code: 200
+    POST:
+      https://gitlab.com/api/v4/projects/29121611/merge_requests/2/notes:
+      - metadata:
+          latency: 0.5017869472503662
+          module_call_list:
+          - unittest.case
+          - requre.record_and_replace
+          - tests.integration.gitlab.test_comments
+          - ogr.services.gitlab.pull_request
+          - gitlab.exceptions
+          - gitlab.mixins
+          - gitlab.client
+          - requre.objects
+          - requre.cassette
+          - requests.sessions
+          - send
+        output:
+          __store_indicator: 2
+          _content:
+            attachment: null
+            author:
+              avatar_url: https://secure.gravatar.com/avatar/6b309d0b529f4fc4946923d7d049c598?s=80&d=identicon
+              id: 9288169
+              name: nikromen
+              state: active
+              username: nikromen
+              web_url: https://gitlab.com/nikromen
+            body: 08/30/2021
+            commands_changes: {}
+            confidential: false
+            created_at: '2021-08-30T13:14:13.781Z'
+            id: 664139821
+            noteable_id: 114126052
+            noteable_iid: 2
+            noteable_type: MergeRequest
+            resolvable: false
+            system: false
+            type: null
+            updated_at: '2021-08-30T13:14:13.781Z'
+          _next: null
+          elapsed: 0.501449
+          encoding: null
+          headers:
+            CF-Cache-Status: DYNAMIC
+            CF-RAY: 686e47eae90ff9da-PRG
+            Cache-Control: max-age=0, private, must-revalidate
+            Connection: keep-alive
+            Content-Length: '521'
+            Content-Type: application/json
+            Date: Mon, 30 Aug 2021 13:14:13 GMT
+            Etag: W/"d189c266fc7fe62b781a0b4da7958d23"
+            Expect-CT: max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
+            GitLab-LB: fe-03-lb-gprd
+            GitLab-SV: localhost
+            RateLimit-Limit: '2000'
+            RateLimit-Observed: '4'
+            RateLimit-Remaining: '1996'
+            RateLimit-Reset: '1630329313'
+            RateLimit-ResetTime: Mon, 30 Aug 2021 13:15:13 GMT
+            Referrer-Policy: strict-origin-when-cross-origin
+            Server: cloudflare
+            Strict-Transport-Security: max-age=31536000
+            Vary: Origin
+            X-Content-Type-Options: nosniff
+            X-Frame-Options: SAMEORIGIN
+            X-Request-Id: 01FEBK4BT293776FN77QZ529NB
+            X-Runtime: '0.175010'
+          raw: !!binary ""
+          reason: Created
+          status_code: 201
+      https://gitlab.com/api/v4/projects/29121611/merge_requests/2/notes/664139821/award_emoji:
+      - metadata:
+          latency: 0.5032958984375
+          module_call_list:
+          - unittest.case
+          - requre.record_and_replace
+          - tests.integration.gitlab.test_comments
+          - ogr.services.gitlab.comments
+          - gitlab.exceptions
+          - gitlab.mixins
+          - gitlab.client
+          - requre.objects
+          - requre.cassette
+          - requests.sessions
+          - send
+        output:
+          __store_indicator: 2
+          _content:
+            awardable_id: 664139821
+            awardable_type: Note
+            created_at: '2021-08-30T13:14:14.364Z'
+            id: 9204749
+            name: thumbsup
+            updated_at: '2021-08-30T13:14:14.364Z'
+            user:
+              avatar_url: https://secure.gravatar.com/avatar/6b309d0b529f4fc4946923d7d049c598?s=80&d=identicon
+              id: 9288169
+              name: nikromen
+              state: active
+              username: nikromen
+              web_url: https://gitlab.com/nikromen
+          _next: null
+          elapsed: 0.502961
+          encoding: null
+          headers:
+            CF-Cache-Status: DYNAMIC
+            CF-RAY: 686e47ee2eb2f9da-PRG
+            Cache-Control: max-age=0, private, must-revalidate
+            Connection: keep-alive
+            Content-Length: '385'
+            Content-Type: application/json
+            Date: Mon, 30 Aug 2021 13:14:14 GMT
+            Etag: W/"2de284d47f7119fc9308fe670ced0a2e"
+            Expect-CT: max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
+            GitLab-LB: fe-11-lb-gprd
+            GitLab-SV: localhost
+            RateLimit-Limit: '2000'
+            RateLimit-Observed: '5'
+            RateLimit-Remaining: '1995'
+            RateLimit-Reset: '1630329314'
+            RateLimit-ResetTime: Mon, 30 Aug 2021 13:15:14 GMT
+            Referrer-Policy: strict-origin-when-cross-origin
+            Server: cloudflare
+            Strict-Transport-Security: max-age=31536000
+            Vary: Origin
+            X-Content-Type-Options: nosniff
+            X-Frame-Options: SAMEORIGIN
+            X-Request-Id: 01FEBK4C9WGSN9H7GAN0E5EY3F
+            X-Runtime: '0.197174'
+          raw: !!binary ""
+          reason: Created
+          status_code: 201
