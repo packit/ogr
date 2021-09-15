@@ -1,3 +1,12 @@
+# 0.29.0
+
+- Please check
+  [COMPATIBILITY.md](https://github.com/packit/ogr/blob/main/COMPATIBILITY.md)
+  to see which methods are implemented for particular services.
+- Ogr now supports reacting to a comment (issue, pull request) with a given
+  reaction. It's possible to obtain the reactions and delete them (only when
+  reaction is added by using ogr API). (#636)
+
 # 0.28.0
 
 - Getting `conclusion` from GitHub's Check Run no longer raises an exception when
