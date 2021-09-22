@@ -218,19 +218,19 @@ class GitlabProject(BaseGitProject):
         try:
             user_id = self.service.gitlab_instance.users.list(username=user)[0].id
         except Exception as e:
-            raise GitlabAPIException(f"User {user} not found", e)
+            raise GitlabAPIException(f"User {user} not found") from e
         try:
             self.gitlab_repo.members.create(
                 {"user_id": user_id, "access_level": access_dict[access_level]}
             )
         except Exception as e:
-            raise GitlabAPIException(f"User {user} already exists", e)
+            raise GitlabAPIException(f"User {user} already exists") from e
 
     def request_access(self) -> None:
         try:
             self.gitlab_repo.accessrequests.create({})
         except gitlab.exceptions.GitlabCreateError as e:
-            raise GitlabAPIException("Unable to request access", e)
+            raise GitlabAPIException("Unable to request access") from e
 
     @indirect(GitlabPullRequest.get_list)
     def get_pr_list(self, status: PRStatus = PRStatus.open) -> List["PullRequest"]:
@@ -242,7 +242,7 @@ class GitlabProject(BaseGitProject):
             return tag.attributes["commit"]["id"]
         except gitlab.exceptions.GitlabGetError as ex:
             logger.error(f"Tag {tag_name} was not found.")
-            raise GitlabAPIException(f"Tag {tag_name} was not found.", ex)
+            raise GitlabAPIException(f"Tag {tag_name} was not found.") from ex
 
     @indirect(GitlabPullRequest.create)
     def create_pr(
@@ -260,9 +260,9 @@ class GitlabProject(BaseGitProject):
     ) -> "CommitComment":
         try:
             commit_object = self.gitlab_repo.commits.get(commit)
-        except gitlab.exceptions.GitlabGetError:
+        except gitlab.exceptions.GitlabGetError as ex:
             logger.error(f"Commit {commit} was not found.")
-            raise GitlabAPIException(f"Commit {commit} was not found.")
+            raise GitlabAPIException(f"Commit {commit} was not found.") from ex
 
         if filename and row:
             raw_comment = commit_object.comments.create(
@@ -297,9 +297,11 @@ class GitlabProject(BaseGitProject):
     def fork_create(self) -> "GitlabProject":
         try:
             fork = self.gitlab_repo.forks.create({})
-        except gitlab.GitlabCreateError:
+        except gitlab.GitlabCreateError as ex:
             logger.error(f"Repo {self.gitlab_repo} cannot be forked")
-            raise GitlabAPIException(f"Repo {self.gitlab_repo} cannot be forked")
+            raise GitlabAPIException(
+                f"Repo {self.gitlab_repo} cannot be forked"
+            ) from ex
         logger.debug(f"Forked to {fork.namespace['full_path']}/{fork.path}")
         return GitlabProject(
             namespace=fork.namespace["full_path"], service=self.service, repo=fork.path
@@ -318,8 +320,8 @@ class GitlabProject(BaseGitProject):
             return file.decode().decode()
         except gitlab.exceptions.GitlabGetError as ex:
             if ex.response_code == 404:
-                raise FileNotFoundError(f"File '{path}' on {ref} not found", ex)
-            raise GitlabAPIException(ex)
+                raise FileNotFoundError(f"File '{path}' on {ref} not found") from ex
+            raise GitlabAPIException() from ex
 
     def get_files(
         self, ref: str = None, filter_regex: str = None, recursive: bool = False
@@ -428,13 +430,13 @@ class GitlabProject(BaseGitProject):
     def get_forks(self) -> List["GitlabProject"]:
         try:
             forks = self.gitlab_repo.forks.list()
-        except KeyError:
+        except KeyError as ex:
             # > item = self._data[self._current]
             # > KeyError: 0
             # looks like some API weirdness
             raise OperationNotSupported(
                 "Please upgrade python-gitlab to a newer version."
-            )
+            ) from ex
         return [
             GitlabProject(
                 repo=fork.path,

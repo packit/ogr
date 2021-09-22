@@ -186,7 +186,7 @@ class PagureService(BaseGitService):
 
         except requests.exceptions.ConnectionError as er:
             logger.error(er)
-            raise PagureAPIException(f"Cannot connect to url: '{url}'.", er)
+            raise PagureAPIException(f"Cannot connect to url: '{url}'.") from er
         return response
 
     def get_raw_request(
@@ -294,8 +294,8 @@ class PagureService(BaseGitService):
 
             try:
                 self.call_api(request_url, data={"projects": False})
-            except PagureAPIException:
-                raise OgrException(f"Namespace doesn't exist ({namespace}).")
+            except PagureAPIException as ex:
+                raise OgrException(f"Namespace doesn't exist ({namespace}).") from ex
 
             raise OgrException(
                 "Cannot create project in given namespace (permissions)."

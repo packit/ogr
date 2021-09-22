@@ -204,7 +204,7 @@ class GithubPullRequest(BasePullRequest):
             logger.info(f"PR updated: {self._raw_pr.url}")
             return self
         except Exception as ex:
-            raise GithubAPIException("there was an error while updating the PR", ex)
+            raise GithubAPIException("there was an error while updating the PR") from ex
 
     def _get_all_comments(self) -> List[PRComment]:
         return [

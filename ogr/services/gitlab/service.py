@@ -101,8 +101,8 @@ class GitlabService(BaseGitService):
         if namespace:
             try:
                 group = self.gitlab_instance.groups.get(namespace)
-            except gitlab.GitlabGetError:
-                raise GitlabAPIException(f"Group {namespace} not found.")
+            except gitlab.GitlabGetError as ex:
+                raise GitlabAPIException(f"Group {namespace} not found.") from ex
             data["namespace_id"] = group.id
 
         if description:

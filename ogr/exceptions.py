@@ -3,6 +3,8 @@
 
 from typing import Optional, Dict, Any
 
+from ogr.deprecation import deprecate_and_set_removal
+
 
 class OgrException(Exception):
     """Something went wrong during our execution."""
@@ -20,24 +22,38 @@ class PagureAPIException(OgrException):
         pagure_response: Optional[Dict[str, Any]] = None
     ) -> None:
         super().__init__(*args)
-        self.pagure_error = pagure_error
+        self._pagure_error = pagure_error
         self.pagure_response = pagure_response
+
+    @property
+    def pagure_error(self):
+        return self._pagure_error or self.__cause__
 
 
 class GithubAPIException(OgrException):
     """Exception related to Github API."""
 
-    def __init__(self, *args: Any, github_error: Optional[str] = None) -> None:
-        super().__init__(*args)
-        self.github_error = github_error
+    @property  # type: ignore
+    @deprecate_and_set_removal(
+        since="0.30.0",
+        remove_in="0.35.0 (or 1.0.0 if it comes sooner)",
+        message="Use __cause__",
+    )
+    def github_error(self):
+        return self.__cause__
 
 
 class GitlabAPIException(OgrException):
     """Exception related to Gitlab API."""
 
-    def __init__(self, *args: Any, gitlab_error: Optional[str] = None) -> None:
-        super().__init__(*args)
-        self.gitlab_error = gitlab_error
+    @property  # type: ignore
+    @deprecate_and_set_removal(
+        since="0.30.0",
+        remove_in="0.35.0 (or 1.0.0 if it comes sooner)",
+        message="Use __cause__",
+    )
+    def gitlab_error(self):
+        return self.__cause__
 
 
 class OperationNotSupported(OgrException):

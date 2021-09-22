@@ -109,7 +109,7 @@ class GitlabIssue(BaseIssue):
         try:
             return GitlabIssue(project.gitlab_repo.issues.get(issue_id), project)
         except gitlab.exceptions.GitlabGetError as ex:
-            raise GitlabAPIException(f"Issue {issue_id} was not found. ", ex)
+            raise GitlabAPIException(f"Issue {issue_id} was not found. ") from ex
 
     @staticmethod
     def get_list(

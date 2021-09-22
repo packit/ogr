@@ -208,7 +208,7 @@ class PagurePullRequest(BasePullRequest):
             self._raw_pr = updated_pr
             return self
         except Exception as ex:
-            raise PagureAPIException("there was an error while updating the PR", ex)
+            raise PagureAPIException("there was an error while updating the PR") from ex
 
     def _get_all_comments(self) -> List[PRComment]:
         self.__update()
