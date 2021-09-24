@@ -348,3 +348,7 @@ class PullRequests(GithubTests):
         patch = pr.patch
         assert isinstance(patch, bytes)
         assert "\nDate: Mon, 18 Nov 2019 12:42:35 +0100\n" in patch.decode()
+
+    def test_get_comment(self):
+        comment = self.hello_world_project.get_pr(72).get_comment(559765628)
+        assert comment.body == "check comment updates\r\n\r\nedit"

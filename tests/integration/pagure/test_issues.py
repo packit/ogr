@@ -107,3 +107,10 @@ class Issues(PagureTests):
         issue = project.create_issue(title=title, body=description)
         assert issue.title == title
         assert issue.description == description
+
+    def test_get_comment(self):
+        project = self.service.get_project(
+            repo="my-playground", namespace=None, username="nikromen"
+        )
+        comment = project.get_issue(1).get_comment(753462)
+        assert comment.body == "example issue comment"
