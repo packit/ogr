@@ -260,3 +260,6 @@ class GithubPullRequest(BasePullRequest):
     def add_label(self, *labels: str) -> None:
         for label in labels:
             self._raw_pr.add_to_labels(label)
+
+    def get_comment(self, comment_id: int) -> PRComment:
+        return GithubPRComment(self._raw_pr.get_issue_comment(comment_id))

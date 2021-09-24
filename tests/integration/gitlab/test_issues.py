@@ -216,3 +216,7 @@ class Issues(GitlabTests):
 
         issue.description = old_description
         assert issue.description == old_description
+
+    def test_get_comment(self):
+        comment = self.project.get_issue(102).get_comment(686264162)
+        assert comment.body == "issue comment"

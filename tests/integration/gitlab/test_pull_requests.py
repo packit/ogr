@@ -376,3 +376,7 @@ class PullRequests(GitlabTests):
         patch = pr.patch
         assert isinstance(patch, bytes)
         assert "\nDate: Wed, 11 Sep 2019 14:50:41 +0200\n" in patch.decode()
+
+    def test_get_comment(self):
+        comment = self.project.get_pr(1).get_comment(214842329)
+        assert comment.body == "first comment of mergerequest"

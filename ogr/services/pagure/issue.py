@@ -214,3 +214,10 @@ class PagureIssue(BaseIssue):
         self.project._call_project_api(
             "issue", str(self.id), "assign", data=payload, method="POST"
         )
+
+    def get_comment(self, comment_id: int) -> IssueComment:
+        return PagureIssueComment(
+            self.project._call_project_api(
+                "issue", str(self.id), "comment", str(comment_id), method="GET"
+            )
+        )

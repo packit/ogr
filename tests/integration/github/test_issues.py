@@ -171,3 +171,7 @@ class Issues(GithubTests):
 
         issue.description = old_description
         assert issue.description == old_description
+
+    def test_get_comment(self):
+        comment = self.hello_world_project.get_issue(297).get_comment(926035728)
+        assert comment.body == "this is a comment"
