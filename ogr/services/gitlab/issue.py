@@ -189,3 +189,6 @@ class GitlabIssue(BaseIssue):
 
         self._raw_issue.assignee_ids = assignee_ids
         self._raw_issue.save()
+
+    def get_comment(self, comment_id: int) -> IssueComment:
+        return GitlabIssueComment(self._raw_issue.notes.get(comment_id))

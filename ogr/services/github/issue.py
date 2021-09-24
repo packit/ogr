@@ -167,3 +167,6 @@ class GithubIssue(BaseIssue):
 
     def add_assignee(self, *assignees: str) -> None:
         self._raw_issue.edit(assignees=list(assignees))
+
+    def get_comment(self, comment_id: int) -> IssueComment:
+        return GithubIssueComment(self._raw_issue.get_comment(comment_id))

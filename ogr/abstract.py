@@ -337,6 +337,18 @@ class Issue(OgrAbstractClass):
         """
         raise NotImplementedError()
 
+    def get_comment(self, comment_id: int) -> IssueComment:
+        """
+        Returns an issue comment.
+
+        Args:
+            comment_id: id of a comment
+
+        Returns:
+            Object representing an issue comment.
+        """
+        raise NotImplementedError()
+
 
 class PRStatus(IntEnum):
     open = 1
@@ -639,6 +651,18 @@ class PullRequest(OgrAbstractClass):
         Returns statuses for latest commit on pull request.
 
         :return: [CommitFlag]
+        """
+        raise NotImplementedError()
+
+    def get_comment(self, comment_id: int) -> PRComment:
+        """
+        Returns a PR comment.
+
+        Args:
+            comment_id: id of comment
+
+        Returns:
+            Object representing a PR comment.
         """
         raise NotImplementedError()
 

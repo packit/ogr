@@ -293,3 +293,6 @@ class GitlabPullRequest(BasePullRequest):
     def add_label(self, *labels: str) -> None:
         self._raw_pr.labels += labels
         self._raw_pr.save()
+
+    def get_comment(self, comment_id: int) -> PRComment:
+        return GitlabPRComment(self._raw_pr.notes.get(comment_id))
