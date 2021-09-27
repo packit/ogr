@@ -171,7 +171,7 @@ class GithubProject(BaseGitProject):
                 user, permission=access_dict[access_level]
             )
         except Exception as ex:
-            raise GithubAPIException("User {user} not found") from ex
+            raise GithubAPIException(f"User {user} not found") from ex
 
         if invitation is None:
             raise GithubAPIException("User already added")
