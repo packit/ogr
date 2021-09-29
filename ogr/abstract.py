@@ -2,13 +2,34 @@
 # SPDX-License-Identifier: MIT
 
 import datetime
+import functools
 import warnings
 from enum import Enum, IntEnum
-from typing import Optional, Match, List, Dict, Set, TypeVar, Any, Sequence, Union
+from typing import (
+    Optional,
+    Match,
+    List,
+    Dict,
+    Set,
+    TypeVar,
+    Any,
+    Sequence,
+    Union,
+    Callable,
+)
 from urllib.request import urlopen
 
+import github
+import gitlab
+import requests
+
 from ogr.deprecation import deprecate_and_set_removal
-from ogr.exceptions import OgrException
+from ogr.exceptions import (
+    OgrException,
+    GitlabAPIException,
+    GithubAPIException,
+    OgrNetworkError,
+)
 from ogr.parsing import parse_git_repo
 
 try:
@@ -23,7 +44,67 @@ except ImportError:
 AnyComment = TypeVar("AnyComment", bound="Comment")
 
 
-class OgrAbstractClass:
+def catch_common_exceptions(function: Callable) -> Any:
+    """
+    Decorator catching common exceptions.
+
+    Args:
+        function (Callable): Function or method to decorate.
+
+    Raises:
+        GithubAPIException, if authentication to Github failed.
+        GitlabAPIException, if authentication to Gitlab failed.
+        OgrNetworkError, if network problems occurred while performing a request.
+    """
+
+    @functools.wraps(function)
+    def wrapper(*args, **kwargs):
+        try:
+            return function(*args, **kwargs)
+        except github.BadCredentialsException as ex:
+            raise GithubAPIException("Invalid Github credentials") from ex
+        except gitlab.GitlabAuthenticationError as ex:
+            raise GitlabAPIException("Invalid Gitlab credentials") from ex
+        except requests.exceptions.ConnectionError as ex:
+            raise OgrNetworkError(
+                "Could not perform the request due to a network error"
+            ) from ex
+
+    return wrapper
+
+
+class CatchCommonErrors(type):
+    """
+    A metaclass wrapping methods with a common exception handler.
+
+    This handler catches exceptions which can occur almost anywhere
+    and catching them manually would be tedious and converts them
+    to an appropriate ogr exception for the user. This includes
+    exceptions such as:
+        - authentication (from Github/Gitlab)
+        - network errors
+    """
+
+    def __new__(cls, name, bases, namespace):
+        for key, value in namespace.items():
+            # There is an anticipated change in behaviour in Python 3.10
+            # for static/class methods. From Python 3.10 they will be callable.
+            # We need to achieve consistent behaviour with older versions,
+            # hence the explicit handling is needed here (isinstance checking
+            # works the same). Moreover, static/class method decorator must
+            # be used last, especially prior to Python 3.10 since they return
+            # descriptor objects and not functions.
+            # See: https://bugs.python.org/issue43682
+            if isinstance(value, staticmethod):
+                namespace[key] = staticmethod(catch_common_exceptions(value.__func__))
+            elif isinstance(value, classmethod):
+                namespace[key] = classmethod(catch_common_exceptions(value.__func__))
+            elif callable(namespace[key]):
+                namespace[key] = catch_common_exceptions(namespace[key])
+        return super().__new__(cls, name, bases, namespace)
+
+
+class OgrAbstractClass(metaclass=CatchCommonErrors):
     def __repr__(self) -> str:
         return f"<{str(self)}>"
 

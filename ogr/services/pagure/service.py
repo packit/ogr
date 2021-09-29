@@ -6,7 +6,12 @@ from typing import List, Optional, Union
 
 import requests
 
-from ogr.exceptions import PagureAPIException, OgrException, OperationNotSupported
+from ogr.exceptions import (
+    PagureAPIException,
+    OgrException,
+    OperationNotSupported,
+    OgrNetworkError,
+)
 from ogr.factory import use_for_service
 from ogr.parsing import parse_git_repo
 from ogr.services.base import BaseGitService, GitProject
@@ -186,7 +191,7 @@ class PagureService(BaseGitService):
 
         except requests.exceptions.ConnectionError as er:
             logger.error(er)
-            raise PagureAPIException(f"Cannot connect to url: '{url}'.") from er
+            raise OgrNetworkError(f"Cannot connect to url: '{url}'.") from er
         return response
 
     def get_raw_request(

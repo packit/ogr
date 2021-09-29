@@ -7,7 +7,7 @@ from typing import Optional
 import github
 
 from ogr.services.github.auth_providers.abstract import GithubAuthentication
-from ogr.exceptions import OgrException
+from ogr.exceptions import OgrException, OgrNetworkError
 
 
 class Tokman(GithubAuthentication):
@@ -32,7 +32,8 @@ class Tokman(GithubAuthentication):
         response = requests.get(f"{self._instance_url}/api/{namespace}/{repo}")
 
         if not response.ok:
-            raise OgrException(
+            cls = OgrNetworkError if response.status_code >= 500 else OgrException
+            raise cls(
                 f"Couldn't retrieve token from Tokman: ({response.status_code}) {response.text}"
             )
 

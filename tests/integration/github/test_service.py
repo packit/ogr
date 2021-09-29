@@ -7,6 +7,7 @@ from requre.online_replacing import record_requests_for_all_methods
 
 from tests.integration.github.base import GithubTests
 from ogr.exceptions import GithubAPIException
+from ogr.services.github.pull_request import GithubPullRequest
 
 
 @record_requests_for_all_methods()
@@ -113,3 +114,12 @@ class Service(GithubTests):
         projects = self.service.list_projects(user=user, language=language)
         assert len(projects) == 15
         assert {p.namespace for p in projects} == {"packit"}
+
+    def test_wrong_auth(self):
+        with pytest.raises(GithubAPIException):
+            self.service.project_create("test")
+
+    def test_wrong_auth_static_method(self):
+        # Verify that the exception handler is applied to static methods
+        with pytest.raises(GithubAPIException):
+            GithubPullRequest.get(self.ogr_project, 1)

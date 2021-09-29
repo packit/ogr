@@ -1,0 +1,58 @@
+_requre:
+  DataTypes: 1
+  key_strategy: StorageKeysInspectSimple
+  version_storage_file: 3
+requests.sessions:
+  send:
+    GET:
+      https://gitlab.com/api/v4/user:
+      - metadata:
+          latency: 0.2651510238647461
+          module_call_list:
+          - unittest.case
+          - requre.record_and_replace
+          - tests.integration.gitlab.test_service
+          - ogr.abstract
+          - ogr.services.gitlab.service
+          - gitlab.client
+          - gitlab.exceptions
+          - gitlab.mixins
+          - gitlab.client
+          - requre.objects
+          - requre.cassette
+          - requests.sessions
+          - send
+        output:
+          __store_indicator: 2
+          _content:
+            message: 401 Unauthorized
+          _next: null
+          elapsed: 0.264245
+          encoding: utf-8
+          headers:
+            CF-Cache-Status: DYNAMIC
+            CF-RAY: 696431ec0d9d699b-FRA
+            Cache-Control: no-cache
+            Connection: keep-alive
+            Content-Length: '30'
+            Content-Type: application/json
+            Date: Wed, 29 Sep 2021 09:30:49 GMT
+            Expect-CT: max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
+            GitLab-LB: fe-12-lb-gprd
+            GitLab-SV: localhost
+            RateLimit-Limit: '2000'
+            RateLimit-Observed: '1'
+            RateLimit-Remaining: '1999'
+            RateLimit-Reset: '1632907909'
+            RateLimit-ResetTime: Wed, 29 Sep 2021 09:31:49 GMT
+            Referrer-Policy: strict-origin-when-cross-origin
+            Server: cloudflare
+            Strict-Transport-Security: max-age=31536000
+            Vary: Origin
+            X-Content-Type-Options: nosniff
+            X-Frame-Options: SAMEORIGIN
+            X-Request-Id: 01FGRE8VZ6FDFGJC92Z4RQ9MAN
+            X-Runtime: '0.016952'
+          raw: !!binary ""
+          reason: Unauthorized
+          status_code: 401

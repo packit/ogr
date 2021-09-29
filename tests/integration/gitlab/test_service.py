@@ -9,6 +9,7 @@ from tests.integration.gitlab.base import GitlabTests
 
 from ogr import GitlabService
 from ogr.exceptions import GitlabAPIException
+from ogr.services.gitlab.pull_request import GitlabPullRequest
 
 
 @record_requests_for_all_methods()
@@ -121,3 +122,12 @@ class Service(GitlabTests):
             namespace=name_of_the_repo, language=language
         )
         assert len(projects) == number_of_projects
+
+    def test_wrong_auth(self):
+        with pytest.raises(GitlabAPIException):
+            self.service.project_create("test")
+
+    def test_wrong_auth_static_method(self):
+        # Verify that the exception handler is applied to static methods
+        with pytest.raises(GitlabAPIException):
+            GitlabPullRequest.get(self.project, 1)

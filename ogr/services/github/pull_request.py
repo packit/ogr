@@ -16,7 +16,7 @@ from github.IssueComment import IssueComment as _GithubIssueComment
 from github.PullRequestComment import PullRequestComment as _GithubPullRequestComment
 
 from ogr.abstract import PRComment, PRStatus, PullRequest, MergeCommitStatus
-from ogr.exceptions import GithubAPIException
+from ogr.exceptions import GithubAPIException, OgrNetworkError
 from ogr.services import github as ogr_github
 from ogr.services.base import BasePullRequest
 from ogr.services.github.comments import GithubPRComment
@@ -90,7 +90,8 @@ class GithubPullRequest(BasePullRequest):
         response = requests.get(self._raw_pr.patch_url)
 
         if not response.ok:
-            raise GithubAPIException(
+            cls = OgrNetworkError if response.status_code >= 500 else GithubAPIException
+            raise cls(
                 f"Couldn't get patch from {self._raw_pr.patch_url} because {response.reason}."
             )
 

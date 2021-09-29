@@ -58,3 +58,7 @@ class GitlabAPIException(OgrException):
 
 class OperationNotSupported(OgrException):
     """Raise when the operation is not supported by the backend."""
+
+
+class OgrNetworkError(OgrException):
+    """Exception raised when an unexpected network error occurs."""
