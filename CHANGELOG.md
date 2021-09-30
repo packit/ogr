@@ -1,3 +1,8 @@
+# 0.30.0
+
+- New method to get pull request and issue comments by their comment ID on
+  GitHub and GitLab.
+
 # 0.29.0
 
 - Please check
