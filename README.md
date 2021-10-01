@@ -88,13 +88,13 @@ Or from PyPI:
 $ pip3 install --user ogr
 ```
 
-You can also install OGR from `master` branch, if you are brave enough:
+You can also install OGR from the `main` branch, if you are brave enough:
 
-You can use our [`packit-master` Copr repository](https://copr.fedorainfracloud.org/coprs/packit/packit-master/)
-(contains `master` version of [ogr](https://github.com/packit/ogr)):
+You can use our [`packit-dev` Copr repository](https://copr.fedorainfracloud.org/coprs/packit/packit-dev/)
+(contains the latest development version of [ogr](https://github.com/packit/ogr)):
 
 ```
-$ dnf copr enable packit/packit-master
+$ dnf copr enable packit/packit-dev
 $ dnf install python3-ogr
 ```
 
@@ -127,4 +127,4 @@ For more info about contributing to our project see [our contribution guide](/CO
 
 # Deprecation policy
 
-For more info about deprecation policy see [Deprecation policy](https://github.com/packit/research/tree/master/deprecation)
+For more info about deprecation policy see [Deprecation policy](https://github.com/packit/research/tree/main/deprecation)
