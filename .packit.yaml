@@ -49,17 +49,19 @@ jobs:
   - job: copr_build
     trigger: commit
     metadata:
-      branch: master
+      branch: main
       targets:
-        - fedora-stable
-      project: packit-master
+        - fedora-all
+        - epel-8
+      project: packit-dev
       list_on_homepage: True
       preserve_project: True
   - job: copr_build
     trigger: release
     metadata:
       targets:
-        - fedora-stable
+        - fedora-all
+        - epel-8
       project: packit-releases
       list_on_homepage: True
       preserve_project: True
