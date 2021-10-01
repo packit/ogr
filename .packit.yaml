@@ -51,7 +51,8 @@ jobs:
     metadata:
       branch: main
       targets:
-        - fedora-stable
+        - fedora-all
+        - epel-8
       project: packit-dev
       list_on_homepage: True
       preserve_project: True
@@ -59,7 +60,8 @@ jobs:
     trigger: release
     metadata:
       targets:
-        - fedora-stable
+        - fedora-all
+        - epel-8
       project: packit-releases
       list_on_homepage: True
       preserve_project: True
