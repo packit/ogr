@@ -1,10 +1,12 @@
 # Copyright Contributors to the Packit project.
 # SPDX-License-Identifier: MIT
 
+import pytest
 from github import GithubException, UnknownObjectException
 from requre.online_replacing import record_requests_for_all_methods
 
 from tests.integration.github.base import GithubTests
+from ogr.exceptions import GithubAPIException
 
 
 @record_requests_for_all_methods()
@@ -82,6 +84,22 @@ class Service(GithubTests):
             repo=name_of_the_repo, namespace=namespace_of_the_repo
         )
         assert project.github_repo
+
+    def test_project_create_duplicate(self):
+        """
+        Remove the following project before data regeneration:
+        https://github.com/$USERNAME/repo_created_for_test_fail
+        """
+        name_of_the_repo = "repo_created_for_test_fail"
+        project = self.service.get_project(
+            repo=name_of_the_repo, namespace=self.service.user.get_username()
+        )
+        with self.assertRaises(GithubException):
+            project.github_repo
+
+        self.service.project_create(name_of_the_repo)
+        with pytest.raises(GithubAPIException):
+            self.service.project_create(name_of_the_repo)
 
     def test_list_projects_with_user_input(self):
         user = "packit"

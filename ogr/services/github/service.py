@@ -168,10 +168,13 @@ class GithubService(BaseGitService):
         else:
             owner = self.github.get_user()
 
-        new_repo = owner.create_repo(
-            name=repo,
-            description=description if description else github.GithubObject.NotSet,
-        )
+        try:
+            new_repo = owner.create_repo(
+                name=repo,
+                description=description if description else github.GithubObject.NotSet,
+            )
+        except github.GithubException as ex:
+            raise GithubAPIException("Project creation failed") from ex
         return GithubProject(
             repo=repo,
             namespace=namespace or owner.login,

@@ -2,6 +2,8 @@
 # SPDX-License-Identifier: MIT
 
 import datetime
+
+import gitlab
 import requests
 from typing import Dict, List, Optional
 
@@ -223,7 +225,10 @@ class GitlabPullRequest(BasePullRequest):
 
     @staticmethod
     def get(project: "ogr_gitlab.GitlabProject", pr_id: int) -> "PullRequest":
-        mr = project.gitlab_repo.mergerequests.get(pr_id)
+        try:
+            mr = project.gitlab_repo.mergerequests.get(pr_id)
+        except gitlab.GitlabGetError as ex:
+            raise GitlabAPIException(f"No PR with id {pr_id} found") from ex
         return GitlabPullRequest(mr, project)
 
     @staticmethod

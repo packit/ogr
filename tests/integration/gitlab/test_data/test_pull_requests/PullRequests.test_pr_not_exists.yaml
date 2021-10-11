@@ -1,0 +1,307 @@
+_requre:
+  DataTypes: 1
+  key_strategy: StorageKeysInspectSimple
+  version_storage_file: 3
+requests.sessions:
+  send:
+    GET:
+      https://gitlab.com/api/v4/projects/14233409/merge_requests/100000000000000000000:
+      - metadata:
+          latency: 0.29378747940063477
+          module_call_list:
+          - unittest.case
+          - requre.record_and_replace
+          - tests.integration.gitlab.test_pull_requests
+          - ogr.utils
+          - ogr.services.gitlab.pull_request
+          - gitlab.exceptions
+          - gitlab.mixins
+          - gitlab.client
+          - requre.objects
+          - requre.cassette
+          - requests.sessions
+          - send
+        output:
+          __store_indicator: 2
+          _content:
+            message: 404 Not found
+          _next: null
+          elapsed: 0.290828
+          encoding: utf-8
+          headers:
+            CF-Cache-Status: DYNAMIC
+            CF-RAY: 69641b758f754a7a-FRA
+            Cache-Control: no-cache
+            Connection: keep-alive
+            Content-Length: '27'
+            Content-Type: application/json
+            Date: Wed, 29 Sep 2021 09:15:29 GMT
+            Expect-CT: max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
+            GitLab-LB: fe-12-lb-gprd
+            GitLab-SV: localhost
+            RateLimit-Limit: '2000'
+            RateLimit-Observed: '3'
+            RateLimit-Remaining: '1997'
+            RateLimit-Reset: '1632906989'
+            RateLimit-ResetTime: Wed, 29 Sep 2021 09:16:29 GMT
+            Referrer-Policy: strict-origin-when-cross-origin
+            Server: cloudflare
+            Strict-Transport-Security: max-age=31536000
+            Vary: Origin
+            X-Content-Type-Options: nosniff
+            X-Request-Id: 01FGRDCSER0G7Q20MP7VD52AET
+            X-Runtime: '0.048929'
+          raw: !!binary ""
+          reason: Not Found
+          status_code: 404
+      https://gitlab.com/api/v4/projects/packit-service%2Fogr-tests:
+      - metadata:
+          latency: 0.3680603504180908
+          module_call_list:
+          - unittest.case
+          - requre.record_and_replace
+          - tests.integration.gitlab.test_pull_requests
+          - ogr.utils
+          - ogr.services.gitlab.pull_request
+          - ogr.services.gitlab.project
+          - gitlab.v4.objects.projects
+          - gitlab.exceptions
+          - gitlab.mixins
+          - gitlab.client
+          - requre.objects
+          - requre.cassette
+          - requests.sessions
+          - send
+        output:
+          __store_indicator: 2
+          _content:
+            _links:
+              events: https://gitlab.com/api/v4/projects/14233409/events
+              issues: https://gitlab.com/api/v4/projects/14233409/issues
+              labels: https://gitlab.com/api/v4/projects/14233409/labels
+              members: https://gitlab.com/api/v4/projects/14233409/members
+              merge_requests: https://gitlab.com/api/v4/projects/14233409/merge_requests
+              repo_branches: https://gitlab.com/api/v4/projects/14233409/repository/branches
+              self: https://gitlab.com/api/v4/projects/14233409
+            allow_merge_on_skipped_pipeline: null
+            analytics_access_level: enabled
+            approvals_before_merge: 0
+            archived: false
+            auto_cancel_pending_pipelines: enabled
+            auto_devops_deploy_strategy: continuous
+            auto_devops_enabled: false
+            autoclose_referenced_issues: true
+            avatar_url: null
+            build_coverage_regex: null
+            build_timeout: 3600
+            builds_access_level: enabled
+            can_create_merge_request_in: true
+            ci_config_path: null
+            ci_default_git_depth: 50
+            ci_forward_deployment_enabled: null
+            ci_job_token_scope_enabled: false
+            compliance_frameworks: []
+            container_registry_access_level: enabled
+            container_registry_enabled: true
+            container_registry_image_prefix: registry.gitlab.com/packit-service/ogr-tests
+            created_at: '2019-09-10T10:28:09.946Z'
+            creator_id: 433670
+            default_branch: master
+            description: Testing repository for python-ogr package.  |  https://github.com/packit-service/ogr
+            emails_disabled: null
+            empty_repo: false
+            external_authorization_classification_label: ''
+            forking_access_level: enabled
+            forks_count: 7
+            http_url_to_repo: https://gitlab.com/packit-service/ogr-tests.git
+            id: 14233409
+            import_status: none
+            issues_access_level: enabled
+            issues_enabled: true
+            issues_template: null
+            jobs_enabled: true
+            keep_latest_artifact: true
+            last_activity_at: '2021-09-24T09:39:59.056Z'
+            lfs_enabled: true
+            marked_for_deletion_at: null
+            marked_for_deletion_on: null
+            merge_method: merge
+            merge_pipelines_enabled: false
+            merge_requests_access_level: enabled
+            merge_requests_enabled: true
+            merge_requests_template: null
+            merge_trains_enabled: false
+            mirror: false
+            name: ogr-tests
+            name_with_namespace: packit-service / ogr-tests
+            namespace:
+              avatar_url: /uploads/-/system/group/avatar/6032704/logo-square-small-borders.png
+              full_path: packit-service
+              id: 6032704
+              kind: group
+              name: packit-service
+              parent_id: null
+              path: packit-service
+              web_url: https://gitlab.com/groups/packit-service
+            only_allow_merge_if_all_discussions_are_resolved: false
+            only_allow_merge_if_pipeline_succeeds: false
+            open_issues_count: 68
+            operations_access_level: enabled
+            packages_enabled: true
+            pages_access_level: enabled
+            path: ogr-tests
+            path_with_namespace: packit-service/ogr-tests
+            permissions:
+              group_access: null
+              project_access: null
+            printing_merge_request_link_enabled: true
+            public_jobs: true
+            readme_url: https://gitlab.com/packit-service/ogr-tests/-/blob/master/README.md
+            remove_source_branch_after_merge: null
+            repository_access_level: enabled
+            request_access_enabled: false
+            requirements_enabled: true
+            resolve_outdated_diff_discussions: false
+            restrict_user_defined_variables: false
+            security_and_compliance_enabled: false
+            service_desk_address: incoming+packit-service-ogr-tests-14233409-issue-@incoming.gitlab.com
+            service_desk_enabled: true
+            shared_runners_enabled: true
+            shared_with_groups: []
+            snippets_access_level: enabled
+            snippets_enabled: true
+            squash_option: default_off
+            ssh_url_to_repo: git@gitlab.com:packit-service/ogr-tests.git
+            star_count: 0
+            suggestion_commit_message: null
+            tag_list: []
+            topics: []
+            visibility: public
+            web_url: https://gitlab.com/packit-service/ogr-tests
+            wiki_access_level: enabled
+            wiki_enabled: true
+          _next: null
+          elapsed: 0.365812
+          encoding: utf-8
+          headers:
+            CF-Cache-Status: DYNAMIC
+            CF-RAY: 69641b731b1e4a7a-FRA
+            Cache-Control: max-age=0, private, must-revalidate
+            Connection: keep-alive
+            Content-Encoding: gzip
+            Content-Type: application/json
+            Date: Wed, 29 Sep 2021 09:15:29 GMT
+            Etag: W/"aa7c9eb6fa762fdeb15c77ffc964e372"
+            Expect-CT: max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
+            GitLab-LB: fe-05-lb-gprd
+            GitLab-SV: localhost
+            RateLimit-Limit: '2000'
+            RateLimit-Observed: '2'
+            RateLimit-Remaining: '1998'
+            RateLimit-Reset: '1632906989'
+            RateLimit-ResetTime: Wed, 29 Sep 2021 09:16:29 GMT
+            Referrer-Policy: strict-origin-when-cross-origin
+            Server: cloudflare
+            Strict-Transport-Security: max-age=31536000
+            Transfer-Encoding: chunked
+            Vary: Origin
+            X-Content-Type-Options: nosniff
+            X-Frame-Options: SAMEORIGIN
+            X-Request-Id: 01FGRDCS2X32JNB2WH0ZNMMT9N
+            X-Runtime: '0.090299'
+          raw: !!binary ""
+          reason: OK
+          status_code: 200
+      https://gitlab.com/api/v4/user:
+      - metadata:
+          latency: 0.4386777877807617
+          module_call_list:
+          - unittest.case
+          - requre.record_and_replace
+          - tests.integration.gitlab.test_pull_requests
+          - ogr.utils
+          - ogr.services.gitlab.pull_request
+          - ogr.services.gitlab.project
+          - ogr.services.gitlab.service
+          - gitlab.client
+          - gitlab.exceptions
+          - gitlab.mixins
+          - gitlab.client
+          - requre.objects
+          - requre.cassette
+          - requests.sessions
+          - send
+        output:
+          __store_indicator: 2
+          _content:
+            avatar_url: https://secure.gravatar.com/avatar/9a55f5f6ea7dedf22a13522dbf4c38e0?s=80&d=identicon
+            bio: ''
+            bio_html: ''
+            bot: false
+            can_create_group: true
+            can_create_project: true
+            color_scheme_id: 1
+            commit_email: fifinecas@seznam.cz
+            confirmed_at: '2021-09-29T05:41:36.928Z'
+            created_at: '2021-09-29T05:41:19.895Z'
+            current_sign_in_at: '2021-09-29T05:41:43.333Z'
+            email: fifinecas@seznam.cz
+            external: false
+            extra_shared_runners_minutes_limit: null
+            followers: 0
+            following: 0
+            id: 9842868
+            identities: []
+            job_title: ''
+            last_activity_on: '2021-09-29'
+            last_sign_in_at: '2021-09-29T05:41:43.333Z'
+            linkedin: ''
+            location: null
+            name: "Franti\u0161ek Ne\u010Das"
+            organization: null
+            private_profile: false
+            projects_limit: 100000
+            pronouns: null
+            public_email: ''
+            shared_runners_minutes_limit: null
+            skype: ''
+            state: active
+            theme_id: 1
+            twitter: ''
+            two_factor_enabled: false
+            username: FrNecas
+            web_url: https://gitlab.com/FrNecas
+            website_url: ''
+            work_information: null
+          _next: null
+          elapsed: 0.437189
+          encoding: utf-8
+          headers:
+            CF-Cache-Status: DYNAMIC
+            CF-RAY: 69641b7148374a7a-FRA
+            Cache-Control: max-age=0, private, must-revalidate
+            Connection: keep-alive
+            Content-Encoding: gzip
+            Content-Type: application/json
+            Date: Wed, 29 Sep 2021 09:15:29 GMT
+            Etag: W/"40bb908ec000ae8b1a122956ba253a2e"
+            Expect-CT: max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
+            GitLab-LB: fe-02-lb-gprd
+            GitLab-SV: localhost
+            RateLimit-Limit: '2000'
+            RateLimit-Observed: '1'
+            RateLimit-Remaining: '1999'
+            RateLimit-Reset: '1632906988'
+            RateLimit-ResetTime: Wed, 29 Sep 2021 09:16:28 GMT
+            Referrer-Policy: strict-origin-when-cross-origin
+            Server: cloudflare
+            Strict-Transport-Security: max-age=31536000
+            Transfer-Encoding: chunked
+            Vary: Origin
+            X-Content-Type-Options: nosniff
+            X-Frame-Options: SAMEORIGIN
+            X-Request-Id: 01FGRDCRSQSHAGHY95Z0KB2HGB
+            X-Runtime: '0.033133'
+          raw: !!binary ""
+          reason: OK
+          status_code: 200

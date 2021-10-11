@@ -3,6 +3,8 @@
 
 import datetime
 import logging
+
+import github
 import requests
 from typing import Optional, List, Union
 
@@ -172,7 +174,10 @@ class GithubPullRequest(BasePullRequest):
 
     @staticmethod
     def get(project: "ogr_github.GithubProject", pr_id: int) -> "PullRequest":
-        pr = project.github_repo.get_pull(number=pr_id)
+        try:
+            pr = project.github_repo.get_pull(number=pr_id)
+        except github.UnknownObjectException as ex:
+            raise GithubAPIException(f"No pull request with id {pr_id} found") from ex
         return GithubPullRequest(pr, project)
 
     @staticmethod

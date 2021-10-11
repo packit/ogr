@@ -1,0 +1,488 @@
+_requre:
+  DataTypes: 1
+  key_strategy: StorageKeysInspectSimple
+  version_storage_file: 3
+requests.sessions:
+  send:
+    GET:
+      https://api.github.com:443/repos/FrNecas/repo_created_for_test_fail:
+      - metadata:
+          latency: 0.21777820587158203
+          module_call_list:
+          - unittest.case
+          - requre.record_and_replace
+          - tests.integration.github.test_service
+          - ogr.services.github.project
+          - github.MainClass
+          - github.Requester
+          - requests.sessions
+          - requre.objects
+          - requre.cassette
+          - requests.sessions
+          - send
+        output:
+          __store_indicator: 2
+          _content:
+            documentation_url: https://docs.github.com/rest/reference/repos#get-a-repository
+            message: Not Found
+          _next: null
+          elapsed: 0.215576
+          encoding: utf-8
+          headers:
+            Access-Control-Allow-Origin: '*'
+            Access-Control-Expose-Headers: ETag, Link, Location, Retry-After, X-GitHub-OTP,
+              X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Used, X-RateLimit-Resource,
+              X-RateLimit-Reset, X-OAuth-Scopes, X-Accepted-OAuth-Scopes, X-Poll-Interval,
+              X-GitHub-Media-Type, Deprecation, Sunset
+            Content-Encoding: gzip
+            Content-Security-Policy: default-src 'none'
+            Content-Type: application/json; charset=utf-8
+            Date: Wed, 29 Sep 2021 09:09:27 GMT
+            Referrer-Policy: origin-when-cross-origin, strict-origin-when-cross-origin
+            Server: GitHub.com
+            Strict-Transport-Security: max-age=31536000; includeSubdomains; preload
+            Transfer-Encoding: chunked
+            Vary: Accept-Encoding, Accept, X-Requested-With
+            X-Accepted-OAuth-Scopes: repo
+            X-Content-Type-Options: nosniff
+            X-Frame-Options: deny
+            X-GitHub-Media-Type: github.v3; format=json
+            X-GitHub-Request-Id: 68D0:EAE6:1834BD:192894:61542D47
+            X-OAuth-Scopes: admin:enterprise, admin:gpg_key, admin:org, admin:org_hook,
+              admin:public_key, admin:repo_hook, delete:packages, delete_repo, gist,
+              notifications, repo, user, workflow, write:discussion, write:packages
+            X-RateLimit-Limit: '5000'
+            X-RateLimit-Remaining: '4982'
+            X-RateLimit-Reset: '1632907061'
+            X-RateLimit-Resource: core
+            X-RateLimit-Used: '18'
+            X-XSS-Protection: '0'
+            github-authentication-token-expiration: 2021-10-27 06:25:09 UTC
+          raw: !!binary ""
+          reason: Not Found
+          status_code: 404
+      https://api.github.com:443/user:
+      - metadata:
+          latency: 0.38749194145202637
+          module_call_list:
+          - unittest.case
+          - requre.record_and_replace
+          - tests.integration.github.test_service
+          - ogr.services.github.user
+          - github.AuthenticatedUser
+          - github.GithubObject
+          - github.Requester
+          - requests.sessions
+          - requre.objects
+          - requre.cassette
+          - requests.sessions
+          - send
+        output:
+          __store_indicator: 2
+          _content:
+            avatar_url: https://avatars.githubusercontent.com/u/28452337?v=4
+            bio: null
+            blog: ''
+            collaborators: 4
+            company: Red Hat
+            created_at: '2017-05-05T16:59:25Z'
+            disk_usage: 171811
+            email: null
+            events_url: https://api.github.com/users/FrNecas/events{/privacy}
+            followers: 0
+            followers_url: https://api.github.com/users/FrNecas/followers
+            following: 0
+            following_url: https://api.github.com/users/FrNecas/following{/other_user}
+            gists_url: https://api.github.com/users/FrNecas/gists{/gist_id}
+            gravatar_id: ''
+            hireable: null
+            html_url: https://github.com/FrNecas
+            id: 28452337
+            location: Brno, Czech Republic
+            login: FrNecas
+            name: "Franti\u0161ek Ne\u010Das"
+            node_id: MDQ6VXNlcjI4NDUyMzM3
+            organizations_url: https://api.github.com/users/FrNecas/orgs
+            owned_private_repos: 30
+            plan:
+              collaborators: 0
+              name: pro
+              private_repos: 9999
+              space: 976562499
+            private_gists: 33
+            public_gists: 0
+            public_repos: 17
+            received_events_url: https://api.github.com/users/FrNecas/received_events
+            repos_url: https://api.github.com/users/FrNecas/repos
+            site_admin: false
+            starred_url: https://api.github.com/users/FrNecas/starred{/owner}{/repo}
+            subscriptions_url: https://api.github.com/users/FrNecas/subscriptions
+            total_private_repos: 30
+            twitter_username: null
+            two_factor_authentication: false
+            type: User
+            updated_at: '2021-09-28T15:29:43Z'
+            url: https://api.github.com/users/FrNecas
+          _next: null
+          elapsed: 0.386366
+          encoding: utf-8
+          headers:
+            Access-Control-Allow-Origin: '*'
+            Access-Control-Expose-Headers: ETag, Link, Location, Retry-After, X-GitHub-OTP,
+              X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Used, X-RateLimit-Resource,
+              X-RateLimit-Reset, X-OAuth-Scopes, X-Accepted-OAuth-Scopes, X-Poll-Interval,
+              X-GitHub-Media-Type, Deprecation, Sunset
+            Cache-Control: private, max-age=60, s-maxage=60
+            Content-Encoding: gzip
+            Content-Security-Policy: default-src 'none'
+            Content-Type: application/json; charset=utf-8
+            Date: Wed, 29 Sep 2021 09:09:27 GMT
+            ETag: W/"243998684f9ce97c2e2772adf639387d0369c44782922961b6cd495c1528bc83"
+            Last-Modified: Tue, 28 Sep 2021 15:29:43 GMT
+            Referrer-Policy: origin-when-cross-origin, strict-origin-when-cross-origin
+            Server: GitHub.com
+            Strict-Transport-Security: max-age=31536000; includeSubdomains; preload
+            Transfer-Encoding: chunked
+            Vary: Accept, Authorization, Cookie, X-GitHub-OTP, Accept-Encoding, Accept,
+              X-Requested-With
+            X-Accepted-OAuth-Scopes: ''
+            X-Content-Type-Options: nosniff
+            X-Frame-Options: deny
+            X-GitHub-Media-Type: github.v3; format=json
+            X-GitHub-Request-Id: 68FC:F033:4D3157:4E8E5D:61542D47
+            X-OAuth-Scopes: admin:enterprise, admin:gpg_key, admin:org, admin:org_hook,
+              admin:public_key, admin:repo_hook, delete:packages, delete_repo, gist,
+              notifications, repo, user, workflow, write:discussion, write:packages
+            X-RateLimit-Limit: '5000'
+            X-RateLimit-Remaining: '4983'
+            X-RateLimit-Reset: '1632907061'
+            X-RateLimit-Resource: core
+            X-RateLimit-Used: '17'
+            X-XSS-Protection: '0'
+            github-authentication-token-expiration: 2021-10-27 06:25:09 UTC
+          raw: !!binary ""
+          reason: OK
+          status_code: 200
+      - metadata:
+          latency: 0.29303789138793945
+          module_call_list:
+          - unittest.case
+          - requre.record_and_replace
+          - tests.integration.github.test_service
+          - ogr.services.github.service
+          - github.AuthenticatedUser
+          - github.GithubObject
+          - github.Requester
+          - requests.sessions
+          - requre.objects
+          - requre.cassette
+          - requests.sessions
+          - send
+        output:
+          __store_indicator: 2
+          _content:
+            avatar_url: https://avatars.githubusercontent.com/u/28452337?v=4
+            bio: null
+            blog: ''
+            collaborators: 4
+            company: Red Hat
+            created_at: '2017-05-05T16:59:25Z'
+            disk_usage: 171811
+            email: null
+            events_url: https://api.github.com/users/FrNecas/events{/privacy}
+            followers: 0
+            followers_url: https://api.github.com/users/FrNecas/followers
+            following: 0
+            following_url: https://api.github.com/users/FrNecas/following{/other_user}
+            gists_url: https://api.github.com/users/FrNecas/gists{/gist_id}
+            gravatar_id: ''
+            hireable: null
+            html_url: https://github.com/FrNecas
+            id: 28452337
+            location: Brno, Czech Republic
+            login: FrNecas
+            name: "Franti\u0161ek Ne\u010Das"
+            node_id: MDQ6VXNlcjI4NDUyMzM3
+            organizations_url: https://api.github.com/users/FrNecas/orgs
+            owned_private_repos: 30
+            plan:
+              collaborators: 0
+              name: pro
+              private_repos: 9999
+              space: 976562499
+            private_gists: 33
+            public_gists: 0
+            public_repos: 18
+            received_events_url: https://api.github.com/users/FrNecas/received_events
+            repos_url: https://api.github.com/users/FrNecas/repos
+            site_admin: false
+            starred_url: https://api.github.com/users/FrNecas/starred{/owner}{/repo}
+            subscriptions_url: https://api.github.com/users/FrNecas/subscriptions
+            total_private_repos: 30
+            twitter_username: null
+            two_factor_authentication: false
+            type: User
+            updated_at: '2021-09-28T15:29:43Z'
+            url: https://api.github.com/users/FrNecas
+          _next: null
+          elapsed: 0.290212
+          encoding: utf-8
+          headers:
+            Access-Control-Allow-Origin: '*'
+            Access-Control-Expose-Headers: ETag, Link, Location, Retry-After, X-GitHub-OTP,
+              X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Used, X-RateLimit-Resource,
+              X-RateLimit-Reset, X-OAuth-Scopes, X-Accepted-OAuth-Scopes, X-Poll-Interval,
+              X-GitHub-Media-Type, Deprecation, Sunset
+            Cache-Control: private, max-age=60, s-maxage=60
+            Content-Encoding: gzip
+            Content-Security-Policy: default-src 'none'
+            Content-Type: application/json; charset=utf-8
+            Date: Wed, 29 Sep 2021 09:09:29 GMT
+            ETag: W/"55f7c602b5ea297ef10540003b720f101350d7e8d5465c42f3433dcec5b09fbd"
+            Last-Modified: Tue, 28 Sep 2021 15:29:43 GMT
+            Referrer-Policy: origin-when-cross-origin, strict-origin-when-cross-origin
+            Server: GitHub.com
+            Strict-Transport-Security: max-age=31536000; includeSubdomains; preload
+            Transfer-Encoding: chunked
+            Vary: Accept, Authorization, Cookie, X-GitHub-OTP, Accept-Encoding, Accept,
+              X-Requested-With
+            X-Accepted-OAuth-Scopes: ''
+            X-Content-Type-Options: nosniff
+            X-Frame-Options: deny
+            X-GitHub-Media-Type: github.v3; format=json
+            X-GitHub-Request-Id: 68FC:F033:4D3442:4E915A:61542D49
+            X-OAuth-Scopes: admin:enterprise, admin:gpg_key, admin:org, admin:org_hook,
+              admin:public_key, admin:repo_hook, delete:packages, delete_repo, gist,
+              notifications, repo, user, workflow, write:discussion, write:packages
+            X-RateLimit-Limit: '5000'
+            X-RateLimit-Remaining: '4980'
+            X-RateLimit-Reset: '1632907061'
+            X-RateLimit-Resource: core
+            X-RateLimit-Used: '20'
+            X-XSS-Protection: '0'
+            github-authentication-token-expiration: 2021-10-27 06:25:09 UTC
+          raw: !!binary ""
+          reason: OK
+          status_code: 200
+    POST:
+      https://api.github.com:443/user/repos:
+      - metadata:
+          latency: 1.2795021533966064
+          module_call_list:
+          - unittest.case
+          - requre.record_and_replace
+          - tests.integration.github.test_service
+          - ogr.services.github.service
+          - github.AuthenticatedUser
+          - github.Requester
+          - requests.sessions
+          - requre.objects
+          - requre.cassette
+          - requests.sessions
+          - send
+        output:
+          __store_indicator: 2
+          _content:
+            allow_auto_merge: false
+            allow_forking: true
+            allow_merge_commit: true
+            allow_rebase_merge: true
+            allow_squash_merge: true
+            archive_url: https://api.github.com/repos/FrNecas/repo_created_for_test_fail/{archive_format}{/ref}
+            archived: false
+            assignees_url: https://api.github.com/repos/FrNecas/repo_created_for_test_fail/assignees{/user}
+            blobs_url: https://api.github.com/repos/FrNecas/repo_created_for_test_fail/git/blobs{/sha}
+            branches_url: https://api.github.com/repos/FrNecas/repo_created_for_test_fail/branches{/branch}
+            clone_url: https://github.com/FrNecas/repo_created_for_test_fail.git
+            collaborators_url: https://api.github.com/repos/FrNecas/repo_created_for_test_fail/collaborators{/collaborator}
+            comments_url: https://api.github.com/repos/FrNecas/repo_created_for_test_fail/comments{/number}
+            commits_url: https://api.github.com/repos/FrNecas/repo_created_for_test_fail/commits{/sha}
+            compare_url: https://api.github.com/repos/FrNecas/repo_created_for_test_fail/compare/{base}...{head}
+            contents_url: https://api.github.com/repos/FrNecas/repo_created_for_test_fail/contents/{+path}
+            contributors_url: https://api.github.com/repos/FrNecas/repo_created_for_test_fail/contributors
+            created_at: '2021-09-29T09:09:27Z'
+            default_branch: main
+            delete_branch_on_merge: false
+            deployments_url: https://api.github.com/repos/FrNecas/repo_created_for_test_fail/deployments
+            description: null
+            disabled: false
+            downloads_url: https://api.github.com/repos/FrNecas/repo_created_for_test_fail/downloads
+            events_url: https://api.github.com/repos/FrNecas/repo_created_for_test_fail/events
+            fork: false
+            forks: 0
+            forks_count: 0
+            forks_url: https://api.github.com/repos/FrNecas/repo_created_for_test_fail/forks
+            full_name: FrNecas/repo_created_for_test_fail
+            git_commits_url: https://api.github.com/repos/FrNecas/repo_created_for_test_fail/git/commits{/sha}
+            git_refs_url: https://api.github.com/repos/FrNecas/repo_created_for_test_fail/git/refs{/sha}
+            git_tags_url: https://api.github.com/repos/FrNecas/repo_created_for_test_fail/git/tags{/sha}
+            git_url: git://github.com/FrNecas/repo_created_for_test_fail.git
+            has_downloads: true
+            has_issues: true
+            has_pages: false
+            has_projects: true
+            has_wiki: true
+            homepage: null
+            hooks_url: https://api.github.com/repos/FrNecas/repo_created_for_test_fail/hooks
+            html_url: https://github.com/FrNecas/repo_created_for_test_fail
+            id: 411604030
+            issue_comment_url: https://api.github.com/repos/FrNecas/repo_created_for_test_fail/issues/comments{/number}
+            issue_events_url: https://api.github.com/repos/FrNecas/repo_created_for_test_fail/issues/events{/number}
+            issues_url: https://api.github.com/repos/FrNecas/repo_created_for_test_fail/issues{/number}
+            keys_url: https://api.github.com/repos/FrNecas/repo_created_for_test_fail/keys{/key_id}
+            labels_url: https://api.github.com/repos/FrNecas/repo_created_for_test_fail/labels{/name}
+            language: null
+            languages_url: https://api.github.com/repos/FrNecas/repo_created_for_test_fail/languages
+            license: null
+            merges_url: https://api.github.com/repos/FrNecas/repo_created_for_test_fail/merges
+            milestones_url: https://api.github.com/repos/FrNecas/repo_created_for_test_fail/milestones{/number}
+            mirror_url: null
+            name: repo_created_for_test_fail
+            network_count: 0
+            node_id: R_kgDOGIiUPg
+            notifications_url: https://api.github.com/repos/FrNecas/repo_created_for_test_fail/notifications{?since,all,participating}
+            open_issues: 0
+            open_issues_count: 0
+            owner:
+              avatar_url: https://avatars.githubusercontent.com/u/28452337?v=4
+              events_url: https://api.github.com/users/FrNecas/events{/privacy}
+              followers_url: https://api.github.com/users/FrNecas/followers
+              following_url: https://api.github.com/users/FrNecas/following{/other_user}
+              gists_url: https://api.github.com/users/FrNecas/gists{/gist_id}
+              gravatar_id: ''
+              html_url: https://github.com/FrNecas
+              id: 28452337
+              login: FrNecas
+              node_id: MDQ6VXNlcjI4NDUyMzM3
+              organizations_url: https://api.github.com/users/FrNecas/orgs
+              received_events_url: https://api.github.com/users/FrNecas/received_events
+              repos_url: https://api.github.com/users/FrNecas/repos
+              site_admin: false
+              starred_url: https://api.github.com/users/FrNecas/starred{/owner}{/repo}
+              subscriptions_url: https://api.github.com/users/FrNecas/subscriptions
+              type: User
+              url: https://api.github.com/users/FrNecas
+            permissions:
+              admin: true
+              maintain: true
+              pull: true
+              push: true
+              triage: true
+            private: false
+            pulls_url: https://api.github.com/repos/FrNecas/repo_created_for_test_fail/pulls{/number}
+            pushed_at: '2021-09-29T09:09:28Z'
+            releases_url: https://api.github.com/repos/FrNecas/repo_created_for_test_fail/releases{/id}
+            size: 0
+            ssh_url: git@github.com:FrNecas/repo_created_for_test_fail.git
+            stargazers_count: 0
+            stargazers_url: https://api.github.com/repos/FrNecas/repo_created_for_test_fail/stargazers
+            statuses_url: https://api.github.com/repos/FrNecas/repo_created_for_test_fail/statuses/{sha}
+            subscribers_count: 1
+            subscribers_url: https://api.github.com/repos/FrNecas/repo_created_for_test_fail/subscribers
+            subscription_url: https://api.github.com/repos/FrNecas/repo_created_for_test_fail/subscription
+            svn_url: https://github.com/FrNecas/repo_created_for_test_fail
+            tags_url: https://api.github.com/repos/FrNecas/repo_created_for_test_fail/tags
+            teams_url: https://api.github.com/repos/FrNecas/repo_created_for_test_fail/teams
+            trees_url: https://api.github.com/repos/FrNecas/repo_created_for_test_fail/git/trees{/sha}
+            updated_at: '2021-09-29T09:09:27Z'
+            url: https://api.github.com/repos/FrNecas/repo_created_for_test_fail
+            watchers: 0
+            watchers_count: 0
+          _next: null
+          elapsed: 1.276504
+          encoding: utf-8
+          headers:
+            Access-Control-Allow-Origin: '*'
+            Access-Control-Expose-Headers: ETag, Link, Location, Retry-After, X-GitHub-OTP,
+              X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Used, X-RateLimit-Resource,
+              X-RateLimit-Reset, X-OAuth-Scopes, X-Accepted-OAuth-Scopes, X-Poll-Interval,
+              X-GitHub-Media-Type, Deprecation, Sunset
+            Cache-Control: private, max-age=60, s-maxage=60
+            Content-Length: '5692'
+            Content-Security-Policy: default-src 'none'
+            Content-Type: application/json; charset=utf-8
+            Date: Wed, 29 Sep 2021 09:09:28 GMT
+            ETag: '"8064c5e0ddee3390b8c19bca87fcdfc16bc6d13a9815002e21af62b5ea9472e6"'
+            Location: https://api.github.com/repos/FrNecas/repo_created_for_test_fail
+            Referrer-Policy: origin-when-cross-origin, strict-origin-when-cross-origin
+            Server: GitHub.com
+            Strict-Transport-Security: max-age=31536000; includeSubdomains; preload
+            Vary: Accept, Authorization, Cookie, X-GitHub-OTP, Accept-Encoding, Accept,
+              X-Requested-With
+            X-Accepted-OAuth-Scopes: public_repo, repo
+            X-Content-Type-Options: nosniff
+            X-Frame-Options: deny
+            X-GitHub-Media-Type: github.v3; format=json
+            X-GitHub-Request-Id: 68FC:F033:4D321F:4E8F37:61542D47
+            X-OAuth-Scopes: admin:enterprise, admin:gpg_key, admin:org, admin:org_hook,
+              admin:public_key, admin:repo_hook, delete:packages, delete_repo, gist,
+              notifications, repo, user, workflow, write:discussion, write:packages
+            X-RateLimit-Limit: '5000'
+            X-RateLimit-Remaining: '4981'
+            X-RateLimit-Reset: '1632907061'
+            X-RateLimit-Resource: core
+            X-RateLimit-Used: '19'
+            X-XSS-Protection: '0'
+            github-authentication-token-expiration: 2021-10-27 06:25:09 UTC
+          raw: !!binary ""
+          reason: Created
+          status_code: 201
+      - metadata:
+          latency: 0.30507707595825195
+          module_call_list:
+          - unittest.case
+          - requre.record_and_replace
+          - tests.integration.github.test_service
+          - ogr.services.github.service
+          - github.AuthenticatedUser
+          - github.Requester
+          - requests.sessions
+          - requre.objects
+          - requre.cassette
+          - requests.sessions
+          - send
+        output:
+          __store_indicator: 2
+          _content:
+            documentation_url: https://docs.github.com/rest/reference/repos#create-a-repository-for-the-authenticated-user
+            errors:
+            - code: custom
+              field: name
+              message: name already exists on this account
+              resource: Repository
+            message: Repository creation failed.
+          _next: null
+          elapsed: 0.303952
+          encoding: utf-8
+          headers:
+            Access-Control-Allow-Origin: '*'
+            Access-Control-Expose-Headers: ETag, Link, Location, Retry-After, X-GitHub-OTP,
+              X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Used, X-RateLimit-Resource,
+              X-RateLimit-Reset, X-OAuth-Scopes, X-Accepted-OAuth-Scopes, X-Poll-Interval,
+              X-GitHub-Media-Type, Deprecation, Sunset
+            Content-Length: '271'
+            Content-Security-Policy: default-src 'none'
+            Content-Type: application/json; charset=utf-8
+            Date: Wed, 29 Sep 2021 09:09:29 GMT
+            Referrer-Policy: origin-when-cross-origin, strict-origin-when-cross-origin
+            Server: GitHub.com
+            Strict-Transport-Security: max-age=31536000; includeSubdomains; preload
+            Vary: Accept-Encoding, Accept, X-Requested-With
+            X-Accepted-OAuth-Scopes: public_repo, repo
+            X-Content-Type-Options: nosniff
+            X-Frame-Options: deny
+            X-GitHub-Media-Type: github.v3; format=json
+            X-GitHub-Request-Id: 68FC:F033:4D34C2:4E91E3:61542D49
+            X-OAuth-Scopes: admin:enterprise, admin:gpg_key, admin:org, admin:org_hook,
+              admin:public_key, admin:repo_hook, delete:packages, delete_repo, gist,
+              notifications, repo, user, workflow, write:discussion, write:packages
+            X-RateLimit-Limit: '5000'
+            X-RateLimit-Remaining: '4979'
+            X-RateLimit-Reset: '1632907061'
+            X-RateLimit-Resource: core
+            X-RateLimit-Used: '21'
+            X-XSS-Protection: '0'
+            github-authentication-token-expiration: 2021-10-27 06:25:09 UTC
+          raw: !!binary ""
+          reason: Unprocessable Entity
+          status_code: 422

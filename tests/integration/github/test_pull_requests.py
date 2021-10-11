@@ -1,10 +1,12 @@
 # Copyright Contributors to the Packit project.
 # SPDX-License-Identifier: MIT
 
+import pytest
 from requre.online_replacing import record_requests_for_all_methods
 
 from tests.integration.github.base import GithubTests
 from ogr.abstract import PRStatus, MergeCommitStatus
+from ogr.exceptions import GithubAPIException
 
 
 @record_requests_for_all_methods()
@@ -355,3 +357,7 @@ class PullRequests(GithubTests):
     def test_get_comment(self):
         comment = self.hello_world_project.get_pr(72).get_comment(559765628)
         assert comment.body == "check comment updates\r\n\r\nedit"
+
+    def test_pr_not_exists(self):
+        with pytest.raises(GithubAPIException):
+            self.ogr_project.get_pr(10 ** 20)

@@ -1,10 +1,12 @@
 # Copyright Contributors to the Packit project.
 # SPDX-License-Identifier: MIT
 
+import pytest
 from requre.online_replacing import record_requests_for_all_methods
 
 from tests.integration.gitlab.base import GitlabTests
 from ogr.abstract import PRStatus, CommitStatus, MergeCommitStatus
+from ogr.exceptions import GitlabAPIException
 
 
 @record_requests_for_all_methods()
@@ -380,3 +382,7 @@ class PullRequests(GitlabTests):
     def test_get_comment(self):
         comment = self.project.get_pr(1).get_comment(214842329)
         assert comment.body == "first comment of mergerequest"
+
+    def test_pr_not_exists(self):
+        with pytest.raises(GitlabAPIException):
+            self.project.get_pr(10 ** 20)

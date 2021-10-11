@@ -107,7 +107,10 @@ class GitlabService(BaseGitService):
 
         if description:
             data["description"] = description
-        new_project = self.gitlab_instance.projects.create(data)
+        try:
+            new_project = self.gitlab_instance.projects.create(data)
+        except gitlab.GitlabCreateError as ex:
+            raise GitlabAPIException("Project already exists") from ex
         return GitlabProject(
             repo=repo, namespace=namespace, service=self, gitlab_repo=new_project
         )
