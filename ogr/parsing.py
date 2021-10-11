@@ -1,30 +1,25 @@
-# MIT License
-#
-# Copyright (c) 2018-2019 Red Hat, Inc.
-
-# Permission is hereby granted, free of charge, to any person obtaining a copy
-# of this software and associated documentation files (the "Software"), to deal
-# in the Software without restriction, including without limitation the rights
-# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-# copies of the Software, and to permit persons to whom the Software is
-# furnished to do so, subject to the following conditions:
-#
-# The above copyright notice and this permission notice shall be included in all
-# copies or substantial portions of the Software.
-#
-# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-# SOFTWARE.
+# Copyright Contributors to the Packit project.
+# SPDX-License-Identifier: MIT
 
 from typing import Optional, Tuple, List
 from urllib.parse import urlparse, ParseResult
 
 
 class RepoUrl:
+    """
+    Class that represents repo URL.
+
+    Attributes:
+        repo (str): Name of the repository.
+        namespace (Optional[str]): Namespace of the repository, if has any.
+        username (Optional[str]): Username of the repository owner, if can be
+            specified.
+        is_fork (bool): Flag denoting if repository is a fork, if can be
+            specified (Pagure).
+        hostname (Optional[str]): Hostname of host of the repository.
+        scheme (Optional[str]): Protocol used to access repository.
+    """
+
     def __init__(
         self,
         repo: str,
@@ -42,6 +37,10 @@ class RepoUrl:
         self.scheme = scheme
 
     def get_instance_url(self) -> str:
+        """
+        Returns:
+            Instance URL of host of the repository.
+        """
         scheme = self.scheme or "http"
         return f"{scheme}://{self.hostname}"
 
@@ -175,6 +174,15 @@ class RepoUrl:
 
     @classmethod
     def parse(cls, potential_url: str) -> Optional["RepoUrl"]:
+        """
+        Details in `parse_git_repo` function.
+
+        Args:
+            potential_url: URL of a git repository.
+
+        Returns:
+            RepoUrl instance if can be parsed, `None` otherwise.
+        """
         if not potential_url:
             return None
 
@@ -192,23 +200,41 @@ class RepoUrl:
 
 
 def parse_git_repo(potential_url: str) -> Optional[RepoUrl]:
-    """Cover the following variety of URL forms for Github/Gitlab repo referencing.
+    """
+    Parses given URL of a git repository.
 
-    1) www.domain.com/foo/bar
-    2) (same as above, but with ".git" in the end)
-    3) (same as the two above, but without "www.")
-    # all of the three above, but starting with "http://", "https://", "git://", "git+https://"
-    4) git@domain.com:foo/bar
-    5) (same as above, but with ".git" in the end)
-    6) (same as the two above but with "ssh://" in front or with "git+ssh" instead of "git")
-    7) pagure format of forks (e.g. domain.com/fork/username/namespace/project)
-    8) nested groups on GitLab or Pagure (empty namespace is supported as well)
+    ### Covered scenarios
+
+    1. URL in form: `www.domain.com/foo/bar`
+        - with trailing `.git`
+        - without `www.`
+        - starting with `http://`, `https://`, `git://` or `git+https://`
+    2. URL in form: `git@domain.com:foo/bar`
+        - with trailing `.git`
+        - with `ssh://` at the start or with `git+ssh` instead of `git`
+    8. Pagure format of forks, e.g.
+       `domain.com/fork/username/namespace/project`
+    9. Nested groups on GitLab or Pagure (empty namespace is supported as well)
+
+    Args:
+        potential_url: URL of a git repository.
+
+    Returns:
+        Object of RepoUrl class if can be parsed, `None` otherwise.
     """
     return RepoUrl.parse(potential_url)
 
 
 def get_username_from_git_url(url: str) -> Optional[str]:
-    """http://github.com/foo/bar.git -> foo"""
+    """
+    Returns username from the git URL.
+
+    Args:
+        url: URL of the git repository.
+
+    Returns:
+        Username if can be parsed, `None` otherwise.
+    """
     repo_url = parse_git_repo(url)
     if repo_url:
         return repo_url.username
@@ -216,7 +242,15 @@ def get_username_from_git_url(url: str) -> Optional[str]:
 
 
 def get_reponame_from_git_url(url: str) -> Optional[str]:
-    """http://github.com/foo/bar.git -> bar"""
+    """
+    Returns repository name from the git URL.
+
+    Args:
+        url: URL of the git repository.
+
+    Returns:
+        Repository name if can be parsed, `None` otherwise.
+    """
     repo_url = parse_git_repo(url)
     if repo_url:
         return repo_url.repo
@@ -224,5 +258,14 @@ def get_reponame_from_git_url(url: str) -> Optional[str]:
 
 
 def strip_dot_git(url: str) -> str:
+    """
+    Strips `.git` from the given URL of a git repository.
+
+    Args:
+        url: URL of the git repository.
+
+    Returns:
+        URL without trailing `.git`.
+    """
     """Strip trailing .git"""
     return url[: -len(".git")] if url.endswith(".git") else url

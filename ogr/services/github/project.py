@@ -1,24 +1,5 @@
-# MIT License
-#
-# Copyright (c) 2018-2019 Red Hat, Inc.
-
-# Permission is hereby granted, free of charge, to any person obtaining a copy
-# of this software and associated documentation files (the "Software"), to deal
-# in the Software without restriction, including without limitation the rights
-# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-# copies of the Software, and to permit persons to whom the Software is
-# furnished to do so, subject to the following conditions:
-#
-# The above copyright notice and this permission notice shall be included in all
-# copies or substantial portions of the Software.
-#
-# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-# SOFTWARE.
+# Copyright Contributors to the Packit project.
+# SPDX-License-Identifier: MIT
 
 import datetime
 import logging
@@ -119,18 +100,10 @@ class GithubProject(BaseGitProject):
 
     @property
     def description(self) -> str:
-        """
-        Returns:
-            Project description.
-        """
         return self.github_repo.description
 
     @description.setter
     def description(self, new_description: str) -> None:
-        """
-        Args:
-            new_description: description to set for project.
-        """
         self.github_repo.edit(description=new_description)
 
     def _construct_fork_project(self) -> Optional["GithubProject"]:
@@ -158,35 +131,17 @@ class GithubProject(BaseGitProject):
             raise GithubAPIException from ex
 
     def is_private(self) -> bool:
-        """
-        Is this repo private? (accessible only by users with granted access)
-
-        :return: if yes, return True
-        """
         return self.github_repo.private
 
     def is_forked(self) -> bool:
-        """
-        Is this repo forked by the authenticated user?
-
-        :return: if yes, return True
-        """
         return bool(self._construct_fork_project())
 
     @property
     def is_fork(self) -> bool:
-        """
-        Is this repository a fork?
-
-        :return: True if it is
-        """
         return self.github_repo.fork
 
     @property
     def parent(self) -> Optional["GithubProject"]:
-        """
-        Return parent project if this project is a fork, otherwise return None
-        """
         return (
             self.service.get_project_from_github_repository(self.github_repo.parent)
             if self.is_fork
@@ -204,13 +159,6 @@ class GithubProject(BaseGitProject):
         return self.github_repo.description
 
     def add_user(self, user: str, access_level: AccessLevel) -> None:
-        """
-        AccessLevel.pull => Pull
-        AccessLevel.triage => Triage
-        AccessLevel.push => Push
-        AccessLevel.admin => Admin
-        AccessLevel.maintain => Maintain
-        """
         access_dict = {
             AccessLevel.pull: "Pull",
             AccessLevel.triage: "Triage",
@@ -232,14 +180,6 @@ class GithubProject(BaseGitProject):
         raise OperationNotSupported("Not possible on GitHub")
 
     def get_fork(self, create: bool = True) -> Optional["GithubProject"]:
-        """
-        Provide GithubProject instance of a fork of this project.
-
-        Returns None if this is a fork.
-
-        :param create: create a fork if it doesn't exist
-        :return: instance of GithubProject
-        """
         username = self.service.user.get_username()
         for fork in self.get_forks():
             if fork.github_repo.owner.login == username:
@@ -290,8 +230,10 @@ class GithubProject(BaseGitProject):
 
     def _get_collaborators_with_permission(self) -> dict:
         """
-        Get all project collaborators in dictionary with permission association
-        :return: List of usernames
+        Get all project collaborators in dictionary with permission association.
+
+        Returns:
+            Dictionary with logins of collaborators and their permission level.
         """
         collaborators = {}
         users = self.github_repo.get_collaborators()
@@ -345,6 +287,15 @@ class GithubProject(BaseGitProject):
         raise GithubAPIException(f"Tag {tag_name} was not found.")
 
     def get_tag_from_tag_name(self, tag_name: str) -> Optional[GitTag]:
+        """
+        Get a tag based on a tag name.
+
+        Args:
+            tag_name: Name of the tag.
+
+        Returns:
+            GitTag associated with the given tag name or `None`.
+        """
         all_tags = self.github_repo.get_tags()
         for tag in all_tags:
             if tag.name == tag_name:
@@ -370,15 +321,6 @@ class GithubProject(BaseGitProject):
     def commit_comment(
         self, commit: str, body: str, filename: str = None, row: int = None
     ) -> CommitComment:
-        """
-        Create comment on a commit.
-
-        :param commit: str The SHA of the commit needing a comment.
-        :param body: str The text of the comment
-        :param filename: str The relative path to the file that necessitates a comment
-        :param row: int Line index in the diff to comment on.
-        :return: CommitComment
-        """
         github_commit = self.github_repo.get_commit(commit)
         if filename and row:
             comment = github_commit.create_comment(
@@ -402,28 +344,10 @@ class GithubProject(BaseGitProject):
         context: str,
         trim: bool = False,
     ):
-        """
-        Create a status on a commit
-
-        :param commit: The SHA of the commit.
-        :param state: The state of the status.
-        :param target_url: The target URL to associate with this status.
-        :param description: A short description of the status
-        :param context: A label to differentiate this status from the status of other systems.
-        :param trim: bool Whether to trim the description in order to avoid throwing
-            github.GithubException
-        :return:
-        """
         pass
 
     @indirect(GithubCommitFlag.get)
     def get_commit_statuses(self, commit: str) -> List[CommitFlag]:
-        """
-        Get status of the commit.
-
-        :param commit: str
-        :return: [CommitFlag]
-        """
         pass
 
     @indirect(GithubCheckRun.get)
@@ -464,12 +388,6 @@ class GithubProject(BaseGitProject):
 
     @if_readonly(return_function=GitProjectReadOnly.fork_create)
     def fork_create(self) -> "GithubProject":
-        """
-        Fork this project using the authenticated user.
-        This may raise an exception if the fork already exists.
-
-        :return: fork GithubProject instance
-        """
         gh_user = self.github_instance.get_user()
         fork = self.service.get_project_from_github_repository(
             gh_user.create_fork(self.github_repo)
@@ -494,13 +412,6 @@ class GithubProject(BaseGitProject):
     def get_files(
         self, ref: str = None, filter_regex: str = None, recursive: bool = False
     ) -> List[str]:
-        """
-        Get a list of file paths of the repo.
-        :param ref: branch or commit (defaults to repo's default branch)
-        :param filter_regex: filter the paths with re.search
-        :param recursive: whether to return only top directory files or all files recursively
-        :return: [str]
-        """
         ref = ref or self.default_branch
         paths = []
         contents = self.github_repo.get_contents(path="", ref=ref)
@@ -533,16 +444,12 @@ class GithubProject(BaseGitProject):
         """
         Get ogr.abstract.Release object from github.GithubRelease
 
-        :param raw_release: GithubRelease, object from Github API
-            https://developer.github.com/v3/repos/releases/
-        :return: Release, example(type, value):
-            tag_name: str, "v1.0.0"
-            url: str, "https://api.github.com/repos/octocat/Hello-World/releases/1"
-            created_at: datetime.datetime, 2018-09-19 12:56:26
-            tarball_url: str, "https://api.github.com/repos/octocat/Hello-World/tarball/v1.0.0"
-            git_tag: GitTag
-            project: GithubProject
-            raw_release: PyGithubRelease
+        Args:
+            raw_release: GithubRelease, object from Github API
+                https://developer.github.com/v3/repos/releases/
+
+        Returns:
+            Release object.
         """
         return GithubRelease(
             tag_name=raw_release.tag_name,
@@ -567,7 +474,9 @@ class GithubProject(BaseGitProject):
     def get_labels(self):
         """
         Get list of labels in the repository.
-        :return: [Label]
+
+        Returns:
+            List of labels in the repository.
         """
         return list(self.github_repo.get_labels())
 
@@ -575,8 +484,11 @@ class GithubProject(BaseGitProject):
         """
         Update the labels of the repository. (No deletion, only add not existing ones.)
 
-        :param labels: [str]
-        :return: int - number of added labels
+        Args:
+            labels: List of labels to be added.
+
+        Returns:
+            Number of added labels.
         """
         current_label_names = [la.name for la in list(self.github_repo.get_labels())]
         changes = 0
@@ -651,11 +563,6 @@ class GithubProject(BaseGitProject):
         return self.get_release(created_release.id)
 
     def get_forks(self) -> List["GithubProject"]:
-        """
-        Get forks of the project.
-
-        :return: [PagureProject]
-        """
         return [
             self.service.get_project_from_github_repository(fork)
             for fork in self.github_repo.get_forks()
@@ -663,11 +570,6 @@ class GithubProject(BaseGitProject):
         ]
 
     def get_web_url(self) -> str:
-        """
-        Get web URL of the project.
-
-        :return: str
-        """
         return self.github_repo.html_url
 
     def get_tags(self) -> List["GitTag"]:

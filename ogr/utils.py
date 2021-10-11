@@ -1,24 +1,5 @@
-# MIT License
-#
-# Copyright (c) 2018-2019 Red Hat, Inc.
-
-# Permission is hereby granted, free of charge, to any person obtaining a copy
-# of this software and associated documentation files (the "Software"), to deal
-# in the Software without restriction, including without limitation the rights
-# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-# copies of the Software, and to permit persons to whom the Software is
-# furnished to do so, subject to the following conditions:
-#
-# The above copyright notice and this permission notice shall be included in all
-# copies or substantial portions of the Software.
-#
-# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-# SOFTWARE.
+# Copyright Contributors to the Packit project.
+# SPDX-License-Identifier: MIT
 
 import functools
 import logging
@@ -36,6 +17,25 @@ def filter_comments(
     reverse: bool = False,
     author: Optional[str] = None,
 ) -> List[AnyComment]:
+    """
+    Filters comments from the given list.
+
+    Args:
+        comments: List of comments to be filtered.
+        filter_regex: Regex to be used for filtering body of the
+            comments.
+
+            Defaults to `None`, which means no filtering by regex.
+        reverse: Specifies ordering of the comments.
+
+            Defaults to `False`, which means the order is kept from the input.
+        author: Login of the author of the comments.
+
+            Defaults to `None`, which means no filtering by author.
+
+    Returns:
+        List of comments that satisfy requested criteria.
+    """
     if reverse:
         comments.reverse()
 
@@ -58,11 +58,15 @@ def search_in_comments(
     comments: List[Union[str, Comment]], filter_regex: str
 ) -> Optional[Match[str]]:
     """
-    Find match in pull-request description or comments.
+    Find match in pull request description or comments.
 
-    :param comments: [str or PRComment]
-    :param filter_regex: filter the comments' content with re.search
-    :return: re.Match or None
+    Args:
+        comments: List of comments or bodies of comments
+            to be searched through.
+        filter_regex: Regex to be used for filtering with `re.search`.
+
+    Returns:
+        Match that has been found, `None` otherwise.
     """
     pattern = re.compile(filter_regex)
     for comment in comments:
@@ -75,6 +79,16 @@ def search_in_comments(
 
 
 class RequestResponse:
+    """
+    Class that holds response for Pagure requests.
+
+    Attributes:
+        status_code (int): Status code of the response.
+        ok (bool): `True` if successful, `False` otherwise.
+        content (bytes): Content of the response.
+        json_content (Optional[Dict[Any, Any]]): JSON content of the response.
+    """
+
     def __init__(
         self,
         status_code: int,
@@ -123,6 +137,10 @@ class RequestResponse:
         )
 
     def to_json_format(self) -> Dict[str, Any]:
+        """
+        Returns:
+            Response in a JSON format.
+        """
         output = {
             "status_code": self.status_code,
             "ok": self.ok,
@@ -141,15 +159,23 @@ class RequestResponse:
         return output
 
     def json(self) -> Optional[Dict[Any, Any]]:
+        """
+        Returns:
+            JSON content of the response.
+        """
         return self.json_content
 
 
 def filter_paths(paths: List[str], filter_regex: str) -> List[str]:
     """
-    Find match in paths.
-    :param paths:
-    :param filter_regex:
-    :return: [str]
+    Filters paths from the given list.
+
+    Args:
+        paths: List of paths to be filtered.
+        filter_regex: Regex to be used for filtering paths.
+
+    Returns:
+        List of path that satisfy regex.
     """
     pattern = re.compile(filter_regex)
     return [path for path in paths if (not pattern or bool(pattern.search(path)))]
@@ -157,11 +183,11 @@ def filter_paths(paths: List[str], filter_regex: str) -> List[str]:
 
 def indirect(specialized_function: Callable) -> Any:
     """
-    Decorator to wrap methods on GitProjects that call specialized classes.
+    Decorator to wrap methods on `GitProject`s that call specialized classes.
 
     Args:
-        specialized_function (Callable): Static method of the specialized class
-            that takes as first argument the GitProject itself.
+        specialized_function: Static method of the specialized class
+            that takes as first argument the `GitProject` itself.
 
     Returns:
         Decorator that calls `specialized_function` once called.

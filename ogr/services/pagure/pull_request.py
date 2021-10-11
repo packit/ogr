@@ -1,24 +1,5 @@
-# MIT License
-#
-# Copyright (c) 2018-2019 Red Hat, Inc.
-
-# Permission is hereby granted, free of charge, to any person obtaining a copy
-# of this software and associated documentation files (the "Software"), to deal
-# in the Software without restriction, including without limitation the rights
-# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-# copies of the Software, and to permit persons to whom the Software is
-# furnished to do so, subject to the following conditions:
-#
-# The above copyright notice and this permission notice shall be included in all
-# copies or substantial portions of the Software.
-#
-# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-# SOFTWARE.
+# Copyright Contributors to the Packit project.
+# SPDX-License-Identifier: MIT
 
 import datetime
 import logging
@@ -292,20 +273,20 @@ class PagurePullRequest(BasePullRequest):
         """
         Set a flag on a pull-request to display results or status of CI tasks.
 
-        See "Flag a pull-request" at
-
-            https://pagure.io/api/0/#pull_requests-tab
-
+        See "Flag a pull-request" at https://pagure.io/api/0/#pull_requests-tab
         for a full description of the parameters.
 
-        :param username: The name of the application to be presented to users
-                         on the pull request page.
-        :param comment: A short message summarizing the presented results.
-        :param url: A URL to the result of this flag.
-        :param status: The status to be displayed for this flag.
-        :param percent: A percentage of completion compared to the goal.
-        :param uid: A unique identifier used to identify a flag on the pull-request.
-        :return: dict with the response received from Pagure.
+        Args:
+            username: The name of the application to be presented to users
+                on the pull request page.
+            comment: A short message summarizing the presented results.
+            url: A URL to the result of this flag.
+            status: The status to be displayed for this flag.
+            percent: A percentage of completion compared to the goal.
+            uid: A unique identifier used to identify a flag on the pull-request.
+
+        Returns:
+            Dictionary with the response received from Pagure.
         """
         data: Dict[str, Union[str, int]] = {
             "username": username,

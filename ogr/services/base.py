@@ -1,24 +1,5 @@
-# MIT License
-#
-# Copyright (c) 2018-2019 Red Hat, Inc.
-
-# Permission is hereby granted, free of charge, to any person obtaining a copy
-# of this software and associated documentation files (the "Software"), to deal
-# in the Software without restriction, including without limitation the rights
-# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-# copies of the Software, and to permit persons to whom the Software is
-# furnished to do so, subject to the following conditions:
-#
-# The above copyright notice and this permission notice shall be included in all
-# copies or substantial portions of the Software.
-#
-# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-# SOFTWARE.
+# Copyright Contributors to the Packit project.
+# SPDX-License-Identifier: MIT
 
 import datetime
 from typing import List, Optional, Match, Any, Union
@@ -54,9 +35,6 @@ except ImportError:
 class BaseGitService(GitService):
     @cached_property
     def hostname(self) -> Optional[str]:
-        """
-        Hostname of the service.
-        """
         parsed_url = parse_git_repo(potential_url=self.instance_url)
         return parsed_url.hostname if parsed_url else None
 
@@ -70,12 +48,6 @@ class BaseGitService(GitService):
 class BaseGitProject(GitProject):
     @property
     def full_repo_name(self) -> str:
-        """
-        Get repo name with namespace
-        e.g. 'rpms/python-docker-py'
-
-        :return: str
-        """
         return f"{self.namespace}/{self.repo}"
 
     @deprecate_and_set_removal(
@@ -86,15 +58,6 @@ class BaseGitProject(GitProject):
     def get_pr_comments(
         self, pr_id, filter_regex: str = None, reverse: bool = False, author: str = None
     ) -> List[PRComment]:
-        """
-        Get list of pull-request comments.
-
-        :param pr_id: int
-        :param filter_regex: filter the comments' content with re.search
-        :param reverse: reverse order of comments
-        :param author: filter comments by author
-        :return: [PRComment]
-        """
         return self.get_pr(pr_id).get_comments(filter_regex, reverse, author)
 
     @deprecate_and_set_removal(
@@ -109,15 +72,6 @@ class BaseGitProject(GitProject):
         reverse: bool = False,
         description: bool = True,
     ) -> Optional[Match[str]]:
-        """
-        Find match in pull-request description or comments.
-
-        :param description: bool (search in description?)
-        :param pr_id: int
-        :param filter_regex: filter the comments' content with re.search
-        :param reverse: reverse order of comments
-        :return: re.Match or None
-        """
         return self.get_pr(pr_id).search(filter_regex, reverse, description)
 
     @if_readonly(return_function=GitProjectReadOnly.pr_close)

@@ -1,3 +1,6 @@
+# Copyright Contributors to the Packit project.
+# SPDX-License-Identifier: MIT
+
 from requre.online_replacing import record_requests_for_all_methods
 
 from tests.integration.github.base import GithubTests

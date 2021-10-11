@@ -1,24 +1,5 @@
-# MIT License
-#
-# Copyright (c) 2018-2019 Red Hat, Inc.
-
-# Permission is hereby granted, free of charge, to any person obtaining a copy
-# of this software and associated documentation files (the "Software"), to deal
-# in the Software without restriction, including without limitation the rights
-# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-# copies of the Software, and to permit persons to whom the Software is
-# furnished to do so, subject to the following conditions:
-#
-# The above copyright notice and this permission notice shall be included in all
-# copies or substantial portions of the Software.
-#
-# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-# SOFTWARE.
+# Copyright Contributors to the Packit project.
+# SPDX-License-Identifier: MIT
 
 import logging
 from typing import List, Optional, Union
@@ -131,9 +112,20 @@ class PagureService(BaseGitService):
     def call_api(
         self, url: str, method: str = None, params: dict = None, data=None
     ) -> dict:
-        """Method used to call the API.
-        It returns the raw JSON returned by the API or raises an exception
-        if something goes wrong.
+        """
+        Call API endpoint.
+
+        Args:
+            url: URL to be called.
+            method: Method of the HTTP request, e.g. `"GET"`, `"POST"`, etc.
+            params: HTTP(S) query parameters in form of a dictionary.
+            data: Data to be sent in form of a dictionary.
+
+        Returns:
+            Dictionary representing response.
+
+        Raises:
+            PagureAPIException, if error occurs.
         """
         response = self.call_api_raw(url=url, method=method, params=params, data=data)
 
@@ -172,6 +164,20 @@ class PagureService(BaseGitService):
     def call_api_raw(
         self, url: str, method: str = None, params: dict = None, data=None
     ):
+        """
+        Call API endpoint and returns raw response.
+
+        Args:
+            url: URL to be called.
+            method: Method of the HTTP request, e.g. `"GET"`, `"POST"`, etc.
+            params: HTTP(S) query parameters in form of a dictionary.
+            data: Data to be sent in form of a dictionary.
+
+        Returns:
+            `RequestResponse` object that represents the response from the API
+            endpoint.
+        """
+
         method = method or "GET"
         try:
             response = self.get_raw_request(
@@ -186,6 +192,24 @@ class PagureService(BaseGitService):
     def get_raw_request(
         self, url, method="GET", params=None, data=None, header=None
     ) -> RequestResponse:
+        """
+        Call API endpoint and wrap the response in `RequestResponse` type.
+
+        Args:
+            url: URL to be called.
+            method: Method of the HTTP request, e.g. `"GET"`, `"POST"`, etc.
+
+                Defaults to `"GET"`.
+            params: HTTP(S) query parameters in form of a dictionary.
+            data: Data to be sent in form of a dictionary.
+            header: Header of the HTTP request.
+
+        Returns:
+            `RequestResponse` object representing the response.
+
+        Raises:
+            ValueError, if JSON cannot be retrieved.
+        """
 
         response = self.session.request(
             method=method,
@@ -212,15 +236,21 @@ class PagureService(BaseGitService):
 
     @property
     def api_url(self):
+        """URL to the Pagure API."""
         return f"{self.instance_url}/api/0/"
 
-    def get_api_url(self, *args, add_api_endpoint_part=True) -> str:
+    def get_api_url(self, *args, add_api_endpoint_part: bool = True) -> str:
         """
         Get a URL from its parts.
 
-        :param args: str parts of the url (e.g. "a", "b" will call "/a/b")
-        :param add_api_endpoint_part: Add part with API endpoint "/api/0/", True by default
-        :return: str
+        Args:
+            *args: String parts of the URL, e.g. `"a", "b"` will call `project/a/b`
+            add_api_endpoint_part: Add part with API endpoint (`/api/0/`).
+
+                Defaults to `True`.
+
+        Returns:
+            String
         """
         args_list: List[str] = []
 
@@ -232,8 +262,8 @@ class PagureService(BaseGitService):
 
     def get_api_version(self) -> str:
         """
-        Get Pagure API version.
-        :return:
+        Returns:
+            Version of the Pagure API.
         """
         request_url = self.get_api_url("version")
         return_value = self.call_api(request_url)
@@ -241,8 +271,8 @@ class PagureService(BaseGitService):
 
     def get_error_codes(self):
         """
-        Get a dictionary of all error codes.
-        :return:
+        Returns:
+            Dictionary with all error codes.
         """
         request_url = self.get_api_url("error_codes")
         return_value = self.call_api(request_url)
