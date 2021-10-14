@@ -1,0 +1,58 @@
+_requre:
+  DataTypes: 1
+  key_strategy: StorageKeysInspectSimple
+  version_storage_file: 3
+requests.sessions:
+  send:
+    POST:
+      https://api.github.com:443/user/repos:
+      - metadata:
+          latency: 0.26053428649902344
+          module_call_list:
+          - unittest.case
+          - requre.record_and_replace
+          - tests.integration.github.test_service
+          - ogr.abstract
+          - ogr.services.github.service
+          - github.AuthenticatedUser
+          - github.Requester
+          - requests.sessions
+          - requre.objects
+          - requre.cassette
+          - requests.sessions
+          - send
+        output:
+          __store_indicator: 2
+          _content:
+            documentation_url: https://docs.github.com/rest
+            message: Bad credentials
+          _next: null
+          elapsed: 0.259641
+          encoding: utf-8
+          headers:
+            Access-Control-Allow-Origin: '*'
+            Access-Control-Expose-Headers: ETag, Link, Location, Retry-After, X-GitHub-OTP,
+              X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Used, X-RateLimit-Resource,
+              X-RateLimit-Reset, X-OAuth-Scopes, X-Accepted-OAuth-Scopes, X-Poll-Interval,
+              X-GitHub-Media-Type, Deprecation, Sunset
+            Content-Length: '80'
+            Content-Security-Policy: default-src 'none'
+            Content-Type: application/json; charset=utf-8
+            Date: Wed, 29 Sep 2021 09:28:27 GMT
+            Referrer-Policy: origin-when-cross-origin, strict-origin-when-cross-origin
+            Server: GitHub.com
+            Strict-Transport-Security: max-age=31536000; includeSubdomains; preload
+            Vary: Accept-Encoding, Accept, X-Requested-With
+            X-Content-Type-Options: nosniff
+            X-Frame-Options: deny
+            X-GitHub-Media-Type: github.v3; format=json
+            X-GitHub-Request-Id: 685E:5C19:36948C:37D437:615431BA
+            X-RateLimit-Limit: '60'
+            X-RateLimit-Remaining: '59'
+            X-RateLimit-Reset: '1632911307'
+            X-RateLimit-Resource: core
+            X-RateLimit-Used: '1'
+            X-XSS-Protection: '0'
+          raw: !!binary ""
+          reason: Unauthorized
+          status_code: 401

@@ -3,6 +3,8 @@
 
 import datetime
 import logging
+
+import github
 import requests
 from typing import Optional, List, Union
 
@@ -14,7 +16,7 @@ from github.IssueComment import IssueComment as _GithubIssueComment
 from github.PullRequestComment import PullRequestComment as _GithubPullRequestComment
 
 from ogr.abstract import PRComment, PRStatus, PullRequest, MergeCommitStatus
-from ogr.exceptions import GithubAPIException
+from ogr.exceptions import GithubAPIException, OgrNetworkError
 from ogr.services import github as ogr_github
 from ogr.services.base import BasePullRequest
 from ogr.services.github.comments import GithubPRComment
@@ -88,7 +90,8 @@ class GithubPullRequest(BasePullRequest):
         response = requests.get(self._raw_pr.patch_url)
 
         if not response.ok:
-            raise GithubAPIException(
+            cls = OgrNetworkError if response.status_code >= 500 else GithubAPIException
+            raise cls(
                 f"Couldn't get patch from {self._raw_pr.patch_url} because {response.reason}."
             )
 
@@ -172,7 +175,10 @@ class GithubPullRequest(BasePullRequest):
 
     @staticmethod
     def get(project: "ogr_github.GithubProject", pr_id: int) -> "PullRequest":
-        pr = project.github_repo.get_pull(number=pr_id)
+        try:
+            pr = project.github_repo.get_pull(number=pr_id)
+        except github.UnknownObjectException as ex:
+            raise GithubAPIException(f"No pull request with id {pr_id} found") from ex
         return GithubPullRequest(pr, project)
 
     @staticmethod
@@ -204,7 +210,7 @@ class GithubPullRequest(BasePullRequest):
             logger.info(f"PR updated: {self._raw_pr.url}")
             return self
         except Exception as ex:
-            raise GithubAPIException("there was an error while updating the PR", ex)
+            raise GithubAPIException("there was an error while updating the PR") from ex
 
     def _get_all_comments(self) -> List[PRComment]:
         return [

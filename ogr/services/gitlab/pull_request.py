@@ -2,6 +2,8 @@
 # SPDX-License-Identifier: MIT
 
 import datetime
+
+import gitlab
 import requests
 from typing import Dict, List, Optional
 
@@ -9,7 +11,7 @@ from gitlab.v4.objects import MergeRequest as _GitlabMergeRequest
 from gitlab.exceptions import GitlabGetError
 
 from ogr.abstract import PullRequest, PRComment, PRStatus, MergeCommitStatus
-from ogr.exceptions import GitlabAPIException
+from ogr.exceptions import GitlabAPIException, OgrNetworkError
 from ogr.services import gitlab as ogr_gitlab
 from ogr.services.base import BasePullRequest
 from ogr.services.gitlab.comments import GitlabPRComment
@@ -94,7 +96,8 @@ class GitlabPullRequest(BasePullRequest):
         response = requests.get(f"{self.url}.patch")
 
         if not response.ok:
-            raise GitlabAPIException(
+            cls = OgrNetworkError if response.status_code >= 500 else GitlabAPIException
+            raise cls(
                 f"Couldn't get patch from {self.url}.patch because {response.reason}."
             )
 
@@ -223,7 +226,10 @@ class GitlabPullRequest(BasePullRequest):
 
     @staticmethod
     def get(project: "ogr_gitlab.GitlabProject", pr_id: int) -> "PullRequest":
-        mr = project.gitlab_repo.mergerequests.get(pr_id)
+        try:
+            mr = project.gitlab_repo.mergerequests.get(pr_id)
+        except gitlab.GitlabGetError as ex:
+            raise GitlabAPIException(f"No PR with id {pr_id} found") from ex
         return GitlabPullRequest(mr, project)
 
     @staticmethod

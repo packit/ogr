@@ -4,6 +4,7 @@
 import datetime
 from typing import List, Optional, Dict, Union
 
+import github
 from github import UnknownObjectException
 from github.Issue import Issue as _GithubIssue
 
@@ -93,7 +94,10 @@ class GithubIssue(BaseIssue):
 
     @staticmethod
     def get(project: "ogr_github.GithubProject", issue_id: int) -> "Issue":
-        issue = project.github_repo.get_issue(number=issue_id)
+        try:
+            issue = project.github_repo.get_issue(number=issue_id)
+        except github.UnknownObjectException as ex:
+            raise GithubAPIException(f"No issue with id {issue_id} found") from ex
         return GithubIssue(issue, project)
 
     @staticmethod
@@ -147,7 +151,10 @@ class GithubIssue(BaseIssue):
             self._raw_issue.add_to_labels(label)
 
     def add_assignee(self, *assignees: str) -> None:
-        self._raw_issue.edit(assignees=list(assignees))
+        try:
+            self._raw_issue.edit(assignees=list(assignees))
+        except github.GithubException as ex:
+            raise GithubAPIException("Failed to assign issue, unknown user") from ex
 
     def get_comment(self, comment_id: int) -> IssueComment:
         return GithubIssueComment(self._raw_issue.get_comment(comment_id))

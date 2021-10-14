@@ -52,9 +52,9 @@ class GitlabCommitFlag(BaseCommitFlag):
     def get(project: "ogr_gitlab.GitlabProject", commit: str) -> List["CommitFlag"]:
         try:
             commit_object = project.gitlab_repo.commits.get(commit)
-        except gitlab.exceptions.GitlabGetError:
+        except gitlab.exceptions.GitlabGetError as ex:
             logger.error(f"Commit {commit} was not found.")
-            raise GitlabAPIException(f"Commit {commit} was not found.")
+            raise GitlabAPIException(f"Commit {commit} was not found.") from ex
 
         raw_statuses = commit_object.statuses.list(all=True)
         return [
@@ -79,9 +79,9 @@ class GitlabCommitFlag(BaseCommitFlag):
 
         try:
             commit_object = project.gitlab_repo.commits.get(commit)
-        except gitlab.exceptions.GitlabGetError:
+        except gitlab.exceptions.GitlabGetError as ex:
             logger.error(f"Commit {commit} was not found.")
-            raise GitlabAPIException(f"Commit {commit} was not found.")
+            raise GitlabAPIException(f"Commit {commit} was not found.") from ex
 
         data_dict = {
             "state": GitlabCommitFlag._state_from_enum(state),

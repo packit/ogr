@@ -61,7 +61,7 @@ class GitlabComment:
             reaction_obj = self._raw_comment.awardemojis.create({"name": reaction})
         except gitlab.exceptions.GitlabCreateError as ex:
             if "404 Award Emoji Name has already been taken" not in str(ex):
-                raise GitlabAPIException(ex)
+                raise GitlabAPIException() from ex
 
             # this happens only when the reaction was already added
             logger.info(f"The emoji {reaction} has already been taken.")

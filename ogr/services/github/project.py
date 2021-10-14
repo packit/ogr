@@ -170,8 +170,8 @@ class GithubProject(BaseGitProject):
             invitation = self.github_repo.add_to_collaborators(
                 user, permission=access_dict[access_level]
             )
-        except Exception:
-            raise GithubAPIException("User {user} not found")
+        except Exception as ex:
+            raise GithubAPIException(f"User {user} not found") from ex
 
         if invitation is None:
             raise GithubAPIException("User already added")
@@ -406,8 +406,8 @@ class GithubProject(BaseGitProject):
             ).decoded_content.decode()
         except (UnknownObjectException, GithubException) as ex:
             if ex.status == 404:
-                raise FileNotFoundError(f"File '{path}' on {ref} not found", ex)
-            raise GithubAPIException(ex)
+                raise FileNotFoundError(f"File '{path}' on {ref} not found") from ex
+            raise GithubAPIException() from ex
 
     def get_files(
         self, ref: str = None, filter_regex: str = None, recursive: bool = False

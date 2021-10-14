@@ -1,0 +1,60 @@
+_requre:
+  DataTypes: 1
+  key_strategy: StorageKeysInspectSimple
+  version_storage_file: 3
+requests.sessions:
+  send:
+    GET:
+      https://gitlab.com/api/v4/user:
+      - metadata:
+          latency: 0.3896195888519287
+          module_call_list:
+          - unittest.case
+          - requre.record_and_replace
+          - tests.integration.gitlab.test_service
+          - ogr.abstract
+          - ogr.services.gitlab.pull_request
+          - ogr.services.gitlab.project
+          - ogr.services.gitlab.service
+          - gitlab.client
+          - gitlab.exceptions
+          - gitlab.mixins
+          - gitlab.client
+          - requre.objects
+          - requre.cassette
+          - requests.sessions
+          - send
+        output:
+          __store_indicator: 2
+          _content:
+            message: 401 Unauthorized
+          _next: null
+          elapsed: 0.388753
+          encoding: utf-8
+          headers:
+            CF-Cache-Status: DYNAMIC
+            CF-RAY: 698e7b469c7a97e4-FRA
+            Cache-Control: no-cache
+            Connection: keep-alive
+            Content-Length: '30'
+            Content-Type: application/json
+            Date: Mon, 04 Oct 2021 12:40:56 GMT
+            Expect-CT: max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
+            GitLab-LB: fe-12-lb-gprd
+            GitLab-SV: localhost
+            RateLimit-Limit: '2000'
+            RateLimit-Observed: '5'
+            RateLimit-Remaining: '1995'
+            RateLimit-Reset: '1633351316'
+            RateLimit-ResetTime: Mon, 04 Oct 2021 12:41:56 GMT
+            Referrer-Policy: strict-origin-when-cross-origin
+            Server: cloudflare
+            Strict-Transport-Security: max-age=31536000
+            Vary: Origin
+            X-Content-Type-Options: nosniff
+            X-Frame-Options: SAMEORIGIN
+            X-Request-Id: 01FH5N4J42W5PE19WSNP01MZXD
+            X-Runtime: '0.032891'
+          raw: !!binary ""
+          reason: Unauthorized
+          status_code: 401

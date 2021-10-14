@@ -129,6 +129,12 @@ class Issues(GithubTests):
         assert len(assignees) == 1
         assert assignees[0].login == "KPostOffice"
 
+    def test_issue_no_such_assignee(self):
+        project = self.service.get_project(repo="ogr", namespace="KPostOffice")
+        issue = project.get_issue(4)
+        with pytest.raises(GithubAPIException):
+            issue.add_assignee("slkdfjglkslfslkabcd")
+
     def test_list_contains_only_issues(self):
         issue_list_all = self.ogr_project.get_issue_list(status=IssueStatus.all)
         issue_ids = [issue.id for issue in issue_list_all]
@@ -136,6 +142,10 @@ class Issues(GithubTests):
         pr_ids = [219, 207, 201, 217, 208, 210]
         for id in pr_ids:
             assert id not in issue_ids
+
+    def test_issue_not_exists(self):
+        with pytest.raises(GithubAPIException):
+            self.ogr_project.get_issue(10 ** 20)
 
     def test_functions_fail_for_pr(self):
         with pytest.raises(GithubAPIException):

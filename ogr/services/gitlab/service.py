@@ -101,13 +101,16 @@ class GitlabService(BaseGitService):
         if namespace:
             try:
                 group = self.gitlab_instance.groups.get(namespace)
-            except gitlab.GitlabGetError:
-                raise GitlabAPIException(f"Group {namespace} not found.")
+            except gitlab.GitlabGetError as ex:
+                raise GitlabAPIException(f"Group {namespace} not found.") from ex
             data["namespace_id"] = group.id
 
         if description:
             data["description"] = description
-        new_project = self.gitlab_instance.projects.create(data)
+        try:
+            new_project = self.gitlab_instance.projects.create(data)
+        except gitlab.GitlabCreateError as ex:
+            raise GitlabAPIException("Project already exists") from ex
         return GitlabProject(
             repo=repo, namespace=namespace, service=self, gitlab_repo=new_project
         )

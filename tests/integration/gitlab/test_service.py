@@ -8,6 +8,8 @@ from requre.online_replacing import record_requests_for_all_methods
 from tests.integration.gitlab.base import GitlabTests
 
 from ogr import GitlabService
+from ogr.exceptions import GitlabAPIException
+from ogr.services.gitlab.pull_request import GitlabPullRequest
 
 
 @record_requests_for_all_methods()
@@ -86,6 +88,21 @@ class Service(GitlabTests):
         )
         assert project.gitlab_repo
 
+    def test_project_create_duplicate(self):
+        """
+        Remove https://gitlab.com/$USERNAME/new-ogr-testing-repo-fail before data regeneration
+        """
+        name_of_the_repo = "new-ogr-testing-repo-fail"
+        project = self.service.get_project(
+            repo=name_of_the_repo, namespace=self.service.user.get_username()
+        )
+        with pytest.raises(GitlabGetError):
+            assert project.gitlab_repo
+
+        self.service.project_create(name_of_the_repo)
+        with pytest.raises(GitlabAPIException):
+            self.service.project_create(name_of_the_repo)
+
     def test_service_without_auth(self):
         service = GitlabService()
         assert service.gitlab_instance
@@ -105,3 +122,12 @@ class Service(GitlabTests):
             namespace=name_of_the_repo, language=language
         )
         assert len(projects) == number_of_projects
+
+    def test_wrong_auth(self):
+        with pytest.raises(GitlabAPIException):
+            self.service.project_create("test")
+
+    def test_wrong_auth_static_method(self):
+        # Verify that the exception handler is applied to static methods
+        with pytest.raises(GitlabAPIException):
+            GitlabPullRequest.get(self.project, 1)

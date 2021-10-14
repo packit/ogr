@@ -103,7 +103,9 @@ class PagureIssue(BaseIssue):
             )
             self._raw_issue = updated_issue["issue"]
         except Exception as ex:
-            raise PagureAPIException("there was an error while updating the issue", ex)
+            raise PagureAPIException(
+                "there was an error while updating the issue"
+            ) from ex
 
     @staticmethod
     def create(
