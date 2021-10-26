@@ -20,10 +20,14 @@ repos:
     hooks:
       - id: check-added-large-files
       - id: check-ast
+      - id: check-builtin-literals
+      - id: check-docstring-first
       - id: check-merge-conflict
+      - id: check-symlinks
       - id: check-yaml
       - id: detect-private-key
       - id: end-of-file-fixer
+      - id: mixed-line-ending
       - id: trailing-whitespace
   - repo: https://github.com/PyCQA/flake8
     rev: 4.0.1
@@ -38,7 +42,7 @@ repos:
         additional_dependencies:
           [types-pkg_resources, types-requests, types-Deprecated]
   - repo: https://github.com/packit/pre-commit-hooks
-    rev: 77d2c91b31c161ccf9fb3b4259606f000f374c33
+    rev: b11abc61e8f5fe73297437148cd3ed15806883a0
     hooks:
       - id: check-rebase
         args:

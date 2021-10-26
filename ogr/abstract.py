@@ -875,7 +875,7 @@ class PullRequest(OgrAbstractClass):
 
 
 class CommitFlag(OgrAbstractClass):
-    _states: Dict[str, CommitStatus] = dict()
+    _states: Dict[str, CommitStatus] = {}
 
     def __init__(
         self,
