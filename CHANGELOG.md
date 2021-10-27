@@ -1,3 +1,13 @@
+# 0.31.0
+
+- Ogr now catches internal exceptions from Gitlab and Github and converts them
+  to ogr exceptions, GitlabAPIException and GithubAPIException, respectively. A
+  new exception, OgrNetworkError, has been introduced for signalling situations
+  where a request could not be performed due to a network outage. (#642)
+- The documentation was converted to Google-style docstrings. (#646)
+- Releases and development builds of ogr are now built in copr projects
+  packit/packit-dev and packit/packit-releases. (#644)
+
 # 0.30.0
 
 - New method to get pull request and issue comments by their comment ID on
