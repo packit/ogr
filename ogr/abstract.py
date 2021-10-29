@@ -1343,17 +1343,6 @@ class GitProject(OgrAbstractClass):
         """
         raise NotImplementedError()
 
-    def can_close_issue(self, username: str, issue: Issue) -> bool:
-        """
-        Args:
-            username: Username.
-            issue: Specific issue object.
-
-        Returns:
-            `True` if user can close given issue, `False` otherwise.
-        """
-        raise NotImplementedError()
-
     def can_merge_pr(self, username: str) -> bool:
         """
         Args:
@@ -1445,59 +1434,6 @@ class GitProject(OgrAbstractClass):
         """
         raise NotImplementedError()
 
-    def _get_all_issue_comments(self, issue_id: int) -> List["IssueComment"]:
-        """
-        Get list of all issue comments.
-
-        Args:
-            issue_id: ID of the issue.
-
-        Returns:
-            List of all comments on the issue.
-        """
-        raise NotImplementedError()
-
-    def get_issue_comments(
-        self,
-        issue_id: int,
-        filter_regex: Optional[str] = None,
-        reverse: bool = False,
-        author: Optional[str] = None,
-    ) -> List["IssueComment"]:
-        """
-        Get list of issue comments.
-
-        Args:
-            issue_id: ID of the issue.
-            filter_regex: Filter the comments' content with `re.search`.
-
-                Defaults to `None`, which means no filtering.
-            reverse: Whether the comments are to be returned in
-                reversed order.
-
-                Defaults to `False`.
-            author: Filter the comments by author.
-
-                Defaults to `None`, which means no filtering.
-
-        Returns:
-            List of issue comments.
-        """
-        raise NotImplementedError()
-
-    def issue_comment(self, issue_id: int, body: str) -> "IssueComment":
-        """
-        Add new comment to the issue.
-
-        Args:
-            issue_id: ID of the issue to comment on.
-            body: Body of the comment.
-
-        Returns:
-            Object that represents newly created issue comment.
-        """
-        raise NotImplementedError()
-
     def create_issue(
         self,
         title: str,
@@ -1530,40 +1466,6 @@ class GitProject(OgrAbstractClass):
         """
         raise NotImplementedError()
 
-    def issue_close(self, issue_id: int) -> Issue:
-        """
-        Close the issue.
-
-        Args:
-            issue_id: ID of the issue to close.
-
-        Returns:
-            Issue object that was closed.
-        """
-        raise NotImplementedError()
-
-    def get_issue_labels(self, issue_id: int) -> List[Any]:
-        """
-        Get list of labels on the issue.
-
-        Args:
-            issue_id: ID of the pull request.
-
-        Returns:
-            List of issue labels.
-        """
-        raise NotImplementedError()
-
-    def add_issue_labels(self, issue_id: int, labels: List[str]) -> None:
-        """
-        Add labels to the issue.
-
-        Args:
-            issue_id: ID of the issue that is to be modified.
-            labels: List of labels that are to be added.
-        """
-        raise NotImplementedError()
-
     def get_pr_list(self, status: PRStatus = PRStatus.open) -> List["PullRequest"]:
         """
         List of pull requests.
@@ -1587,38 +1489,6 @@ class GitProject(OgrAbstractClass):
 
         Returns:
             Object that represents requested pull request.
-        """
-        raise NotImplementedError()
-
-    def get_pr_info(self, pr_id: int) -> "PullRequest":
-        """
-        Get pull request info.
-
-        Args:
-            pr_id: ID of the pull request.
-
-        Returns:
-            Object that represents requested pull request.
-        """
-        raise NotImplementedError()
-
-    def update_pr_info(
-        self, pr_id: int, title: Optional[str] = None, description: Optional[str] = None
-    ) -> PullRequest:
-        """
-        Update pull request information.
-
-        Args:
-            pr_id: The ID of the pull request.
-            title: The new title of the pull request.
-
-                Defaults to `None`, which means title is not being updated.
-            description: The description of the pull request.
-
-                Defaults to `None`, which means description is not being updated.
-
-        Returns:
-            Pull request object that represents updated pull request.
         """
         raise NotImplementedError()
 
@@ -1678,108 +1548,6 @@ class GitProject(OgrAbstractClass):
         """
         raise NotImplementedError()
 
-    def _get_all_pr_comments(self, pr_id: int) -> List[PRComment]:
-        """
-        Get list of all pull request comments.
-
-        Args:
-            pr_id: ID of the pull request.
-
-        Returns:
-            List of all comments on the pull request.
-        """
-        raise NotImplementedError()
-
-    def get_pr_comments(
-        self,
-        pr_id: int,
-        filter_regex: Optional[str] = None,
-        reverse: bool = False,
-        author: Optional[str] = None,
-    ) -> List["PRComment"]:
-        """
-        Get list of pull request comments.
-
-        Args:
-            pr_id: ID of the pull request.
-            filter_regex: Filter the comments' content with `re.search`.
-
-                Defaults to `None`, which means no filtering.
-            reverse: Whether the comments are to be returned in
-                reversed order.
-
-                Defaults to `False`.
-            author: Filter the comments by author.
-
-                Defaults to `None`, which means no filtering.
-
-        Returns:
-            List of pull request comments.
-        """
-        raise NotImplementedError()
-
-    def get_all_pr_commits(self, pr_id: int) -> List[str]:
-        """
-        Get all commits on requested pull request.
-
-        Args:
-            pr_id: ID of the pull request.
-
-        Returns:
-            List of the commit hashes.
-        """
-        raise NotImplementedError()
-
-    def search_in_pr(
-        self,
-        pr_id: int,
-        filter_regex: str,
-        reverse: bool = False,
-        description: bool = True,
-    ) -> Optional[Match[str]]:
-        """
-        Find match in pull request description or comments.
-
-        Args:
-            pr_id: ID of the pull request to search in.
-            filter_regex: Regex that is used to filter the comments' content with `re.search`.
-            reverse: Reverse order of the comments.
-
-                Defaults to `False`.
-            description: Whether description is included in the search.
-
-                Defaults to `True`.
-
-        Returns:
-            `re.Match` if found, `None` otherwise.
-        """
-        raise NotImplementedError()
-
-    def pr_create(
-        self,
-        title: str,
-        body: str,
-        target_branch: str,
-        source_branch: str,
-        fork_username: str = None,
-    ) -> "PullRequest":
-        """
-        Create new pull request.
-
-        Args:
-            title: Title of the pull request.
-            body: Description of the pull request.
-            target_branch: Name of the branch where the changes are merged.
-            source_branch: Name of the branch from which the changes are pulled.
-            fork_username: The username of forked repository.
-
-                Defaults to `None`.
-
-        Returns:
-            Object that represents newly created pull request.
-        """
-        raise NotImplementedError()
-
     def create_pr(
         self,
         title: str,
@@ -1802,35 +1570,6 @@ class GitProject(OgrAbstractClass):
 
         Returns:
             Object that represents newly created pull request.
-        """
-        raise NotImplementedError()
-
-    def pr_comment(
-        self,
-        pr_id: int,
-        body: str,
-        commit: Optional[str] = None,
-        filename: Optional[str] = None,
-        row: Optional[int] = None,
-    ) -> "PRComment":
-        """
-        Add new comment to the pull request.
-
-        Args:
-            pr_id: ID of the pull request to comment on.
-            body: Body of the comment.
-            commit: Commit hash, if comment is related to specific commit.
-
-                Defaults to `None`, which means normal comment on the pull request.
-            filename: Name of the file that is related to the comment.
-
-                Defaults to `None`, which means no relation to file.
-            row: Number of the row that the comment is related to.
-
-                Defaults to `None`, which means no relation to the row.
-
-        Returns:
-            Object that represents newly created PR comment.
         """
         raise NotImplementedError()
 
@@ -1895,52 +1634,6 @@ class GitProject(OgrAbstractClass):
 
         Returns:
             List of all commit statuses on the commit.
-        """
-        raise NotImplementedError()
-
-    def pr_close(self, pr_id: int) -> "PullRequest":
-        """
-        Close the pull request.
-
-        Args:
-            pr_id: ID of the pull request to close.
-
-        Returns:
-            Pull request object that was closed.
-        """
-        raise NotImplementedError()
-
-    def pr_merge(self, pr_id: int) -> "PullRequest":
-        """
-        Merge the pull request.
-
-        Args:
-            pr_id: ID of the pull request to merge.
-
-        Returns:
-            Pull request object that was merged.
-        """
-        raise NotImplementedError()
-
-    def get_pr_labels(self, pr_id: int) -> List[Any]:
-        """
-        Get list of labels on the pull request.
-
-        Args:
-            pr_id: ID of the pull request.
-
-        Returns:
-            List of PR labels.
-        """
-        raise NotImplementedError()
-
-    def add_pr_labels(self, pr_id: int, labels: List[str]) -> None:
-        """
-        Add labels to the pull request.
-
-        Args:
-            pr_id: ID of the pull request that is to be modified.
-            labels: List of labels that are to be added.
         """
         raise NotImplementedError()
 

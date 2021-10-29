@@ -17,7 +17,6 @@ from ogr.abstract import (
     CommitStatus,
 )
 from ogr.constant import DEFAULT_RO_PREFIX_STRING
-from ogr.deprecation import deprecate_and_set_removal
 
 
 def log_output(
@@ -166,29 +165,6 @@ class GitProjectReadOnly:
     url = "url://ReadOnlyURL"
 
     @classmethod
-    @deprecate_and_set_removal(
-        since="0.9.0",
-        remove_in="0.14.0 (or 1.0.0 if it comes sooner)",
-        message="Use create_pr",
-    )
-    def pr_create(
-        cls,
-        original_object: Any,
-        title: str,
-        body: str,
-        target_branch: str,
-        source_branch: str,
-        fork_username: str = None,
-    ) -> "PullRequest":
-        return GitProjectReadOnly.create_pr(
-            original_object=original_object,
-            title=title,
-            body=body,
-            target_branch=target_branch,
-            source_branch=source_branch,
-        )
-
-    @classmethod
     def create_pr(
         cls,
         original_object: Any,
@@ -220,7 +196,7 @@ class GitProjectReadOnly:
         filename: str = None,
         row: int = None,
     ) -> "PRComment":
-        pull_request = original_object.get_pr_info(pr_id)
+        pull_request = original_object.get_pr(pr_id)
         log_output(pull_request)
         return PRComment(
             parent=pull_request,
@@ -232,13 +208,13 @@ class GitProjectReadOnly:
 
     @classmethod
     def pr_close(cls, original_object: Any, pr_id: int) -> "PullRequest":
-        pull_request = original_object.get_pr_info(pr_id)
+        pull_request = original_object.get_pr(pr_id)
         pull_request._status = PRStatus.closed
         return pull_request
 
     @classmethod
     def pr_merge(cls, original_object: Any, pr_id: int) -> "PullRequest":
-        pull_request = original_object.get_pr_info(pr_id)
+        pull_request = original_object.get_pr(pr_id)
         pull_request._status = PRStatus.merged
         return pull_request
 
@@ -246,7 +222,7 @@ class GitProjectReadOnly:
     def issue_comment(
         cls, original_object: Any, issue_id: int, body: str
     ) -> "IssueComment":
-        issue = original_object.get_issue_info(issue_id)
+        issue = original_object.get_issue(issue_id)
         log_output(issue)
         return IssueComment(
             parent=issue,
