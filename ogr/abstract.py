@@ -3,7 +3,6 @@
 
 import datetime
 import functools
-import warnings
 from enum import Enum, IntEnum
 from typing import (
     Optional,
@@ -156,14 +155,6 @@ class Comment(OgrAbstractClass):
     def _from_raw_comment(self, raw_comment: Any) -> None:
         """Constructs Comment object from raw_comment given from API."""
         raise NotImplementedError()
-
-    @property
-    def comment(self) -> str:
-        warnings.warn(
-            "Using deprecated property, that will be removed in 0.14.0"
-            " (or 1.0.0 if it comes sooner). Please use body. "
-        )
-        return self.body
 
     @property
     def body(self) -> str:

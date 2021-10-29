@@ -310,14 +310,6 @@ class BasePullRequest(PullRequest):
     def target_project(self) -> "GitProject":
         return self._target_project
 
-    @property
-    def project(self) -> "GitProject":
-        warnings.warn(
-            "Using deprecated property, that will be removed in 0.16.0"
-            " (or 1.0.0 if it comes sooner). Please use target_project."
-        )
-        return self.target_project
-
     def get_comments(
         self, filter_regex: str = None, reverse: bool = False, author: str = None
     ):
