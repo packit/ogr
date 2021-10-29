@@ -1,14 +1,12 @@
 # Copyright Contributors to the Packit project.
 # SPDX-License-Identifier: MIT
 
-import datetime
 from typing import List, Optional, Any
 
 from ogr.abstract import (
     GitService,
     GitProject,
     GitUser,
-    PRStatus,
     IssueComment,
     Issue,
     PullRequest,
@@ -48,62 +46,6 @@ class BaseGitProject(GitProject):
 
 
 class BasePullRequest(PullRequest):
-    def __init__(self, raw_pr: Any, project: "GitProject") -> None:
-        self._raw_pr = raw_pr
-        self._target_project = project
-
-    @property
-    def title(self) -> str:
-        raise NotImplementedError()
-
-    @title.setter
-    def title(self, new_title: str) -> None:
-        raise NotImplementedError()
-
-    @property
-    def id(self) -> int:
-        raise NotImplementedError()
-
-    @property
-    def status(self) -> PRStatus:
-        raise NotImplementedError()
-
-    @property
-    def url(self) -> str:
-        raise NotImplementedError()
-
-    @property
-    def description(self) -> str:
-        raise NotImplementedError()
-
-    @description.setter
-    def description(self, new_description: str) -> None:
-        raise NotImplementedError
-
-    @property
-    def author(self) -> str:
-        raise NotImplementedError()
-
-    @property
-    def source_branch(self) -> str:
-        raise NotImplementedError()
-
-    @property
-    def target_branch(self) -> str:
-        raise NotImplementedError()
-
-    @property
-    def created(self) -> datetime.datetime:
-        raise NotImplementedError()
-
-    @property
-    def labels(self) -> List[Any]:
-        raise NotImplementedError()
-
-    @property
-    def target_project(self) -> "GitProject":
-        return self._target_project
-
     def get_comments(
         self, filter_regex: str = None, reverse: bool = False, author: str = None
     ):

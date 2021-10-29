@@ -22,7 +22,6 @@ import github
 import gitlab
 import requests
 
-from ogr.deprecation import deprecate_and_set_removal
 from ogr.exceptions import (
     OgrException,
     GitlabAPIException,
@@ -504,38 +503,19 @@ class MergeCommitStatus(Enum):
 
 
 class PullRequest(OgrAbstractClass):
-    @deprecate_and_set_removal(
-        since="0.9.0",
-        remove_in="0.14.0 (or 1.0.0 if it comes sooner)",
-        message="Use PullRequestReadOnly from ogr.read_only to use a static and offline "
-        "representation of the pull-request. The subclasses of this class are not static anymore.",
-    )
-    def __init__(
-        self,
-        title: str,
-        description: str,
-        target_branch: str,
-        source_branch: str,
-        id: int,
-        status: PRStatus,
-        url: str,
-        author: str,
-        created: datetime.datetime,
-    ) -> None:
-        self._title = title
-        self._description = description
-        self._target_branch = target_branch
-        self._source_branch = source_branch
-        self._id = id
-        self._status = PRStatus.open
-        self._url = url
-        self._author = author
-        self._created = created
+    """
+    Attributes:
+        project (GitProject): Project of the pull request.
+    """
+
+    def __init__(self, raw_pr: Any, project: "GitProject") -> None:
+        self._raw_pr = raw_pr
+        self._target_project = project
 
     @property
     def title(self) -> str:
         """Title of the pull request."""
-        return self._title
+        raise NotImplementedError()
 
     @title.setter
     def title(self, new_title: str) -> None:
@@ -544,22 +524,22 @@ class PullRequest(OgrAbstractClass):
     @property
     def id(self) -> int:
         """ID of the pull request."""
-        return self._id
+        raise NotImplementedError()
 
     @property
     def status(self) -> PRStatus:
         """Status of the pull request."""
-        return self._status
+        raise NotImplementedError()
 
     @property
     def url(self) -> str:
         """Web URL of the pull request."""
-        return self._url
+        raise NotImplementedError()
 
     @property
     def description(self) -> str:
         """Description of the pull request."""
-        return self._description
+        raise NotImplementedError()
 
     @description.setter
     def description(self, new_description: str) -> None:
@@ -568,22 +548,22 @@ class PullRequest(OgrAbstractClass):
     @property
     def author(self) -> str:
         """Login of the author of the pull request."""
-        return self._author
+        raise NotImplementedError()
 
     @property
     def source_branch(self) -> str:
         """Name of the source branch (from which the changes are pulled)."""
-        return self._source_branch
+        raise NotImplementedError()
 
     @property
     def target_branch(self) -> str:
         """Name of the target branch (where the changes are being merged)."""
-        return self._target_branch
+        raise NotImplementedError()
 
     @property
     def created(self) -> datetime.datetime:
         """Datetime of creating the pull request."""
-        return self._created
+        raise NotImplementedError()
 
     @property
     def labels(self) -> List[Any]:
@@ -627,7 +607,7 @@ class PullRequest(OgrAbstractClass):
     @property
     def target_project(self) -> "GitProject":
         """Object that represents target project (where changes are merged)."""
-        raise NotImplementedError()
+        return self._target_project
 
     @property
     def commits_url(self) -> str:
