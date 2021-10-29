@@ -919,7 +919,7 @@ class CommitFlag(OgrAbstractClass):
         raise NotImplementedError()
 
     @classmethod
-    def _validate_state(cls, state: Union[CommitStatus, str]) -> CommitStatus:
+    def _validate_state(cls, state: CommitStatus) -> CommitStatus:
         """
         Validates state of the commit status (if it can be used with forge).
         """

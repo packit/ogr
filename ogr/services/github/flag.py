@@ -2,7 +2,7 @@
 # SPDX-License-Identifier: MIT
 
 import datetime
-from typing import List, Union
+from typing import List
 
 from github import UnknownObjectException
 
@@ -47,7 +47,7 @@ class GithubCommitFlag(BaseCommitFlag):
     def set(
         project: "ogr_github.GithubProject",
         commit: str,
-        state: Union[CommitStatus, str],
+        state: CommitStatus,
         target_url: str,
         description: str,
         context: str,

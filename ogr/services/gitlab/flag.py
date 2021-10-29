@@ -3,7 +3,7 @@
 
 import logging
 import datetime
-from typing import List, Union
+from typing import List
 
 import gitlab
 
@@ -66,7 +66,7 @@ class GitlabCommitFlag(BaseCommitFlag):
     def set(
         project: "ogr_gitlab.GitlabProject",
         commit: str,
-        state: Union[CommitStatus, str],
+        state: CommitStatus,
         target_url: str,
         description: str,
         context: str,

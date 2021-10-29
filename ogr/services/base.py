@@ -2,8 +2,7 @@
 # SPDX-License-Identifier: MIT
 
 import datetime
-from typing import List, Optional, Match, Any, Union
-import warnings
+from typing import List, Optional, Match, Any
 
 from ogr.abstract import (
     GitService,
@@ -357,14 +356,7 @@ class BaseCommitFlag(CommitFlag):
         return cls._states[state]
 
     @classmethod
-    def _validate_state(cls, state: Union[CommitStatus, str]) -> CommitStatus:
-        if isinstance(state, str):
-            warnings.warn(
-                "Using the string representation of commit states, that will be removed in 0.14.0"
-                " (or 1.0.0 if it comes sooner). Please use CommitStatus enum instead. "
-            )
-            state = cls._state_from_str(state)
-
+    def _validate_state(cls, state: CommitStatus) -> CommitStatus:
         if state not in cls._states.values():
             raise ValueError("Invalid state given")
 

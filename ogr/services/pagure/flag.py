@@ -2,7 +2,7 @@
 # SPDX-License-Identifier: MIT
 
 import datetime
-from typing import List, Dict, Any, Union
+from typing import List, Dict, Any
 
 
 from ogr.abstract import CommitFlag, CommitStatus
@@ -41,7 +41,7 @@ class PagureCommitFlag(BaseCommitFlag):
     def set(
         project: "ogr_pagure.PagureProject",
         commit: str,
-        state: Union[CommitStatus, str],
+        state: CommitStatus,
         target_url: str,
         description: str,
         context: str,
