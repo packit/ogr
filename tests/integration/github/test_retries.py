@@ -1,6 +1,10 @@
+# Copyright Contributors to the Packit project.
+# SPDX-License-Identifier: MIT
+
 import pytest
+
 from ogr import GithubService
-import flexmock
+from flexmock import flexmock
 from urllib3.connectionpool import HTTPSConnectionPool
 from github.GithubException import BadCredentialsException
 from github import Github
