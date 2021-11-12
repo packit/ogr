@@ -6,6 +6,7 @@ from enum import Enum
 from typing import Any, Dict, List, Optional, Union
 
 from github.CheckRun import CheckRun
+from github.CheckRunOutput import CheckRunOutput
 from github.GithubApp import GithubApp
 from github.GithubObject import NotSet
 
@@ -170,7 +171,7 @@ class GithubCheckRun(OgrAbstractClass):
         return self.raw_check_run.completed_at
 
     @property
-    def output(self) -> GithubCheckRunOutput:
+    def output(self) -> CheckRunOutput:
         """Output of the check run."""
         return self.raw_check_run.output
 
