@@ -1,26 +1,20 @@
 # Copyright Contributors to the Packit project.
 # SPDX-License-Identifier: MIT
 
-import datetime
-from typing import List, Optional, Match, Any, Union
-import warnings
+from typing import List, Optional, Any
 
 from ogr.abstract import (
     GitService,
     GitProject,
     GitUser,
-    PRComment,
-    PRStatus,
     IssueComment,
     Issue,
     PullRequest,
     CommitFlag,
     CommitStatus,
 )
-from ogr.deprecation import deprecate_and_set_removal
 from ogr.exceptions import OgrException
 from ogr.parsing import parse_git_repo
-from ogr.read_only import if_readonly, GitProjectReadOnly
 from ogr.utils import search_in_comments, filter_comments
 
 try:
@@ -50,274 +44,8 @@ class BaseGitProject(GitProject):
     def full_repo_name(self) -> str:
         return f"{self.namespace}/{self.repo}"
 
-    @deprecate_and_set_removal(
-        since="0.9.0",
-        remove_in="0.14.0 (or 1.0.0 if it comes sooner)",
-        message="Use methods on PullRequest objects",
-    )
-    def get_pr_comments(
-        self, pr_id, filter_regex: str = None, reverse: bool = False, author: str = None
-    ) -> List[PRComment]:
-        return self.get_pr(pr_id).get_comments(filter_regex, reverse, author)
-
-    @deprecate_and_set_removal(
-        since="0.9.0",
-        remove_in="0.14.0 (or 1.0.0 if it comes sooner)",
-        message="Use methods on PullRequest objects",
-    )
-    def search_in_pr(
-        self,
-        pr_id: int,
-        filter_regex: str,
-        reverse: bool = False,
-        description: bool = True,
-    ) -> Optional[Match[str]]:
-        return self.get_pr(pr_id).search(filter_regex, reverse, description)
-
-    @if_readonly(return_function=GitProjectReadOnly.pr_close)
-    @deprecate_and_set_removal(
-        since="0.9.0",
-        remove_in="0.14.0 (or 1.0.0 if it comes sooner)",
-        message="Use methods on PullRequest objects",
-    )
-    def pr_close(self, pr_id: int) -> "PullRequest":
-        return self.get_pr(pr_id).close()
-
-    @if_readonly(return_function=GitProjectReadOnly.pr_merge)
-    @deprecate_and_set_removal(
-        since="0.9.0",
-        remove_in="0.14.0 (or 1.0.0 if it comes sooner)",
-        message="Use methods on PullRequest objects",
-    )
-    def pr_merge(self, pr_id: int) -> "PullRequest":
-        return self.get_pr(pr_id).merge()
-
-    @deprecate_and_set_removal(
-        since="0.9.0",
-        remove_in="0.14.0 (or 1.0.0 if it comes sooner)",
-        message="Use methods on PullRequest objects",
-    )
-    def get_pr_labels(self, pr_id: int) -> List[Any]:
-        return self.get_pr(pr_id).labels
-
-    @deprecate_and_set_removal(
-        since="0.9.0",
-        remove_in="0.14.0 (or 1.0.0 if it comes sooner)",
-        message="Use methods on PullRequest objects",
-    )
-    def add_pr_labels(self, pr_id: int, labels: List[str]) -> None:
-        return self.get_pr(pr_id).add_label(*labels)
-
-    @deprecate_and_set_removal(
-        since="0.9.0",
-        remove_in="0.14.0 (or 1.0.0 if it comes sooner)",
-        message="Use methods on PullRequest objects",
-    )
-    def get_pr_info(self, pr_id: int) -> "PullRequest":
-        return self.get_pr(pr_id)
-
-    @deprecate_and_set_removal(
-        since="0.9.0",
-        remove_in="0.14.0 (or 1.0.0 if it comes sooner)",
-        message="Use methods on PullRequest objects",
-    )
-    def update_pr_info(
-        self, pr_id: int, title: Optional[str] = None, description: Optional[str] = None
-    ) -> "PullRequest":
-        return self.get_pr(pr_id).update_info(title, description)
-
-    @deprecate_and_set_removal(
-        since="0.9.0",
-        remove_in="0.14.0 (or 1.0.0 if it comes sooner)",
-        message="Use methods on PullRequest objects",
-    )
-    def get_all_pr_commits(self, pr_id: int) -> List[str]:
-        return self.get_pr(pr_id).get_all_commits()
-
-    @deprecate_and_set_removal(
-        since="0.9.0",
-        remove_in="0.14.0 (or 1.0.0 if it comes sooner)",
-        message="Use methods on PullRequest objects",
-    )
-    def _get_all_pr_comments(self, pr_id: int) -> List[PRComment]:
-        return self.get_pr(pr_id)._get_all_comments()
-
-    @if_readonly(
-        return_function=GitProjectReadOnly.pr_comment,
-        log_message="Create Comment to PR",
-    )
-    @deprecate_and_set_removal(
-        since="0.9.0",
-        remove_in="0.14.0 (or 1.0.0 if it comes sooner)",
-        message="Use methods on PullRequest objects",
-    )
-    def pr_comment(
-        self,
-        pr_id: int,
-        body: str,
-        commit: str = None,
-        filename: str = None,
-        row: int = None,
-    ) -> PRComment:
-        return self.get_pr(pr_id).comment(body, commit, filename, row)
-
-    @deprecate_and_set_removal(
-        since="0.9.0",
-        remove_in="0.14.0 (or 1.0.0 if it comes sooner)",
-        message="Use methods on Issue objects",
-    )
-    def get_issue_comments(
-        self,
-        issue_id,
-        filter_regex: str = None,
-        reverse: bool = False,
-        author: str = None,
-    ) -> List[IssueComment]:
-        return self.get_issue(issue_id).get_comments(filter_regex, reverse, author)
-
-    @deprecate_and_set_removal(
-        since="0.9.0",
-        remove_in="0.14.0 (or 1.0.0 if it comes sooner)",
-        message="Use create_pr",
-    )
-    def pr_create(
-        self,
-        title: str,
-        body: str,
-        target_branch: str,
-        source_branch: str,
-        fork_username: str = None,
-    ) -> "PullRequest":
-        return self.create_pr(
-            title=title,
-            body=body,
-            target_branch=target_branch,
-            source_branch=source_branch,
-            fork_username=fork_username,
-        )
-
-    @deprecate_and_set_removal(
-        since="0.9.0",
-        remove_in="0.14.0 (or 1.0.0 if it comes sooner)",
-        message="Use methods on Issue objects",
-    )
-    def can_close_issue(self, username: str, issue: Issue) -> bool:
-        return issue.can_close(username)
-
-    @deprecate_and_set_removal(
-        since="0.9.0",
-        remove_in="0.14.0 (or 1.0.0 if it comes sooner)",
-        message="Use methods on Issue objects",
-    )
-    def get_issue_info(self, issue_id: int) -> Issue:
-        return self.get_issue(issue_id)
-
-    @deprecate_and_set_removal(
-        since="0.9.0",
-        remove_in="0.14.0 (or 1.0.0 if it comes sooner)",
-        message="Use methods on Issue objects",
-    )
-    def _get_all_issue_comments(self, issue_id: int) -> List["IssueComment"]:
-        return self.get_issue(issue_id)._get_all_comments()
-
-    @deprecate_and_set_removal(
-        since="0.9.0",
-        remove_in="0.14.0 (or 1.0.0 if it comes sooner)",
-        message="Use methods on Issue objects",
-    )
-    def issue_comment(self, issue_id: int, body: str) -> "IssueComment":
-        return self.get_issue(issue_id).comment(body)
-
-    @deprecate_and_set_removal(
-        since="0.9.0",
-        remove_in="0.14.0 (or 1.0.0 if it comes sooner)",
-        message="Use methods on Issue objects",
-    )
-    def issue_close(self, issue_id: int) -> Issue:
-        return self.get_issue(issue_id).close()
-
-    @deprecate_and_set_removal(
-        since="0.9.0",
-        remove_in="0.14.0 (or 1.0.0 if it comes sooner)",
-        message="Use methods on Issue objects",
-    )
-    def get_issue_labels(self, issue_id: int) -> List[Any]:
-        return self.get_issue(issue_id).labels
-
-    @deprecate_and_set_removal(
-        since="0.9.0",
-        remove_in="0.14.0 (or 1.0.0 if it comes sooner)",
-        message="Use methods on Issue objects",
-    )
-    def add_issue_labels(self, issue_id: int, labels: List[str]) -> None:
-        self.get_issue(issue_id).add_label(*labels)
-
 
 class BasePullRequest(PullRequest):
-    def __init__(self, raw_pr: Any, project: "GitProject") -> None:
-        self._raw_pr = raw_pr
-        self._target_project = project
-
-    @property
-    def title(self) -> str:
-        raise NotImplementedError()
-
-    @title.setter
-    def title(self, new_title: str) -> None:
-        raise NotImplementedError()
-
-    @property
-    def id(self) -> int:
-        raise NotImplementedError()
-
-    @property
-    def status(self) -> PRStatus:
-        raise NotImplementedError()
-
-    @property
-    def url(self) -> str:
-        raise NotImplementedError()
-
-    @property
-    def description(self) -> str:
-        raise NotImplementedError()
-
-    @description.setter
-    def description(self, new_description: str) -> None:
-        raise NotImplementedError
-
-    @property
-    def author(self) -> str:
-        raise NotImplementedError()
-
-    @property
-    def source_branch(self) -> str:
-        raise NotImplementedError()
-
-    @property
-    def target_branch(self) -> str:
-        raise NotImplementedError()
-
-    @property
-    def created(self) -> datetime.datetime:
-        raise NotImplementedError()
-
-    @property
-    def labels(self) -> List[Any]:
-        raise NotImplementedError()
-
-    @property
-    def target_project(self) -> "GitProject":
-        return self._target_project
-
-    @property
-    def project(self) -> "GitProject":
-        warnings.warn(
-            "Using deprecated property, that will be removed in 0.16.0"
-            " (or 1.0.0 if it comes sooner). Please use target_project."
-        )
-        return self.target_project
-
     def get_comments(
         self, filter_regex: str = None, reverse: bool = False, author: str = None
     ):
@@ -365,14 +93,7 @@ class BaseCommitFlag(CommitFlag):
         return cls._states[state]
 
     @classmethod
-    def _validate_state(cls, state: Union[CommitStatus, str]) -> CommitStatus:
-        if isinstance(state, str):
-            warnings.warn(
-                "Using the string representation of commit states, that will be removed in 0.14.0"
-                " (or 1.0.0 if it comes sooner). Please use CommitStatus enum instead. "
-            )
-            state = cls._state_from_str(state)
-
+    def _validate_state(cls, state: CommitStatus) -> CommitStatus:
         if state not in cls._states.values():
             raise ValueError("Invalid state given")
 
