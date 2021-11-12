@@ -6,6 +6,7 @@ from enum import Enum
 from typing import Any, Dict, List, Optional, Union
 
 from github.CheckRun import CheckRun
+from github.GithubApp import GithubApp
 from github.GithubObject import NotSet
 
 from ogr.abstract import OgrAbstractClass
@@ -104,7 +105,8 @@ class GithubCheckRun(OgrAbstractClass):
             f"started_at={self.started_at}, "
             f"conclusion={self.conclusion}, "
             f"completed_at={self.completed_at}, "
-            f"output={self.output})"
+            f"output={self.output}, "
+            f"app={self.app})"
         )
 
     @property
@@ -175,6 +177,11 @@ class GithubCheckRun(OgrAbstractClass):
     @output.setter
     def output(self, output: GithubCheckRunOutput) -> None:
         self.raw_check_run.edit(output=output)
+
+    @property
+    def app(self) -> GithubApp:
+        """Github App of the check run."""
+        return self.raw_check_run.app
 
     def change_status(
         self,
