@@ -1,3 +1,15 @@
+# 0.32.0
+
+- Removal of features which have been marked as deprecated since `0.14.0`.
+  - Removal of renamed properties
+    - `Comment.comment` -> `Comment.body`
+    - `BasePullRequest.project` -> `BasePullRequest.target_project`
+  - Removal of methods for accessing issues or pull requests from `GitProject` class.
+  - String can no longer be used as commit status, `CommitStatus` is now required.
+  - `PullRequest` constructor has been refactored. In order to use static and offline
+    representation of a pull request, use `PullRequestReadOnly` instead.
+- `GithubCheckRun.app` property has been added for accessing `GithubApp`.
+
 # 0.31.0
 
 - Ogr now catches internal exceptions from Gitlab and Github and converts them
