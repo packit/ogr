@@ -125,6 +125,7 @@ class Comment(OgrAbstractClass):
         raw_comment: Optional[Any] = None,
         parent: Optional[Any] = None,
         body: Optional[str] = None,
+        id_: Optional[int] = None,
         author: Optional[str] = None,
         created: Optional[datetime.datetime] = None,
         edited: Optional[datetime.datetime] = None,
@@ -133,6 +134,7 @@ class Comment(OgrAbstractClass):
             self._from_raw_comment(raw_comment)
         elif body and author:
             self._body = body
+            self._id = id_
             self._author = author
             self._created = created
             self._edited = edited
@@ -163,6 +165,10 @@ class Comment(OgrAbstractClass):
     @body.setter
     def body(self, new_body: str) -> None:
         self._body = new_body
+
+    @property
+    def id(self) -> int:
+        return self._id
 
     @property
     def author(self) -> str:

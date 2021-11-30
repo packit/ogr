@@ -302,3 +302,12 @@ class PagurePullRequest(BasePullRequest):
         if uid is not None:
             data["uid"] = uid
         return self.__call_api("flag", method="POST", data=data)
+
+    def get_comment(self, comment_id: int) -> PRComment:
+        for comment in self._get_all_comments():
+            if comment.id == comment_id:
+                return comment
+
+        raise PagureAPIException(
+            f"No comment with id#{comment_id} in PR#{self.id} found."
+        )

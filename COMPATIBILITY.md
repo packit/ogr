@@ -34,7 +34,6 @@ In case you find any error, please [create a new issue](https://github.com/packi
 | `add_label`       |   ✔    |   ✔    |   ✘    |
 | `get_all_commits` |   ✔    |   ✔    |   ✘    |
 | `labels`          |   ✔    |   ✔    |   ✘    |
-| `get_comment`     |   ✔    |   ✔    |   ✘    |
 
 ## Release
 
