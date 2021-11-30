@@ -105,3 +105,7 @@ class PullRequests(PagureTests):
         assert (
             pr.commits_url == "https://pagure.io/ogr-tests/pull-request/5#commit_list"
         )
+
+    def test_get_comment(self):
+        comment = self.ogr_project.get_pr(5).get_comment(comment_id=162373)
+        assert "Billy: what the hell is going on up there?" in comment.body
