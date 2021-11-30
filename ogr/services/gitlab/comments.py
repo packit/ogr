@@ -13,7 +13,7 @@ from gitlab.v4.objects import (
     ProjectMergeRequestAwardEmoji,
 )
 
-from ogr.abstract import IssueComment, PRComment, Reaction
+from ogr.abstract import Comment, IssueComment, PRComment, Reaction
 from ogr.exceptions import GitlabAPIException
 
 logger = logging.getLogger(__name__)
@@ -29,11 +29,12 @@ class GitlabReaction(Reaction):
         self._raw_reaction.delete()
 
 
-class GitlabComment:
+class GitlabComment(Comment):
     def _from_raw_comment(
         self, raw_comment: Union[ProjectIssueNote, ProjectMergeRequestNote]
     ) -> None:
         self._raw_comment = raw_comment
+        self._id = raw_comment.get_id()
         self._author = raw_comment.author["username"]
         self._created = raw_comment.created_at
 

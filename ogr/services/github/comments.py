@@ -8,7 +8,7 @@ from github.IssueComment import IssueComment as _GithubIssueComment
 from github.PullRequestComment import PullRequestComment as _GithubPullRequestComment
 from github.Reaction import Reaction as _Reaction
 
-from ogr.abstract import IssueComment, PRComment, Reaction
+from ogr.abstract import Comment, IssueComment, PRComment, Reaction
 
 
 class GithubReaction(Reaction):
@@ -21,11 +21,12 @@ class GithubReaction(Reaction):
         self._raw_reaction.delete()
 
 
-class GithubComment:
+class GithubComment(Comment):
     def _from_raw_comment(
         self, raw_comment: Union[_GithubIssueComment, _GithubPullRequestComment]
     ) -> None:
         self._raw_comment = raw_comment
+        self._id = raw_comment.id
         self._author = raw_comment.user.login
         self._created = raw_comment.created_at
 
