@@ -1,7 +1,7 @@
 %global srcname ogr
 
 Name:           python-%{srcname}
-Version:        0.32.0
+Version:        0.33.0
 Release:        1%{?dist}
 Summary:        One API for multiple git forges
 
@@ -52,6 +52,9 @@ rm -rf %{srcname}.egg-info
 
 
 %changelog
+* Fri Dec 10 2021 Matej Focko <mfocko@redhat.com> - 0.33.0-1
+- New upstream release 0.33.0
+
 * Thu Nov 18 2021 František Nečas <fnecas@redhat.com> - 0.32.0-1
 - New upstream release 0.32.0
 
