@@ -1,3 +1,7 @@
+# 0.33.0
+
+- OGR now fully supports getting PR comments by its ID.
+
 # 0.32.0
 
 - Removal of features which have been marked as deprecated since `0.14.0`.
