@@ -151,7 +151,6 @@ class GitlabService(BaseGitService):
             GitlabProject(
                 repo=project.attributes["path"],
                 namespace=project.attributes["namespace"]["full_path"],
-                gitlab_repo=project,
                 service=self,
             )
             for project in projects_to_convert
