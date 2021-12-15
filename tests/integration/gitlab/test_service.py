@@ -123,6 +123,11 @@ class Service(GitlabTests):
         )
         assert len(projects) == number_of_projects
 
+    def test_list_projects_get_forks(self):
+        projects = self.service.list_projects(namespace="inkscape")
+        assert projects
+        assert isinstance(projects[0].get_forks(), list)
+
     def test_wrong_auth(self):
         with pytest.raises(GitlabAPIException):
             self.service.project_create("test")
