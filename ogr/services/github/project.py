@@ -574,3 +574,11 @@ class GithubProject(BaseGitProject):
 
     def get_tags(self) -> List["GitTag"]:
         return [GitTag(tag.name, tag.commit.sha) for tag in self.github_repo.get_tags()]
+
+    def get_sha_from_branch(self, branch: str) -> Optional[str]:
+        try:
+            return self.github_repo.get_branch(branch).commit.sha
+        except GithubException as ex:
+            if ex.status == 404:
+                return None
+            raise GithubAPIException from ex

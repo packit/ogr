@@ -5,6 +5,7 @@ import logging
 from typing import List, Optional, Dict, Set, Union
 
 import gitlab
+from gitlab.exceptions import GitlabGetError
 from gitlab.v4.objects import Project as GitlabObjectsProject
 
 from ogr.abstract import (
@@ -499,3 +500,11 @@ class GitlabProject(BaseGitProject):
 
     def get_web_url(self) -> str:
         return self.gitlab_repo.web_url
+
+    def get_sha_from_branch(self, branch: str) -> Optional[str]:
+        try:
+            return self.gitlab_repo.branches.get(branch).attributes["commit"]["id"]
+        except GitlabGetError as ex:
+            if ex.response_code == 404:
+                return None
+            raise GitlabAPIException from ex
