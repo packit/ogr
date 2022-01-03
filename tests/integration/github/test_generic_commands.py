@@ -102,6 +102,14 @@ class GenericCommands(GithubTests):
         assert isinstance(flags, list)
         assert len(flags) == 0
 
+    def test_get_sha_from_branch(self):
+        commit_sha = self.hello_world_project.get_sha_from_branch("test-for-flock")
+        assert commit_sha and commit_sha.startswith("e2282f3")
+
+    def test_get_sha_from_branch_non_existing(self):
+        commit_sha = self.hello_world_project.get_sha_from_branch("non-existing")
+        assert commit_sha is None
+
     def test_get_sha_from_tag(self):
         assert (
             self.ogr_project.get_sha_from_tag("0.0.1")
