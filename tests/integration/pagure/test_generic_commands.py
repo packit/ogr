@@ -134,3 +134,11 @@ class GenericCommands(PagureTests):
     def test_delete(self):
         project = self.service.get_project(repo="delete-project", namespace="testing")
         project.delete()
+
+    def test_get_sha_from_branch(self):
+        commit_sha = self.ogr_project.get_sha_from_branch("testPR")
+        assert commit_sha and commit_sha.startswith("1b491a6")
+
+    def test_get_sha_from_branch_non_existing(self):
+        commit_sha = self.ogr_project.get_sha_from_branch("non-existing")
+        assert commit_sha is None

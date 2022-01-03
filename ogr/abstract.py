@@ -1708,6 +1708,13 @@ class GitProject(OgrAbstractClass):
         """
         raise NotImplementedError()
 
+    def get_sha_from_branch(self, branch: str) -> Optional[str]:
+        """
+        Returns:
+            Commit SHA of head of the branch. `None` if no branch was found.
+        """
+        raise NotImplementedError()
+
 
 class GitUser(OgrAbstractClass):
     """

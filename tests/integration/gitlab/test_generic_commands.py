@@ -117,6 +117,14 @@ class GenericCommands(GitlabTests):
         assert urls["git"] == "https://gitlab.com/packit-service/ogr-tests.git"
         assert urls["ssh"].endswith("git@gitlab.com:packit-service/ogr-tests.git")
 
+    def test_get_sha_from_branch(self):
+        commit_sha = self.project.get_sha_from_branch("change")
+        assert commit_sha and commit_sha.startswith("d490ec67")
+
+    def test_get_sha_from_branch_non_existing(self):
+        commit_sha = self.project.get_sha_from_branch("non-existing")
+        assert commit_sha is None
+
     def test_get_sha_from_tag(self):
         assert (
             self.project.get_sha_from_tag("0.1.0")

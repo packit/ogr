@@ -506,3 +506,10 @@ class PagureProject(BaseGitProject):
             paths = filter_paths(paths, filter_regex)
 
         return paths
+
+    def get_sha_from_branch(self, branch: str) -> Optional[str]:
+        branches = self._call_project_api(
+            "git", "branches", params={"with_commits": True}
+        )["branches"]
+
+        return branches.get(branch)
