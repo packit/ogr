@@ -1,3 +1,10 @@
+# 0.34.0
+
+- We have introduced a new function into `ogr` that allows you to get commit
+  SHA of the HEAD of the branch. (#668)
+- A list of Gitlab projects provided by `GitlabService.list_projects()` now
+  contains objects with additional metadata. (#667)
+
 # 0.33.0
 
 - OGR now fully supports getting PR comments by its ID.
