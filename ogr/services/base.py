@@ -2,6 +2,7 @@
 # SPDX-License-Identifier: MIT
 
 from typing import List, Optional, Any
+from urllib.request import urlopen
 
 from ogr.abstract import (
     GitService,
@@ -12,6 +13,7 @@ from ogr.abstract import (
     PullRequest,
     CommitFlag,
     CommitStatus,
+    Release,
 )
 from ogr.exceptions import OgrException
 from ogr.parsing import parse_git_repo
@@ -102,3 +104,12 @@ class BaseCommitFlag(CommitFlag):
             raise ValueError("Invalid state given")
 
         return state
+
+
+class BaseRelease(Release):
+    def save_archive(self, filename: str) -> None:
+        response = urlopen(self.tarball_url)
+        data = response.read()
+
+        with open(filename, "wb") as file:
+            file.write(data)
