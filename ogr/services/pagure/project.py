@@ -433,26 +433,23 @@ class PagureProject(BaseGitProject):
         response = self._call_project_api("git", "tags", params={"with_commits": True})
         return {n: GitTag(name=n, commit_sha=c) for n, c in response["tags"].items()}
 
+    @indirect(PagureRelease.get_list)
     def get_releases(self) -> List[Release]:
-        # git tag for Pagure is shown as Release in Pagure UI
-        git_tags = self.get_tags()
-        return [self._release_from_git_tag(git_tag) for git_tag in git_tags]
+        pass
 
+    @indirect(PagureRelease.get)
     def get_release(self, identifier=None, name=None, tag_name=None) -> PagureRelease:
-        raise OperationNotSupported
+        pass
 
+    @indirect(PagureRelease.get_latest)
     def get_latest_release(self) -> Optional[PagureRelease]:
-        raise OperationNotSupported
+        pass
 
-    def _release_from_git_tag(self, git_tag: GitTag) -> PagureRelease:
-        return PagureRelease(
-            tag_name=git_tag.name,
-            url="",
-            created_at="",
-            tarball_url="",
-            git_tag=git_tag,
-            project=self,
-        )
+    @indirect(PagureRelease.create)
+    def create_release(
+        self, tag: str, name: str, message: str, ref: Optional[str] = None
+    ) -> Release:
+        pass
 
     def get_forks(self) -> List["PagureProject"]:
         forks_url = self.service.get_api_url("projects")

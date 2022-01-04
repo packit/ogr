@@ -198,3 +198,14 @@ class PagureProjectTokenCommands(PagureTests):
 
         self.service.user.get_username()
         self.service.user.get_username()  # 2nd identical call
+
+    def test_create_release(self):
+        self.ogr_project.create_release(
+            tag="v0",
+            name="v0",
+            message="# v0\n\n• added README",
+            ref="2988640e03ddee8385a2acb827a36c8e50b1be1a",
+        )
+        assert "v0" in map(
+            lambda release: release.tag_name, self.ogr_project.get_releases()
+        )
