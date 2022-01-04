@@ -384,47 +384,23 @@ class GitlabProject(BaseGitProject):
         git_tag = self.gitlab_repo.tags.get(tag_name)
         return GitTag(name=git_tag.name, commit_sha=git_tag.commit["id"])
 
+    @indirect(GitlabRelease.get_list)
     def get_releases(self) -> List[Release]:
-        if not hasattr(self.gitlab_repo, "releases"):
-            raise OperationNotSupported(
-                "This version of python-gitlab does not support release, please upgrade."
-            )
-        releases = self.gitlab_repo.releases.list(all=True)
-        return [
-            self._release_from_gitlab_object(
-                raw_release=release,
-                git_tag=self._git_tag_from_tag_name(release.tag_name),
-            )
-            for release in releases
-        ]
+        pass
 
+    @indirect(GitlabRelease.get)
     def get_release(self, identifier=None, name=None, tag_name=None) -> GitlabRelease:
-        release = self.gitlab_repo.releases.get(tag_name)
-        return self._release_from_gitlab_object(
-            raw_release=release, git_tag=self._git_tag_from_tag_name(release.tag_name)
-        )
+        pass
 
+    @indirect(GitlabRelease.create)
     def create_release(
-        self, name: str, tag_name: str, description: str, ref=None
+        self, tag: str, name: str, message: str, commit_sha: Optional[str] = None
     ) -> GitlabRelease:
-        release = self.gitlab_repo.releases.create(
-            {"name": name, "tag_name": tag_name, "description": description, "ref": ref}
-        )
-        return self._release_from_gitlab_object(
-            raw_release=release, git_tag=self._git_tag_from_tag_name(release.tag_name)
-        )
+        pass
 
+    @indirect(GitlabRelease.get_latest)
     def get_latest_release(self) -> Optional[GitlabRelease]:
-        releases = self.gitlab_repo.releases.list()
-        # list of releases sorted by released_at
-        return (
-            self._release_from_gitlab_object(
-                raw_release=releases[0],
-                git_tag=self._git_tag_from_tag_name(releases[0].tag_name),
-            )
-            if releases
-            else None
-        )
+        pass
 
     def list_labels(self):
         """
@@ -490,19 +466,6 @@ class GitlabProject(BaseGitProject):
     def _commit_comment_from_gitlab_object(raw_comment, commit) -> CommitComment:
         return CommitComment(
             sha=commit, comment=raw_comment.note, author=raw_comment.author["username"]
-        )
-
-    def _release_from_gitlab_object(
-        self, raw_release, git_tag: GitTag
-    ) -> GitlabRelease:
-        return GitlabRelease(
-            tag_name=raw_release.tag_name,
-            url=None,
-            created_at=raw_release.created_at,
-            tarball_url=raw_release.assets["sources"][1]["url"],
-            git_tag=git_tag,
-            project=self,
-            raw_release=raw_release,
         )
 
     def get_web_url(self) -> str:

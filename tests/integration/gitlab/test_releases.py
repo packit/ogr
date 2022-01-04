@@ -19,8 +19,8 @@ class Releases(GitlabTests):
         count_before = len(releases_before)
         release = self.project.create_release(
             name=f"test {increased}",
-            tag_name=increased,
-            description=f"testing release-{increased}",
+            tag=increased,
+            message=f"testing release-{increased}",
             ref="master",
         )
         count_after = len(self.project.get_releases())
