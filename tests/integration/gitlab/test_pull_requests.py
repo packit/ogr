@@ -176,6 +176,12 @@ class PullRequests(GitlabTests):
             == "59b1a9bab5b5198c619270646410867788685c16"
         )
 
+    def test_target_branch_head_commit(self):
+        assert (
+            self.project.get_pr(52).target_branch_head_commit
+            == "59b1a9bab5b5198c619270646410867788685c16"
+        )
+
     def test_merge_commit_sha(self):
         # merged PR
         merged = self.project.get_pr(1)

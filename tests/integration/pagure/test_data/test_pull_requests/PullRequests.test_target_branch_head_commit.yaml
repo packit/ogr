@@ -1,0 +1,302 @@
+_requre:
+  DataTypes: 1
+  key_strategy: StorageKeysInspectSimple
+  version_storage_file: 3
+requests.sessions:
+  send:
+    GET:
+      https://pagure.io/api/0/ogr-tests/git/branches?with_commits=True:
+      - metadata:
+          latency: 0.21368789672851562
+          module_call_list:
+          - unittest.case
+          - requre.record_and_replace
+          - tests.integration.pagure.test_pull_requests
+          - ogr.services.base
+          - ogr.abstract
+          - ogr.services.pagure.project
+          - ogr.abstract
+          - ogr.services.pagure.project
+          - ogr.abstract
+          - ogr.services.pagure.service
+          - ogr.abstract
+          - ogr.services.pagure.service
+          - ogr.abstract
+          - ogr.services.pagure.service
+          - requests.sessions
+          - requre.objects
+          - requre.cassette
+          - requests.sessions
+          - send
+        output:
+          __store_indicator: 2
+          _content:
+            branches:
+              for-testing-get-files: 8d11eac1773ee032977f5ec4a86683113d6a888d
+              master: 517121273b142293807606dbd7a2e0f514b21cc8
+              testPR: 1b491a6718ca39c249e4e15a1b9d74fb2ff9d90a
+            default:
+              master: 517121273b142293807606dbd7a2e0f514b21cc8
+            total_branches: 3
+          _next: null
+          elapsed: 0.212715
+          encoding: utf-8
+          headers:
+            Connection: Keep-Alive
+            Content-Length: '316'
+            Content-Security-Policy: default-src 'self';script-src 'self' 'nonce-4OkZZ70v2kw7hqlPrwLhH3GFm';
+              style-src 'self' 'nonce-4OkZZ70v2kw7hqlPrwLhH3GFm'; object-src 'none';base-uri
+              'self';img-src 'self' https:;connect-src 'self' https://pagure.io:8088;frame-src
+              https://docs.pagure.org;frame-ancestors https://pagure.io;
+            Content-Type: application/json
+            Date: Wed, 05 Jan 2022 12:49:21 GMT
+            Keep-Alive: timeout=5, max=98
+            Referrer-Policy: same-origin
+            Server: Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_wsgi/4.6.4
+              Python/3.6
+            Set-Cookie: pagure=eyJfcGVybWFuZW50Ijp0cnVlLCJjc3JmX3Rva2VuIjoiZjU3NTE5YTZlZWE4ZGU1MjJlYzM0YzhmM2M4ZDc1M2UzZjA2ZTcyMCJ9.FLclUQ.1Ycvblg5OxdVRG5F4sL-4_1f3-8;
+              Expires=Sat, 05-Feb-2022 12:49:21 GMT; Secure; HttpOnly; Path=/
+            Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
+            X-Content-Type-Options: nosniff
+            X-Frame-Options: ALLOW-FROM https://pagure.io/
+            X-Xss-Protection: 1; mode=block
+          raw: !!binary ""
+          reason: OK
+          status_code: 200
+      https://pagure.io/api/0/ogr-tests/pull-request/13:
+      - metadata:
+          latency: 0.2529926300048828
+          module_call_list:
+          - unittest.case
+          - requre.record_and_replace
+          - tests.integration.pagure.test_pull_requests
+          - ogr.abstract
+          - ogr.utils
+          - ogr.abstract
+          - ogr.services.pagure.pull_request
+          - ogr.abstract
+          - ogr.services.pagure.project
+          - ogr.abstract
+          - ogr.services.pagure.service
+          - ogr.abstract
+          - ogr.services.pagure.service
+          - ogr.abstract
+          - ogr.services.pagure.service
+          - requests.sessions
+          - requre.objects
+          - requre.cassette
+          - requests.sessions
+          - send
+        output:
+          __store_indicator: 2
+          _content:
+            assignee: null
+            branch: for-testing-get-files
+            branch_from: testPR
+            cached_merge_status: CONFLICTS
+            closed_at: null
+            closed_by: null
+            comments: []
+            commit_start: 360928f7ca08827e8e17cb26851ea57e8d197f87
+            commit_stop: 1b491a6718ca39c249e4e15a1b9d74fb2ff9d90a
+            date_created: '1641386877'
+            full_url: https://pagure.io/ogr-tests/pull-request/13
+            id: 13
+            initial_comment: null
+            last_updated: '1641386880'
+            project:
+              access_groups:
+                admin: []
+                collaborator: []
+                commit: []
+                ticket: []
+              access_users:
+                admin:
+                - jscotka
+                - lbarczio
+                - mfocko
+                - nikromen
+                collaborator: []
+                commit: []
+                owner:
+                - lachmanfrantisek
+                ticket: []
+              close_status: []
+              custom_keys: []
+              date_created: '1570568389'
+              date_modified: '1638271116'
+              description: Testing repository for python-ogr package.
+              full_url: https://pagure.io/ogr-tests
+              fullname: ogr-tests
+              id: 6826
+              milestones: {}
+              name: ogr-tests
+              namespace: null
+              parent: null
+              priorities: {}
+              tags: []
+              url_path: ogr-tests
+              user:
+                full_url: https://pagure.io/user/lachmanfrantisek
+                fullname: "Franti\u0161ek Lachman"
+                name: lachmanfrantisek
+                url_path: user/lachmanfrantisek
+            remote_git: null
+            repo_from:
+              access_groups:
+                admin: []
+                collaborator: []
+                commit: []
+                ticket: []
+              access_users:
+                admin: []
+                collaborator: []
+                commit: []
+                owner:
+                - mfocko
+                ticket: []
+              close_status: []
+              custom_keys: []
+              date_created: '1598524315'
+              date_modified: '1598524315'
+              description: Testing repository for python-ogr package.
+              full_url: https://pagure.io/fork/mfocko/ogr-tests
+              fullname: forks/mfocko/ogr-tests
+              id: 8581
+              milestones: {}
+              name: ogr-tests
+              namespace: null
+              parent:
+                access_groups:
+                  admin: []
+                  collaborator: []
+                  commit: []
+                  ticket: []
+                access_users:
+                  admin:
+                  - jscotka
+                  - lbarczio
+                  - mfocko
+                  - nikromen
+                  collaborator: []
+                  commit: []
+                  owner:
+                  - lachmanfrantisek
+                  ticket: []
+                close_status: []
+                custom_keys: []
+                date_created: '1570568389'
+                date_modified: '1638271116'
+                description: Testing repository for python-ogr package.
+                full_url: https://pagure.io/ogr-tests
+                fullname: ogr-tests
+                id: 6826
+                milestones: {}
+                name: ogr-tests
+                namespace: null
+                parent: null
+                priorities: {}
+                tags: []
+                url_path: ogr-tests
+                user:
+                  full_url: https://pagure.io/user/lachmanfrantisek
+                  fullname: "Franti\u0161ek Lachman"
+                  name: lachmanfrantisek
+                  url_path: user/lachmanfrantisek
+              priorities: {}
+              tags: []
+              url_path: fork/mfocko/ogr-tests
+              user:
+                full_url: https://pagure.io/user/mfocko
+                fullname: Matej Focko
+                name: mfocko
+                url_path: user/mfocko
+            status: Open
+            tags: []
+            threshold_reached: null
+            title: test for head commit of target branch
+            uid: 030762f60239460180d62549c9a0e068
+            updated_on: '1641386877'
+            user:
+              full_url: https://pagure.io/user/mfocko
+              fullname: Matej Focko
+              name: mfocko
+              url_path: user/mfocko
+          _next: null
+          elapsed: 0.252122
+          encoding: utf-8
+          headers:
+            Connection: Keep-Alive
+            Content-Length: '3958'
+            Content-Security-Policy: default-src 'self';script-src 'self' 'nonce-MjKQ8RgpT2T55M5qDSCWGcBSk';
+              style-src 'self' 'nonce-MjKQ8RgpT2T55M5qDSCWGcBSk'; object-src 'none';base-uri
+              'self';img-src 'self' https:;connect-src 'self' https://pagure.io:8088;frame-src
+              https://docs.pagure.org;frame-ancestors https://pagure.io;
+            Content-Type: application/json
+            Date: Wed, 05 Jan 2022 12:49:21 GMT
+            Keep-Alive: timeout=5, max=99
+            Referrer-Policy: same-origin
+            Server: Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_wsgi/4.6.4
+              Python/3.6
+            Set-Cookie: pagure=eyJfcGVybWFuZW50Ijp0cnVlLCJjc3JmX3Rva2VuIjoiZjU3NTE5YTZlZWE4ZGU1MjJlYzM0YzhmM2M4ZDc1M2UzZjA2ZTcyMCJ9.FLclUQ.1Ycvblg5OxdVRG5F4sL-4_1f3-8;
+              Expires=Sat, 05-Feb-2022 12:49:21 GMT; Secure; HttpOnly; Path=/
+            Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
+            X-Content-Type-Options: nosniff
+            X-Frame-Options: ALLOW-FROM https://pagure.io/
+            X-Xss-Protection: 1; mode=block
+          raw: !!binary ""
+          reason: OK
+          status_code: 200
+    POST:
+      https://pagure.io/api/0/-/whoami:
+      - metadata:
+          latency: 0.681692361831665
+          module_call_list:
+          - unittest.case
+          - requre.record_and_replace
+          - tests.integration.pagure.test_pull_requests
+          - tests.integration.pagure.base
+          - ogr.abstract
+          - ogr.services.pagure.service
+          - ogr.abstract
+          - ogr.services.pagure.user
+          - ogr.abstract
+          - ogr.services.pagure.service
+          - ogr.abstract
+          - ogr.services.pagure.service
+          - ogr.abstract
+          - ogr.services.pagure.service
+          - requests.sessions
+          - requre.objects
+          - requre.cassette
+          - requests.sessions
+          - send
+        output:
+          __store_indicator: 2
+          _content:
+            username: mfocko
+          _next: null
+          elapsed: 0.68076
+          encoding: utf-8
+          headers:
+            Connection: Keep-Alive
+            Content-Length: '27'
+            Content-Security-Policy: default-src 'self';script-src 'self' 'nonce-j8JzN5DpYFXHp5zY8StawlO3c';
+              style-src 'self' 'nonce-j8JzN5DpYFXHp5zY8StawlO3c'; object-src 'none';base-uri
+              'self';img-src 'self' https:;connect-src 'self' https://pagure.io:8088;frame-src
+              https://docs.pagure.org;frame-ancestors https://pagure.io;
+            Content-Type: application/json
+            Date: Wed, 05 Jan 2022 12:49:21 GMT
+            Keep-Alive: timeout=5, max=100
+            Referrer-Policy: same-origin
+            Server: Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_wsgi/4.6.4
+              Python/3.6
+            Set-Cookie: pagure=eyJfcGVybWFuZW50Ijp0cnVlLCJjc3JmX3Rva2VuIjoiZjU3NTE5YTZlZWE4ZGU1MjJlYzM0YzhmM2M4ZDc1M2UzZjA2ZTcyMCJ9.FLclUQ.1Ycvblg5OxdVRG5F4sL-4_1f3-8;
+              Expires=Sat, 05-Feb-2022 12:49:21 GMT; Secure; HttpOnly; Path=/
+            Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
+            X-Content-Type-Options: nosniff
+            X-Frame-Options: ALLOW-FROM https://pagure.io/
+            X-Xss-Protection: 1; mode=block
+          raw: !!binary ""
+          reason: OK
+          status_code: 200

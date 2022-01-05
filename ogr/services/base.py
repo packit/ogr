@@ -46,6 +46,10 @@ class BaseGitProject(GitProject):
 
 
 class BasePullRequest(PullRequest):
+    @property
+    def target_branch_head_commit(self) -> str:
+        return self.target_project.get_sha_from_branch(self.target_branch)
+
     def get_comments(
         self, filter_regex: str = None, reverse: bool = False, author: str = None
     ):

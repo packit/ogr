@@ -81,6 +81,12 @@ class PullRequests(PagureTests):
             == "517121273b142293807606dbd7a2e0f514b21cc8"
         )
 
+    def test_target_branch_head_commit(self):
+        assert (
+            self.ogr_project.get_pr(13).target_branch_head_commit
+            == "8d11eac1773ee032977f5ec4a86683113d6a888d"
+        )
+
     def test_source_project_upstream_branch(self):
         pr = self.ogr_project.get_pr(4)
         source_project = pr.source_project
