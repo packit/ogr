@@ -196,8 +196,15 @@ class GitlabProject(BaseGitProject):
         Returns:
             List of usernames.
         """
+        # TODO: Remove once ‹members_all› is available for all releases of ogr
+        all_members = None
+        if hasattr(self.gitlab_repo, "members_all"):
+            all_members = self.gitlab_repo.members_all.list(all=True)
+        else:
+            all_members = self.gitlab_repo.members.all(all=True)
+
         response = []
-        for member in self.gitlab_repo.members.all(all=True):
+        for member in all_members:
             if isinstance(member, dict):
                 access_level = member["access_level"]
                 username = member["username"]
