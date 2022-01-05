@@ -149,17 +149,17 @@ class GitlabProject(BaseGitProject):
 
     def get_owners(self) -> List[str]:
         return self._get_collaborators_with_given_access(
-            access_levels=[gitlab.OWNER_ACCESS]
+            access_levels=[gitlab.const.OWNER_ACCESS]
         )
 
     def who_can_close_issue(self) -> Set[str]:
         return set(
             self._get_collaborators_with_given_access(
                 access_levels=[
-                    gitlab.REPORTER_ACCESS,
-                    gitlab.DEVELOPER_ACCESS,
-                    gitlab.MAINTAINER_ACCESS,
-                    gitlab.OWNER_ACCESS,
+                    gitlab.const.REPORTER_ACCESS,
+                    gitlab.const.DEVELOPER_ACCESS,
+                    gitlab.const.MAINTAINER_ACCESS,
+                    gitlab.const.OWNER_ACCESS,
                 ]
             )
         )
@@ -168,9 +168,9 @@ class GitlabProject(BaseGitProject):
         return set(
             self._get_collaborators_with_given_access(
                 access_levels=[
-                    gitlab.DEVELOPER_ACCESS,
-                    gitlab.MAINTAINER_ACCESS,
-                    gitlab.OWNER_ACCESS,
+                    gitlab.const.DEVELOPER_ACCESS,
+                    gitlab.const.MAINTAINER_ACCESS,
+                    gitlab.const.OWNER_ACCESS,
                 ]
             )
         )
@@ -217,11 +217,11 @@ class GitlabProject(BaseGitProject):
 
     def add_user(self, user: str, access_level: AccessLevel) -> None:
         access_dict = {
-            AccessLevel.pull: gitlab.GUEST_ACCESS,
-            AccessLevel.triage: gitlab.REPORTER_ACCESS,
-            AccessLevel.push: gitlab.DEVELOPER_ACCESS,
-            AccessLevel.admin: gitlab.MAINTAINER_ACCESS,
-            AccessLevel.maintain: gitlab.OWNER_ACCESS,
+            AccessLevel.pull: gitlab.const.GUEST_ACCESS,
+            AccessLevel.triage: gitlab.const.REPORTER_ACCESS,
+            AccessLevel.push: gitlab.const.DEVELOPER_ACCESS,
+            AccessLevel.admin: gitlab.const.MAINTAINER_ACCESS,
+            AccessLevel.maintain: gitlab.const.OWNER_ACCESS,
         }
         try:
             user_id = self.service.gitlab_instance.users.list(username=user)[0].id
