@@ -65,7 +65,7 @@ class GithubService(BaseGitService):
                 total=int(max_retries),
                 read=0,
                 # Retry mechanism active for these HTTP methods:
-                method_whitelist=["DELETE", "GET", "PATCH", "POST", "PUT"],
+                allowed_methods=["DELETE", "GET", "PATCH", "POST", "PUT"],
                 # Only retry on following HTTP status codes
                 status_forcelist=[500, 503, 403, 401],
                 raise_on_status=False,
