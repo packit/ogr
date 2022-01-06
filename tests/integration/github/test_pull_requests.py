@@ -265,6 +265,12 @@ class PullRequests(GithubTests):
             == "7cf6d0cbeca285ecbeb19a0067cb243783b3c768"
         )
 
+    def test_target_branch_head_commit(self):
+        assert (
+            self.hello_world_project.get_pr(483).target_branch_head_commit
+            == "581040aa64dc15385a543565daf4d790f27c4429"
+        )
+
     def test_merge_commit_sha(self):
         pr240 = self.hello_world_project.get_pr(240)
         assert pr240.head_commit == "dabfd3862702e49b6877da7f224e6d6458eb961a"

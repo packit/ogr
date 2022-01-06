@@ -589,7 +589,12 @@ class PullRequest(OgrAbstractClass):
     @property
     def head_commit(self) -> str:
         """Commit hash of the HEAD commit of the pull request."""
-        raise NotImplementedError
+        raise NotImplementedError()
+
+    @property
+    def target_branch_head_commit(self) -> str:
+        """Commit hash of the HEAD commit of the target branch."""
+        raise NotImplementedError()
 
     @property
     def merge_commit_sha(self) -> str:

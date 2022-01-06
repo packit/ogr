@@ -5693,7 +5693,7 @@ requests.sessions:
           raw: !!binary ""
           reason: OK
           status_code: 200
-      https://gitlab.com/api/v4/projects/4207231/repository/tags/2%2E42%2E4:
+      https://gitlab.com/api/v4/projects/4207231/repository/tags/2%2E42%2E4: &id001
       - metadata:
           latency: 0.3236711025238037
           module_call_list:
@@ -5844,7 +5844,7 @@ requests.sessions:
           raw: !!binary ""
           reason: OK
           status_code: 200
-      https://gitlab.com/api/v4/projects/4207231/repository/tags/2%2E44%2E0:
+      https://gitlab.com/api/v4/projects/4207231/repository/tags/2%2E44%2E0: &id002
       - metadata:
           latency: 0.37049031257629395
           module_call_list:
@@ -5993,7 +5993,7 @@ requests.sessions:
           raw: !!binary ""
           reason: OK
           status_code: 200
-      https://gitlab.com/api/v4/projects/4207231/repository/tags/2%2E44%2E1:
+      https://gitlab.com/api/v4/projects/4207231/repository/tags/2%2E44%2E1: &id003
       - metadata:
           latency: 0.33779311180114746
           module_call_list:
@@ -6154,6 +6154,9 @@ requests.sessions:
           raw: !!binary ""
           reason: OK
           status_code: 200
+      https://gitlab.com/api/v4/projects/4207231/repository/tags/2.42.4: *id001
+      https://gitlab.com/api/v4/projects/4207231/repository/tags/2.44.0: *id002
+      https://gitlab.com/api/v4/projects/4207231/repository/tags/2.44.1: *id003
       https://gitlab.com/api/v4/projects/4207231/repository/tags/Nightly:
       - metadata:
           latency: 0.42128896713256836
