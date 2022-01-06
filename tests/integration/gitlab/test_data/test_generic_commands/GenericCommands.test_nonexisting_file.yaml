@@ -5,7 +5,7 @@ _requre:
 requests.sessions:
   send:
     GET:
-      https://gitlab.com/api/v4/projects/14233409/repository/files/%2Eblablabla_nonexisting_file?ref=master:
+      https://gitlab.com/api/v4/projects/14233409/repository/files/.blablabla_nonexisting_file?ref=master: &new_request
       - metadata:
           latency: 0.3033428192138672
           module_call_list:
@@ -104,6 +104,7 @@ requests.sessions:
           raw: !!binary ""
           reason: Not Found
           status_code: 404
+      https://gitlab.com/api/v4/projects/14233409/repository/files/%2Eblablabla_nonexisting_file?ref=master: *new_request
       https://gitlab.com/api/v4/projects/packit-service%2Fogr-tests:
       - metadata:
           latency: 0.29355406761169434

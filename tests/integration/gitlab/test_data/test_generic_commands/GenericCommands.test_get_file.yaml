@@ -5,7 +5,7 @@ _requre:
 requests.sessions:
   send:
     GET:
-      https://gitlab.com/api/v4/projects/14233409/repository/files/README%2Emd?ref=master:
+      https://gitlab.com/api/v4/projects/14233409/repository/files/README.md?ref=master: &new_request
       - metadata:
           latency: 0.30264830589294434
           module_call_list:
@@ -148,6 +148,7 @@ requests.sessions:
           raw: !!binary ""
           reason: OK
           status_code: 200
+      https://gitlab.com/api/v4/projects/14233409/repository/files/README%2Emd?ref=master: *new_request
       https://gitlab.com/api/v4/projects/packit-service%2Fogr-tests:
       - metadata:
           latency: 0.29515719413757324

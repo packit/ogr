@@ -5,7 +5,7 @@ _requre:
 requests.sessions:
   send:
     GET:
-      https://gitlab.com/api/v4/projects/14233409/repository/tags/0%2E1%2E0:
+      https://gitlab.com/api/v4/projects/14233409/repository/tags/0.1.0: &new_request
       - metadata:
           latency: 0.29453587532043457
           module_call_list:
@@ -148,6 +148,7 @@ requests.sessions:
           raw: !!binary ""
           reason: OK
           status_code: 200
+      https://gitlab.com/api/v4/projects/14233409/repository/tags/0%2E1%2E0: *new_request
       https://gitlab.com/api/v4/projects/14233409/repository/tags/future:
       - metadata:
           latency: 0.2960646152496338
