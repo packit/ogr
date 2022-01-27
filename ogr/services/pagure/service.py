@@ -5,6 +5,7 @@ import logging
 from typing import List, Optional, Union
 
 import requests
+import urllib3
 
 from ogr.exceptions import (
     PagureAPIException,
@@ -36,7 +37,7 @@ class PagureService(BaseGitService):
         instance_url: str = "https://src.fedoraproject.org",
         read_only: bool = False,
         insecure: bool = False,
-        max_retries: Union[int, requests.packages.urllib3.util.Retry] = 5,
+        max_retries: Union[int, urllib3.util.Retry] = 5,
         **kwargs,
     ) -> None:
         super().__init__()
