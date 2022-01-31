@@ -366,4 +366,4 @@ class PullRequests(GithubTests):
 
     def test_pr_not_exists(self):
         with pytest.raises(GithubAPIException):
-            self.ogr_project.get_pr(10 ** 20)
+            self.ogr_project.get_pr(10**20)

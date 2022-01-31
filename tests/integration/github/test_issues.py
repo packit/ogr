@@ -145,7 +145,7 @@ class Issues(GithubTests):
 
     def test_issue_not_exists(self):
         with pytest.raises(GithubAPIException):
-            self.ogr_project.get_issue(10 ** 20)
+            self.ogr_project.get_issue(10**20)
 
     def test_functions_fail_for_pr(self):
         with pytest.raises(GithubAPIException):
