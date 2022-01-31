@@ -391,4 +391,4 @@ class PullRequests(GitlabTests):
 
     def test_pr_not_exists(self):
         with pytest.raises(GitlabAPIException):
-            self.project.get_pr(10 ** 20)
+            self.project.get_pr(10**20)
