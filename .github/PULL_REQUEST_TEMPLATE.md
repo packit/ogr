@@ -15,6 +15,6 @@ Related to
 
 Merge before/after
 
----
-
-<!-- release notes for changelog/blog follow -->
+RELEASE NOTES BEGIN
+￼
+RELEASE NOTES END
