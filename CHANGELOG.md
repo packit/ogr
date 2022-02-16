@@ -1,3 +1,9 @@
+# 0.35.0
+
+- We have added `target_branch_head_commit` property to the `PullRequest`
+  class in `ogr` that allows you to get commit hash of the HEAD of the
+  target branch (i.e. base, where the changes are merged to).
+
 # 0.34.0
 
 - We have introduced a new function into `ogr` that allows you to get commit
