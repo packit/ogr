@@ -38,6 +38,22 @@ from ogr.services.pagure import PagureProject
         ("https://pagure.something.com/ogr", None, PagureService),
         ("https://gitlab.com/someone/project", None, GitlabService),
         ("https://gitlab.abcd.def/someone/project", None, GitlabService),
+        (
+            "https://src.fedoraproject.org/rpms/golang-gitlab-flimzy-testy",
+            None,
+            PagureService,
+        ),
+        (
+            "https://src.stg.fedoraproject.org/rpms/golang-gitlab-flimzy-testy",
+            None,
+            PagureService,
+        ),
+        ("https://src.fedoraproject.org/rpms/python-gitlab", None, PagureService),
+        (
+            "https://src.fedoraproject.org/rpms/golang-gitlab-yawning-utls",
+            None,
+            PagureService,
+        ),
     ],
 )
 def test_get_service_class(url, mapping, result):

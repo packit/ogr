@@ -130,8 +130,9 @@ def get_service_class_or_none(
     if service_mapping_update:
         mapping.update(service_mapping_update)
 
+    parsed_url = parse_git_repo(url)
     for service, service_kls in mapping.items():
-        if service in url:
+        if service in parsed_url.hostname:
             return service_kls
 
     return None
