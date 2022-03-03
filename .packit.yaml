@@ -15,6 +15,11 @@ actions:
     - python3 setup.py sdist --dist-dir ./fedora/
     - bash -c "ls -1t ./fedora/*.tar.gz | head -n 1"
   get-current-version: python3 setup.py --version
+
+srpm_build_deps:
+  - python3-pip # "python3 setup.py --version" needs it
+  - python3-setuptools_scm
+
 jobs:
   - job: sync_from_downstream
     trigger: commit
