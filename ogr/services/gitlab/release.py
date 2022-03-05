@@ -1,7 +1,10 @@
 # Copyright Contributors to the Packit project.
 # SPDX-License-Identifier: MIT
 
-from typing import Optional
+from gitlab.v4.objects import ProjectRelease as _GitlabRelease
+
+import datetime
+from typing import Optional, List
 
 from ogr.abstract import Release, GitTag
 from ogr.services import gitlab as ogr_gitlab
@@ -9,28 +12,77 @@ from ogr.exceptions import OperationNotSupported
 
 
 class GitlabRelease(Release):
+    _raw_release: _GitlabRelease
     project: "ogr_gitlab.GitlabProject"
-
-    def __init__(
-        self,
-        tag_name: str,
-        url: Optional[str],
-        created_at: str,
-        tarball_url: str,
-        git_tag: GitTag,
-        project: "ogr_gitlab.GitlabProject",
-        raw_release,
-    ) -> None:
-        super().__init__(tag_name, url, created_at, tarball_url, git_tag, project)
-        self.raw_release = raw_release
 
     @property
     def title(self):
-        return self.raw_release.name
+        return self._raw_release.name
 
     @property
     def body(self):
-        return self.raw_release.description
+        return self._raw_release.description
+
+    @property
+    def git_tag(self) -> GitTag:
+        return self.project._git_tag_from_tag_name(self.tag_name)
+
+    @property
+    def tag_name(self) -> str:
+        return self._raw_release.tag_name
+
+    @property
+    def url(self) -> Optional[str]:
+        return f"{self.project.get_web_url()}/-/releases/{self.tag_name}"
+
+    @property
+    def created_at(self) -> datetime.datetime:
+        return self._raw_release.created_at
+
+    @property
+    def tarball_url(self) -> str:
+        return self._raw_release.assets["sources"][1]["url"]
+
+    def __str__(self) -> str:
+        return "Gitlab" + super().__str__()
+
+    @staticmethod
+    def get(
+        project: "ogr_gitlab.GitlabProject",
+        identifier: Optional[int] = None,
+        name: Optional[str] = None,
+        tag_name: Optional[str] = None,
+    ) -> "Release":
+        release = project.gitlab_repo.releases.get(tag_name)
+        return GitlabRelease(release, project)
+
+    @staticmethod
+    def get_latest(project: "ogr_gitlab.GitlabProject") -> Optional["Release"]:
+        releases = project.gitlab_repo.releases.list()
+        # list of releases sorted by released_at
+        return GitlabRelease(releases[0], project) if releases else None
+
+    @staticmethod
+    def get_list(project: "ogr_gitlab.GitlabProject") -> List["Release"]:
+        if not hasattr(project.gitlab_repo, "releases"):
+            raise OperationNotSupported(
+                "This version of python-gitlab does not support release, please upgrade."
+            )
+        releases = project.gitlab_repo.releases.list(all=True)
+        return [GitlabRelease(release, project) for release in releases]
+
+    @staticmethod
+    def create(
+        project: "ogr_gitlab.GitlabProject",
+        tag: str,
+        name: str,
+        message: str,
+        ref: Optional[str] = None,
+    ) -> "Release":
+        release = project.gitlab_repo.releases.create(
+            {"name": name, "tag_name": tag, "description": message, "ref": ref}
+        )
+        return GitlabRelease(release, project)
 
     def edit_release(self, name: str, message: str) -> None:
         raise OperationNotSupported("edit_release not supported on GitLab")

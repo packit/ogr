@@ -16,7 +16,6 @@ from github import UnknownObjectException
 from github.GithubException import GithubException
 from github.Repository import Repository
 from github.CommitComment import CommitComment as GithubCommitComment
-from github.GitRelease import GitRelease as PyGithubRelease
 
 from ogr.abstract import (
     Issue,
@@ -438,29 +437,6 @@ class GithubProject(BaseGitProject):
 
         return paths
 
-    def _release_from_github_object(
-        self, raw_release: PyGithubRelease, git_tag: GitTag
-    ) -> GithubRelease:
-        """
-        Get ogr.abstract.Release object from github.GithubRelease
-
-        Args:
-            raw_release: GithubRelease, object from Github API
-                https://developer.github.com/v3/repos/releases/
-
-        Returns:
-            Release object.
-        """
-        return GithubRelease(
-            tag_name=raw_release.tag_name,
-            url=raw_release.url,
-            created_at=str(raw_release.created_at),
-            tarball_url=raw_release.tarball_url,
-            git_tag=git_tag,
-            project=self,
-            raw_release=raw_release,
-        )
-
     @staticmethod
     def _commitcomment_from_github_object(
         raw_commitcoment: GithubCommitComment,
@@ -508,59 +484,21 @@ class GithubProject(BaseGitProject):
             return color[1:]
         return color
 
-    def _release_id_from_name(self, name) -> Optional[int]:
-        releases = self.github_repo.get_releases()
-        for release in releases:
-            if release.title == name:
-                return release.id
-        return None
-
-    def _release_id_from_tag(self, tag) -> Optional[int]:
-        releases = self.github_repo.get_releases()
-        for release in releases:
-            if release.tag_name == tag:
-                return release.id
-        return None
-
+    @indirect(GithubRelease.get)
     def get_release(self, identifier=None, name=None, tag_name=None) -> GithubRelease:
-        if tag_name:
-            identifier = self._release_id_from_tag(tag_name)
-        elif name:
-            identifier = self._release_id_from_name(name)
-        if identifier is None:
-            raise GithubAPIException("Release was not found.")
-        release = self.github_repo.get_release(id=identifier)
-        return self._release_from_github_object(
-            raw_release=release, git_tag=self.get_tag_from_tag_name(release.tag_name)
-        )
+        pass
 
+    @indirect(GithubRelease.get_latest)
     def get_latest_release(self) -> Optional[GithubRelease]:
-        try:
-            release = self.github_repo.get_latest_release()
-            return self._release_from_github_object(
-                raw_release=release,
-                git_tag=self.get_tag_from_tag_name(release.tag_name),
-            )
-        except GithubException as ex:
-            if ex.status == 404:
-                return None
-            raise GithubAPIException from ex
+        pass
 
+    @indirect(GithubRelease.get_list)
     def get_releases(self) -> List[Release]:
-        releases = self.github_repo.get_releases()
-        return [
-            self._release_from_github_object(
-                raw_release=release,
-                git_tag=self.get_tag_from_tag_name(release.tag_name),
-            )
-            for release in releases
-        ]
+        pass
 
+    @indirect(GithubRelease.create)
     def create_release(self, tag: str, name: str, message: str) -> GithubRelease:
-        created_release = self.github_repo.create_git_release(
-            tag=tag, name=name, message=message
-        )
-        return self.get_release(created_release.id)
+        pass
 
     def get_forks(self) -> List["GithubProject"]:
         return [
