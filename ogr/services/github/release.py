@@ -109,8 +109,6 @@ class GithubRelease(Release):
             tag=tag, name=name, message=message
         )
         return GithubRelease(created_release, project)
-        # XXX: Why?
-        return GithubRelease.get(project, created_release.id)
 
     def edit_release(self, name: str, message: str) -> None:
         """

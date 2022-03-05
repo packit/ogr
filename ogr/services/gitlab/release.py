@@ -33,8 +33,7 @@ class GitlabRelease(Release):
 
     @property
     def url(self) -> Optional[str]:
-        # no link is provided
-        return None
+        return f"{self.project.get_web_url()}/-/releases/{self.tag_name}"
 
     @property
     def created_at(self) -> datetime.datetime:

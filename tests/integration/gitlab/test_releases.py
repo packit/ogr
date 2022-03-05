@@ -28,6 +28,10 @@ class Releases(GitlabTests):
         assert release.title == f"test {increased}"
         assert release.body == f"testing release-{increased}"
         assert count_before + 1 == count_after
+        assert (
+            release.url
+            == f"https://gitlab.com/packit-service/ogr-tests/-/releases/{increased}"
+        )
 
     def test_get_releases(self):
         try:
@@ -40,6 +44,10 @@ class Releases(GitlabTests):
         assert releases[-1].title == "test"
         assert releases[-1].tag_name == "0.1.0"
         assert releases[-1].body == "testing release"
+        assert (
+            releases[-1].url
+            == "https://gitlab.com/packit-service/ogr-tests/-/releases/0.1.0"
+        )
 
     def test_get_releases_pagination(self):
         # in time of writing tests using graphviz/graphviz (60 releases)
@@ -60,6 +68,10 @@ class Releases(GitlabTests):
         assert latest_release.title == release.title
         assert latest_release.tag_name == release.tag_name
         assert latest_release.body == release.body
+        assert (
+            latest_release.url
+            == f"https://gitlab.com/packit-service/ogr-tests/-/releases/{release.tag_name}"
+        )
 
     def test_get_latest_release_doesnt_exist(self):
         project = self.service.project_create(repo="ogr-playground")
