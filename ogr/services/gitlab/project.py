@@ -91,6 +91,10 @@ class GitlabProject(BaseGitProject):
             and self.service == o.service
         )
 
+    @property
+    def has_issues(self) -> bool:
+        return self.gitlab_repo.issues_enabled
+
     def _construct_fork_project(self) -> Optional["GitlabProject"]:
         user_login = self.service.user.get_username()
         try:

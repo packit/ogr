@@ -256,3 +256,9 @@ class GenericCommands(GithubTests):
             repo="delete-project", namespace="shreyaspapi"
         )
         project.delete()
+
+    def test_has_issues(self):
+        project = self.hello_world_project
+
+        assert project.has_issues
+        assert not project.get_fork().has_issues, "Forks don't have issues by default"

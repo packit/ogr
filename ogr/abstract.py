@@ -1357,6 +1357,11 @@ class GitProject(OgrAbstractClass):
         """Parent project if the project is a fork, otherwise `None`."""
         raise NotImplementedError()
 
+    @property
+    def has_issues(self) -> bool:
+        """`True` if issues are enabled on the project."""
+        raise NotImplementedError()
+
     def get_branches(self) -> List[str]:
         """
         Returns:

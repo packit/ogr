@@ -188,6 +188,11 @@ class PagureProject(BaseGitProject):
     def description(self, new_description: str) -> None:
         raise OperationNotSupported("Not possible on Pagure")
 
+    @property
+    def has_issues(self) -> bool:
+        options = self._call_project_api("options", method="GET")
+        return options["settings"]["issue_tracker"]
+
     def get_owners(self) -> List[str]:
         project = self.get_project_info()
         return project["access_users"]["owner"]

@@ -233,3 +233,9 @@ class GenericCommands(GitlabTests):
             repo="delete-project", namespace="shreyaspapi"
         )
         project.delete()
+
+    def test_has_issues(self):
+        assert self.project.has_issues
+        assert not self.service.get_project(
+            namespace="redhat/centos-stream/rpms", repo="firefox"
+        ).has_issues

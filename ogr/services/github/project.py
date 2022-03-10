@@ -105,6 +105,10 @@ class GithubProject(BaseGitProject):
     def description(self, new_description: str) -> None:
         self.github_repo.edit(description=new_description)
 
+    @property
+    def has_issues(self) -> bool:
+        return self.github_repo.has_issues
+
     def _construct_fork_project(self) -> Optional["GithubProject"]:
         gh_user = self.github_instance.get_user()
         user_login = gh_user.login
