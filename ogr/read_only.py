@@ -233,7 +233,9 @@ class GitProjectReadOnly:
         )
 
     @classmethod
-    def fork_create(cls, original_object: Any) -> "GitProject":
+    def fork_create(
+        cls, original_object: Any, namespace: Optional[str] = None
+    ) -> "GitProject":
         return original_object
 
     @classmethod

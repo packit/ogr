@@ -302,9 +302,13 @@ class GitlabProject(BaseGitProject):
             "ssh": self.gitlab_repo.attributes["ssh_url_to_repo"],
         }
 
-    def fork_create(self) -> "GitlabProject":
+    def fork_create(self, namespace: Optional[str] = None) -> "GitlabProject":
+        data = {}
+        if namespace:
+            data["namespace_path"] = namespace
+
         try:
-            fork = self.gitlab_repo.forks.create({})
+            fork = self.gitlab_repo.forks.create(data=data)
         except gitlab.GitlabCreateError as ex:
             logger.error(f"Repo {self.gitlab_repo} cannot be forked")
             raise GitlabAPIException(
