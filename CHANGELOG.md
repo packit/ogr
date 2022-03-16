@@ -1,3 +1,8 @@
+# 0.36.0
+
+- `Release` class has been reworked and `create_release` has been made part of the API for `GitProject`. (#670)
+- Factory method for acquiring project or service class from URL has been improved by checking just the hostname for determining the service. (#682)
+
 # 0.35.0
 
 - We have added `target_branch_head_commit` property to the `PullRequest`
