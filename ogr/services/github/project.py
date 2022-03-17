@@ -386,11 +386,14 @@ class GithubProject(BaseGitProject):
         return {"git": self.github_repo.clone_url, "ssh": self.github_repo.ssh_url}
 
     @if_readonly(return_function=GitProjectReadOnly.fork_create)
-    def fork_create(self) -> "GithubProject":
-        gh_user = self.github_instance.get_user()
-        fork = self.service.get_project_from_github_repository(
-            gh_user.create_fork(self.github_repo)
+    def fork_create(self, namespace: Optional[str] = None) -> "GithubProject":
+        fork_repo = (
+            self.github_repo.create_fork(organization=namespace)
+            if namespace
+            else self.github_repo.create_fork()
         )
+
+        fork = self.service.get_project_from_github_repository(fork_repo)
         logger.debug(f"Forked to {fork.namespace}/{fork.repo}")
         return fork
 

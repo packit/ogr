@@ -1733,9 +1733,15 @@ class GitProject(OgrAbstractClass):
         """
         raise NotImplementedError()
 
-    def fork_create(self) -> "GitProject":
+    def fork_create(self, namespace: Optional[str] = None) -> "GitProject":
         """
         Fork this project using the authenticated user.
+
+        Args:
+            namespace: Namespace where the project should be forked.
+
+                Defaults to `None`, which means forking to the namespace of
+                currently authenticated user.
 
         Returns:
             Fork of the current project.

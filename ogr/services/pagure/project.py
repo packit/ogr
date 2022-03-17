@@ -266,7 +266,12 @@ class PagureProject(BaseGitProject):
         pass
 
     @if_readonly(return_function=GitProjectReadOnly.fork_create)
-    def fork_create(self) -> "PagureProject":
+    def fork_create(self, namespace: Optional[str] = None) -> "PagureProject":
+        if namespace is not None:
+            raise OperationNotSupported(
+                "Pagure does not support forking to namespaces."
+            )
+
         request_url = self.service.get_api_url("fork")
         self.service.call_api(
             url=request_url,
