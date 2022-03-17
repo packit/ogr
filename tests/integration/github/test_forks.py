@@ -63,3 +63,18 @@ class Forks(GithubTests):
 
         new_forks = self.not_forked_project.service.user.get_forks()
         assert len(old_forks) == len(new_forks) - 1
+
+    def test_create_fork_with_namespace(self):
+        """
+        When regenerating create a testing namespace:
+        ogr-tests-‹your login on the git forge›
+        """
+        namespace = f"ogr-tests-{self.service.user.get_username()}"
+        expected_fork = self.service.get_project(
+            namespace=namespace, repo=self.hello_world_project
+        )
+        assert not expected_fork.exists(), "Fork should not exist before regenerating"
+
+        fork = self.hello_world_project.fork_create(namespace=namespace)
+        assert fork.exists()
+        assert fork.is_fork

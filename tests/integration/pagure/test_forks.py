@@ -4,7 +4,7 @@
 from requre.online_replacing import record_requests_for_all_methods
 
 from tests.integration.pagure.base import PagureTests
-from ogr.exceptions import PagureAPIException
+from ogr.exceptions import OperationNotSupported, PagureAPIException
 
 
 @record_requests_for_all_methods()
@@ -67,3 +67,7 @@ class Forks(PagureTests):
 
         new_forks = self.ogr_project.service.user.get_forks()
         assert len(old_forks) == len(new_forks) - 1
+
+    def test_create_fork_with_namespace(self):
+        with self.assertRaises(OperationNotSupported):
+            self.ogr_project.fork_create(namespace="some_random_namespace")

@@ -37,3 +37,18 @@ class Forks(GitlabTests):
         assert self.project.get_fork()
         assert self.project.is_forked()
         assert new_fork.is_fork
+
+    def test_create_fork_with_namespace(self):
+        """
+        When regenerating create a testing namespace:
+        ogr-tests-‹your login on the git forge›
+        """
+        namespace = f"ogr-tests-{self.service.user.get_username()}"
+        expected_fork = self.service.get_project(
+            namespace=namespace, repo=self.project.repo
+        )
+        assert not expected_fork.exists(), "Fork should not exist before regenerating"
+
+        fork = self.project.fork_create(namespace=namespace)
+        assert fork.exists()
+        assert fork.is_fork
