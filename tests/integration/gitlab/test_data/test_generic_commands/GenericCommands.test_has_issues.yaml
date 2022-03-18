@@ -1,0 +1,457 @@
+_requre:
+  DataTypes: 1
+  key_strategy: StorageKeysInspectSimple
+  version_storage_file: 3
+requests.sessions:
+  send:
+    GET:
+      https://gitlab.com/api/v4/projects/packit-service%2Fogr-tests:
+      - metadata:
+          latency: 0.6274957656860352
+          module_call_list:
+          - unittest.case
+          - requre.record_and_replace
+          - tests.integration.gitlab.test_generic_commands
+          - ogr.services.gitlab.project
+          - gitlab.v4.objects.projects
+          - gitlab.exceptions
+          - gitlab.mixins
+          - gitlab.client
+          - requests.sessions
+          - requre.objects
+          - requre.cassette
+          - requests.sessions
+          - send
+        output:
+          __store_indicator: 2
+          _content:
+            _links:
+              events: https://gitlab.com/api/v4/projects/14233409/events
+              issues: https://gitlab.com/api/v4/projects/14233409/issues
+              labels: https://gitlab.com/api/v4/projects/14233409/labels
+              members: https://gitlab.com/api/v4/projects/14233409/members
+              merge_requests: https://gitlab.com/api/v4/projects/14233409/merge_requests
+              repo_branches: https://gitlab.com/api/v4/projects/14233409/repository/branches
+              self: https://gitlab.com/api/v4/projects/14233409
+            allow_merge_on_skipped_pipeline: null
+            analytics_access_level: enabled
+            approvals_before_merge: 0
+            archived: false
+            auto_cancel_pending_pipelines: enabled
+            auto_devops_deploy_strategy: continuous
+            auto_devops_enabled: false
+            autoclose_referenced_issues: true
+            avatar_url: null
+            build_coverage_regex: null
+            build_git_strategy: fetch
+            build_timeout: 3600
+            builds_access_level: enabled
+            can_create_merge_request_in: true
+            ci_config_path: null
+            ci_default_git_depth: 50
+            ci_forward_deployment_enabled: null
+            ci_job_token_scope_enabled: false
+            compliance_frameworks: []
+            container_registry_access_level: enabled
+            container_registry_enabled: true
+            container_registry_image_prefix: registry.gitlab.com/packit-service/ogr-tests
+            created_at: '2019-09-10T10:28:09.946Z'
+            creator_id: 433670
+            default_branch: master
+            description: Testing repository for python-ogr package.  |  https://github.com/packit-service/ogr
+            emails_disabled: null
+            empty_repo: false
+            external_authorization_classification_label: ''
+            forking_access_level: enabled
+            forks_count: 7
+            http_url_to_repo: https://gitlab.com/packit-service/ogr-tests.git
+            id: 14233409
+            import_error: null
+            import_status: none
+            issues_access_level: enabled
+            issues_enabled: true
+            issues_template: null
+            jobs_enabled: true
+            keep_latest_artifact: true
+            last_activity_at: '2022-01-05T18:40:31.301Z'
+            lfs_enabled: true
+            marked_for_deletion_at: null
+            marked_for_deletion_on: null
+            merge_commit_template: null
+            merge_method: merge
+            merge_pipelines_enabled: false
+            merge_requests_access_level: enabled
+            merge_requests_enabled: true
+            merge_requests_template: null
+            merge_trains_enabled: false
+            mirror: false
+            name: ogr-tests
+            name_with_namespace: packit-service / ogr-tests
+            namespace:
+              avatar_url: /uploads/-/system/group/avatar/6032704/logo-square-small-borders.png
+              full_path: packit-service
+              id: 6032704
+              kind: group
+              name: packit-service
+              parent_id: null
+              path: packit-service
+              web_url: https://gitlab.com/groups/packit-service
+            only_allow_merge_if_all_discussions_are_resolved: false
+            only_allow_merge_if_pipeline_succeeds: false
+            open_issues_count: 71
+            operations_access_level: enabled
+            packages_enabled: true
+            pages_access_level: enabled
+            path: ogr-tests
+            path_with_namespace: packit-service/ogr-tests
+            permissions:
+              group_access:
+                access_level: 50
+                notification_level: 3
+              project_access: null
+            printing_merge_request_link_enabled: true
+            public_jobs: true
+            readme_url: https://gitlab.com/packit-service/ogr-tests/-/blob/master/README.md
+            remove_source_branch_after_merge: null
+            repository_access_level: enabled
+            request_access_enabled: false
+            requirements_access_level: enabled
+            requirements_enabled: true
+            resolve_outdated_diff_discussions: false
+            restrict_user_defined_variables: false
+            runner_token_expiration_interval: null
+            runners_token: GR1348941sWEgsQKmwrxmdNipZmMH
+            security_and_compliance_access_level: private
+            security_and_compliance_enabled: true
+            service_desk_address: contact-project+packit-service-ogr-tests-14233409-issue-@incoming.gitlab.com
+            service_desk_enabled: true
+            shared_runners_enabled: true
+            shared_with_groups: []
+            snippets_access_level: enabled
+            snippets_enabled: true
+            squash_commit_template: null
+            squash_option: default_off
+            ssh_url_to_repo: git@gitlab.com:packit-service/ogr-tests.git
+            star_count: 0
+            suggestion_commit_message: null
+            tag_list: []
+            topics: []
+            visibility: public
+            web_url: https://gitlab.com/packit-service/ogr-tests
+            wiki_access_level: enabled
+            wiki_enabled: true
+          _next: null
+          elapsed: 0.62728
+          encoding: utf-8
+          headers:
+            CF-Cache-Status: DYNAMIC
+            CF-RAY: 6e9c739e2f48f9e6-PRG
+            Cache-Control: max-age=0, private, must-revalidate
+            Connection: keep-alive
+            Content-Encoding: gzip
+            Content-Type: application/json
+            Date: Thu, 10 Mar 2022 13:38:36 GMT
+            Etag: W/"77501ca0f58d42c783245df6bd6cb867"
+            Expect-CT: max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
+            GitLab-LB: fe-16-lb-gprd
+            GitLab-SV: localhost
+            NEL: '{"success_fraction":0.01,"report_to":"cf-nel","max_age":604800}'
+            RateLimit-Limit: '2000'
+            RateLimit-Observed: '24'
+            RateLimit-Remaining: '1975'
+            RateLimit-Reset: '1646919576'
+            RateLimit-ResetTime: Thu, 10 Mar 2022 13:39:36 GMT
+            Referrer-Policy: strict-origin-when-cross-origin
+            Report-To: '{"endpoints":[{"url":"https:\/\/a.nel.cloudflare.com\/report\/v3?s=6Q2xwSrlrPaT2ixGmkQ2lgSiFVMaq7g4vWW8XNoMBMRPUbN6WNO9drCadve1mW%2Bqln4UE4E62JyaCLYUQEyEE5hmbTuWBO7ly3dUpo5f2ei7cDNl8spIEKPA2NY%3D"}],"group":"cf-nel","max_age":604800}'
+            Server: cloudflare
+            Strict-Transport-Security: max-age=31536000
+            Transfer-Encoding: chunked
+            Vary: Origin
+            X-Content-Type-Options: nosniff
+            X-Frame-Options: SAMEORIGIN
+            X-Request-Id: 01FXT0TZZJGSJS6M2XEW1BAAWH
+            X-Runtime: '0.276464'
+          raw: !!binary ""
+          reason: OK
+          status_code: 200
+      https://gitlab.com/api/v4/projects/redhat%2Fcentos-stream%2Frpms%2Ffirefox:
+      - metadata:
+          latency: 0.28472042083740234
+          module_call_list:
+          - unittest.case
+          - requre.record_and_replace
+          - tests.integration.gitlab.test_generic_commands
+          - ogr.services.gitlab.project
+          - gitlab.v4.objects.projects
+          - gitlab.exceptions
+          - gitlab.mixins
+          - gitlab.client
+          - requests.sessions
+          - requre.objects
+          - requre.cassette
+          - requests.sessions
+          - send
+        output:
+          __store_indicator: 2
+          _content:
+            _links:
+              events: https://gitlab.com/api/v4/projects/23658391/events
+              labels: https://gitlab.com/api/v4/projects/23658391/labels
+              members: https://gitlab.com/api/v4/projects/23658391/members
+              merge_requests: https://gitlab.com/api/v4/projects/23658391/merge_requests
+              repo_branches: https://gitlab.com/api/v4/projects/23658391/repository/branches
+              self: https://gitlab.com/api/v4/projects/23658391
+            allow_merge_on_skipped_pipeline: null
+            analytics_access_level: enabled
+            approvals_before_merge: 0
+            archived: false
+            auto_cancel_pending_pipelines: enabled
+            auto_devops_deploy_strategy: continuous
+            auto_devops_enabled: false
+            autoclose_referenced_issues: true
+            avatar_url: null
+            build_coverage_regex: ''
+            build_timeout: 3600
+            builds_access_level: enabled
+            can_create_merge_request_in: true
+            ci_config_path: global-tasks.yml@redhat/centos-stream/ci-cd/dist-git-gating-tests
+            ci_default_git_depth: 50
+            ci_forward_deployment_enabled: true
+            ci_job_token_scope_enabled: false
+            compliance_frameworks: []
+            container_expiration_policy:
+              cadence: 1d
+              enabled: false
+              keep_n: 10
+              name_regex: .*
+              name_regex_keep: null
+              next_run_at: '2021-01-15T07:47:12.859Z'
+              older_than: 90d
+            container_registry_access_level: enabled
+            container_registry_enabled: true
+            container_registry_image_prefix: registry.gitlab.com/redhat/centos-stream/rpms/firefox
+            created_at: '2021-01-14T07:47:12.826Z'
+            creator_id: 6007577
+            default_branch: c9s
+            description: The firefox rpms
+            emails_disabled: false
+            empty_repo: false
+            external_authorization_classification_label: ''
+            forking_access_level: enabled
+            forks_count: 6
+            http_url_to_repo: https://gitlab.com/redhat/centos-stream/rpms/firefox.git
+            id: 23658391
+            import_status: none
+            issues_access_level: disabled
+            issues_enabled: false
+            jobs_enabled: true
+            keep_latest_artifact: true
+            last_activity_at: '2022-03-10T11:04:58.365Z'
+            lfs_enabled: false
+            marked_for_deletion_at: null
+            marked_for_deletion_on: null
+            merge_commit_template: null
+            merge_method: ff
+            merge_pipelines_enabled: true
+            merge_requests_access_level: enabled
+            merge_requests_enabled: true
+            merge_requests_template: ''
+            merge_trains_enabled: true
+            mirror: false
+            name: firefox
+            name_with_namespace: Red Hat / centos-stream / rpms / firefox
+            namespace:
+              avatar_url: null
+              full_path: redhat/centos-stream/rpms
+              id: 8794173
+              kind: group
+              name: rpms
+              parent_id: 8706831
+              path: rpms
+              web_url: https://gitlab.com/groups/redhat/centos-stream/rpms
+            only_allow_merge_if_all_discussions_are_resolved: false
+            only_allow_merge_if_pipeline_succeeds: true
+            operations_access_level: disabled
+            packages_enabled: false
+            pages_access_level: private
+            path: firefox
+            path_with_namespace: redhat/centos-stream/rpms/firefox
+            permissions:
+              group_access:
+                access_level: 5
+                notification_level: 3
+              project_access: null
+            printing_merge_request_link_enabled: true
+            public_jobs: true
+            readme_url: null
+            remove_source_branch_after_merge: true
+            repository_access_level: enabled
+            request_access_enabled: false
+            requirements_access_level: enabled
+            requirements_enabled: true
+            resolve_outdated_diff_discussions: false
+            restrict_user_defined_variables: false
+            runner_token_expiration_interval: null
+            security_and_compliance_access_level: private
+            security_and_compliance_enabled: true
+            service_desk_enabled: true
+            shared_runners_enabled: false
+            shared_with_groups: []
+            snippets_access_level: enabled
+            snippets_enabled: true
+            squash_commit_template: null
+            squash_option: default_off
+            ssh_url_to_repo: git@gitlab.com:redhat/centos-stream/rpms/firefox.git
+            star_count: 0
+            suggestion_commit_message: null
+            tag_list: []
+            topics: []
+            visibility: public
+            web_url: https://gitlab.com/redhat/centos-stream/rpms/firefox
+            wiki_access_level: disabled
+            wiki_enabled: false
+          _next: null
+          elapsed: 0.284482
+          encoding: utf-8
+          headers:
+            CF-Cache-Status: DYNAMIC
+            CF-RAY: 6e9c73a21fabf9e6-PRG
+            Cache-Control: max-age=0, private, must-revalidate
+            Connection: keep-alive
+            Content-Encoding: gzip
+            Content-Type: application/json
+            Date: Thu, 10 Mar 2022 13:38:36 GMT
+            Etag: W/"112140f413a8e99389c19cde6fbde3e8"
+            Expect-CT: max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
+            GitLab-LB: fe-22-lb-gprd
+            GitLab-SV: localhost
+            NEL: '{"success_fraction":0.01,"report_to":"cf-nel","max_age":604800}'
+            RateLimit-Limit: '2000'
+            RateLimit-Observed: '25'
+            RateLimit-Remaining: '1975'
+            RateLimit-Reset: '1646919576'
+            RateLimit-ResetTime: Thu, 10 Mar 2022 13:39:36 GMT
+            Referrer-Policy: strict-origin-when-cross-origin
+            Report-To: '{"endpoints":[{"url":"https:\/\/a.nel.cloudflare.com\/report\/v3?s=XfHt8V7rKlLVcloBaTSmwMl69tHoacUfDfiPLDP9OhV4v%2B2TXH%2FZuiZ4KfzV65xwAwseV53E1q5yoAqUbiCPt4DM3MizJrA6Oeh%2FP1jWNmabUiowp%2BPbTOH7YG8%3D"}],"group":"cf-nel","max_age":604800}'
+            Server: cloudflare
+            Strict-Transport-Security: max-age=31536000
+            Transfer-Encoding: chunked
+            Vary: Origin
+            X-Content-Type-Options: nosniff
+            X-Frame-Options: SAMEORIGIN
+            X-Request-Id: 01FXT0V0DFXNJ3WBHKQRJ8F4YT
+            X-Runtime: '0.117902'
+          raw: !!binary ""
+          reason: OK
+          status_code: 200
+      https://gitlab.com/api/v4/user:
+      - metadata:
+          latency: 0.271594762802124
+          module_call_list:
+          - unittest.case
+          - requre.record_and_replace
+          - tests.integration.gitlab.test_generic_commands
+          - ogr.services.gitlab.project
+          - ogr.services.gitlab.service
+          - gitlab.client
+          - gitlab.v4.objects.users
+          - gitlab.exceptions
+          - gitlab.mixins
+          - gitlab.client
+          - requests.sessions
+          - requre.objects
+          - requre.cassette
+          - requests.sessions
+          - send
+        output:
+          __store_indicator: 2
+          _content:
+            avatar_url: https://gitlab.com/uploads/-/system/user/avatar/375555/avatar.png
+            bio: CS student @ FI MUNI (also tutoring), working in Red Hat. Fan of
+              open-source, Haskell, functional programming, containers and Linux.
+            bot: false
+            can_create_group: true
+            can_create_project: true
+            color_scheme_id: 2
+            commit_email: matej.focko@outlook.com
+            confirmed_at: '2020-07-24T20:00:33.764Z'
+            created_at: '2016-01-15T21:12:31.705Z'
+            current_sign_in_at: '2022-03-06T19:31:48.370Z'
+            email: matej.focko@outlook.com
+            external: false
+            extra_shared_runners_minutes_limit: null
+            followers: 0
+            following: 0
+            id: 375555
+            identities:
+            - extern_uid: mfocko
+              provider: group_saml
+              saml_provider_id: 2868
+            - extern_uid: 46bd3cb0-73a0-11ea-8e0e-0a58ac142609
+              provider: group_saml
+              saml_provider_id: 1769
+            - extern_uid: '8149784'
+              provider: github
+              saml_provider_id: null
+            - extern_uid: '90177795'
+              provider: twitter
+              saml_provider_id: null
+            - extern_uid: '104088596414930556092'
+              provider: google_oauth2
+              saml_provider_id: null
+            job_title: ''
+            last_activity_on: '2022-03-10'
+            last_sign_in_at: '2022-03-05T11:22:27.310Z'
+            linkedin: mfocko
+            local_time: 2:38 PM
+            location: Brno, Czechia
+            name: Matej Focko
+            organization: Red Hat
+            private_profile: false
+            projects_limit: 100000
+            pronouns: ''
+            public_email: ''
+            shared_runners_minutes_limit: 2000
+            skype: ''
+            state: active
+            theme_id: 11
+            twitter: MatejFocko
+            two_factor_enabled: true
+            username: mfocko
+            web_url: https://gitlab.com/mfocko
+            website_url: https://me.mfocko.xyz
+            work_information: Red Hat
+          _next: null
+          elapsed: 0.271389
+          encoding: utf-8
+          headers:
+            CF-Cache-Status: DYNAMIC
+            CF-RAY: 6e9c739cabaef9e6-PRG
+            Cache-Control: max-age=0, private, must-revalidate
+            Connection: keep-alive
+            Content-Encoding: gzip
+            Content-Type: application/json
+            Date: Thu, 10 Mar 2022 13:38:35 GMT
+            Etag: W/"f69c363368d75b13a42b2ec096030905"
+            Expect-CT: max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
+            GitLab-LB: fe-06-lb-gprd
+            GitLab-SV: localhost
+            NEL: '{"success_fraction":0.01,"report_to":"cf-nel","max_age":604800}'
+            RateLimit-Limit: '2000'
+            RateLimit-Observed: '24'
+            RateLimit-Remaining: '1976'
+            RateLimit-Reset: '1646919575'
+            RateLimit-ResetTime: Thu, 10 Mar 2022 13:39:35 GMT
+            Referrer-Policy: strict-origin-when-cross-origin
+            Report-To: '{"endpoints":[{"url":"https:\/\/a.nel.cloudflare.com\/report\/v3?s=Ka4Hjl4Fb7JuoJOM6PVhCc%2FDdzng00g4pF9LdVLLrubSSBlEnLzyTaAKe7fvk0HN9DdOe7wiK0XGTl9M0W1eSmuaqxO7nN5v9EGDZPpESvEx4%2Fhhhepq1oteCt0%3D"}],"group":"cf-nel","max_age":604800}'
+            Server: cloudflare
+            Strict-Transport-Security: max-age=31536000
+            Transfer-Encoding: chunked
+            Vary: Origin
+            X-Content-Type-Options: nosniff
+            X-Frame-Options: SAMEORIGIN
+            X-Request-Id: 01FXT0TZJVKJYREW09J5BSPAT6
+            X-Runtime: '0.042416'
+          raw: !!binary ""
+          reason: OK
+          status_code: 200

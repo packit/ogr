@@ -9,7 +9,11 @@ from github import UnknownObjectException
 from github.Issue import Issue as _GithubIssue
 
 from ogr.abstract import Issue, IssueComment, IssueStatus
-from ogr.exceptions import GithubAPIException, OperationNotSupported
+from ogr.exceptions import (
+    GithubAPIException,
+    IssueTrackerDisabled,
+    OperationNotSupported,
+)
 from ogr.services import github as ogr_github
 from ogr.services.base import BaseIssue
 from ogr.services.github.comments import GithubIssueComment
@@ -86,6 +90,8 @@ class GithubIssue(BaseIssue):
     ) -> "Issue":
         if private:
             raise OperationNotSupported("Private issues are not supported by Github")
+        if not project.has_issues:
+            raise IssueTrackerDisabled()
 
         github_issue = project.github_repo.create_issue(
             title=title, body=body, labels=labels or [], assignees=assignees or []

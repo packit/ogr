@@ -8,7 +8,7 @@ import gitlab
 from gitlab.v4.objects import Issue as _GitlabIssue
 
 from ogr.abstract import IssueComment, IssueStatus, Issue
-from ogr.exceptions import GitlabAPIException
+from ogr.exceptions import GitlabAPIException, IssueTrackerDisabled
 from ogr.services import gitlab as ogr_gitlab
 from ogr.services.base import BaseIssue
 from ogr.services.gitlab.comments import GitlabIssueComment
@@ -86,6 +86,9 @@ class GitlabIssue(BaseIssue):
         labels: Optional[List[str]] = None,
         assignees: Optional[List[str]] = None,
     ) -> "Issue":
+        if not project.has_issues:
+            raise IssueTrackerDisabled()
+
         assignee_ids = []
         for user in assignees or []:
             users_list = project.service.gitlab_instance.users.list(username=user)

@@ -6,7 +6,11 @@ from requre.online_replacing import record_requests_for_all_methods
 
 from tests.integration.github.base import GithubTests
 from ogr.abstract import IssueStatus
-from ogr.exceptions import GithubAPIException, OperationNotSupported
+from ogr.exceptions import (
+    GithubAPIException,
+    IssueTrackerDisabled,
+    OperationNotSupported,
+)
 
 
 @record_requests_for_all_methods()
@@ -188,3 +192,9 @@ class Issues(GithubTests):
     def test_get_comment(self):
         comment = self.hello_world_project.get_issue(297).get_comment(926035728)
         assert comment.body == "this is a comment"
+
+    def test_create_with_disabled_issues(self):
+        with self.assertRaises(IssueTrackerDisabled):
+            self.hello_world_project.get_fork().create_issue(
+                "Testing issue", "shouldn't be created"
+            )

@@ -142,3 +142,7 @@ class GenericCommands(PagureTests):
     def test_get_sha_from_branch_non_existing(self):
         commit_sha = self.ogr_project.get_sha_from_branch("non-existing")
         assert commit_sha is None
+
+    def test_has_issues(self):
+        assert self.ogr_project.has_issues
+        assert not self.ogr_project.get_fork().has_issues, "Forks don't have issues"
