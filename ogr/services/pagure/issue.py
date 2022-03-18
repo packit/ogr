@@ -5,7 +5,7 @@ import datetime
 from typing import List, Optional, Dict, Union, Any, cast
 
 from ogr.abstract import IssueComment, IssueStatus, Issue
-from ogr.exceptions import PagureAPIException
+from ogr.exceptions import IssueTrackerDisabled, PagureAPIException
 from ogr.services import pagure as ogr_pagure
 from ogr.services.base import BaseIssue
 from ogr.services.pagure.comments import PagureIssueComment
@@ -116,6 +116,9 @@ class PagureIssue(BaseIssue):
         labels: Optional[List[str]] = None,
         assignees: Optional[List[str]] = None,
     ) -> "Issue":
+        if not project.has_issues:
+            raise IssueTrackerDisabled()
+
         payload = {"title": title, "issue_content": body}
         if labels is not None:
             payload["tag"] = ",".join(labels)
@@ -125,6 +128,7 @@ class PagureIssue(BaseIssue):
             raise PagureAPIException("Pagure does not support multiple assignees")
         elif assignees:
             payload["assignee"] = assignees[0]
+
         new_issue = project._call_project_api("new_issue", data=payload, method="POST")[
             "issue"
         ]

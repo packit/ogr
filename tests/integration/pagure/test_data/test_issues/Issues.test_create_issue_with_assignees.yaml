@@ -1,0 +1,215 @@
+_requre:
+  DataTypes: 1
+  key_strategy: StorageKeysInspectSimple
+  version_storage_file: 3
+requests.sessions:
+  send:
+    GET:
+      https://pagure.io/api/0/testing/hello-112111/options:
+      - metadata:
+          latency: 0.3073253631591797
+          module_call_list:
+          - unittest.case
+          - requre.record_and_replace
+          - tests.integration.pagure.test_issues
+          - ogr.abstract
+          - ogr.utils
+          - ogr.abstract
+          - ogr.services.pagure.issue
+          - ogr.services.pagure.project
+          - ogr.abstract
+          - ogr.services.pagure.project
+          - ogr.abstract
+          - ogr.services.pagure.service
+          - ogr.abstract
+          - ogr.services.pagure.service
+          - ogr.abstract
+          - ogr.services.pagure.service
+          - requests.sessions
+          - requre.objects
+          - requre.cassette
+          - requests.sessions
+          - send
+        output:
+          __store_indicator: 2
+          _content:
+            settings:
+              Enforce_signed-off_commits_in_pull-request: false
+              Minimum_score_to_merge_pull-request: -1
+              Only_assignee_can_merge_pull-request: false
+              Web-hooks: null
+              always_merge: false
+              disable_non_fast-forward_merges: false
+              fedmsg_notifications: true
+              issue_tracker: true
+              issue_tracker_read_only: false
+              issues_default_to_private: false
+              mqtt_notifications: true
+              notify_on_commit_flag: false
+              notify_on_pull-request_flag: false
+              open_metadata_access_to_all: false
+              project_documentation: false
+              pull_request_access_only: false
+              pull_requests: true
+              stomp_notifications: true
+            status: ok
+          _next: null
+          elapsed: 0.307075
+          encoding: utf-8
+          headers:
+            Connection: Keep-Alive
+            Content-Length: '736'
+            Content-Security-Policy: default-src 'self';script-src 'self' 'nonce-HcEInUJRbWrMGEqTtEanehOW3';
+              style-src 'self' 'nonce-HcEInUJRbWrMGEqTtEanehOW3'; object-src 'none';base-uri
+              'self';img-src 'self' https:;connect-src 'self' https://pagure.io:8088;frame-src
+              https://docs.pagure.org;frame-ancestors https://pagure.io;
+            Content-Type: application/json
+            Date: Fri, 18 Mar 2022 11:17:28 GMT
+            Keep-Alive: timeout=5, max=99
+            Referrer-Policy: same-origin
+            Server: Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_wsgi/4.6.4
+              Python/3.6
+            Set-Cookie: pagure=eyJfcGVybWFuZW50Ijp0cnVlLCJjc3JmX3Rva2VuIjoiOTExZGU5OTM1ZWY0NTI0OTkxMTY2ZjI2M2NhYTJkNTZlMjEzYzVjNiJ9.FRX7yA.C4i6QaANPREo4CwBgbA-5HKKBg4;
+              Expires=Mon, 18-Apr-2022 11:17:28 GMT; Secure; HttpOnly; Path=/
+            Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
+            X-Content-Type-Options: nosniff
+            X-Frame-Options: ALLOW-FROM https://pagure.io/
+            X-Xss-Protection: 1; mode=block
+          raw: !!binary ""
+          reason: OK
+          status_code: 200
+    POST:
+      https://pagure.io/api/0/-/whoami:
+      - metadata:
+          latency: 0.5403220653533936
+          module_call_list:
+          - unittest.case
+          - requre.record_and_replace
+          - tests.integration.pagure.test_issues
+          - ogr.abstract
+          - ogr.services.pagure.service
+          - ogr.abstract
+          - ogr.services.pagure.user
+          - ogr.abstract
+          - ogr.services.pagure.service
+          - ogr.abstract
+          - ogr.services.pagure.service
+          - ogr.abstract
+          - ogr.services.pagure.service
+          - requests.sessions
+          - requre.objects
+          - requre.cassette
+          - requests.sessions
+          - send
+        output:
+          __store_indicator: 2
+          _content:
+            username: mfocko
+          _next: null
+          elapsed: 0.539793
+          encoding: utf-8
+          headers:
+            Connection: Keep-Alive
+            Content-Length: '27'
+            Content-Security-Policy: default-src 'self';script-src 'self' 'nonce-tgAINFJfe9lDUPT9SUr6JPS1z';
+              style-src 'self' 'nonce-tgAINFJfe9lDUPT9SUr6JPS1z'; object-src 'none';base-uri
+              'self';img-src 'self' https:;connect-src 'self' https://pagure.io:8088;frame-src
+              https://docs.pagure.org;frame-ancestors https://pagure.io;
+            Content-Type: application/json
+            Date: Fri, 18 Mar 2022 11:17:28 GMT
+            Keep-Alive: timeout=5, max=100
+            Referrer-Policy: same-origin
+            Server: Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_wsgi/4.6.4
+              Python/3.6
+            Set-Cookie: pagure=eyJfcGVybWFuZW50Ijp0cnVlLCJjc3JmX3Rva2VuIjoiOTExZGU5OTM1ZWY0NTI0OTkxMTY2ZjI2M2NhYTJkNTZlMjEzYzVjNiJ9.FRX7yA.C4i6QaANPREo4CwBgbA-5HKKBg4;
+              Expires=Mon, 18-Apr-2022 11:17:28 GMT; Secure; HttpOnly; Path=/
+            Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
+            X-Content-Type-Options: nosniff
+            X-Frame-Options: ALLOW-FROM https://pagure.io/
+            X-Xss-Protection: 1; mode=block
+          raw: !!binary ""
+          reason: OK
+          status_code: 200
+      https://pagure.io/api/0/testing/hello-112111/new_issue:
+      - metadata:
+          latency: 0.5708520412445068
+          module_call_list:
+          - unittest.case
+          - requre.record_and_replace
+          - tests.integration.pagure.test_issues
+          - ogr.abstract
+          - ogr.utils
+          - ogr.abstract
+          - ogr.services.pagure.issue
+          - ogr.abstract
+          - ogr.services.pagure.project
+          - ogr.abstract
+          - ogr.services.pagure.service
+          - ogr.abstract
+          - ogr.services.pagure.service
+          - ogr.abstract
+          - ogr.services.pagure.service
+          - requests.sessions
+          - requre.objects
+          - requre.cassette
+          - requests.sessions
+          - send
+        output:
+          __store_indicator: 2
+          _content:
+            issue:
+              assignee:
+                full_url: https://pagure.io/user/mfocko
+                fullname: Matej Focko
+                name: mfocko
+                url_path: user/mfocko
+              blocks: []
+              close_status: null
+              closed_at: null
+              closed_by: null
+              comments: []
+              content: something
+              custom_fields: []
+              date_created: '1647602249'
+              depends: []
+              full_url: https://pagure.io/testing/hello-112111/issue/14
+              id: 14
+              last_updated: '1647602249'
+              milestone: null
+              priority: null
+              private: false
+              related_prs: []
+              status: Open
+              tags: []
+              title: something
+              user:
+                full_url: https://pagure.io/user/mfocko
+                fullname: Matej Focko
+                name: mfocko
+                url_path: user/mfocko
+            message: Issue created
+          _next: null
+          elapsed: 0.570555
+          encoding: utf-8
+          headers:
+            Connection: Keep-Alive
+            Content-Length: '888'
+            Content-Security-Policy: default-src 'self';script-src 'self' 'nonce-SWbIejN7lxAHtY9mwPDcdZyMl';
+              style-src 'self' 'nonce-SWbIejN7lxAHtY9mwPDcdZyMl'; object-src 'none';base-uri
+              'self';img-src 'self' https:;connect-src 'self' https://pagure.io:8088;frame-src
+              https://docs.pagure.org;frame-ancestors https://pagure.io;
+            Content-Type: application/json
+            Date: Fri, 18 Mar 2022 11:17:29 GMT
+            Keep-Alive: timeout=5, max=98
+            Referrer-Policy: same-origin
+            Server: Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_wsgi/4.6.4
+              Python/3.6
+            Set-Cookie: pagure=eyJfcGVybWFuZW50Ijp0cnVlLCJjc3JmX3Rva2VuIjoiOTExZGU5OTM1ZWY0NTI0OTkxMTY2ZjI2M2NhYTJkNTZlMjEzYzVjNiJ9.FRX7yQ.Iui3ZE4Kd4T2D7LDDusH9piSMYU;
+              Expires=Mon, 18-Apr-2022 11:17:29 GMT; Secure; HttpOnly; Path=/
+            Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
+            X-Content-Type-Options: nosniff
+            X-Frame-Options: ALLOW-FROM https://pagure.io/
+            X-Xss-Protection: 1; mode=block
+          raw: !!binary ""
+          reason: OK
+          status_code: 200

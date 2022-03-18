@@ -1535,6 +1535,9 @@ class GitProject(OgrAbstractClass):
 
         Returns:
             Object that represents newly created issue.
+
+        Raises:
+            IssueTrackerDisabled, if issue tracker is disabled.
         """
         raise NotImplementedError()
 

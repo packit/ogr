@@ -2,6 +2,7 @@
 # SPDX-License-Identifier: MIT
 
 from requre.online_replacing import record_requests_for_all_methods
+from ogr.exceptions import IssueTrackerDisabled
 
 from tests.integration.gitlab.base import GitlabTests
 from ogr.abstract import IssueStatus
@@ -223,3 +224,10 @@ class Issues(GitlabTests):
     def test_get_comment(self):
         comment = self.project.get_issue(102).get_comment(686264162)
         assert comment.body == "issue comment"
+
+    def test_create_with_disabled_issues(self):
+        project = self.service.get_project(
+            namespace="packit-service", repo="private-testing-repo"
+        )
+        with self.assertRaises(IssueTrackerDisabled):
+            project.create_issue("Testing issue", "shouldn't be created")
