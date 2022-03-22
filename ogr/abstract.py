@@ -22,10 +22,12 @@ import gitlab
 import requests
 
 from ogr.exceptions import (
+    GitForgeInternalError,
     OgrException,
     GitlabAPIException,
     GithubAPIException,
     OgrNetworkError,
+    PagureAPIException,
 )
 from ogr.parsing import parse_git_repo
 
@@ -54,6 +56,16 @@ def catch_common_exceptions(function: Callable) -> Any:
         OgrNetworkError, if network problems occurred while performing a request.
     """
 
+    def check_for_internal_failure(ex):
+        if isinstance(ex, github.GithubException):
+            if ex.status >= 500:
+                raise GitForgeInternalError from ex
+            raise ex
+
+        if ex.response_code is not None and ex.response_code >= 500:
+            raise GitForgeInternalError from ex
+        raise ex
+
     @functools.wraps(function)
     def wrapper(*args, **kwargs):
         try:
@@ -66,6 +78,8 @@ def catch_common_exceptions(function: Callable) -> Any:
             raise OgrNetworkError(
                 "Could not perform the request due to a network error"
             ) from ex
+        except (github.GithubException, gitlab.GitlabError, PagureAPIException) as ex:
+            check_for_internal_failure(ex)
 
     return wrapper
 

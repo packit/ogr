@@ -144,11 +144,14 @@ class PagureService(BaseGitService):
             raise PagureAPIException(
                 f"Page '{url}' not found when calling Pagure API.",
                 pagure_error=error_msg,
+                response_code=response.status_code,
             )
 
         if not response.json_content:
             logger.debug(response.content)
-            raise PagureAPIException("Error while decoding JSON: {0}")
+            raise PagureAPIException(
+                "Error while decoding JSON: {0}", response_code=response.status_code
+            )
 
         if not response.ok:
             logger.error(response.json_content)
@@ -162,8 +165,12 @@ class PagureService(BaseGitService):
                     msg,
                     pagure_error=error_msg,
                     pagure_response=response.json_content,
+                    response_code=response.status_code,
                 )
-            raise PagureAPIException(f"Problem with Pagure API when calling '{url}'")
+            raise PagureAPIException(
+                f"Problem with Pagure API when calling '{url}'",
+                response_code=response.status_code,
+            )
 
         return response.json_content
 

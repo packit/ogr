@@ -19,11 +19,13 @@ class PagureAPIException(OgrException):
         self,
         *args: Any,
         pagure_error: Optional[str] = None,
-        pagure_response: Optional[Dict[str, Any]] = None
+        pagure_response: Optional[Dict[str, Any]] = None,
+        response_code: Optional[int] = None,
     ) -> None:
         super().__init__(*args)
         self._pagure_error = pagure_error
         self.pagure_response = pagure_response
+        self.response_code = response_code
 
     @property
     def pagure_error(self):
@@ -66,3 +68,7 @@ class IssueTrackerDisabled(OperationNotSupported):
 
 class OgrNetworkError(OgrException):
     """Exception raised when an unexpected network error occurs."""
+
+
+class GitForgeInternalError(OgrNetworkError):
+    """Exception raised when git forge returns internal failure."""

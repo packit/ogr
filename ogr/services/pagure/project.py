@@ -389,7 +389,10 @@ class PagureProject(BaseGitProject):
         )
 
         if response.status_code == 401:
-            raise PagureAPIException("You are not allowed to modify ACL's")
+            raise PagureAPIException(
+                "You are not allowed to modify ACL's",
+                response_code=response.status_code,
+            )
 
     def change_token(self, new_token: str) -> None:
         self.service.change_token(new_token)
@@ -407,7 +410,7 @@ class PagureProject(BaseGitProject):
     def get_sha_from_tag(self, tag_name: str) -> str:
         tags_dict = self.get_tags_dict()
         if tag_name not in tags_dict:
-            raise PagureAPIException(f"Tag '{tag_name}' not found.")
+            raise PagureAPIException(f"Tag '{tag_name}' not found.", response_code=404)
 
         return tags_dict[tag_name].commit_sha
 
