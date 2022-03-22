@@ -5,7 +5,11 @@ import datetime
 from typing import List, Optional, Dict, Union, Any, cast
 
 from ogr.abstract import IssueComment, IssueStatus, Issue
-from ogr.exceptions import IssueTrackerDisabled, PagureAPIException
+from ogr.exceptions import (
+    IssueTrackerDisabled,
+    OperationNotSupported,
+    PagureAPIException,
+)
 from ogr.services import pagure as ogr_pagure
 from ogr.services.base import BaseIssue
 from ogr.services.pagure.comments import PagureIssueComment
@@ -125,7 +129,7 @@ class PagureIssue(BaseIssue):
         if private:
             payload["private"] = "true"
         if assignees and len(assignees) > 1:
-            raise PagureAPIException("Pagure does not support multiple assignees")
+            raise OperationNotSupported("Pagure does not support multiple assignees")
         elif assignees:
             payload["assignee"] = assignees[0]
 
@@ -196,7 +200,7 @@ class PagureIssue(BaseIssue):
 
     def add_assignee(self, *assignees: str) -> None:
         if len(assignees) > 1:
-            raise PagureAPIException("Pagure does not support multiple assignees")
+            raise OperationNotSupported("Pagure does not support multiple assignees")
         payload = {"assignee": assignees[0]}
         self.project._call_project_api(
             "issue", str(self.id), "assign", data=payload, method="POST"
