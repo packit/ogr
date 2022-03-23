@@ -3,7 +3,6 @@
 
 from datetime import datetime
 
-from github import GithubException
 import pytest
 from requre.online_replacing import record_requests_for_all_methods
 
@@ -204,7 +203,7 @@ class GenericCommands(GithubTests):
             "is added. The argument defaults to False, but in packit the"
             " argument trim is set to True."
         )
-        with pytest.raises(GithubException):
+        with pytest.raises(GithubAPIException):
             self.ogr_project.set_commit_status(
                 commit="c891a9e4ac01e6575f3fd66cf1b7db2f52f10128",
                 state=CommitStatus.success,

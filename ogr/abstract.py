@@ -22,6 +22,8 @@ import gitlab
 import requests
 
 from ogr.exceptions import (
+    APIException,
+    GitForgeInternalError,
     OgrException,
     GitlabAPIException,
     GithubAPIException,
@@ -39,6 +41,51 @@ except ImportError:
 
 
 AnyComment = TypeVar("AnyComment", bound="Comment")
+
+
+def __check_for_internal_failure(ex: APIException):
+    """
+    Checks if exception is caused by internal failure from git forge.
+
+    Args:
+        ex: Wrapped exception.
+
+    Raises:
+        GitForgeInternalError, when exception was cause by an internal failure.
+        APIException, exception itself when not an internal failure.
+    """
+    if ex.response_code is not None and ex.response_code >= 500:
+        raise GitForgeInternalError from ex.__cause__
+    raise ex
+
+
+def __wrap_exception(
+    ex: Union[github.GithubException, gitlab.GitlabError]
+) -> APIException:
+    """
+    Wraps uncaught exception in one of ogr exceptions.
+
+    Args:
+        ex: Unhandled exception from GitHub or GitLab.
+
+    Returns:
+        Wrapped `ex` in respective `APIException`.
+
+    Raises:
+        TypeError, when given unexpected type of exception.
+    """
+    MAPPING = {
+        github.GithubException: GithubAPIException,
+        gitlab.GitlabError: GitlabAPIException,
+    }
+
+    for caught_exception, ogr_exception in MAPPING.items():
+        if isinstance(ex, caught_exception):
+            exc = ogr_exception()
+            exc.__cause__ = ex
+            return exc
+
+    raise TypeError("Unknown type of uncaught exception passed") from ex
 
 
 def catch_common_exceptions(function: Callable) -> Any:
@@ -66,6 +113,10 @@ def catch_common_exceptions(function: Callable) -> Any:
             raise OgrNetworkError(
                 "Could not perform the request due to a network error"
             ) from ex
+        except APIException as ex:
+            __check_for_internal_failure(ex)
+        except (github.GithubException, gitlab.GitlabError) as ex:
+            __check_for_internal_failure(__wrap_exception(ex))
 
     return wrapper
 

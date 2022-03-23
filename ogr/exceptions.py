@@ -3,6 +3,9 @@
 
 from typing import Optional, Dict, Any
 
+import github
+import gitlab
+
 from ogr.deprecation import deprecate_and_set_removal
 
 
@@ -12,25 +15,39 @@ class OgrException(Exception):
     pass
 
 
-class PagureAPIException(OgrException):
+class APIException(OgrException):
+    """Generic API exception."""
+
+    @property
+    def response_code(self):
+        raise NotImplementedError()
+
+
+class PagureAPIException(APIException):
     """Exception related to Pagure API."""
 
     def __init__(
         self,
         *args: Any,
         pagure_error: Optional[str] = None,
-        pagure_response: Optional[Dict[str, Any]] = None
+        pagure_response: Optional[Dict[str, Any]] = None,
+        response_code: Optional[int] = None,
     ) -> None:
         super().__init__(*args)
         self._pagure_error = pagure_error
         self.pagure_response = pagure_response
+        self._response_code = response_code
 
     @property
     def pagure_error(self):
         return self._pagure_error or self.__cause__
 
+    @property
+    def response_code(self):
+        return self._response_code
 
-class GithubAPIException(OgrException):
+
+class GithubAPIException(APIException):
     """Exception related to Github API."""
 
     @property  # type: ignore
@@ -42,8 +59,16 @@ class GithubAPIException(OgrException):
     def github_error(self):
         return self.__cause__
 
+    @property
+    def response_code(self):
+        if self.__cause__ is None or not isinstance(
+            self.__cause__, github.GithubException
+        ):
+            return None
+        return self.__cause__.status
 
-class GitlabAPIException(OgrException):
+
+class GitlabAPIException(APIException):
     """Exception related to Gitlab API."""
 
     @property  # type: ignore
@@ -54,6 +79,12 @@ class GitlabAPIException(OgrException):
     )
     def gitlab_error(self):
         return self.__cause__
+
+    @property
+    def response_code(self):
+        if self.__cause__ is None or not isinstance(self.__cause__, gitlab.GitlabError):
+            return None
+        return self.__cause__.response_code
 
 
 class OperationNotSupported(OgrException):
@@ -66,3 +97,7 @@ class IssueTrackerDisabled(OperationNotSupported):
 
 class OgrNetworkError(OgrException):
     """Exception raised when an unexpected network error occurs."""
+
+
+class GitForgeInternalError(OgrNetworkError):
+    """Exception raised when git forge returns internal failure."""

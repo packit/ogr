@@ -97,7 +97,8 @@ class PagurePullRequest(BasePullRequest):
         )
         if request_response.status_code != 200:
             raise PagureAPIException(
-                f"Cannot get patch from {self.url}.patch because {request_response.reason}."
+                f"Cannot get patch from {self.url}.patch because {request_response.reason}.",
+                response_code=request_response.status_code,
             )
         return request_response.content
 
@@ -309,5 +310,5 @@ class PagurePullRequest(BasePullRequest):
                 return comment
 
         raise PagureAPIException(
-            f"No comment with id#{comment_id} in PR#{self.id} found."
+            f"No comment with id#{comment_id} in PR#{self.id} found.", response_code=404
         )
