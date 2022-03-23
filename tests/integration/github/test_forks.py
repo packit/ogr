@@ -1,8 +1,8 @@
 # Copyright Contributors to the Packit project.
 # SPDX-License-Identifier: MIT
 
-from github import GithubException
 from requre.online_replacing import record_requests_for_all_methods
+from ogr.exceptions import GithubAPIException
 
 from tests.integration.github.base import GithubTests
 
@@ -18,9 +18,9 @@ class Forks(GithubTests):
         self.ogr_nonexisting_fork = self.service.get_project(
             repo="omfeprkfmwpefmwpefkmwpeofjwepof", is_fork=True
         )
-        with self.assertRaises(GithubException) as ex:
+        with self.assertRaises(GithubAPIException) as ex:
             self.ogr_nonexisting_fork.get_description()
-        s = str(ex.exception)
+        s = str(ex.exception.__cause__)
         assert "Not Found" in s
         assert "404" in s
 
