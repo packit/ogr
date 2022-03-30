@@ -1,3 +1,16 @@
+# 0.37.0
+
+- We have added a new optional parameter, `namespace`, to the `fork_create` method on Git projects, which allows you to
+  fork a project into a specific namespace. (Forking to namespaces is not allowed on Pagure.) (#685)
+- We have implemented a `get_contributors` function that can be used to get the contributors of a GitHub
+  (set of logins) and GitLab (set of authors) project. (#692)
+- We have introduced a new exception class `GitForgeInternalError` that indicates a failure that happened within the forge
+  (indicated via 50x status code). `\*APIException` have been given a new superclass `APIException` that provides status
+  code from forge (in case of error, invalid operation, etc.). (#690)
+- We have added a new property to git projects, `has_issues`, that indicates whether project has enabled issues or not.
+  Following up on the property, `create_issue` now raises `IssueTrackerDisabled` when the project doesn't have issues
+  enabled. (#684)
+
 # 0.36.0
 
 - `Release` class has been reworked and `create_release` has been made part of the API for `GitProject`. (#670)
