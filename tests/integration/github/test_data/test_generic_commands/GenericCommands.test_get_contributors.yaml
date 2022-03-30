@@ -1,0 +1,1033 @@
+_requre:
+  DataTypes: 1
+  key_strategy: StorageKeysInspectSimple
+  version_storage_file: 3
+requests.sessions:
+  send:
+    GET:
+      https://api.github.com:443/repos/packit/ogr:
+      - metadata:
+          latency: 0.25812840461730957
+          module_call_list:
+          - unittest.case
+          - requre.record_and_replace
+          - tests.integration.github.test_generic_commands
+          - ogr.abstract
+          - ogr.services.github.project
+          - github.MainClass
+          - github.Requester
+          - requests.sessions
+          - requre.objects
+          - requre.cassette
+          - requests.sessions
+          - send
+        output:
+          __store_indicator: 2
+          _content:
+            allow_auto_merge: false
+            allow_forking: true
+            allow_merge_commit: true
+            allow_rebase_merge: true
+            allow_squash_merge: true
+            allow_update_branch: false
+            archive_url: https://api.github.com/repos/packit/ogr/{archive_format}{/ref}
+            archived: false
+            assignees_url: https://api.github.com/repos/packit/ogr/assignees{/user}
+            blobs_url: https://api.github.com/repos/packit/ogr/git/blobs{/sha}
+            branches_url: https://api.github.com/repos/packit/ogr/branches{/branch}
+            clone_url: https://github.com/packit/ogr.git
+            collaborators_url: https://api.github.com/repos/packit/ogr/collaborators{/collaborator}
+            comments_url: https://api.github.com/repos/packit/ogr/comments{/number}
+            commits_url: https://api.github.com/repos/packit/ogr/commits{/sha}
+            compare_url: https://api.github.com/repos/packit/ogr/compare/{base}...{head}
+            contents_url: https://api.github.com/repos/packit/ogr/contents/{+path}
+            contributors_url: https://api.github.com/repos/packit/ogr/contributors
+            created_at: '2018-12-13T12:33:52Z'
+            default_branch: main
+            delete_branch_on_merge: false
+            deployments_url: https://api.github.com/repos/packit/ogr/deployments
+            description: One Git library to Rule -- one API for many git forges
+            disabled: false
+            downloads_url: https://api.github.com/repos/packit/ogr/downloads
+            events_url: https://api.github.com/repos/packit/ogr/events
+            fork: false
+            forks: 50
+            forks_count: 50
+            forks_url: https://api.github.com/repos/packit/ogr/forks
+            full_name: packit/ogr
+            git_commits_url: https://api.github.com/repos/packit/ogr/git/commits{/sha}
+            git_refs_url: https://api.github.com/repos/packit/ogr/git/refs{/sha}
+            git_tags_url: https://api.github.com/repos/packit/ogr/git/tags{/sha}
+            git_url: git://github.com/packit/ogr.git
+            has_downloads: true
+            has_issues: true
+            has_pages: true
+            has_projects: true
+            has_wiki: true
+            homepage: ''
+            hooks_url: https://api.github.com/repos/packit/ogr/hooks
+            html_url: https://github.com/packit/ogr
+            id: 161636700
+            is_template: false
+            issue_comment_url: https://api.github.com/repos/packit/ogr/issues/comments{/number}
+            issue_events_url: https://api.github.com/repos/packit/ogr/issues/events{/number}
+            issues_url: https://api.github.com/repos/packit/ogr/issues{/number}
+            keys_url: https://api.github.com/repos/packit/ogr/keys{/key_id}
+            labels_url: https://api.github.com/repos/packit/ogr/labels{/name}
+            language: Python
+            languages_url: https://api.github.com/repos/packit/ogr/languages
+            license:
+              key: mit
+              name: MIT License
+              node_id: MDc6TGljZW5zZTEz
+              spdx_id: MIT
+              url: https://api.github.com/licenses/mit
+            merges_url: https://api.github.com/repos/packit/ogr/merges
+            milestones_url: https://api.github.com/repos/packit/ogr/milestones{/number}
+            mirror_url: null
+            name: ogr
+            network_count: 50
+            node_id: MDEwOlJlcG9zaXRvcnkxNjE2MzY3MDA=
+            notifications_url: https://api.github.com/repos/packit/ogr/notifications{?since,all,participating}
+            open_issues: 18
+            open_issues_count: 18
+            organization:
+              avatar_url: https://avatars.githubusercontent.com/u/46870917?v=4
+              events_url: https://api.github.com/users/packit/events{/privacy}
+              followers_url: https://api.github.com/users/packit/followers
+              following_url: https://api.github.com/users/packit/following{/other_user}
+              gists_url: https://api.github.com/users/packit/gists{/gist_id}
+              gravatar_id: ''
+              html_url: https://github.com/packit
+              id: 46870917
+              login: packit
+              node_id: MDEyOk9yZ2FuaXphdGlvbjQ2ODcwOTE3
+              organizations_url: https://api.github.com/users/packit/orgs
+              received_events_url: https://api.github.com/users/packit/received_events
+              repos_url: https://api.github.com/users/packit/repos
+              site_admin: false
+              starred_url: https://api.github.com/users/packit/starred{/owner}{/repo}
+              subscriptions_url: https://api.github.com/users/packit/subscriptions
+              type: Organization
+              url: https://api.github.com/users/packit
+            owner:
+              avatar_url: https://avatars.githubusercontent.com/u/46870917?v=4
+              events_url: https://api.github.com/users/packit/events{/privacy}
+              followers_url: https://api.github.com/users/packit/followers
+              following_url: https://api.github.com/users/packit/following{/other_user}
+              gists_url: https://api.github.com/users/packit/gists{/gist_id}
+              gravatar_id: ''
+              html_url: https://github.com/packit
+              id: 46870917
+              login: packit
+              node_id: MDEyOk9yZ2FuaXphdGlvbjQ2ODcwOTE3
+              organizations_url: https://api.github.com/users/packit/orgs
+              received_events_url: https://api.github.com/users/packit/received_events
+              repos_url: https://api.github.com/users/packit/repos
+              site_admin: false
+              starred_url: https://api.github.com/users/packit/starred{/owner}{/repo}
+              subscriptions_url: https://api.github.com/users/packit/subscriptions
+              type: Organization
+              url: https://api.github.com/users/packit
+            permissions:
+              admin: true
+              maintain: true
+              pull: true
+              push: true
+              triage: true
+            private: false
+            pulls_url: https://api.github.com/repos/packit/ogr/pulls{/number}
+            pushed_at: '2022-03-29T13:44:48Z'
+            releases_url: https://api.github.com/repos/packit/ogr/releases{/id}
+            size: 13099
+            ssh_url: git@github.com:packit/ogr.git
+            stargazers_count: 37
+            stargazers_url: https://api.github.com/repos/packit/ogr/stargazers
+            statuses_url: https://api.github.com/repos/packit/ogr/statuses/{sha}
+            subscribers_count: 11
+            subscribers_url: https://api.github.com/repos/packit/ogr/subscribers
+            subscription_url: https://api.github.com/repos/packit/ogr/subscription
+            svn_url: https://github.com/packit/ogr
+            tags_url: https://api.github.com/repos/packit/ogr/tags
+            teams_url: https://api.github.com/repos/packit/ogr/teams
+            temp_clone_token: ''
+            topics:
+            - git
+            - github
+            - hacktoberfest
+            - pagure
+            - python
+            - python3
+            trees_url: https://api.github.com/repos/packit/ogr/git/trees{/sha}
+            updated_at: '2022-01-06T14:31:23Z'
+            url: https://api.github.com/repos/packit/ogr
+            visibility: public
+            watchers: 37
+            watchers_count: 37
+          _next: null
+          elapsed: 0.257425
+          encoding: utf-8
+          headers:
+            Access-Control-Allow-Origin: '*'
+            Access-Control-Expose-Headers: ETag, Link, Location, Retry-After, X-GitHub-OTP,
+              X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Used, X-RateLimit-Resource,
+              X-RateLimit-Reset, X-OAuth-Scopes, X-Accepted-OAuth-Scopes, X-Poll-Interval,
+              X-GitHub-Media-Type, X-GitHub-SSO, X-GitHub-Request-Id, Deprecation,
+              Sunset
+            Cache-Control: private, max-age=60, s-maxage=60
+            Content-Encoding: gzip
+            Content-Security-Policy: default-src 'none'
+            Content-Type: application/json; charset=utf-8
+            Date: Wed, 30 Mar 2022 08:55:09 GMT
+            ETag: W/"e070b06de06024f0f232452d73cbea10db12f9ac9b2248072ed1c12ef0a7f586"
+            Last-Modified: Thu, 06 Jan 2022 14:31:23 GMT
+            Referrer-Policy: origin-when-cross-origin, strict-origin-when-cross-origin
+            Server: GitHub.com
+            Strict-Transport-Security: max-age=31536000; includeSubdomains; preload
+            Transfer-Encoding: chunked
+            Vary: Accept, Authorization, Cookie, X-GitHub-OTP, Accept-Encoding, Accept,
+              X-Requested-With
+            X-Accepted-OAuth-Scopes: repo
+            X-Content-Type-Options: nosniff
+            X-Frame-Options: deny
+            X-GitHub-Media-Type: github.v3; format=json
+            X-GitHub-Request-Id: 7A33:101B8:A0F0ADE:A3B46C1:62441AED
+            X-OAuth-Scopes: admin:enterprise, admin:gpg_key, admin:org, admin:org_hook,
+              admin:public_key, admin:repo_hook, delete:packages, delete_repo, gist,
+              notifications, repo, user, workflow, write:discussion, write:packages
+            X-RateLimit-Limit: '5000'
+            X-RateLimit-Remaining: '4996'
+            X-RateLimit-Reset: '1648630931'
+            X-RateLimit-Resource: core
+            X-RateLimit-Used: '4'
+            X-XSS-Protection: '0'
+          raw: !!binary ""
+          reason: OK
+          status_code: 200
+      https://api.github.com:443/repos/packit/ogr/contributors:
+      - metadata:
+          latency: 0.3289792537689209
+          module_call_list:
+          - unittest.case
+          - requre.record_and_replace
+          - tests.integration.github.test_generic_commands
+          - ogr.abstract
+          - ogr.services.github.project
+          - github.PaginatedList
+          - github.Requester
+          - requests.sessions
+          - requre.objects
+          - requre.cassette
+          - requests.sessions
+          - send
+        output:
+          __store_indicator: 2
+          _content:
+          - avatar_url: https://avatars.githubusercontent.com/in/6924?v=4
+            contributions: 280
+            events_url: https://api.github.com/users/softwarefactory-project-zuul%5Bbot%5D/events{/privacy}
+            followers_url: https://api.github.com/users/softwarefactory-project-zuul%5Bbot%5D/followers
+            following_url: https://api.github.com/users/softwarefactory-project-zuul%5Bbot%5D/following{/other_user}
+            gists_url: https://api.github.com/users/softwarefactory-project-zuul%5Bbot%5D/gists{/gist_id}
+            gravatar_id: ''
+            html_url: https://github.com/apps/softwarefactory-project-zuul
+            id: 33884098
+            login: softwarefactory-project-zuul[bot]
+            node_id: MDM6Qm90MzM4ODQwOTg=
+            organizations_url: https://api.github.com/users/softwarefactory-project-zuul%5Bbot%5D/orgs
+            received_events_url: https://api.github.com/users/softwarefactory-project-zuul%5Bbot%5D/received_events
+            repos_url: https://api.github.com/users/softwarefactory-project-zuul%5Bbot%5D/repos
+            site_admin: false
+            starred_url: https://api.github.com/users/softwarefactory-project-zuul%5Bbot%5D/starred{/owner}{/repo}
+            subscriptions_url: https://api.github.com/users/softwarefactory-project-zuul%5Bbot%5D/subscriptions
+            type: Bot
+            url: https://api.github.com/users/softwarefactory-project-zuul%5Bbot%5D
+          - avatar_url: https://avatars.githubusercontent.com/u/20214043?v=4
+            contributions: 257
+            events_url: https://api.github.com/users/lachmanfrantisek/events{/privacy}
+            followers_url: https://api.github.com/users/lachmanfrantisek/followers
+            following_url: https://api.github.com/users/lachmanfrantisek/following{/other_user}
+            gists_url: https://api.github.com/users/lachmanfrantisek/gists{/gist_id}
+            gravatar_id: ''
+            html_url: https://github.com/lachmanfrantisek
+            id: 20214043
+            login: lachmanfrantisek
+            node_id: MDQ6VXNlcjIwMjE0MDQz
+            organizations_url: https://api.github.com/users/lachmanfrantisek/orgs
+            received_events_url: https://api.github.com/users/lachmanfrantisek/received_events
+            repos_url: https://api.github.com/users/lachmanfrantisek/repos
+            site_admin: false
+            starred_url: https://api.github.com/users/lachmanfrantisek/starred{/owner}{/repo}
+            subscriptions_url: https://api.github.com/users/lachmanfrantisek/subscriptions
+            type: User
+            url: https://api.github.com/users/lachmanfrantisek
+          - avatar_url: https://avatars.githubusercontent.com/u/8149784?v=4
+            contributions: 230
+            events_url: https://api.github.com/users/mfocko/events{/privacy}
+            followers_url: https://api.github.com/users/mfocko/followers
+            following_url: https://api.github.com/users/mfocko/following{/other_user}
+            gists_url: https://api.github.com/users/mfocko/gists{/gist_id}
+            gravatar_id: ''
+            html_url: https://github.com/mfocko
+            id: 8149784
+            login: mfocko
+            node_id: MDQ6VXNlcjgxNDk3ODQ=
+            organizations_url: https://api.github.com/users/mfocko/orgs
+            received_events_url: https://api.github.com/users/mfocko/received_events
+            repos_url: https://api.github.com/users/mfocko/repos
+            site_admin: false
+            starred_url: https://api.github.com/users/mfocko/starred{/owner}{/repo}
+            subscriptions_url: https://api.github.com/users/mfocko/subscriptions
+            type: User
+            url: https://api.github.com/users/mfocko
+          - avatar_url: https://avatars.githubusercontent.com/u/288686?v=4
+            contributions: 92
+            events_url: https://api.github.com/users/jpopelka/events{/privacy}
+            followers_url: https://api.github.com/users/jpopelka/followers
+            following_url: https://api.github.com/users/jpopelka/following{/other_user}
+            gists_url: https://api.github.com/users/jpopelka/gists{/gist_id}
+            gravatar_id: ''
+            html_url: https://github.com/jpopelka
+            id: 288686
+            login: jpopelka
+            node_id: MDQ6VXNlcjI4ODY4Ng==
+            organizations_url: https://api.github.com/users/jpopelka/orgs
+            received_events_url: https://api.github.com/users/jpopelka/received_events
+            repos_url: https://api.github.com/users/jpopelka/repos
+            site_admin: false
+            starred_url: https://api.github.com/users/jpopelka/starred{/owner}{/repo}
+            subscriptions_url: https://api.github.com/users/jpopelka/subscriptions
+            type: User
+            url: https://api.github.com/users/jpopelka
+          - avatar_url: https://avatars.githubusercontent.com/u/1662493?v=4
+            contributions: 79
+            events_url: https://api.github.com/users/TomasTomecek/events{/privacy}
+            followers_url: https://api.github.com/users/TomasTomecek/followers
+            following_url: https://api.github.com/users/TomasTomecek/following{/other_user}
+            gists_url: https://api.github.com/users/TomasTomecek/gists{/gist_id}
+            gravatar_id: ''
+            html_url: https://github.com/TomasTomecek
+            id: 1662493
+            login: TomasTomecek
+            node_id: MDQ6VXNlcjE2NjI0OTM=
+            organizations_url: https://api.github.com/users/TomasTomecek/orgs
+            received_events_url: https://api.github.com/users/TomasTomecek/received_events
+            repos_url: https://api.github.com/users/TomasTomecek/repos
+            site_admin: false
+            starred_url: https://api.github.com/users/TomasTomecek/starred{/owner}{/repo}
+            subscriptions_url: https://api.github.com/users/TomasTomecek/subscriptions
+            type: User
+            url: https://api.github.com/users/TomasTomecek
+          - avatar_url: https://avatars.githubusercontent.com/u/49026743?v=4
+            contributions: 57
+            events_url: https://api.github.com/users/lbarcziova/events{/privacy}
+            followers_url: https://api.github.com/users/lbarcziova/followers
+            following_url: https://api.github.com/users/lbarcziova/following{/other_user}
+            gists_url: https://api.github.com/users/lbarcziova/gists{/gist_id}
+            gravatar_id: ''
+            html_url: https://github.com/lbarcziova
+            id: 49026743
+            login: lbarcziova
+            node_id: MDQ6VXNlcjQ5MDI2NzQz
+            organizations_url: https://api.github.com/users/lbarcziova/orgs
+            received_events_url: https://api.github.com/users/lbarcziova/received_events
+            repos_url: https://api.github.com/users/lbarcziova/repos
+            site_admin: false
+            starred_url: https://api.github.com/users/lbarcziova/starred{/owner}{/repo}
+            subscriptions_url: https://api.github.com/users/lbarcziova/subscriptions
+            type: User
+            url: https://api.github.com/users/lbarcziova
+          - avatar_url: https://avatars.githubusercontent.com/u/8735467?v=4
+            contributions: 39
+            events_url: https://api.github.com/users/jscotka/events{/privacy}
+            followers_url: https://api.github.com/users/jscotka/followers
+            following_url: https://api.github.com/users/jscotka/following{/other_user}
+            gists_url: https://api.github.com/users/jscotka/gists{/gist_id}
+            gravatar_id: ''
+            html_url: https://github.com/jscotka
+            id: 8735467
+            login: jscotka
+            node_id: MDQ6VXNlcjg3MzU0Njc=
+            organizations_url: https://api.github.com/users/jscotka/orgs
+            received_events_url: https://api.github.com/users/jscotka/received_events
+            repos_url: https://api.github.com/users/jscotka/repos
+            site_admin: false
+            starred_url: https://api.github.com/users/jscotka/starred{/owner}{/repo}
+            subscriptions_url: https://api.github.com/users/jscotka/subscriptions
+            type: User
+            url: https://api.github.com/users/jscotka
+          - avatar_url: https://avatars.githubusercontent.com/in/68672?v=4
+            contributions: 37
+            events_url: https://api.github.com/users/pre-commit-ci%5Bbot%5D/events{/privacy}
+            followers_url: https://api.github.com/users/pre-commit-ci%5Bbot%5D/followers
+            following_url: https://api.github.com/users/pre-commit-ci%5Bbot%5D/following{/other_user}
+            gists_url: https://api.github.com/users/pre-commit-ci%5Bbot%5D/gists{/gist_id}
+            gravatar_id: ''
+            html_url: https://github.com/apps/pre-commit-ci
+            id: 66853113
+            login: pre-commit-ci[bot]
+            node_id: MDM6Qm90NjY4NTMxMTM=
+            organizations_url: https://api.github.com/users/pre-commit-ci%5Bbot%5D/orgs
+            received_events_url: https://api.github.com/users/pre-commit-ci%5Bbot%5D/received_events
+            repos_url: https://api.github.com/users/pre-commit-ci%5Bbot%5D/repos
+            site_admin: false
+            starred_url: https://api.github.com/users/pre-commit-ci%5Bbot%5D/starred{/owner}{/repo}
+            subscriptions_url: https://api.github.com/users/pre-commit-ci%5Bbot%5D/subscriptions
+            type: Bot
+            url: https://api.github.com/users/pre-commit-ci%5Bbot%5D
+          - avatar_url: https://avatars.githubusercontent.com/u/11816497?v=4
+            contributions: 24
+            events_url: https://api.github.com/users/csomh/events{/privacy}
+            followers_url: https://api.github.com/users/csomh/followers
+            following_url: https://api.github.com/users/csomh/following{/other_user}
+            gists_url: https://api.github.com/users/csomh/gists{/gist_id}
+            gravatar_id: ''
+            html_url: https://github.com/csomh
+            id: 11816497
+            login: csomh
+            node_id: MDQ6VXNlcjExODE2NDk3
+            organizations_url: https://api.github.com/users/csomh/orgs
+            received_events_url: https://api.github.com/users/csomh/received_events
+            repos_url: https://api.github.com/users/csomh/repos
+            site_admin: false
+            starred_url: https://api.github.com/users/csomh/starred{/owner}{/repo}
+            subscriptions_url: https://api.github.com/users/csomh/subscriptions
+            type: User
+            url: https://api.github.com/users/csomh
+          - avatar_url: https://avatars.githubusercontent.com/u/36231209?v=4
+            contributions: 20
+            events_url: https://api.github.com/users/usercont-release-bot/events{/privacy}
+            followers_url: https://api.github.com/users/usercont-release-bot/followers
+            following_url: https://api.github.com/users/usercont-release-bot/following{/other_user}
+            gists_url: https://api.github.com/users/usercont-release-bot/gists{/gist_id}
+            gravatar_id: ''
+            html_url: https://github.com/usercont-release-bot
+            id: 36231209
+            login: usercont-release-bot
+            node_id: MDQ6VXNlcjM2MjMxMjA5
+            organizations_url: https://api.github.com/users/usercont-release-bot/orgs
+            received_events_url: https://api.github.com/users/usercont-release-bot/received_events
+            repos_url: https://api.github.com/users/usercont-release-bot/repos
+            site_admin: false
+            starred_url: https://api.github.com/users/usercont-release-bot/starred{/owner}{/repo}
+            subscriptions_url: https://api.github.com/users/usercont-release-bot/subscriptions
+            type: User
+            url: https://api.github.com/users/usercont-release-bot
+          - avatar_url: https://avatars.githubusercontent.com/u/7654857?v=4
+            contributions: 20
+            events_url: https://api.github.com/users/sakalosj/events{/privacy}
+            followers_url: https://api.github.com/users/sakalosj/followers
+            following_url: https://api.github.com/users/sakalosj/following{/other_user}
+            gists_url: https://api.github.com/users/sakalosj/gists{/gist_id}
+            gravatar_id: ''
+            html_url: https://github.com/sakalosj
+            id: 7654857
+            login: sakalosj
+            node_id: MDQ6VXNlcjc2NTQ4NTc=
+            organizations_url: https://api.github.com/users/sakalosj/orgs
+            received_events_url: https://api.github.com/users/sakalosj/received_events
+            repos_url: https://api.github.com/users/sakalosj/repos
+            site_admin: false
+            starred_url: https://api.github.com/users/sakalosj/starred{/owner}{/repo}
+            subscriptions_url: https://api.github.com/users/sakalosj/subscriptions
+            type: User
+            url: https://api.github.com/users/sakalosj
+          - avatar_url: https://avatars.githubusercontent.com/u/25414049?v=4
+            contributions: 19
+            events_url: https://api.github.com/users/marusinm/events{/privacy}
+            followers_url: https://api.github.com/users/marusinm/followers
+            following_url: https://api.github.com/users/marusinm/following{/other_user}
+            gists_url: https://api.github.com/users/marusinm/gists{/gist_id}
+            gravatar_id: ''
+            html_url: https://github.com/marusinm
+            id: 25414049
+            login: marusinm
+            node_id: MDQ6VXNlcjI1NDE0MDQ5
+            organizations_url: https://api.github.com/users/marusinm/orgs
+            received_events_url: https://api.github.com/users/marusinm/received_events
+            repos_url: https://api.github.com/users/marusinm/repos
+            site_admin: false
+            starred_url: https://api.github.com/users/marusinm/starred{/owner}{/repo}
+            subscriptions_url: https://api.github.com/users/marusinm/subscriptions
+            type: User
+            url: https://api.github.com/users/marusinm
+          - avatar_url: https://avatars.githubusercontent.com/u/32942101?v=4
+            contributions: 16
+            events_url: https://api.github.com/users/svenharris/events{/privacy}
+            followers_url: https://api.github.com/users/svenharris/followers
+            following_url: https://api.github.com/users/svenharris/following{/other_user}
+            gists_url: https://api.github.com/users/svenharris/gists{/gist_id}
+            gravatar_id: ''
+            html_url: https://github.com/svenharris
+            id: 32942101
+            login: svenharris
+            node_id: MDQ6VXNlcjMyOTQyMTAx
+            organizations_url: https://api.github.com/users/svenharris/orgs
+            received_events_url: https://api.github.com/users/svenharris/received_events
+            repos_url: https://api.github.com/users/svenharris/repos
+            site_admin: false
+            starred_url: https://api.github.com/users/svenharris/starred{/owner}{/repo}
+            subscriptions_url: https://api.github.com/users/svenharris/subscriptions
+            type: User
+            url: https://api.github.com/users/svenharris
+          - avatar_url: https://avatars.githubusercontent.com/u/70757578?v=4
+            contributions: 14
+            events_url: https://api.github.com/users/nikromen/events{/privacy}
+            followers_url: https://api.github.com/users/nikromen/followers
+            following_url: https://api.github.com/users/nikromen/following{/other_user}
+            gists_url: https://api.github.com/users/nikromen/gists{/gist_id}
+            gravatar_id: ''
+            html_url: https://github.com/nikromen
+            id: 70757578
+            login: nikromen
+            node_id: MDQ6VXNlcjcwNzU3NTc4
+            organizations_url: https://api.github.com/users/nikromen/orgs
+            received_events_url: https://api.github.com/users/nikromen/received_events
+            repos_url: https://api.github.com/users/nikromen/repos
+            site_admin: false
+            starred_url: https://api.github.com/users/nikromen/starred{/owner}{/repo}
+            subscriptions_url: https://api.github.com/users/nikromen/subscriptions
+            type: User
+            url: https://api.github.com/users/nikromen
+          - avatar_url: https://avatars.githubusercontent.com/u/31201372?v=4
+            contributions: 14
+            events_url: https://api.github.com/users/dhodovsk/events{/privacy}
+            followers_url: https://api.github.com/users/dhodovsk/followers
+            following_url: https://api.github.com/users/dhodovsk/following{/other_user}
+            gists_url: https://api.github.com/users/dhodovsk/gists{/gist_id}
+            gravatar_id: ''
+            html_url: https://github.com/dhodovsk
+            id: 31201372
+            login: dhodovsk
+            node_id: MDQ6VXNlcjMxMjAxMzcy
+            organizations_url: https://api.github.com/users/dhodovsk/orgs
+            received_events_url: https://api.github.com/users/dhodovsk/received_events
+            repos_url: https://api.github.com/users/dhodovsk/repos
+            site_admin: false
+            starred_url: https://api.github.com/users/dhodovsk/starred{/owner}{/repo}
+            subscriptions_url: https://api.github.com/users/dhodovsk/subscriptions
+            type: User
+            url: https://api.github.com/users/dhodovsk
+          - avatar_url: https://avatars.githubusercontent.com/u/28452337?v=4
+            contributions: 11
+            events_url: https://api.github.com/users/FrNecas/events{/privacy}
+            followers_url: https://api.github.com/users/FrNecas/followers
+            following_url: https://api.github.com/users/FrNecas/following{/other_user}
+            gists_url: https://api.github.com/users/FrNecas/gists{/gist_id}
+            gravatar_id: ''
+            html_url: https://github.com/FrNecas
+            id: 28452337
+            login: FrNecas
+            node_id: MDQ6VXNlcjI4NDUyMzM3
+            organizations_url: https://api.github.com/users/FrNecas/orgs
+            received_events_url: https://api.github.com/users/FrNecas/received_events
+            repos_url: https://api.github.com/users/FrNecas/repos
+            site_admin: false
+            starred_url: https://api.github.com/users/FrNecas/starred{/owner}{/repo}
+            subscriptions_url: https://api.github.com/users/FrNecas/subscriptions
+            type: User
+            url: https://api.github.com/users/FrNecas
+          - avatar_url: https://avatars.githubusercontent.com/u/3416672?v=4
+            contributions: 9
+            events_url: https://api.github.com/users/phracek/events{/privacy}
+            followers_url: https://api.github.com/users/phracek/followers
+            following_url: https://api.github.com/users/phracek/following{/other_user}
+            gists_url: https://api.github.com/users/phracek/gists{/gist_id}
+            gravatar_id: ''
+            html_url: https://github.com/phracek
+            id: 3416672
+            login: phracek
+            node_id: MDQ6VXNlcjM0MTY2NzI=
+            organizations_url: https://api.github.com/users/phracek/orgs
+            received_events_url: https://api.github.com/users/phracek/received_events
+            repos_url: https://api.github.com/users/phracek/repos
+            site_admin: false
+            starred_url: https://api.github.com/users/phracek/starred{/owner}{/repo}
+            subscriptions_url: https://api.github.com/users/phracek/subscriptions
+            type: User
+            url: https://api.github.com/users/phracek
+          - avatar_url: https://avatars.githubusercontent.com/u/22324802?v=4
+            contributions: 8
+            events_url: https://api.github.com/users/shreyaspapi/events{/privacy}
+            followers_url: https://api.github.com/users/shreyaspapi/followers
+            following_url: https://api.github.com/users/shreyaspapi/following{/other_user}
+            gists_url: https://api.github.com/users/shreyaspapi/gists{/gist_id}
+            gravatar_id: ''
+            html_url: https://github.com/shreyaspapi
+            id: 22324802
+            login: shreyaspapi
+            node_id: MDQ6VXNlcjIyMzI0ODAy
+            organizations_url: https://api.github.com/users/shreyaspapi/orgs
+            received_events_url: https://api.github.com/users/shreyaspapi/received_events
+            repos_url: https://api.github.com/users/shreyaspapi/repos
+            site_admin: false
+            starred_url: https://api.github.com/users/shreyaspapi/starred{/owner}{/repo}
+            subscriptions_url: https://api.github.com/users/shreyaspapi/subscriptions
+            type: User
+            url: https://api.github.com/users/shreyaspapi
+          - avatar_url: https://avatars.githubusercontent.com/u/26160778?v=4
+            contributions: 8
+            events_url: https://api.github.com/users/rpitonak/events{/privacy}
+            followers_url: https://api.github.com/users/rpitonak/followers
+            following_url: https://api.github.com/users/rpitonak/following{/other_user}
+            gists_url: https://api.github.com/users/rpitonak/gists{/gist_id}
+            gravatar_id: ''
+            html_url: https://github.com/rpitonak
+            id: 26160778
+            login: rpitonak
+            node_id: MDQ6VXNlcjI2MTYwNzc4
+            organizations_url: https://api.github.com/users/rpitonak/orgs
+            received_events_url: https://api.github.com/users/rpitonak/received_events
+            repos_url: https://api.github.com/users/rpitonak/repos
+            site_admin: false
+            starred_url: https://api.github.com/users/rpitonak/starred{/owner}{/repo}
+            subscriptions_url: https://api.github.com/users/rpitonak/subscriptions
+            type: User
+            url: https://api.github.com/users/rpitonak
+          - avatar_url: https://avatars.githubusercontent.com/u/20273495?v=4
+            contributions: 5
+            events_url: https://api.github.com/users/bcrocker15/events{/privacy}
+            followers_url: https://api.github.com/users/bcrocker15/followers
+            following_url: https://api.github.com/users/bcrocker15/following{/other_user}
+            gists_url: https://api.github.com/users/bcrocker15/gists{/gist_id}
+            gravatar_id: ''
+            html_url: https://github.com/bcrocker15
+            id: 20273495
+            login: bcrocker15
+            node_id: MDQ6VXNlcjIwMjczNDk1
+            organizations_url: https://api.github.com/users/bcrocker15/orgs
+            received_events_url: https://api.github.com/users/bcrocker15/received_events
+            repos_url: https://api.github.com/users/bcrocker15/repos
+            site_admin: false
+            starred_url: https://api.github.com/users/bcrocker15/starred{/owner}{/repo}
+            subscriptions_url: https://api.github.com/users/bcrocker15/subscriptions
+            type: User
+            url: https://api.github.com/users/bcrocker15
+          - avatar_url: https://avatars.githubusercontent.com/u/8876312?v=4
+            contributions: 3
+            events_url: https://api.github.com/users/mmuzila/events{/privacy}
+            followers_url: https://api.github.com/users/mmuzila/followers
+            following_url: https://api.github.com/users/mmuzila/following{/other_user}
+            gists_url: https://api.github.com/users/mmuzila/gists{/gist_id}
+            gravatar_id: ''
+            html_url: https://github.com/mmuzila
+            id: 8876312
+            login: mmuzila
+            node_id: MDQ6VXNlcjg4NzYzMTI=
+            organizations_url: https://api.github.com/users/mmuzila/orgs
+            received_events_url: https://api.github.com/users/mmuzila/received_events
+            repos_url: https://api.github.com/users/mmuzila/repos
+            site_admin: false
+            starred_url: https://api.github.com/users/mmuzila/starred{/owner}{/repo}
+            subscriptions_url: https://api.github.com/users/mmuzila/subscriptions
+            type: User
+            url: https://api.github.com/users/mmuzila
+          - avatar_url: https://avatars.githubusercontent.com/u/434063?v=4
+            contributions: 3
+            events_url: https://api.github.com/users/birdcar/events{/privacy}
+            followers_url: https://api.github.com/users/birdcar/followers
+            following_url: https://api.github.com/users/birdcar/following{/other_user}
+            gists_url: https://api.github.com/users/birdcar/gists{/gist_id}
+            gravatar_id: ''
+            html_url: https://github.com/birdcar
+            id: 434063
+            login: birdcar
+            node_id: MDQ6VXNlcjQzNDA2Mw==
+            organizations_url: https://api.github.com/users/birdcar/orgs
+            received_events_url: https://api.github.com/users/birdcar/received_events
+            repos_url: https://api.github.com/users/birdcar/repos
+            site_admin: false
+            starred_url: https://api.github.com/users/birdcar/starred{/owner}{/repo}
+            subscriptions_url: https://api.github.com/users/birdcar/subscriptions
+            type: User
+            url: https://api.github.com/users/birdcar
+          - avatar_url: https://avatars.githubusercontent.com/u/7237866?v=4
+            contributions: 2
+            events_url: https://api.github.com/users/cverna/events{/privacy}
+            followers_url: https://api.github.com/users/cverna/followers
+            following_url: https://api.github.com/users/cverna/following{/other_user}
+            gists_url: https://api.github.com/users/cverna/gists{/gist_id}
+            gravatar_id: ''
+            html_url: https://github.com/cverna
+            id: 7237866
+            login: cverna
+            node_id: MDQ6VXNlcjcyMzc4NjY=
+            organizations_url: https://api.github.com/users/cverna/orgs
+            received_events_url: https://api.github.com/users/cverna/received_events
+            repos_url: https://api.github.com/users/cverna/repos
+            site_admin: false
+            starred_url: https://api.github.com/users/cverna/starred{/owner}{/repo}
+            subscriptions_url: https://api.github.com/users/cverna/subscriptions
+            type: User
+            url: https://api.github.com/users/cverna
+          - avatar_url: https://avatars.githubusercontent.com/u/17784034?v=4
+            contributions: 2
+            events_url: https://api.github.com/users/pawelkopka/events{/privacy}
+            followers_url: https://api.github.com/users/pawelkopka/followers
+            following_url: https://api.github.com/users/pawelkopka/following{/other_user}
+            gists_url: https://api.github.com/users/pawelkopka/gists{/gist_id}
+            gravatar_id: ''
+            html_url: https://github.com/pawelkopka
+            id: 17784034
+            login: pawelkopka
+            node_id: MDQ6VXNlcjE3Nzg0MDM0
+            organizations_url: https://api.github.com/users/pawelkopka/orgs
+            received_events_url: https://api.github.com/users/pawelkopka/received_events
+            repos_url: https://api.github.com/users/pawelkopka/repos
+            site_admin: false
+            starred_url: https://api.github.com/users/pawelkopka/starred{/owner}{/repo}
+            subscriptions_url: https://api.github.com/users/pawelkopka/subscriptions
+            type: User
+            url: https://api.github.com/users/pawelkopka
+          - avatar_url: https://avatars.githubusercontent.com/u/38399871?v=4
+            contributions: 2
+            events_url: https://api.github.com/users/yzhang2907/events{/privacy}
+            followers_url: https://api.github.com/users/yzhang2907/followers
+            following_url: https://api.github.com/users/yzhang2907/following{/other_user}
+            gists_url: https://api.github.com/users/yzhang2907/gists{/gist_id}
+            gravatar_id: ''
+            html_url: https://github.com/yzhang2907
+            id: 38399871
+            login: yzhang2907
+            node_id: MDQ6VXNlcjM4Mzk5ODcx
+            organizations_url: https://api.github.com/users/yzhang2907/orgs
+            received_events_url: https://api.github.com/users/yzhang2907/received_events
+            repos_url: https://api.github.com/users/yzhang2907/repos
+            site_admin: false
+            starred_url: https://api.github.com/users/yzhang2907/starred{/owner}{/repo}
+            subscriptions_url: https://api.github.com/users/yzhang2907/subscriptions
+            type: User
+            url: https://api.github.com/users/yzhang2907
+          - avatar_url: https://avatars.githubusercontent.com/u/4530030?v=4
+            contributions: 1
+            events_url: https://api.github.com/users/dustymabe/events{/privacy}
+            followers_url: https://api.github.com/users/dustymabe/followers
+            following_url: https://api.github.com/users/dustymabe/following{/other_user}
+            gists_url: https://api.github.com/users/dustymabe/gists{/gist_id}
+            gravatar_id: ''
+            html_url: https://github.com/dustymabe
+            id: 4530030
+            login: dustymabe
+            node_id: MDQ6VXNlcjQ1MzAwMzA=
+            organizations_url: https://api.github.com/users/dustymabe/orgs
+            received_events_url: https://api.github.com/users/dustymabe/received_events
+            repos_url: https://api.github.com/users/dustymabe/repos
+            site_admin: false
+            starred_url: https://api.github.com/users/dustymabe/starred{/owner}{/repo}
+            subscriptions_url: https://api.github.com/users/dustymabe/subscriptions
+            type: User
+            url: https://api.github.com/users/dustymabe
+          - avatar_url: https://avatars.githubusercontent.com/u/84583?v=4
+            contributions: 1
+            events_url: https://api.github.com/users/morucci/events{/privacy}
+            followers_url: https://api.github.com/users/morucci/followers
+            following_url: https://api.github.com/users/morucci/following{/other_user}
+            gists_url: https://api.github.com/users/morucci/gists{/gist_id}
+            gravatar_id: ''
+            html_url: https://github.com/morucci
+            id: 84583
+            login: morucci
+            node_id: MDQ6VXNlcjg0NTgz
+            organizations_url: https://api.github.com/users/morucci/orgs
+            received_events_url: https://api.github.com/users/morucci/received_events
+            repos_url: https://api.github.com/users/morucci/repos
+            site_admin: false
+            starred_url: https://api.github.com/users/morucci/starred{/owner}{/repo}
+            subscriptions_url: https://api.github.com/users/morucci/subscriptions
+            type: User
+            url: https://api.github.com/users/morucci
+          - avatar_url: https://avatars.githubusercontent.com/u/35947115?v=4
+            contributions: 1
+            events_url: https://api.github.com/users/path2himanshu/events{/privacy}
+            followers_url: https://api.github.com/users/path2himanshu/followers
+            following_url: https://api.github.com/users/path2himanshu/following{/other_user}
+            gists_url: https://api.github.com/users/path2himanshu/gists{/gist_id}
+            gravatar_id: ''
+            html_url: https://github.com/path2himanshu
+            id: 35947115
+            login: path2himanshu
+            node_id: MDQ6VXNlcjM1OTQ3MTE1
+            organizations_url: https://api.github.com/users/path2himanshu/orgs
+            received_events_url: https://api.github.com/users/path2himanshu/received_events
+            repos_url: https://api.github.com/users/path2himanshu/repos
+            site_admin: false
+            starred_url: https://api.github.com/users/path2himanshu/starred{/owner}{/repo}
+            subscriptions_url: https://api.github.com/users/path2himanshu/subscriptions
+            type: User
+            url: https://api.github.com/users/path2himanshu
+          - avatar_url: https://avatars.githubusercontent.com/u/35431035?v=4
+            contributions: 1
+            events_url: https://api.github.com/users/Hojang2/events{/privacy}
+            followers_url: https://api.github.com/users/Hojang2/followers
+            following_url: https://api.github.com/users/Hojang2/following{/other_user}
+            gists_url: https://api.github.com/users/Hojang2/gists{/gist_id}
+            gravatar_id: ''
+            html_url: https://github.com/Hojang2
+            id: 35431035
+            login: Hojang2
+            node_id: MDQ6VXNlcjM1NDMxMDM1
+            organizations_url: https://api.github.com/users/Hojang2/orgs
+            received_events_url: https://api.github.com/users/Hojang2/received_events
+            repos_url: https://api.github.com/users/Hojang2/repos
+            site_admin: false
+            starred_url: https://api.github.com/users/Hojang2/starred{/owner}{/repo}
+            subscriptions_url: https://api.github.com/users/Hojang2/subscriptions
+            type: User
+            url: https://api.github.com/users/Hojang2
+          - avatar_url: https://avatars.githubusercontent.com/u/17623061?v=4
+            contributions: 1
+            events_url: https://api.github.com/users/KPostOffice/events{/privacy}
+            followers_url: https://api.github.com/users/KPostOffice/followers
+            following_url: https://api.github.com/users/KPostOffice/following{/other_user}
+            gists_url: https://api.github.com/users/KPostOffice/gists{/gist_id}
+            gravatar_id: ''
+            html_url: https://github.com/KPostOffice
+            id: 17623061
+            login: KPostOffice
+            node_id: MDQ6VXNlcjE3NjIzMDYx
+            organizations_url: https://api.github.com/users/KPostOffice/orgs
+            received_events_url: https://api.github.com/users/KPostOffice/received_events
+            repos_url: https://api.github.com/users/KPostOffice/repos
+            site_admin: false
+            starred_url: https://api.github.com/users/KPostOffice/starred{/owner}{/repo}
+            subscriptions_url: https://api.github.com/users/KPostOffice/subscriptions
+            type: User
+            url: https://api.github.com/users/KPostOffice
+          _next: null
+          elapsed: 0.327845
+          encoding: utf-8
+          headers:
+            Access-Control-Allow-Origin: '*'
+            Access-Control-Expose-Headers: ETag, Link, Location, Retry-After, X-GitHub-OTP,
+              X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Used, X-RateLimit-Resource,
+              X-RateLimit-Reset, X-OAuth-Scopes, X-Accepted-OAuth-Scopes, X-Poll-Interval,
+              X-GitHub-Media-Type, X-GitHub-SSO, X-GitHub-Request-Id, Deprecation,
+              Sunset
+            Cache-Control: private, max-age=60, s-maxage=60
+            Content-Encoding: gzip
+            Content-Security-Policy: default-src 'none'
+            Content-Type: application/json; charset=utf-8
+            Date: Wed, 30 Mar 2022 08:55:10 GMT
+            ETag: W/"6b4010cf8b19abeecb6179ce57d428e8ee861fffef681108850ee0270ec808d0"
+            Last-Modified: Thu, 06 Jan 2022 14:31:23 GMT
+            Link: <https://api.github.com/repositories/161636700/contributors?page=2>;
+              rel="next", <https://api.github.com/repositories/161636700/contributors?page=2>;
+              rel="last"
+            Referrer-Policy: origin-when-cross-origin, strict-origin-when-cross-origin
+            Server: GitHub.com
+            Strict-Transport-Security: max-age=31536000; includeSubdomains; preload
+            Transfer-Encoding: chunked
+            Vary: Accept, Authorization, Cookie, X-GitHub-OTP, Accept-Encoding, Accept,
+              X-Requested-With
+            X-Accepted-OAuth-Scopes: ''
+            X-Content-Type-Options: nosniff
+            X-Frame-Options: deny
+            X-GitHub-Media-Type: github.v3; format=json
+            X-GitHub-Request-Id: 7A33:101B8:A0F0B69:A3B475A:62441AEE
+            X-OAuth-Scopes: admin:enterprise, admin:gpg_key, admin:org, admin:org_hook,
+              admin:public_key, admin:repo_hook, delete:packages, delete_repo, gist,
+              notifications, repo, user, workflow, write:discussion, write:packages
+            X-RateLimit-Limit: '5000'
+            X-RateLimit-Remaining: '4995'
+            X-RateLimit-Reset: '1648630931'
+            X-RateLimit-Resource: core
+            X-RateLimit-Used: '5'
+            X-XSS-Protection: '0'
+          raw: !!binary ""
+          reason: OK
+          status_code: 200
+      https://api.github.com:443/repositories/161636700/contributors?page=2:
+      - metadata:
+          latency: 0.17561960220336914
+          module_call_list:
+          - unittest.case
+          - requre.record_and_replace
+          - tests.integration.github.test_generic_commands
+          - ogr.abstract
+          - ogr.services.github.project
+          - github.PaginatedList
+          - github.Requester
+          - requests.sessions
+          - requre.objects
+          - requre.cassette
+          - requests.sessions
+          - send
+        output:
+          __store_indicator: 2
+          _content:
+          - avatar_url: https://avatars.githubusercontent.com/u/6732513?v=4
+            contributions: 1
+            events_url: https://api.github.com/users/LilySu/events{/privacy}
+            followers_url: https://api.github.com/users/LilySu/followers
+            following_url: https://api.github.com/users/LilySu/following{/other_user}
+            gists_url: https://api.github.com/users/LilySu/gists{/gist_id}
+            gravatar_id: ''
+            html_url: https://github.com/LilySu
+            id: 6732513
+            login: LilySu
+            node_id: MDQ6VXNlcjY3MzI1MTM=
+            organizations_url: https://api.github.com/users/LilySu/orgs
+            received_events_url: https://api.github.com/users/LilySu/received_events
+            repos_url: https://api.github.com/users/LilySu/repos
+            site_admin: false
+            starred_url: https://api.github.com/users/LilySu/starred{/owner}{/repo}
+            subscriptions_url: https://api.github.com/users/LilySu/subscriptions
+            type: User
+            url: https://api.github.com/users/LilySu
+          - avatar_url: https://avatars.githubusercontent.com/u/2678400?v=4
+            contributions: 1
+            events_url: https://api.github.com/users/majamassarini/events{/privacy}
+            followers_url: https://api.github.com/users/majamassarini/followers
+            following_url: https://api.github.com/users/majamassarini/following{/other_user}
+            gists_url: https://api.github.com/users/majamassarini/gists{/gist_id}
+            gravatar_id: ''
+            html_url: https://github.com/majamassarini
+            id: 2678400
+            login: majamassarini
+            node_id: MDQ6VXNlcjI2Nzg0MDA=
+            organizations_url: https://api.github.com/users/majamassarini/orgs
+            received_events_url: https://api.github.com/users/majamassarini/received_events
+            repos_url: https://api.github.com/users/majamassarini/repos
+            site_admin: false
+            starred_url: https://api.github.com/users/majamassarini/starred{/owner}{/repo}
+            subscriptions_url: https://api.github.com/users/majamassarini/subscriptions
+            type: User
+            url: https://api.github.com/users/majamassarini
+          - avatar_url: https://avatars.githubusercontent.com/u/3617836?v=4
+            contributions: 1
+            events_url: https://api.github.com/users/Roming22/events{/privacy}
+            followers_url: https://api.github.com/users/Roming22/followers
+            following_url: https://api.github.com/users/Roming22/following{/other_user}
+            gists_url: https://api.github.com/users/Roming22/gists{/gist_id}
+            gravatar_id: ''
+            html_url: https://github.com/Roming22
+            id: 3617836
+            login: Roming22
+            node_id: MDQ6VXNlcjM2MTc4MzY=
+            organizations_url: https://api.github.com/users/Roming22/orgs
+            received_events_url: https://api.github.com/users/Roming22/received_events
+            repos_url: https://api.github.com/users/Roming22/repos
+            site_admin: false
+            starred_url: https://api.github.com/users/Roming22/starred{/owner}{/repo}
+            subscriptions_url: https://api.github.com/users/Roming22/subscriptions
+            type: User
+            url: https://api.github.com/users/Roming22
+          - avatar_url: https://avatars.githubusercontent.com/u/19755484?v=4
+            contributions: 1
+            events_url: https://api.github.com/users/RomaneGreen/events{/privacy}
+            followers_url: https://api.github.com/users/RomaneGreen/followers
+            following_url: https://api.github.com/users/RomaneGreen/following{/other_user}
+            gists_url: https://api.github.com/users/RomaneGreen/gists{/gist_id}
+            gravatar_id: ''
+            html_url: https://github.com/RomaneGreen
+            id: 19755484
+            login: RomaneGreen
+            node_id: MDQ6VXNlcjE5NzU1NDg0
+            organizations_url: https://api.github.com/users/RomaneGreen/orgs
+            received_events_url: https://api.github.com/users/RomaneGreen/received_events
+            repos_url: https://api.github.com/users/RomaneGreen/repos
+            site_admin: false
+            starred_url: https://api.github.com/users/RomaneGreen/starred{/owner}{/repo}
+            subscriptions_url: https://api.github.com/users/RomaneGreen/subscriptions
+            type: User
+            url: https://api.github.com/users/RomaneGreen
+          - avatar_url: https://avatars.githubusercontent.com/u/18401396?v=4
+            contributions: 1
+            events_url: https://api.github.com/users/abkosar/events{/privacy}
+            followers_url: https://api.github.com/users/abkosar/followers
+            following_url: https://api.github.com/users/abkosar/following{/other_user}
+            gists_url: https://api.github.com/users/abkosar/gists{/gist_id}
+            gravatar_id: ''
+            html_url: https://github.com/abkosar
+            id: 18401396
+            login: abkosar
+            node_id: MDQ6VXNlcjE4NDAxMzk2
+            organizations_url: https://api.github.com/users/abkosar/orgs
+            received_events_url: https://api.github.com/users/abkosar/received_events
+            repos_url: https://api.github.com/users/abkosar/repos
+            site_admin: false
+            starred_url: https://api.github.com/users/abkosar/starred{/owner}{/repo}
+            subscriptions_url: https://api.github.com/users/abkosar/subscriptions
+            type: User
+            url: https://api.github.com/users/abkosar
+          - avatar_url: https://avatars.githubusercontent.com/u/9396452?v=4
+            contributions: 1
+            events_url: https://api.github.com/users/saisankargochhayat/events{/privacy}
+            followers_url: https://api.github.com/users/saisankargochhayat/followers
+            following_url: https://api.github.com/users/saisankargochhayat/following{/other_user}
+            gists_url: https://api.github.com/users/saisankargochhayat/gists{/gist_id}
+            gravatar_id: ''
+            html_url: https://github.com/saisankargochhayat
+            id: 9396452
+            login: saisankargochhayat
+            node_id: MDQ6VXNlcjkzOTY0NTI=
+            organizations_url: https://api.github.com/users/saisankargochhayat/orgs
+            received_events_url: https://api.github.com/users/saisankargochhayat/received_events
+            repos_url: https://api.github.com/users/saisankargochhayat/repos
+            site_admin: false
+            starred_url: https://api.github.com/users/saisankargochhayat/starred{/owner}{/repo}
+            subscriptions_url: https://api.github.com/users/saisankargochhayat/subscriptions
+            type: User
+            url: https://api.github.com/users/saisankargochhayat
+          - avatar_url: https://avatars.githubusercontent.com/u/21237576?v=4
+            contributions: 1
+            events_url: https://api.github.com/users/TomasJani/events{/privacy}
+            followers_url: https://api.github.com/users/TomasJani/followers
+            following_url: https://api.github.com/users/TomasJani/following{/other_user}
+            gists_url: https://api.github.com/users/TomasJani/gists{/gist_id}
+            gravatar_id: ''
+            html_url: https://github.com/TomasJani
+            id: 21237576
+            login: TomasJani
+            node_id: MDQ6VXNlcjIxMjM3NTc2
+            organizations_url: https://api.github.com/users/TomasJani/orgs
+            received_events_url: https://api.github.com/users/TomasJani/received_events
+            repos_url: https://api.github.com/users/TomasJani/repos
+            site_admin: false
+            starred_url: https://api.github.com/users/TomasJani/starred{/owner}{/repo}
+            subscriptions_url: https://api.github.com/users/TomasJani/subscriptions
+            type: User
+            url: https://api.github.com/users/TomasJani
+          _next: null
+          elapsed: 0.175044
+          encoding: utf-8
+          headers:
+            Access-Control-Allow-Origin: '*'
+            Access-Control-Expose-Headers: ETag, Link, Location, Retry-After, X-GitHub-OTP,
+              X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Used, X-RateLimit-Resource,
+              X-RateLimit-Reset, X-OAuth-Scopes, X-Accepted-OAuth-Scopes, X-Poll-Interval,
+              X-GitHub-Media-Type, X-GitHub-SSO, X-GitHub-Request-Id, Deprecation,
+              Sunset
+            Cache-Control: private, max-age=60, s-maxage=60
+            Content-Encoding: gzip
+            Content-Security-Policy: default-src 'none'
+            Content-Type: application/json; charset=utf-8
+            Date: Wed, 30 Mar 2022 08:55:10 GMT
+            ETag: W/"9a78f041d30ad0be7cf31c5e9ca2cbbb38647fb51ff5f9453937dd7f1e65d557"
+            Last-Modified: Thu, 06 Jan 2022 14:31:23 GMT
+            Link: <https://api.github.com/repositories/161636700/contributors?page=1>;
+              rel="prev", <https://api.github.com/repositories/161636700/contributors?page=1>;
+              rel="first"
+            Referrer-Policy: origin-when-cross-origin, strict-origin-when-cross-origin
+            Server: GitHub.com
+            Strict-Transport-Security: max-age=31536000; includeSubdomains; preload
+            Transfer-Encoding: chunked
+            Vary: Accept, Authorization, Cookie, X-GitHub-OTP, Accept-Encoding, Accept,
+              X-Requested-With
+            X-Accepted-OAuth-Scopes: ''
+            X-Content-Type-Options: nosniff
+            X-Frame-Options: deny
+            X-GitHub-Media-Type: github.v3; format=json
+            X-GitHub-Request-Id: 7A33:101B8:A0F0C5E:A3B483B:62441AEE
+            X-OAuth-Scopes: admin:enterprise, admin:gpg_key, admin:org, admin:org_hook,
+              admin:public_key, admin:repo_hook, delete:packages, delete_repo, gist,
+              notifications, repo, user, workflow, write:discussion, write:packages
+            X-RateLimit-Limit: '5000'
+            X-RateLimit-Remaining: '4994'
+            X-RateLimit-Reset: '1648630931'
+            X-RateLimit-Resource: core
+            X-RateLimit-Used: '6'
+            X-XSS-Protection: '0'
+          raw: !!binary ""
+          reason: OK
+          status_code: 200

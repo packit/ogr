@@ -527,3 +527,10 @@ class GithubProject(BaseGitProject):
             if ex.status == 404:
                 return None
             raise GithubAPIException from ex
+
+    def get_contributors(self) -> Set[str]:
+        """
+        Returns:
+            Logins of contributors to the project.
+        """
+        return set(map(lambda c: c.login, self.github_repo.get_contributors()))

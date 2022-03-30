@@ -261,3 +261,8 @@ class GenericCommands(GithubTests):
 
         assert project.has_issues
         assert not project.get_fork().has_issues, "Forks don't have issues by default"
+
+    def test_get_contributors(self):
+        owners = self.ogr_project.get_owners()
+        contributors = self.ogr_project.get_contributors()
+        assert len(owners) < len(contributors)
