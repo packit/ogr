@@ -523,3 +523,6 @@ class PagureProject(BaseGitProject):
         )["branches"]
 
         return branches.get(branch)
+
+    def get_contributors(self) -> Set[str]:
+        raise OperationNotSupported("Pagure doesn't provide list of contributors")

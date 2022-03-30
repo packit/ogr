@@ -1881,6 +1881,13 @@ class GitProject(OgrAbstractClass):
         """
         raise NotImplementedError()
 
+    def get_contributors(self) -> Set[str]:
+        """
+        Returns:
+            Set of all contributors to the given project.
+        """
+        raise NotImplementedError()
+
 
 class GitUser(OgrAbstractClass):
     """

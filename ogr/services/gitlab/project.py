@@ -2,7 +2,7 @@
 # SPDX-License-Identifier: MIT
 
 import logging
-from typing import List, Optional, Dict, Set, Union
+from typing import Any, List, Optional, Dict, Set, Union
 
 import gitlab
 from gitlab.exceptions import GitlabGetError
@@ -486,3 +486,16 @@ class GitlabProject(BaseGitProject):
             if ex.response_code == 404:
                 return None
             raise GitlabAPIException from ex
+
+    def get_contributors(self) -> Set[str]:
+        """
+        Returns:
+            Unique authors of the commits in the project.
+        """
+
+        def format_contributor(contributor: Dict[str, Any]) -> str:
+            return f"{contributor['name']} <{contributor['email']}>"
+
+        return set(
+            map(format_contributor, self.gitlab_repo.repository_contributors(all=True))
+        )

@@ -239,3 +239,9 @@ class GenericCommands(GitlabTests):
         assert not self.service.get_project(
             namespace="redhat/centos-stream/rpms", repo="firefox"
         ).has_issues
+
+    def test_get_contributors(self):
+        project = self.service.get_project(namespace="recalbox", repo="recalbox")
+        owners = project.get_owners()
+        contributors = project.get_contributors()
+        assert len(owners) < len(contributors)
