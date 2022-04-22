@@ -19,9 +19,8 @@ class Issues(GithubTests):
     description = "This is a description"
 
     def test_issue_list(self):
-        issue_list = self.ogr_fork.get_issue_list()
-        assert isinstance(issue_list, list)
-        assert not issue_list
+        with self.assertRaises(IssueTrackerDisabled):
+            issue_list = self.ogr_fork.get_issue_list()
 
         issue_list_all = self.ogr_project.get_issue_list(status=IssueStatus.all)
         assert issue_list_all

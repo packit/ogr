@@ -100,6 +100,9 @@ class GithubIssue(BaseIssue):
 
     @staticmethod
     def get(project: "ogr_github.GithubProject", issue_id: int) -> "Issue":
+        if not project.has_issues:
+            raise IssueTrackerDisabled()
+
         try:
             issue = project.github_repo.get_issue(number=issue_id)
         except github.UnknownObjectException as ex:
@@ -114,6 +117,9 @@ class GithubIssue(BaseIssue):
         assignee: Optional[str] = None,
         labels: Optional[List[str]] = None,
     ) -> List["Issue"]:
+        if not project.has_issues:
+            raise IssueTrackerDisabled()
+
         parameters: Dict[str, Union[str, List[str]]] = {
             "state": status.name,
             "sort": "updated",
