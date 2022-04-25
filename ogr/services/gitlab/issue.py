@@ -109,6 +109,9 @@ class GitlabIssue(BaseIssue):
 
     @staticmethod
     def get(project: "ogr_gitlab.GitlabProject", issue_id: int) -> "Issue":
+        if not project.has_issues:
+            raise IssueTrackerDisabled()
+
         try:
             return GitlabIssue(project.gitlab_repo.issues.get(issue_id), project)
         except gitlab.exceptions.GitlabGetError as ex:
@@ -122,6 +125,9 @@ class GitlabIssue(BaseIssue):
         assignee: Optional[str] = None,
         labels: Optional[List[str]] = None,
     ) -> List["Issue"]:
+        if not project.has_issues:
+            raise IssueTrackerDisabled()
+
         # Gitlab API has status 'opened', not 'open'
         parameters: Dict[str, Union[str, List[str], bool]] = {
             "state": status.name if status != IssueStatus.open else "opened",

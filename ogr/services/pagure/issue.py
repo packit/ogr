@@ -140,6 +140,9 @@ class PagureIssue(BaseIssue):
 
     @staticmethod
     def get(project: "ogr_pagure.PagureProject", issue_id: int) -> "Issue":
+        if not project.has_issues:
+            raise IssueTrackerDisabled()
+
         raw_issue = project._call_project_api("issue", str(issue_id))
         return PagureIssue(raw_issue, project)
 
@@ -151,6 +154,9 @@ class PagureIssue(BaseIssue):
         assignee: Optional[str] = None,
         labels: Optional[List[str]] = None,
     ) -> List["Issue"]:
+        if not project.has_issues:
+            raise IssueTrackerDisabled()
+
         payload: Dict[str, Union[str, List[str], int]] = {
             "status": status.name.capitalize(),
             "page": 1,

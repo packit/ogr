@@ -87,6 +87,95 @@ requests.sessions:
           raw: !!binary ""
           reason: OK
           status_code: 200
+      - metadata:
+          latency: 0.25437498092651367
+          module_call_list:
+          - unittest.case
+          - requre.record_and_replace
+          - tests.integration.pagure.test_issues
+          - ogr.abstract
+          - ogr.utils
+          - ogr.abstract
+          - ogr.services.pagure.issue
+          - ogr.abstract
+          - ogr.services.pagure.project
+          - ogr.abstract
+          - ogr.services.pagure.service
+          - ogr.abstract
+          - ogr.services.pagure.service
+          - ogr.abstract
+          - ogr.services.pagure.service
+          - requests.sessions
+          - requre.objects
+          - requre.cassette
+          - requests.sessions
+          - send
+        output:
+          __store_indicator: 2
+          _content:
+            assignee: null
+            blocks: []
+            close_status: null
+            closed_at: null
+            closed_by: null
+            comments:
+            - comment: example issue comment
+              date_created: '1632485834'
+              edited_on: null
+              editor: null
+              id: 753462
+              notification: false
+              parent: null
+              reactions: {}
+              user:
+                full_url: https://pagure.io/user/nikromen
+                fullname: Jiri Kyjovsky
+                name: nikromen
+                url_path: user/nikromen
+            content: issue
+            custom_fields: []
+            date_created: '1632485822'
+            depends: []
+            full_url: https://pagure.io/my-playground/issue/1
+            id: 1
+            last_updated: '1632485834'
+            milestone: null
+            priority: null
+            private: false
+            related_prs: []
+            status: Open
+            tags: []
+            title: ogr test issue
+            user:
+              full_url: https://pagure.io/user/nikromen
+              fullname: Jiri Kyjovsky
+              name: nikromen
+              url_path: user/nikromen
+          _next: null
+          elapsed: 0.25415
+          encoding: utf-8
+          headers:
+            Connection: Keep-Alive
+            Content-Length: '1067'
+            Content-Security-Policy: default-src 'self';script-src 'self' 'nonce-WHSf4yHcZhbNNFYCTCf0Zk1rm';
+              style-src 'self' 'nonce-WHSf4yHcZhbNNFYCTCf0Zk1rm'; object-src 'none';base-uri
+              'self';img-src 'self' https:;connect-src 'self' https://pagure.io:8088;frame-src
+              https://docs.pagure.org;frame-ancestors https://pagure.io;
+            Content-Type: application/json
+            Date: Fri, 22 Apr 2022 09:32:56 GMT
+            Keep-Alive: timeout=5, max=99
+            Referrer-Policy: same-origin
+            Server: Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_wsgi/4.6.4
+              Python/3.6
+            Set-Cookie: pagure=eyJfcGVybWFuZW50Ijp0cnVlLCJjc3JmX3Rva2VuIjoiZTQyZmE1YTdiYTMxNDFlMThjN2VmNWI2YzcxY2I2N2Q5YTk2NjgyYyJ9.FUQHyQ.hHqxpB067SAf_zblSpQDhEq9_MM;
+              Expires=Mon, 23-May-2022 09:32:57 GMT; Secure; HttpOnly; Path=/
+            Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
+            X-Content-Type-Options: nosniff
+            X-Frame-Options: ALLOW-FROM https://pagure.io/
+            X-Xss-Protection: 1; mode=block
+          raw: !!binary ""
+          reason: OK
+          status_code: 200
       https://pagure.io/api/0/my-playground/issue/1/comment/753462:
       - metadata:
           latency: 0.23948907852172852
@@ -138,6 +227,79 @@ requests.sessions:
               Python/3.6
             Set-Cookie: pagure=eyJfcGVybWFuZW50Ijp0cnVlLCJjc3JmX3Rva2VuIjoiMzc5OTYxOGVmYjhjYzEyYjE1NjMwMjFhNDQ0ZDcyMGQzMmMxY2ZlMiJ9.FC9ZjA.v0yYlcwqXRpi5uWYeVufLeJf3Qo;
               Expires=Mon, 25-Oct-2021 12:43:56 GMT; Secure; HttpOnly; Path=/
+            Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
+            X-Content-Type-Options: nosniff
+            X-Frame-Options: ALLOW-FROM https://pagure.io/
+            X-Xss-Protection: 1; mode=block
+          raw: !!binary ""
+          reason: OK
+          status_code: 200
+      https://pagure.io/api/0/my-playground/options:
+      - metadata:
+          latency: 0.49100685119628906
+          module_call_list:
+          - unittest.case
+          - requre.record_and_replace
+          - tests.integration.pagure.test_issues
+          - ogr.abstract
+          - ogr.utils
+          - ogr.abstract
+          - ogr.services.pagure.issue
+          - ogr.services.pagure.project
+          - ogr.abstract
+          - ogr.services.pagure.project
+          - ogr.abstract
+          - ogr.services.pagure.service
+          - ogr.abstract
+          - ogr.services.pagure.service
+          - ogr.abstract
+          - ogr.services.pagure.service
+          - requests.sessions
+          - requre.objects
+          - requre.cassette
+          - requests.sessions
+          - send
+        output:
+          __store_indicator: 2
+          _content:
+            settings:
+              Enforce_signed-off_commits_in_pull-request: false
+              Minimum_score_to_merge_pull-request: -1
+              Only_assignee_can_merge_pull-request: false
+              Web-hooks: null
+              always_merge: false
+              disable_non_fast-forward_merges: false
+              fedmsg_notifications: true
+              issue_tracker: true
+              issue_tracker_read_only: false
+              issues_default_to_private: false
+              mqtt_notifications: true
+              notify_on_commit_flag: false
+              notify_on_pull-request_flag: false
+              open_metadata_access_to_all: false
+              project_documentation: false
+              pull_request_access_only: false
+              pull_requests: true
+              stomp_notifications: true
+            status: ok
+          _next: null
+          elapsed: 0.490791
+          encoding: utf-8
+          headers:
+            Connection: Keep-Alive
+            Content-Length: '736'
+            Content-Security-Policy: default-src 'self';script-src 'self' 'nonce-K7vZDgdUDAbi8r4tZmbUnL2KY';
+              style-src 'self' 'nonce-K7vZDgdUDAbi8r4tZmbUnL2KY'; object-src 'none';base-uri
+              'self';img-src 'self' https:;connect-src 'self' https://pagure.io:8088;frame-src
+              https://docs.pagure.org;frame-ancestors https://pagure.io;
+            Content-Type: application/json
+            Date: Fri, 22 Apr 2022 09:32:56 GMT
+            Keep-Alive: timeout=5, max=100
+            Referrer-Policy: same-origin
+            Server: Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_wsgi/4.6.4
+              Python/3.6
+            Set-Cookie: pagure=eyJfcGVybWFuZW50Ijp0cnVlLCJjc3JmX3Rva2VuIjoiZTQyZmE1YTdiYTMxNDFlMThjN2VmNWI2YzcxY2I2N2Q5YTk2NjgyYyJ9.FUQHyA.qxnkC258umKVWGdR4ixj7eorCuk;
+              Expires=Mon, 23-May-2022 09:32:56 GMT; Secure; HttpOnly; Path=/
             Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
             X-Content-Type-Options: nosniff
             X-Frame-Options: ALLOW-FROM https://pagure.io/
