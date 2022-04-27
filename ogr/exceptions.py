@@ -101,3 +101,7 @@ class OgrNetworkError(OgrException):
 
 class GitForgeInternalError(OgrNetworkError):
     """Exception raised when git forge returns internal failure."""
+
+
+class GithubAppNotInstalledError(OgrException):
+    """Exception raised when GitHub App is not installed."""
