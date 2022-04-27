@@ -100,6 +100,9 @@ class PagureService(BaseGitService):
 
     def get_project_from_url(self, url: str) -> "PagureProject":
         repo_url = parse_git_repo(potential_url=url)
+        if not repo_url:
+            raise OgrException(f"Cannot parse project url: '{url}'")
+
         if not repo_url.is_fork:
             repo_url.username = None
 
