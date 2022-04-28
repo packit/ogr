@@ -1,3 +1,12 @@
+# 0.38.0
+
+- ogr now correctly raises `OgrException` when given invalid URL to
+  `PagureService.get_project_from_url`. (#705)
+- We have fixed a bug in ogr that caused `IssueTrackerDisabled` being raised
+  only when trying to create an issue on git project with disabled issue
+  tracker. Now it is also raised when getting a specific issue or
+  an issue list. (#703)
+
 # 0.37.0
 
 - We have added a new optional parameter, `namespace`, to the `fork_create` method on Git projects, which allows you to
