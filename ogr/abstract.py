@@ -866,6 +866,15 @@ class PullRequest(OgrAbstractClass):
         """
         raise NotImplementedError()
 
+    def reopen(self) -> "PullRequest":
+        """
+        Reopen closed pull request.
+
+        Returns:
+            Pull request itself.
+        """
+        raise NotImplementedError()
+
     def merge(self) -> "PullRequest":
         """
         Merge the pull request.

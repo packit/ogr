@@ -279,6 +279,11 @@ class GitlabPullRequest(BasePullRequest):
         self._raw_pr.save()
         return self
 
+    def reopen(self) -> "PullRequest":
+        self._raw_pr.state_event = "reopen"
+        self._raw_pr.save()
+        return self
+
     def merge(self) -> "PullRequest":
         self._raw_pr.merge()
         return self

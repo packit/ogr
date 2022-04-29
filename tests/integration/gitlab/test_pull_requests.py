@@ -72,6 +72,14 @@ class PullRequests(GitlabTests):
         closed_pr = pr_for_closing.close()
         assert closed_pr.status == PRStatus.closed
 
+    def test_pr_reopen(self):
+        pr = self.create_pull_request()
+        assert self.project.get_pr(pr_id=pr.id).status == PRStatus.open
+        pr.close()
+        assert self.project.get_pr(pr_id=pr.id).status == PRStatus.closed
+        pr.reopen()
+        assert self.project.get_pr(pr_id=pr.id).status == PRStatus.open
+
     def test_pr_merge(self):
         """
         Create new PR and update pull request ID to this test before this test

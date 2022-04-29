@@ -36,6 +36,22 @@ class PullRequests(PagureTests):
         assert pr.source_branch == "master"
         assert pr.status == PRStatus.open
 
+    # TODO can't make this work, It creates the PR, but /close returns
+    # "Invalid or expired token..."
+    # even I just generated it with all ACLs
+    # def test_pr_close_reopen(self):
+    #     pr = self.ogr_project.create_pr(
+    #         title="Testing PR 3",
+    #         body="Body of the testing PR.",
+    #         target_branch="master",
+    #         source_branch="master",
+    #     )
+    #     assert pr.status == PRStatus.open
+    #     pr.close()
+    #     assert self.ogr_project.get_pr(pr_id=pr.id).status == PRStatus.closed
+    #     pr.reopen()
+    #     assert self.ogr_project.get_pr(pr_id=pr.id).status == PRStatus.open
+
     def test_pr_list(self):
         pr_list_default = self.ogr_project.get_pr_list()
         assert isinstance(pr_list_default, list)
