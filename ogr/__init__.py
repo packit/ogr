@@ -5,8 +5,6 @@
 Module providing one api for multiple git services (github/gitlab/pagure)
 """
 
-from pkg_resources import get_distribution, DistributionNotFound
-
 from ogr.factory import (
     get_project,
     get_service_class,
@@ -18,8 +16,14 @@ from ogr.services.gitlab import GitlabService
 from ogr.services.pagure import PagureService
 
 try:
-    __version__ = get_distribution(__name__).version
-except DistributionNotFound:
+    from importlib.metadata import PackageNotFoundError, distribution
+except ImportError:
+    from importlib_metadata import PackageNotFoundError  # type: ignore
+    from importlib_metadata import distribution  # type: ignore
+
+try:
+    __version__ = distribution(__name__).version
+except PackageNotFoundError:
     # package is not installed
     pass
 
