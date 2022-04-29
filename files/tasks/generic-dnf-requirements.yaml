@@ -1,6 +1,6 @@
 ---
 - name: Install generic RPM packages
-  dnf:
+  ansible.builtin.dnf:
     name:
       - make
       - git
@@ -8,7 +8,7 @@
       - python3-pip
   become: true
 - name: Install rpmautospec-rpm-macros
-  dnf:
+  ansible.builtin.dnf:
     name:
       - rpmautospec-rpm-macros
   # rpmautospec-rpm-macros is not in epel

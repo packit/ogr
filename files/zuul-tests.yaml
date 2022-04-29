@@ -7,6 +7,6 @@
     - include_tasks: tasks/install-ogr.yaml
     - include_tasks: tasks/configure-git.yaml
     - name: Run tests
-      command: make check
+      ansible.builtin.command: make check
       args:
         chdir: "{{ project_dir }}"

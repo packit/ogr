@@ -1,7 +1,7 @@
 ---
 - name: Print the current working directory
-  command: pwd
+  ansible.builtin.command: pwd
 - name: Install ogr from {{ project_dir }}
-  pip:
+  ansible.builtin.pip:
     name: "{{ project_dir }}"
   become: true
