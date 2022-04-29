@@ -1,3 +1,10 @@
+# 0.38.1
+
+- When using Tokman as GitHub authentication mechanism, ogr will now raise GithubAppNotInstalledError instead of failing with generic GithubAPIException when app providing tokens is not installed on the repository.
+- Use the standard library instead of setuptools for getting the version on Python 3.8+,
+  or a smaller package on older Pythons.
+  This also fixes the packaging issue with missing `pkg_resources`.
+
 # 0.38.0
 
 - ogr now correctly raises `OgrException` when given invalid URL to
