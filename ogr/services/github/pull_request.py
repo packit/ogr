@@ -147,10 +147,12 @@ class GithubPullRequest(BasePullRequest):
         """
         github_repo = project.github_repo
 
+        target_project = project
         if project.is_fork and fork_username is None:
             logger.warning(f"{project.full_repo_name} is fork, ignoring fork_repo.")
             source_branch = f"{project.namespace}:{source_branch}"
             github_repo = project.parent.github_repo
+            target_project = project.parent
         elif fork_username:
             source_branch = f"{fork_username}:{source_branch}"
             if fork_username != project.namespace and project.parent is not None:
@@ -162,7 +164,7 @@ class GithubPullRequest(BasePullRequest):
             title=title, body=body, base=target_branch, head=source_branch
         )
         logger.info(f"PR {created_pr.id} created: {target_branch}<-{source_branch}")
-        return GithubPullRequest(created_pr, project)
+        return GithubPullRequest(created_pr, target_project)
 
     @staticmethod
     def __get_fork(fork_username: str, repo: _GithubRepository) -> _GithubRepository:

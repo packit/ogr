@@ -87,6 +87,7 @@ class PullRequests(GithubTests):
 
         assert pr_upstream_upstream.title == "test: upstream <- upstream"
         assert pr_upstream_upstream.status == PRStatus.open
+        assert not pr_upstream_upstream.target_project.is_fork
         assert pr_opened_after == pr_opened_before + 1
 
         pr_upstream_upstream.close()
@@ -117,6 +118,7 @@ class PullRequests(GithubTests):
             == "test: upstream <- fork_username:source_branch"
         )
         assert pr_upstream_forkusername.status == PRStatus.open
+        assert not pr_upstream_forkusername.target_project.is_fork
         assert pr_opened_after == pr_opened_before + 1
 
         pr_upstream_forkusername.close()
@@ -142,6 +144,7 @@ class PullRequests(GithubTests):
 
         assert pr_upstream_fork.title == "test: upstream <- fork"
         assert pr_upstream_fork.status == PRStatus.open
+        assert not pr_upstream_fork.target_project.is_fork
         assert pr_opened_after == pr_opened_before + 1
 
         pr_upstream_fork.close()
@@ -167,6 +170,7 @@ class PullRequests(GithubTests):
 
         assert opened_pr.title == "test: other_fork(master) <- fork"
         assert opened_pr.status == PRStatus.open
+        assert opened_pr.target_project.is_fork
         assert pr_opened_after == pr_opened_before + 1
 
         opened_pr.close()
@@ -191,6 +195,7 @@ class PullRequests(GithubTests):
 
         assert opened_pr.title == "test: fork(master) <- fork"
         assert opened_pr.status == PRStatus.open
+        assert opened_pr.target_project.is_fork
         assert pr_opened_after == pr_opened_before + 1
 
         opened_pr.close()

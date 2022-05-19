@@ -21,6 +21,7 @@ class PullRequests(PagureTests):
         assert pr.target_branch == "master"
         assert pr.source_branch == "master"
         assert pr.status == PRStatus.open
+        assert not pr.target_project.is_fork
 
     def test_pr_create_from_parent(self):
         pr = self.ogr_project.create_pr(
