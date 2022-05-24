@@ -170,9 +170,11 @@ class GitlabPullRequest(BasePullRequest):
         }
         target_id = None
 
+        target_project = project
         if project.is_fork and fork_username is None:
             # handles fork -> upstream (called on fork)
             target_id = project.parent.gitlab_repo.attributes["id"]
+            target_project = project.parent
         elif fork_username and fork_username != project.namespace:
             # handles fork -> upstream
             #   (username of fork owner specified by fork_username)
@@ -194,7 +196,7 @@ class GitlabPullRequest(BasePullRequest):
             parameters["target_project_id"] = target_id
 
         mr = repo.mergerequests.create(parameters)
-        return GitlabPullRequest(mr, project)
+        return GitlabPullRequest(mr, target_project)
 
     @staticmethod
     def __get_fork(

@@ -286,6 +286,7 @@ class PullRequests(GitlabTests):
         )
         assert pr_upstream_upstream.title == "test PR: upstream -> upstream"
         assert pr_upstream_upstream.status == PRStatus.open
+        assert not pr_upstream_upstream.target_project.is_fork
 
         prs_after = len(self.project.get_pr_list(status=PRStatus.open))
         self.project.get_pr(pr_upstream_upstream.id).close()
@@ -306,6 +307,7 @@ class PullRequests(GitlabTests):
         )
         assert pr_upstream_forkusername.status == PRStatus.open
         assert pr_upstream_forkusername.source_project == self.project.get_fork()
+        assert not pr_upstream_forkusername.target_project.is_fork
 
         prs_after = len(self.project.get_pr_list(status=PRStatus.open))
         self.project.get_pr(pr_upstream_forkusername.id).close()
@@ -321,6 +323,7 @@ class PullRequests(GitlabTests):
         )
         assert pr_upstream_fork.title == "test PR: fork -> upstream"
         assert pr_upstream_fork.status == PRStatus.open
+        assert not pr_upstream_fork.target_project.is_fork
 
         prs_after = len(self.project.get_pr_list(status=PRStatus.open))
         self.project.get_pr(pr_upstream_fork.id).close()
@@ -345,6 +348,7 @@ class PullRequests(GitlabTests):
 
         assert opened_pr.title == "test: fork(master) <- fork"
         assert opened_pr.status == PRStatus.open
+        assert opened_pr.target_project.is_fork
         assert pr_opened_after == pr_opened_before + 1
 
         opened_pr.close()
@@ -367,6 +371,7 @@ class PullRequests(GitlabTests):
         )
         assert pr_fork_fork.title == "test PR: fork -> other_fork"
         assert pr_fork_fork.status == PRStatus.open
+        assert pr_fork_fork.target_project.is_fork
 
         prs_after = len(other_fork.get_pr_list(status=PRStatus.open))
         self.project.get_pr(pr_fork_fork.id).close()

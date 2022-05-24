@@ -171,7 +171,7 @@ class PagurePullRequest(BasePullRequest):
         response = caller._call_project_api(
             "pull-request", "new", method="POST", data=data
         )
-        return PagurePullRequest(response, project)
+        return PagurePullRequest(response, caller)
 
     @staticmethod
     def get(project: "ogr_pagure.PagureProject", pr_id: int) -> "PullRequest":
