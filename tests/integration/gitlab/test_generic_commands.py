@@ -184,6 +184,14 @@ class GenericCommands(GitlabTests):
         assert comment.author == self.service.user.get_username()
         assert comment.comment == "Comment to line 3"
 
+    def test_get_commit_comments(self):
+        comments = self.project.get_commit_comments(
+            "11b37d913374b14f8519d16c2a2cca3ebc14ac64"
+        )
+        assert len(comments)
+        assert comments[0].sha == "11b37d913374b14f8519d16c2a2cca3ebc14ac64"
+        assert comments[0].comment == "Comment to line 3"
+
     def test_get_web_url(self):
         url = self.project.get_web_url()
         assert url == "https://gitlab.com/packit-service/ogr-tests"

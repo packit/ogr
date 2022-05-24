@@ -1744,6 +1744,18 @@ class GitProject(OgrAbstractClass):
         """
         raise NotImplementedError()
 
+    def get_commit_comments(self, commit: str) -> List[CommitComment]:
+        """
+        Get comments for a commit.
+
+        Args:
+            commit: The hash of the commit.
+
+        Returns:
+            List of all comments for the commit.
+        """
+        raise NotImplementedError()
+
     def set_commit_status(
         self,
         commit: str,
