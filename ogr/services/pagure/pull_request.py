@@ -125,6 +125,11 @@ class PagurePullRequest(BasePullRequest):
 
         return self._source_project
 
+    @property
+    def closed_by(self) -> Optional[str]:
+        closed_by = self._raw_pr["closed_by"]
+        return closed_by["name"] if closed_by else None
+
     def __str__(self) -> str:
         return "Pagure" + super().__str__()
 

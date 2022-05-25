@@ -675,6 +675,11 @@ class PullRequest(OgrAbstractClass):
         """Web URL to the list of commits in the pull request."""
         raise NotImplementedError()
 
+    @property
+    def closed_by(self) -> Optional[str]:
+        """Login of the account that closed the pull request."""
+        raise NotImplementedError
+
     def __str__(self) -> str:
         description = (
             f"{self.description[:10]}..." if self.description is not None else "None"
