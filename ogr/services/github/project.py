@@ -15,6 +15,7 @@ import github
 from github import UnknownObjectException
 from github.GithubException import GithubException
 from github.Repository import Repository
+from github.Commit import Commit
 from github.CommitComment import CommitComment as GithubCommitComment
 
 from ogr.abstract import (
@@ -324,14 +325,31 @@ class GithubProject(BaseGitProject):
     def commit_comment(
         self, commit: str, body: str, filename: str = None, row: int = None
     ) -> CommitComment:
-        github_commit = self.github_repo.get_commit(commit)
+        github_commit: Commit = self.github_repo.get_commit(commit)
         if filename and row:
             comment = github_commit.create_comment(
                 body=body, position=row, path=filename
             )
         else:
             comment = github_commit.create_comment(body=body)
-        return self._commitcomment_from_github_object(comment)
+        return self._commit_comment_from_github_object(comment)
+
+    @staticmethod
+    def _commit_comment_from_github_object(
+        raw_commit_coment: GithubCommitComment,
+    ) -> CommitComment:
+        return CommitComment(
+            comment=raw_commit_coment.body,
+            author=raw_commit_coment.user.login,
+            sha=raw_commit_coment.commit_id,
+        )
+
+    def get_commit_comments(self, commit: str) -> List[CommitComment]:
+        github_commit: Commit = self.github_repo.get_commit(commit)
+        return [
+            self._commit_comment_from_github_object(comment)
+            for comment in github_commit.get_comments()
+        ]
 
     @if_readonly(
         return_function=GitProjectReadOnly.set_commit_status,
@@ -443,16 +461,6 @@ class GithubProject(BaseGitProject):
             paths = filter_paths(paths, filter_regex)
 
         return paths
-
-    @staticmethod
-    def _commitcomment_from_github_object(
-        raw_commitcoment: GithubCommitComment,
-    ) -> CommitComment:
-        return CommitComment(
-            comment=raw_commitcoment.body,
-            author=raw_commitcoment.user.login,
-            sha=raw_commitcoment.commit_id,
-        )
 
     def get_labels(self):
         """

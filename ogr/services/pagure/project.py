@@ -419,6 +419,9 @@ class PagureProject(BaseGitProject):
     ) -> CommitComment:
         raise OperationNotSupported("Commit comments are not supported on Pagure.")
 
+    def get_commit_comments(self, commit: str) -> List[CommitComment]:
+        raise OperationNotSupported("Commit comments are not supported on Pagure.")
+
     @if_readonly(return_function=GitProjectReadOnly.set_commit_status)
     @indirect(PagureCommitFlag.set)
     def set_commit_status(

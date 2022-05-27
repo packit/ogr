@@ -6,7 +6,7 @@ from typing import Any, List, Optional, Dict, Set, Union
 
 import gitlab
 from gitlab.exceptions import GitlabGetError
-from gitlab.v4.objects import Project as GitlabObjectsProject
+from gitlab.v4.objects import Project as GitlabObjectsProject, ProjectCommit
 
 from ogr.abstract import (
     PullRequest,
@@ -271,7 +271,7 @@ class GitlabProject(BaseGitProject):
         self, commit: str, body: str, filename: str = None, row: int = None
     ) -> "CommitComment":
         try:
-            commit_object = self.gitlab_repo.commits.get(commit)
+            commit_object: ProjectCommit = self.gitlab_repo.commits.get(commit)
         except gitlab.exceptions.GitlabGetError as ex:
             logger.error(f"Commit {commit} was not found.")
             raise GitlabAPIException(f"Commit {commit} was not found.") from ex
@@ -283,6 +283,24 @@ class GitlabProject(BaseGitProject):
         else:
             raw_comment = commit_object.comments.create({"note": body})
         return self._commit_comment_from_gitlab_object(raw_comment, commit)
+
+    @staticmethod
+    def _commit_comment_from_gitlab_object(raw_comment, commit) -> CommitComment:
+        return CommitComment(
+            sha=commit, comment=raw_comment.note, author=raw_comment.author["username"]
+        )
+
+    def get_commit_comments(self, commit: str) -> List[CommitComment]:
+        try:
+            commit_object: ProjectCommit = self.gitlab_repo.commits.get(commit)
+        except gitlab.exceptions.GitlabGetError as ex:
+            logger.error(f"Commit {commit} was not found.")
+            raise GitlabAPIException(f"Commit {commit} was not found.") from ex
+
+        return [
+            self._commit_comment_from_gitlab_object(comment, commit)
+            for comment in commit_object.comments.list()
+        ]
 
     @indirect(GitlabCommitFlag.set)
     def set_commit_status(
@@ -469,12 +487,6 @@ class GitlabProject(BaseGitProject):
         if not color.startswith("#"):
             return "#{}".format(color)
         return color
-
-    @staticmethod
-    def _commit_comment_from_gitlab_object(raw_comment, commit) -> CommitComment:
-        return CommitComment(
-            sha=commit, comment=raw_comment.note, author=raw_comment.author["username"]
-        )
 
     def get_web_url(self) -> str:
         return self.gitlab_repo.web_url
