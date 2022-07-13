@@ -2,7 +2,7 @@
 # SPDX-License-Identifier: MIT
 
 import datetime
-from typing import List, Dict, Any
+from typing import List, Dict, Any, Optional
 
 
 from ogr.abstract import CommitFlag, CommitStatus
@@ -73,13 +73,17 @@ class PagureCommitFlag(BaseCommitFlag):
         )
 
     @property
-    def created(self) -> datetime.datetime:
-        return datetime.datetime.fromtimestamp(
-            int(self._raw_commit_flag["date_created"])
+    def created(self) -> Optional[datetime.datetime]:
+        return (
+            datetime.datetime.fromtimestamp(int(self._raw_commit_flag["date_created"]))
+            if self._raw_commit_flag
+            else None
         )
 
     @property
-    def edited(self) -> datetime.datetime:
-        return datetime.datetime.fromtimestamp(
-            int(self._raw_commit_flag["date_updated"])
+    def edited(self) -> Optional[datetime.datetime]:
+        return (
+            datetime.datetime.fromtimestamp(int(self._raw_commit_flag["date_updated"]))
+            if self._raw_commit_flag
+            else None
         )

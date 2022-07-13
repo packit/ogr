@@ -80,6 +80,11 @@ def get_project(
 
     Returns:
         `GitProject` using the matching implementation.
+
+    Raises:
+        OgrException, if the url failed to be parsed or no matching
+            project type was found.
+
     """
     mapping = service_mapping_update.copy() if service_mapping_update else {}
     custom_instances = custom_instances or []
@@ -88,6 +93,8 @@ def get_project(
 
     kls = get_service_class(url=url, service_mapping_update=mapping)
     parsed_repo_url = parse_git_repo(url)
+    if not parsed_repo_url:
+        raise OgrException(f"Failed to parse url '{url}', invalid format.")
 
     service = None
     if custom_instances:
@@ -131,8 +138,11 @@ def get_service_class_or_none(
         mapping.update(service_mapping_update)
 
     parsed_url = parse_git_repo(url)
+    if not parsed_url:
+        return None
+
     for service, service_kls in mapping.items():
-        if service in parsed_url.hostname:
+        if parsed_url.hostname and service in parsed_url.hostname:
             return service_kls
 
     return None

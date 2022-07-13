@@ -17,7 +17,7 @@ logger = logging.getLogger(__name__)
 
 class PagurePullRequest(BasePullRequest):
     _target_project: "ogr_pagure.PagureProject"
-    _source_project: "ogr_pagure.PagureProject" = None
+    _source_project: Optional["ogr_pagure.PagureProject"] = None
 
     def __init__(self, raw_pr, project):
         super().__init__(raw_pr, project)
@@ -150,10 +150,11 @@ class PagurePullRequest(BasePullRequest):
         }
 
         caller = project
-        if project.is_fork:
+        if project.is_fork and caller.parent:
             data["repo_from"] = project.repo
             data["repo_from_username"] = project._user
-            data["repo_from_namespace"] = project.namespace
+            if project.namespace:
+                data["repo_from_namespace"] = project.namespace
 
             # running the call from the parent project
             caller = caller.parent
@@ -166,7 +167,8 @@ class PagurePullRequest(BasePullRequest):
             )
             data["repo_from_username"] = fork_username
             data["repo_from"] = fork_project.repo
-            data["repo_from_namespace"] = fork_project.namespace
+            if fork_project.namespace:
+                data["repo_from_namespace"] = fork_project.namespace
 
         response = caller._call_project_api(
             "pull-request", "new", method="POST", data=data

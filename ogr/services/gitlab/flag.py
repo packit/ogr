@@ -3,7 +3,7 @@
 
 import logging
 import datetime
-from typing import List
+from typing import List, Optional
 
 import gitlab
 
@@ -93,9 +93,13 @@ class GitlabCommitFlag(BaseCommitFlag):
         return GitlabCommitFlag(raw_commit_flag=raw_status, project=project)
 
     @property
-    def created(self) -> datetime.datetime:
-        return datetime.datetime.strptime(
-            self._raw_commit_flag.created_at, "%Y-%m-%dT%H:%M:%S.%fZ"
+    def created(self) -> Optional[datetime.datetime]:
+        return (
+            datetime.datetime.strptime(
+                self._raw_commit_flag.created_at, "%Y-%m-%dT%H:%M:%S.%fZ"
+            )
+            if self._raw_commit_flag
+            else None
         )
 
     @property

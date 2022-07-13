@@ -2,7 +2,7 @@
 # SPDX-License-Identifier: MIT
 
 import datetime
-from typing import List
+from typing import List, Optional
 
 from github import UnknownObjectException
 
@@ -64,9 +64,13 @@ class GithubCommitFlag(BaseCommitFlag):
         return GithubCommitFlag(project=project, raw_commit_flag=status, commit=commit)
 
     @property
-    def created(self) -> datetime.datetime:
-        return self._raw_commit_flag.created_at
+    def created(self) -> Optional[datetime.datetime]:
+        if self._raw_commit_flag:
+            return self._raw_commit_flag.created_at
+        return None
 
     @property
-    def edited(self) -> datetime.datetime:
-        return self._raw_commit_flag.updated_at
+    def edited(self) -> Optional[datetime.datetime]:
+        if self._raw_commit_flag:
+            return self._raw_commit_flag.updated_at
+        return None

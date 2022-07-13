@@ -10,7 +10,7 @@ class RepoUrl:
     Class that represents repo URL.
 
     Attributes:
-        repo (str): Name of the repository.
+        repo (Optional[str]): Name of the repository. Can be None if parsing is being done.
         namespace (Optional[str]): Namespace of the repository, if has any.
         username (Optional[str]): Username of the repository owner, if can be
             specified.
@@ -22,7 +22,7 @@ class RepoUrl:
 
     def __init__(
         self,
-        repo: str,
+        repo: Optional[str],
         namespace: Optional[str] = None,
         username: Optional[str] = None,
         is_fork: bool = False,

@@ -35,7 +35,7 @@ class PagureRelease(Release):
 
     @property
     def created_at(self) -> datetime.datetime:
-        return None
+        raise OperationNotSupported("Pagure API does not provide timestamps")
 
     @property
     def tarball_url(self) -> str:
@@ -71,6 +71,8 @@ class PagureRelease(Release):
         message: str,
         ref: Optional[str] = None,
     ) -> "Release":
+        if not ref:
+            raise PagureAPIException("Release ref must be specified")
         payload = {
             "tagname": tag,
             "commit_hash": ref,

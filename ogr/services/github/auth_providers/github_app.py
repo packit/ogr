@@ -11,7 +11,9 @@ from ogr.exceptions import OgrException
 
 
 class GithubApp(GithubAuthentication):
-    def __init__(self, id: str, private_key: str, private_key_path: str) -> None:
+    def __init__(
+        self, id: str, private_key: Optional[str], private_key_path: Optional[str]
+    ) -> None:
         self.id = id
         self._private_key = private_key
         self._private_key_path = private_key_path
@@ -45,7 +47,7 @@ class GithubApp(GithubAuthentication):
         return f"GithubApp({censored_id}{censored_private_key}{private_key_path})"
 
     @property
-    def private_key(self) -> str:
+    def private_key(self) -> Optional[str]:
         if self._private_key:
             return self._private_key
 
@@ -71,7 +73,7 @@ class GithubApp(GithubAuthentication):
             self._integration = github.GithubIntegration(self.id, self.private_key)
         return self._integration
 
-    def get_token(self, namespace: str, repo: str) -> str:
+    def get_token(self, namespace: str, repo: str) -> Optional[str]:
         if not self.private_key:
             return None
 
