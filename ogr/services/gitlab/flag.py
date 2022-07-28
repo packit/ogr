@@ -3,12 +3,12 @@
 
 import logging
 import datetime
-from typing import List, Optional
+from typing import List
 
 import gitlab
 
 from ogr.abstract import CommitFlag, CommitStatus
-from ogr.exceptions import GitlabAPIException, OperationNotSupported
+from ogr.exceptions import GitlabAPIException, OperationNotSupported, OgrException
 from ogr.services import gitlab as ogr_gitlab
 from ogr.services.base import BaseCommitFlag
 
@@ -93,13 +93,12 @@ class GitlabCommitFlag(BaseCommitFlag):
         return GitlabCommitFlag(raw_commit_flag=raw_status, project=project)
 
     @property
-    def created(self) -> Optional[datetime.datetime]:
-        return (
-            datetime.datetime.strptime(
-                self._raw_commit_flag.created_at, "%Y-%m-%dT%H:%M:%S.%fZ"
-            )
-            if self._raw_commit_flag
-            else None
+    def created(self) -> datetime.datetime:
+        if not self._raw_commit_flag:
+            raise OgrException("Raw commit flag not set, this should not happen.")
+
+        return datetime.datetime.strptime(
+            self._raw_commit_flag.created_at, "%Y-%m-%dT%H:%M:%S.%fZ"
         )
 
     @property

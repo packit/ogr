@@ -71,8 +71,12 @@ class PagureRelease(Release):
         message: str,
         ref: Optional[str] = None,
     ) -> "Release":
+        """
+        Raises:
+            ValueError, if ref is not specified.
+        """
         if not ref:
-            raise PagureAPIException("Release ref must be specified")
+            raise ValueError("Release ref must be specified")
         payload = {
             "tagname": tag,
             "commit_hash": ref,

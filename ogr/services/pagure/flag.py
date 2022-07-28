@@ -8,6 +8,7 @@ from typing import List, Dict, Any, Optional
 from ogr.abstract import CommitFlag, CommitStatus
 from ogr.services import pagure as ogr_pagure
 from ogr.services.base import BaseCommitFlag
+from ogr.exceptions import OgrException
 
 
 class PagureCommitFlag(BaseCommitFlag):
@@ -73,11 +74,11 @@ class PagureCommitFlag(BaseCommitFlag):
         )
 
     @property
-    def created(self) -> Optional[datetime.datetime]:
-        return (
-            datetime.datetime.fromtimestamp(int(self._raw_commit_flag["date_created"]))
-            if self._raw_commit_flag
-            else None
+    def created(self) -> datetime.datetime:
+        if not self._raw_commit_flag:
+            raise OgrException("Raw commit flag not set, this should not happen.")
+        return datetime.datetime.fromtimestamp(
+            int(self._raw_commit_flag["date_created"])
         )
 
     @property

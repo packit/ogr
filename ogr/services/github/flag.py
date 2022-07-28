@@ -9,6 +9,7 @@ from github import UnknownObjectException
 from ogr.abstract import CommitFlag, CommitStatus
 from ogr.services import github as ogr_github
 from ogr.services.base import BaseCommitFlag
+from ogr.exceptions import OgrException
 
 
 class GithubCommitFlag(BaseCommitFlag):
@@ -64,10 +65,10 @@ class GithubCommitFlag(BaseCommitFlag):
         return GithubCommitFlag(project=project, raw_commit_flag=status, commit=commit)
 
     @property
-    def created(self) -> Optional[datetime.datetime]:
-        if self._raw_commit_flag:
-            return self._raw_commit_flag.created_at
-        return None
+    def created(self) -> datetime.datetime:
+        if not self._raw_commit_flag:
+            raise OgrException("Raw commit flag not set, this should not happen.")
+        return self._raw_commit_flag.created_at
 
     @property
     def edited(self) -> Optional[datetime.datetime]:

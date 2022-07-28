@@ -1009,7 +1009,7 @@ class CommitFlag(OgrAbstractClass):
         raise NotImplementedError()
 
     @property
-    def created(self) -> Optional[datetime.datetime]:
+    def created(self) -> datetime.datetime:
         """Datetime of creating the commit status."""
         raise NotImplementedError()
 
@@ -1112,7 +1112,11 @@ class Release(OgrAbstractClass):
 
     @property
     def git_tag(self) -> GitTag:
-        """Object that represents tag tied to the release."""
+        """Object that represents tag tied to the release.
+
+        Raises:
+            OgrException, if the tag is not found.
+        """
         raise NotImplementedError()
 
     @property
@@ -1337,7 +1341,7 @@ class GitProject(OgrAbstractClass):
 
                 - GitHub: username or org name.
                 - GitLab: username or org name.
-                - Pagure: namespace (e.g. `"rpms"`). May be none.
+                - Pagure: namespace (e.g. `"rpms"`). May be `None`, i.e. no namespace present.
 
                   In case of forks: `"fork/{username}/{namespace}"`.
         """
