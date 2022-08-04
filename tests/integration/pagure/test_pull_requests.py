@@ -36,6 +36,7 @@ class PullRequests(PagureTests):
         assert pr.target_branch == "master"
         assert pr.source_branch == "master"
         assert pr.status == PRStatus.open
+        assert pr.closed_by is None
 
     def test_pr_list(self):
         pr_list_default = self.ogr_project.get_pr_list()
@@ -59,6 +60,7 @@ class PullRequests(PagureTests):
             == "https://pagure.io/ogr-tests/pull-request/5#request_diff"
         )
         assert pr_info.head_commit == "517121273b142293807606dbd7a2e0f514b21cc8"
+        assert pr_info.closed_by == "mfocko"
 
     def test_set_pr_flag(self):
         # https://pagure.io/ogr-tests/pull-request/6

@@ -20,6 +20,7 @@ In case you find any error, please [create a new issue](https://github.com/packi
 | `body` (get/set) |  ✔/✔   |  ✔/✔   |  ✔/✘   |
 | `add_reaction`   |   ✔    |   ✔    |   ✘    |
 | `get_reactions`  |   ✔    |   ✔    |   ✘    |
+| `closed_by`      |   ✘    |   ✘    |   ✔    |
 
 ## Issue
 
