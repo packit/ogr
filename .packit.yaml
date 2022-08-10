@@ -62,6 +62,17 @@ jobs:
     project: packit-dev
     list_on_homepage: True
     preserve_project: True
+
+  - job: copr_build
+    trigger: commit
+    branch: stable
+    targets:
+      - fedora-stable
+      - epel-8
+    project: packit-stable
+    list_on_homepage: True
+    preserve_project: True
+
   - job: copr_build
     trigger: release
     targets:
