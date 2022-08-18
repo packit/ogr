@@ -18,8 +18,8 @@ actions:
   #   LookupError: setuptools-scm was unable to detect version for '/builddir/build/BUILD/ogr-0.11.1'.
   #   Make sure you're either building from a fully intact git repository or PyPI tarballs.
   create-archive:
-    - python3 setup.py sdist --dist-dir ./fedora/
-    - bash -c "ls -1t ./fedora/*.tar.gz | head -n 1"
+    - python3 setup.py sdist --dist-dir .
+    - bash -c "ls -1t ./*.tar.gz | head -n 1"
   get-current-version: python3 setup.py --version
 
 srpm_build_deps:
