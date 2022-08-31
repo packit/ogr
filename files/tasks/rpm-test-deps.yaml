@@ -10,8 +10,14 @@
       - python3-wheel # for bdist_wheel
       - python3-pytest
       - python3-tox
-      - python3-flexmock
     state: present
+  become: true
+# flexmock is not in EPEL 9, install it from PyPI
+- name: Install flexmock from PyPI
+  pip:
+    name:
+      - flexmock
+    state: latest
   become: true
 - name: Install requre from git
   pip:
