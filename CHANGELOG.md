@@ -1,3 +1,7 @@
+# 0.39.1
+
+- We have implemented the closed_by property for the Pagure pull request for getting the login of the account that closed the pull request. (#718)
+
 # 0.39.0
 
 - We have implemented the closed_by property for the Pagure pull request for getting the login of the account that closed the pull request. (#718)
