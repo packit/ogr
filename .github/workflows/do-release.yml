@@ -13,11 +13,11 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - run: |
-          # Get the actual version and the previous one and use them to extract changelog lines between hashes
-          # Use the changelog re-calculated to create a new release
           VERSION=$(grep -oP '^# \K[0-9.]*' CHANGELOG.md | head -n 1)
-          OLD_VERSION=$(grep -oP '^# \K[0-9.]*' CHANGELOG.md | head -n 2 | tail -n 1)
-          CHANGELOG=$(awk "/# ${VERSION}/,/# ${OLD_VERSION}/ {if ($0 != "" && $0 !~ /^# /) { print $0 }}") CHANGELOG.md
+          # Take the lines between the first two headers from CHANGELOG.md,
+          # and use it as a description for the new release.
+          CHANGELOG=$(awk 'BEGIN { first = 0 } /^# / { if (first == 0) { first = 1 } else { exit } } /^[^#]/ { print $0 }' CHANGELOG.md) 
+          # Use the changelog re-calculated to create a new release
           gh release create ${VERSION} --draft --title ${VERSION} -n "${CHANGELOG}"
         env:
           GITHUB_TOKEN: ${{ secrets.RELEASEBOT_GITHUB_TOKEN }}
