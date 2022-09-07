@@ -20,4 +20,4 @@ jobs:
           # Use the changelog re-calculated to create a new release
           gh release create ${VERSION} --draft --title ${VERSION} -n "${CHANGELOG}"
         env:
-          GITHUB_TOKEN: ${{ secrets.RELEASEBOT_GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.RELEASEBOT_GITHUB_TOKEN }}
