@@ -511,3 +511,14 @@ class GitlabProject(BaseGitProject):
         return set(
             map(format_contributor, self.gitlab_repo.repository_contributors(all=True))
         )
+
+    def users_with_write_access(self) -> Set[str]:
+        return set(
+            self._get_collaborators_with_given_access(
+                access_levels=[
+                    gitlab.const.DEVELOPER_ACCESS,
+                    gitlab.const.MAINTAINER_ACCESS,
+                    gitlab.const.OWNER_ACCESS,
+                ]
+            )
+        )

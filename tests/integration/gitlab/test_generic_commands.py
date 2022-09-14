@@ -253,3 +253,11 @@ class GenericCommands(GitlabTests):
         owners = project.get_owners()
         contributors = project.get_contributors()
         assert len(owners) < len(contributors)
+
+    def test_write_access_to_repo(self):
+        users = self.project.users_with_write_access()
+        assert "lachmanfrantisek" in users
+        assert "Ei" not in users
+
+        assert self.project.has_write_access(user="lbarcziova")
+        assert not self.project.has_write_access(user="Venti")

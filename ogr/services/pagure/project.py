@@ -529,3 +529,11 @@ class PagureProject(BaseGitProject):
 
     def get_contributors(self) -> Set[str]:
         raise OperationNotSupported("Pagure doesn't provide list of contributors")
+
+    def users_with_write_access(self) -> Set[str]:
+        users_with_access = self.get_project_info()["access_users"]
+        result = set()
+        for access_level in ["commit", "admin", "owner"]:
+            result.update(users_with_access[access_level])
+
+        return result

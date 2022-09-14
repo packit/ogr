@@ -285,3 +285,11 @@ class GenericCommands(GithubTests):
         owners = self.ogr_project.get_owners()
         contributors = self.ogr_project.get_contributors()
         assert len(owners) < len(contributors)
+
+    def test_write_access_to_repo(self):
+        users = self.ogr_project.users_with_write_access()
+        assert "TomasTomecek" in users
+        assert "naruto" not in users
+
+        assert self.ogr_project.has_write_access(user="csomh")
+        assert not self.ogr_project.has_write_access(user="miko")
