@@ -1905,6 +1905,22 @@ class GitProject(OgrAbstractClass):
         """
         raise NotImplementedError()
 
+    def users_with_write_access(self) -> Set[str]:
+        """
+        Returns:
+            List of users who have write access to the project
+        """
+        raise NotImplementedError("Use subclass instead.")
+
+    def has_write_access(self, user: str) -> bool:
+        """
+        Decides whether a given user has write access to the project.
+
+        Args:
+            user: The user we are going to check to see if he/she has access
+        """
+        return user in self.users_with_write_access()
+
 
 class GitUser(OgrAbstractClass):
     """

@@ -146,3 +146,11 @@ class GenericCommands(PagureTests):
     def test_has_issues(self):
         assert self.ogr_project.has_issues
         assert not self.ogr_project.get_fork().has_issues, "Forks don't have issues"
+
+    def test_write_access_to_repo(self):
+        users = self.ogr_project.users_with_write_access()
+        assert "lbarczio" in users
+        assert "bart_simpson" not in users
+
+        assert self.ogr_project.has_write_access(user="nikromen")
+        assert not self.ogr_project.has_write_access(user="kacer_donald")

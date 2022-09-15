@@ -542,3 +542,6 @@ class GithubProject(BaseGitProject):
             Logins of contributors to the project.
         """
         return set(map(lambda c: c.login, self.github_repo.get_contributors()))
+
+    def users_with_write_access(self) -> Set[str]:
+        return self.__get_collaborators()
