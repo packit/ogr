@@ -1,3 +1,7 @@
+# 0.40.0
+
+- Using the method `users_with_write_access` you can generate the set of users that have write access to the project and the method `has_write_access(user)` you can find out if the user has write access to the project. (#742)
+
 # 0.39.0
 
 - We have implemented the closed_by property for the Pagure pull request for getting the login of the account that closed the pull request. (#718)
