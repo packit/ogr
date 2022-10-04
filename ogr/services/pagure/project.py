@@ -405,6 +405,10 @@ class PagureProject(BaseGitProject):
 
         if not result or result.reason == "NOT FOUND":
             raise FileNotFoundError(f"File '{path}' on {ref} not found")
+        if result.reason != "OK":
+            raise PagureAPIException(
+                f"File '{path}' on {ref} not found due to {result.reason}"
+            )
         return result.content.decode()
 
     def get_sha_from_tag(self, tag_name: str) -> str:
