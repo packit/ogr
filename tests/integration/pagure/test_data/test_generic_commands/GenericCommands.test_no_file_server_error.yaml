@@ -7,7 +7,7 @@ requests.sessions:
     GET:
       https://pagure.io/api/0/ogr-tests/git/branches:
       - metadata:
-          latency: 0.25931501388549805
+          latency: 0.2348644733428955
           module_call_list:
           - unittest.case
           - requre.record_and_replace
@@ -37,23 +37,23 @@ requests.sessions:
             default: master
             total_branches: 3
           _next: null
-          elapsed: 0.258924
+          elapsed: 0.234522
           encoding: utf-8
           headers:
             Connection: Keep-Alive
             Content-Length: '130'
-            Content-Security-Policy: default-src 'self';script-src 'self' 'nonce-aufissiz8IvildPiesiimlKJw';
-              style-src 'self' 'nonce-aufissiz8IvildPiesiimlKJw'; object-src 'none';base-uri
+            Content-Security-Policy: default-src 'self';script-src 'self' 'nonce-YwUxuejc7AvAQ5irhq4TWbFFZ';
+              style-src 'self' 'nonce-YwUxuejc7AvAQ5irhq4TWbFFZ'; object-src 'none';base-uri
               'self';img-src 'self' https:;connect-src 'self' https://pagure.io:8088;frame-src
               https://docs.pagure.org;frame-ancestors https://pagure.io;
             Content-Type: application/json
-            Date: Tue, 04 Oct 2022 08:18:38 GMT
+            Date: Tue, 04 Oct 2022 08:50:29 GMT
             Keep-Alive: timeout=5, max=99
             Referrer-Policy: same-origin
             Server: Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_wsgi/4.6.4
               Python/3.6
-            Set-Cookie: pagure=eyJfcGVybWFuZW50Ijp0cnVlLCJjc3JmX3Rva2VuIjoiMmEzMTFjMjgxYjA5YzRiNGY4OGMyNGIxOWI1OTAyMzUwZDIzYmVkYSJ9.Fh193g.jFXLJdJaxa6zcG3iz9WdSOR2cOo;
-              Expires=Fri, 04-Nov-2022 08:18:38 GMT; Secure; HttpOnly; Path=/
+            Set-Cookie: pagure=eyJfcGVybWFuZW50Ijp0cnVlLCJjc3JmX3Rva2VuIjoiZTdjOTI2NDRjOTFiMDg0MDU2MmViZmVlY2ZiNWM2YTQzMGJhYmI4NCJ9.Fh2FVQ.5XAeZN982E1V-weRKMsAv1ilYRs;
+              Expires=Fri, 04-Nov-2022 08:50:29 GMT; Secure; HttpOnly; Path=/
             Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
             X-Content-Type-Options: nosniff
             X-Frame-Options: ALLOW-FROM https://pagure.io/
@@ -61,9 +61,9 @@ requests.sessions:
           raw: !!binary ""
           reason: OK
           status_code: 200
-      https://pagure.io/ogr-tests/raw/master/f/.blablabla_nonexisting_file:
+      https://pagure.io/ogr-tests/raw/master/f/.blablabla_no_file:
       - metadata:
-          latency: 0.22636151313781738
+          latency: 0.2440190315246582
           module_call_list:
           - unittest.case
           - requre.record_and_replace
@@ -92,9 +92,9 @@ requests.sessions:
             \n        rel=\"stylesheet\" type=\"text/css\" />\n    <link href=\"/theme/static/fonts/hack_fonts/css/hack-extended.min.css?version=5.13.3\"\
             \n        type=\"text/css\" rel=\"stylesheet\" />\n    <link href=\"/theme/static/theme.css?version=5.13.3\"\
             \n        type=\"text/css\" rel=\"stylesheet\" />\n\n    <link type=\"\
-            text/css\" rel=\"stylesheet\" nonce=\"2iQgLu1f236bPNWpzit5mN8sh\" href=\"\
+            text/css\" rel=\"stylesheet\" nonce=\"ndaXRbyfu8jCyYRNdyAmn5KIg\" href=\"\
             /static/vendor/font-awesome/font-awesome.css?version=5.13.3\"/>\n    <link\
-            \ type=\"text/css\" rel=\"stylesheet\" nonce=\"2iQgLu1f236bPNWpzit5mN8sh\"\
+            \ type=\"text/css\" rel=\"stylesheet\" nonce=\"ndaXRbyfu8jCyYRNdyAmn5KIg\"\
             \ href=\"/static/pagure.css?version=5.13.3\"/>\n  </head>\n  <body id=\"\
             error\">\n    \n    <!-- start masthead -->\n    <nav class=\"navbar navbar-light\
             \ masthead p-0 navbar-expand\">\n      <div class=\"container\">\n   \
@@ -102,7 +102,7 @@ requests.sessions:
             \ src=\"/theme/static/pagure-logo.png?version=5.13.3\"\n             alt=\"\
             pagure Logo\" id=\"pagureLogo\"/>\n        </a>\n        <ul class=\"\
             navbar-nav ml-auto\">\n\n          \n\n          <li class=\"nav-item\"\
-            >\n            <a class=\"btn btn-primary\" href=\"/login/?next=https://pagure.io/ogr-tests/raw/master/f/.blablabla_nonexisting_file\"\
+            >\n            <a class=\"btn btn-primary\" href=\"/login/?next=https://pagure.io/ogr-tests/raw/master/f/.blablabla_no_file\"\
             >Log In</a>\n          </li>\n        </ul>\n      </div>\n    </nav>\n\
             \    <!-- close masthead-->\n\n    <div class=\"bodycontent\">\n\n\n<div\
             \ class=\"container p-t-3\">\n  <div class=\"row\">\n    <div class=\"\
@@ -124,42 +124,42 @@ requests.sessions:
             \     </div>\n                <div class=\"ml-auto text-right\">\n   \
             \                 <div>&copy; Red Hat, Inc. and others.</div>\n      \
             \          </div>\n            </div>\n        </div>\n    </div>\n\n\n\
-            \    <script type=\"text/javascript\" nonce=\"2iQgLu1f236bPNWpzit5mN8sh\"\
+            \    <script type=\"text/javascript\" nonce=\"ndaXRbyfu8jCyYRNdyAmn5KIg\"\
             \ src=\"/static/vendor/jquery/jquery.min.js?version=5.13.3\"></script>\n\
             \n    <script src=\"/static/vendor/bootstrap/bootstrap.bundle.min.js?version=5.13.3\"\
-            ></script>\n\n    <script type=\"text/javascript\" nonce=\"2iQgLu1f236bPNWpzit5mN8sh\"\
+            ></script>\n\n    <script type=\"text/javascript\" nonce=\"ndaXRbyfu8jCyYRNdyAmn5KIg\"\
             >\n      $('[data-toggle=\"tooltip\"]').tooltip({placement : 'bottom'});\n\
             \      $(\".cancel_btn\").click(function() {\n        history.back();\n\
             \      });\n    </script>\n\n</body>\n</html>"
           _next: null
-          elapsed: 0.225941
+          elapsed: 0.243651
           encoding: utf-8
           headers:
             Connection: Keep-Alive
-            Content-Length: '3518'
-            Content-Security-Policy: default-src 'self';script-src 'self' 'nonce-2iQgLu1f236bPNWpzit5mN8sh';
-              style-src 'self' 'nonce-2iQgLu1f236bPNWpzit5mN8sh'; object-src 'none';base-uri
+            Content-Length: '3509'
+            Content-Security-Policy: default-src 'self';script-src 'self' 'nonce-ndaXRbyfu8jCyYRNdyAmn5KIg';
+              style-src 'self' 'nonce-ndaXRbyfu8jCyYRNdyAmn5KIg'; object-src 'none';base-uri
               'self';img-src 'self' https:;connect-src 'self' https://pagure.io:8088;frame-src
               https://docs.pagure.org;frame-ancestors https://pagure.io;
             Content-Type: text/html; charset=utf-8
-            Date: Tue, 04 Oct 2022 08:18:38 GMT
+            Date: Tue, 04 Oct 2022 08:50:29 GMT
             Keep-Alive: timeout=5, max=98
             Referrer-Policy: same-origin
             Server: Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_wsgi/4.6.4
               Python/3.6
-            Set-Cookie: pagure=eyJfcGVybWFuZW50Ijp0cnVlLCJjc3JmX3Rva2VuIjoiMmEzMTFjMjgxYjA5YzRiNGY4OGMyNGIxOWI1OTAyMzUwZDIzYmVkYSJ9.Fh193g.jFXLJdJaxa6zcG3iz9WdSOR2cOo;
-              Expires=Fri, 04-Nov-2022 08:18:38 GMT; Secure; HttpOnly; Path=/
+            Set-Cookie: pagure=eyJfcGVybWFuZW50Ijp0cnVlLCJjc3JmX3Rva2VuIjoiZTdjOTI2NDRjOTFiMDg0MDU2MmViZmVlY2ZiNWM2YTQzMGJhYmI4NCJ9.Fh2FVQ.5XAeZN982E1V-weRKMsAv1ilYRs;
+              Expires=Fri, 04-Nov-2022 08:50:29 GMT; Secure; HttpOnly; Path=/
             Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
             X-Content-Type-Options: nosniff
             X-Frame-Options: ALLOW-FROM https://pagure.io/
             X-Xss-Protection: 1; mode=block
           raw: !!binary ""
-          reason: NOT FOUND
-          status_code: 404
+          reason: INTERNAL SERVER ERROR
+          status_code: 500
     POST:
       https://pagure.io/api/0/-/whoami:
       - metadata:
-          latency: 0.5508966445922852
+          latency: 0.5406270027160645
           module_call_list:
           - unittest.case
           - requre.record_and_replace
@@ -185,23 +185,23 @@ requests.sessions:
           _content:
             username: mmassari
           _next: null
-          elapsed: 0.550539
+          elapsed: 0.540251
           encoding: utf-8
           headers:
             Connection: Upgrade, Keep-Alive
             Content-Length: '29'
-            Content-Security-Policy: default-src 'self';script-src 'self' 'nonce-Ppl2QK8ztoQwgg7dgbgWnZ9kt';
-              style-src 'self' 'nonce-Ppl2QK8ztoQwgg7dgbgWnZ9kt'; object-src 'none';base-uri
+            Content-Security-Policy: default-src 'self';script-src 'self' 'nonce-MAxAjK0skkUylJXc9zxDipZrp';
+              style-src 'self' 'nonce-MAxAjK0skkUylJXc9zxDipZrp'; object-src 'none';base-uri
               'self';img-src 'self' https:;connect-src 'self' https://pagure.io:8088;frame-src
               https://docs.pagure.org;frame-ancestors https://pagure.io;
             Content-Type: application/json
-            Date: Tue, 04 Oct 2022 08:18:37 GMT
+            Date: Tue, 04 Oct 2022 08:50:29 GMT
             Keep-Alive: timeout=5, max=100
             Referrer-Policy: same-origin
             Server: Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_wsgi/4.6.4
               Python/3.6
-            Set-Cookie: pagure=eyJfcGVybWFuZW50Ijp0cnVlLCJjc3JmX3Rva2VuIjoiMmEzMTFjMjgxYjA5YzRiNGY4OGMyNGIxOWI1OTAyMzUwZDIzYmVkYSJ9.Fh193Q.FfHC8BLgrtrd9UspYLTVy9GPhIM;
-              Expires=Fri, 04-Nov-2022 08:18:37 GMT; Secure; HttpOnly; Path=/
+            Set-Cookie: pagure=eyJfcGVybWFuZW50Ijp0cnVlLCJjc3JmX3Rva2VuIjoiZTdjOTI2NDRjOTFiMDg0MDU2MmViZmVlY2ZiNWM2YTQzMGJhYmI4NCJ9.Fh2FVQ.5XAeZN982E1V-weRKMsAv1ilYRs;
+              Expires=Fri, 04-Nov-2022 08:50:29 GMT; Secure; HttpOnly; Path=/
             Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
             Upgrade: h2,h2c
             X-Content-Type-Options: nosniff

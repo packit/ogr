@@ -1,6 +1,9 @@
 # Copyright Contributors to the Packit project.
 # SPDX-License-Identifier: MIT
 
+import pytest
+from ogr.exceptions import PagureAPIException
+
 from requre.online_replacing import record_requests_for_all_methods
 
 from tests.integration.pagure.base import PagureTests
@@ -85,8 +88,13 @@ class GenericCommands(PagureTests):
         assert {"a/b/lib.c", "a/b/main.c", "a/b/some_other_lib.c"}.issubset(files)
 
     def test_nonexisting_file(self):
-        with self.assertRaises(Exception) as _:
+        with self.assertRaises(FileNotFoundError) as _:
             self.ogr_project.get_file_content(".blablabla_nonexisting_file")
+
+    def test_no_file_server_error(self):
+        with pytest.raises(PagureAPIException) as ex:
+            self.ogr_project.get_file_content(".blablabla_no_file")
+        assert "INTERNAL SERVER ERROR" in str(ex)
 
     def test_parent_project(self):
         assert self.ogr_fork.parent.namespace is None
