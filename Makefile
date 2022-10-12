@@ -9,7 +9,7 @@ build-test-image: recipe.yaml
 check:
 	@#`python3 -m pytest` doesn't work here b/c the way requre overrides import system:
 	@#`AttributeError: module 'importlib_metadata' has no attribute 'distributions'
-	PYTHONPATH=$(CURDIR) PYTHONDONTWRITEBYTECODE=1 pytest --verbose --showlocals $(TEST_TARGET)
+	PYTHONPATH=$(CURDIR) PYTHONDONTWRITEBYTECODE=1 python3 /usr/bin/pytest --verbose --showlocals $(TEST_TARGET)
 
 check-in-container:
 	podman run --rm -it -v $(CURDIR):/src:Z -w /src --env TEST_TARGET $(OGR_IMAGE) make -e GITHUB_TOKEN=$(GITHUB_TOKEN) GITLAB_TOKEN=$(GITLAB_TOKEN) check
