@@ -339,7 +339,7 @@ class GithubProject(BaseGitProject):
         raw_commit_coment: GithubCommitComment,
     ) -> CommitComment:
         return CommitComment(
-            comment=raw_commit_coment.body,
+            body=raw_commit_coment.body,
             author=raw_commit_coment.user.login,
             sha=raw_commit_coment.commit_id,
         )

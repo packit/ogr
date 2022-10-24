@@ -231,7 +231,7 @@ class GenericCommands(GithubTests):
             row=6,
         )
         assert comment.sha == "95069d7bedb6ae02def3fccce22169b412d08eac"
-        assert comment.comment == "Testing commit comment"
+        assert comment.body == "Testing commit comment"
         assert comment.author == self.service.user.get_username()
 
     def test_get_commit_comments(self):
@@ -240,7 +240,7 @@ class GenericCommands(GithubTests):
         )
         assert len(comments)
         assert comments[0].sha == "95069d7bedb6ae02def3fccce22169b412d08eac"
-        assert comments[0].comment == "Testing commit comment"
+        assert comments[0].body == "Testing commit comment"
 
     def test_get_web_url(self):
         url = self.ogr_project.get_web_url()

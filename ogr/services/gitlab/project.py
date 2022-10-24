@@ -287,7 +287,7 @@ class GitlabProject(BaseGitProject):
     @staticmethod
     def _commit_comment_from_gitlab_object(raw_comment, commit) -> CommitComment:
         return CommitComment(
-            sha=commit, comment=raw_comment.note, author=raw_comment.author["username"]
+            sha=commit, body=raw_comment.note, author=raw_comment.author["username"]
         )
 
     def get_commit_comments(self, commit: str) -> List[CommitComment]:
