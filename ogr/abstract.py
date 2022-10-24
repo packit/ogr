@@ -30,6 +30,7 @@ from ogr.exceptions import (
     OgrNetworkError,
 )
 from ogr.parsing import parse_git_repo
+from ogr.deprecation import deprecate_and_set_removal
 
 try:
     from functools import cached_property as _cached_property
@@ -1028,17 +1029,28 @@ class CommitComment(OgrAbstractClass):
     """
     Attributes:
         sha (str): Hash of the related commit.
-        comment (str): Body of the comment.
+        body (str): Body of the comment.
         author (str): Login of the author.
     """
 
-    def __init__(self, sha: str, comment: str, author: str) -> None:
+    def __init__(self, sha: str, body: str, author: str) -> None:
         self.sha = sha
-        self.comment = comment
+        self.body = body
         self.author = author
 
+    @property  # type: ignore
+    @deprecate_and_set_removal(
+        since="0.41.0",
+        remove_in="0.46.0 (or 1.0.0 if it comes sooner)",
+        message="Use body",
+    )
+    def comment(self) -> str:
+        return self.body
+
     def __str__(self) -> str:
-        return f"CommitComment(commit={self.sha}, author={self.author}, comment={self.comment})"
+        return (
+            f"CommitComment(commit={self.sha}, author={self.author}, body={self.body})"
+        )
 
 
 class GitTag(OgrAbstractClass):
