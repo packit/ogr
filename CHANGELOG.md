@@ -1,3 +1,8 @@
+# 0.41.0
+
+- `CommitComment.comment` has been deprecated in favour of `CommitComment.body` to make the naming consistent across objects. (#748)
+- ogr now requires Python 3.9 or later. (#746)
+
 # 0.40.0
 
 - Using the method `users_with_write_access` you can generate the set of users that have write access to the project and the method `has_write_access(user)` you can find out if the user has write access to the project. (#742)
