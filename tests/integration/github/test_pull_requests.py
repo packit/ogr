@@ -230,6 +230,21 @@ class PullRequests(GithubTests):
         assert pr_check.title == "test pr_close"
         assert pr_check.status == PRStatus.closed
 
+    def test_pr_reopen(self):
+        gh_project = self.hello_world_project
+        pr = gh_project.create_pr(
+            title="test pr_reopen",
+            body="pull request body",
+            target_branch="test_target",
+            source_branch="test_source",
+        )
+        pr.close()
+        pr.reopen()
+        pr_check = gh_project.get_pr(pr.id)
+
+        assert pr_check.title == "test pr_reopen"
+        assert pr_check.status == PRStatus.open
+
     def test_pr_status(self):
         pr = self.ogr_project.get_pr(pr_id=278)
 

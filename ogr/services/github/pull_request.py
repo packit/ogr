@@ -242,6 +242,10 @@ class GithubPullRequest(BasePullRequest):
         self._raw_pr.edit(state=PRStatus.closed.name)
         return self
 
+    def reopen(self) -> "PullRequest":
+        self._raw_pr.edit(state=PRStatus.open.name)
+        return self
+
     def merge(self) -> "PullRequest":
         self._raw_pr.merge()
         return self

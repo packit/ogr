@@ -1,6 +1,6 @@
 ---
 - name: Install test rpm dependencies
-  dnf:
+  ansible.builtin.dnf:
     name:
       - python3-pip
       - python3-setuptools
@@ -20,7 +20,7 @@
     state: latest
   become: true
 - name: Install requre from git
-  pip:
+  ansible.builtin.pip:
     name:
       - git+https://github.com/packit/requre.git
     state: latest

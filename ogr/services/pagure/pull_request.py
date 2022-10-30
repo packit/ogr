@@ -256,6 +256,15 @@ class PagurePullRequest(BasePullRequest):
         self.__dirty = True
         return self
 
+    def reopen(self) -> "PullRequest":
+        return_value = self.__call_api("close", method="POST")
+
+        if return_value["message"] != "Pull request reopened!":
+            raise PagureAPIException(return_value["message"])
+
+        self.__dirty = True
+        return self
+
     def merge(self) -> "PullRequest":
         return_value = self.__call_api("merge", method="POST")
 

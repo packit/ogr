@@ -1,12 +1,12 @@
 ---
 - name: Install ansible
-  dnf:
+  ansible.builtin.dnf:
     name:
       - ansible
     state: present
   become: true
 
 - name: Install packit dependencies via ansible playbooks
-  command: ansible-playbook -e "ansible_python_interpreter=/usr/bin/python3" -v -c local -i localhost, files/install-requirements-pip.yaml
+  ansible.builtin.command: ansible-playbook -e "ansible_python_interpreter=/usr/bin/python3" -v -c local -i localhost, files/install-requirements-pip.yaml
   args:
     chdir: "{{ reverse_dir }}"
