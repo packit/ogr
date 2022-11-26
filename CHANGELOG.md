@@ -1,6 +1,5 @@
 # 0.42.0
 
-
 # 0.41.0
 
 - `CommitComment.comment` has been deprecated in favour of `CommitComment.body` to make the naming consistent across objects. (#748)
