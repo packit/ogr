@@ -47,7 +47,7 @@ jobs:
       - fedora-all
       - epel-9
 
-  - job: production_build
+  - job: upstream_koji_build
     trigger: pull_request
     scratch: True
     targets:
@@ -81,6 +81,12 @@ jobs:
     project: packit-releases
     list_on_homepage: True
     preserve_project: True
+
+  - job: pull_from_upstream
+    trigger: release
+    dist_git_branches:
+      - fedora-all
+      - epel-9
 
   # downstream automation:
   - job: koji_build
