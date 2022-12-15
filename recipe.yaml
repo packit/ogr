@@ -6,11 +6,11 @@
     with_testing: false
 
   tasks:
-    - set_fact:
+    - ansible.builtin.set_fact:
         project_dir: "{{ ansible_user_dir }}/{{ zuul.project.src_dir }}"
       when: zuul is defined
     - name: Install all packages needed to hack on ogr.
-      dnf:
+      ansible.builtin.dnf:
         name:
           - make
           - python3-flexmock
@@ -24,20 +24,20 @@
           - python3-tox
       become: true
     - name: Install latest twine for sake of check command
-      pip:
+      ansible.builtin.pip:
         name:
           - twine # we need newest twine, b/c of the check command
           - readme_renderer[md]
         state: latest
       become: true
     - name: Install requre
-      pip:
+      ansible.builtin.pip:
         name:
           - git+https://github.com/packit/requre
         state: latest
       become: true
     - name: Install dependencies for git APIs
-      dnf:
+      ansible.builtin.dnf:
         name:
           - python3-requests
           - python3-pygithub
@@ -45,22 +45,22 @@
         state: present
       become: true
     - name: stat {{ project_dir }}
-      stat:
+      ansible.builtin.stat:
         path: "{{ project_dir }}"
       tags:
         - no-cache
       register: src_path
-    - name: Make sure {{ project_dir }} is present
-      assert:
+    - name: Assert project_dir is present
+      ansible.builtin.assert:
         that:
           - src_path.stat.isdir
     # this requires to have sources mounted inside at /src
     - name: Install ogr from {{ project_dir }}
-      pip:
+      ansible.builtin.pip:
         name: "{{ project_dir }}"
       become: true
     - name: Run tests
-      command: tox
+      ansible.builtin.command: tox
       args:
         chdir: "{{ project_dir }}"
       when: with_testing
