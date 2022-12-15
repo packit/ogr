@@ -1,0 +1,77 @@
+# This is  Thoth's configuration file placed in a root of a repo
+# (named as .thoth.yaml) used by Thamos CLI as well as by Thoth bots. Please
+# adjust values listed below as desired.
+
+# A remote Thoth service to talk to:
+host: khemenu.thoth-station.ninja
+
+# Configure TLS verification for communication with remote Thoth instance:
+tls_verify: true
+
+# Format of requirements file, supported are "pip" and "pipenv":
+requirements_format: pip
+# A path to overlays directory relative to this configuration file. If null provided, no overlays are used.
+# Read more about overlays in the README: https://github.com/thoth-station/thamos#overlays-directory
+overlays_dir: null
+# Allow or disable managing virtual environment for each overlay.
+virtualenv: false
+
+runtime_environments:
+  - name: 'fedora-37'
+    # Operating system for which the recommendations should be created:
+    operating_system:
+      name: fedora
+      version: '37'
+    # Labels to be used during the resolution (key-value pairs).
+    labels:
+    # Hardware information for the recommendation engine:
+    hardware:
+      # Intel(R) Core(TM) i7-10610U CPU @ 1.80GHz
+      cpu_family: 6
+      cpu_model: 142
+      gpu_model: null
+    # Software configuration of runtime environment:
+    python_version: '3.11'
+    cuda_version: null
+    # Recommendation type - one of:
+    #  * testing
+    #  * stable
+    #  * latest
+    #  * performance
+    #  * security
+    # See https://thoth-station.ninja/recommendation-types/
+    recommendation_type: security
+    # Platform used for running the application - corresponds to sysconfig.get_platform() call (e.g. 'linux-x86_64')
+    platform: linux-x86_64
+    # Additional options:
+    openblas_version: null
+    openmpi_version: null
+    cudnn_version: null
+    mkl_version: null
+    # Base container image used to run the application.
+    base_image: null
+
+#
+# Configuration of bots:
+#
+managers:
+  - name: pipfile-requirements
+  - name: info
+  - name: version
+    configuration:
+      # A list of maintainers (GitHub or GitLab accounts) of this repository:
+      maintainers: []
+      # A list of assignees to which the opened pull requests and issues should
+      # be assigned to:
+      assignees: []
+      # Labels for issues and pull requests:
+      labels:
+        - bot
+      # Automatically maintain a changelog file stating features of new
+      # releases:
+      changelog_file: true
+      # Use AI/ML to group messages in a smart way.
+      changelog_smart: true
+  - name: update
+    configuration:
+      labels: [bot]
