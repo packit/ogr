@@ -103,3 +103,27 @@ jobs:
       - fedora-latest # branched version, rawhide updates are created automatically
       - fedora-stable
       - epel-9
+
+  # vm image build
+  - job: copr_build
+    trigger: pull_request
+    targets:
+      - fedora-36-x86_64
+      - fedora-37-x86_64
+    project: vm-image-ogr-demo
+    identifier: vm-image-demo
+
+  - job: vm_image_build
+    trigger: pull_request
+    copr_chroot: fedora-36-x86_64
+    owner: packit
+    project: vm-image-ogr-demo
+    image_customizations:
+      packages: [python3-ogr]
+    image_distribution: fedora-36
+    image_request:
+      architecture: x86_64
+      image_type: aws
+      upload_request:
+        type: aws
+        options: {}
