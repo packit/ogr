@@ -12,6 +12,7 @@ from ogr.exceptions import (
     OgrException,
     OperationNotSupported,
     OgrNetworkError,
+    GitForgeInternalError,
 )
 from ogr.factory import use_for_service
 from ogr.parsing import parse_git_repo
@@ -203,6 +204,13 @@ class PagureService(BaseGitService):
         except requests.exceptions.ConnectionError as er:
             logger.error(er)
             raise OgrNetworkError(f"Cannot connect to url: '{url}'.") from er
+
+        if response.status_code >= 500:
+            raise GitForgeInternalError(
+                f"Pagure API returned {response.status_code} status for `{url}`"
+                f" with reason: `{response.reason}`"
+            )
+
         return response
 
     def get_raw_request(

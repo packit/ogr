@@ -2,7 +2,7 @@
 # SPDX-License-Identifier: MIT
 
 import pytest
-from ogr.exceptions import PagureAPIException
+from ogr.exceptions import GitForgeInternalError
 
 from requre.online_replacing import record_requests_for_all_methods
 
@@ -92,7 +92,7 @@ class GenericCommands(PagureTests):
             self.ogr_project.get_file_content(".blablabla_nonexisting_file")
 
     def test_no_file_server_error(self):
-        with pytest.raises(PagureAPIException) as ex:
+        with pytest.raises(GitForgeInternalError) as ex:
             self.ogr_project.get_file_content(".blablabla_no_file")
         assert "INTERNAL SERVER ERROR" in str(ex)
 
