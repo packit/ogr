@@ -190,13 +190,22 @@ class PagurePullRequest(BasePullRequest):
         assignee=None,
         author=None,
     ) -> List["PullRequest"]:
-        payload = {"status": status.name.capitalize()}
+        payload = {"page": 1, "status": status.name.capitalize()}
         if assignee is not None:
             payload["assignee"] = assignee
         if author is not None:
             payload["author"] = author
 
-        raw_prs = project._call_project_api("pull-requests", params=payload)["requests"]
+        raw_prs = []
+        while True:
+            page_result = project._call_project_api("pull-requests", params=payload)
+            raw_prs += page_result["requests"]
+            if not page_result["pagination"]["next"]:
+                break
+
+            # mypy don't know that key "page" really contains int...
+            payload["page"] += 1  # type: ignore
+
         return [PagurePullRequest(pr_dict, project) for pr_dict in raw_prs]
 
     def update_info(

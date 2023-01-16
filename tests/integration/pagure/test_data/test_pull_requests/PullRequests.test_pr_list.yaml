@@ -5,7 +5,7 @@ _requre:
 requests.sessions:
   send:
     GET:
-      https://pagure.io/api/0/ogr-tests/pull-requests?status=All:
+      https://pagure.io/api/0/ogr-tests/pull-requests?page=1&status=All:
       - metadata:
           latency: 0.6439666748046875
           module_call_list:
@@ -745,7 +745,7 @@ requests.sessions:
           raw: !!binary ""
           reason: OK
           status_code: 200
-      https://pagure.io/api/0/ogr-tests/pull-requests?status=Open:
+      https://pagure.io/api/0/ogr-tests/pull-requests?page=1&status=Open:
       - metadata:
           latency: 0.737177848815918
           module_call_list:
