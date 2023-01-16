@@ -1,3 +1,8 @@
+# 0.42.0
+
+- A bug in ogr resulting in returning only first page of pull requests for Pagure has been fixed. (#761)
+- ogr now raises `GitForgeInternalError` rather than `PagureAPIException` when getting 50x response from the Pagure API. (#762)
+
 # 0.41.0
 
 - `CommitComment.comment` has been deprecated in favour of `CommitComment.body` to make the naming consistent across objects. (#748)
