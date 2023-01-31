@@ -27,79 +27,17 @@ srpm_build_deps:
   - python3-setuptools_scm
 
 jobs:
-  - job: sync_from_downstream
-    trigger: commit
-
-  - job: propose_downstream
-    trigger: release
-    dist_git_branches:
-      - fedora-all
-      - epel-9
-
   - job: copr_build
     trigger: pull_request
     targets:
-      - fedora-all
-      - epel-9
-  - job: tests
+      - fedora-37-x86_64
+    project: vm-image-ogr-demo
+    identifier: vm-image-demo
+
+  - job: vm_image_build
     trigger: pull_request
-    targets:
-      - fedora-all
-      - epel-9
-
-  - job: upstream_koji_build
-    trigger: pull_request
-    scratch: True
-    targets:
-      - fedora-development
-
-  - job: copr_build
-    trigger: commit
-    branch: main
-    targets:
-      - fedora-all
-      - epel-9
-    project: packit-dev
-    list_on_homepage: True
-    preserve_project: True
-
-  - job: copr_build
-    trigger: commit
-    branch: stable
-    targets:
-      - fedora-stable
-      - epel-9
-    project: packit-stable
-    list_on_homepage: True
-    preserve_project: True
-
-  - job: copr_build
-    trigger: release
-    targets:
-      - fedora-all
-      - epel-9
-    project: packit-releases
-    list_on_homepage: True
-    preserve_project: True
-
-  - job: pull_from_upstream
-    trigger: release
-    dist_git_branches:
-      - fedora-all
-      - epel-9
-
-  # downstream automation:
-  - job: koji_build
-    trigger: commit
-    packit_instances: ["stg"]
-    allowed_pr_authors: ["packit-stg", "packit"]
-    dist_git_branches:
-      - fedora-all
-      - epel-9
-  - job: bodhi_update
-    trigger: commit
-    packit_instances: ["stg"]
-    dist_git_branches:
-      - fedora-latest # branched version, rawhide updates are created automatically
-      - fedora-stable
-      - epel-9
+    copr_chroot: fedora-37-x86_64
+    owner: packit
+    project: vm-image-ogr-demo
+    image_customizations:
+      packages: [python3-ogr]
