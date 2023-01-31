@@ -41,3 +41,10 @@ jobs:
     project: vm-image-ogr-demo
     image_customizations:
       packages: [python3-ogr]
+    image_distribution: fedora-36
+    image_request:
+      architecture: x86_64
+      image_type: aws
+      upload_request:
+        type: aws
+        options: {}
