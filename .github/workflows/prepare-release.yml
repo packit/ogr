@@ -17,7 +17,7 @@ jobs:
         with:
           fetch-depth: 0
       - name: Prepare release content
-        uses: packit/prepare-release@v0
+        uses: packit/prepare-release@v1
         with:
           version: ${{ inputs.version }}
           specfiles: fedora/python-ogr.spec
