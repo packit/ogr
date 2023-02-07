@@ -15,7 +15,7 @@ class GithubTests(unittest.TestCase):
         super().setUp()
         self.token = os.environ.get("GITHUB_TOKEN")
         if not Path(get_datafile_filename(obj=self)).exists() and not self.token:
-            raise EnvironmentError(
+            raise OSError(
                 "You are in Requre write mode, please set proper GITHUB_TOKEN env variables"
             )
         self._service = None

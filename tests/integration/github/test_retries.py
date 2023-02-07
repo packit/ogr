@@ -13,7 +13,6 @@ from github import Github
 @pytest.mark.skip(reason="Will fail until flexmock is fixed")
 @pytest.mark.parametrize("max_retries", [0, 2])
 def test_bad_credentials(max_retries):
-
     flexmock(HTTPSConnectionPool).should_call("urlopen").times(max_retries + 1)
 
     flexmock(Github).should_call("get_repo").and_raise(

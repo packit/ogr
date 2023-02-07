@@ -122,7 +122,6 @@ class GitlabService(BaseGitService):
         search_pattern: str = None,
         language: str = None,
     ) -> List[GitProject]:
-
         if namespace:
             group = self.gitlab_instance.groups.get(namespace)
             projects = group.projects.list(all=True)

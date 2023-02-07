@@ -21,7 +21,7 @@ class PagureProjectTokenCommands(PagureTests):
         self.token = os.environ.get("PAGURE_OGR_TEST_TOKEN", "")
 
         if not get_datafile_filename(obj=self) and (not self.token):
-            raise EnvironmentError("please set PAGURE_OGR_TEST_TOKEN env variables")
+            raise OSError("please set PAGURE_OGR_TEST_TOKEN env variables")
 
         self._service = None
         self._user = None

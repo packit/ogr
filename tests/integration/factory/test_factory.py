@@ -27,7 +27,7 @@ class FactoryTests(unittest.TestCase):
                 or not self.pagure_token
                 or not os.environ.get("GITLAB_TOKEN")
             ):
-                raise EnvironmentError(
+                raise OSError(
                     "You are in requre write mode, please set GITHUB_TOKEN PAGURE_TOKEN"
                     " GITLAB_TOKEN env variables"
                 )

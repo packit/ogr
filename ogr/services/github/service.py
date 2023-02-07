@@ -193,7 +193,6 @@ class GithubService(BaseGitService):
         search_pattern: str = None,
         language: str = None,
     ) -> List[GitProject]:
-
         search_query = ""
 
         if user:
