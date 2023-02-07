@@ -15,7 +15,7 @@ class PagureTests(unittest.TestCase):
         self.token = os.environ.get("PAGURE_TOKEN")
 
         if not get_datafile_filename(obj=self) and (not self.token):
-            raise EnvironmentError(
+            raise OSError(
                 "You are in Requre write mode, please set PAGURE_TOKEN env variables"
             )
         self._service = None

@@ -38,7 +38,7 @@ class GithubAppTests(unittest.TestCase):
         if not get_datafile_filename(obj=self) and (
             not self._github_app_id or not self._github_app_private_key_path
         ):
-            raise EnvironmentError(
+            raise OSError(
                 "You are in Requre write mode, please set "
                 "GITHUB_APP_ID GITHUB_APP_PRIVATE_KEY_PATH env variables"
             )

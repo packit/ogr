@@ -16,7 +16,7 @@ class GitlabTests(unittest.TestCase):
         self.token = os.environ.get("GITLAB_TOKEN")
 
         if not Path(get_datafile_filename(obj=self)).exists() and not self.token:
-            raise EnvironmentError(
+            raise OSError(
                 "You are in Requre write mode, please set GITLAB_TOKEN env variables"
             )
         elif not self.token:
