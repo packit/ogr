@@ -16,6 +16,7 @@ from ogr.factory import (
 from ogr.services.github import GithubService
 from ogr.services.gitlab import GitlabService
 from ogr.services.pagure import PagureService
+from ogr.abstract import AuthMethod
 
 try:
     __version__ = distribution(__name__).version
@@ -27,6 +28,7 @@ __all__ = [
     GithubService.__name__,
     PagureService.__name__,
     GitlabService.__name__,
+    AuthMethod.__name__,
     get_project.__name__,
     get_service_class.__name__,
     get_service_class_or_none.__name__,
