@@ -20,7 +20,7 @@ actions:
   create-archive:
     - python3 setup.py sdist --dist-dir ./fedora/
     - bash -c "ls -1t ./fedora/*.tar.gz | head -n 1"
-  get-current-version: python3 setup.py --version
+  get-current-version: python3 -W ignore setup.py --version # TODO: remove -W ignore when setup process is updated
 
 srpm_build_deps:
   - python3-pip # "python3 setup.py --version" needs it
