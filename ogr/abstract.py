@@ -1241,6 +1241,12 @@ class Release(OgrAbstractClass):
         raise NotImplementedError()
 
 
+class AuthMethod(str, Enum):
+    tokman = "tokman"
+    github_app = "github_app"
+    token = "token"
+
+
 class GitService(OgrAbstractClass):
     """
     Attributes:
@@ -1300,6 +1306,22 @@ class GitService(OgrAbstractClass):
             new_token: New token to be set.
         """
         raise NotImplementedError
+
+    def set_auth_method(self, method: AuthMethod) -> None:
+        """
+        Override the default auth method.
+        Can be used when the service has more auth methods available.
+
+        Args:
+            method: the method identifier (a str name)
+        """
+        raise NotImplementedError()
+
+    def reset_auth_method(self) -> None:
+        """
+        Set the auth method to the default one.
+        """
+        raise NotImplementedError()
 
     def project_create(
         self,

@@ -2,7 +2,7 @@
 # SPDX-License-Identifier: MIT
 
 import logging
-from typing import Optional, Type, Union, List
+from typing import Optional, Type, Union, List, Dict
 
 import re
 from urllib3.util import Retry
@@ -14,7 +14,7 @@ from github import (
     Repository as PyGithubRepository,
 )
 
-from ogr.abstract import GitUser
+from ogr.abstract import GitUser, AuthMethod
 from ogr.exceptions import GithubAPIException
 from ogr.factory import use_for_service
 from ogr.services.base import BaseGitService, GitProject
@@ -56,7 +56,9 @@ class GithubService(BaseGitService):
         """
         super().__init__()
         self.read_only = read_only
-        self.authentication = github_authentication
+        self._default_auth_method = github_authentication
+        self._other_auth_method: GithubAuthentication = None
+        self._auth_methods: Dict[AuthMethod, GithubAuthentication] = {}
 
         if isinstance(max_retries, Retry):
             self._max_retries = max_retries
@@ -71,7 +73,7 @@ class GithubService(BaseGitService):
                 raise_on_status=False,
             )
 
-        if not self.authentication:
+        if not self._default_auth_method:
             self.__set_authentication(
                 token=token,
                 github_app_id=github_app_id,
@@ -86,16 +88,34 @@ class GithubService(BaseGitService):
 
     def __set_authentication(self, **kwargs):
         auth_methods = [
-            Tokman,
-            GithubApp,
-            TokenAuthentication,
+            (Tokman, AuthMethod.tokman),
+            (GithubApp, AuthMethod.github_app),
+            (TokenAuthentication, AuthMethod.token),
         ]
-        for auth_class in auth_methods:
-            self.authentication = auth_class.try_create(**kwargs)
-            if self.authentication:
-                return
+        for auth_class, auth_name in auth_methods:
+            auth_inst = auth_class.try_create(**kwargs)
+            self._auth_methods[auth_name] = auth_inst
+            if not self._default_auth_method:
+                self._default_auth_method = auth_inst
 
-        return TokenAuthentication(None)
+        return None if self._default_auth_method else TokenAuthentication(None)
+
+    def set_auth_method(self, method: AuthMethod):
+        if self._auth_methods[method]:
+            logger.info("Forced Github auth method to %s", method)
+            self._other_auth_method = self._auth_methods[method]
+        else:
+            raise GithubAPIException(
+                f"Choosen authentication method ({method}) is not available"
+            )
+
+    def reset_auth_method(self):
+        logger.info("Reset Github auth method to the default")
+        self._other_auth_method = None
+
+    @property
+    def authentication(self):
+        return self._other_auth_method or self._default_auth_method
 
     @property
     def github(self):
@@ -152,7 +172,7 @@ class GithubService(BaseGitService):
         return GithubUser(service=self)
 
     def change_token(self, new_token: str) -> None:
-        self.authentication = TokenAuthentication(new_token)
+        self._default_auth_method = TokenAuthentication(new_token)
 
     def project_create(
         self,

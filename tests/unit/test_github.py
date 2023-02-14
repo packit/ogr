@@ -14,6 +14,10 @@ from ogr.services.github.check_run import (
     create_github_check_run_output,
     GithubCheckRunOutput,
 )
+from ogr.services.github.auth_providers.tokman import Tokman
+from ogr.services.github.auth_providers.token import TokenAuthentication
+from ogr.abstract import AuthMethod
+from ogr.exceptions import GithubAPIException
 
 
 @pytest.fixture
@@ -142,3 +146,57 @@ def test_create_github_check_run_output(
     title: str, summary: str, text: Optional[str], expected: GithubCheckRunOutput
 ) -> None:
     assert create_github_check_run_output(title, summary, text) == expected
+
+
+@pytest.fixture
+def github_service_with_multiple_auth_methods():
+    service = GithubService(
+        token="abcdef",
+        github_app_id="123",
+        github_app_private_key="id_rsa",
+        github_app_private_key_path="/path",
+        tokman_instance_url="http://tokman:8080",
+        github_authentication=None,
+    )
+
+    return service
+
+
+def test_multiple_auth_methods_default_is_tokman(
+    github_service_with_multiple_auth_methods,
+):
+    service = github_service_with_multiple_auth_methods
+    assert isinstance(service.authentication, Tokman)
+
+
+def test_set_reset_customized_auth_method(github_service_with_multiple_auth_methods):
+    service = github_service_with_multiple_auth_methods
+    assert isinstance(service.authentication, Tokman)
+    service.set_auth_method(AuthMethod.token)
+    assert isinstance(service.authentication, TokenAuthentication)
+    service.reset_auth_method()
+    assert isinstance(service.authentication, Tokman)
+
+
+@pytest.fixture
+def github_service_with_one_auth_method():
+    service = GithubService(
+        tokman_instance_url="http://tokman:8080", github_authentication=None
+    )
+
+    return service
+
+
+def test_no_multiple_auth_methods_default_is_tokman(
+    github_service_with_one_auth_method,
+):
+    service = github_service_with_one_auth_method
+    assert isinstance(service.authentication, Tokman)
+
+
+def test_no_set_reset_customized_auth_method(github_service_with_one_auth_method):
+    service = github_service_with_one_auth_method
+    assert isinstance(service.authentication, Tokman)
+    with pytest.raises(GithubAPIException):
+        service.set_auth_method(AuthMethod.github_app)
+    assert isinstance(service.authentication, Tokman)
