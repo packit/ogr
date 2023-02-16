@@ -340,6 +340,8 @@ class PagureService(BaseGitService):
             parameters["description"] = repo
         if namespace:
             parameters["namespace"] = namespace
+        else:
+            namespace = self.user.get_username()
 
         try:
             self.call_api(request_url, "POST", data=parameters)

@@ -20,7 +20,7 @@ from ogr.services.gitlab.comments import GitlabPRComment
 class GitlabPullRequest(BasePullRequest):
     _raw_pr: _GitlabMergeRequest
     _target_project: "ogr_gitlab.GitlabProject"
-    _source_project: "ogr_gitlab.GitlabProject" = None
+    _source_project: Optional["ogr_gitlab.GitlabProject"] = None
     _merge_commit_status: Dict[str, MergeCommitStatus] = {
         "can_be_merged": MergeCommitStatus.can_be_merged,
         "cannot_be_merged": MergeCommitStatus.cannot_be_merged,
@@ -171,7 +171,7 @@ class GitlabPullRequest(BasePullRequest):
         target_id = None
 
         target_project = project
-        if project.is_fork and fork_username is None:
+        if project.parent and project.is_fork and fork_username is None:
             # handles fork -> upstream (called on fork)
             target_id = project.parent.gitlab_repo.attributes["id"]
             target_project = project.parent

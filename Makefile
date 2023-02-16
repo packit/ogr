@@ -12,7 +12,9 @@ check:
 	PYTHONPATH=$(CURDIR) PYTHONDONTWRITEBYTECODE=1 python3 /usr/bin/pytest --verbose --showlocals $(TEST_TARGET)
 
 check-in-container:
-	podman run --rm -it -v $(CURDIR):/src:Z -w /src --env TEST_TARGET $(OGR_IMAGE) make -e GITHUB_TOKEN=$(GITHUB_TOKEN) GITLAB_TOKEN=$(GITLAB_TOKEN) check
+	podman run --rm -it -v $(CURDIR):/src:Z -w /src --env TEST_TARGET $(OGR_IMAGE) \
+		make -e GITHUB_TOKEN=$(GITHUB_TOKEN) GITLAB_TOKEN=$(GITLAB_TOKEN) \
+			    PAGURE_TOKEN=$(PAGURE_TOKEN) PAGURE_OGR_TEST_TOKEN=$(PAGURE_OGR_TEST_TOKEN) check
 
 shell:
 	podman run --rm -ti -v $(CURDIR):/src:Z -w /src $(OGR_IMAGE) bash

@@ -75,8 +75,8 @@ class GitlabProject(BaseGitProject):
         return None
 
     @property
-    def default_branch(self) -> Optional[str]:
-        return self.gitlab_repo.attributes.get("default_branch")
+    def default_branch(self) -> str:
+        return self.gitlab_repo.attributes["default_branch"]
 
     def __str__(self) -> str:
         return f'GitlabProject(namespace="{self.namespace}", repo="{self.repo}")'

@@ -27,7 +27,7 @@ logger = logging.getLogger(__name__)
 class GithubPullRequest(BasePullRequest):
     _raw_pr: _GithubPullRequest
     _target_project: "ogr_github.GithubProject"
-    _source_project: "ogr_github.GithubProject" = None
+    _source_project: Optional["ogr_github.GithubProject"] = None
 
     @property
     def title(self) -> str:
@@ -148,17 +148,18 @@ class GithubPullRequest(BasePullRequest):
         github_repo = project.github_repo
 
         target_project = project
-        if project.is_fork and fork_username is None:
-            logger.warning(f"{project.full_repo_name} is fork, ignoring fork_repo.")
-            source_branch = f"{project.namespace}:{source_branch}"
-            github_repo = project.parent.github_repo
-            target_project = project.parent
-        elif fork_username:
-            source_branch = f"{fork_username}:{source_branch}"
-            if fork_username != project.namespace and project.parent is not None:
-                github_repo = GithubPullRequest.__get_fork(
-                    fork_username, project.parent.github_repo
-                )
+        if project.parent:
+            if project.is_fork and fork_username is None:
+                logger.warning(f"{project.full_repo_name} is fork, ignoring fork_repo.")
+                source_branch = f"{project.namespace}:{source_branch}"
+                github_repo = project.parent.github_repo
+                target_project = project.parent
+            elif fork_username:
+                source_branch = f"{fork_username}:{source_branch}"
+                if fork_username != project.namespace and project.parent is not None:
+                    github_repo = GithubPullRequest.__get_fork(
+                        fork_username, project.parent.github_repo
+                    )
 
         created_pr = github_repo.create_pull(
             title=title, body=body, base=target_branch, head=source_branch

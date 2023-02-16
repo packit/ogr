@@ -7,7 +7,7 @@ from github import GithubException
 from github.GitRelease import GitRelease as PyGithubRelease
 
 from ogr.abstract import Release, GitTag
-from ogr.exceptions import GithubAPIException
+from ogr.exceptions import GithubAPIException, OgrException
 from ogr.services import github as ogr_github
 
 
@@ -45,7 +45,10 @@ class GithubRelease(Release):
 
     @property
     def git_tag(self) -> GitTag:
-        return self.project.get_tag_from_tag_name(self.tag_name)
+        tag = self.project.get_tag_from_tag_name(self.tag_name)
+        if not tag:
+            raise OgrException(f"No tag with name '{self.tag_name}' found.")
+        return tag
 
     @property
     def tag_name(self) -> str:

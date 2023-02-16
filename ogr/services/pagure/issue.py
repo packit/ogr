@@ -57,7 +57,7 @@ class PagureIssue(BaseIssue):
         )
 
     @property
-    def assignee(self) -> str:
+    def assignee(self) -> Optional[str]:
         self.__update()
         try:
             return self._raw_issue["assignee"]["name"]

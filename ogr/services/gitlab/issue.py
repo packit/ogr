@@ -47,7 +47,7 @@ class GitlabIssue(BaseIssue):
         return self._raw_issue.web_url
 
     @property
-    def assignees(self) -> list:
+    def assignees(self) -> Optional[List[str]]:
         try:
             return self._raw_issue.assignees
         except AttributeError:

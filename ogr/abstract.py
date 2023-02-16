@@ -218,7 +218,7 @@ class Comment(OgrAbstractClass):
         self._body = new_body
 
     @property
-    def id(self) -> int:
+    def id(self) -> Optional[int]:
         return self._id
 
     @property
@@ -227,12 +227,12 @@ class Comment(OgrAbstractClass):
         return self._author
 
     @property
-    def created(self) -> datetime.datetime:
+    def created(self) -> Optional[datetime.datetime]:
         """Datetime of creation of the comment."""
         return self._created
 
     @property
-    def edited(self) -> datetime.datetime:
+    def edited(self) -> Optional[datetime.datetime]:
         """Datetime of last edit of the comment."""
         return self._edited
 
@@ -257,7 +257,7 @@ class Comment(OgrAbstractClass):
 
 class IssueComment(Comment):
     @property
-    def issue(self) -> "Issue":
+    def issue(self) -> Optional["Issue"]:
         """Issue of issue comment."""
         return self._parent
 
@@ -267,7 +267,7 @@ class IssueComment(Comment):
 
 class PRComment(Comment):
     @property
-    def pull_request(self) -> "PullRequest":
+    def pull_request(self) -> Optional["PullRequest"]:
         """Pull request of pull request comment."""
         return self._parent
 
@@ -643,12 +643,12 @@ class PullRequest(OgrAbstractClass):
         raise NotImplementedError()
 
     @property
-    def target_branch_head_commit(self) -> str:
+    def target_branch_head_commit(self) -> Optional[str]:
         """Commit hash of the HEAD commit of the target branch."""
         raise NotImplementedError()
 
     @property
-    def merge_commit_sha(self) -> str:
+    def merge_commit_sha(self) -> Optional[str]:
         """
         Commit hash of the merge commit of the pull request.
 
@@ -1020,7 +1020,7 @@ class CommitFlag(OgrAbstractClass):
         raise NotImplementedError()
 
     @property
-    def edited(self) -> datetime.datetime:
+    def edited(self) -> Optional[datetime.datetime]:
         """Datetime of editing the commit status."""
         raise NotImplementedError()
 
@@ -1129,7 +1129,11 @@ class Release(OgrAbstractClass):
 
     @property
     def git_tag(self) -> GitTag:
-        """Object that represents tag tied to the release."""
+        """Object that represents tag tied to the release.
+
+        Raises:
+            OgrException, if the tag is not found.
+        """
         raise NotImplementedError()
 
     @property
@@ -1253,7 +1257,7 @@ class GitService(OgrAbstractClass):
         instance_url (str): URL of the git forge instance.
     """
 
-    instance_url: Optional[str] = None
+    instance_url: str
 
     def __init__(self, **_: Any) -> None:
         pass
@@ -1365,7 +1369,9 @@ class GitService(OgrAbstractClass):
 
 
 class GitProject(OgrAbstractClass):
-    def __init__(self, repo: str, service: GitService, namespace: str) -> None:
+    def __init__(
+        self, repo: str, service: GitService, namespace: Optional[str]
+    ) -> None:
         """
         Args:
             repo: Name of the project.
@@ -1374,7 +1380,7 @@ class GitProject(OgrAbstractClass):
 
                 - GitHub: username or org name.
                 - GitLab: username or org name.
-                - Pagure: namespace (e.g. `"rpms"`).
+                - Pagure: namespace (e.g. `"rpms"`). May be `None`, i.e. no namespace present.
 
                   In case of forks: `"fork/{username}/{namespace}"`.
         """
@@ -1971,7 +1977,7 @@ class GitUser(OgrAbstractClass):
         """
         raise NotImplementedError()
 
-    def get_email(self) -> str:
+    def get_email(self) -> Optional[str]:
         """
         Returns:
             Email of the user.

@@ -86,7 +86,7 @@ class GithubIssue(BaseIssue):
         body: str,
         private: Optional[bool] = None,
         labels: Optional[List[str]] = None,
-        assignees: Optional[list] = None,
+        assignees: Optional[List[str]] = None,
     ) -> "Issue":
         if private:
             raise OperationNotSupported("Private issues are not supported by Github")

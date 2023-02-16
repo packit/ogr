@@ -10,19 +10,19 @@ class RepoUrl:
     Class that represents repo URL.
 
     Attributes:
-        repo (str): Name of the repository.
-        namespace (Optional[str]): Namespace of the repository, if has any.
-        username (Optional[str]): Username of the repository owner, if can be
+        repo: Name of the repository. Can be `None` if parsing is being done.
+        namespace: Namespace of the repository, if has any.
+        username: Username of the repository owner, if can be
             specified.
-        is_fork (bool): Flag denoting if repository is a fork, if can be
+        is_fork: Flag denoting if repository is a fork, if can be
             specified (Pagure).
-        hostname (Optional[str]): Hostname of host of the repository.
-        scheme (Optional[str]): Protocol used to access repository.
+        hostname: Hostname of host of the repository.
+        scheme: Protocol used to access repository.
     """
 
     def __init__(
         self,
-        repo: str,
+        repo: Optional[str],
         namespace: Optional[str] = None,
         username: Optional[str] = None,
         is_fork: bool = False,

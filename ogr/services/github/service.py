@@ -203,7 +203,9 @@ class GithubService(BaseGitService):
         )
 
     def get_pygithub_instance(self, namespace: str, repo: str) -> PyGithubInstance:
-        token = self.authentication.get_token(namespace, repo)
+        token = None
+        if self.authentication:
+            token = self.authentication.get_token(namespace, repo)
         return PyGithubInstance(login_or_token=token, retry=self._max_retries)
 
     def list_projects(

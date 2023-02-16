@@ -338,7 +338,7 @@ class PagureProject(BaseGitProject):
 
     def is_forked(self) -> bool:
         f = self._construct_fork_project()
-        return bool(f.exists() and f.parent.exists())
+        return bool(f.exists() and f.parent and f.parent.exists())
 
     def get_is_fork_from_api(self) -> bool:
         return bool(self.get_project_info()["parent"])
