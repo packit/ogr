@@ -1,0 +1,20 @@
+summary:
+    Check rpm files with rpminspect
+discover:
+    how: shell
+    tests:
+      - name: rpminspect SRPM
+        test: rpminspect-centos -v -t VERIFY --profile=centos-stream-9-devel /tmp/*.src.rpm
+      - name: rpminspect binary RPMs
+        test: for rpm in /var/share/test-artifacts/*.rpm; do rpminspect-centos -v -t VERIFY --profile=centos-stream-9-devel $rpm; done
+prepare:
+  - name: packages
+    how: install
+    package:
+    - rpminspect
+    - rpminspect-data-centos
+  - how: shell
+    script: cd /tmp && curl -O ${PACKIT_SRPM_URL}
+execute:
+    how: tmt
+
