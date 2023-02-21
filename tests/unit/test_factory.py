@@ -29,6 +29,11 @@ from ogr.services.pagure import PagureProject
             GithubService,
         ),
         (
+            "https://some-url/packit-service/ogr",
+            {"https://some-url": GithubService},
+            GithubService,
+        ),
+        (
             "https://github.com/packit-service/ogr",
             {"github.com": PagureService},
             PagureService,
@@ -110,6 +115,15 @@ def test_get_service_class_not_found(url, mapping):
         (
             "https://some-url/packit-service/ogr",
             {"some-url": GithubService},
+            None,
+            True,
+            GithubProject(
+                namespace="packit-service", repo="ogr", service=GithubService()
+            ),
+        ),
+        (
+            "https://some-url/packit-service/ogr",
+            {"https://some-url": GithubService},
             None,
             True,
             GithubProject(
