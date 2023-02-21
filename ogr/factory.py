@@ -84,7 +84,7 @@ def get_project(
     mapping = service_mapping_update.copy() if service_mapping_update else {}
     custom_instances = custom_instances or []
     for instance in custom_instances:
-        mapping[instance.instance_url] = instance.__class__
+        mapping[instance.hostname] = instance.__class__
 
     kls = get_service_class(url=url, service_mapping_update=mapping)
     parsed_repo_url = parse_git_repo(url)

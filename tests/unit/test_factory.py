@@ -229,6 +229,19 @@ def test_get_service_class_not_found(url, mapping):
                 service=GithubService(instance_url="https://github.com/packit/ogr"),
             ),
         ),
+        (
+            "https://my.gtlb/packit/ogr",
+            None,
+            [
+                GitlabService(instance_url="https://my.gtlb"),
+            ],
+            False,
+            GitlabProject(
+                repo="ogr",
+                namespace="packit",
+                service=GitlabService(instance_url="https://my.gtlb"),
+            ),
+        ),
     ],
 )
 def test_get_project(url, mapping, instances, force_custom_instance, result):
