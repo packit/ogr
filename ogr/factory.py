@@ -64,7 +64,7 @@ def get_project(
     Args:
         url: URL of the project, e.g. `"https://github.com/packit/ogr"`.
         service_mapping_update: Custom mapping from
-            service url (`str`) to service class.
+            service url/hostname (`str`) to service class.
 
             Defaults to no mapping.
         custom_instances: List of instances that will be
@@ -84,7 +84,7 @@ def get_project(
     mapping = service_mapping_update.copy() if service_mapping_update else {}
     custom_instances = custom_instances or []
     for instance in custom_instances:
-        mapping[instance.instance_url] = instance.__class__
+        mapping[instance.hostname] = instance.__class__
 
     kls = get_service_class(url=url, service_mapping_update=mapping)
     parsed_repo_url = parse_git_repo(url)
@@ -117,7 +117,7 @@ def get_service_class_or_none(
 
     Args:
         url: URL of the project, e.g. `"https://github.com/packit/ogr"`.
-        service_mapping_update: Custom mapping from service url (`str`) to service
+        service_mapping_update: Custom mapping from service url/hostname (`str`) to service
             class.
 
             Defaults to `None`.
@@ -132,7 +132,7 @@ def get_service_class_or_none(
 
     parsed_url = parse_git_repo(url)
     for service, service_kls in mapping.items():
-        if service in parsed_url.hostname:
+        if parse_git_repo(service).hostname in parsed_url.hostname:
             return service_kls
 
     return None
@@ -146,7 +146,7 @@ def get_service_class(
 
     Args:
         url: URL of the project, e.g. `"https://github.com/packit/ogr"`.
-        service_mapping_update: Custom mapping from service url (str) to service
+        service_mapping_update: Custom mapping from service url/hostname (str) to service
             class.
 
             Defaults to `None`.
