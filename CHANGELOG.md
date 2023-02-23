@@ -1,3 +1,7 @@
+# 0.43.0
+
+- Fixes an issue with project->service mapping where the service with an url not containing the service type wasn't matched. (#771)
+
 # 0.42.0
 
 - A bug in ogr resulting in returning only first page of pull requests for Pagure has been fixed. (#761)
