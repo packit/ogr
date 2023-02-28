@@ -43,6 +43,18 @@ from ogr.services.pagure import PagureProject
         ("https://pagure.something.com/ogr", None, PagureService),
         ("https://gitlab.com/someone/project", None, GitlabService),
         ("https://gitlab.abcd.def/someone/project", None, GitlabService),
+        # Known GitLab instances without gitlab word in a hostname:
+        ("https://salsa.debian.org/someone/project", None, GitlabService),
+        ("https://git.fosscommunity.in/someone/project", None, GitlabService),
+        ("https://framagit.org/someone/project", None, GitlabService),
+        ("https://dev.gajim.org/someone/project", None, GitlabService),
+        ("https://git.coop/someone/project", None, GitlabService),
+        ("https://lab.libreho.st/someone/project", None, GitlabService),
+        ("https://git.linux-kernel.at/someone/project", None, GitlabService),
+        ("https://git.pleroma.social/someone/project", None, GitlabService),
+        ("https://git.silence.dev/someone/project", None, GitlabService),
+        ("https://code.videolan.org/someone/project", None, GitlabService),
+        ("https://source.puri.sm/someone/project", None, GitlabService),
         (
             "https://src.fedoraproject.org/rpms/golang-gitlab-flimzy-testy",
             None,
