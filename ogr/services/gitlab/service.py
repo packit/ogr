@@ -16,7 +16,20 @@ from ogr.services.gitlab.user import GitlabUser
 logger = logging.getLogger(__name__)
 
 
-@use_for_service("gitlab")
+@use_for_service("gitlab")  # anything containing a gitlab word in hostname
+# + list of community-hosted instances based on the following list
+# https://wiki.p2pfoundation.net/List_of_Community-Hosted_GitLab_Instances
+@use_for_service("salsa.debian.org")
+@use_for_service("git.fosscommunity.in")
+@use_for_service("framagit.org")
+@use_for_service("dev.gajim.org")
+@use_for_service("git.coop")
+@use_for_service("lab.libreho.st")
+@use_for_service("git.linux-kernel.at")
+@use_for_service("git.pleroma.social")
+@use_for_service("git.silence.dev")
+@use_for_service("code.videolan.org")
+@use_for_service("source.puri.sm")
 class GitlabService(BaseGitService):
     name = "gitlab"
 
