@@ -1,3 +1,7 @@
+# 0.44.0
+
+- OGR now understands a few community-hosted GitLab instances that could not be determined automatically from the hostname. Thanks to that, you don't need to hardcode these instances to be mapped correctly. (#775)
+
 # 0.43.0
 
 - Fixes an issue with project->service mapping where the service with an url not containing the service type wasn't matched. (#771)
