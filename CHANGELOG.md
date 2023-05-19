@@ -1,3 +1,6 @@
+# 0.45.0
+
+
 # 0.44.0
 
 - OGR now understands a few community-hosted GitLab instances that could not be determined automatically from the hostname. Thanks to that, you don't need to hardcode these instances to be mapped correctly. (#775)
