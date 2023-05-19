@@ -5,7 +5,7 @@ _requre:
 requests.sessions:
   send:
     GET:
-      https://api.github.com/repos/packit/hello-world/installation:
+      https://api.github.com/repos/packit/hello-world/installation: &get_installation
       - metadata:
           latency: 0.29810547828674316
           module_call_list:
@@ -102,6 +102,7 @@ requests.sessions:
           raw: !!binary ""
           reason: OK
           status_code: 200
+      https://api.github.com:443/repos/packit/hello-world/installation: *get_installation
       https://api.github.com:443/repos/packit/hello-world:
       - metadata:
           latency: 0.2955963611602783
@@ -1058,7 +1059,7 @@ requests.sessions:
           reason: OK
           status_code: 200
     POST:
-      https://api.github.com/app/installations/1924121/access_tokens:
+      https://api.github.com/app/installations/1924121/access_tokens: &post_access_tokens
       - metadata:
           latency: 0.24229907989501953
           module_call_list:
@@ -1117,3 +1118,4 @@ requests.sessions:
           raw: !!binary ""
           reason: Created
           status_code: 201
+      https://api.github.com:443/app/installations/1924121/access_tokens: *post_access_tokens

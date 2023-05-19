@@ -75,7 +75,15 @@ class GithubApp(GithubAuthentication):
         if not self.private_key:
             return None
 
-        inst_id = self.integration.get_installation(namespace, repo).id
+        # PyGithub 1.58 deprecated get_installation() in favor of get_repo_installation()
+        # that raises an exception on error rather than returning None
+        if hasattr(self.integration, "get_repo_installation"):
+            try:
+                inst_id = self.integration.get_repo_installation(namespace, repo).id
+            except github.GithubException:
+                inst_id = None
+        else:
+            inst_id = self.integration.get_installation(namespace, repo).id
         # PyGithub<1.52 returned an object for id, with a value attribute,
         # which was None or an ID.
         # This was changed in:
