@@ -1,7 +1,7 @@
 %global srcname ogr
 
 Name:           python-%{srcname}
-Version:        0.44.0
+Version:        0.45.0
 Release:        1%{?dist}
 Summary:        One API for multiple git forges
 
@@ -52,6 +52,9 @@ rm -rf %{srcname}.egg-info
 
 
 %changelog
+* Mon Jun 05 2023 Packit Team <hello@packit.dev> - 0.45.0-1
+- New upstream release 0.45.0
+
 * Sun Mar 05 2023 Packit Team <hello@packit.dev> - 0.44.0-1
 - New upstream release 0.44.0
 
