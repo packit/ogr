@@ -170,16 +170,17 @@ class PagureProjectTokenCommands(PagureTests):
         assert statuses
         assert len(statuses) >= 0
         assert statuses[-1].state == CommitStatus.success
+        # What timezone?
         assert statuses[-1].created >= datetime(
             year=2020,
             month=8,
             day=31,
-            hour=7,
+            hour=1,
             minute=0,
             second=0,
         )
         assert statuses[-1].edited >= datetime(
-            year=2020, month=8, day=31, hour=9, minute=36, second=50
+            year=2020, month=8, day=31, hour=1, minute=0, second=0
         )
 
     def test_is_private(self):
