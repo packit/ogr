@@ -1,3 +1,6 @@
+# 0.45.1
+
+
 # 0.45.0
 
 - OGR now supports PyGithub >= 1.58.
