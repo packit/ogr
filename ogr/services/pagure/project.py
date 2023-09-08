@@ -302,7 +302,7 @@ class PagureProject(BaseGitProject):
 
         for fork in self.get_forks():
             fork_info = fork.get_project_info()
-            if self._user in fork_info["user"]["name"]:
+            if self._user == fork_info["user"]["name"]:
                 return fork
 
         if not self.is_forked():
