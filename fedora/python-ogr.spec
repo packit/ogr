@@ -1,8 +1,8 @@
 %global srcname ogr
 
 Name:           python-%{srcname}
-Version:        0.45.0
-Release:        2%{?dist}
+Version:        0.46.0
+Release:        1%{?dist}
 Summary:        One API for multiple git forges
 
 License:        MIT
@@ -52,6 +52,9 @@ rm -rf %{srcname}.egg-info
 
 
 %changelog
+* Fri Sep 08 2023 Packit Team <hello@packit.dev> - 0.46.0-1
+- New upstream release 0.46.0
+
 * Fri Aug 04 2023 Tomas Tomecek <ttomecek@redhat.com> - 0.45.0-2
 - Confirm License is SPDX compatible.
 
