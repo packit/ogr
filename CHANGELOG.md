@@ -1,3 +1,7 @@
+# 0.46.0
+
+- We have fixed a bug in `get_fork` method for Pagure about checking the usernames for a match when going through existing forks. (#800)
+
 # 0.45.0
 
 - OGR now supports PyGithub >= 1.58.
