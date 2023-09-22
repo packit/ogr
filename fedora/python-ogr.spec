@@ -12,8 +12,7 @@ BuildArch:      noarch
 
 BuildRequires:  python3-devel
 BuildRequires:  python3dist(setuptools)
-BuildRequires:  python3dist(setuptools-scm)
-BuildRequires:  python3dist(setuptools-scm-git-archive)
+BuildRequires:  python3dist(setuptools-scm) >= 7
 
 %description
 One Git library to Rule!
