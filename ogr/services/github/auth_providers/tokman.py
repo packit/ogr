@@ -1,13 +1,13 @@
 # Copyright Contributors to the Packit project.
 # SPDX-License-Identifier: MIT
 
-import requests
 from typing import Optional
 
 import github
+import requests
 
-from ogr.services.github.auth_providers.abstract import GithubAuthentication
 from ogr.exceptions import GithubAppNotInstalledError, OgrException, OgrNetworkError
+from ogr.services.github.auth_providers.abstract import GithubAuthentication
 
 
 class Tokman(GithubAuthentication):

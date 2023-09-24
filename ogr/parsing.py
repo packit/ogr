@@ -1,8 +1,8 @@
 # Copyright Contributors to the Packit project.
 # SPDX-License-Identifier: MIT
 
-from typing import Optional, Tuple, List
-from urllib.parse import urlparse, ParseResult
+from typing import List, Optional, Tuple
+from urllib.parse import ParseResult, urlparse
 
 
 class RepoUrl:

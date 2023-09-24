@@ -6,9 +6,9 @@ from datetime import datetime
 import pytest
 from requre.online_replacing import record_requests_for_all_methods
 
-from tests.integration.github.base import GithubTests
 from ogr.abstract import AccessLevel, CommitStatus
 from ogr.exceptions import GithubAPIException
+from tests.integration.github.base import GithubTests
 
 
 @record_requests_for_all_methods()

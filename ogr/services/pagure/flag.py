@@ -2,8 +2,7 @@
 # SPDX-License-Identifier: MIT
 
 import datetime
-from typing import List, Dict, Any
-
+from typing import Any, Dict, List
 
 from ogr.abstract import CommitFlag, CommitStatus
 from ogr.services import pagure as ogr_pagure

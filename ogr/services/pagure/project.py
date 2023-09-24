@@ -2,27 +2,27 @@
 # SPDX-License-Identifier: MIT
 
 import logging
-from typing import List, Optional, Dict, Set, Iterable
+from typing import Dict, Iterable, List, Optional, Set
 from urllib.parse import urlparse
 
 from ogr.abstract import (
-    PRStatus,
-    GitTag,
-    CommitFlag,
+    AccessLevel,
     CommitComment,
+    CommitFlag,
     CommitStatus,
-    PullRequest,
+    GitTag,
     Issue,
     IssueStatus,
+    PRStatus,
+    PullRequest,
     Release,
-    AccessLevel,
 )
 from ogr.exceptions import (
-    PagureAPIException,
     OgrException,
     OperationNotSupported,
+    PagureAPIException,
 )
-from ogr.read_only import if_readonly, GitProjectReadOnly
+from ogr.read_only import GitProjectReadOnly, if_readonly
 from ogr.services import pagure as ogr_pagure
 from ogr.services.base import BaseGitProject
 from ogr.services.pagure.flag import PagureCommitFlag

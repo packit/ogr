@@ -3,8 +3,8 @@
 
 from requre.online_replacing import record_requests_for_all_methods
 
+from ogr.abstract import CommitStatus, PRStatus
 from tests.integration.pagure.base import PagureTests
-from ogr.abstract import PRStatus, CommitStatus
 
 
 @record_requests_for_all_methods()

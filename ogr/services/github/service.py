@@ -2,29 +2,33 @@
 # SPDX-License-Identifier: MIT
 
 import logging
-from typing import Optional, Type, Union, List, Dict
-
 import re
-from urllib3.util import Retry
+from typing import Dict, List, Optional, Type, Union
+
 import github
 import github.GithubObject
 from github import (
-    UnknownObjectException,
     Github as PyGithubInstance,
+)
+from github import (
     Repository as PyGithubRepository,
 )
+from github import (
+    UnknownObjectException,
+)
+from urllib3.util import Retry
 
-from ogr.abstract import GitUser, AuthMethod
+from ogr.abstract import AuthMethod, GitUser
 from ogr.exceptions import GithubAPIException
 from ogr.factory import use_for_service
 from ogr.services.base import BaseGitService, GitProject
-from ogr.services.github.project import GithubProject
 from ogr.services.github.auth_providers import (
+    GithubApp,
     GithubAuthentication,
     TokenAuthentication,
-    GithubApp,
     Tokman,
 )
+from ogr.services.github.project import GithubProject
 from ogr.services.github.user import GithubUser
 
 logger = logging.getLogger(__name__)

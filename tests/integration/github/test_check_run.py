@@ -2,18 +2,18 @@
 # SPDX-License-Identifier: MIT
 
 from datetime import datetime
+
+import pytest
+from requre.online_replacing import record_requests_for_all_methods
+
+from ogr.exceptions import OperationNotSupported
+from ogr.services.github import GithubProject
 from ogr.services.github.check_run import (
     GithubCheckRunResult,
     GithubCheckRunStatus,
     create_github_check_run_output,
 )
-
-import pytest
-from requre.online_replacing import record_requests_for_all_methods
-
 from tests.integration.github.base_app import GithubAppTests
-from ogr.exceptions import OperationNotSupported
-from ogr.services.github import GithubProject
 
 
 @record_requests_for_all_methods()

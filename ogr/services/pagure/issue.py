@@ -2,9 +2,9 @@
 # SPDX-License-Identifier: MIT
 
 import datetime
-from typing import List, Optional, Dict, Union, Any, cast
+from typing import Any, Dict, List, Optional, Union, cast
 
-from ogr.abstract import IssueComment, IssueStatus, Issue
+from ogr.abstract import Issue, IssueComment, IssueStatus
 from ogr.exceptions import (
     IssueTrackerDisabled,
     OperationNotSupported,

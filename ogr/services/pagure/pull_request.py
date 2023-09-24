@@ -3,10 +3,9 @@
 
 import datetime
 import logging
-from typing import List, Optional, Dict, Any, Union
+from typing import Any, Dict, List, Optional, Union
 
-from ogr.abstract import PRStatus, CommitFlag, CommitStatus
-from ogr.abstract import PullRequest, PRComment
+from ogr.abstract import CommitFlag, CommitStatus, PRComment, PRStatus, PullRequest
 from ogr.exceptions import PagureAPIException
 from ogr.services import pagure as ogr_pagure
 from ogr.services.base import BasePullRequest

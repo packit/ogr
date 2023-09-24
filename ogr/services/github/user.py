@@ -2,7 +2,7 @@
 # SPDX-License-Identifier: MIT
 
 from collections import namedtuple
-from typing import Optional, List
+from typing import List, Optional
 
 from ogr.services import github as ogr_github
 from ogr.services.base import BaseGitUser

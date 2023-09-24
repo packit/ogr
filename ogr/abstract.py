@@ -5,32 +5,32 @@ import datetime
 import functools
 from enum import Enum, IntEnum
 from typing import (
-    Optional,
-    Match,
-    List,
+    Any,
+    Callable,
     Dict,
+    List,
+    Match,
+    Optional,
+    Sequence,
     Set,
     TypeVar,
-    Any,
-    Sequence,
     Union,
-    Callable,
 )
 
 import github
 import gitlab
 import requests
 
+from ogr.deprecation import deprecate_and_set_removal
 from ogr.exceptions import (
     APIException,
     GitForgeInternalError,
-    OgrException,
-    GitlabAPIException,
     GithubAPIException,
+    GitlabAPIException,
+    OgrException,
     OgrNetworkError,
 )
 from ogr.parsing import parse_git_repo
-from ogr.deprecation import deprecate_and_set_removal
 
 try:
     from functools import cached_property as _cached_property

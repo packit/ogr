@@ -3,37 +3,37 @@
 
 import datetime
 import logging
+from typing import Dict, List, Optional, Set, Union
+
+import github
+from github import UnknownObjectException
+from github.Commit import Commit
+from github.CommitComment import CommitComment as GithubCommitComment
+from github.GithubException import GithubException
+from github.Repository import Repository
+
+from ogr.abstract import (
+    AccessLevel,
+    CommitComment,
+    CommitFlag,
+    CommitStatus,
+    GitTag,
+    Issue,
+    IssueStatus,
+    PRStatus,
+    PullRequest,
+    Release,
+)
+from ogr.exceptions import GithubAPIException, OperationNotSupported
+from ogr.read_only import GitProjectReadOnly, if_readonly
+from ogr.services import github as ogr_github
+from ogr.services.base import BaseGitProject
 from ogr.services.github.check_run import (
     GithubCheckRun,
     GithubCheckRunOutput,
     GithubCheckRunResult,
     GithubCheckRunStatus,
 )
-from typing import Optional, Dict, List, Set, Union
-
-import github
-from github import UnknownObjectException
-from github.GithubException import GithubException
-from github.Repository import Repository
-from github.Commit import Commit
-from github.CommitComment import CommitComment as GithubCommitComment
-
-from ogr.abstract import (
-    Issue,
-    IssueStatus,
-    PullRequest,
-    PRStatus,
-    Release,
-    CommitComment,
-    GitTag,
-    CommitFlag,
-    CommitStatus,
-    AccessLevel,
-)
-from ogr.exceptions import GithubAPIException, OperationNotSupported
-from ogr.read_only import if_readonly, GitProjectReadOnly
-from ogr.services import github as ogr_github
-from ogr.services.base import BaseGitProject
 from ogr.services.github.flag import GithubCommitFlag
 from ogr.services.github.issue import GithubIssue
 from ogr.services.github.pull_request import GithubPullRequest

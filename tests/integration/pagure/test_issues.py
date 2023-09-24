@@ -2,10 +2,10 @@
 # SPDX-License-Identifier: MIT
 
 from requre.online_replacing import record_requests_for_all_methods
-from ogr.exceptions import IssueTrackerDisabled
 
-from tests.integration.pagure.base import PagureTests
 from ogr.abstract import IssueStatus
+from ogr.exceptions import IssueTrackerDisabled
+from tests.integration.pagure.base import PagureTests
 
 
 @record_requests_for_all_methods()

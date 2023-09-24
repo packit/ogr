@@ -2,8 +2,8 @@
 # SPDX-License-Identifier: MIT
 
 from requre.online_replacing import record_requests_for_all_methods
-from ogr.exceptions import GithubAPIException
 
+from ogr.exceptions import GithubAPIException
 from tests.integration.github.base import GithubTests
 
 

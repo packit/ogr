@@ -2,7 +2,7 @@
 # SPDX-License-Identifier: MIT
 
 import datetime
-from typing import List, Optional, Dict, Union
+from typing import Dict, List, Optional, Union
 
 import github
 from github import UnknownObjectException

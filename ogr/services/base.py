@@ -1,23 +1,23 @@
 # Copyright Contributors to the Packit project.
 # SPDX-License-Identifier: MIT
 
-from typing import List, Optional, Any
+from typing import Any, List, Optional
 from urllib.request import urlopen
 
 from ogr.abstract import (
-    GitService,
-    GitProject,
-    GitUser,
-    IssueComment,
-    Issue,
-    PullRequest,
     CommitFlag,
     CommitStatus,
+    GitProject,
+    GitService,
+    GitUser,
+    Issue,
+    IssueComment,
+    PullRequest,
     Release,
 )
 from ogr.exceptions import OgrException
 from ogr.parsing import parse_git_repo
-from ogr.utils import search_in_comments, filter_comments
+from ogr.utils import filter_comments, search_in_comments
 
 try:
     from functools import cached_property

@@ -8,16 +8,16 @@ import pytest
 from flexmock import flexmock
 
 from ogr import GithubService
-from ogr.services.github.project import GithubProject
-from ogr.services.github.pull_request import GithubPullRequest
-from ogr.services.github.check_run import (
-    create_github_check_run_output,
-    GithubCheckRunOutput,
-)
-from ogr.services.github.auth_providers.tokman import Tokman
-from ogr.services.github.auth_providers.token import TokenAuthentication
 from ogr.abstract import AuthMethod
 from ogr.exceptions import GithubAPIException
+from ogr.services.github.auth_providers.token import TokenAuthentication
+from ogr.services.github.auth_providers.tokman import Tokman
+from ogr.services.github.check_run import (
+    GithubCheckRunOutput,
+    create_github_check_run_output,
+)
+from ogr.services.github.project import GithubProject
+from ogr.services.github.pull_request import GithubPullRequest
 
 
 @pytest.fixture

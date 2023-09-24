@@ -3,7 +3,7 @@
 
 import pytest
 
-from ogr.parsing import parse_git_repo, RepoUrl
+from ogr.parsing import RepoUrl, parse_git_repo
 
 
 @pytest.mark.parametrize(

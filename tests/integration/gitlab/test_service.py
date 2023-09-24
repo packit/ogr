@@ -5,11 +5,10 @@ import pytest
 from gitlab import GitlabGetError
 from requre.online_replacing import record_requests_for_all_methods
 
-from tests.integration.gitlab.base import GitlabTests
-
 from ogr import GitlabService
 from ogr.exceptions import GitlabAPIException
 from ogr.services.gitlab.pull_request import GitlabPullRequest
+from tests.integration.gitlab.base import GitlabTests
 
 
 @record_requests_for_all_methods()

@@ -3,10 +3,11 @@
 
 import datetime
 from typing import List, Optional
+
 from github import GithubException
 from github.GitRelease import GitRelease as PyGithubRelease
 
-from ogr.abstract import Release, GitTag
+from ogr.abstract import GitTag, Release
 from ogr.exceptions import GithubAPIException
 from ogr.services import github as ogr_github
 

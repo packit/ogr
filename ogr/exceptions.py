@@ -1,7 +1,7 @@
 # Copyright Contributors to the Packit project.
 # SPDX-License-Identifier: MIT
 
-from typing import Optional, Dict, Any
+from typing import Any, Dict, Optional
 
 import github
 import gitlab

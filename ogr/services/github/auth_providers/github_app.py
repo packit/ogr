@@ -6,8 +6,8 @@ from typing import Optional
 
 import github
 
-from ogr.services.github.auth_providers.abstract import GithubAuthentication
 from ogr.exceptions import OgrException
+from ogr.services.github.auth_providers.abstract import GithubAuthentication
 
 
 class GithubApp(GithubAuthentication):

@@ -3,19 +3,18 @@
 
 import datetime
 import logging
+from typing import List, Optional, Union
 
 import github
 import requests
-from typing import Optional, List, Union
-
 from github import UnknownObjectException
+from github.IssueComment import IssueComment as _GithubIssueComment
 from github.Label import Label as GithubLabel
 from github.PullRequest import PullRequest as _GithubPullRequest
-from github.Repository import Repository as _GithubRepository
-from github.IssueComment import IssueComment as _GithubIssueComment
 from github.PullRequestComment import PullRequestComment as _GithubPullRequestComment
+from github.Repository import Repository as _GithubRepository
 
-from ogr.abstract import PRComment, PRStatus, PullRequest, MergeCommitStatus
+from ogr.abstract import MergeCommitStatus, PRComment, PRStatus, PullRequest
 from ogr.exceptions import GithubAPIException, OgrNetworkError
 from ogr.services import github as ogr_github
 from ogr.services.base import BasePullRequest

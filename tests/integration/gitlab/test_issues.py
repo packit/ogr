@@ -2,10 +2,10 @@
 # SPDX-License-Identifier: MIT
 
 from requre.online_replacing import record_requests_for_all_methods
-from ogr.exceptions import IssueTrackerDisabled
 
-from tests.integration.gitlab.base import GitlabTests
 from ogr.abstract import IssueStatus
+from ogr.exceptions import IssueTrackerDisabled
+from tests.integration.gitlab.base import GitlabTests
 
 
 @record_requests_for_all_methods()

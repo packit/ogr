@@ -3,14 +3,14 @@
 
 import tempfile
 from pathlib import Path
+
 import pytest
+from requre.online_replacing import record_requests_for_all_methods
 
 from ogr import GithubService
-from ogr.services.github.project import GithubProject
 from ogr.exceptions import OgrException
-
+from ogr.services.github.project import GithubProject
 from tests.integration.github.base_app import GithubAppTests
-from requre.online_replacing import record_requests_for_all_methods
 
 
 @record_requests_for_all_methods()

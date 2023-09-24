@@ -5,13 +5,13 @@ import os
 from datetime import datetime
 
 import pytest
-from requre.utils import get_datafile_filename
 from requre.online_replacing import record_requests_for_all_methods
+from requre.utils import get_datafile_filename
 
-from tests.integration.pagure.base import PagureTests
 from ogr import PagureService
-from ogr.abstract import IssueStatus, CommitStatus
+from ogr.abstract import CommitStatus, IssueStatus
 from ogr.exceptions import PagureAPIException
+from tests.integration.pagure.base import PagureTests
 
 
 @record_requests_for_all_methods()

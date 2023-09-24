@@ -8,11 +8,11 @@ import requests
 import urllib3
 
 from ogr.exceptions import (
-    PagureAPIException,
-    OgrException,
-    OperationNotSupported,
-    OgrNetworkError,
     GitForgeInternalError,
+    OgrException,
+    OgrNetworkError,
+    OperationNotSupported,
+    PagureAPIException,
 )
 from ogr.factory import use_for_service
 from ogr.parsing import parse_git_repo

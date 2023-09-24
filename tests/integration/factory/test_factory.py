@@ -2,11 +2,13 @@
 # SPDX-License-Identifier: MIT
 
 import os
-from requre.online_replacing import record_requests_for_all_methods
-from requre.utils import get_datafile_filename
 import unittest
 from pathlib import Path
-from ogr import GithubService, PagureService, get_project, GitlabService
+
+from requre.online_replacing import record_requests_for_all_methods
+from requre.utils import get_datafile_filename
+
+from ogr import GithubService, GitlabService, PagureService, get_project
 from ogr.services.github import GithubProject
 from ogr.services.gitlab import GitlabProject
 from ogr.services.pagure import PagureProject

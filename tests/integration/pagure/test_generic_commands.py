@@ -2,12 +2,11 @@
 # SPDX-License-Identifier: MIT
 
 import pytest
-from ogr.exceptions import GitForgeInternalError
-
 from requre.online_replacing import record_requests_for_all_methods
 
-from tests.integration.pagure.base import PagureTests
 from ogr.abstract import AccessLevel
+from ogr.exceptions import GitForgeInternalError
+from tests.integration.pagure.base import PagureTests
 
 
 @record_requests_for_all_methods()

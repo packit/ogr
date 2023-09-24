@@ -4,8 +4,8 @@
 import pytest
 from requre.online_replacing import record_requests_for_all_methods
 
-from tests.integration.pagure.base import PagureTests
 from ogr.exceptions import OgrException
+from tests.integration.pagure.base import PagureTests
 
 
 @record_requests_for_all_methods()

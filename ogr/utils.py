@@ -4,7 +4,7 @@
 import functools
 import logging
 import re
-from typing import Callable, List, Union, Match, Optional, Dict, Tuple, Any
+from typing import Any, Callable, Dict, List, Match, Optional, Tuple, Union
 
 from ogr.abstract import AnyComment, Comment
 

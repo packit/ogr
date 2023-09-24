@@ -8,9 +8,9 @@ from typing import List, Union
 import gitlab.exceptions
 from gitlab.v4.objects import (
     ProjectIssueNote,
-    ProjectMergeRequestNote,
     ProjectIssueNoteAwardEmoji,
     ProjectMergeRequestAwardEmoji,
+    ProjectMergeRequestNote,
 )
 
 from ogr.abstract import Comment, IssueComment, PRComment, Reaction

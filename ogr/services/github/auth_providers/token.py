@@ -2,9 +2,9 @@
 # SPDX-License-Identifier: MIT
 
 from typing import Optional, Union
-from urllib3.util import Retry
 
 import github
+from urllib3.util import Retry
 
 from ogr.services.github.auth_providers.abstract import GithubAuthentication
 

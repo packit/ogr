@@ -3,9 +3,9 @@
 
 from typing import List
 
+from ogr.exceptions import OperationNotSupported
 from ogr.services import gitlab as ogr_gitlab
 from ogr.services.base import BaseGitUser
-from ogr.exceptions import OperationNotSupported
 
 
 class GitlabUser(BaseGitUser):

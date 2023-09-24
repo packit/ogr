@@ -4,14 +4,12 @@
 from typing import Set
 
 import pytest
-from flexmock import Mock
-from flexmock import flexmock
-
+from flexmock import Mock, flexmock
 from urllib3.util import Retry
 
-from ogr import PagureService, GitlabService, GithubService
+from ogr import GithubService, GitlabService, PagureService
 from ogr.exceptions import OgrException
-from ogr.factory import get_service_class, get_project, get_instances_from_dict
+from ogr.factory import get_instances_from_dict, get_project, get_service_class
 from ogr.services.github import GithubProject
 from ogr.services.gitlab import GitlabProject
 from ogr.services.pagure import PagureProject

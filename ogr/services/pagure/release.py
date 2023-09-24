@@ -5,8 +5,8 @@ import datetime
 from typing import List, Optional
 
 from ogr.abstract import GitTag, Release
-from ogr.services import pagure as ogr_pagure
 from ogr.exceptions import OperationNotSupported, PagureAPIException
+from ogr.services import pagure as ogr_pagure
 
 
 class PagureRelease(Release):

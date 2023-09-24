@@ -2,9 +2,9 @@
 # SPDX-License-Identifier: MIT
 
 import functools
-from typing import Dict, Type, Optional, Set, Iterable
+from typing import Dict, Iterable, Optional, Set, Type
 
-from ogr.abstract import GitService, GitProject
+from ogr.abstract import GitProject, GitService
 from ogr.exceptions import OgrException
 from ogr.parsing import parse_git_repo
 

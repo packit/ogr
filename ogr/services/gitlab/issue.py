@@ -2,12 +2,12 @@
 # SPDX-License-Identifier: MIT
 
 import datetime
-from typing import List, Optional, Dict, Union
+from typing import Dict, List, Optional, Union
 
 import gitlab
 from gitlab.v4.objects import Issue as _GitlabIssue
 
-from ogr.abstract import IssueComment, IssueStatus, Issue
+from ogr.abstract import Issue, IssueComment, IssueStatus
 from ogr.exceptions import GitlabAPIException, IssueTrackerDisabled
 from ogr.services import gitlab as ogr_gitlab
 from ogr.services.base import BaseIssue

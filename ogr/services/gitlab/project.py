@@ -2,23 +2,24 @@
 # SPDX-License-Identifier: MIT
 
 import logging
-from typing import Any, List, Optional, Dict, Set, Union
+from typing import Any, Dict, List, Optional, Set, Union
 
 import gitlab
 from gitlab.exceptions import GitlabGetError
-from gitlab.v4.objects import Project as GitlabObjectsProject, ProjectCommit
+from gitlab.v4.objects import Project as GitlabObjectsProject
+from gitlab.v4.objects import ProjectCommit
 
 from ogr.abstract import (
-    PullRequest,
-    Issue,
-    Release,
-    GitTag,
-    IssueStatus,
-    CommitFlag,
-    PRStatus,
-    CommitComment,
-    CommitStatus,
     AccessLevel,
+    CommitComment,
+    CommitFlag,
+    CommitStatus,
+    GitTag,
+    Issue,
+    IssueStatus,
+    PRStatus,
+    PullRequest,
+    Release,
 )
 from ogr.exceptions import GitlabAPIException, OperationNotSupported
 from ogr.services import gitlab as ogr_gitlab

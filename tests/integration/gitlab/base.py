@@ -2,8 +2,8 @@
 # SPDX-License-Identifier: MIT
 
 import os
-from pathlib import Path
 import unittest
+from pathlib import Path
 
 from requre.utils import get_datafile_filename
 

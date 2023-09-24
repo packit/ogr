@@ -4,17 +4,17 @@
 import datetime
 import functools
 import logging
-from typing import Callable, Any, Optional
+from typing import Any, Callable, Optional
 
 from ogr.abstract import (
-    PullRequest,
-    IssueComment,
-    PRComment,
-    PRStatus,
-    GitProject,
     CommitComment,
     CommitFlag,
     CommitStatus,
+    GitProject,
+    IssueComment,
+    PRComment,
+    PRStatus,
+    PullRequest,
 )
 from ogr.constant import DEFAULT_RO_PREFIX_STRING
 

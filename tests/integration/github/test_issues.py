@@ -4,13 +4,13 @@
 import pytest
 from requre.online_replacing import record_requests_for_all_methods
 
-from tests.integration.github.base import GithubTests
 from ogr.abstract import IssueStatus
 from ogr.exceptions import (
     GithubAPIException,
     IssueTrackerDisabled,
     OperationNotSupported,
 )
+from tests.integration.github.base import GithubTests
 
 
 @record_requests_for_all_methods()

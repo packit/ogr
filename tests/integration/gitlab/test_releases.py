@@ -3,8 +3,8 @@
 
 from requre.online_replacing import record_requests_for_all_methods
 
-from tests.integration.gitlab.base import GitlabTests
 from ogr.exceptions import OperationNotSupported
+from tests.integration.gitlab.base import GitlabTests
 
 
 @record_requests_for_all_methods()

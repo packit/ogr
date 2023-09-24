@@ -5,9 +5,9 @@ import pytest
 from github import GithubException, UnknownObjectException
 from requre.online_replacing import record_requests_for_all_methods
 
-from tests.integration.github.base import GithubTests
 from ogr.exceptions import GithubAPIException
 from ogr.services.github.pull_request import GithubPullRequest
+from tests.integration.github.base import GithubTests
 
 
 @record_requests_for_all_methods()

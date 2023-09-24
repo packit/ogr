@@ -3,10 +3,10 @@
 
 from typing import List
 
+from ogr.exceptions import OperationNotSupported
 from ogr.services import pagure as ogr_pagure
 from ogr.services.base import BaseGitUser
 from ogr.services.pagure.project import PagureProject
-from ogr.exceptions import OperationNotSupported
 
 
 class PagureUser(BaseGitUser):

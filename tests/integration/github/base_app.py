@@ -1,14 +1,15 @@
 # Copyright Contributors to the Packit project.
 # SPDX-License-Identifier: MIT
 
-from ogr.services.github.service import GithubService
 import os
-from pathlib import Path
 import tempfile
 import unittest
+from pathlib import Path
 
-from requre.utils import get_datafile_filename
 from requre.online_replacing import record_requests_for_all_methods
+from requre.utils import get_datafile_filename
+
+from ogr.services.github.service import GithubService
 
 
 @record_requests_for_all_methods()

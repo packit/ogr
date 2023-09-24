@@ -2,15 +2,14 @@
 # SPDX-License-Identifier: MIT
 
 import datetime
+from typing import Dict, List, Optional
 
 import gitlab
 import requests
-from typing import Dict, List, Optional
-
-from gitlab.v4.objects import MergeRequest as _GitlabMergeRequest
 from gitlab.exceptions import GitlabGetError
+from gitlab.v4.objects import MergeRequest as _GitlabMergeRequest
 
-from ogr.abstract import PullRequest, PRComment, PRStatus, MergeCommitStatus
+from ogr.abstract import MergeCommitStatus, PRComment, PRStatus, PullRequest
 from ogr.exceptions import GitlabAPIException, OgrNetworkError
 from ogr.services import gitlab as ogr_gitlab
 from ogr.services.base import BasePullRequest

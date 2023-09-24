@@ -1,14 +1,14 @@
 # Copyright Contributors to the Packit project.
 # SPDX-License-Identifier: MIT
 
+import datetime
+from typing import List, Optional
+
 from gitlab.v4.objects import ProjectRelease as _GitlabRelease
 
-import datetime
-from typing import Optional, List
-
-from ogr.abstract import Release, GitTag
-from ogr.services import gitlab as ogr_gitlab
+from ogr.abstract import GitTag, Release
 from ogr.exceptions import OperationNotSupported
+from ogr.services import gitlab as ogr_gitlab
 
 
 class GitlabRelease(Release):
