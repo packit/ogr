@@ -207,6 +207,4 @@ class PagureProjectTokenCommands(PagureTests):
             message="# v0\n\n• added README",
             ref="2988640e03ddee8385a2acb827a36c8e50b1be1a",
         )
-        assert "v0" in map(
-            lambda release: release.tag_name, self.ogr_project.get_releases()
-        )
+        assert "v0" in (release.tag_name for release in self.ogr_project.get_releases())

@@ -131,7 +131,7 @@ class GenericCommands(GithubTests):
 
         names = {f"0.{i}.0" for i in range(1, 10)}
         names.update({"0.0.1", "0.0.2", "0.0.3", "0.3.1"})
-        assert names <= set(map(lambda tag: tag.name, tags))
+        assert names <= {tag.name for tag in tags}
 
         commits = {
             "ef947cd637f5fa0c28ffca71798d9e61b24880d8",
@@ -140,7 +140,7 @@ class GenericCommands(GithubTests):
             "059d21080a7849acff4626b6e0ec61830d537ac4",
             "088158211481a025a20f3abe716359624615b66e",
         }
-        assert commits < set(map(lambda tag: tag.commit_sha, tags))
+        assert commits < {tag.commit_sha for tag in tags}
 
     def test_get_owners(self):
         owners = self.ogr_project.get_owners()
