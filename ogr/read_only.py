@@ -174,7 +174,7 @@ class GitProjectReadOnly:
         body: str,
         target_branch: str,
         source_branch: str,
-        fork_username: str = None,
+        fork_username: Optional[str] = None,
     ) -> "PullRequest":
         return PullRequestReadOnly(
             title=title,
@@ -194,9 +194,9 @@ class GitProjectReadOnly:
         original_object: Any,
         pr_id: int,
         body: str,
-        commit: str = None,
-        filename: str = None,
-        row: int = None,
+        commit: Optional[str] = None,
+        filename: Optional[str] = None,
+        row: Optional[int] = None,
     ) -> "PRComment":
         pull_request = original_object.get_pr(pr_id)
         log_output(pull_request)

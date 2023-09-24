@@ -54,9 +54,9 @@ class BasePullRequest(PullRequest):
 
     def get_comments(
         self,
-        filter_regex: str = None,
+        filter_regex: Optional[str] = None,
         reverse: bool = False,
-        author: str = None,
+        author: Optional[str] = None,
     ):
         all_comments = self._get_all_comments()
         return filter_comments(all_comments, filter_regex, reverse, author)
@@ -89,9 +89,9 @@ class BaseGitUser(GitUser):
 class BaseIssue(Issue):
     def get_comments(
         self,
-        filter_regex: str = None,
+        filter_regex: Optional[str] = None,
         reverse: bool = False,
-        author: str = None,
+        author: Optional[str] = None,
     ) -> list[IssueComment]:
         all_comments: list[IssueComment] = self._get_all_comments()
         return filter_comments(all_comments, filter_regex, reverse, author)

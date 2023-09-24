@@ -74,20 +74,21 @@ select = [
     "E",   # pycodestyle Error
     "F",   # Pyflakes
     "I",   # isort
-    # "PERF",# Perflint
+    "PERF",# Perflint
     "PIE", # flake8-pie
     "PT",  # flake8-pytest-style
     "RET", # flake8-return
-    # "RUF", # Ruff-specific rules
+    "RUF", # Ruff-specific rules
     "SIM", # flake8-simplify
     "UP",  # pyupgrade
     "W",   # pycodestyle Warning
 ]
 
 ignore = [
-    "B017", # assert-raises-exception
-    "B022", # useless-contextlib-suppress
-    "RUF003"# Comment contains ambiguous character
+    "B017",    # assert-raises-exception
+    "B022",    # useless-contextlib-suppress
+    "RUF002",  # you shall not touch my guillemets
+    "RUF003"   # Comment contains ambiguous character
 ]
 
 line-length = 100

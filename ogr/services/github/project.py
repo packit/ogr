@@ -3,7 +3,7 @@
 
 import datetime
 import logging
-from typing import Optional, Union
+from typing import ClassVar, Optional, Union
 
 import github
 from github import UnknownObjectException
@@ -46,7 +46,7 @@ logger = logging.getLogger(__name__)
 class GithubProject(BaseGitProject):
     service: "ogr_github.GithubService"
     # Permission levels that can merge PRs
-    CAN_MERGE_PERMS = ["admin", "write"]
+    CAN_MERGE_PERMS: ClassVar[set[str]] = {"admin", "write"}
 
     def __init__(
         self,
@@ -319,7 +319,7 @@ class GithubProject(BaseGitProject):
         body: str,
         target_branch: str,
         source_branch: str,
-        fork_username: str = None,
+        fork_username: Optional[str] = None,
     ) -> PullRequest:
         pass
 
@@ -331,8 +331,8 @@ class GithubProject(BaseGitProject):
         self,
         commit: str,
         body: str,
-        filename: str = None,
-        row: int = None,
+        filename: Optional[str] = None,
+        row: Optional[int] = None,
     ) -> CommitComment:
         github_commit: Commit = self.github_repo.get_commit(commit)
         if filename and row:
@@ -447,8 +447,8 @@ class GithubProject(BaseGitProject):
 
     def get_files(
         self,
-        ref: str = None,
-        filter_regex: str = None,
+        ref: Optional[str] = None,
+        filter_regex: Optional[str] = None,
         recursive: bool = False,
     ) -> list[str]:
         ref = ref or self.default_branch

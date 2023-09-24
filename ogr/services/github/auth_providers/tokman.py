@@ -43,5 +43,8 @@ class Tokman(GithubAuthentication):
         return response.json().get("access_token", None)
 
     @staticmethod
-    def try_create(tokman_instance_url: str = None, **_) -> Optional["Tokman"]:
+    def try_create(
+        tokman_instance_url: Optional[str] = None,
+        **_,
+    ) -> Optional["Tokman"]:
         return Tokman(tokman_instance_url) if tokman_instance_url else None

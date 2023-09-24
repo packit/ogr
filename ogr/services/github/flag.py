@@ -2,6 +2,7 @@
 # SPDX-License-Identifier: MIT
 
 import datetime
+from typing import ClassVar
 
 from github import UnknownObjectException
 
@@ -11,7 +12,7 @@ from ogr.services.base import BaseCommitFlag
 
 
 class GithubCommitFlag(BaseCommitFlag):
-    _states = {
+    _states: ClassVar[dict[str, CommitStatus]] = {
         "pending": CommitStatus.pending,
         "success": CommitStatus.success,
         "failure": CommitStatus.failure,

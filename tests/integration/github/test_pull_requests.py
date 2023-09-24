@@ -22,19 +22,12 @@ class PullRequests(GithubTests):
         pr_list_closed = self.ogr_project.get_pr_list(status=PRStatus.closed)
         assert pr_list_closed
         assert len(pr_list_closed) >= 70
-
-        closed_pr_numbers = []
-        for closed_pr in pr_list_closed:
-            closed_pr_numbers.append(closed_pr.id)
-        assert 93 in closed_pr_numbers
+        assert 93 in {pr.id for pr in pr_list_closed}
 
         pr_list_merged = self.ogr_project.get_pr_list(status=PRStatus.merged)
         assert pr_list_merged
         assert len(pr_list_merged) >= 1
-        closed_pr_numbers = []
-        for closed_pr in pr_list_merged:
-            closed_pr_numbers.append(closed_pr.id)
-        assert 93 not in closed_pr_numbers
+        assert 93 not in {pr.id for pr in pr_list_merged}
 
         pr_list = self.ogr_project.get_pr_list()
         assert pr_list

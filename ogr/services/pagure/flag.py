@@ -2,7 +2,7 @@
 # SPDX-License-Identifier: MIT
 
 import datetime
-from typing import Any
+from typing import Any, ClassVar, Optional
 
 from ogr.abstract import CommitFlag, CommitStatus
 from ogr.services import pagure as ogr_pagure
@@ -10,7 +10,7 @@ from ogr.services.base import BaseCommitFlag
 
 
 class PagureCommitFlag(BaseCommitFlag):
-    _states = {
+    _states: ClassVar[dict[str, CommitStatus]] = {
         "pending": CommitStatus.pending,
         "success": CommitStatus.success,
         "failure": CommitStatus.failure,
@@ -44,9 +44,9 @@ class PagureCommitFlag(BaseCommitFlag):
         target_url: str,
         description: str,
         context: str,
-        percent: int = None,
+        percent: Optional[int] = None,
         trim: bool = False,
-        uid: str = None,
+        uid: Optional[str] = None,
     ) -> "CommitFlag":
         state = PagureCommitFlag._validate_state(state)
 

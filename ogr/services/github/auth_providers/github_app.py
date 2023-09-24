@@ -104,9 +104,9 @@ class GithubApp(GithubAuthentication):
 
     @staticmethod
     def try_create(
-        github_app_id: str = None,
-        github_app_private_key: str = None,
-        github_app_private_key_path: str = None,
+        github_app_id: Optional[str] = None,
+        github_app_private_key: Optional[str] = None,
+        github_app_private_key_path: Optional[str] = None,
         **_,
     ) -> Optional["GithubApp"]:
         return (

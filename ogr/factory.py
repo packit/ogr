@@ -54,8 +54,8 @@ def use_for_service(service: str, _func=None):
 
 def get_project(
     url,
-    service_mapping_update: dict[str, type[GitService]] = None,
-    custom_instances: Iterable[GitService] = None,
+    service_mapping_update: Optional[dict[str, type[GitService]]] = None,
+    custom_instances: Optional[Iterable[GitService]] = None,
     force_custom_instance: bool = True,
     **kwargs,
 ) -> GitProject:
@@ -112,7 +112,7 @@ def get_project(
 
 def get_service_class_or_none(
     url: str,
-    service_mapping_update: dict[str, type[GitService]] = None,
+    service_mapping_update: Optional[dict[str, type[GitService]]] = None,
 ) -> Optional[type[GitService]]:
     """
     Get the matching service class from the URL.
@@ -142,7 +142,7 @@ def get_service_class_or_none(
 
 def get_service_class(
     url: str,
-    service_mapping_update: dict[str, type[GitService]] = None,
+    service_mapping_update: Optional[dict[str, type[GitService]]] = None,
 ) -> type[GitService]:
     """
     Get the matching service class from the URL.

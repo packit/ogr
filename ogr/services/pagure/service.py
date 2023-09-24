@@ -34,7 +34,7 @@ logger = logging.getLogger(__name__)
 class PagureService(BaseGitService):
     def __init__(
         self,
-        token: str = None,
+        token: Optional[str] = None,
         instance_url: str = "https://src.fedoraproject.org",
         read_only: bool = False,
         insecure: bool = False,
@@ -122,8 +122,8 @@ class PagureService(BaseGitService):
     def call_api(
         self,
         url: str,
-        method: str = None,
-        params: dict = None,
+        method: Optional[str] = None,
+        params: Optional[dict] = None,
         data=None,
     ) -> dict:
         """
@@ -186,8 +186,8 @@ class PagureService(BaseGitService):
     def call_api_raw(
         self,
         url: str,
-        method: str = None,
-        params: dict = None,
+        method: Optional[str] = None,
+        params: Optional[dict] = None,
         data=None,
     ):
         """
@@ -367,9 +367,9 @@ class PagureService(BaseGitService):
 
     def list_projects(
         self,
-        namespace: str = None,
-        user: str = None,
-        search_pattern: str = None,
-        language: str = None,
+        namespace: Optional[str] = None,
+        user: Optional[str] = None,
+        search_pattern: Optional[str] = None,
+        language: Optional[str] = None,
     ) -> list[GitProject]:
         raise OperationNotSupported

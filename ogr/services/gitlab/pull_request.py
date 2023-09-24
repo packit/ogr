@@ -2,7 +2,7 @@
 # SPDX-License-Identifier: MIT
 
 import datetime
-from typing import Optional
+from typing import ClassVar, Optional
 
 import gitlab
 import requests
@@ -20,7 +20,7 @@ class GitlabPullRequest(BasePullRequest):
     _raw_pr: _GitlabMergeRequest
     _target_project: "ogr_gitlab.GitlabProject"
     _source_project: "ogr_gitlab.GitlabProject" = None
-    _merge_commit_status: dict[str, MergeCommitStatus] = {
+    _merge_commit_status: ClassVar[dict[str, MergeCommitStatus]] = {
         "can_be_merged": MergeCommitStatus.can_be_merged,
         "cannot_be_merged": MergeCommitStatus.cannot_be_merged,
         "unchecked": MergeCommitStatus.unchecked,
@@ -150,7 +150,7 @@ class GitlabPullRequest(BasePullRequest):
         body: str,
         target_branch: str,
         source_branch: str,
-        fork_username: str = None,
+        fork_username: Optional[str] = None,
     ) -> "PullRequest":
         """
         How to create PR:

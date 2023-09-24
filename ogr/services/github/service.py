@@ -44,10 +44,10 @@ class GithubService(BaseGitService):
         self,
         token=None,
         read_only=False,
-        github_app_id: str = None,
-        github_app_private_key: str = None,
-        github_app_private_key_path: str = None,
-        tokman_instance_url: str = None,
+        github_app_id: Optional[str] = None,
+        github_app_private_key: Optional[str] = None,
+        github_app_private_key_path: Optional[str] = None,
+        tokman_instance_url: Optional[str] = None,
         github_authentication: GithubAuthentication = None,
         max_retries: Union[int, Retry] = 0,
         **kwargs,
@@ -127,7 +127,7 @@ class GithubService(BaseGitService):
 
     def __str__(self) -> str:
         readonly_str = ", read_only=True" if self.read_only else ""
-        arguments = f", github_authentication={str(self.authentication)}{readonly_str}"
+        arguments = f", github_authentication={self.authentication!s}{readonly_str}"
 
         if arguments:
             # remove the first '- '
@@ -217,10 +217,10 @@ class GithubService(BaseGitService):
 
     def list_projects(
         self,
-        namespace: str = None,
-        user: str = None,
-        search_pattern: str = None,
-        language: str = None,
+        namespace: Optional[str] = None,
+        user: Optional[str] = None,
+        search_pattern: Optional[str] = None,
+        language: Optional[str] = None,
     ) -> list[GitProject]:
         search_query = ""
 

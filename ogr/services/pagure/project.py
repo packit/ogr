@@ -43,7 +43,7 @@ class PagureProject(BaseGitProject):
         repo: str,
         namespace: Optional[str],
         service: "ogr_pagure.PagureService",
-        username: str = None,
+        username: Optional[str] = None,
         is_fork: bool = False,
     ) -> None:
         super().__init__(repo, service, namespace)
@@ -85,9 +85,9 @@ class PagureProject(BaseGitProject):
         *args,
         add_fork_part: bool = True,
         add_api_endpoint_part: bool = True,
-        method: str = None,
-        params: dict = None,
-        data: dict = None,
+        method: Optional[str] = None,
+        params: Optional[dict] = None,
+        data: Optional[dict] = None,
     ) -> dict:
         """
         Call project API endpoint.
@@ -125,9 +125,9 @@ class PagureProject(BaseGitProject):
         *args,
         add_fork_part: bool = True,
         add_api_endpoint_part: bool = True,
-        method: str = None,
-        params: dict = None,
-        data: dict = None,
+        method: Optional[str] = None,
+        params: Optional[dict] = None,
+        data: Optional[dict] = None,
     ) -> RequestResponse:
         """
         Call project API endpoint.
@@ -283,7 +283,7 @@ class PagureProject(BaseGitProject):
         body: str,
         target_branch: str,
         source_branch: str,
-        fork_username: str = None,
+        fork_username: Optional[str] = None,
     ) -> PullRequest:
         pass
 
@@ -453,8 +453,8 @@ class PagureProject(BaseGitProject):
         self,
         commit: str,
         body: str,
-        filename: str = None,
-        row: int = None,
+        filename: Optional[str] = None,
+        row: Optional[int] = None,
     ) -> CommitComment:
         raise OperationNotSupported("Commit comments are not supported on Pagure.")
 
@@ -470,8 +470,8 @@ class PagureProject(BaseGitProject):
         target_url: str,
         description: str,
         context: str,
-        percent: int = None,
-        uid: str = None,
+        percent: Optional[int] = None,
+        uid: Optional[str] = None,
         trim: bool = False,
     ) -> "CommitFlag":
         pass
@@ -539,7 +539,7 @@ class PagureProject(BaseGitProject):
     def __get_files(
         self,
         path: str,
-        ref: str = None,
+        ref: Optional[str] = None,
         recursive: bool = False,
     ) -> Iterable[str]:
         subfolders = ["."]
@@ -548,7 +548,7 @@ class PagureProject(BaseGitProject):
             path = subfolders.pop()
             split_path = []
             if path != ".":
-                split_path = ["f"] + path.split("/")
+                split_path = ["f", *path.split("/")]
             response = self._call_project_api("tree", ref, *split_path)
 
             for file in response["content"]:
@@ -559,8 +559,8 @@ class PagureProject(BaseGitProject):
 
     def get_files(
         self,
-        ref: str = None,
-        filter_regex: str = None,
+        ref: Optional[str] = None,
+        filter_regex: Optional[str] = None,
         recursive: bool = False,
     ) -> list[str]:
         ref = ref or self.default_branch

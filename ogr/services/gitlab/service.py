@@ -136,10 +136,10 @@ class GitlabService(BaseGitService):
 
     def list_projects(
         self,
-        namespace: str = None,
-        user: str = None,
-        search_pattern: str = None,
-        language: str = None,
+        namespace: Optional[str] = None,
+        user: Optional[str] = None,
+        search_pattern: Optional[str] = None,
+        language: Optional[str] = None,
     ) -> list[GitProject]:
         if namespace:
             group = self.gitlab_instance.groups.get(namespace)

@@ -3,6 +3,7 @@
 
 import datetime
 import logging
+from typing import ClassVar
 
 import gitlab
 
@@ -15,7 +16,7 @@ logger = logging.getLogger(__name__)
 
 
 class GitlabCommitFlag(BaseCommitFlag):
-    _states = {
+    _states: ClassVar[dict[str, CommitStatus]] = {
         "pending": CommitStatus.pending,
         "success": CommitStatus.success,
         "failed": CommitStatus.failure,

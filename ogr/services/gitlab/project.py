@@ -267,7 +267,7 @@ class GitlabProject(BaseGitProject):
         body: str,
         target_branch: str,
         source_branch: str,
-        fork_username: str = None,
+        fork_username: Optional[str] = None,
     ) -> "PullRequest":
         pass
 
@@ -275,8 +275,8 @@ class GitlabProject(BaseGitProject):
         self,
         commit: str,
         body: str,
-        filename: str = None,
-        row: int = None,
+        filename: Optional[str] = None,
+        row: Optional[int] = None,
     ) -> "CommitComment":
         try:
             commit_object: ProjectCommit = self.gitlab_repo.commits.get(commit)
@@ -371,8 +371,8 @@ class GitlabProject(BaseGitProject):
 
     def get_files(
         self,
-        ref: str = None,
-        filter_regex: str = None,
+        ref: Optional[str] = None,
+        filter_regex: Optional[str] = None,
         recursive: bool = False,
     ) -> list[str]:
         ref = ref or self.default_branch

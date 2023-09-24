@@ -136,7 +136,7 @@ class GithubPullRequest(BasePullRequest):
         body: str,
         target_branch: str,
         source_branch: str,
-        fork_username: str = None,
+        fork_username: Optional[str] = None,
     ) -> "PullRequest":
         """
         The default behavior is the pull request is made to the immediate parent repository

@@ -9,6 +9,7 @@ from re import Match
 from typing import (
     Any,
     Callable,
+    ClassVar,
     Optional,
     TypeVar,
     Union,
@@ -152,7 +153,7 @@ class CatchCommonErrors(type):
 
 class OgrAbstractClass(metaclass=CatchCommonErrors):
     def __repr__(self) -> str:
-        return f"<{str(self)}>"
+        return f"<{self!s}>"
 
 
 class Reaction(OgrAbstractClass):
@@ -441,9 +442,9 @@ class Issue(OgrAbstractClass):
 
     def get_comments(
         self,
-        filter_regex: str = None,
+        filter_regex: Optional[str] = None,
         reverse: bool = False,
-        author: str = None,
+        author: Optional[str] = None,
     ) -> list[IssueComment]:
         """
         Get list of issue comments.
@@ -706,7 +707,7 @@ class PullRequest(OgrAbstractClass):
         body: str,
         target_branch: str,
         source_branch: str,
-        fork_username: str = None,
+        fork_username: Optional[str] = None,
     ) -> "PullRequest":
         """
         Create new pull request.
@@ -918,7 +919,7 @@ class PullRequest(OgrAbstractClass):
 
 
 class CommitFlag(OgrAbstractClass):
-    _states: dict[str, CommitStatus] = {}
+    _states: ClassVar[dict[str, CommitStatus]] = {}
 
     def __init__(
         self,
@@ -1351,10 +1352,10 @@ class GitService(OgrAbstractClass):
 
     def list_projects(
         self,
-        namespace: str = None,
-        user: str = None,
-        search_pattern: str = None,
-        language: str = None,
+        namespace: Optional[str] = None,
+        user: Optional[str] = None,
+        search_pattern: Optional[str] = None,
+        language: Optional[str] = None,
     ) -> list["GitProject"]:
         """
         List projects for given criteria.
@@ -1773,7 +1774,7 @@ class GitProject(OgrAbstractClass):
         body: str,
         target_branch: str,
         source_branch: str,
-        fork_username: str = None,
+        fork_username: Optional[str] = None,
     ) -> "PullRequest":
         """
         Create new pull request.
@@ -1904,7 +1905,7 @@ class GitProject(OgrAbstractClass):
         """
         raise NotImplementedError
 
-    def get_file_content(self, path: str, ref: str = None) -> str:
+    def get_file_content(self, path: str, ref: Optional[str] = None) -> str:
         """
         Get a content of the file in the repo.
 
@@ -1924,8 +1925,8 @@ class GitProject(OgrAbstractClass):
 
     def get_files(
         self,
-        ref: str = None,
-        filter_regex: str = None,
+        ref: Optional[str] = None,
+        filter_regex: Optional[str] = None,
         recursive: bool = False,
     ) -> list[str]:
         """

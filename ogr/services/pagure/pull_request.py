@@ -149,7 +149,7 @@ class PagurePullRequest(BasePullRequest):
         body: str,
         target_branch: str,
         source_branch: str,
-        fork_username: str = None,
+        fork_username: Optional[str] = None,
     ) -> "PullRequest":
         data = {
             "title": title,
