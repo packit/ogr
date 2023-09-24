@@ -26,4 +26,4 @@ def test_bad_credentials(max_retries):
 
     service = GithubService(token="invalid_token", max_retries=max_retries)
     project = service.get_project(namespace="mmuzila", repo="playground")
-    project.github_repo
+    _ = project.github_repo

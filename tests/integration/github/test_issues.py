@@ -158,7 +158,7 @@ class Issues(GithubTests):
         with pytest.raises(GithubAPIException):
             self.ogr_project.get_issue(1).close()
         with pytest.raises(GithubAPIException):
-            self.ogr_project.get_issue(1).labels
+            _ = self.ogr_project.get_issue(1).labels
         with pytest.raises(GithubAPIException):
             self.ogr_project.get_issue(1).add_label("should fail")
 
