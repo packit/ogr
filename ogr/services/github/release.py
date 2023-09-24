@@ -17,7 +17,8 @@ class GithubRelease(Release):
 
     @staticmethod
     def _release_id_from_name(
-        project: "ogr_github.GithubProject", name: str
+        project: "ogr_github.GithubProject",
+        name: str,
     ) -> Optional[int]:
         releases = project.github_repo.get_releases()
         for release in releases:
@@ -27,7 +28,8 @@ class GithubRelease(Release):
 
     @staticmethod
     def _release_id_from_tag(
-        project: "ogr_github.GithubProject", tag: str
+        project: "ogr_github.GithubProject",
+        tag: str,
     ) -> Optional[int]:
         releases = project.github_repo.get_releases()
         for release in releases:
@@ -106,7 +108,9 @@ class GithubRelease(Release):
         ref: Optional[str] = None,
     ) -> "Release":
         created_release = project.github_repo.create_git_release(
-            tag=tag, name=name, message=message
+            tag=tag,
+            name=name,
+            message=message,
         )
         return GithubRelease(created_release, project)
 

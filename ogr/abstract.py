@@ -61,7 +61,7 @@ def __check_for_internal_failure(ex: APIException):
 
 
 def __wrap_exception(
-    ex: Union[github.GithubException, gitlab.GitlabError]
+    ex: Union[github.GithubException, gitlab.GitlabError],
 ) -> APIException:
     """
     Wraps uncaught exception in one of ogr exceptions.
@@ -112,7 +112,7 @@ def catch_common_exceptions(function: Callable) -> Any:
             raise GitlabAPIException("Invalid Gitlab credentials") from ex
         except requests.exceptions.ConnectionError as ex:
             raise OgrNetworkError(
-                "Could not perform the request due to a network error"
+                "Could not perform the request due to a network error",
             ) from ex
         except APIException as ex:
             __check_for_internal_failure(ex)
@@ -443,7 +443,10 @@ class Issue(OgrAbstractClass):
         raise NotImplementedError()
 
     def get_comments(
-        self, filter_regex: str = None, reverse: bool = False, author: str = None
+        self,
+        filter_regex: str = None,
+        reverse: bool = False,
+        author: str = None,
     ) -> List[IssueComment]:
         """
         Get list of issue comments.
@@ -756,7 +759,9 @@ class PullRequest(OgrAbstractClass):
         raise NotImplementedError()
 
     def update_info(
-        self, title: Optional[str] = None, description: Optional[str] = None
+        self,
+        title: Optional[str] = None,
+        description: Optional[str] = None,
     ) -> "PullRequest":
         """
         Update pull request information.
@@ -817,7 +822,10 @@ class PullRequest(OgrAbstractClass):
         raise NotImplementedError()
 
     def search(
-        self, filter_regex: str, reverse: bool = False, description: bool = True
+        self,
+        filter_regex: str,
+        reverse: bool = False,
+        description: bool = True,
     ) -> Optional[Match[str]]:
         """
         Find match in pull request description or comments.
@@ -1739,7 +1747,11 @@ class GitProject(OgrAbstractClass):
         raise NotImplementedError()
 
     def create_release(
-        self, tag: str, name: str, message: str, ref: Optional[str] = None
+        self,
+        tag: str,
+        name: str,
+        message: str,
+        ref: Optional[str] = None,
     ) -> Release:
         """
         Create new release.
@@ -1914,7 +1926,10 @@ class GitProject(OgrAbstractClass):
         raise NotImplementedError
 
     def get_files(
-        self, ref: str = None, filter_regex: str = None, recursive: bool = False
+        self,
+        ref: str = None,
+        filter_regex: str = None,
+        recursive: bool = False,
     ) -> List[str]:
         """
         Get a list of file paths of the repo.

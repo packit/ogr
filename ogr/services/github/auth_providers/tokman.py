@@ -37,7 +37,7 @@ class Tokman(GithubAuthentication):
 
             cls = OgrNetworkError if response.status_code >= 500 else OgrException
             raise cls(
-                f"Couldn't retrieve token from Tokman: ({response.status_code}) {response.text}"
+                f"Couldn't retrieve token from Tokman: ({response.status_code}) {response.text}",
             )
 
         return response.json().get("access_token", None)

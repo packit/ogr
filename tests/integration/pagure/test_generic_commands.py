@@ -83,7 +83,9 @@ class GenericCommands(PagureTests):
         assert "a/b/c" not in files
 
         files = self.ogr_project.get_files(
-            ref="for-testing-get-files", filter_regex=".*.c", recursive=True
+            ref="for-testing-get-files",
+            filter_regex=".*.c",
+            recursive=True,
         )
         assert files
         assert len(files) >= 3
@@ -104,7 +106,7 @@ class GenericCommands(PagureTests):
 
     def test_commit_statuses(self):
         flags = self.ogr_project.get_commit_statuses(
-            commit="d87466de81c72231906a6597758f37f28830bb71"
+            commit="d87466de81c72231906a6597758f37f28830bb71",
         )
         assert isinstance(flags, list)
         assert len(flags) == 0

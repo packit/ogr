@@ -16,7 +16,7 @@ class PagureTests(unittest.TestCase):
 
         if not get_datafile_filename(obj=self) and (not self.token):
             raise OSError(
-                "You are in Requre write mode, please set PAGURE_TOKEN env variables"
+                "You are in Requre write mode, please set PAGURE_TOKEN env variables",
             )
         self._service = None
         self._user = None
@@ -27,7 +27,8 @@ class PagureTests(unittest.TestCase):
     def service(self):
         if not self._service:
             self._service = PagureService(
-                token=self.token, instance_url="https://pagure.io"
+                token=self.token,
+                instance_url="https://pagure.io",
             )
         return self._service
 
@@ -41,7 +42,8 @@ class PagureTests(unittest.TestCase):
     def ogr_project(self):
         if not self._ogr_project:
             self._ogr_project = self.service.get_project(
-                namespace=None, repo="ogr-tests"
+                namespace=None,
+                repo="ogr-tests",
             )
         return self._ogr_project
 
@@ -49,6 +51,9 @@ class PagureTests(unittest.TestCase):
     def ogr_fork(self):
         if not self._ogr_fork:
             self._ogr_fork = self.service.get_project(
-                namespace=None, repo="ogr-tests", username=self.user, is_fork=True
+                namespace=None,
+                repo="ogr-tests",
+                username=self.user,
+                is_fork=True,
             )
         return self._ogr_fork

@@ -16,7 +16,7 @@ class ReadOnly(unittest.TestCase):
         self.token = os.environ.get("GITHUB_TOKEN")
         if not Path(get_datafile_filename(obj=self)).exists() and not self.token:
             raise OSError(
-                "You are in Requre write mode, please set proper GITHUB_TOKEN env variables"
+                "You are in Requre write mode, please set proper GITHUB_TOKEN env variables",
             )
         self._service = None
         self._ogr_project = None
@@ -43,7 +43,10 @@ class ReadOnly(unittest.TestCase):
 
     def test_create_pr(self):
         pr = self.ogr_project.create_pr(
-            "title", "text", "master", "lbarcziova:testing_branch"
+            "title",
+            "text",
+            "master",
+            "lbarcziova:testing_branch",
         )
         assert pr.title == "title"
 

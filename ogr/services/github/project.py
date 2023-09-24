@@ -59,7 +59,7 @@ class GithubProject(BaseGitProject):
     ) -> None:
         if unprocess_kwargs:
             logger.warning(
-                f"GithubProject will not process these kwargs: {unprocess_kwargs}"
+                f"GithubProject will not process these kwargs: {unprocess_kwargs}",
             )
         super().__init__(repo, service, namespace)
         self._github_repo = github_repo
@@ -71,7 +71,8 @@ class GithubProject(BaseGitProject):
     def github_instance(self):
         if not self._github_instance:
             self._github_instance = self.service.get_pygithub_instance(
-                self.namespace, self.repo
+                self.namespace,
+                self.repo,
             )
 
         return self._github_instance
@@ -80,7 +81,7 @@ class GithubProject(BaseGitProject):
     def github_repo(self):
         if not self._github_repo:
             self._github_repo = self.github_instance.get_repo(
-                full_name_or_id=f"{self.namespace}/{self.repo}"
+                full_name_or_id=f"{self.namespace}/{self.repo}",
             )
         return self._github_repo
 
@@ -115,7 +116,10 @@ class GithubProject(BaseGitProject):
         user_login = gh_user.login
         try:
             project = GithubProject(
-                self.repo, self.service, namespace=user_login, read_only=self.read_only
+                self.repo,
+                self.service,
+                namespace=user_login,
+                read_only=self.read_only,
             )
             if not project.github_repo:
                 # The github_repo attribute is lazy.
@@ -172,7 +176,8 @@ class GithubProject(BaseGitProject):
         }
         try:
             invitation = self.github_repo.add_to_collaborators(
-                user, permission=access_dict[access_level]
+                user,
+                permission=access_dict[access_level],
             )
         except Exception as ex:
             raise GithubAPIException(f"User {user} not found") from ex
@@ -195,7 +200,7 @@ class GithubProject(BaseGitProject):
             else:
                 logger.info(
                     f"Fork of {self.github_repo.full_name}"
-                    " does not exist and we were asked not to create it."
+                    " does not exist and we were asked not to create it.",
                 )
                 return None
         return self._construct_fork_project()
@@ -209,7 +214,7 @@ class GithubProject(BaseGitProject):
             collaborators = self._get_collaborators_with_permission()
         except github.GithubException:
             logger.debug(
-                "Current Github token must have push access to view repository permissions."
+                "Current Github token must have push access to view repository permissions.",
             )
             return set()
 
@@ -323,12 +328,18 @@ class GithubProject(BaseGitProject):
         log_message="Create Comment to commit",
     )
     def commit_comment(
-        self, commit: str, body: str, filename: str = None, row: int = None
+        self,
+        commit: str,
+        body: str,
+        filename: str = None,
+        row: int = None,
     ) -> CommitComment:
         github_commit: Commit = self.github_repo.get_commit(commit)
         if filename and row:
             comment = github_commit.create_comment(
-                body=body, position=row, path=filename
+                body=body,
+                position=row,
+                path=filename,
             )
         else:
             comment = github_commit.create_comment(body=body)
@@ -426,7 +437,8 @@ class GithubProject(BaseGitProject):
         ref = ref or self.default_branch
         try:
             return self.github_repo.get_contents(
-                path=path, ref=ref
+                path=path,
+                ref=ref,
             ).decoded_content.decode()
         except (UnknownObjectException, GithubException) as ex:
             if ex.status == 404:
@@ -434,7 +446,10 @@ class GithubProject(BaseGitProject):
             raise GithubAPIException() from ex
 
     def get_files(
-        self, ref: str = None, filter_regex: str = None, recursive: bool = False
+        self,
+        ref: str = None,
+        filter_regex: str = None,
+        recursive: bool = False,
     ) -> List[str]:
         ref = ref or self.default_branch
         paths = []
@@ -445,7 +460,7 @@ class GithubProject(BaseGitProject):
                 file_content = contents.pop(0)
                 if file_content.type == "dir":
                     contents.extend(
-                        self.github_repo.get_contents(path=file_content.path, ref=ref)
+                        self.github_repo.get_contents(path=file_content.path, ref=ref),
                     )
                 else:
                     paths.append(file_content.path)
@@ -487,7 +502,9 @@ class GithubProject(BaseGitProject):
             if label.name not in current_label_names:
                 color = self._normalize_label_color(color=label.color)
                 self.github_repo.create_label(
-                    name=label.name, color=color, description=label.description or ""
+                    name=label.name,
+                    color=color,
+                    description=label.description or "",
                 )
 
                 changes += 1

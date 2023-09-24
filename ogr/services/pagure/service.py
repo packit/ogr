@@ -96,7 +96,9 @@ class PagureService(BaseGitService):
             return PagureProject(service=self, **kwargs)
         else:
             return PagureProject(
-                service=self, username=self.user.get_username(), **kwargs
+                service=self,
+                username=self.user.get_username(),
+                **kwargs,
             )
 
     def get_project_from_url(self, url: str) -> "PagureProject":
@@ -120,7 +122,11 @@ class PagureService(BaseGitService):
         return PagureUser(service=self)
 
     def call_api(
-        self, url: str, method: str = None, params: dict = None, data=None
+        self,
+        url: str,
+        method: str = None,
+        params: dict = None,
+        data=None,
     ) -> dict:
         """
         Call API endpoint.
@@ -154,7 +160,8 @@ class PagureService(BaseGitService):
         if not response.json_content:
             logger.debug(response.content)
             raise PagureAPIException(
-                "Error while decoding JSON: {0}", response_code=response.status_code
+                "Error while decoding JSON: {0}",
+                response_code=response.status_code,
             )
 
         if not response.ok:
@@ -179,7 +186,11 @@ class PagureService(BaseGitService):
         return response.json_content
 
     def call_api_raw(
-        self, url: str, method: str = None, params: dict = None, data=None
+        self,
+        url: str,
+        method: str = None,
+        params: dict = None,
+        data=None,
     ):
         """
         Call API endpoint and returns raw response.
@@ -198,7 +209,10 @@ class PagureService(BaseGitService):
         method = method or "GET"
         try:
             response = self.get_raw_request(
-                method=method, url=url, params=params, data=data
+                method=method,
+                url=url,
+                params=params,
+                data=data,
             )
 
         except requests.exceptions.ConnectionError as er:
@@ -208,13 +222,18 @@ class PagureService(BaseGitService):
         if response.status_code >= 500:
             raise GitForgeInternalError(
                 f"Pagure API returned {response.status_code} status for `{url}`"
-                f" with reason: `{response.reason}`"
+                f" with reason: `{response.reason}`",
             )
 
         return response
 
     def get_raw_request(
-        self, url, method="GET", params=None, data=None, header=None
+        self,
+        url,
+        method="GET",
+        params=None,
+        data=None,
+        header=None,
     ) -> RequestResponse:
         """
         Call API endpoint and wrap the response in `RequestResponse` type.
@@ -307,7 +326,9 @@ class PagureService(BaseGitService):
         self.header = {"Authorization": "token " + self._token}
 
     def __handle_project_create_fail(
-        self, exception: PagureAPIException, namespace: str
+        self,
+        exception: PagureAPIException,
+        namespace: str,
     ) -> None:
         if (
             exception.pagure_response
@@ -322,7 +343,7 @@ class PagureService(BaseGitService):
                 raise OgrException(f"Namespace doesn't exist ({namespace}).") from ex
 
             raise OgrException(
-                "Cannot create project in given namespace (permissions)."
+                "Cannot create project in given namespace (permissions).",
             )
 
         raise exception

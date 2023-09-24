@@ -54,7 +54,7 @@ class GithubApp(GithubAuthentication):
                 raise OgrException(
                     f"File with the github-app private key "
                     f"({self._private_key_path}) "
-                    f"does not exist."
+                    f"does not exist.",
                 )
             return Path(self._private_key_path).read_text()
 
@@ -97,7 +97,7 @@ class GithubApp(GithubAuthentication):
         if not inst_id:
             raise OgrException(
                 f"No installation ID provided for {namespace}/{repo}: "
-                "please make sure that you provided correct credentials of your GitHub app."
+                "please make sure that you provided correct credentials of your GitHub app.",
             )
         inst_auth = self.integration.get_access_token(inst_id)  # type: ignore
         return inst_auth.token
@@ -111,7 +111,9 @@ class GithubApp(GithubAuthentication):
     ) -> Optional["GithubApp"]:
         return (
             GithubApp(
-                github_app_id, github_app_private_key, github_app_private_key_path
+                github_app_id,
+                github_app_private_key,
+                github_app_private_key_path,
             )
             if github_app_id
             else None

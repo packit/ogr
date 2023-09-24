@@ -66,7 +66,7 @@ class GitlabRelease(Release):
     def get_list(project: "ogr_gitlab.GitlabProject") -> List["Release"]:
         if not hasattr(project.gitlab_repo, "releases"):
             raise OperationNotSupported(
-                "This version of python-gitlab does not support release, please upgrade."
+                "This version of python-gitlab does not support release, please upgrade.",
             )
         releases = project.gitlab_repo.releases.list(all=True)
         return [GitlabRelease(release, project) for release in releases]
@@ -80,7 +80,7 @@ class GitlabRelease(Release):
         ref: Optional[str] = None,
     ) -> "Release":
         release = project.gitlab_repo.releases.create(
-            {"name": name, "tag_name": tag, "description": message, "ref": ref}
+            {"name": name, "tag_name": tag, "description": message, "ref": ref},
         )
         return GitlabRelease(release, project)
 

@@ -23,7 +23,9 @@ from ogr.exceptions import GithubAPIException
 @pytest.fixture
 def github_project(mock_github_repo):
     github_project = GithubProject(
-        repo="test_repo", service="test_service", namespace="fork_username"
+        repo="test_repo",
+        service="test_service",
+        namespace="fork_username",
     )
     parent_github_project = GithubProject(
         repo="test_parent_repo",
@@ -73,7 +75,10 @@ class TestGithubProject:
         head = ":".join(filter(None, [fork_username, "master"]))
 
         github_project.github_repo.should_call("create_pull").with_args(
-            title="test_title", body="test_content", base="master", head=head
+            title="test_title",
+            body="test_content",
+            base="master",
+            head=head,
         )
         github_project.parent.github_repo.should_call("create_pull").never()
         github_project.github_repo.should_call("create_pull").once()
@@ -143,7 +148,10 @@ class TestGitHubService(TestCase):
     ),
 )
 def test_create_github_check_run_output(
-    title: str, summary: str, text: Optional[str], expected: GithubCheckRunOutput
+    title: str,
+    summary: str,
+    text: Optional[str],
+    expected: GithubCheckRunOutput,
 ) -> None:
     assert create_github_check_run_output(title, summary, text) == expected
 
@@ -181,7 +189,8 @@ def test_set_reset_customized_auth_method(github_service_with_multiple_auth_meth
 @pytest.fixture
 def github_service_with_one_auth_method():
     service = GithubService(
-        tokman_instance_url="http://tokman:8080", github_authentication=None
+        tokman_instance_url="http://tokman:8080",
+        github_authentication=None,
     )
 
     return service

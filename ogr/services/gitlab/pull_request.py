@@ -98,7 +98,7 @@ class GitlabPullRequest(BasePullRequest):
         if not response.ok:
             cls = OgrNetworkError if response.status_code >= 500 else GitlabAPIException
             raise cls(
-                f"Couldn't get patch from {self.url}.patch because {response.reason}."
+                f"Couldn't get patch from {self.url}.patch because {response.reason}.",
             )
 
         return response.content
@@ -136,7 +136,7 @@ class GitlabPullRequest(BasePullRequest):
         if self._source_project is None:
             self._source_project = (
                 self._target_project.service.get_project_from_project_id(
-                    self._raw_pr.attributes["source_project_id"]
+                    self._raw_pr.attributes["source_project_id"],
                 )
             )
         return self._source_project
@@ -200,7 +200,8 @@ class GitlabPullRequest(BasePullRequest):
 
     @staticmethod
     def __get_fork(
-        fork_username: str, project: "ogr_gitlab.GitlabProject"
+        fork_username: str,
+        project: "ogr_gitlab.GitlabProject",
     ) -> "ogr_gitlab.GitlabProject":
         """
         Returns forked project of a requested user. Internal method, in case the fork
@@ -220,7 +221,7 @@ class GitlabPullRequest(BasePullRequest):
             filter(
                 lambda fork: fork.gitlab_repo.namespace["full_path"] == fork_username,
                 project.get_forks(),
-            )
+            ),
         )
         if not forks:
             raise GitlabAPIException("Requested fork doesn't exist")
@@ -236,7 +237,8 @@ class GitlabPullRequest(BasePullRequest):
 
     @staticmethod
     def get_list(
-        project: "ogr_gitlab.GitlabProject", status: PRStatus = PRStatus.open
+        project: "ogr_gitlab.GitlabProject",
+        status: PRStatus = PRStatus.open,
     ) -> List["PullRequest"]:
         # Gitlab API has status 'opened', not 'open'
         mrs = project.gitlab_repo.mergerequests.list(
@@ -247,7 +249,9 @@ class GitlabPullRequest(BasePullRequest):
         return [GitlabPullRequest(mr, project) for mr in mrs]
 
     def update_info(
-        self, title: Optional[str] = None, description: Optional[str] = None
+        self,
+        title: Optional[str] = None,
+        description: Optional[str] = None,
     ) -> "PullRequest":
         if title:
             self._raw_pr.title = title

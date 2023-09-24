@@ -106,7 +106,7 @@ class GithubService(BaseGitService):
             self._other_auth_method = self._auth_methods[method]
         else:
             raise GithubAPIException(
-                f"Choosen authentication method ({method}) is not available"
+                f"Choosen authentication method ({method}) is not available",
             )
 
     def reset_auth_method(self):
@@ -144,7 +144,11 @@ class GithubService(BaseGitService):
         return hash(str(self))
 
     def get_project(
-        self, repo=None, namespace=None, is_fork=False, **kwargs
+        self,
+        repo=None,
+        namespace=None,
+        is_fork=False,
+        **kwargs,
     ) -> "GithubProject":
         if is_fork:
             namespace = self.user.get_username()
@@ -157,7 +161,8 @@ class GithubService(BaseGitService):
         )
 
     def get_project_from_github_repository(
-        self, github_repo: PyGithubRepository.Repository
+        self,
+        github_repo: PyGithubRepository.Repository,
     ) -> "GithubProject":
         return GithubProject(
             repo=github_repo.name,

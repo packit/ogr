@@ -15,7 +15,8 @@ from tests.integration.gitlab.base import GitlabTests
 class GenericCommands(GitlabTests):
     def test_get_file_content(self):
         file = self.project.get_file_content(
-            path="README.md", ref="b8e18207cfdad954f1b3a96db34d0706b272e6cf"
+            path="README.md",
+            ref="b8e18207cfdad954f1b3a96db34d0706b272e6cf",
         )
         assert (
             file == "# ogr-tests\n\nTesting repository for python-ogr package. | "
@@ -24,7 +25,8 @@ class GenericCommands(GitlabTests):
 
     def test_request_access(self):
         project = self.service.get_project(
-            repo="hello-world", namespace="shreyaspapitest"
+            repo="hello-world",
+            namespace="shreyaspapitest",
         )
 
         project.request_access()
@@ -140,7 +142,7 @@ class GenericCommands(GitlabTests):
 
     def test_get_commit_statuses(self):
         flags = self.project.get_commit_statuses(
-            commit="11b37d913374b14f8519d16c2a2cca3ebc14ac64"
+            commit="11b37d913374b14f8519d16c2a2cca3ebc14ac64",
         )
         assert isinstance(flags, list)
         assert len(flags) >= 2
@@ -159,7 +161,7 @@ class GenericCommands(GitlabTests):
 
     def test_set_commit_status(self):
         old_statuses = self.project.get_commit_statuses(
-            commit="11b37d913374b14f8519d16c2a2cca3ebc14ac64"
+            commit="11b37d913374b14f8519d16c2a2cca3ebc14ac64",
         )
         status = self.project.set_commit_status(
             commit="11b37d913374b14f8519d16c2a2cca3ebc14ac64",
@@ -170,7 +172,7 @@ class GenericCommands(GitlabTests):
         )
         assert status
         new_statuses = self.project.get_commit_statuses(
-            commit="11b37d913374b14f8519d16c2a2cca3ebc14ac64"
+            commit="11b37d913374b14f8519d16c2a2cca3ebc14ac64",
         )
         assert len(old_statuses) == len(new_statuses)
 
@@ -186,7 +188,7 @@ class GenericCommands(GitlabTests):
 
     def test_get_commit_comments(self):
         comments = self.project.get_commit_comments(
-            "11b37d913374b14f8519d16c2a2cca3ebc14ac64"
+            "11b37d913374b14f8519d16c2a2cca3ebc14ac64",
         )
         assert len(comments)
         assert comments[0].sha == "11b37d913374b14f8519d16c2a2cca3ebc14ac64"
@@ -204,7 +206,8 @@ class GenericCommands(GitlabTests):
 
     def test_project_not_exists(self):
         assert not self.service.get_project(
-            repo="some-non-existing-repo", namespace="some-none-existing-namespace"
+            repo="some-non-existing-repo",
+            namespace="some-none-existing-namespace",
         ).exists()
 
     def test_get_owners(self):
@@ -238,14 +241,16 @@ class GenericCommands(GitlabTests):
 
     def test_delete(self):
         project = self.service.get_project(
-            repo="delete-project", namespace="shreyaspapi"
+            repo="delete-project",
+            namespace="shreyaspapi",
         )
         project.delete()
 
     def test_has_issues(self):
         assert self.project.has_issues
         assert not self.service.get_project(
-            namespace="redhat/centos-stream/rpms", repo="firefox"
+            namespace="redhat/centos-stream/rpms",
+            repo="firefox",
         ).has_issues
 
     def test_get_contributors(self):

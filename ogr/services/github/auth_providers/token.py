@@ -34,6 +34,8 @@ class TokenAuthentication(GithubAuthentication):
 
     @staticmethod
     def try_create(
-        token: str = None, max_retries: Union[int, Retry] = 0, **_
+        token: str = None,
+        max_retries: Union[int, Retry] = 0,
+        **_,
     ) -> Optional["TokenAuthentication"]:
         return TokenAuthentication(token, max_retries=max_retries)

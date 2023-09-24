@@ -54,7 +54,7 @@ class PagurePullRequest(BasePullRequest):
                 self._raw_pr["project"]["url_path"],
                 "pull-request",
                 str(self.id),
-            ]
+            ],
         )
 
     @property
@@ -93,7 +93,9 @@ class PagurePullRequest(BasePullRequest):
     @property
     def patch(self) -> bytes:
         request_response = self._target_project._call_project_api_raw(
-            "pull-request", f"{self.id}.patch", add_api_endpoint_part=False
+            "pull-request",
+            f"{self.id}.patch",
+            add_api_endpoint_part=False,
         )
         if request_response.status_code != 200:
             raise PagureAPIException(
@@ -120,7 +122,7 @@ class PagurePullRequest(BasePullRequest):
                 source_project_info["username"] = source["user"]["name"]
 
             self._source_project = self._target_project.service.get_project(
-                **source_project_info
+                **source_project_info,
             )
 
         return self._source_project
@@ -135,7 +137,10 @@ class PagurePullRequest(BasePullRequest):
 
     def __call_api(self, *args, **kwargs) -> dict:
         return self._target_project._call_project_api(
-            "pull-request", str(self.id), *args, **kwargs
+            "pull-request",
+            str(self.id),
+            *args,
+            **kwargs,
         )
 
     @staticmethod
@@ -174,7 +179,10 @@ class PagurePullRequest(BasePullRequest):
             data["repo_from_namespace"] = fork_project.namespace
 
         response = caller._call_project_api(
-            "pull-request", "new", method="POST", data=data
+            "pull-request",
+            "new",
+            method="POST",
+            data=data,
         )
         return PagurePullRequest(response, caller)
 
@@ -209,7 +217,9 @@ class PagurePullRequest(BasePullRequest):
         return [PagurePullRequest(pr_dict, project) for pr_dict in raw_prs]
 
     def update_info(
-        self, title: Optional[str] = None, description: Optional[str] = None
+        self,
+        title: Optional[str] = None,
+        description: Optional[str] = None,
     ) -> "PullRequest":
         try:
             data = {"title": title if title else self.title}
@@ -324,5 +334,6 @@ class PagurePullRequest(BasePullRequest):
                 return comment
 
         raise PagureAPIException(
-            f"No comment with id#{comment_id} in PR#{self.id} found.", response_code=404
+            f"No comment with id#{comment_id} in PR#{self.id} found.",
+            response_code=404,
         )

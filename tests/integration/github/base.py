@@ -16,7 +16,7 @@ class GithubTests(unittest.TestCase):
         self.token = os.environ.get("GITHUB_TOKEN")
         if not Path(get_datafile_filename(obj=self)).exists() and not self.token:
             raise OSError(
-                "You are in Requre write mode, please set proper GITHUB_TOKEN env variables"
+                "You are in Requre write mode, please set proper GITHUB_TOKEN env variables",
             )
         self._service = None
         self._ogr_project = None
@@ -40,7 +40,9 @@ class GithubTests(unittest.TestCase):
     def ogr_fork(self):
         if not self._ogr_fork:
             self._ogr_fork = self.service.get_project(
-                namespace="packit", repo="ogr", is_fork=True
+                namespace="packit",
+                repo="ogr",
+                is_fork=True,
             )
         return self._ogr_fork
 
@@ -48,7 +50,8 @@ class GithubTests(unittest.TestCase):
     def hello_world_project(self):
         if not self._hello_world_project:
             self._hello_world_project = self.service.get_project(
-                namespace="packit", repo="hello-world"
+                namespace="packit",
+                repo="hello-world",
             )
         return self._hello_world_project
 
@@ -56,6 +59,7 @@ class GithubTests(unittest.TestCase):
     def not_forked_project(self):
         if not self._not_forked_project:
             self._not_forked_project = self.service.get_project(
-                namespace="fedora-modularity", repo="fed-to-brew"
+                namespace="fedora-modularity",
+                repo="fed-to-brew",
             )
         return self._not_forked_project

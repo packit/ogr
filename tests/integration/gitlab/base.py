@@ -17,7 +17,7 @@ class GitlabTests(unittest.TestCase):
 
         if not Path(get_datafile_filename(obj=self)).exists() and not self.token:
             raise OSError(
-                "You are in Requre write mode, please set GITLAB_TOKEN env variables"
+                "You are in Requre write mode, please set GITLAB_TOKEN env variables",
             )
         elif not self.token:
             self.token = "some_token"
@@ -28,7 +28,9 @@ class GitlabTests(unittest.TestCase):
     def service(self):
         if not self._service:
             self._service = GitlabService(
-                token=self.token, instance_url="https://gitlab.com", ssl_verify=True
+                token=self.token,
+                instance_url="https://gitlab.com",
+                ssl_verify=True,
             )
         return self._service
 
@@ -36,6 +38,7 @@ class GitlabTests(unittest.TestCase):
     def project(self):
         if not self._project:
             self._project = self.service.get_project(
-                repo="ogr-tests", namespace="packit-service"
+                repo="ogr-tests",
+                namespace="packit-service",
             )
         return self._project

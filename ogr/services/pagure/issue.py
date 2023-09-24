@@ -53,7 +53,9 @@ class PagureIssue(BaseIssue):
     @property
     def url(self) -> str:
         return self.project._get_project_url(
-            "issue", str(self.id), add_api_endpoint_part=False
+            "issue",
+            str(self.id),
+            add_api_endpoint_part=False,
         )
 
     @property
@@ -103,12 +105,15 @@ class PagureIssue(BaseIssue):
             }
 
             updated_issue = self.project._call_project_api(
-                "issue", str(self.id), method="POST", data=data
+                "issue",
+                str(self.id),
+                method="POST",
+                data=data,
             )
             self._raw_issue = updated_issue["issue"]
         except Exception as ex:
             raise PagureAPIException(
-                "there was an error while updating the issue"
+                "there was an error while updating the issue",
             ) from ex
 
     @staticmethod
@@ -191,7 +196,11 @@ class PagureIssue(BaseIssue):
     def comment(self, body: str) -> IssueComment:
         payload = {"comment": body}
         self.project._call_project_api(
-            "issue", str(self.id), "comment", data=payload, method="POST"
+            "issue",
+            str(self.id),
+            "comment",
+            data=payload,
+            method="POST",
         )
         self.__dirty = True
         return PagureIssueComment(parent=self, body=body, author=self.project._user)
@@ -199,7 +208,11 @@ class PagureIssue(BaseIssue):
     def close(self) -> "PagureIssue":
         payload = {"status": "Closed"}
         self.project._call_project_api(
-            "issue", str(self.id), "status", data=payload, method="POST"
+            "issue",
+            str(self.id),
+            "status",
+            data=payload,
+            method="POST",
         )
         self.__dirty = True
         return self
@@ -209,12 +222,20 @@ class PagureIssue(BaseIssue):
             raise OperationNotSupported("Pagure does not support multiple assignees")
         payload = {"assignee": assignees[0]}
         self.project._call_project_api(
-            "issue", str(self.id), "assign", data=payload, method="POST"
+            "issue",
+            str(self.id),
+            "assign",
+            data=payload,
+            method="POST",
         )
 
     def get_comment(self, comment_id: int) -> IssueComment:
         return PagureIssueComment(
             self.project._call_project_api(
-                "issue", str(self.id), "comment", str(comment_id), method="GET"
-            )
+                "issue",
+                str(self.id),
+                "comment",
+                str(comment_id),
+                method="GET",
+            ),
         )

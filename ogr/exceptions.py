@@ -51,7 +51,8 @@ class GithubAPIException(APIException):
     @property
     def response_code(self):
         if self.__cause__ is None or not isinstance(
-            self.__cause__, github.GithubException
+            self.__cause__,
+            github.GithubException,
         ):
             return None
         return self.__cause__.status

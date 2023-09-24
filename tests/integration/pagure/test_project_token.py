@@ -32,7 +32,8 @@ class PagureProjectTokenCommands(PagureTests):
     def service(self):
         if not self._service:
             self._service = PagureService(
-                token=self.token, instance_url="https://pagure.io"
+                token=self.token,
+                instance_url="https://pagure.io",
             )
         return self._service
 
@@ -63,14 +64,15 @@ class PagureProjectTokenCommands(PagureTests):
 
     def test_issue_comments_regex(self):
         issue_comments = self.ogr_project.get_issue(3).get_comments(
-            filter_regex="regex"
+            filter_regex="regex",
         )
         assert len(issue_comments) == 2
         assert issue_comments[0].body.startswith("let's")
 
     def test_issue_comments_regex_reversed(self):
         issue_comments = self.ogr_project.get_issue(3).get_comments(
-            filter_regex="regex", reverse=True
+            filter_regex="regex",
+            reverse=True,
         )
         assert len(issue_comments) == 2
         assert issue_comments[0].body.startswith("regex")
@@ -101,14 +103,16 @@ class PagureProjectTokenCommands(PagureTests):
         orig_description = pr_info.description
 
         self.ogr_project.get_pr(4).update_info(
-            title="changed", description="changed description"
+            title="changed",
+            description="changed description",
         )
         pr_info = self.ogr_project.get_pr(pr_id=4)
         assert pr_info.title == "changed"
         assert pr_info.description == "changed description"
 
         self.ogr_project.get_pr(4).update_info(
-            title=orig_title, description=orig_description
+            title=orig_title,
+            description=orig_description,
         )
         pr_info = self.ogr_project.get_pr(pr_id=4)
         assert pr_info.title == orig_title
@@ -135,7 +139,8 @@ class PagureProjectTokenCommands(PagureTests):
 
     def test_pr_comments_author_regex(self):
         comments = self.ogr_project.get_pr(4).get_comments(
-            filter_regex="^regex", author="mfocko"
+            filter_regex="^regex",
+            author="mfocko",
         )
         assert len(comments) == 1
         assert comments[0].body.endswith("test")
@@ -146,7 +151,8 @@ class PagureProjectTokenCommands(PagureTests):
 
     def test_issue_comments_author_regex(self):
         comments = self.ogr_project.get_issue(3).get_comments(
-            filter_regex="^test[s]?$", author="mfocko"
+            filter_regex="^test[s]?$",
+            author="mfocko",
         )
         assert len(comments) == 2
         assert comments[0].body == "test"
@@ -180,7 +186,12 @@ class PagureProjectTokenCommands(PagureTests):
             second=0,
         )
         assert statuses[-1].edited >= datetime(
-            year=2020, month=8, day=31, hour=1, minute=0, second=0
+            year=2020,
+            month=8,
+            day=31,
+            hour=1,
+            minute=0,
+            second=0,
         )
 
     def test_is_private(self):

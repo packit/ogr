@@ -54,5 +54,5 @@ class PagureUser(BaseGitUser):
     def get_email(self) -> str:
         # Not supported by Pagure
         raise OperationNotSupported(
-            "Pagure does not support retrieving of user's email address"
+            "Pagure does not support retrieving of user's email address",
         )

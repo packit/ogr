@@ -49,13 +49,14 @@ def filter_comments(
                 lambda comment: (not pattern or bool(pattern.search(comment.body)))
                 and (not author or comment.author == author),
                 comments,
-            )
+            ),
         )
     return comments
 
 
 def search_in_comments(
-    comments: List[Union[str, Comment]], filter_regex: str
+    comments: List[Union[str, Comment]],
+    filter_regex: str,
 ) -> Optional[Match[str]]:
     """
     Find match in pull request description or comments.

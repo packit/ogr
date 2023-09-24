@@ -24,14 +24,14 @@ class CheckRun(GithubAppTests):
 
     def test_non_existing_check_runs_returns_none(self):
         check_run = self.project.get_check_run(
-            commit_sha="f502aae6920d82948f2dba0b70c9260fb1e34822"
+            commit_sha="f502aae6920d82948f2dba0b70c9260fb1e34822",
         )
 
         assert check_run is None
 
     def test_get_list(self):
         check_runs = self.project.get_check_runs(
-            "7cf6d0cbeca285ecbeb19a0067cb243783b3c768"
+            "7cf6d0cbeca285ecbeb19a0067cb243783b3c768",
         )
 
         assert check_runs
@@ -39,7 +39,7 @@ class CheckRun(GithubAppTests):
 
     def test_get_list_no_runs(self):
         check_runs = self.project.get_check_runs(
-            "f502aae6920d82948f2dba0b70c9260fb1e34822"
+            "f502aae6920d82948f2dba0b70c9260fb1e34822",
         )
         assert check_runs == []
 
@@ -109,7 +109,12 @@ class CheckRun(GithubAppTests):
                 name="should fail",
                 commit_sha="7cf6d0cbeca285ecbeb19a0067cb243783b3c768",
                 completed_at=datetime(
-                    year=2021, month=5, day=27, hour=11, minute=11, second=11
+                    year=2021,
+                    month=5,
+                    day=27,
+                    hour=11,
+                    minute=11,
+                    second=11,
                 ),
             )
 
@@ -120,20 +125,25 @@ class CheckRun(GithubAppTests):
                 commit_sha="7cf6d0cbeca285ecbeb19a0067cb243783b3c768",
                 status=GithubCheckRunStatus.completed,
                 completed_at=datetime(
-                    year=2021, month=5, day=27, hour=11, minute=11, second=11
+                    year=2021,
+                    month=5,
+                    day=27,
+                    hour=11,
+                    minute=11,
+                    second=11,
                 ),
             )
 
     # these tests need to have at least one check run on given commit
     def test_get_latest_check_run(self):
         check_run = self.project.get_check_run(
-            commit_sha="7cf6d0cbeca285ecbeb19a0067cb243783b3c768"
+            commit_sha="7cf6d0cbeca285ecbeb19a0067cb243783b3c768",
         )
         assert check_run
 
     def test_change_name(self):
         check_run = self.project.get_check_run(
-            commit_sha="7cf6d0cbeca285ecbeb19a0067cb243783b3c768"
+            commit_sha="7cf6d0cbeca285ecbeb19a0067cb243783b3c768",
         )
         assert check_run, "No check run exists"
 
@@ -142,7 +152,7 @@ class CheckRun(GithubAppTests):
 
     def test_change_url(self):
         check_run = self.project.get_check_run(
-            commit_sha="7cf6d0cbeca285ecbeb19a0067cb243783b3c768"
+            commit_sha="7cf6d0cbeca285ecbeb19a0067cb243783b3c768",
         )
 
         assert check_run, "No check run exists"

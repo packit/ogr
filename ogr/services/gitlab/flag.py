@@ -95,12 +95,13 @@ class GitlabCommitFlag(BaseCommitFlag):
     @property
     def created(self) -> datetime.datetime:
         return datetime.datetime.strptime(
-            self._raw_commit_flag.created_at, "%Y-%m-%dT%H:%M:%S.%fZ"
+            self._raw_commit_flag.created_at,
+            "%Y-%m-%dT%H:%M:%S.%fZ",
         )
 
     @property
     def edited(self) -> datetime.datetime:
         raise OperationNotSupported(
             "GitLab doesn't support edited on commit flags, for more info "
-            "see https://github.com/packit/ogr/issues/413#issuecomment-729623702"
+            "see https://github.com/packit/ogr/issues/413#issuecomment-729623702",
         )

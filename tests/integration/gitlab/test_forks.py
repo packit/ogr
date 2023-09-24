@@ -45,7 +45,8 @@ class Forks(GitlabTests):
         """
         namespace = f"ogr-tests-{self.service.user.get_username()}"
         expected_fork = self.service.get_project(
-            namespace=namespace, repo=self.project.repo
+            namespace=namespace,
+            repo=self.project.repo,
         )
         assert not expected_fork.exists(), "Fork should not exist before regenerating"
 

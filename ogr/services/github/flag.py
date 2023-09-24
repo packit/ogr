@@ -36,7 +36,9 @@ class GithubCommitFlag(BaseCommitFlag):
         try:
             return [
                 GithubCommitFlag(
-                    raw_commit_flag=raw_status, project=project, commit=commit
+                    raw_commit_flag=raw_status,
+                    project=project,
+                    commit=commit,
                 )
                 for raw_status in statuses
             ]
@@ -59,7 +61,10 @@ class GithubCommitFlag(BaseCommitFlag):
         if trim:
             description = description[:140]
         status = github_commit.create_status(
-            state.name, target_url, description, context
+            state.name,
+            target_url,
+            description,
+            context,
         )
         return GithubCommitFlag(project=project, raw_commit_flag=status, commit=commit)
 

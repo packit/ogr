@@ -92,7 +92,7 @@ class GithubPullRequest(BasePullRequest):
         if not response.ok:
             cls = OgrNetworkError if response.status_code >= 500 else GithubAPIException
             raise cls(
-                f"Couldn't get patch from {self._raw_pr.patch_url} because {response.reason}."
+                f"Couldn't get patch from {self._raw_pr.patch_url} because {response.reason}.",
             )
 
         return response.content
@@ -121,7 +121,7 @@ class GithubPullRequest(BasePullRequest):
         if self._source_project is None:
             self._source_project = (
                 self._target_project.service.get_project_from_github_repository(
-                    self._raw_pr.head.repo
+                    self._raw_pr.head.repo,
                 )
             )
 
@@ -157,11 +157,15 @@ class GithubPullRequest(BasePullRequest):
             source_branch = f"{fork_username}:{source_branch}"
             if fork_username != project.namespace and project.parent is not None:
                 github_repo = GithubPullRequest.__get_fork(
-                    fork_username, project.parent.github_repo
+                    fork_username,
+                    project.parent.github_repo,
                 )
 
         created_pr = github_repo.create_pull(
-            title=title, body=body, base=target_branch, head=source_branch
+            title=title,
+            body=body,
+            base=target_branch,
+            head=source_branch,
         )
         logger.info(f"PR {created_pr.id} created: {target_branch}<-{source_branch}")
         return GithubPullRequest(created_pr, target_project)
@@ -169,7 +173,7 @@ class GithubPullRequest(BasePullRequest):
     @staticmethod
     def __get_fork(fork_username: str, repo: _GithubRepository) -> _GithubRepository:
         forks = list(
-            filter(lambda fork: fork.owner.login == fork_username, repo.get_forks())
+            filter(lambda fork: fork.owner.login == fork_username, repo.get_forks()),
         )
         if not forks:
             raise GithubAPIException("Requested fork doesn't exist")
@@ -185,7 +189,8 @@ class GithubPullRequest(BasePullRequest):
 
     @staticmethod
     def get_list(
-        project: "ogr_github.GithubProject", status: PRStatus = PRStatus.open
+        project: "ogr_github.GithubProject",
+        status: PRStatus = PRStatus.open,
     ) -> List["PullRequest"]:
         prs = project.github_repo.get_pulls(
             # Github API has no status 'merged', just 'closed'/'opened'/'all'
@@ -205,7 +210,9 @@ class GithubPullRequest(BasePullRequest):
             return []
 
     def update_info(
-        self, title: Optional[str] = None, description: Optional[str] = None
+        self,
+        title: Optional[str] = None,
+        description: Optional[str] = None,
     ) -> "PullRequest":
         try:
             self._raw_pr.edit(title=title, body=description)

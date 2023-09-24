@@ -169,7 +169,7 @@ class GitlabIssue(BaseIssue):
         assignee_ids = self._raw_issue.__dict__.get("assignee_ids") or []
         for assignee in assignees:
             users = self.project.service.gitlab_instance.users.list(  # type: ignore
-                username=assignee
+                username=assignee,
             )
             if not users:
                 raise GitlabAPIException(f"Unable to find '{assignee}' username")

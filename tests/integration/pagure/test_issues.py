@@ -18,7 +18,8 @@ class Issues(PagureTests):
     def long_issues_project(self):
         if not self._long_issues_project:
             self._long_issues_project = self.service.get_project(
-                repo="pagure", namespace=None
+                repo="pagure",
+                namespace=None,
             )
 
         return self._long_issues_project
@@ -38,27 +39,31 @@ class Issues(PagureTests):
 
     def test_issue_list_author(self):
         issue_list = self.ogr_project.get_issue_list(
-            status=IssueStatus.all, author="mfocko"
+            status=IssueStatus.all,
+            author="mfocko",
         )
         assert issue_list
         assert len(issue_list) >= 3
 
     def test_issue_list_nonexisting_author(self):
         issue_list = self.ogr_project.get_issue_list(
-            status=IssueStatus.all, author="xyzidontexist"
+            status=IssueStatus.all,
+            author="xyzidontexist",
         )
         assert len(issue_list) == 0
 
     def test_issue_list_assignee(self):
         issue_list = self.ogr_project.get_issue_list(
-            status=IssueStatus.all, assignee="mfocko"
+            status=IssueStatus.all,
+            assignee="mfocko",
         )
         assert issue_list
         assert len(issue_list) == 1
 
     def test_issue_list_labels(self):
         issue_list = self.ogr_project.get_issue_list(
-            status=IssueStatus.all, labels=["test_label"]
+            status=IssueStatus.all,
+            labels=["test_label"],
         )
         assert issue_list
         assert len(issue_list) == 1
@@ -69,7 +74,10 @@ class Issues(PagureTests):
         labels = ["label1", "label2"]
         project = self.service.get_project(repo="hello-112111", namespace="testing")
         issue = project.create_issue(
-            title=title, body=description, private=True, labels=labels
+            title=title,
+            body=description,
+            private=True,
+            labels=labels,
         )
         assert issue.title == title
         assert issue.description == description
@@ -82,7 +90,9 @@ class Issues(PagureTests):
         project = self.service.get_project(repo="hello-112111", namespace="testing")
         assignee = ["mfocko"]
         issue = project.create_issue(
-            title=random_str, body=random_str, assignees=assignee
+            title=random_str,
+            body=random_str,
+            assignees=assignee,
         )
         assert issue.title == random_str
         assert issue.description == random_str
@@ -95,7 +105,9 @@ class Issues(PagureTests):
         """
 
         project = self.service.get_project(
-            repo="hello-112111", namespace="testing", is_fork=True
+            repo="hello-112111",
+            namespace="testing",
+            is_fork=True,
         )
         issue = project.get_issue(4)
 
@@ -114,7 +126,9 @@ class Issues(PagureTests):
 
     def test_get_comment(self):
         project = self.service.get_project(
-            repo="my-playground", namespace=None, username="nikromen"
+            repo="my-playground",
+            namespace=None,
+            username="nikromen",
         )
         comment = project.get_issue(1).get_comment(753462)
         assert comment.body == "example issue comment"
@@ -122,5 +136,6 @@ class Issues(PagureTests):
     def test_create_with_disabled_issues(self):
         with self.assertRaises(IssueTrackerDisabled):
             self.ogr_project.get_fork().create_issue(
-                "Testing issue", "shouldn't be created"
+                "Testing issue",
+                "shouldn't be created",
             )

@@ -23,11 +23,13 @@ class GithubIssue(BaseIssue):
     raw_issue: _GithubIssue
 
     def __init__(
-        self, raw_issue: _GithubIssue, project: "ogr_github.GithubProject"
+        self,
+        raw_issue: _GithubIssue,
+        project: "ogr_github.GithubProject",
     ) -> None:
         if raw_issue.pull_request:
             raise GithubAPIException(
-                f"Requested issue #{raw_issue.number} is a pull request"
+                f"Requested issue #{raw_issue.number} is a pull request",
             )
 
         super().__init__(raw_issue=raw_issue, project=project)
@@ -94,7 +96,10 @@ class GithubIssue(BaseIssue):
             raise IssueTrackerDisabled()
 
         github_issue = project.github_repo.create_issue(
-            title=title, body=body, labels=labels or [], assignees=assignees or []
+            title=title,
+            body=body,
+            labels=labels or [],
+            assignees=assignees or [],
         )
         return GithubIssue(github_issue, project)
 

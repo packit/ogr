@@ -91,7 +91,9 @@ def create_github_check_run_output(
 
 class GithubCheckRun(OgrAbstractClass):
     def __init__(
-        self, project: "ogr_github.GithubProject", raw_check_run: CheckRun
+        self,
+        project: "ogr_github.GithubProject",
+        raw_check_run: CheckRun,
     ) -> None:
         self.raw_check_run = raw_check_run
         self.project = project
@@ -219,7 +221,7 @@ class GithubCheckRun(OgrAbstractClass):
         ) and conclusion is None:
             raise OperationNotSupported(
                 "When provided completed status or completed at,"
-                " you need to provide conclusion."
+                " you need to provide conclusion.",
             )
 
         self.raw_check_run.edit(
@@ -286,14 +288,15 @@ class GithubCheckRun(OgrAbstractClass):
         """
         if check_run_id is not None and commit_sha:
             raise OperationNotSupported(
-                "Cannot retrieve check run by both ID and commit hash"
+                "Cannot retrieve check run by both ID and commit hash",
             )
         elif not (check_run_id is not None or commit_sha):
             raise OperationNotSupported("Cannot retrieve check run by no criteria")
 
         if check_run_id is not None:
             return GithubCheckRun(
-                project, project.github_repo.get_check_run(check_run_id)
+                project,
+                project.github_repo.get_check_run(check_run_id),
             )
 
         check_runs = project.github_repo.get_commit(commit_sha).get_check_runs()
@@ -358,7 +361,7 @@ class GithubCheckRun(OgrAbstractClass):
         ) and conclusion is None:
             raise OperationNotSupported(
                 "When provided completed_at or completed status, "
-                "you need to provide conclusion."
+                "you need to provide conclusion.",
             )
 
         created_check_run = project.github_repo.create_check_run(

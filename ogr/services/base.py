@@ -53,13 +53,19 @@ class BasePullRequest(PullRequest):
         return self.target_project.get_sha_from_branch(self.target_branch)
 
     def get_comments(
-        self, filter_regex: str = None, reverse: bool = False, author: str = None
+        self,
+        filter_regex: str = None,
+        reverse: bool = False,
+        author: str = None,
     ):
         all_comments = self._get_all_comments()
         return filter_comments(all_comments, filter_regex, reverse, author)
 
     def search(
-        self, filter_regex: str, reverse: bool = False, description: bool = True
+        self,
+        filter_regex: str,
+        reverse: bool = False,
+        description: bool = True,
     ):
         all_comments: List[Any] = self.get_comments(reverse=reverse)
         if description:
@@ -82,7 +88,10 @@ class BaseGitUser(GitUser):
 
 class BaseIssue(Issue):
     def get_comments(
-        self, filter_regex: str = None, reverse: bool = False, author: str = None
+        self,
+        filter_regex: str = None,
+        reverse: bool = False,
+        author: str = None,
     ) -> List[IssueComment]:
         all_comments: List[IssueComment] = self._get_all_comments()
         return filter_comments(all_comments, filter_regex, reverse, author)

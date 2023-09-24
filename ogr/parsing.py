@@ -89,7 +89,7 @@ class RepoUrl:
 
         # make it parsable by urlparse if it doesn't contain scheme
         if not potential_url.startswith(
-            ("http://", "https://", "git://", "git+https://")
+            ("http://", "https://", "git://", "git+https://"),
         ):
             potential_url = "https://" + potential_url
 

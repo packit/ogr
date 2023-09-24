@@ -77,7 +77,8 @@ class Service(PagureTests):
         namespace = "fedora-magazine"
 
         with pytest.raises(
-            OgrException, match=r".*Cannot create project in given namespace.*"
+            OgrException,
+            match=r".*Cannot create project in given namespace.*",
         ):
             self.service.project_create(repo=name, namespace=namespace)
         project = self.service.get_project(repo=name, namespace=namespace)

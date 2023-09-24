@@ -85,7 +85,11 @@ class GitlabService(BaseGitService):
         return hash(str(self))
 
     def get_project(
-        self, repo=None, namespace=None, is_fork=False, **kwargs
+        self,
+        repo=None,
+        namespace=None,
+        is_fork=False,
+        **kwargs,
     ) -> "GitlabProject":
         if is_fork:
             namespace = self.user.get_username()
@@ -125,7 +129,10 @@ class GitlabService(BaseGitService):
         except gitlab.GitlabCreateError as ex:
             raise GitlabAPIException("Project already exists") from ex
         return GitlabProject(
-            repo=repo, namespace=namespace, service=self, gitlab_repo=new_project
+            repo=repo,
+            namespace=namespace,
+            service=self,
+            gitlab_repo=new_project,
         )
 
     def list_projects(

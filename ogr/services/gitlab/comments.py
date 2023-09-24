@@ -31,7 +31,8 @@ class GitlabReaction(Reaction):
 
 class GitlabComment(Comment):
     def _from_raw_comment(
-        self, raw_comment: Union[ProjectIssueNote, ProjectMergeRequestNote]
+        self,
+        raw_comment: Union[ProjectIssueNote, ProjectMergeRequestNote],
     ) -> None:
         self._raw_comment = raw_comment
         self._id = raw_comment.get_id()

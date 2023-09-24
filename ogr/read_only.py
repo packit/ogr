@@ -20,7 +20,9 @@ from ogr.constant import DEFAULT_RO_PREFIX_STRING
 
 
 def log_output(
-    text: str, default_prefix: str = DEFAULT_RO_PREFIX_STRING, namespace: str = __name__
+    text: str,
+    default_prefix: str = DEFAULT_RO_PREFIX_STRING,
+    namespace: str = __name__,
 ) -> None:
     """
     Logs output.
@@ -79,7 +81,7 @@ def if_readonly(
                     kwargs_str = ", " + kwargs_str
                 log_output(
                     f"{log_message} {self.__class__.__name__}."
-                    f"{func.__name__}({args_str}{kwargs_str})"
+                    f"{func.__name__}({args_str}{kwargs_str})",
                 )
                 if return_function:
                     return return_function(self, *args, **kwargs)
@@ -220,7 +222,10 @@ class GitProjectReadOnly:
 
     @classmethod
     def issue_comment(
-        cls, original_object: Any, issue_id: int, body: str
+        cls,
+        original_object: Any,
+        issue_id: int,
+        body: str,
     ) -> "IssueComment":
         issue = original_object.get_issue(issue_id)
         log_output(issue)
@@ -234,18 +239,27 @@ class GitProjectReadOnly:
 
     @classmethod
     def fork_create(
-        cls, original_object: Any, namespace: Optional[str] = None
+        cls,
+        original_object: Any,
+        namespace: Optional[str] = None,
     ) -> "GitProject":
         return original_object
 
     @classmethod
     def commit_comment(
-        cls, original_object: Any, commit: str, body: str
+        cls,
+        original_object: Any,
+        commit: str,
+        body: str,
     ) -> "CommitComment":
         return CommitComment(sha=commit, body=body, author=cls.author)
 
     @classmethod
     def set_commit_status(
-        cls, original_object: Any, commit: str, state: CommitStatus, context: str
+        cls,
+        original_object: Any,
+        commit: str,
+        state: CommitStatus,
+        context: str,
     ) -> "CommitFlag":
         return CommitFlag(commit=commit, state=state, context=context)

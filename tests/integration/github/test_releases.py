@@ -31,10 +31,12 @@ class Releases(GithubTests):
             [
                 latest_release.rsplit(".", 1)[0],
                 str(int(latest_release.rsplit(".", 1)[1]) + 1),
-            ]
+            ],
         )
         release = self.hello_world_project.create_release(
-            tag=increased_release, name="test", message="testing release"
+            tag=increased_release,
+            name="test",
+            message="testing release",
         )
         count_after = len(self.hello_world_project.get_releases())
         assert release.tag_name == increased_release
@@ -48,7 +50,8 @@ class Releases(GithubTests):
         origin_message = release.body
 
         release.edit_release(
-            name=f"{origin_name}-changed", message=f"{origin_message}-changed"
+            name=f"{origin_name}-changed",
+            message=f"{origin_message}-changed",
         )
         assert release.title == f"{origin_name}-changed"
         assert release.body == f"{origin_message}-changed"

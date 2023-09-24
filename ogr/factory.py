@@ -102,7 +102,7 @@ def get_project(
             if force_custom_instance:
                 raise OgrException(
                     f"Instance of type {kls.__name__} "
-                    f"matching instance url '{url}' was not provided."
+                    f"matching instance url '{url}' was not provided.",
                 )
     if not service:
         service = kls(instance_url=parsed_repo_url.get_instance_url(), **kwargs)
@@ -110,7 +110,8 @@ def get_project(
 
 
 def get_service_class_or_none(
-    url: str, service_mapping_update: Dict[str, Type[GitService]] = None
+    url: str,
+    service_mapping_update: Dict[str, Type[GitService]] = None,
 ) -> Optional[Type[GitService]]:
     """
     Get the matching service class from the URL.
@@ -139,7 +140,8 @@ def get_service_class_or_none(
 
 
 def get_service_class(
-    url: str, service_mapping_update: Dict[str, Type[GitService]] = None
+    url: str,
+    service_mapping_update: Dict[str, Type[GitService]] = None,
 ) -> Type[GitService]:
     """
     Get the matching service class from the URL.
@@ -155,7 +157,8 @@ def get_service_class(
         Matched class (subclass of `GitService`).
     """
     service_kls = get_service_class_or_none(
-        url=url, service_mapping_update=service_mapping_update
+        url=url,
+        service_mapping_update=service_mapping_update,
     )
     if service_kls:
         return service_kls
@@ -213,12 +216,12 @@ def get_instances_from_dict(instances: Dict) -> Set[GitService]:
             if "type" not in value:
                 raise OgrException(
                     f"No matching service was found for url '{key}'. "
-                    f"Add the service name as a `type` attribute."
+                    f"Add the service name as a `type` attribute.",
                 )
             service_type = value["type"]
             if service_type not in _SERVICE_MAPPING:
                 raise OgrException(
-                    f"No matching service was found for type '{service_type}'."
+                    f"No matching service was found for type '{service_type}'.",
                 )
 
             service_kls = _SERVICE_MAPPING[service_type]

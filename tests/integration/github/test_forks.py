@@ -16,7 +16,8 @@ class Forks(GithubTests):
 
     def test_nonexisting_fork(self):
         self.ogr_nonexisting_fork = self.service.get_project(
-            repo="omfeprkfmwpefmwpefkmwpeofjwepof", is_fork=True
+            repo="omfeprkfmwpefmwpefkmwpeofjwepof",
+            is_fork=True,
         )
         with self.assertRaises(GithubAPIException) as ex:
             self.ogr_nonexisting_fork.get_description()
@@ -71,7 +72,8 @@ class Forks(GithubTests):
         """
         namespace = f"ogr-tests-{self.service.user.get_username()}"
         expected_fork = self.service.get_project(
-            namespace=namespace, repo=self.hello_world_project
+            namespace=namespace,
+            repo=self.hello_world_project,
         )
         assert not expected_fork.exists(), "Fork should not exist before regenerating"
 

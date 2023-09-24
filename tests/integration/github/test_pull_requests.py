@@ -156,7 +156,8 @@ class PullRequests(GithubTests):
         """
         fork_project = self.service.get_project(namespace="mfocko", repo="hello-world")
         other_fork_project = self.service.get_project(
-            namespace="lachmanfrantisek", repo="hello-world"
+            namespace="lachmanfrantisek",
+            repo="hello-world",
         )
         pr_opened_before = len(other_fork_project.get_pr_list(status=PRStatus.open))
         opened_pr = fork_project.create_pr(
@@ -319,7 +320,8 @@ class PullRequests(GithubTests):
     def test_source_project_other_fork_fork(self):
         # Tests source project for PR from one fork to another fork
         project = self.service.get_project(
-            repo="hello-world", namespace="lachmanfrantisek"
+            repo="hello-world",
+            namespace="lachmanfrantisek",
         )
         pr = project.get_pr(1)
         source_project = pr.source_project
@@ -347,7 +349,8 @@ class PullRequests(GithubTests):
         3. Rename the repo in packit namespace.
         """
         pr = self.service.get_project(
-            repo="testing_repo_changed_name", namespace="packit"
+            repo="testing_repo_changed_name",
+            namespace="packit",
         ).get_pr(1)
         source_project = pr.source_project
         assert source_project.namespace == self.service.user.get_username()

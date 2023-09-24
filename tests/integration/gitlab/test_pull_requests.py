@@ -60,7 +60,11 @@ class PullRequests(GitlabTests):
         assert pr_info.description == original_description
 
     def create_pull_request(
-        self, title="New PR of pr-3", body="Description", dest="master", source="pr-3"
+        self,
+        title="New PR of pr-3",
+        body="Description",
+        dest="master",
+        source="pr-3",
     ):
         return self.project.create_pr(title, body, dest, source)
 
@@ -105,7 +109,8 @@ class PullRequests(GitlabTests):
 
     def test_get_pr_comments_author_regex(self):
         comments = self.project.get_pr(1).get_comments(
-            filter_regex="test$", author="mfocko"
+            filter_regex="test$",
+            author="mfocko",
         )
         assert len(comments) == 1
         assert comments[0].body.startswith("author")
@@ -196,7 +201,7 @@ class PullRequests(GitlabTests):
             assert open_mergeable.merge_commit_sha  # cannot provide specific value
         except AttributeError:
             self.skipTest(
-                "installed version of python-gitlab does not support merge_ref"
+                "installed version of python-gitlab does not support merge_ref",
             )
 
         # open PR with conflicts
@@ -237,7 +242,8 @@ class PullRequests(GitlabTests):
         Use PR id of a merge request from your fork to the fork itself.
         """
         project = self.service.get_project(
-            repo="ogr-tests", namespace=self.service.user.get_username()
+            repo="ogr-tests",
+            namespace=self.service.user.get_username(),
         )
         pr = project.get_pr(1)
         source_project = pr.source_project
@@ -250,7 +256,8 @@ class PullRequests(GitlabTests):
         the other fork if necessary.
         """
         project = self.service.get_project(
-            repo="ogr-tests", namespace="lachmanfrantisek"
+            repo="ogr-tests",
+            namespace="lachmanfrantisek",
         )
         pr = project.get_pr(5)
         source_project = pr.source_project
@@ -270,7 +277,8 @@ class PullRequests(GitlabTests):
         3. Rename upstream
         """
         pr = self.service.get_project(
-            repo="old-ogr-tests", namespace="packit-service"
+            repo="old-ogr-tests",
+            namespace="packit-service",
         ).get_pr(54)
         source_project = pr.source_project
         assert source_project.namespace == self.service.user.get_username()

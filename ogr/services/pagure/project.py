@@ -113,7 +113,10 @@ class PagureProject(BaseGitProject):
         )
 
         return self.service.call_api(
-            url=request_url, method=method, params=params, data=data
+            url=request_url,
+            method=method,
+            params=params,
+            data=data,
         )
 
     def _call_project_api_raw(
@@ -150,7 +153,10 @@ class PagureProject(BaseGitProject):
         )
 
         return self.service.call_api_raw(
-            url=request_url, method=method, params=params, data=data
+            url=request_url,
+            method=method,
+            params=params,
+            data=data,
         )
 
     def _get_project_url(self, *args, add_fork_part=True, add_api_endpoint_part=True):
@@ -257,7 +263,10 @@ class PagureProject(BaseGitProject):
 
     @indirect(PagurePullRequest.get_list)
     def get_pr_list(
-        self, status: PRStatus = PRStatus.open, assignee=None, author=None
+        self,
+        status: PRStatus = PRStatus.open,
+        assignee=None,
+        author=None,
     ) -> List[PullRequest]:
         pass
 
@@ -281,7 +290,7 @@ class PagureProject(BaseGitProject):
     def fork_create(self, namespace: Optional[str] = None) -> "PagureProject":
         if namespace is not None:
             raise OperationNotSupported(
-                "Pagure does not support forking to namespaces."
+                "Pagure does not support forking to namespaces.",
             )
 
         request_url = self.service.get_api_url("fork")
@@ -318,7 +327,7 @@ class PagureProject(BaseGitProject):
             else:
                 logger.info(
                     f"Fork of {self.repo}"
-                    " does not exist and we were asked not to create it."
+                    " does not exist and we were asked not to create it.",
                 )
                 return None
         return self._construct_fork_project()
@@ -340,7 +349,7 @@ class PagureProject(BaseGitProject):
             return False
         raise OperationNotSupported(
             f"is_private is not implemented for {self.service.instance_url}."
-            f"Please open issue in https://github.com/packit/ogr"
+            f"Please open issue in https://github.com/packit/ogr",
         )
 
     def is_forked(self) -> bool:
@@ -381,7 +390,10 @@ class PagureProject(BaseGitProject):
         self.add_user_or_group(group, None, "group")
 
     def add_user_or_group(
-        self, user: str, access_level: Optional[AccessLevel], user_type: str
+        self,
+        user: str,
+        access_level: Optional[AccessLevel],
+        user_type: str,
     ) -> None:
         access_dict = {
             AccessLevel.pull: "ticket",
@@ -414,14 +426,18 @@ class PagureProject(BaseGitProject):
     def get_file_content(self, path: str, ref=None) -> str:
         ref = ref or self.default_branch
         result = self._call_project_api_raw(
-            "raw", ref, "f", path, add_api_endpoint_part=False
+            "raw",
+            ref,
+            "f",
+            path,
+            add_api_endpoint_part=False,
         )
 
         if not result or result.reason == "NOT FOUND":
             raise FileNotFoundError(f"File '{path}' on {ref} not found")
         if result.reason != "OK":
             raise PagureAPIException(
-                f"File '{path}' on {ref} not found due to {result.reason}"
+                f"File '{path}' on {ref} not found due to {result.reason}",
             )
         return result.content.decode()
 
@@ -433,7 +449,11 @@ class PagureProject(BaseGitProject):
         return tags_dict[tag_name].commit_sha
 
     def commit_comment(
-        self, commit: str, body: str, filename: str = None, row: int = None
+        self,
+        commit: str,
+        body: str,
+        filename: str = None,
+        row: int = None,
     ) -> CommitComment:
         raise OperationNotSupported("Commit comments are not supported on Pagure.")
 
@@ -481,14 +501,19 @@ class PagureProject(BaseGitProject):
 
     @indirect(PagureRelease.create)
     def create_release(
-        self, tag: str, name: str, message: str, ref: Optional[str] = None
+        self,
+        tag: str,
+        name: str,
+        message: str,
+        ref: Optional[str] = None,
     ) -> Release:
         pass
 
     def get_forks(self) -> List["PagureProject"]:
         forks_url = self.service.get_api_url("projects")
         projects_response = self.service.call_api(
-            url=forks_url, params={"fork": True, "pattern": self.repo}
+            url=forks_url,
+            params={"fork": True, "pattern": self.repo},
         )
         return [
             PagureProject(
@@ -511,7 +536,10 @@ class PagureProject(BaseGitProject):
         return f"{fork}{namespace}{self.repo}"
 
     def __get_files(
-        self, path: str, ref: str = None, recursive: bool = False
+        self,
+        path: str,
+        ref: str = None,
+        recursive: bool = False,
     ) -> Iterable[str]:
         subfolders = ["."]
 
@@ -529,7 +557,10 @@ class PagureProject(BaseGitProject):
                     subfolders.append(file["path"])
 
     def get_files(
-        self, ref: str = None, filter_regex: str = None, recursive: bool = False
+        self,
+        ref: str = None,
+        filter_regex: str = None,
+        recursive: bool = False,
     ) -> List[str]:
         ref = ref or self.default_branch
         paths = list(self.__get_files(".", ref, recursive))
@@ -540,7 +571,9 @@ class PagureProject(BaseGitProject):
 
     def get_sha_from_branch(self, branch: str) -> Optional[str]:
         branches = self._call_project_api(
-            "git", "branches", params={"with_commits": True}
+            "git",
+            "branches",
+            params={"with_commits": True},
         )["branches"]
 
         return branches.get(branch)

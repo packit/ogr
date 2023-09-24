@@ -31,7 +31,7 @@ class Comments(GithubTests):
         assert pr_comments[0].body.startswith("@TomasTomecek")
 
         pr_comments = self.ogr_project.get_pr(9).get_comments(
-            filter_regex="LGTM, nicely ([a-z]*)"
+            filter_regex="LGTM, nicely ([a-z]*)",
         )
         assert pr_comments
         assert len(pr_comments) == 1
@@ -43,7 +43,7 @@ class Comments(GithubTests):
         assert comment_match[0] == "LGTM"
 
         comment_match = self.ogr_project.get_pr(9).search(
-            filter_regex="LGTM, nicely ([a-z]*)"
+            filter_regex="LGTM, nicely ([a-z]*)",
         )
         assert comment_match
         assert comment_match[0] == "LGTM, nicely done"
@@ -60,21 +60,23 @@ class Comments(GithubTests):
 
     def test_issue_comments_regex(self):
         comments = self.ogr_project.get_issue(194).get_comments(
-            filter_regex=r".*Fedora package.*"
+            filter_regex=r".*Fedora package.*",
         )
         assert len(comments) == 3
         assert "master" in comments[0].body
 
     def test_issue_comments_regex_reversed(self):
         comments = self.ogr_project.get_issue(194).get_comments(
-            reverse=True, filter_regex=".*Fedora package.*"
+            reverse=True,
+            filter_regex=".*Fedora package.*",
         )
         assert len(comments) == 3
         assert "f29" in comments[0].body
 
     def test_pr_comments_author_regex(self):
         comments = self.ogr_project.get_pr(217).get_comments(
-            filter_regex="^I", author="mfocko"
+            filter_regex="^I",
+            author="mfocko",
         )
         assert len(comments) == 1
         assert "API" in comments[0].body
@@ -86,7 +88,8 @@ class Comments(GithubTests):
 
     def test_issue_comments_author_regex(self):
         comments = self.ogr_project.get_issue(220).get_comments(
-            filter_regex=".*API.*", author="lachmanfrantisek"
+            filter_regex=".*API.*",
+            author="lachmanfrantisek",
         )
         assert len(comments) == 1
         assert comments[0].body.startswith("After")
@@ -99,7 +102,7 @@ class Comments(GithubTests):
 
     def test_issue_comments_updates(self):
         comments = self.hello_world_project.get_issue(61).get_comments(
-            filter_regex="comment-update"
+            filter_regex="comment-update",
         )
         assert len(comments) == 1
         before_comment = comments[0].body
@@ -114,7 +117,7 @@ class Comments(GithubTests):
 
     def test_pr_comments_updates(self):
         comments = self.hello_world_project.get_pr(72).get_comments(
-            filter_regex="comment updates"
+            filter_regex="comment updates",
         )
         assert len(comments) == 1
         before_comment = comments[0].body
@@ -139,7 +142,8 @@ class Comments(GithubTests):
 
     def test_issue_react_to_comment_and_delete(self):
         issue = self.service.get_project(
-            repo="playground", namespace="nikromen"
+            repo="playground",
+            namespace="nikromen",
         ).get_issue(5)
         issue_comment = issue.comment(datetime.now().strftime("%m/%d/%Y"))
 
@@ -159,7 +163,8 @@ class Comments(GithubTests):
         assert len(pr_comment.get_reactions()) == 3
 
         issue = self.service.get_project(
-            repo="playground", namespace="nikromen"
+            repo="playground",
+            namespace="nikromen",
         ).get_issue(5)
         issue_comment = issue.comment(datetime.now().strftime("%m/%d/%Y"))
 

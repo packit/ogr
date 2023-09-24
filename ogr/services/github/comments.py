@@ -23,7 +23,8 @@ class GithubReaction(Reaction):
 
 class GithubComment(Comment):
     def _from_raw_comment(
-        self, raw_comment: Union[_GithubIssueComment, _GithubPullRequestComment]
+        self,
+        raw_comment: Union[_GithubIssueComment, _GithubPullRequestComment],
     ) -> None:
         self._raw_comment = raw_comment
         self._id = raw_comment.id

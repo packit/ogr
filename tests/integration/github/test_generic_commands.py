@@ -19,7 +19,8 @@ class GenericCommands(GithubTests):
         `lachmanfrantisek` is not added in the project before running tests
         """
         project = self.service.get_project(
-            repo="playground", namespace=self.service.user.get_username()
+            repo="playground",
+            namespace=self.service.user.get_username(),
         )
 
         assert not project.can_merge_pr("lachmanfrantisek")
@@ -96,7 +97,7 @@ class GenericCommands(GithubTests):
 
     def test_commit_flags(self):
         flags = self.ogr_project.get_commit_statuses(
-            commit="29ca3caefc781b4b41245df3e01086ffa4b4639e"
+            commit="29ca3caefc781b4b41245df3e01086ffa4b4639e",
         )
         assert isinstance(flags, list)
         assert len(flags) == 0
@@ -191,10 +192,20 @@ class GenericCommands(GithubTests):
         assert last_flag.context == "test"
         assert last_flag.uid
         assert last_flag.created.replace(tzinfo=None) == datetime(
-            year=2019, month=9, day=19, hour=12, minute=21, second=6
+            year=2019,
+            month=9,
+            day=19,
+            hour=12,
+            minute=21,
+            second=6,
         )
         assert last_flag.edited.replace(tzinfo=None) == datetime(
-            year=2019, month=9, day=19, hour=12, minute=21, second=6
+            year=2019,
+            month=9,
+            day=19,
+            hour=12,
+            minute=21,
+            second=6,
         )
 
     def test_set_commit_status_long_description(self):
@@ -236,7 +247,7 @@ class GenericCommands(GithubTests):
 
     def test_get_commit_comments(self):
         comments = self.hello_world_project.get_commit_comments(
-            "95069d7bedb6ae02def3fccce22169b412d08eac"
+            "95069d7bedb6ae02def3fccce22169b412d08eac",
         )
         assert len(comments)
         assert comments[0].sha == "95069d7bedb6ae02def3fccce22169b412d08eac"
@@ -254,7 +265,8 @@ class GenericCommands(GithubTests):
 
     def test_project_not_exists(self):
         assert not self.service.get_project(
-            repo="some-non-existing-repo", namespace="some-none-existing-namespace"
+            repo="some-non-existing-repo",
+            namespace="some-none-existing-namespace",
         ).exists()
 
     def test_is_private(self):
@@ -262,7 +274,8 @@ class GenericCommands(GithubTests):
         # accessed by the user who's GITHUB_TOKEN is used for
         # test regeneration.
         private_project = self.service.get_project(
-            namespace=self.service.user.get_username(), repo="playground"
+            namespace=self.service.user.get_username(),
+            repo="playground",
         )
         assert private_project.is_private()
 
@@ -271,7 +284,8 @@ class GenericCommands(GithubTests):
 
     def test_delete(self):
         project = self.service.get_project(
-            repo="delete-project", namespace="shreyaspapi"
+            repo="delete-project",
+            namespace="shreyaspapi",
         )
         project.delete()
 

@@ -66,20 +66,26 @@ class PagureCommitFlag(BaseCommitFlag):
             data["uid"] = uid
 
         response = project._call_project_api(
-            "c", commit, "flag", method="POST", data=data
+            "c",
+            commit,
+            "flag",
+            method="POST",
+            data=data,
         )
         return PagureCommitFlag(
-            project=project, raw_commit_flag=response["flag"], uid=response["uid"]
+            project=project,
+            raw_commit_flag=response["flag"],
+            uid=response["uid"],
         )
 
     @property
     def created(self) -> datetime.datetime:
         return datetime.datetime.fromtimestamp(
-            int(self._raw_commit_flag["date_created"])
+            int(self._raw_commit_flag["date_created"]),
         )
 
     @property
     def edited(self) -> datetime.datetime:
         return datetime.datetime.fromtimestamp(
-            int(self._raw_commit_flag["date_updated"])
+            int(self._raw_commit_flag["date_updated"]),
         )

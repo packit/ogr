@@ -29,7 +29,7 @@ class FactoryTests(unittest.TestCase):
             ):
                 raise OSError(
                     "You are in requre write mode, please set GITHUB_TOKEN PAGURE_TOKEN"
-                    " GITLAB_TOKEN env variables"
+                    " GITLAB_TOKEN env variables",
                 )
 
     @property
@@ -48,7 +48,8 @@ class FactoryTests(unittest.TestCase):
     def gitlab_service(self):
         if not self._gitlab_service:
             self._gitlab_service = GitlabService(
-                token=self.gitlab_token, instance_url="https://gitlab.com"
+                token=self.gitlab_token,
+                instance_url="https://gitlab.com",
             )
         return self._gitlab_service
 

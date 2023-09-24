@@ -17,5 +17,6 @@ def deprecate_and_set_removal(since: str, remove_in: str, message: str):
         Decorator.
     """
     return deprecated(
-        version=since, reason=f"will be removed in {remove_in}: {message}"
+        version=since,
+        reason=f"will be removed in {remove_in}: {message}",
     )

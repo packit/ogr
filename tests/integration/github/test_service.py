@@ -19,7 +19,8 @@ class Service(GithubTests):
         """
         name_of_the_repo = "repo_created_for_test"
         project = self.service.get_project(
-            repo=name_of_the_repo, namespace=self.service.user.get_username()
+            repo=name_of_the_repo,
+            namespace=self.service.user.get_username(),
         )
         with self.assertRaises(GithubException):
             _ = project.github_repo
@@ -29,7 +30,8 @@ class Service(GithubTests):
         assert new_project.github_repo
 
         project = self.service.get_project(
-            repo=name_of_the_repo, namespace=self.service.user.get_username()
+            repo=name_of_the_repo,
+            namespace=self.service.user.get_username(),
         )
         assert project.github_repo
 
@@ -42,7 +44,8 @@ class Service(GithubTests):
         description = "The description of the newly created project."
 
         project = self.service.get_project(
-            repo=name_of_the_repo, namespace=self.service.user.get_username()
+            repo=name_of_the_repo,
+            namespace=self.service.user.get_username(),
         )
         with self.assertRaises(GithubException):
             _ = project.github_repo
@@ -56,7 +59,8 @@ class Service(GithubTests):
         assert new_project.get_description() == description
 
         project = self.service.get_project(
-            repo=name_of_the_repo, namespace=self.service.user.get_username()
+            repo=name_of_the_repo,
+            namespace=self.service.user.get_username(),
         )
         assert project.github_repo
         assert project.get_description() == description
@@ -69,20 +73,23 @@ class Service(GithubTests):
         name_of_the_repo = "repo_created_for_test_in_group"
         namespace_of_the_repo = "packit"
         project = self.service.get_project(
-            repo=name_of_the_repo, namespace=namespace_of_the_repo
+            repo=name_of_the_repo,
+            namespace=namespace_of_the_repo,
         )
         with self.assertRaises(UnknownObjectException):
             _ = project.github_repo
 
         new_project = self.service.project_create(
-            repo=name_of_the_repo, namespace=namespace_of_the_repo
+            repo=name_of_the_repo,
+            namespace=namespace_of_the_repo,
         )
         assert new_project.repo == name_of_the_repo
         assert new_project.namespace == namespace_of_the_repo
         assert new_project.github_repo
 
         project = self.service.get_project(
-            repo=name_of_the_repo, namespace=namespace_of_the_repo
+            repo=name_of_the_repo,
+            namespace=namespace_of_the_repo,
         )
         assert project.github_repo
 
@@ -93,7 +100,8 @@ class Service(GithubTests):
         """
         name_of_the_repo = "repo_created_for_test_fail"
         project = self.service.get_project(
-            repo=name_of_the_repo, namespace=self.service.user.get_username()
+            repo=name_of_the_repo,
+            namespace=self.service.user.get_username(),
         )
         with self.assertRaises(GithubException):
             _ = project.github_repo

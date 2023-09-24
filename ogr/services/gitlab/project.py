@@ -45,7 +45,7 @@ class GitlabProject(BaseGitProject):
     ) -> None:
         if unprocess_kwargs:
             logger.warning(
-                f"GitlabProject will not process these kwargs: {unprocess_kwargs}"
+                f"GitlabProject will not process these kwargs: {unprocess_kwargs}",
             )
         super().__init__(repo, service, namespace)
         self._gitlab_repo = gitlab_repo
@@ -55,7 +55,7 @@ class GitlabProject(BaseGitProject):
     def gitlab_repo(self) -> GitlabObjectsProject:
         if not self._gitlab_repo:
             self._gitlab_repo = self.service.gitlab_instance.projects.get(
-                f"{self.namespace}/{self.repo}"
+                f"{self.namespace}/{self.repo}",
             )
         return self._gitlab_repo
 
@@ -99,7 +99,9 @@ class GitlabProject(BaseGitProject):
         user_login = self.service.user.get_username()
         try:
             project = GitlabProject(
-                repo=self.repo, service=self.service, namespace=user_login
+                repo=self.repo,
+                service=self.service,
+                namespace=user_login,
             )
             if project.gitlab_repo:
                 return project
@@ -146,14 +148,14 @@ class GitlabProject(BaseGitProject):
             else:
                 logger.info(
                     f"Fork of {self.gitlab_repo.attributes['name']}"
-                    " does not exist and we were asked not to create it."
+                    " does not exist and we were asked not to create it.",
                 )
                 return None
         return self._construct_fork_project()
 
     def get_owners(self) -> List[str]:
         return self._get_collaborators_with_given_access(
-            access_levels=[gitlab.const.OWNER_ACCESS]
+            access_levels=[gitlab.const.OWNER_ACCESS],
         )
 
     def who_can_close_issue(self) -> Set[str]:
@@ -164,8 +166,8 @@ class GitlabProject(BaseGitProject):
                     gitlab.const.DEVELOPER_ACCESS,
                     gitlab.const.MAINTAINER_ACCESS,
                     gitlab.const.OWNER_ACCESS,
-                ]
-            )
+                ],
+            ),
         )
 
     def who_can_merge_pr(self) -> Set[str]:
@@ -175,8 +177,8 @@ class GitlabProject(BaseGitProject):
                     gitlab.const.DEVELOPER_ACCESS,
                     gitlab.const.MAINTAINER_ACCESS,
                     gitlab.const.OWNER_ACCESS,
-                ]
-            )
+                ],
+            ),
         )
 
     def can_merge_pr(self, username) -> bool:
@@ -186,7 +188,8 @@ class GitlabProject(BaseGitProject):
         self.gitlab_repo.delete()
 
     def _get_collaborators_with_given_access(
-        self, access_levels: List[int]
+        self,
+        access_levels: List[int],
     ) -> List[str]:
         """
         Get all project collaborators with one of the given access levels.
@@ -233,7 +236,7 @@ class GitlabProject(BaseGitProject):
             raise GitlabAPIException(f"User {user} not found") from e
         try:
             self.gitlab_repo.members.create(
-                {"user_id": user_id, "access_level": access_dict[access_level]}
+                {"user_id": user_id, "access_level": access_dict[access_level]},
             )
         except Exception as e:
             raise GitlabAPIException(f"User {user} already exists") from e
@@ -268,7 +271,11 @@ class GitlabProject(BaseGitProject):
         pass
 
     def commit_comment(
-        self, commit: str, body: str, filename: str = None, row: int = None
+        self,
+        commit: str,
+        body: str,
+        filename: str = None,
+        row: int = None,
     ) -> "CommitComment":
         try:
             commit_object: ProjectCommit = self.gitlab_repo.commits.get(commit)
@@ -278,7 +285,7 @@ class GitlabProject(BaseGitProject):
 
         if filename and row:
             raw_comment = commit_object.comments.create(
-                {"note": body, "path": filename, "line": row, "line_type": "new"}
+                {"note": body, "path": filename, "line": row, "line_type": "new"},
             )
         else:
             raw_comment = commit_object.comments.create({"note": body})
@@ -287,7 +294,9 @@ class GitlabProject(BaseGitProject):
     @staticmethod
     def _commit_comment_from_gitlab_object(raw_comment, commit) -> CommitComment:
         return CommitComment(
-            sha=commit, body=raw_comment.note, author=raw_comment.author["username"]
+            sha=commit,
+            body=raw_comment.note,
+            author=raw_comment.author["username"],
         )
 
     def get_commit_comments(self, commit: str) -> List[CommitComment]:
@@ -334,11 +343,13 @@ class GitlabProject(BaseGitProject):
         except gitlab.GitlabCreateError as ex:
             logger.error(f"Repo {self.gitlab_repo} cannot be forked")
             raise GitlabAPIException(
-                f"Repo {self.gitlab_repo} cannot be forked"
+                f"Repo {self.gitlab_repo} cannot be forked",
             ) from ex
         logger.debug(f"Forked to {fork.namespace['full_path']}/{fork.path}")
         return GitlabProject(
-            namespace=fork.namespace["full_path"], service=self.service, repo=fork.path
+            namespace=fork.namespace["full_path"],
+            service=self.service,
+            repo=fork.path,
         )
 
     def change_token(self, new_token: str):
@@ -358,13 +369,18 @@ class GitlabProject(BaseGitProject):
             raise GitlabAPIException() from ex
 
     def get_files(
-        self, ref: str = None, filter_regex: str = None, recursive: bool = False
+        self,
+        ref: str = None,
+        filter_regex: str = None,
+        recursive: bool = False,
     ) -> List[str]:
         ref = ref or self.default_branch
         paths = [
             file_dict["path"]
             for file_dict in self.gitlab_repo.repository_tree(
-                ref=ref, recursive=recursive, all=True
+                ref=ref,
+                recursive=recursive,
+                all=True,
             )
             if file_dict["type"] != "tree"
         ]
@@ -420,7 +436,11 @@ class GitlabProject(BaseGitProject):
 
     @indirect(GitlabRelease.create)
     def create_release(
-        self, tag: str, name: str, message: str, commit_sha: Optional[str] = None
+        self,
+        tag: str,
+        name: str,
+        message: str,
+        commit_sha: Optional[str] = None,
     ) -> GitlabRelease:
         pass
 
@@ -445,7 +465,7 @@ class GitlabProject(BaseGitProject):
             # > KeyError: 0
             # looks like some API weirdness
             raise OperationNotSupported(
-                "Please upgrade python-gitlab to a newer version."
+                "Please upgrade python-gitlab to a newer version.",
             ) from ex
         return [
             GitlabProject(
@@ -476,7 +496,7 @@ class GitlabProject(BaseGitProject):
                         "name": label.name,
                         "color": color,
                         "description": label.description or "",
-                    }
+                    },
                 )
 
                 changes += 1
@@ -509,7 +529,7 @@ class GitlabProject(BaseGitProject):
             return f"{contributor['name']} <{contributor['email']}>"
 
         return set(
-            map(format_contributor, self.gitlab_repo.repository_contributors(all=True))
+            map(format_contributor, self.gitlab_repo.repository_contributors(all=True)),
         )
 
     def users_with_write_access(self) -> Set[str]:
@@ -519,6 +539,6 @@ class GitlabProject(BaseGitProject):
                     gitlab.const.DEVELOPER_ACCESS,
                     gitlab.const.MAINTAINER_ACCESS,
                     gitlab.const.OWNER_ACCESS,
-                ]
-            )
+                ],
+            ),
         )
