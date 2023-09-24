@@ -1,6 +1,7 @@
 # Copyright Contributors to the Packit project.
 # SPDX-License-Identifier: MIT
 
+import pytest
 from requre.online_replacing import record_requests_for_all_methods
 
 from ogr.abstract import IssueStatus
@@ -242,5 +243,5 @@ class Issues(GitlabTests):
             namespace="packit-service",
             repo="private-testing-repo",
         )
-        with self.assertRaises(IssueTrackerDisabled):
+        with pytest.raises(IssueTrackerDisabled):
             project.create_issue("Testing issue", "shouldn't be created")

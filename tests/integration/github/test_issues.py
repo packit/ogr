@@ -19,7 +19,7 @@ class Issues(GithubTests):
     description = "This is a description"
 
     def test_issue_list(self):
-        with self.assertRaises(IssueTrackerDisabled):
+        with pytest.raises(IssueTrackerDisabled):
             issue_list = self.ogr_fork.get_issue_list()
 
         issue_list_all = self.ogr_project.get_issue_list(status=IssueStatus.all)
@@ -47,7 +47,7 @@ class Issues(GithubTests):
             assert issue_label.name == label
 
     def test_create_private_issue(self):
-        with self.assertRaises(OperationNotSupported):
+        with pytest.raises(OperationNotSupported):
             self.hello_world_project.create_issue(
                 title=self.title,
                 body=self.description,
@@ -204,7 +204,7 @@ class Issues(GithubTests):
         assert comment.body == "this is a comment"
 
     def test_create_with_disabled_issues(self):
-        with self.assertRaises(IssueTrackerDisabled):
+        with pytest.raises(IssueTrackerDisabled):
             self.hello_world_project.get_fork().create_issue(
                 "Testing issue",
                 "shouldn't be created",

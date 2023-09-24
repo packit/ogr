@@ -7,7 +7,7 @@ from ogr.parsing import RepoUrl, parse_git_repo
 
 
 @pytest.mark.parametrize(
-    "url,expected",
+    ("url", "expected"),
     [
         (
             "https://host.name/namespace/repo",

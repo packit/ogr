@@ -1,6 +1,7 @@
 # Copyright Contributors to the Packit project.
 # SPDX-License-Identifier: MIT
 
+import pytest
 from requre.online_replacing import record_requests_for_all_methods
 
 from ogr.abstract import IssueStatus
@@ -134,7 +135,7 @@ class Issues(PagureTests):
         assert comment.body == "example issue comment"
 
     def test_create_with_disabled_issues(self):
-        with self.assertRaises(IssueTrackerDisabled):
+        with pytest.raises(IssueTrackerDisabled):
             self.ogr_project.get_fork().create_issue(
                 "Testing issue",
                 "shouldn't be created",

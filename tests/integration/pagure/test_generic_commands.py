@@ -91,7 +91,7 @@ class GenericCommands(PagureTests):
         assert {"a/b/lib.c", "a/b/main.c", "a/b/some_other_lib.c"}.issubset(files)
 
     def test_nonexisting_file(self):
-        with self.assertRaises(FileNotFoundError) as _:
+        with pytest.raises(FileNotFoundError) as _:
             self.ogr_project.get_file_content(".blablabla_nonexisting_file")
 
     def test_no_file_server_error(self):
@@ -154,7 +154,8 @@ class GenericCommands(PagureTests):
 
     def test_get_sha_from_branch(self):
         commit_sha = self.ogr_project.get_sha_from_branch("testPR")
-        assert commit_sha and commit_sha.startswith("1b491a6")
+        assert commit_sha
+        assert commit_sha.startswith("1b491a6")
 
     def test_get_sha_from_branch_non_existing(self):
         commit_sha = self.ogr_project.get_sha_from_branch("non-existing")

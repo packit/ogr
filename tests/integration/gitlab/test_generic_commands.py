@@ -70,7 +70,7 @@ class GenericCommands(GitlabTests):
         assert "README.md" in files
 
     def test_nonexisting_file(self):
-        with self.assertRaises(FileNotFoundError):
+        with pytest.raises(FileNotFoundError):
             self.project.get_file_content(".blablabla_nonexisting_file")
 
     def test_username(self):
@@ -121,7 +121,8 @@ class GenericCommands(GitlabTests):
 
     def test_get_sha_from_branch(self):
         commit_sha = self.project.get_sha_from_branch("change")
-        assert commit_sha and commit_sha.startswith("d490ec67")
+        assert commit_sha
+        assert commit_sha.startswith("d490ec67")
 
     def test_get_sha_from_branch_non_existing(self):
         commit_sha = self.project.get_sha_from_branch("non-existing")

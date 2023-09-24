@@ -48,7 +48,7 @@ def test_filter_comments_empty():
 
 
 @pytest.mark.parametrize(
-    "filter_str,number_of_result",
+    ("filter_str", "number_of_result"),
     [
         ("unknown", 0),
         ("def", 1),
@@ -63,7 +63,7 @@ def test_filter_comments(comments, filter_str, number_of_result):
 
 
 @pytest.mark.parametrize(
-    "filter_str,starts_with,number_of_groups",
+    ("filter_str", "starts_with", "number_of_groups"),
     [
         ("unknown", None, 0),
         ("def", "Abc", 1),

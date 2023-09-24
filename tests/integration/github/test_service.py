@@ -22,7 +22,7 @@ class Service(GithubTests):
             repo=name_of_the_repo,
             namespace=self.service.user.get_username(),
         )
-        with self.assertRaises(GithubException):
+        with pytest.raises(GithubException):
             _ = project.github_repo
 
         new_project = self.service.project_create(name_of_the_repo)
@@ -47,7 +47,7 @@ class Service(GithubTests):
             repo=name_of_the_repo,
             namespace=self.service.user.get_username(),
         )
-        with self.assertRaises(GithubException):
+        with pytest.raises(GithubException):
             _ = project.github_repo
 
         new_project = self.service.project_create(
@@ -76,7 +76,7 @@ class Service(GithubTests):
             repo=name_of_the_repo,
             namespace=namespace_of_the_repo,
         )
-        with self.assertRaises(UnknownObjectException):
+        with pytest.raises(UnknownObjectException):
             _ = project.github_repo
 
         new_project = self.service.project_create(
@@ -103,7 +103,7 @@ class Service(GithubTests):
             repo=name_of_the_repo,
             namespace=self.service.user.get_username(),
         )
-        with self.assertRaises(GithubException):
+        with pytest.raises(GithubException):
             _ = project.github_repo
 
         self.service.project_create(name_of_the_repo)

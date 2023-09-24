@@ -20,7 +20,7 @@ from ogr.services.github.project import GithubProject
 from ogr.services.github.pull_request import GithubPullRequest
 
 
-@pytest.fixture
+@pytest.fixture()
 def github_project(mock_github_repo):
     github_project = GithubProject(
         repo="test_repo",
@@ -42,7 +42,7 @@ def github_project(mock_github_repo):
     return github_project
 
 
-@pytest.fixture
+@pytest.fixture()
 def mock_pull_request():
     def mock_pull_request_factory(id):
         return flexmock(id=id)
@@ -50,7 +50,7 @@ def mock_pull_request():
     return mock_pull_request_factory
 
 
-@pytest.fixture
+@pytest.fixture()
 def mock_github_repo(mock_pull_request):
     def mock_github_repo_factory():
         return flexmock(create_pull=mock_pull_request(42))
@@ -122,8 +122,8 @@ class TestGitHubService(TestCase):
 
 
 @pytest.mark.parametrize(
-    "title, summary, text, expected",
-    (
+    ("title", "summary", "text", "expected"),
+    [
         (
             "test",
             "test summary",
@@ -143,7 +143,7 @@ class TestGitHubService(TestCase):
                 "text": "# Random title\n\n- [ ] TODO list\n---\n_italics_",
             },
         ),
-    ),
+    ],
 )
 def test_create_github_check_run_output(
     title: str,
@@ -154,7 +154,7 @@ def test_create_github_check_run_output(
     assert create_github_check_run_output(title, summary, text) == expected
 
 
-@pytest.fixture
+@pytest.fixture()
 def github_service_with_multiple_auth_methods():
     return GithubService(
         token="abcdef",
@@ -182,7 +182,7 @@ def test_set_reset_customized_auth_method(github_service_with_multiple_auth_meth
     assert isinstance(service.authentication, Tokman)
 
 
-@pytest.fixture
+@pytest.fixture()
 def github_service_with_one_auth_method():
     return GithubService(
         tokman_instance_url="http://tokman:8080",

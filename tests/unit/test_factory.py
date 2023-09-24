@@ -16,7 +16,7 @@ from ogr.services.pagure import PagureProject
 
 
 @pytest.mark.parametrize(
-    "url,mapping,result",
+    ("url", "mapping", "result"),
     [
         ("https://github.com/packit-service/ogr", None, GithubService),
         ("github.com/packit-service/ogr", None, GithubService),
@@ -77,7 +77,7 @@ def test_get_service_class(url, mapping, result):
 
 
 @pytest.mark.parametrize(
-    "url,mapping",
+    ("url", "mapping"),
     [
         ("https://unknown.com/packit-service/ogr", None),
         ("unknown.com/packit-service/ogr", None),
@@ -93,7 +93,7 @@ def test_get_service_class_not_found(url, mapping):
 
 
 @pytest.mark.parametrize(
-    "url,mapping,instances,force_custom_instance,result",
+    ("url", "mapping", "instances", "force_custom_instance", "result"),
     [
         (
             "https://github.com/packit-service/ogr",
@@ -289,7 +289,7 @@ def test_get_project(url, mapping, instances, force_custom_instance, result):
 
 
 @pytest.mark.parametrize(
-    "url,mapping,instances,exc_str",
+    ("url", "mapping", "instances", "exc_str"),
     [
         (
             "https://unknown.com/packit-service/ogr",
@@ -345,7 +345,7 @@ def test_get_project_not_found(url, mapping, instances, exc_str):
 
 
 @pytest.mark.parametrize(
-    "instances_in_dict,result_instances",
+    ("instances_in_dict", "result_instances"),
     [
         ({}, set()),
         ({"github.com": {"token": "abcd"}}, {GithubService(token="abcd")}),
@@ -402,7 +402,7 @@ def test_get_instances_from_dict(instances_in_dict, result_instances: Set):
 
 
 @pytest.mark.parametrize(
-    "instances_in_dict,result_instances",
+    ("instances_in_dict", "result_instances"),
     [
         (
             {"github.com": {"token": "abcd", "github_app_id": "123"}},
@@ -458,7 +458,7 @@ def test_get_instances_from_dict_multiple_auth(instances_in_dict, result_instanc
 
 
 @pytest.mark.parametrize(
-    "instances_in_dict,result_max_retries_total",
+    ("instances_in_dict", "result_max_retries_total"),
     [
         (
             {
@@ -518,7 +518,7 @@ def test_get_github_instance_with_retries(instances_in_dict, result_max_retries_
 
 
 @pytest.mark.parametrize(
-    "instances_in_dict,error_str",
+    ("instances_in_dict", "error_str"),
     [
         ({"unknown": {"token": "abcd"}}, "No matching service was found for url"),
         (

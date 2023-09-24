@@ -88,7 +88,7 @@ class GenericCommands(GithubTests):
         assert any("python-ogr.spec" in f for f in files)
 
     def test_nonexisting_file(self):
-        with self.assertRaises(FileNotFoundError):
+        with pytest.raises(FileNotFoundError):
             self.ogr_project.get_file_content(".blablabla_nonexisting_file")
 
     def test_parent_project(self):
@@ -104,7 +104,8 @@ class GenericCommands(GithubTests):
 
     def test_get_sha_from_branch(self):
         commit_sha = self.hello_world_project.get_sha_from_branch("test-for-flock")
-        assert commit_sha and commit_sha.startswith("e2282f3")
+        assert commit_sha
+        assert commit_sha.startswith("e2282f3")
 
     def test_get_sha_from_branch_non_existing(self):
         commit_sha = self.hello_world_project.get_sha_from_branch("non-existing")
