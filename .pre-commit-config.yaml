@@ -63,3 +63,9 @@ repos:
       - id: requre-purge
         # Do not run in pre-commit.ci as it requires too much time
         stages: [manual, push]
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    # Ruff version.
+    rev: v0.0.291
+    hooks:
+      - id: ruff
+        args: [--fix, --exit-non-zero-on-fix]
