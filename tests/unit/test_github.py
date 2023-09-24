@@ -45,8 +45,7 @@ def github_project(mock_github_repo):
 @pytest.fixture
 def mock_pull_request():
     def mock_pull_request_factory(id):
-        mock = flexmock(id=id)
-        return mock
+        return flexmock(id=id)
 
     return mock_pull_request_factory
 
@@ -54,8 +53,7 @@ def mock_pull_request():
 @pytest.fixture
 def mock_github_repo(mock_pull_request):
     def mock_github_repo_factory():
-        mock = flexmock(create_pull=mock_pull_request(42))
-        return mock
+        return flexmock(create_pull=mock_pull_request(42))
 
     return mock_github_repo_factory
 
@@ -158,7 +156,7 @@ def test_create_github_check_run_output(
 
 @pytest.fixture
 def github_service_with_multiple_auth_methods():
-    service = GithubService(
+    return GithubService(
         token="abcdef",
         github_app_id="123",
         github_app_private_key="id_rsa",
@@ -166,8 +164,6 @@ def github_service_with_multiple_auth_methods():
         tokman_instance_url="http://tokman:8080",
         github_authentication=None,
     )
-
-    return service
 
 
 def test_multiple_auth_methods_default_is_tokman(
@@ -188,12 +184,10 @@ def test_set_reset_customized_auth_method(github_service_with_multiple_auth_meth
 
 @pytest.fixture
 def github_service_with_one_auth_method():
-    service = GithubService(
+    return GithubService(
         tokman_instance_url="http://tokman:8080",
         github_authentication=None,
     )
-
-    return service
 
 
 def test_no_multiple_auth_methods_default_is_tokman(

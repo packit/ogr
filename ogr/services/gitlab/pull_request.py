@@ -125,10 +125,10 @@ class GitlabPullRequest(BasePullRequest):
     @property
     def merge_commit_status(self) -> MergeCommitStatus:
         status = self._raw_pr.merge_status
-        if status in self._merge_commit_status:
-            return self._merge_commit_status[status]
-        else:
+        if status not in self._merge_commit_status:
             raise GitlabAPIException(f"Invalid merge_status {status}")
+
+        return self._merge_commit_status[status]
 
     @property
     def source_project(self) -> "ogr_gitlab.GitlabProject":

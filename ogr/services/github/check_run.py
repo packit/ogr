@@ -290,7 +290,8 @@ class GithubCheckRun(OgrAbstractClass):
             raise OperationNotSupported(
                 "Cannot retrieve check run by both ID and commit hash",
             )
-        elif not (check_run_id is not None or commit_sha):
+
+        if not (check_run_id is not None or commit_sha):
             raise OperationNotSupported("Cannot retrieve check run by no criteria")
 
         if check_run_id is not None:

@@ -19,8 +19,10 @@ class GitlabTests(unittest.TestCase):
             raise OSError(
                 "You are in Requre write mode, please set GITLAB_TOKEN env variables",
             )
-        elif not self.token:
+
+        if not self.token:
             self.token = "some_token"
+
         self._service = None
         self._project = None
 

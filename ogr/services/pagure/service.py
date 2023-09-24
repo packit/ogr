@@ -68,13 +68,12 @@ class PagureService(BaseGitService):
         insecure_str = ", insecure=True" if self.insecure else ""
         readonly_str = ", read_only=True" if self.read_only else ""
 
-        str_result = (
+        return (
             f"PagureService(instance_url='{self.instance_url}'"
             f"{token_str}"
             f"{readonly_str}"
             f"{insecure_str})"
         )
-        return str_result
 
     def __eq__(self, o: object) -> bool:
         if not issubclass(o.__class__, PagureService):
@@ -94,12 +93,12 @@ class PagureService(BaseGitService):
     def get_project(self, **kwargs) -> "PagureProject":
         if "username" in kwargs:
             return PagureProject(service=self, **kwargs)
-        else:
-            return PagureProject(
-                service=self,
-                username=self.user.get_username(),
-                **kwargs,
-            )
+
+        return PagureProject(
+            service=self,
+            username=self.user.get_username(),
+            **kwargs,
+        )
 
     def get_project_from_url(self, url: str) -> "PagureProject":
         repo_url = parse_git_repo(potential_url=url)
@@ -109,13 +108,12 @@ class PagureService(BaseGitService):
         if not repo_url.is_fork:
             repo_url.username = None
 
-        project = self.get_project(
+        return self.get_project(
             repo=repo_url.repo,
             namespace=repo_url.namespace,
             is_fork=repo_url.is_fork,
             username=repo_url.username,
         )
-        return project
 
     @property
     def user(self) -> "PagureUser":
@@ -318,8 +316,7 @@ class PagureService(BaseGitService):
             Dictionary with all error codes.
         """
         request_url = self.get_api_url("error_codes")
-        return_value = self.call_api(request_url)
-        return return_value
+        return self.call_api(request_url)
 
     def change_token(self, token: str):
         self._token = token

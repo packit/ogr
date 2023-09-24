@@ -64,12 +64,11 @@ class GitlabService(BaseGitService):
             f", token='{self.token[:1]}***{self.token[-1:]}'" if self.token else ""
         )
         ssl_str = ", ssl_verify=False" if not self.ssl_verify else ""
-        str_result = (
+        return (
             f"GitlabService(instance_url='{self.instance_url}'"
             f"{token_str}"
             f"{ssl_str})"
         )
-        return str_result
 
     def __eq__(self, o: object) -> bool:
         if not issubclass(o.__class__, GitlabService):
@@ -151,8 +150,6 @@ class GitlabService(BaseGitService):
         else:
             raise OperationNotSupported
 
-        gitlab_projects: List[GitProject]
-
         if language:
             # group.projects.list gives us a GroupProject instance
             # in order to be able to filter by language we need Project instance
@@ -166,7 +163,7 @@ class GitlabService(BaseGitService):
             ]
         else:
             projects_to_convert = projects
-        gitlab_projects = [
+        return [
             GitlabProject(
                 repo=project.attributes["path"],
                 namespace=project.attributes["namespace"]["full_path"],
@@ -174,5 +171,3 @@ class GitlabService(BaseGitService):
             )
             for project in projects_to_convert
         ]
-
-        return gitlab_projects

@@ -135,7 +135,8 @@ class PagureIssue(BaseIssue):
             payload["private"] = "true"
         if assignees and len(assignees) > 1:
             raise OperationNotSupported("Pagure does not support multiple assignees")
-        elif assignees:
+
+        if assignees:
             payload["assignee"] = assignees[0]
 
         new_issue = project._call_project_api("new_issue", data=payload, method="POST")[

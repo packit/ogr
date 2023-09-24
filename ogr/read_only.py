@@ -73,20 +73,20 @@ def if_readonly(
         def readonly_func(self, *args, **kwargs):
             if not self.read_only:
                 return func(self, *args, **kwargs)
-            else:
-                args_str = str(args)[1:-1]
-                kwargs_str = ", ".join(f"{k}={v!r}" for k, v in kwargs.items())
-                # add , in case there are also args, what has to be separated
-                if args and kwargs:
-                    kwargs_str = ", " + kwargs_str
-                log_output(
-                    f"{log_message} {self.__class__.__name__}."
-                    f"{func.__name__}({args_str}{kwargs_str})",
-                )
-                if return_function:
-                    return return_function(self, *args, **kwargs)
-                else:
-                    return return_value
+
+            args_str = str(args)[1:-1]
+            kwargs_str = ", ".join(f"{k}={v!r}" for k, v in kwargs.items())
+            # add , in case there are also args, what has to be separated
+            if args and kwargs:
+                kwargs_str = ", " + kwargs_str
+            log_output(
+                f"{log_message} {self.__class__.__name__}."
+                f"{func.__name__}({args_str}{kwargs_str})",
+            )
+            if return_function:
+                return return_function(self, *args, **kwargs)
+
+            return return_value
 
         return readonly_func
 

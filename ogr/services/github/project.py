@@ -197,12 +197,12 @@ class GithubProject(BaseGitProject):
         if not self.is_forked():
             if create:
                 return self.fork_create()
-            else:
-                logger.info(
-                    f"Fork of {self.github_repo.full_name}"
-                    " does not exist and we were asked not to create it.",
-                )
-                return None
+
+            logger.info(
+                f"Fork of {self.github_repo.full_name}"
+                " does not exist and we were asked not to create it.",
+            )
+            return None
         return self._construct_fork_project()
 
     def get_owners(self) -> List[str]:

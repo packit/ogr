@@ -112,8 +112,8 @@ class GithubPullRequest(BasePullRequest):
     def merge_commit_status(self) -> MergeCommitStatus:
         if self._raw_pr.mergeable:
             return MergeCommitStatus.can_be_merged
-        else:
-            return MergeCommitStatus.cannot_be_merged
+
+        return MergeCommitStatus.cannot_be_merged
 
     @property
     def source_project(self) -> "ogr_github.GithubProject":
