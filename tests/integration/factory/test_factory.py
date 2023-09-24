@@ -23,16 +23,15 @@ class FactoryTests(unittest.TestCase):
         self.github_token = os.environ.get("GITHUB_TOKEN")
         self.pagure_token = os.environ.get("PAGURE_TOKEN")
         self.gitlab_token = os.environ.get("GITLAB_TOKEN") or "some_token"
-        if not Path(get_datafile_filename(obj=self)).exists():
-            if (
-                not self.github_token
-                or not self.pagure_token
-                or not os.environ.get("GITLAB_TOKEN")
-            ):
-                raise OSError(
-                    "You are in requre write mode, please set GITHUB_TOKEN PAGURE_TOKEN"
-                    " GITLAB_TOKEN env variables",
-                )
+        if not Path(get_datafile_filename(obj=self)).exists() and (
+            not self.github_token
+            or not self.pagure_token
+            or not os.environ.get("GITLAB_TOKEN")
+        ):
+            raise OSError(
+                "You are in requre write mode, please set GITHUB_TOKEN PAGURE_TOKEN"
+                " GITLAB_TOKEN env variables",
+            )
 
     @property
     def github_service(self):

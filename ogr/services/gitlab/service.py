@@ -157,9 +157,7 @@ class GitlabService(BaseGitService):
                 self.gitlab_instance.projects.get(item.attributes["id"])
                 for item in projects
                 if language
-                in self.gitlab_instance.projects.get(item.attributes["id"])
-                .languages()
-                .keys()
+                in self.gitlab_instance.projects.get(item.attributes["id"]).languages()
             ]
         else:
             projects_to_convert = projects

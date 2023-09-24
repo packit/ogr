@@ -5,6 +5,7 @@
 Module providing one api for multiple git services (github/gitlab/pagure)
 """
 
+import contextlib
 from importlib.metadata import PackageNotFoundError, distribution
 
 from ogr.abstract import AuthMethod
@@ -18,11 +19,8 @@ from ogr.services.github import GithubService
 from ogr.services.gitlab import GitlabService
 from ogr.services.pagure import PagureService
 
-try:
+with contextlib.suppress(PackageNotFoundError):
     __version__ = distribution(__name__).version
-except PackageNotFoundError:
-    # package is not installed
-    pass
 
 __all__ = [
     GithubService.__name__,
