@@ -10,8 +10,6 @@ import gitlab
 class OgrException(Exception):
     """Something went wrong during our execution."""
 
-    pass
-
 
 class APIException(OgrException):
     """Generic API exception."""
