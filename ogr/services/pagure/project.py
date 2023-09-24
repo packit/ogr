@@ -2,7 +2,8 @@
 # SPDX-License-Identifier: MIT
 
 import logging
-from typing import Dict, Iterable, List, Optional, Set
+from collections.abc import Iterable
+from typing import Optional
 from urllib.parse import urlparse
 
 from ogr.abstract import (
@@ -174,7 +175,7 @@ class PagureProject(BaseGitProject):
     def get_project_info(self):
         return self._call_project_api(method="GET")
 
-    def get_branches(self) -> List[str]:
+    def get_branches(self) -> list[str]:
         return_value = self._call_project_api("git", "branches", method="GET")
         return return_value["branches"]
 
@@ -199,12 +200,12 @@ class PagureProject(BaseGitProject):
         options = self._call_project_api("options", method="GET")
         return options["settings"]["issue_tracker"]
 
-    def get_owners(self) -> List[str]:
+    def get_owners(self) -> list[str]:
         project = self.get_project_info()
         return project["access_users"]["owner"]
 
-    def who_can_close_issue(self) -> Set[str]:
-        users: Set[str] = set()
+    def who_can_close_issue(self) -> set[str]:
+        users: set[str] = set()
         project = self.get_project_info()
         users.update(project["access_users"]["admin"])
         users.update(project["access_users"]["commit"])
@@ -212,16 +213,16 @@ class PagureProject(BaseGitProject):
         users.update(project["access_users"]["owner"])
         return users
 
-    def who_can_merge_pr(self) -> Set[str]:
-        users: Set[str] = set()
+    def who_can_merge_pr(self) -> set[str]:
+        users: set[str] = set()
         project = self.get_project_info()
         users.update(project["access_users"]["admin"])
         users.update(project["access_users"]["commit"])
         users.update(project["access_users"]["owner"])
         return users
 
-    def which_groups_can_merge_pr(self) -> Set[str]:
-        groups: Set[str] = set()
+    def which_groups_can_merge_pr(self) -> set[str]:
+        groups: set[str] = set()
         project = self.get_project_info()
         groups.update(project["access_groups"]["admin"])
         groups.update(project["access_groups"]["commit"])
@@ -239,8 +240,8 @@ class PagureProject(BaseGitProject):
         status: IssueStatus = IssueStatus.open,
         author: Optional[str] = None,
         assignee: Optional[str] = None,
-        labels: Optional[List[str]] = None,
-    ) -> List[Issue]:
+        labels: Optional[list[str]] = None,
+    ) -> list[Issue]:
         pass
 
     @indirect(PagureIssue.get)
@@ -256,8 +257,8 @@ class PagureProject(BaseGitProject):
         title: str,
         body: str,
         private: Optional[bool] = None,
-        labels: Optional[List[str]] = None,
-        assignees: Optional[List[str]] = None,
+        labels: Optional[list[str]] = None,
+        assignees: Optional[list[str]] = None,
     ) -> Issue:
         pass
 
@@ -267,7 +268,7 @@ class PagureProject(BaseGitProject):
         status: PRStatus = PRStatus.open,
         assignee=None,
         author=None,
-    ) -> List[PullRequest]:
+    ) -> list[PullRequest]:
         pass
 
     @indirect(PagurePullRequest.get)
@@ -373,7 +374,7 @@ class PagureProject(BaseGitProject):
             )
         return None
 
-    def get_git_urls(self) -> Dict[str, str]:
+    def get_git_urls(self) -> dict[str, str]:
         return_value = self._call_project_api("git", "urls")
         return return_value["urls"]
 
@@ -457,7 +458,7 @@ class PagureProject(BaseGitProject):
     ) -> CommitComment:
         raise OperationNotSupported("Commit comments are not supported on Pagure.")
 
-    def get_commit_comments(self, commit: str) -> List[CommitComment]:
+    def get_commit_comments(self, commit: str) -> list[CommitComment]:
         raise OperationNotSupported("Commit comments are not supported on Pagure.")
 
     @if_readonly(return_function=GitProjectReadOnly.set_commit_status)
@@ -476,19 +477,19 @@ class PagureProject(BaseGitProject):
         pass
 
     @indirect(PagureCommitFlag.get)
-    def get_commit_statuses(self, commit: str) -> List[CommitFlag]:
+    def get_commit_statuses(self, commit: str) -> list[CommitFlag]:
         pass
 
-    def get_tags(self) -> List[GitTag]:
+    def get_tags(self) -> list[GitTag]:
         response = self._call_project_api("git", "tags", params={"with_commits": True})
         return [GitTag(name=n, commit_sha=c) for n, c in response["tags"].items()]
 
-    def get_tags_dict(self) -> Dict[str, GitTag]:
+    def get_tags_dict(self) -> dict[str, GitTag]:
         response = self._call_project_api("git", "tags", params={"with_commits": True})
         return {n: GitTag(name=n, commit_sha=c) for n, c in response["tags"].items()}
 
     @indirect(PagureRelease.get_list)
-    def get_releases(self) -> List[Release]:
+    def get_releases(self) -> list[Release]:
         pass
 
     @indirect(PagureRelease.get)
@@ -509,7 +510,7 @@ class PagureProject(BaseGitProject):
     ) -> Release:
         pass
 
-    def get_forks(self) -> List["PagureProject"]:
+    def get_forks(self) -> list["PagureProject"]:
         forks_url = self.service.get_api_url("projects")
         projects_response = self.service.call_api(
             url=forks_url,
@@ -561,7 +562,7 @@ class PagureProject(BaseGitProject):
         ref: str = None,
         filter_regex: str = None,
         recursive: bool = False,
-    ) -> List[str]:
+    ) -> list[str]:
         ref = ref or self.default_branch
         paths = list(self.__get_files(".", ref, recursive))
         if filter_regex:
@@ -578,10 +579,10 @@ class PagureProject(BaseGitProject):
 
         return branches.get(branch)
 
-    def get_contributors(self) -> Set[str]:
+    def get_contributors(self) -> set[str]:
         raise OperationNotSupported("Pagure doesn't provide list of contributors")
 
-    def users_with_write_access(self) -> Set[str]:
+    def users_with_write_access(self) -> set[str]:
         users_with_access = self.get_project_info()["access_users"]
         result = set()
         for access_level in ["commit", "admin", "owner"]:

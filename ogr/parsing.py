@@ -1,7 +1,7 @@
 # Copyright Contributors to the Packit project.
 # SPDX-License-Identifier: MIT
 
-from typing import List, Optional, Tuple
+from typing import Optional
 from urllib.parse import ParseResult, urlparse
 
 
@@ -121,7 +121,7 @@ class RepoUrl:
         return True
 
     @staticmethod
-    def _prepare_path(parsed: ParseResult) -> Tuple[str, List[str]]:
+    def _prepare_path(parsed: ParseResult) -> tuple[str, list[str]]:
         # path starts with '/', strip it away
         path = parsed.path.lstrip("/")
 
@@ -131,7 +131,7 @@ class RepoUrl:
 
         return path, path.split("/")
 
-    def _check_fork(self, splits: List[str]) -> List[str]:
+    def _check_fork(self, splits: list[str]) -> list[str]:
         if self.is_fork:
             # we got pagure fork but SSH url
             self.username = splits[0]
@@ -154,7 +154,7 @@ class RepoUrl:
         self.username = splits[0]
         return splits[:-1]
 
-    def _parsed_path(self, path: str, splits: List[str]) -> Optional["RepoUrl"]:
+    def _parsed_path(self, path: str, splits: list[str]) -> Optional["RepoUrl"]:
         if len(splits) == 1:
             self.namespace = self.username
             self.repo = path

@@ -3,7 +3,7 @@
 
 import datetime
 import logging
-from typing import Any, Dict, List, Optional, Union
+from typing import Any, Optional, Union
 
 from ogr.abstract import CommitFlag, CommitStatus, PRComment, PRStatus, PullRequest
 from ogr.exceptions import PagureAPIException
@@ -196,7 +196,7 @@ class PagurePullRequest(BasePullRequest):
         status: PRStatus = PRStatus.open,
         assignee=None,
         author=None,
-    ) -> List["PullRequest"]:
+    ) -> list["PullRequest"]:
         payload = {"page": 1, "status": status.name.capitalize()}
         if assignee is not None:
             payload["assignee"] = assignee
@@ -234,7 +234,7 @@ class PagurePullRequest(BasePullRequest):
         except Exception as ex:
             raise PagureAPIException("there was an error while updating the PR") from ex
 
-    def _get_all_comments(self) -> List[PRComment]:
+    def _get_all_comments(self) -> list[PRComment]:
         self.__update()
         raw_comments = self._raw_pr["comments"]
         return [
@@ -249,7 +249,7 @@ class PagurePullRequest(BasePullRequest):
         filename: Optional[str] = None,
         row: Optional[int] = None,
     ) -> "PRComment":
-        payload: Dict[str, Any] = {"comment": body}
+        payload: dict[str, Any] = {"comment": body}
         if commit is not None:
             payload["commit"] = commit
         if filename is not None:
@@ -283,7 +283,7 @@ class PagurePullRequest(BasePullRequest):
         self.__dirty = True
         return self
 
-    def get_statuses(self) -> List[CommitFlag]:
+    def get_statuses(self) -> list[CommitFlag]:
         self.__update()
         return self.target_project.get_commit_statuses(self._raw_pr["commit_stop"])
 
@@ -314,7 +314,7 @@ class PagurePullRequest(BasePullRequest):
         Returns:
             Dictionary with the response received from Pagure.
         """
-        data: Dict[str, Union[str, int]] = {
+        data: dict[str, Union[str, int]] = {
             "username": username,
             "comment": comment,
             "url": url,

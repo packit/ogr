@@ -2,7 +2,6 @@
 # SPDX-License-Identifier: MIT
 
 import datetime
-from typing import List
 
 from github import UnknownObjectException
 
@@ -30,7 +29,7 @@ class GithubCommitFlag(BaseCommitFlag):
         self.uid = self._raw_commit_flag.id
 
     @staticmethod
-    def get(project: "ogr_github.GithubProject", commit: str) -> List["CommitFlag"]:
+    def get(project: "ogr_github.GithubProject", commit: str) -> list["CommitFlag"]:
         statuses = project.github_repo.get_commit(commit).get_statuses()
 
         try:

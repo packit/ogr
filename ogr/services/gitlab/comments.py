@@ -3,7 +3,7 @@
 
 import datetime
 import logging
-from typing import List, Union
+from typing import Union
 
 import gitlab.exceptions
 from gitlab.v4.objects import (
@@ -52,7 +52,7 @@ class GitlabComment(Comment):
     def edited(self) -> datetime.datetime:
         return self._raw_comment.updated_at
 
-    def get_reactions(self) -> List[Reaction]:
+    def get_reactions(self) -> list[Reaction]:
         return [
             GitlabReaction(reaction)
             for reaction in self._raw_comment.awardemojis.list()

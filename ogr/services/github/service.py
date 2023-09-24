@@ -3,7 +3,7 @@
 
 import logging
 import re
-from typing import Dict, List, Optional, Type, Union
+from typing import Optional, Union
 
 import github
 import github.GithubObject
@@ -37,7 +37,7 @@ logger = logging.getLogger(__name__)
 @use_for_service("github.com")
 class GithubService(BaseGitService):
     # class parameter could be used to mock Github class api
-    github_class: Type[github.Github]
+    github_class: type[github.Github]
     instance_url = "https://github.com"
 
     def __init__(
@@ -62,7 +62,7 @@ class GithubService(BaseGitService):
         self.read_only = read_only
         self._default_auth_method = github_authentication
         self._other_auth_method: GithubAuthentication = None
-        self._auth_methods: Dict[AuthMethod, GithubAuthentication] = {}
+        self._auth_methods: dict[AuthMethod, GithubAuthentication] = {}
 
         if isinstance(max_retries, Retry):
             self._max_retries = max_retries
@@ -221,7 +221,7 @@ class GithubService(BaseGitService):
         user: str = None,
         search_pattern: str = None,
         language: str = None,
-    ) -> List[GitProject]:
+    ) -> list[GitProject]:
         search_query = ""
 
         if user:
@@ -230,7 +230,7 @@ class GithubService(BaseGitService):
         if language:
             search_query += f" language:{language}"
 
-        projects: List[GitProject]
+        projects: list[GitProject]
         projects = [
             GithubProject(
                 repo=repo.name,

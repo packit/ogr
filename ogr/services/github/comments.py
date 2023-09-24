@@ -2,7 +2,7 @@
 # SPDX-License-Identifier: MIT
 
 import datetime
-from typing import List, Union
+from typing import Union
 
 from github.IssueComment import IssueComment as _GithubIssueComment
 from github.PullRequestComment import PullRequestComment as _GithubPullRequestComment
@@ -43,7 +43,7 @@ class GithubComment(Comment):
     def edited(self) -> datetime.datetime:
         return self._raw_comment.updated_at
 
-    def get_reactions(self) -> List[Reaction]:
+    def get_reactions(self) -> list[Reaction]:
         return [
             GithubReaction(reaction) for reaction in self._raw_comment.get_reactions()
         ]

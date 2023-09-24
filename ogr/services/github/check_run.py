@@ -3,7 +3,7 @@
 
 import datetime
 from enum import Enum
-from typing import Any, Dict, List, Optional, Union
+from typing import Any, Optional, Union
 
 from github.CheckRun import CheckRun
 from github.CheckRunOutput import CheckRunOutput
@@ -14,7 +14,7 @@ from ogr.abstract import OgrAbstractClass
 from ogr.exceptions import OperationNotSupported
 from ogr.services import github as ogr_github
 
-GithubCheckRunOutput = Dict[str, Union[str, List[Dict[str, Union[str, int]]]]]
+GithubCheckRunOutput = dict[str, Union[str, list[dict[str, Union[str, int]]]]]
 
 
 class GithubCheckRunStatus(Enum):
@@ -59,7 +59,7 @@ def create_github_check_run_output(
     title: str,
     summary: str,
     text: Optional[str] = None,
-    annotations: Optional[List[Dict[str, Union[str, int]]]] = None,
+    annotations: Optional[list[dict[str, Union[str, int]]]] = None,
 ) -> GithubCheckRunOutput:
     """
     Helper function for constructing valid GitHub output for check run.
@@ -236,7 +236,7 @@ class GithubCheckRun(OgrAbstractClass):
         commit_sha: str,
         name: Optional[str] = None,
         status: Optional[GithubCheckRunStatus] = None,
-    ) -> List["GithubCheckRun"]:
+    ) -> list["GithubCheckRun"]:
         """
         Returns list of GitHub check runs.
 
@@ -317,7 +317,7 @@ class GithubCheckRun(OgrAbstractClass):
         conclusion: Optional[GithubCheckRunResult] = None,
         completed_at: Optional[datetime.datetime] = None,
         output: Optional[GithubCheckRunOutput] = None,
-        actions: Optional[List[Dict[str, str]]] = None,
+        actions: Optional[list[dict[str, str]]] = None,
     ) -> "GithubCheckRun":
         """
         Creates new check run.

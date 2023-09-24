@@ -2,7 +2,7 @@
 # SPDX-License-Identifier: MIT
 
 import datetime
-from typing import Dict, List, Optional
+from typing import Optional
 
 import gitlab
 import requests
@@ -20,7 +20,7 @@ class GitlabPullRequest(BasePullRequest):
     _raw_pr: _GitlabMergeRequest
     _target_project: "ogr_gitlab.GitlabProject"
     _source_project: "ogr_gitlab.GitlabProject" = None
-    _merge_commit_status: Dict[str, MergeCommitStatus] = {
+    _merge_commit_status: dict[str, MergeCommitStatus] = {
         "can_be_merged": MergeCommitStatus.can_be_merged,
         "cannot_be_merged": MergeCommitStatus.cannot_be_merged,
         "unchecked": MergeCommitStatus.unchecked,
@@ -79,7 +79,7 @@ class GitlabPullRequest(BasePullRequest):
         return self._raw_pr.created_at
 
     @property
-    def labels(self) -> List[str]:
+    def labels(self) -> list[str]:
         return self._raw_pr.labels
 
     @property
@@ -238,7 +238,7 @@ class GitlabPullRequest(BasePullRequest):
     def get_list(
         project: "ogr_gitlab.GitlabProject",
         status: PRStatus = PRStatus.open,
-    ) -> List["PullRequest"]:
+    ) -> list["PullRequest"]:
         # Gitlab API has status 'opened', not 'open'
         mrs = project.gitlab_repo.mergerequests.list(
             state=status.name if status != PRStatus.open else "opened",
@@ -260,13 +260,13 @@ class GitlabPullRequest(BasePullRequest):
         self._raw_pr.save()
         return self
 
-    def _get_all_comments(self) -> List[PRComment]:
+    def _get_all_comments(self) -> list[PRComment]:
         return [
             GitlabPRComment(parent=self, raw_comment=raw_comment)
             for raw_comment in self._raw_pr.notes.list(sort="asc", all=True)
         ]
 
-    def get_all_commits(self) -> List[str]:
+    def get_all_commits(self) -> list[str]:
         return [commit.id for commit in self._raw_pr.commits()]
 
     def comment(

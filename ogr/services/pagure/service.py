@@ -2,7 +2,7 @@
 # SPDX-License-Identifier: MIT
 
 import logging
-from typing import List, Optional, Union
+from typing import Optional, Union
 
 import requests
 import urllib3
@@ -293,7 +293,7 @@ class PagureService(BaseGitService):
         Returns:
             String
         """
-        args_list: List[str] = []
+        args_list: list[str] = []
 
         args_list += filter(lambda x: x is not None, args)
 
@@ -371,5 +371,5 @@ class PagureService(BaseGitService):
         user: str = None,
         search_pattern: str = None,
         language: str = None,
-    ) -> List[GitProject]:
+    ) -> list[GitProject]:
         raise OperationNotSupported

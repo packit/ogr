@@ -2,14 +2,14 @@
 # SPDX-License-Identifier: MIT
 
 import datetime
-from typing import Any, Dict, Optional
+from typing import Any, Optional
 
 from ogr.abstract import Comment, IssueComment, PRComment
 from ogr.exceptions import OperationNotSupported
 
 
 class PagureComment(Comment):
-    def _from_raw_comment(self, raw_comment: Dict[str, Any]) -> None:
+    def _from_raw_comment(self, raw_comment: dict[str, Any]) -> None:
         self._body = raw_comment["comment"]
         self._id = raw_comment["id"]
         self._author = raw_comment["user"]["name"]

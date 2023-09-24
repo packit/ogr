@@ -1,7 +1,7 @@
 # Copyright Contributors to the Packit project.
 # SPDX-License-Identifier: MIT
 
-from typing import Any, List, Optional
+from typing import Any, Optional
 from urllib.request import urlopen
 
 from ogr.abstract import (
@@ -67,7 +67,7 @@ class BasePullRequest(PullRequest):
         reverse: bool = False,
         description: bool = True,
     ):
-        all_comments: List[Any] = self.get_comments(reverse=reverse)
+        all_comments: list[Any] = self.get_comments(reverse=reverse)
         if description:
             description_content = self.description
             if reverse:
@@ -77,7 +77,7 @@ class BasePullRequest(PullRequest):
 
         return search_in_comments(comments=all_comments, filter_regex=filter_regex)
 
-    def get_statuses(self) -> List[CommitFlag]:
+    def get_statuses(self) -> list[CommitFlag]:
         commit = self.get_all_commits()[-1]
         return self.target_project.get_commit_statuses(commit)
 
@@ -92,8 +92,8 @@ class BaseIssue(Issue):
         filter_regex: str = None,
         reverse: bool = False,
         author: str = None,
-    ) -> List[IssueComment]:
-        all_comments: List[IssueComment] = self._get_all_comments()
+    ) -> list[IssueComment]:
+        all_comments: list[IssueComment] = self._get_all_comments()
         return filter_comments(all_comments, filter_regex, reverse, author)
 
     def can_close(self, username: str) -> bool:

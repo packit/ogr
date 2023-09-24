@@ -3,7 +3,7 @@
 
 import datetime
 import logging
-from typing import List, Optional, Union
+from typing import Optional, Union
 
 import github
 import requests
@@ -77,7 +77,7 @@ class GithubPullRequest(BasePullRequest):
         return self._raw_pr.created_at
 
     @property
-    def labels(self) -> List[GithubLabel]:
+    def labels(self) -> list[GithubLabel]:
         return list(self._raw_pr.get_labels())
 
     @property
@@ -190,7 +190,7 @@ class GithubPullRequest(BasePullRequest):
     def get_list(
         project: "ogr_github.GithubProject",
         status: PRStatus = PRStatus.open,
-    ) -> List["PullRequest"]:
+    ) -> list["PullRequest"]:
         prs = project.github_repo.get_pulls(
             # Github API has no status 'merged', just 'closed'/'opened'/'all'
             state=status.name if status != PRStatus.merged else "closed",
@@ -220,13 +220,13 @@ class GithubPullRequest(BasePullRequest):
         except Exception as ex:
             raise GithubAPIException("there was an error while updating the PR") from ex
 
-    def _get_all_comments(self) -> List[PRComment]:
+    def _get_all_comments(self) -> list[PRComment]:
         return [
             GithubPRComment(parent=self, raw_comment=raw_comment)
             for raw_comment in self._raw_pr.get_issue_comments()
         ]
 
-    def get_all_commits(self) -> List[str]:
+    def get_all_commits(self) -> list[str]:
         return [commit.sha for commit in self._raw_pr.get_commits()]
 
     def comment(

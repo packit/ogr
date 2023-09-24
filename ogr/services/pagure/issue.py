@@ -2,7 +2,7 @@
 # SPDX-License-Identifier: MIT
 
 import datetime
-from typing import Any, Dict, List, Optional, Union, cast
+from typing import Any, Optional, Union, cast
 
 from ogr.abstract import Issue, IssueComment, IssueStatus
 from ogr.exceptions import (
@@ -84,7 +84,7 @@ class PagureIssue(BaseIssue):
         return datetime.datetime.fromtimestamp(int(self._raw_issue["date_created"]))
 
     @property
-    def labels(self) -> List[str]:
+    def labels(self) -> list[str]:
         return self._raw_issue["tags"]
 
     def __str__(self) -> str:
@@ -122,8 +122,8 @@ class PagureIssue(BaseIssue):
         title: str,
         body: str,
         private: Optional[bool] = None,
-        labels: Optional[List[str]] = None,
-        assignees: Optional[List[str]] = None,
+        labels: Optional[list[str]] = None,
+        assignees: Optional[list[str]] = None,
     ) -> "Issue":
         if not project.has_issues:
             raise IssueTrackerDisabled()
@@ -158,12 +158,12 @@ class PagureIssue(BaseIssue):
         status: IssueStatus = IssueStatus.open,
         author: Optional[str] = None,
         assignee: Optional[str] = None,
-        labels: Optional[List[str]] = None,
-    ) -> List["Issue"]:
+        labels: Optional[list[str]] = None,
+    ) -> list["Issue"]:
         if not project.has_issues:
             raise IssueTrackerDisabled()
 
-        payload: Dict[str, Union[str, List[str], int]] = {
+        payload: dict[str, Union[str, list[str], int]] = {
             "status": status.name.capitalize(),
             "page": 1,
             "per_page": 100,
@@ -175,7 +175,7 @@ class PagureIssue(BaseIssue):
         if labels:
             payload["tags"] = labels
 
-        raw_issues: List[Any] = []
+        raw_issues: list[Any] = []
 
         while True:
             issues_info = project._call_project_api("issues", params=payload)
@@ -186,7 +186,7 @@ class PagureIssue(BaseIssue):
 
         return [PagureIssue(issue_dict, project) for issue_dict in raw_issues]
 
-    def _get_all_comments(self) -> List[IssueComment]:
+    def _get_all_comments(self) -> list[IssueComment]:
         self.__update()
         raw_comments = self._raw_issue["comments"]
         return [

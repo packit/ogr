@@ -2,13 +2,14 @@
 # SPDX-License-Identifier: MIT
 
 import functools
-from typing import Dict, Iterable, Optional, Set, Type
+from collections.abc import Iterable
+from typing import Optional
 
 from ogr.abstract import GitProject, GitService
 from ogr.exceptions import OgrException
 from ogr.parsing import parse_git_repo
 
-_SERVICE_MAPPING: Dict[str, Type[GitService]] = {}
+_SERVICE_MAPPING: dict[str, type[GitService]] = {}
 
 
 def use_for_service(service: str, _func=None):
@@ -42,7 +43,7 @@ def use_for_service(service: str, _func=None):
 
     def decorator_cover(func):
         @functools.wraps(func)
-        def covered_func(kls: Type[GitService]):
+        def covered_func(kls: type[GitService]):
             _SERVICE_MAPPING[service] = kls
             return kls
 
@@ -53,7 +54,7 @@ def use_for_service(service: str, _func=None):
 
 def get_project(
     url,
-    service_mapping_update: Dict[str, Type[GitService]] = None,
+    service_mapping_update: dict[str, type[GitService]] = None,
     custom_instances: Iterable[GitService] = None,
     force_custom_instance: bool = True,
     **kwargs,
@@ -111,8 +112,8 @@ def get_project(
 
 def get_service_class_or_none(
     url: str,
-    service_mapping_update: Dict[str, Type[GitService]] = None,
-) -> Optional[Type[GitService]]:
+    service_mapping_update: dict[str, type[GitService]] = None,
+) -> Optional[type[GitService]]:
     """
     Get the matching service class from the URL.
 
@@ -141,8 +142,8 @@ def get_service_class_or_none(
 
 def get_service_class(
     url: str,
-    service_mapping_update: Dict[str, Type[GitService]] = None,
-) -> Type[GitService]:
+    service_mapping_update: dict[str, type[GitService]] = None,
+) -> type[GitService]:
     """
     Get the matching service class from the URL.
 
@@ -165,7 +166,7 @@ def get_service_class(
     raise OgrException("No matching service was found.")
 
 
-def get_instances_from_dict(instances: Dict) -> Set[GitService]:
+def get_instances_from_dict(instances: dict) -> set[GitService]:
     """
     Load the service instances from the dictionary in the following form:
 

@@ -3,7 +3,6 @@
 
 import datetime
 import logging
-from typing import List
 
 import gitlab
 
@@ -49,7 +48,7 @@ class GitlabCommitFlag(BaseCommitFlag):
         self.url = self._raw_commit_flag.target_url
 
     @staticmethod
-    def get(project: "ogr_gitlab.GitlabProject", commit: str) -> List["CommitFlag"]:
+    def get(project: "ogr_gitlab.GitlabProject", commit: str) -> list["CommitFlag"]:
         try:
             commit_object = project.gitlab_repo.commits.get(commit)
         except gitlab.exceptions.GitlabGetError as ex:

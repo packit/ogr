@@ -2,7 +2,7 @@
 # SPDX-License-Identifier: MIT
 
 import datetime
-from typing import Any, Dict, List
+from typing import Any
 
 from ogr.abstract import CommitFlag, CommitStatus
 from ogr.services import pagure as ogr_pagure
@@ -29,7 +29,7 @@ class PagureCommitFlag(BaseCommitFlag):
         self.url = self._raw_commit_flag["url"]
 
     @staticmethod
-    def get(project: "ogr_pagure.PagureProject", commit: str) -> List["CommitFlag"]:
+    def get(project: "ogr_pagure.PagureProject", commit: str) -> list["CommitFlag"]:
         response = project._call_project_api("c", commit, "flag")
         return [
             PagureCommitFlag(raw_commit_flag=flag, project=project)
@@ -53,7 +53,7 @@ class PagureCommitFlag(BaseCommitFlag):
         if trim:
             description = description[:140]
 
-        data: Dict[str, Any] = {
+        data: dict[str, Any] = {
             "username": context,
             "comment": description,
             "url": target_url,

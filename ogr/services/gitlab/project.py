@@ -2,7 +2,7 @@
 # SPDX-License-Identifier: MIT
 
 import logging
-from typing import Any, Dict, List, Optional, Set, Union
+from typing import Any, Optional, Union
 
 import gitlab
 from gitlab.exceptions import GitlabGetError
@@ -154,12 +154,12 @@ class GitlabProject(BaseGitProject):
             return None
         return self._construct_fork_project()
 
-    def get_owners(self) -> List[str]:
+    def get_owners(self) -> list[str]:
         return self._get_collaborators_with_given_access(
             access_levels=[gitlab.const.OWNER_ACCESS],
         )
 
-    def who_can_close_issue(self) -> Set[str]:
+    def who_can_close_issue(self) -> set[str]:
         return set(
             self._get_collaborators_with_given_access(
                 access_levels=[
@@ -171,7 +171,7 @@ class GitlabProject(BaseGitProject):
             ),
         )
 
-    def who_can_merge_pr(self) -> Set[str]:
+    def who_can_merge_pr(self) -> set[str]:
         return set(
             self._get_collaborators_with_given_access(
                 access_levels=[
@@ -190,8 +190,8 @@ class GitlabProject(BaseGitProject):
 
     def _get_collaborators_with_given_access(
         self,
-        access_levels: List[int],
-    ) -> List[str]:
+        access_levels: list[int],
+    ) -> list[str]:
         """
         Get all project collaborators with one of the given access levels.
         Access levels:
@@ -249,7 +249,7 @@ class GitlabProject(BaseGitProject):
             raise GitlabAPIException("Unable to request access") from e
 
     @indirect(GitlabPullRequest.get_list)
-    def get_pr_list(self, status: PRStatus = PRStatus.open) -> List["PullRequest"]:
+    def get_pr_list(self, status: PRStatus = PRStatus.open) -> list["PullRequest"]:
         pass
 
     def get_sha_from_tag(self, tag_name: str) -> str:
@@ -300,7 +300,7 @@ class GitlabProject(BaseGitProject):
             author=raw_comment.author["username"],
         )
 
-    def get_commit_comments(self, commit: str) -> List[CommitComment]:
+    def get_commit_comments(self, commit: str) -> list[CommitComment]:
         try:
             commit_object: ProjectCommit = self.gitlab_repo.commits.get(commit)
         except gitlab.exceptions.GitlabGetError as ex:
@@ -325,10 +325,10 @@ class GitlabProject(BaseGitProject):
         pass
 
     @indirect(GitlabCommitFlag.get)
-    def get_commit_statuses(self, commit: str) -> List[CommitFlag]:
+    def get_commit_statuses(self, commit: str) -> list[CommitFlag]:
         pass
 
-    def get_git_urls(self) -> Dict[str, str]:
+    def get_git_urls(self) -> dict[str, str]:
         return {
             "git": self.gitlab_repo.attributes["http_url_to_repo"],
             "ssh": self.gitlab_repo.attributes["ssh_url_to_repo"],
@@ -356,7 +356,7 @@ class GitlabProject(BaseGitProject):
     def change_token(self, new_token: str):
         self.service.change_token(new_token)
 
-    def get_branches(self) -> List[str]:
+    def get_branches(self) -> list[str]:
         return [branch.name for branch in self.gitlab_repo.branches.list(all=True)]
 
     def get_file_content(self, path, ref=None) -> str:
@@ -374,7 +374,7 @@ class GitlabProject(BaseGitProject):
         ref: str = None,
         filter_regex: str = None,
         recursive: bool = False,
-    ) -> List[str]:
+    ) -> list[str]:
         ref = ref or self.default_branch
         paths = [
             file_dict["path"]
@@ -396,8 +396,8 @@ class GitlabProject(BaseGitProject):
         status: IssueStatus = IssueStatus.open,
         author: Optional[str] = None,
         assignee: Optional[str] = None,
-        labels: Optional[List[str]] = None,
-    ) -> List[Issue]:
+        labels: Optional[list[str]] = None,
+    ) -> list[Issue]:
         pass
 
     @indirect(GitlabIssue.get)
@@ -410,8 +410,8 @@ class GitlabProject(BaseGitProject):
         title: str,
         body: str,
         private: Optional[bool] = None,
-        labels: Optional[List[str]] = None,
-        assignees: Optional[List[str]] = None,
+        labels: Optional[list[str]] = None,
+        assignees: Optional[list[str]] = None,
     ) -> Issue:
         pass
 
@@ -419,7 +419,7 @@ class GitlabProject(BaseGitProject):
     def get_pr(self, pr_id: int) -> PullRequest:
         pass
 
-    def get_tags(self) -> List["GitTag"]:
+    def get_tags(self) -> list["GitTag"]:
         tags = self.gitlab_repo.tags.list()
         return [GitTag(tag.name, tag.commit["id"]) for tag in tags]
 
@@ -428,7 +428,7 @@ class GitlabProject(BaseGitProject):
         return GitTag(name=git_tag.name, commit_sha=git_tag.commit["id"])
 
     @indirect(GitlabRelease.get_list)
-    def get_releases(self) -> List[Release]:
+    def get_releases(self) -> list[Release]:
         pass
 
     @indirect(GitlabRelease.get)
@@ -458,7 +458,7 @@ class GitlabProject(BaseGitProject):
         """
         return list(self.gitlab_repo.labels.list())
 
-    def get_forks(self) -> List["GitlabProject"]:
+    def get_forks(self) -> list["GitlabProject"]:
         try:
             forks = self.gitlab_repo.forks.list()
         except KeyError as ex:
@@ -506,7 +506,7 @@ class GitlabProject(BaseGitProject):
     @staticmethod
     def _normalize_label_color(color):
         if not color.startswith("#"):
-            return "#{}".format(color)
+            return f"#{color}"
         return color
 
     def get_web_url(self) -> str:
@@ -520,20 +520,20 @@ class GitlabProject(BaseGitProject):
                 return None
             raise GitlabAPIException from ex
 
-    def get_contributors(self) -> Set[str]:
+    def get_contributors(self) -> set[str]:
         """
         Returns:
             Unique authors of the commits in the project.
         """
 
-        def format_contributor(contributor: Dict[str, Any]) -> str:
+        def format_contributor(contributor: dict[str, Any]) -> str:
             return f"{contributor['name']} <{contributor['email']}>"
 
         return set(
             map(format_contributor, self.gitlab_repo.repository_contributors(all=True)),
         )
 
-    def users_with_write_access(self) -> Set[str]:
+    def users_with_write_access(self) -> set[str]:
         return set(
             self._get_collaborators_with_given_access(
                 access_levels=[

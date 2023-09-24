@@ -2,7 +2,7 @@
 # SPDX-License-Identifier: MIT
 
 import datetime
-from typing import Dict, List, Optional, Union
+from typing import Optional, Union
 
 import github
 from github import UnknownObjectException
@@ -75,7 +75,7 @@ class GithubIssue(BaseIssue):
         return self._raw_issue.created_at
 
     @property
-    def labels(self) -> List:
+    def labels(self) -> list:
         return list(self._raw_issue.get_labels())
 
     def __str__(self) -> str:
@@ -87,7 +87,7 @@ class GithubIssue(BaseIssue):
         title: str,
         body: str,
         private: Optional[bool] = None,
-        labels: Optional[List[str]] = None,
+        labels: Optional[list[str]] = None,
         assignees: Optional[list] = None,
     ) -> "Issue":
         if private:
@@ -120,12 +120,12 @@ class GithubIssue(BaseIssue):
         status: IssueStatus = IssueStatus.open,
         author: Optional[str] = None,
         assignee: Optional[str] = None,
-        labels: Optional[List[str]] = None,
-    ) -> List["Issue"]:
+        labels: Optional[list[str]] = None,
+    ) -> list["Issue"]:
         if not project.has_issues:
             raise IssueTrackerDisabled()
 
-        parameters: Dict[str, Union[str, List[str]]] = {
+        parameters: dict[str, Union[str, list[str]]] = {
             "state": status.name,
             "sort": "updated",
             "direction": "desc",
@@ -149,7 +149,7 @@ class GithubIssue(BaseIssue):
         except UnknownObjectException:
             return []
 
-    def _get_all_comments(self) -> List[IssueComment]:
+    def _get_all_comments(self) -> list[IssueComment]:
         return [
             GithubIssueComment(parent=self, raw_comment=raw_comment)
             for raw_comment in self._raw_issue.get_comments()

@@ -2,7 +2,7 @@
 # SPDX-License-Identifier: MIT
 
 import logging
-from typing import List, Optional
+from typing import Optional
 
 import gitlab
 
@@ -140,7 +140,7 @@ class GitlabService(BaseGitService):
         user: str = None,
         search_pattern: str = None,
         language: str = None,
-    ) -> List[GitProject]:
+    ) -> list[GitProject]:
         if namespace:
             group = self.gitlab_instance.groups.get(namespace)
             projects = group.projects.list(all=True)

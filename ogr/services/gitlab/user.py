@@ -1,7 +1,6 @@
 # Copyright Contributors to the Packit project.
 # SPDX-License-Identifier: MIT
 
-from typing import List
 
 from ogr.exceptions import OperationNotSupported
 from ogr.services import gitlab as ogr_gitlab
@@ -27,8 +26,8 @@ class GitlabUser(BaseGitUser):
     def get_email(self) -> str:
         return self._gitlab_user.email
 
-    def get_projects(self) -> List["ogr_gitlab.GitlabProject"]:
+    def get_projects(self) -> list["ogr_gitlab.GitlabProject"]:
         raise OperationNotSupported
 
-    def get_forks(self) -> List["ogr_gitlab.GitlabProject"]:
+    def get_forks(self) -> list["ogr_gitlab.GitlabProject"]:
         raise OperationNotSupported

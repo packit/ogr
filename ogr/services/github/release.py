@@ -2,7 +2,7 @@
 # SPDX-License-Identifier: MIT
 
 import datetime
-from typing import List, Optional
+from typing import Optional
 
 from github import GithubException
 from github.GitRelease import GitRelease as PyGithubRelease
@@ -96,7 +96,7 @@ class GithubRelease(Release):
             raise GithubAPIException from ex
 
     @staticmethod
-    def get_list(project: "ogr_github.GithubProject") -> List["Release"]:
+    def get_list(project: "ogr_github.GithubProject") -> list["Release"]:
         releases = project.github_repo.get_releases()
         return [GithubRelease(release, project) for release in releases]
 

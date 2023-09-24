@@ -1,7 +1,7 @@
 # Copyright Contributors to the Packit project.
 # SPDX-License-Identifier: MIT
 
-from typing import Any, Dict, Optional
+from typing import Any, Optional
 
 import github
 import gitlab
@@ -26,7 +26,7 @@ class PagureAPIException(APIException):
         self,
         *args: Any,
         pagure_error: Optional[str] = None,
-        pagure_response: Optional[Dict[str, Any]] = None,
+        pagure_response: Optional[dict[str, Any]] = None,
         response_code: Optional[int] = None,
     ) -> None:
         super().__init__(*args)

@@ -4,7 +4,8 @@
 import functools
 import logging
 import re
-from typing import Any, Callable, Dict, List, Match, Optional, Tuple, Union
+from re import Match
+from typing import Any, Callable, Optional, Union
 
 from ogr.abstract import AnyComment, Comment
 
@@ -12,11 +13,11 @@ logger = logging.getLogger(__name__)
 
 
 def filter_comments(
-    comments: List[AnyComment],
+    comments: list[AnyComment],
     filter_regex: Optional[str] = None,
     reverse: bool = False,
     author: Optional[str] = None,
-) -> List[AnyComment]:
+) -> list[AnyComment]:
     """
     Filters comments from the given list.
 
@@ -55,7 +56,7 @@ def filter_comments(
 
 
 def search_in_comments(
-    comments: List[Union[str, Comment]],
+    comments: list[Union[str, Comment]],
     filter_regex: str,
 ) -> Optional[Match[str]]:
     """
@@ -95,11 +96,11 @@ class RequestResponse:
         status_code: int,
         ok: bool,
         content: bytes,
-        json: Optional[Dict[Any, Any]] = None,
+        json: Optional[dict[Any, Any]] = None,
         reason: Optional[str] = None,
-        headers: Optional[List[Tuple[Any, Any]]] = None,
-        links: Optional[List[str]] = None,
-        exception: Optional[Dict[Any, Any]] = None,
+        headers: Optional[list[tuple[Any, Any]]] = None,
+        links: Optional[list[str]] = None,
+        exception: Optional[dict[Any, Any]] = None,
     ) -> None:
         self.status_code = status_code
         self.ok = ok
@@ -137,7 +138,7 @@ class RequestResponse:
             and self.exception == o.exception
         )
 
-    def to_json_format(self) -> Dict[str, Any]:
+    def to_json_format(self) -> dict[str, Any]:
         """
         Returns:
             Response in a JSON format.
@@ -159,7 +160,7 @@ class RequestResponse:
             output["exception"] = self.exception
         return output
 
-    def json(self) -> Optional[Dict[Any, Any]]:
+    def json(self) -> Optional[dict[Any, Any]]:
         """
         Returns:
             JSON content of the response.
@@ -167,7 +168,7 @@ class RequestResponse:
         return self.json_content
 
 
-def filter_paths(paths: List[str], filter_regex: str) -> List[str]:
+def filter_paths(paths: list[str], filter_regex: str) -> list[str]:
     """
     Filters paths from the given list.
 

@@ -2,7 +2,7 @@
 # SPDX-License-Identifier: MIT
 
 import datetime
-from typing import List, Optional
+from typing import Optional
 
 from ogr.abstract import GitTag, Release
 from ogr.exceptions import OperationNotSupported, PagureAPIException
@@ -58,7 +58,7 @@ class PagureRelease(Release):
         raise OperationNotSupported("Pagure API does not provide timestamps")
 
     @staticmethod
-    def get_list(project: "ogr_pagure.PagureProject") -> List["Release"]:
+    def get_list(project: "ogr_pagure.PagureProject") -> list["Release"]:
         # git tag for Pagure is shown as Release in Pagure UI
         git_tags = project.get_tags()
         return [PagureRelease(git_tag, project) for git_tag in git_tags]

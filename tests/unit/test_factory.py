@@ -1,7 +1,6 @@
 # Copyright Contributors to the Packit project.
 # SPDX-License-Identifier: MIT
 
-from typing import Set
 
 import pytest
 from flexmock import Mock, flexmock
@@ -396,7 +395,7 @@ def test_get_project_not_found(url, mapping, instances, exc_str):
         ),
     ],
 )
-def test_get_instances_from_dict(instances_in_dict, result_instances: Set):
+def test_get_instances_from_dict(instances_in_dict, result_instances: set):
     services = get_instances_from_dict(instances=instances_in_dict)
     assert services == result_instances
 

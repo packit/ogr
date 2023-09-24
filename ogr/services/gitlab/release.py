@@ -2,7 +2,7 @@
 # SPDX-License-Identifier: MIT
 
 import datetime
-from typing import List, Optional
+from typing import Optional
 
 from gitlab.v4.objects import ProjectRelease as _GitlabRelease
 
@@ -63,7 +63,7 @@ class GitlabRelease(Release):
         return GitlabRelease(releases[0], project) if releases else None
 
     @staticmethod
-    def get_list(project: "ogr_gitlab.GitlabProject") -> List["Release"]:
+    def get_list(project: "ogr_gitlab.GitlabProject") -> list["Release"]:
         if not hasattr(project.gitlab_repo, "releases"):
             raise OperationNotSupported(
                 "This version of python-gitlab does not support release, please upgrade.",
