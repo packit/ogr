@@ -1,0 +1,66 @@
+[build-system]
+requires = ["hatchling", "hatch-vcs"]
+build-backend = "hatchling.build"
+
+[project]
+name = "ogr"
+authors = [
+    { name = "Red Hat", email = "user-cont-team@redhat.com" },
+]
+description = "One API for multiple git forges."
+license = "MIT"
+license-files = { paths = ["LICENSE"] }
+requires-python = ">=3.9"
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: POSIX :: Linux",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Topic :: Software Development",
+    "Topic :: Utilities",
+]
+dynamic = ["version"]
+keywords = [
+    "git",
+    "api",
+    "github",
+    "gitlab",
+    "pagure",
+]
+dependencies = [
+    "cryptography",
+    "Deprecated",
+    "GitPython",
+    "PyGithub",
+    "python-gitlab",
+    "PyYAML",
+    "requests",
+    "urllib3",
+]
+
+[project.urls]
+Homepage = "https://github.com/packit/ogr"
+
+[project.optional-dependencies]
+testing = [
+    "pytest",
+    "pytest-cov",
+    "flexmock",
+]
+
+[tool.hatch.version]
+source = "vcs"
+# we can't use pre-release-based version scheme because it generates versions
+# that are sorted higher than the last stable release by RPM
+# for example:
+#   - pre-release (guess-next-dev):
+#       0.20.1.dev1+g0abcdef.d20230921 > 0.20.1
+#   - post-release (no-guess-dev):
+#       0.20.0.post1.dev1+g0abcdef < 0.20.1
+raw-options.version_scheme = "no-guess-dev"
