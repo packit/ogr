@@ -1,54 +1,50 @@
-%global srcname ogr
-
-Name:           python-%{srcname}
+Name:           python-ogr
 Version:        0.46.0
 Release:        1%{?dist}
 Summary:        One API for multiple git forges
 
 License:        MIT
 URL:            https://github.com/packit/ogr
-Source0:        %{pypi_source}
+Source0:        %{pypi_source ogr}
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
-BuildRequires:  python3dist(setuptools)
-BuildRequires:  python3dist(setuptools-scm)
-BuildRequires:  python3dist(setuptools-scm-git-archive)
 
 %description
 One Git library to Rule!
 
-%package -n     python3-%{srcname}
+%package -n     python3-ogr
 Summary:        %{summary}
 
-# https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_provides
-%if 0%{?fedora} < 33
-%{?python_provide:%python_provide python3-%{srcname}}
-%endif
 
-%description -n python3-%{srcname}
+%description -n python3-ogr
 One Git library to Rule!
 
 
 %prep
-%autosetup -n %{srcname}-%{version}
-# Remove bundled egg-info
-rm -rf %{srcname}.egg-info
+%autosetup -n ogr-%{version}
+
+
+%generate_buildrequires
+# The -w flag is required for EPEL 9's older hatchling
+%pyproject_buildrequires %{?el9:-w}
 
 
 %build
-%py3_build
+%pyproject_wheel
 
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files ogr
 
 
-%files -n python3-%{srcname}
+%files -n python3-ogr -f %{pyproject_files}
+# Epel9 does not tag the license file in pyproject_files as a license. Manually install it in this case
+%if 0%{?el9}
 %license LICENSE
+%endif
 %doc README.md
-%{python3_sitelib}/%{srcname}
-%{python3_sitelib}/%{srcname}-%{version}-py%{python3_version}.egg-info
 
 
 %changelog
