@@ -41,6 +41,10 @@ repos:
         args: [--no-strict-optional, --ignore-missing-imports]
         additional_dependencies:
           [types-pkg_resources, types-requests, types-Deprecated]
+  - repo: https://github.com/teemtee/tmt.git
+    rev: 1.27.0
+    hooks:
+      - id: tmt-lint
   - repo: https://github.com/packit/pre-commit-hooks
     rev: v1.2.0
     hooks:
