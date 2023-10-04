@@ -1,0 +1,26 @@
+summary:
+  Unit & integration tests
+
+require:
+  - python3-flexmock
+  - python3-pytest
+  - python3-pytest-cov
+  # not available on C9S, but is among the ‹pyproject.toml› deps
+#   - python3-crypto
+  - python3-deprecated
+  - python3-GitPython
+  - python3-pygithub
+  - python3-gitlab
+  - python3-pyyaml
+  - python3-requests
+  - python3-urllib3
+  - python3-requre
+
+component:
+  - ogr
+tier: 1
+tag:
+  - basic
+
+test: pytest-3 -v --cov=ogr --cov-report=term-missing .
+duration: 30m

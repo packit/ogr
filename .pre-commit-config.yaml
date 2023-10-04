@@ -45,15 +45,21 @@ repos:
     rev: 1.27.0
     hooks:
       - id: tmt-lint
+        # Do not run in pre-commit.ci as it requires an internet access
+        # for verifying imported tmt plans
+        stages: [manual, push]
   - repo: https://github.com/packit/pre-commit-hooks
     rev: v1.2.0
     hooks:
       - id: check-rebase
         args:
           - https://github.com/packit-service/ogr.git
+        # Do not run in pre-commit.ci as it requires an internet access
+        # to verify the rebasing
         stages: [manual, push]
   - repo: https://github.com/packit/requre
     rev: 0.8.2
     hooks:
       - id: requre-purge
+        # Do not run in pre-commit.ci as it requires too much time
         stages: [manual, push]
