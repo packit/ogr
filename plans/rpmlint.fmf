@@ -1,10 +1,14 @@
 summary:
   Run linters on source code and packaging files
+
 prepare:
   - name: packages
     how: install
     package:
     - rpmlint
-execute:
-  script:
-  - rpmlint fedora/python-ogr.spec
+
+discover:
+  how: shell
+  tests:
+  - name: rpmlint
+    test: rpmlint fedora/python-ogr.spec
