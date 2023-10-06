@@ -1,3 +1,7 @@
+# 0.46.2
+
+- Added missing README to package metadata.
+
 # 0.46.1
 
 - Migrated from `setup.py` + `setup.cfg` to `pyproject.toml` with `hatchling` as a build backend and to pyproject macros in the spec file. (#808)
