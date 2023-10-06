@@ -190,10 +190,10 @@ class GenericCommands(GithubTests):
         assert last_flag.state == CommitStatus.success
         assert last_flag.context == "test"
         assert last_flag.uid
-        assert last_flag.created == datetime(
+        assert last_flag.created.replace(tzinfo=None) == datetime(
             year=2019, month=9, day=19, hour=12, minute=21, second=6
         )
-        assert last_flag.edited == datetime(
+        assert last_flag.edited.replace(tzinfo=None) == datetime(
             year=2019, month=9, day=19, hour=12, minute=21, second=6
         )
 
