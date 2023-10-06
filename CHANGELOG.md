@@ -1,3 +1,7 @@
+# 0.46.1
+
+- Migrated from `setup.py` + `setup.cfg` to `pyproject.toml` with `hatchling` as a build backend and to pyproject macros in the spec file. (#808)
+
 # 0.46.0
 
 - We have fixed a bug in `get_fork` method for Pagure about checking the usernames for a match when going through existing forks. (#800)
