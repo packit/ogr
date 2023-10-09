@@ -1505,6 +1505,13 @@ class GitProject(OgrAbstractClass):
         """
         raise NotImplementedError()
 
+    def which_groups_can_merge_pr(self) -> Set[str]:
+        """
+        Returns:
+            Names of all groups that have permission to modify pull request.
+        """
+        raise NotImplementedError()
+
     def can_merge_pr(self, username: str) -> bool:
         """
         Args:
