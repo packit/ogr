@@ -1525,6 +1525,15 @@ class GitProject(OgrAbstractClass):
         """
         raise NotImplementedError()
 
+    def remove_user(self, user: str) -> None:
+        """
+        Remove user from project.
+
+        Args:
+            user: Username of the user.
+        """
+        raise NotImplementedError()
+
     def request_access(self) -> None:
         """
         Request an access to the project (cannot specify access level to be granted;
@@ -1540,7 +1549,16 @@ class GitProject(OgrAbstractClass):
             group: Name of the group.
             access_level: Permissions for the group.
         """
-        raise NotImplementedError
+        raise NotImplementedError()
+
+    def remove_group(self, group: str) -> None:
+        """
+        Remove group from project.
+
+        Args:
+            group: Name of the group.
+        """
+        raise NotImplementedError()
 
     def get_issue_list(
         self,

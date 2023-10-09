@@ -364,11 +364,17 @@ class PagureProject(BaseGitProject):
     def add_user(self, user: str, access_level: AccessLevel) -> None:
         self.add_user_or_group(user, access_level, "user")
 
+    def remove_user(self, user: str) -> None:
+        self.add_user_or_group(user, None, "user")
+
     def add_group(self, group: str, access_level: AccessLevel):
         self.add_user_or_group(group, access_level, "group")
 
+    def remove_group(self, group: str) -> None:
+        self.add_user_or_group(group, None, "group")
+
     def add_user_or_group(
-        self, user: str, access_level: AccessLevel, user_type
+        self, user: str, access_level: Optional[AccessLevel], user_type: str
     ) -> None:
         access_dict = {
             AccessLevel.pull: "ticket",
@@ -376,6 +382,7 @@ class PagureProject(BaseGitProject):
             AccessLevel.push: "commit",
             AccessLevel.admin: "commit",
             AccessLevel.maintain: "admin",
+            None: "",
         }
         response = self._call_project_api_raw(
             "git",
