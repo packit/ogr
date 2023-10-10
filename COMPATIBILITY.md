@@ -51,12 +51,16 @@ In case you find any error, please [create a new issue](https://github.com/packi
 
 ## Project
 
-|                      | GitHub | GitLab |         Pagure          |
-| -------------------- | :----: | :----: | :---------------------: |
-| `change_token`       |   ✘    |   ✔   |           ✔            |
-| `get_release`        |   ✔   |   ✔   |            ✘            |
-| `get_latest_release` |   ✔   |   ✔   |            ✘            |
-| `is_private`         |   ✔   |   ✔   | ✘ (may not be accurate) |
+|                             | GitHub | GitLab |         Pagure          |
+| --------------------------- | :----: | :----: | :---------------------: |
+| `change_token`              |   ✘    |   ✔   |           ✔            |
+| `get_release`               |   ✔   |   ✔   |            ✘            |
+| `get_latest_release`        |   ✔   |   ✔   |            ✘            |
+| `is_private`                |   ✔   |   ✔   | ✘ (may not be accurate) |
+| `remove_user`               |   ✘    |   ✘    |           ✔            |
+| `add_group`                 |   ✘    |   ✘    |           ✔            |
+| `remove_group`              |   ✘    |   ✘    |           ✔            |
+| `which_groups_can_merge_pr` |   ✘    |   ✘    |           ✔            |
 
 ## User
 

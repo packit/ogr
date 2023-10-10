@@ -214,6 +214,13 @@ class PagureProject(BaseGitProject):
         users.update(project["access_users"]["owner"])
         return users
 
+    def which_groups_can_merge_pr(self) -> Set[str]:
+        groups: Set[str] = set()
+        project = self.get_project_info()
+        groups.update(project["access_groups"]["admin"])
+        groups.update(project["access_groups"]["commit"])
+        return groups
+
     def can_merge_pr(self, username) -> bool:
         return username in self.who_can_merge_pr()
 
@@ -364,11 +371,17 @@ class PagureProject(BaseGitProject):
     def add_user(self, user: str, access_level: AccessLevel) -> None:
         self.add_user_or_group(user, access_level, "user")
 
+    def remove_user(self, user: str) -> None:
+        self.add_user_or_group(user, None, "user")
+
     def add_group(self, group: str, access_level: AccessLevel):
         self.add_user_or_group(group, access_level, "group")
 
+    def remove_group(self, group: str) -> None:
+        self.add_user_or_group(group, None, "group")
+
     def add_user_or_group(
-        self, user: str, access_level: AccessLevel, user_type
+        self, user: str, access_level: Optional[AccessLevel], user_type: str
     ) -> None:
         access_dict = {
             AccessLevel.pull: "ticket",
@@ -376,6 +389,7 @@ class PagureProject(BaseGitProject):
             AccessLevel.push: "commit",
             AccessLevel.admin: "commit",
             AccessLevel.maintain: "admin",
+            None: "",
         }
         response = self._call_project_api_raw(
             "git",

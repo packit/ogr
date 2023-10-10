@@ -12,7 +12,7 @@ from ogr.abstract import AccessLevel
 
 @record_requests_for_all_methods()
 class GenericCommands(PagureTests):
-    def test_add_user(self):
+    def test_add_and_remove_user(self):
         """
         Create an empty `playground-$USER` repository with no other users/groups.
         """
@@ -21,8 +21,9 @@ class GenericCommands(PagureTests):
             namespace=None,
         )
         project.add_user("lachmanfrantisek", AccessLevel.admin)
+        project.remove_user("lachmanfrantisek")
 
-    def test_add_group(self):
+    def test_add_and_remove_group(self):
         """
         Create an empty `playground-$USER` repository with no other users/groups.
         """
@@ -31,6 +32,7 @@ class GenericCommands(PagureTests):
             namespace=None,
         )
         project.add_group("packit-test-group", AccessLevel.admin)
+        project.remove_group("packit-test-group")
 
     def test_description(self):
         description = self.ogr_project.get_description()
@@ -115,6 +117,12 @@ class GenericCommands(PagureTests):
         owners = self.ogr_project.who_can_merge_pr()
         assert "lachmanfrantisek" in owners
         assert self.ogr_project.can_merge_pr("lachmanfrantisek")
+        project = self.service.get_project(
+            repo=f"playground-{self.service.user.get_username()}",
+            namespace=None,
+        )
+        groups = project.which_groups_can_merge_pr()
+        assert "packit-test-group" in groups
 
     def test_get_web_url(self):
         url = self.ogr_project.get_web_url()

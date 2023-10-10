@@ -1,0 +1,271 @@
+_requre:
+  DataTypes: 1
+  key_strategy: StorageKeysInspectSimple
+  version_storage_file: 3
+requests.sessions:
+  send:
+    POST:
+      https://pagure.io/api/0/-/whoami:
+      - metadata:
+          latency: 1.5459933280944824
+          module_call_list:
+          - unittest.case
+          - requre.record_and_replace
+          - tests.integration.pagure.test_generic_commands
+          - ogr.abstract
+          - ogr.services.pagure.user
+          - ogr.abstract
+          - ogr.services.pagure.service
+          - ogr.abstract
+          - ogr.services.pagure.service
+          - ogr.abstract
+          - ogr.services.pagure.service
+          - requests.sessions
+          - requre.objects
+          - requre.cassette
+          - requests.sessions
+          - send
+        output:
+          __store_indicator: 2
+          _content:
+            username: nforro
+          _next: null
+          elapsed: 1.437793
+          encoding: utf-8
+          headers:
+            Connection: Upgrade, Keep-Alive
+            Content-Length: '27'
+            Content-Security-Policy: default-src 'self';script-src 'self' 'nonce-YbTLzdpZsoRGvtdZ7DCMmOGdg';
+              style-src 'self' 'nonce-YbTLzdpZsoRGvtdZ7DCMmOGdg'; object-src 'none';base-uri
+              'self';img-src 'self' https:;connect-src 'self' https://pagure.io:8088;frame-src
+              https://docs.pagure.org;frame-ancestors https://pagure.io;
+            Content-Type: application/json
+            Date: Mon, 09 Oct 2023 17:15:46 GMT
+            Keep-Alive: timeout=5, max=100
+            Referrer-Policy: same-origin
+            Server: Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_wsgi/4.6.4
+              Python/3.6
+            Set-Cookie: pagure=eyJfcGVybWFuZW50Ijp0cnVlLCJjc3JmX3Rva2VuIjoiODE0YTJhNWQ0YjQzOGM3OTY4YjQwYWJjM2RhZjQzOWQ3NDgyOTY5YiJ9.GAXGwg.cB5Z_0W9PEVmAL8KqI62vnD2It8;
+              Expires=Thu, 09-Nov-2023 17:15:46 GMT; Secure; HttpOnly; Path=/
+            Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
+            Upgrade: h2,h2c
+            X-Content-Type-Options: nosniff
+            X-Frame-Options: ALLOW-FROM https://pagure.io/
+            X-Xss-Protection: 1; mode=block
+          raw: !!binary ""
+          reason: OK
+          status_code: 200
+      - metadata:
+          latency: 0.21212029457092285
+          module_call_list:
+          - unittest.case
+          - requre.record_and_replace
+          - tests.integration.pagure.test_generic_commands
+          - ogr.abstract
+          - ogr.services.pagure.service
+          - ogr.abstract
+          - ogr.services.pagure.user
+          - ogr.abstract
+          - ogr.services.pagure.service
+          - ogr.abstract
+          - ogr.services.pagure.service
+          - ogr.abstract
+          - ogr.services.pagure.service
+          - requests.sessions
+          - requre.objects
+          - requre.cassette
+          - requests.sessions
+          - send
+        output:
+          __store_indicator: 2
+          _content:
+            username: nforro
+          _next: null
+          elapsed: 0.211102
+          encoding: utf-8
+          headers:
+            Connection: Keep-Alive
+            Content-Length: '27'
+            Content-Security-Policy: default-src 'self';script-src 'self' 'nonce-QDs6fDoljKPi1SC515oakfMHO';
+              style-src 'self' 'nonce-QDs6fDoljKPi1SC515oakfMHO'; object-src 'none';base-uri
+              'self';img-src 'self' https:;connect-src 'self' https://pagure.io:8088;frame-src
+              https://docs.pagure.org;frame-ancestors https://pagure.io;
+            Content-Type: application/json
+            Date: Mon, 09 Oct 2023 17:15:47 GMT
+            Keep-Alive: timeout=5, max=99
+            Referrer-Policy: same-origin
+            Server: Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_wsgi/4.6.4
+              Python/3.6
+            Set-Cookie: pagure=eyJfcGVybWFuZW50Ijp0cnVlLCJjc3JmX3Rva2VuIjoiODE0YTJhNWQ0YjQzOGM3OTY4YjQwYWJjM2RhZjQzOWQ3NDgyOTY5YiJ9.GAXGww.OfCgXTkfPa8SPrlDwdSU5kZXu-Y;
+              Expires=Thu, 09-Nov-2023 17:15:47 GMT; Secure; HttpOnly; Path=/
+            Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
+            X-Content-Type-Options: nosniff
+            X-Frame-Options: ALLOW-FROM https://pagure.io/
+            X-Xss-Protection: 1; mode=block
+          raw: !!binary ""
+          reason: OK
+          status_code: 200
+      https://pagure.io/api/0/playground-nforro/git/modifyacls:
+      - metadata:
+          latency: 19.634831428527832
+          module_call_list:
+          - unittest.case
+          - requre.record_and_replace
+          - tests.integration.pagure.test_generic_commands
+          - ogr.abstract
+          - ogr.services.pagure.project
+          - ogr.abstract
+          - ogr.services.pagure.project
+          - ogr.abstract
+          - ogr.services.pagure.project
+          - ogr.abstract
+          - ogr.services.pagure.service
+          - ogr.abstract
+          - ogr.services.pagure.service
+          - requests.sessions
+          - requre.objects
+          - requre.cassette
+          - requests.sessions
+          - send
+        output:
+          __store_indicator: 2
+          _content:
+            access_groups:
+              admin: []
+              collaborator: []
+              commit:
+              - packit-test-group
+              ticket: []
+            access_users:
+              admin: []
+              collaborator: []
+              commit: []
+              owner:
+              - nforro
+              ticket: []
+            close_status: []
+            custom_keys: []
+            date_created: '1696871156'
+            date_modified: '1696871747'
+            description: playground-nforro
+            full_url: https://pagure.io/playground-nforro
+            fullname: playground-nforro
+            id: 17033
+            milestones: {}
+            name: playground-nforro
+            namespace: null
+            parent: null
+            priorities: {}
+            tags: []
+            url_path: playground-nforro
+            user:
+              full_url: https://pagure.io/user/nforro
+              fullname: "Nikola Forr\xF3"
+              name: nforro
+              url_path: user/nforro
+          _next: null
+          elapsed: 19.633572
+          encoding: utf-8
+          headers:
+            Connection: Keep-Alive
+            Content-Length: '864'
+            Content-Security-Policy: default-src 'self';script-src 'self' 'nonce-mvNfk0cfS75DNM84tn2Fe8nyQ';
+              style-src 'self' 'nonce-mvNfk0cfS75DNM84tn2Fe8nyQ'; object-src 'none';base-uri
+              'self';img-src 'self' https:;connect-src 'self' https://pagure.io:8088;frame-src
+              https://docs.pagure.org;frame-ancestors https://pagure.io;
+            Content-Type: application/json
+            Date: Mon, 09 Oct 2023 17:15:47 GMT
+            Keep-Alive: timeout=5, max=98
+            Referrer-Policy: same-origin
+            Server: Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_wsgi/4.6.4
+              Python/3.6
+            Set-Cookie: pagure=eyJfcGVybWFuZW50Ijp0cnVlLCJjc3JmX3Rva2VuIjoiODE0YTJhNWQ0YjQzOGM3OTY4YjQwYWJjM2RhZjQzOWQ3NDgyOTY5YiJ9.GAXG1g.y5tBPWMYVtlSSPKuDgmSGZTSDTM;
+              Expires=Thu, 09-Nov-2023 17:16:06 GMT; Secure; HttpOnly; Path=/
+            Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
+            X-Content-Type-Options: nosniff
+            X-Frame-Options: ALLOW-FROM https://pagure.io/
+            X-Xss-Protection: 1; mode=block
+          raw: !!binary ""
+          reason: OK
+          status_code: 200
+      - metadata:
+          latency: 0.5101637840270996
+          module_call_list:
+          - unittest.case
+          - requre.record_and_replace
+          - tests.integration.pagure.test_generic_commands
+          - ogr.abstract
+          - ogr.services.pagure.project
+          - ogr.abstract
+          - ogr.services.pagure.project
+          - ogr.abstract
+          - ogr.services.pagure.project
+          - ogr.abstract
+          - ogr.services.pagure.service
+          - ogr.abstract
+          - ogr.services.pagure.service
+          - requests.sessions
+          - requre.objects
+          - requre.cassette
+          - requests.sessions
+          - send
+        output:
+          __store_indicator: 2
+          _content:
+            access_groups:
+              admin: []
+              collaborator: []
+              commit: []
+              ticket: []
+            access_users:
+              admin: []
+              collaborator: []
+              commit: []
+              owner:
+              - nforro
+              ticket: []
+            close_status: []
+            custom_keys: []
+            date_created: '1696871156'
+            date_modified: '1696871747'
+            description: playground-nforro
+            full_url: https://pagure.io/playground-nforro
+            fullname: playground-nforro
+            id: 17033
+            milestones: {}
+            name: playground-nforro
+            namespace: null
+            parent: null
+            priorities: {}
+            tags: []
+            url_path: playground-nforro
+            user:
+              full_url: https://pagure.io/user/nforro
+              fullname: "Nikola Forr\xF3"
+              name: nforro
+              url_path: user/nforro
+          _next: null
+          elapsed: 0.508932
+          encoding: utf-8
+          headers:
+            Connection: Keep-Alive
+            Content-Length: '833'
+            Content-Security-Policy: default-src 'self';script-src 'self' 'nonce-Y9LXANSEnP79mFdqD9aKtJZDk';
+              style-src 'self' 'nonce-Y9LXANSEnP79mFdqD9aKtJZDk'; object-src 'none';base-uri
+              'self';img-src 'self' https:;connect-src 'self' https://pagure.io:8088;frame-src
+              https://docs.pagure.org;frame-ancestors https://pagure.io;
+            Content-Type: application/json
+            Date: Mon, 09 Oct 2023 17:16:06 GMT
+            Keep-Alive: timeout=5, max=97
+            Referrer-Policy: same-origin
+            Server: Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_wsgi/4.6.4
+              Python/3.6
+            Set-Cookie: pagure=eyJfcGVybWFuZW50Ijp0cnVlLCJjc3JmX3Rva2VuIjoiODE0YTJhNWQ0YjQzOGM3OTY4YjQwYWJjM2RhZjQzOWQ3NDgyOTY5YiJ9.GAXG1w.n5c2qYiApdkTDkzQafv9-J8VM90;
+              Expires=Thu, 09-Nov-2023 17:16:07 GMT; Secure; HttpOnly; Path=/
+            Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
+            X-Content-Type-Options: nosniff
+            X-Frame-Options: ALLOW-FROM https://pagure.io/
+            X-Xss-Protection: 1; mode=block
+          raw: !!binary ""
+          reason: OK
+          status_code: 200
