@@ -1,6 +1,6 @@
 # 0.47.0
 
-- Added support for removing users/groups from a project and allow to check for groups with permissions to modify a PR.
+- Added support for removing users/groups from a project and possibility to check for groups with permissions to modify a PR. (#815)
 
 # 0.46.2
 
