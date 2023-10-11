@@ -1,5 +1,7 @@
 # 0.47.0
 
+- Added support for removing users/groups from a project and allow to check for groups with permissions to modify a PR.
+
 # 0.46.2
 
 - Added missing README to package metadata.
