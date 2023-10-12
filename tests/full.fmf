@@ -22,5 +22,7 @@ tier: 1
 tag:
   - basic
 
-test: pytest-3 -v --cov=ogr --cov-report=term-missing .
+test: pytest-3 -v --cov=ogr --cov-report=term-missing $TEST_TARGET
 duration: 30m
+environment:
+  TEST_TARGET: .
