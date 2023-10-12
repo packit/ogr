@@ -4,10 +4,10 @@
 from datetime import datetime
 
 import pytest
+from requre.online_replacing import record_requests_for_all_methods
 
 from ogr.abstract import AccessLevel, CommitStatus
 from ogr.exceptions import GitlabAPIException
-from requre.online_replacing import record_requests_for_all_methods
 from tests.integration.gitlab.base import GitlabTests
 
 
@@ -15,7 +15,8 @@ from tests.integration.gitlab.base import GitlabTests
 class GenericCommands(GitlabTests):
     def test_get_file_content(self):
         file = self.project.get_file_content(
-            path="README.md", ref="b8e18207cfdad954f1b3a96db34d0706b272e6cf"
+            path="README.md",
+            ref="b8e18207cfdad954f1b3a96db34d0706b272e6cf",
         )
         assert (
             file == "# ogr-tests\n\nTesting repository for python-ogr package. | "
@@ -24,7 +25,8 @@ class GenericCommands(GitlabTests):
 
     def test_request_access(self):
         project = self.service.get_project(
-            repo="hello-world", namespace="shreyaspapitest"
+            repo="hello-world",
+            namespace="shreyaspapitest",
         )
 
         project.request_access()
@@ -68,7 +70,7 @@ class GenericCommands(GitlabTests):
         assert "README.md" in files
 
     def test_nonexisting_file(self):
-        with self.assertRaises(FileNotFoundError):
+        with pytest.raises(FileNotFoundError):
             self.project.get_file_content(".blablabla_nonexisting_file")
 
     def test_username(self):
@@ -119,7 +121,8 @@ class GenericCommands(GitlabTests):
 
     def test_get_sha_from_branch(self):
         commit_sha = self.project.get_sha_from_branch("change")
-        assert commit_sha and commit_sha.startswith("d490ec67")
+        assert commit_sha
+        assert commit_sha.startswith("d490ec67")
 
     def test_get_sha_from_branch_non_existing(self):
         commit_sha = self.project.get_sha_from_branch("non-existing")
@@ -140,7 +143,7 @@ class GenericCommands(GitlabTests):
 
     def test_get_commit_statuses(self):
         flags = self.project.get_commit_statuses(
-            commit="11b37d913374b14f8519d16c2a2cca3ebc14ac64"
+            commit="11b37d913374b14f8519d16c2a2cca3ebc14ac64",
         )
         assert isinstance(flags, list)
         assert len(flags) >= 2
@@ -159,7 +162,7 @@ class GenericCommands(GitlabTests):
 
     def test_set_commit_status(self):
         old_statuses = self.project.get_commit_statuses(
-            commit="11b37d913374b14f8519d16c2a2cca3ebc14ac64"
+            commit="11b37d913374b14f8519d16c2a2cca3ebc14ac64",
         )
         status = self.project.set_commit_status(
             commit="11b37d913374b14f8519d16c2a2cca3ebc14ac64",
@@ -170,7 +173,7 @@ class GenericCommands(GitlabTests):
         )
         assert status
         new_statuses = self.project.get_commit_statuses(
-            commit="11b37d913374b14f8519d16c2a2cca3ebc14ac64"
+            commit="11b37d913374b14f8519d16c2a2cca3ebc14ac64",
         )
         assert len(old_statuses) == len(new_statuses)
 
@@ -186,7 +189,7 @@ class GenericCommands(GitlabTests):
 
     def test_get_commit_comments(self):
         comments = self.project.get_commit_comments(
-            "11b37d913374b14f8519d16c2a2cca3ebc14ac64"
+            "11b37d913374b14f8519d16c2a2cca3ebc14ac64",
         )
         assert len(comments)
         assert comments[0].sha == "11b37d913374b14f8519d16c2a2cca3ebc14ac64"
@@ -204,7 +207,8 @@ class GenericCommands(GitlabTests):
 
     def test_project_not_exists(self):
         assert not self.service.get_project(
-            repo="some-non-existing-repo", namespace="some-none-existing-namespace"
+            repo="some-non-existing-repo",
+            namespace="some-none-existing-namespace",
         ).exists()
 
     def test_get_owners(self):
@@ -238,14 +242,16 @@ class GenericCommands(GitlabTests):
 
     def test_delete(self):
         project = self.service.get_project(
-            repo="delete-project", namespace="shreyaspapi"
+            repo="delete-project",
+            namespace="shreyaspapi",
         )
         project.delete()
 
     def test_has_issues(self):
         assert self.project.has_issues
         assert not self.service.get_project(
-            namespace="redhat/centos-stream/rpms", repo="firefox"
+            namespace="redhat/centos-stream/rpms",
+            repo="firefox",
         ).has_issues
 
     def test_get_contributors(self):

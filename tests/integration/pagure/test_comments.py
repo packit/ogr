@@ -28,7 +28,7 @@ class Comments(PagureTests):
         assert pr_comments[0].body == "ignored comment"
 
         pr_comments = self.ogr_project.get_pr(4).get_comments(
-            filter_regex="PR comment [0-9]*"
+            filter_regex="PR comment [0-9]*",
         )
         assert pr_comments
         assert len(pr_comments) == 2
@@ -41,7 +41,7 @@ class Comments(PagureTests):
         assert comment_match[0] == "New"
 
         comment_match = self.ogr_project.get_pr(4).search(
-            filter_regex="Pull-Request has been merged by [a-z]*"
+            filter_regex="Pull-Request has been merged by [a-z]*",
         )
         print(comment_match)
         assert comment_match

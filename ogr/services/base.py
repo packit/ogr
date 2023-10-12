@@ -1,23 +1,23 @@
 # Copyright Contributors to the Packit project.
 # SPDX-License-Identifier: MIT
 
-from typing import List, Optional, Any
+from typing import Any, Optional
 from urllib.request import urlopen
 
 from ogr.abstract import (
-    GitService,
-    GitProject,
-    GitUser,
-    IssueComment,
-    Issue,
-    PullRequest,
     CommitFlag,
     CommitStatus,
+    GitProject,
+    GitService,
+    GitUser,
+    Issue,
+    IssueComment,
+    PullRequest,
     Release,
 )
 from ogr.exceptions import OgrException
 from ogr.parsing import parse_git_repo
-from ogr.utils import search_in_comments, filter_comments
+from ogr.utils import filter_comments, search_in_comments
 
 try:
     from functools import cached_property
@@ -53,15 +53,21 @@ class BasePullRequest(PullRequest):
         return self.target_project.get_sha_from_branch(self.target_branch)
 
     def get_comments(
-        self, filter_regex: str = None, reverse: bool = False, author: str = None
+        self,
+        filter_regex: Optional[str] = None,
+        reverse: bool = False,
+        author: Optional[str] = None,
     ):
         all_comments = self._get_all_comments()
         return filter_comments(all_comments, filter_regex, reverse, author)
 
     def search(
-        self, filter_regex: str, reverse: bool = False, description: bool = True
+        self,
+        filter_regex: str,
+        reverse: bool = False,
+        description: bool = True,
     ):
-        all_comments: List[Any] = self.get_comments(reverse=reverse)
+        all_comments: list[Any] = self.get_comments(reverse=reverse)
         if description:
             description_content = self.description
             if reverse:
@@ -71,7 +77,7 @@ class BasePullRequest(PullRequest):
 
         return search_in_comments(comments=all_comments, filter_regex=filter_regex)
 
-    def get_statuses(self) -> List[CommitFlag]:
+    def get_statuses(self) -> list[CommitFlag]:
         commit = self.get_all_commits()[-1]
         return self.target_project.get_commit_statuses(commit)
 
@@ -82,9 +88,12 @@ class BaseGitUser(GitUser):
 
 class BaseIssue(Issue):
     def get_comments(
-        self, filter_regex: str = None, reverse: bool = False, author: str = None
-    ) -> List[IssueComment]:
-        all_comments: List[IssueComment] = self._get_all_comments()
+        self,
+        filter_regex: Optional[str] = None,
+        reverse: bool = False,
+        author: Optional[str] = None,
+    ) -> list[IssueComment]:
+        all_comments: list[IssueComment] = self._get_all_comments()
         return filter_comments(all_comments, filter_regex, reverse, author)
 
     def can_close(self, username: str) -> bool:

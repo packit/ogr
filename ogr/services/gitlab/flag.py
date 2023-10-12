@@ -1,9 +1,9 @@
 # Copyright Contributors to the Packit project.
 # SPDX-License-Identifier: MIT
 
-import logging
 import datetime
-from typing import List
+import logging
+from typing import ClassVar
 
 import gitlab
 
@@ -16,7 +16,7 @@ logger = logging.getLogger(__name__)
 
 
 class GitlabCommitFlag(BaseCommitFlag):
-    _states = {
+    _states: ClassVar[dict[str, CommitStatus]] = {
         "pending": CommitStatus.pending,
         "success": CommitStatus.success,
         "failed": CommitStatus.failure,
@@ -49,7 +49,7 @@ class GitlabCommitFlag(BaseCommitFlag):
         self.url = self._raw_commit_flag.target_url
 
     @staticmethod
-    def get(project: "ogr_gitlab.GitlabProject", commit: str) -> List["CommitFlag"]:
+    def get(project: "ogr_gitlab.GitlabProject", commit: str) -> list["CommitFlag"]:
         try:
             commit_object = project.gitlab_repo.commits.get(commit)
         except gitlab.exceptions.GitlabGetError as ex:
@@ -95,12 +95,13 @@ class GitlabCommitFlag(BaseCommitFlag):
     @property
     def created(self) -> datetime.datetime:
         return datetime.datetime.strptime(
-            self._raw_commit_flag.created_at, "%Y-%m-%dT%H:%M:%S.%fZ"
+            self._raw_commit_flag.created_at,
+            "%Y-%m-%dT%H:%M:%S.%fZ",
         )
 
     @property
     def edited(self) -> datetime.datetime:
         raise OperationNotSupported(
             "GitLab doesn't support edited on commit flags, for more info "
-            "see https://github.com/packit/ogr/issues/413#issuecomment-729623702"
+            "see https://github.com/packit/ogr/issues/413#issuecomment-729623702",
         )

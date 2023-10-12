@@ -3,14 +3,14 @@
 
 import datetime
 import logging
-from typing import List, Union
+from typing import Union
 
 import gitlab.exceptions
 from gitlab.v4.objects import (
     ProjectIssueNote,
-    ProjectMergeRequestNote,
     ProjectIssueNoteAwardEmoji,
     ProjectMergeRequestAwardEmoji,
+    ProjectMergeRequestNote,
 )
 
 from ogr.abstract import Comment, IssueComment, PRComment, Reaction
@@ -31,7 +31,8 @@ class GitlabReaction(Reaction):
 
 class GitlabComment(Comment):
     def _from_raw_comment(
-        self, raw_comment: Union[ProjectIssueNote, ProjectMergeRequestNote]
+        self,
+        raw_comment: Union[ProjectIssueNote, ProjectMergeRequestNote],
     ) -> None:
         self._raw_comment = raw_comment
         self._id = raw_comment.get_id()
@@ -51,7 +52,7 @@ class GitlabComment(Comment):
     def edited(self) -> datetime.datetime:
         return self._raw_comment.updated_at
 
-    def get_reactions(self) -> List[Reaction]:
+    def get_reactions(self) -> list[Reaction]:
         return [
             GitlabReaction(reaction)
             for reaction in self._raw_comment.awardemojis.list()

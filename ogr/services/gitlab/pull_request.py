@@ -2,15 +2,14 @@
 # SPDX-License-Identifier: MIT
 
 import datetime
+from typing import ClassVar, Optional
 
 import gitlab
 import requests
-from typing import Dict, List, Optional
-
-from gitlab.v4.objects import MergeRequest as _GitlabMergeRequest
 from gitlab.exceptions import GitlabGetError
+from gitlab.v4.objects import MergeRequest as _GitlabMergeRequest
 
-from ogr.abstract import PullRequest, PRComment, PRStatus, MergeCommitStatus
+from ogr.abstract import MergeCommitStatus, PRComment, PRStatus, PullRequest
 from ogr.exceptions import GitlabAPIException, OgrNetworkError
 from ogr.services import gitlab as ogr_gitlab
 from ogr.services.base import BasePullRequest
@@ -21,7 +20,7 @@ class GitlabPullRequest(BasePullRequest):
     _raw_pr: _GitlabMergeRequest
     _target_project: "ogr_gitlab.GitlabProject"
     _source_project: "ogr_gitlab.GitlabProject" = None
-    _merge_commit_status: Dict[str, MergeCommitStatus] = {
+    _merge_commit_status: ClassVar[dict[str, MergeCommitStatus]] = {
         "can_be_merged": MergeCommitStatus.can_be_merged,
         "cannot_be_merged": MergeCommitStatus.cannot_be_merged,
         "unchecked": MergeCommitStatus.unchecked,
@@ -80,7 +79,7 @@ class GitlabPullRequest(BasePullRequest):
         return self._raw_pr.created_at
 
     @property
-    def labels(self) -> List[str]:
+    def labels(self) -> list[str]:
         return self._raw_pr.labels
 
     @property
@@ -98,7 +97,7 @@ class GitlabPullRequest(BasePullRequest):
         if not response.ok:
             cls = OgrNetworkError if response.status_code >= 500 else GitlabAPIException
             raise cls(
-                f"Couldn't get patch from {self.url}.patch because {response.reason}."
+                f"Couldn't get patch from {self.url}.patch because {response.reason}.",
             )
 
         return response.content
@@ -126,17 +125,17 @@ class GitlabPullRequest(BasePullRequest):
     @property
     def merge_commit_status(self) -> MergeCommitStatus:
         status = self._raw_pr.merge_status
-        if status in self._merge_commit_status:
-            return self._merge_commit_status[status]
-        else:
+        if status not in self._merge_commit_status:
             raise GitlabAPIException(f"Invalid merge_status {status}")
+
+        return self._merge_commit_status[status]
 
     @property
     def source_project(self) -> "ogr_gitlab.GitlabProject":
         if self._source_project is None:
             self._source_project = (
                 self._target_project.service.get_project_from_project_id(
-                    self._raw_pr.attributes["source_project_id"]
+                    self._raw_pr.attributes["source_project_id"],
                 )
             )
         return self._source_project
@@ -151,7 +150,7 @@ class GitlabPullRequest(BasePullRequest):
         body: str,
         target_branch: str,
         source_branch: str,
-        fork_username: str = None,
+        fork_username: Optional[str] = None,
     ) -> "PullRequest":
         """
         How to create PR:
@@ -200,7 +199,8 @@ class GitlabPullRequest(BasePullRequest):
 
     @staticmethod
     def __get_fork(
-        fork_username: str, project: "ogr_gitlab.GitlabProject"
+        fork_username: str,
+        project: "ogr_gitlab.GitlabProject",
     ) -> "ogr_gitlab.GitlabProject":
         """
         Returns forked project of a requested user. Internal method, in case the fork
@@ -220,7 +220,7 @@ class GitlabPullRequest(BasePullRequest):
             filter(
                 lambda fork: fork.gitlab_repo.namespace["full_path"] == fork_username,
                 project.get_forks(),
-            )
+            ),
         )
         if not forks:
             raise GitlabAPIException("Requested fork doesn't exist")
@@ -236,8 +236,9 @@ class GitlabPullRequest(BasePullRequest):
 
     @staticmethod
     def get_list(
-        project: "ogr_gitlab.GitlabProject", status: PRStatus = PRStatus.open
-    ) -> List["PullRequest"]:
+        project: "ogr_gitlab.GitlabProject",
+        status: PRStatus = PRStatus.open,
+    ) -> list["PullRequest"]:
         # Gitlab API has status 'opened', not 'open'
         mrs = project.gitlab_repo.mergerequests.list(
             state=status.name if status != PRStatus.open else "opened",
@@ -247,7 +248,9 @@ class GitlabPullRequest(BasePullRequest):
         return [GitlabPullRequest(mr, project) for mr in mrs]
 
     def update_info(
-        self, title: Optional[str] = None, description: Optional[str] = None
+        self,
+        title: Optional[str] = None,
+        description: Optional[str] = None,
     ) -> "PullRequest":
         if title:
             self._raw_pr.title = title
@@ -257,13 +260,13 @@ class GitlabPullRequest(BasePullRequest):
         self._raw_pr.save()
         return self
 
-    def _get_all_comments(self) -> List[PRComment]:
+    def _get_all_comments(self) -> list[PRComment]:
         return [
             GitlabPRComment(parent=self, raw_comment=raw_comment)
             for raw_comment in self._raw_pr.notes.list(sort="asc", all=True)
         ]
 
-    def get_all_commits(self) -> List[str]:
+    def get_all_commits(self) -> list[str]:
         return [commit.id for commit in self._raw_pr.commits()]
 
     def comment(

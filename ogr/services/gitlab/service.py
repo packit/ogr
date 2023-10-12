@@ -2,7 +2,7 @@
 # SPDX-License-Identifier: MIT
 
 import logging
-from typing import Optional, List
+from typing import Optional
 
 import gitlab
 
@@ -64,12 +64,11 @@ class GitlabService(BaseGitService):
             f", token='{self.token[:1]}***{self.token[-1:]}'" if self.token else ""
         )
         ssl_str = ", ssl_verify=False" if not self.ssl_verify else ""
-        str_result = (
+        return (
             f"GitlabService(instance_url='{self.instance_url}'"
             f"{token_str}"
             f"{ssl_str})"
         )
-        return str_result
 
     def __eq__(self, o: object) -> bool:
         if not issubclass(o.__class__, GitlabService):
@@ -85,7 +84,11 @@ class GitlabService(BaseGitService):
         return hash(str(self))
 
     def get_project(
-        self, repo=None, namespace=None, is_fork=False, **kwargs
+        self,
+        repo=None,
+        namespace=None,
+        is_fork=False,
+        **kwargs,
     ) -> "GitlabProject":
         if is_fork:
             namespace = self.user.get_username()
@@ -125,16 +128,19 @@ class GitlabService(BaseGitService):
         except gitlab.GitlabCreateError as ex:
             raise GitlabAPIException("Project already exists") from ex
         return GitlabProject(
-            repo=repo, namespace=namespace, service=self, gitlab_repo=new_project
+            repo=repo,
+            namespace=namespace,
+            service=self,
+            gitlab_repo=new_project,
         )
 
     def list_projects(
         self,
-        namespace: str = None,
-        user: str = None,
-        search_pattern: str = None,
-        language: str = None,
-    ) -> List[GitProject]:
+        namespace: Optional[str] = None,
+        user: Optional[str] = None,
+        search_pattern: Optional[str] = None,
+        language: Optional[str] = None,
+    ) -> list[GitProject]:
         if namespace:
             group = self.gitlab_instance.groups.get(namespace)
             projects = group.projects.list(all=True)
@@ -144,8 +150,6 @@ class GitlabService(BaseGitService):
         else:
             raise OperationNotSupported
 
-        gitlab_projects: List[GitProject]
-
         if language:
             # group.projects.list gives us a GroupProject instance
             # in order to be able to filter by language we need Project instance
@@ -153,13 +157,11 @@ class GitlabService(BaseGitService):
                 self.gitlab_instance.projects.get(item.attributes["id"])
                 for item in projects
                 if language
-                in self.gitlab_instance.projects.get(item.attributes["id"])
-                .languages()
-                .keys()
+                in self.gitlab_instance.projects.get(item.attributes["id"]).languages()
             ]
         else:
             projects_to_convert = projects
-        gitlab_projects = [
+        return [
             GitlabProject(
                 repo=project.attributes["path"],
                 namespace=project.attributes["namespace"]["full_path"],
@@ -167,5 +169,3 @@ class GitlabService(BaseGitService):
             )
             for project in projects_to_convert
         ]
-
-        return gitlab_projects

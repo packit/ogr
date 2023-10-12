@@ -2,11 +2,13 @@
 # SPDX-License-Identifier: MIT
 
 import os
-from pathlib import Path
 import unittest
-from ogr.services.github import GithubService
+from pathlib import Path
+
 from requre.online_replacing import record_requests_for_all_methods
 from requre.utils import get_datafile_filename
+
+from ogr.services.github import GithubService
 
 
 @record_requests_for_all_methods()
@@ -16,7 +18,7 @@ class ReadOnly(unittest.TestCase):
         self.token = os.environ.get("GITHUB_TOKEN")
         if not Path(get_datafile_filename(obj=self)).exists() and not self.token:
             raise OSError(
-                "You are in Requre write mode, please set proper GITHUB_TOKEN env variables"
+                "You are in Requre write mode, please set proper GITHUB_TOKEN env variables",
             )
         self._service = None
         self._ogr_project = None
@@ -43,7 +45,10 @@ class ReadOnly(unittest.TestCase):
 
     def test_create_pr(self):
         pr = self.ogr_project.create_pr(
-            "title", "text", "master", "lbarcziova:testing_branch"
+            "title",
+            "text",
+            "master",
+            "lbarcziova:testing_branch",
         )
         assert pr.title == "title"
 

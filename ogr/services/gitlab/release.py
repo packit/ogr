@@ -1,14 +1,14 @@
 # Copyright Contributors to the Packit project.
 # SPDX-License-Identifier: MIT
 
+import datetime
+from typing import Optional
+
 from gitlab.v4.objects import ProjectRelease as _GitlabRelease
 
-import datetime
-from typing import Optional, List
-
-from ogr.abstract import Release, GitTag
-from ogr.services import gitlab as ogr_gitlab
+from ogr.abstract import GitTag, Release
 from ogr.exceptions import OperationNotSupported
+from ogr.services import gitlab as ogr_gitlab
 
 
 class GitlabRelease(Release):
@@ -63,10 +63,10 @@ class GitlabRelease(Release):
         return GitlabRelease(releases[0], project) if releases else None
 
     @staticmethod
-    def get_list(project: "ogr_gitlab.GitlabProject") -> List["Release"]:
+    def get_list(project: "ogr_gitlab.GitlabProject") -> list["Release"]:
         if not hasattr(project.gitlab_repo, "releases"):
             raise OperationNotSupported(
-                "This version of python-gitlab does not support release, please upgrade."
+                "This version of python-gitlab does not support release, please upgrade.",
             )
         releases = project.gitlab_repo.releases.list(all=True)
         return [GitlabRelease(release, project) for release in releases]
@@ -80,7 +80,7 @@ class GitlabRelease(Release):
         ref: Optional[str] = None,
     ) -> "Release":
         release = project.gitlab_repo.releases.create(
-            {"name": name, "tag_name": tag, "description": message, "ref": ref}
+            {"name": name, "tag_name": tag, "description": message, "ref": ref},
         )
         return GitlabRelease(release, project)
 

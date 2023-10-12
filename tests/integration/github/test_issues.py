@@ -4,13 +4,13 @@
 import pytest
 from requre.online_replacing import record_requests_for_all_methods
 
-from tests.integration.github.base import GithubTests
 from ogr.abstract import IssueStatus
 from ogr.exceptions import (
     GithubAPIException,
     IssueTrackerDisabled,
     OperationNotSupported,
 )
+from tests.integration.github.base import GithubTests
 
 
 @record_requests_for_all_methods()
@@ -19,7 +19,7 @@ class Issues(GithubTests):
     description = "This is a description"
 
     def test_issue_list(self):
-        with self.assertRaises(IssueTrackerDisabled):
+        with pytest.raises(IssueTrackerDisabled):
             issue_list = self.ogr_fork.get_issue_list()
 
         issue_list_all = self.ogr_project.get_issue_list(status=IssueStatus.all)
@@ -37,7 +37,9 @@ class Issues(GithubTests):
     def test_create_issue(self):
         labels = ["label1", "label2"]
         issue = self.hello_world_project.create_issue(
-            title=self.title, body=self.description, labels=labels
+            title=self.title,
+            body=self.description,
+            labels=labels,
         )
         assert issue.title == self.title
         assert issue.description == self.description
@@ -45,16 +47,21 @@ class Issues(GithubTests):
             assert issue_label.name == label
 
     def test_create_private_issue(self):
-        with self.assertRaises(OperationNotSupported):
+        with pytest.raises(OperationNotSupported):
             self.hello_world_project.create_issue(
-                title=self.title, body=self.description, private=True
+                title=self.title,
+                body=self.description,
+                private=True,
             )
 
     def test_create_issue_with_assignee(self):
         labels = ["label1", "label2"]
         assignee = ["lachmanfrantisek"]
         issue = self.hello_world_project.create_issue(
-            title=self.title, body=self.description, labels=labels, assignees=assignee
+            title=self.title,
+            body=self.description,
+            labels=labels,
+            assignees=assignee,
         )
         assert issue.title == self.title
         assert issue.description == self.description
@@ -70,27 +77,31 @@ class Issues(GithubTests):
 
     def test_issue_list_author(self):
         issue_list = self.ogr_project.get_issue_list(
-            status=IssueStatus.all, author="mfocko"
+            status=IssueStatus.all,
+            author="mfocko",
         )
         assert issue_list
         assert len(issue_list) >= 12
 
     def test_issue_list_nonexisting_author(self):
         issue_list = self.ogr_project.get_issue_list(
-            status=IssueStatus.all, author="xyzidontexist"
+            status=IssueStatus.all,
+            author="xyzidontexist",
         )
         assert len(issue_list) == 0
 
     def test_issue_list_assignee(self):
         issue_list = self.ogr_project.get_issue_list(
-            status=IssueStatus.all, assignee="mfocko"
+            status=IssueStatus.all,
+            assignee="mfocko",
         )
         assert issue_list
         assert len(issue_list) >= 10
 
     def test_issue_list_labels(self):
         issue_list = self.ogr_project.get_issue_list(
-            status=IssueStatus.all, labels=["Pagure"]
+            status=IssueStatus.all,
+            labels=["Pagure"],
         )
         assert issue_list
         assert len(issue_list) >= 42
@@ -158,7 +169,7 @@ class Issues(GithubTests):
         with pytest.raises(GithubAPIException):
             self.ogr_project.get_issue(1).close()
         with pytest.raises(GithubAPIException):
-            self.ogr_project.get_issue(1).labels
+            _ = self.ogr_project.get_issue(1).labels
         with pytest.raises(GithubAPIException):
             self.ogr_project.get_issue(1).add_label("should fail")
 
@@ -193,7 +204,8 @@ class Issues(GithubTests):
         assert comment.body == "this is a comment"
 
     def test_create_with_disabled_issues(self):
-        with self.assertRaises(IssueTrackerDisabled):
+        with pytest.raises(IssueTrackerDisabled):
             self.hello_world_project.get_fork().create_issue(
-                "Testing issue", "shouldn't be created"
+                "Testing issue",
+                "shouldn't be created",
             )

@@ -2,11 +2,13 @@
 # SPDX-License-Identifier: MIT
 
 import os
-from requre.online_replacing import record_requests_for_all_methods
-from requre.utils import get_datafile_filename
 import unittest
 from pathlib import Path
-from ogr import GithubService, PagureService, get_project, GitlabService
+
+from requre.online_replacing import record_requests_for_all_methods
+from requre.utils import get_datafile_filename
+
+from ogr import GithubService, GitlabService, PagureService, get_project
 from ogr.services.github import GithubProject
 from ogr.services.gitlab import GitlabProject
 from ogr.services.pagure import PagureProject
@@ -21,16 +23,15 @@ class FactoryTests(unittest.TestCase):
         self.github_token = os.environ.get("GITHUB_TOKEN")
         self.pagure_token = os.environ.get("PAGURE_TOKEN")
         self.gitlab_token = os.environ.get("GITLAB_TOKEN") or "some_token"
-        if not Path(get_datafile_filename(obj=self)).exists():
-            if (
-                not self.github_token
-                or not self.pagure_token
-                or not os.environ.get("GITLAB_TOKEN")
-            ):
-                raise OSError(
-                    "You are in requre write mode, please set GITHUB_TOKEN PAGURE_TOKEN"
-                    " GITLAB_TOKEN env variables"
-                )
+        if not Path(get_datafile_filename(obj=self)).exists() and (
+            not self.github_token
+            or not self.pagure_token
+            or not os.environ.get("GITLAB_TOKEN")
+        ):
+            raise OSError(
+                "You are in requre write mode, please set GITHUB_TOKEN PAGURE_TOKEN"
+                " GITLAB_TOKEN env variables",
+            )
 
     @property
     def github_service(self):
@@ -48,7 +49,8 @@ class FactoryTests(unittest.TestCase):
     def gitlab_service(self):
         if not self._gitlab_service:
             self._gitlab_service = GitlabService(
-                token=self.gitlab_token, instance_url="https://gitlab.com"
+                token=self.gitlab_token,
+                instance_url="https://gitlab.com",
             )
         return self._gitlab_service
 

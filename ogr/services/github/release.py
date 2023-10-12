@@ -2,11 +2,12 @@
 # SPDX-License-Identifier: MIT
 
 import datetime
-from typing import List, Optional
+from typing import Optional
+
 from github import GithubException
 from github.GitRelease import GitRelease as PyGithubRelease
 
-from ogr.abstract import Release, GitTag
+from ogr.abstract import GitTag, Release
 from ogr.exceptions import GithubAPIException
 from ogr.services import github as ogr_github
 
@@ -17,7 +18,8 @@ class GithubRelease(Release):
 
     @staticmethod
     def _release_id_from_name(
-        project: "ogr_github.GithubProject", name: str
+        project: "ogr_github.GithubProject",
+        name: str,
     ) -> Optional[int]:
         releases = project.github_repo.get_releases()
         for release in releases:
@@ -27,7 +29,8 @@ class GithubRelease(Release):
 
     @staticmethod
     def _release_id_from_tag(
-        project: "ogr_github.GithubProject", tag: str
+        project: "ogr_github.GithubProject",
+        tag: str,
     ) -> Optional[int]:
         releases = project.github_repo.get_releases()
         for release in releases:
@@ -93,7 +96,7 @@ class GithubRelease(Release):
             raise GithubAPIException from ex
 
     @staticmethod
-    def get_list(project: "ogr_github.GithubProject") -> List["Release"]:
+    def get_list(project: "ogr_github.GithubProject") -> list["Release"]:
         releases = project.github_repo.get_releases()
         return [GithubRelease(release, project) for release in releases]
 
@@ -106,7 +109,9 @@ class GithubRelease(Release):
         ref: Optional[str] = None,
     ) -> "Release":
         created_release = project.github_repo.create_git_release(
-            tag=tag, name=name, message=message
+            tag=tag,
+            name=name,
+            message=message,
         )
         return GithubRelease(created_release, project)
 

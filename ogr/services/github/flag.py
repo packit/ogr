@@ -2,7 +2,7 @@
 # SPDX-License-Identifier: MIT
 
 import datetime
-from typing import List
+from typing import ClassVar
 
 from github import UnknownObjectException
 
@@ -12,7 +12,7 @@ from ogr.services.base import BaseCommitFlag
 
 
 class GithubCommitFlag(BaseCommitFlag):
-    _states = {
+    _states: ClassVar[dict[str, CommitStatus]] = {
         "pending": CommitStatus.pending,
         "success": CommitStatus.success,
         "failure": CommitStatus.failure,
@@ -30,13 +30,15 @@ class GithubCommitFlag(BaseCommitFlag):
         self.uid = self._raw_commit_flag.id
 
     @staticmethod
-    def get(project: "ogr_github.GithubProject", commit: str) -> List["CommitFlag"]:
+    def get(project: "ogr_github.GithubProject", commit: str) -> list["CommitFlag"]:
         statuses = project.github_repo.get_commit(commit).get_statuses()
 
         try:
             return [
                 GithubCommitFlag(
-                    raw_commit_flag=raw_status, project=project, commit=commit
+                    raw_commit_flag=raw_status,
+                    project=project,
+                    commit=commit,
                 )
                 for raw_status in statuses
             ]
@@ -59,7 +61,10 @@ class GithubCommitFlag(BaseCommitFlag):
         if trim:
             description = description[:140]
         status = github_commit.create_status(
-            state.name, target_url, description, context
+            state.name,
+            target_url,
+            description,
+            context,
         )
         return GithubCommitFlag(project=project, raw_commit_flag=status, commit=commit)
 

@@ -8,22 +8,24 @@ import pytest
 from flexmock import flexmock
 
 from ogr import GithubService
-from ogr.services.github.project import GithubProject
-from ogr.services.github.pull_request import GithubPullRequest
-from ogr.services.github.check_run import (
-    create_github_check_run_output,
-    GithubCheckRunOutput,
-)
-from ogr.services.github.auth_providers.tokman import Tokman
-from ogr.services.github.auth_providers.token import TokenAuthentication
 from ogr.abstract import AuthMethod
 from ogr.exceptions import GithubAPIException
+from ogr.services.github.auth_providers.token import TokenAuthentication
+from ogr.services.github.auth_providers.tokman import Tokman
+from ogr.services.github.check_run import (
+    GithubCheckRunOutput,
+    create_github_check_run_output,
+)
+from ogr.services.github.project import GithubProject
+from ogr.services.github.pull_request import GithubPullRequest
 
 
-@pytest.fixture
+@pytest.fixture()
 def github_project(mock_github_repo):
     github_project = GithubProject(
-        repo="test_repo", service="test_service", namespace="fork_username"
+        repo="test_repo",
+        service="test_service",
+        namespace="fork_username",
     )
     parent_github_project = GithubProject(
         repo="test_parent_repo",
@@ -40,20 +42,18 @@ def github_project(mock_github_repo):
     return github_project
 
 
-@pytest.fixture
+@pytest.fixture()
 def mock_pull_request():
     def mock_pull_request_factory(id):
-        mock = flexmock(id=id)
-        return mock
+        return flexmock(id=id)
 
     return mock_pull_request_factory
 
 
-@pytest.fixture
+@pytest.fixture()
 def mock_github_repo(mock_pull_request):
     def mock_github_repo_factory():
-        mock = flexmock(create_pull=mock_pull_request(42))
-        return mock
+        return flexmock(create_pull=mock_pull_request(42))
 
     return mock_github_repo_factory
 
@@ -73,7 +73,10 @@ class TestGithubProject:
         head = ":".join(filter(None, [fork_username, "master"]))
 
         github_project.github_repo.should_call("create_pull").with_args(
-            title="test_title", body="test_content", base="master", head=head
+            title="test_title",
+            body="test_content",
+            base="master",
+            head=head,
         )
         github_project.parent.github_repo.should_call("create_pull").never()
         github_project.github_repo.should_call("create_pull").once()
@@ -119,8 +122,8 @@ class TestGitHubService(TestCase):
 
 
 @pytest.mark.parametrize(
-    "title, summary, text, expected",
-    (
+    ("title", "summary", "text", "expected"),
+    [
         (
             "test",
             "test summary",
@@ -140,17 +143,20 @@ class TestGitHubService(TestCase):
                 "text": "# Random title\n\n- [ ] TODO list\n---\n_italics_",
             },
         ),
-    ),
+    ],
 )
 def test_create_github_check_run_output(
-    title: str, summary: str, text: Optional[str], expected: GithubCheckRunOutput
+    title: str,
+    summary: str,
+    text: Optional[str],
+    expected: GithubCheckRunOutput,
 ) -> None:
     assert create_github_check_run_output(title, summary, text) == expected
 
 
-@pytest.fixture
+@pytest.fixture()
 def github_service_with_multiple_auth_methods():
-    service = GithubService(
+    return GithubService(
         token="abcdef",
         github_app_id="123",
         github_app_private_key="id_rsa",
@@ -158,8 +164,6 @@ def github_service_with_multiple_auth_methods():
         tokman_instance_url="http://tokman:8080",
         github_authentication=None,
     )
-
-    return service
 
 
 def test_multiple_auth_methods_default_is_tokman(
@@ -178,13 +182,12 @@ def test_set_reset_customized_auth_method(github_service_with_multiple_auth_meth
     assert isinstance(service.authentication, Tokman)
 
 
-@pytest.fixture
+@pytest.fixture()
 def github_service_with_one_auth_method():
-    service = GithubService(
-        tokman_instance_url="http://tokman:8080", github_authentication=None
+    return GithubService(
+        tokman_instance_url="http://tokman:8080",
+        github_authentication=None,
     )
-
-    return service
 
 
 def test_no_multiple_auth_methods_default_is_tokman(

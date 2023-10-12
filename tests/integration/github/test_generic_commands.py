@@ -6,9 +6,9 @@ from datetime import datetime
 import pytest
 from requre.online_replacing import record_requests_for_all_methods
 
-from tests.integration.github.base import GithubTests
 from ogr.abstract import AccessLevel, CommitStatus
 from ogr.exceptions import GithubAPIException
+from tests.integration.github.base import GithubTests
 
 
 @record_requests_for_all_methods()
@@ -19,7 +19,8 @@ class GenericCommands(GithubTests):
         `lachmanfrantisek` is not added in the project before running tests
         """
         project = self.service.get_project(
-            repo="playground", namespace=self.service.user.get_username()
+            repo="playground",
+            namespace=self.service.user.get_username(),
         )
 
         assert not project.can_merge_pr("lachmanfrantisek")
@@ -87,7 +88,7 @@ class GenericCommands(GithubTests):
         assert any("python-ogr.spec" in f for f in files)
 
     def test_nonexisting_file(self):
-        with self.assertRaises(FileNotFoundError):
+        with pytest.raises(FileNotFoundError):
             self.ogr_project.get_file_content(".blablabla_nonexisting_file")
 
     def test_parent_project(self):
@@ -96,14 +97,15 @@ class GenericCommands(GithubTests):
 
     def test_commit_flags(self):
         flags = self.ogr_project.get_commit_statuses(
-            commit="29ca3caefc781b4b41245df3e01086ffa4b4639e"
+            commit="29ca3caefc781b4b41245df3e01086ffa4b4639e",
         )
         assert isinstance(flags, list)
         assert len(flags) == 0
 
     def test_get_sha_from_branch(self):
         commit_sha = self.hello_world_project.get_sha_from_branch("test-for-flock")
-        assert commit_sha and commit_sha.startswith("e2282f3")
+        assert commit_sha
+        assert commit_sha.startswith("e2282f3")
 
     def test_get_sha_from_branch_non_existing(self):
         commit_sha = self.hello_world_project.get_sha_from_branch("non-existing")
@@ -131,7 +133,7 @@ class GenericCommands(GithubTests):
 
         names = {f"0.{i}.0" for i in range(1, 10)}
         names.update({"0.0.1", "0.0.2", "0.0.3", "0.3.1"})
-        assert names <= set(map(lambda tag: tag.name, tags))
+        assert names <= {tag.name for tag in tags}
 
         commits = {
             "ef947cd637f5fa0c28ffca71798d9e61b24880d8",
@@ -140,7 +142,7 @@ class GenericCommands(GithubTests):
             "059d21080a7849acff4626b6e0ec61830d537ac4",
             "088158211481a025a20f3abe716359624615b66e",
         }
-        assert commits < set(map(lambda tag: tag.commit_sha, tags))
+        assert commits < {tag.commit_sha for tag in tags}
 
     def test_get_owners(self):
         owners = self.ogr_project.get_owners()
@@ -191,10 +193,20 @@ class GenericCommands(GithubTests):
         assert last_flag.context == "test"
         assert last_flag.uid
         assert last_flag.created.replace(tzinfo=None) == datetime(
-            year=2019, month=9, day=19, hour=12, minute=21, second=6
+            year=2019,
+            month=9,
+            day=19,
+            hour=12,
+            minute=21,
+            second=6,
         )
         assert last_flag.edited.replace(tzinfo=None) == datetime(
-            year=2019, month=9, day=19, hour=12, minute=21, second=6
+            year=2019,
+            month=9,
+            day=19,
+            hour=12,
+            minute=21,
+            second=6,
         )
 
     def test_set_commit_status_long_description(self):
@@ -236,7 +248,7 @@ class GenericCommands(GithubTests):
 
     def test_get_commit_comments(self):
         comments = self.hello_world_project.get_commit_comments(
-            "95069d7bedb6ae02def3fccce22169b412d08eac"
+            "95069d7bedb6ae02def3fccce22169b412d08eac",
         )
         assert len(comments)
         assert comments[0].sha == "95069d7bedb6ae02def3fccce22169b412d08eac"
@@ -254,7 +266,8 @@ class GenericCommands(GithubTests):
 
     def test_project_not_exists(self):
         assert not self.service.get_project(
-            repo="some-non-existing-repo", namespace="some-none-existing-namespace"
+            repo="some-non-existing-repo",
+            namespace="some-none-existing-namespace",
         ).exists()
 
     def test_is_private(self):
@@ -262,7 +275,8 @@ class GenericCommands(GithubTests):
         # accessed by the user who's GITHUB_TOKEN is used for
         # test regeneration.
         private_project = self.service.get_project(
-            namespace=self.service.user.get_username(), repo="playground"
+            namespace=self.service.user.get_username(),
+            repo="playground",
         )
         assert private_project.is_private()
 
@@ -271,7 +285,8 @@ class GenericCommands(GithubTests):
 
     def test_delete(self):
         project = self.service.get_project(
-            repo="delete-project", namespace="shreyaspapi"
+            repo="delete-project",
+            namespace="shreyaspapi",
         )
         project.delete()
 

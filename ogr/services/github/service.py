@@ -2,29 +2,33 @@
 # SPDX-License-Identifier: MIT
 
 import logging
-from typing import Optional, Type, Union, List, Dict
-
 import re
-from urllib3.util import Retry
+from typing import Optional, Union
+
 import github
 import github.GithubObject
 from github import (
-    UnknownObjectException,
     Github as PyGithubInstance,
+)
+from github import (
     Repository as PyGithubRepository,
 )
+from github import (
+    UnknownObjectException,
+)
+from urllib3.util import Retry
 
-from ogr.abstract import GitUser, AuthMethod
+from ogr.abstract import AuthMethod, GitUser
 from ogr.exceptions import GithubAPIException
 from ogr.factory import use_for_service
 from ogr.services.base import BaseGitService, GitProject
-from ogr.services.github.project import GithubProject
 from ogr.services.github.auth_providers import (
+    GithubApp,
     GithubAuthentication,
     TokenAuthentication,
-    GithubApp,
     Tokman,
 )
+from ogr.services.github.project import GithubProject
 from ogr.services.github.user import GithubUser
 
 logger = logging.getLogger(__name__)
@@ -33,17 +37,17 @@ logger = logging.getLogger(__name__)
 @use_for_service("github.com")
 class GithubService(BaseGitService):
     # class parameter could be used to mock Github class api
-    github_class: Type[github.Github]
+    github_class: type[github.Github]
     instance_url = "https://github.com"
 
     def __init__(
         self,
         token=None,
         read_only=False,
-        github_app_id: str = None,
-        github_app_private_key: str = None,
-        github_app_private_key_path: str = None,
-        tokman_instance_url: str = None,
+        github_app_id: Optional[str] = None,
+        github_app_private_key: Optional[str] = None,
+        github_app_private_key_path: Optional[str] = None,
+        tokman_instance_url: Optional[str] = None,
         github_authentication: GithubAuthentication = None,
         max_retries: Union[int, Retry] = 0,
         **kwargs,
@@ -58,7 +62,7 @@ class GithubService(BaseGitService):
         self.read_only = read_only
         self._default_auth_method = github_authentication
         self._other_auth_method: GithubAuthentication = None
-        self._auth_methods: Dict[AuthMethod, GithubAuthentication] = {}
+        self._auth_methods: dict[AuthMethod, GithubAuthentication] = {}
 
         if isinstance(max_retries, Retry):
             self._max_retries = max_retries
@@ -106,7 +110,7 @@ class GithubService(BaseGitService):
             self._other_auth_method = self._auth_methods[method]
         else:
             raise GithubAPIException(
-                f"Choosen authentication method ({method}) is not available"
+                f"Choosen authentication method ({method}) is not available",
             )
 
     def reset_auth_method(self):
@@ -123,7 +127,7 @@ class GithubService(BaseGitService):
 
     def __str__(self) -> str:
         readonly_str = ", read_only=True" if self.read_only else ""
-        arguments = f", github_authentication={str(self.authentication)}{readonly_str}"
+        arguments = f", github_authentication={self.authentication!s}{readonly_str}"
 
         if arguments:
             # remove the first '- '
@@ -144,7 +148,11 @@ class GithubService(BaseGitService):
         return hash(str(self))
 
     def get_project(
-        self, repo=None, namespace=None, is_fork=False, **kwargs
+        self,
+        repo=None,
+        namespace=None,
+        is_fork=False,
+        **kwargs,
     ) -> "GithubProject":
         if is_fork:
             namespace = self.user.get_username()
@@ -157,7 +165,8 @@ class GithubService(BaseGitService):
         )
 
     def get_project_from_github_repository(
-        self, github_repo: PyGithubRepository.Repository
+        self,
+        github_repo: PyGithubRepository.Repository,
     ) -> "GithubProject":
         return GithubProject(
             repo=github_repo.name,
@@ -208,11 +217,11 @@ class GithubService(BaseGitService):
 
     def list_projects(
         self,
-        namespace: str = None,
-        user: str = None,
-        search_pattern: str = None,
-        language: str = None,
-    ) -> List[GitProject]:
+        namespace: Optional[str] = None,
+        user: Optional[str] = None,
+        search_pattern: Optional[str] = None,
+        language: Optional[str] = None,
+    ) -> list[GitProject]:
         search_query = ""
 
         if user:
@@ -221,7 +230,7 @@ class GithubService(BaseGitService):
         if language:
             search_query += f" language:{language}"
 
-        projects: List[GitProject]
+        projects: list[GitProject]
         projects = [
             GithubProject(
                 repo=repo.name,

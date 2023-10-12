@@ -4,9 +4,9 @@
 import pytest
 from requre.online_replacing import record_requests_for_all_methods
 
-from tests.integration.github.base import GithubTests
-from ogr.abstract import PRStatus, MergeCommitStatus
+from ogr.abstract import MergeCommitStatus, PRStatus
 from ogr.exceptions import GithubAPIException
+from tests.integration.github.base import GithubTests
 
 
 @record_requests_for_all_methods()
@@ -22,19 +22,12 @@ class PullRequests(GithubTests):
         pr_list_closed = self.ogr_project.get_pr_list(status=PRStatus.closed)
         assert pr_list_closed
         assert len(pr_list_closed) >= 70
-
-        closed_pr_numbers = []
-        for closed_pr in pr_list_closed:
-            closed_pr_numbers.append(closed_pr.id)
-        assert 93 in closed_pr_numbers
+        assert 93 in {pr.id for pr in pr_list_closed}
 
         pr_list_merged = self.ogr_project.get_pr_list(status=PRStatus.merged)
         assert pr_list_merged
         assert len(pr_list_merged) >= 1
-        closed_pr_numbers = []
-        for closed_pr in pr_list_merged:
-            closed_pr_numbers.append(closed_pr.id)
-        assert 93 not in closed_pr_numbers
+        assert 93 not in {pr.id for pr in pr_list_merged}
 
         pr_list = self.ogr_project.get_pr_list()
         assert pr_list
@@ -156,7 +149,8 @@ class PullRequests(GithubTests):
         """
         fork_project = self.service.get_project(namespace="mfocko", repo="hello-world")
         other_fork_project = self.service.get_project(
-            namespace="lachmanfrantisek", repo="hello-world"
+            namespace="lachmanfrantisek",
+            repo="hello-world",
         )
         pr_opened_before = len(other_fork_project.get_pr_list(status=PRStatus.open))
         opened_pr = fork_project.create_pr(
@@ -319,7 +313,8 @@ class PullRequests(GithubTests):
     def test_source_project_other_fork_fork(self):
         # Tests source project for PR from one fork to another fork
         project = self.service.get_project(
-            repo="hello-world", namespace="lachmanfrantisek"
+            repo="hello-world",
+            namespace="lachmanfrantisek",
         )
         pr = project.get_pr(1)
         source_project = pr.source_project
@@ -347,7 +342,8 @@ class PullRequests(GithubTests):
         3. Rename the repo in packit namespace.
         """
         pr = self.service.get_project(
-            repo="testing_repo_changed_name", namespace="packit"
+            repo="testing_repo_changed_name",
+            namespace="packit",
         ).get_pr(1)
         source_project = pr.source_project
         assert source_project.namespace == self.service.user.get_username()

@@ -2,12 +2,12 @@
 # SPDX-License-Identifier: MIT
 
 import datetime
-from typing import List, Optional, Dict, Union
+from typing import Optional, Union
 
 import gitlab
 from gitlab.v4.objects import Issue as _GitlabIssue
 
-from ogr.abstract import IssueComment, IssueStatus, Issue
+from ogr.abstract import Issue, IssueComment, IssueStatus
 from ogr.exceptions import GitlabAPIException, IssueTrackerDisabled
 from ogr.services import gitlab as ogr_gitlab
 from ogr.services.base import BaseIssue
@@ -71,7 +71,7 @@ class GitlabIssue(BaseIssue):
         return self._raw_issue.created_at
 
     @property
-    def labels(self) -> List:
+    def labels(self) -> list:
         return self._raw_issue.labels
 
     def __str__(self) -> str:
@@ -83,8 +83,8 @@ class GitlabIssue(BaseIssue):
         title: str,
         body: str,
         private: Optional[bool] = None,
-        labels: Optional[List[str]] = None,
-        assignees: Optional[List[str]] = None,
+        labels: Optional[list[str]] = None,
+        assignees: Optional[list[str]] = None,
     ) -> "Issue":
         if not project.has_issues:
             raise IssueTrackerDisabled()
@@ -123,13 +123,13 @@ class GitlabIssue(BaseIssue):
         status: IssueStatus = IssueStatus.open,
         author: Optional[str] = None,
         assignee: Optional[str] = None,
-        labels: Optional[List[str]] = None,
-    ) -> List["Issue"]:
+        labels: Optional[list[str]] = None,
+    ) -> list["Issue"]:
         if not project.has_issues:
             raise IssueTrackerDisabled()
 
         # Gitlab API has status 'opened', not 'open'
-        parameters: Dict[str, Union[str, List[str], bool]] = {
+        parameters: dict[str, Union[str, list[str], bool]] = {
             "state": status.name if status != IssueStatus.open else "opened",
             "order_by": "updated_at",
             "sort": "desc",
@@ -145,7 +145,7 @@ class GitlabIssue(BaseIssue):
         issues = project.gitlab_repo.issues.list(**parameters)
         return [GitlabIssue(issue, project) for issue in issues]
 
-    def _get_all_comments(self) -> List[IssueComment]:
+    def _get_all_comments(self) -> list[IssueComment]:
         return [
             GitlabIssueComment(parent=self, raw_comment=raw_comment)
             for raw_comment in self._raw_issue.notes.list(sort="asc", all=True)
@@ -169,7 +169,7 @@ class GitlabIssue(BaseIssue):
         assignee_ids = self._raw_issue.__dict__.get("assignee_ids") or []
         for assignee in assignees:
             users = self.project.service.gitlab_instance.users.list(  # type: ignore
-                username=assignee
+                username=assignee,
             )
             if not users:
                 raise GitlabAPIException(f"Unable to find '{assignee}' username")

@@ -2,13 +2,14 @@
 # SPDX-License-Identifier: MIT
 
 import functools
-from typing import Dict, Type, Optional, Set, Iterable
+from collections.abc import Iterable
+from typing import Optional
 
-from ogr.abstract import GitService, GitProject
+from ogr.abstract import GitProject, GitService
 from ogr.exceptions import OgrException
 from ogr.parsing import parse_git_repo
 
-_SERVICE_MAPPING: Dict[str, Type[GitService]] = {}
+_SERVICE_MAPPING: dict[str, type[GitService]] = {}
 
 
 def use_for_service(service: str, _func=None):
@@ -42,7 +43,7 @@ def use_for_service(service: str, _func=None):
 
     def decorator_cover(func):
         @functools.wraps(func)
-        def covered_func(kls: Type[GitService]):
+        def covered_func(kls: type[GitService]):
             _SERVICE_MAPPING[service] = kls
             return kls
 
@@ -53,8 +54,8 @@ def use_for_service(service: str, _func=None):
 
 def get_project(
     url,
-    service_mapping_update: Dict[str, Type[GitService]] = None,
-    custom_instances: Iterable[GitService] = None,
+    service_mapping_update: Optional[dict[str, type[GitService]]] = None,
+    custom_instances: Optional[Iterable[GitService]] = None,
     force_custom_instance: bool = True,
     **kwargs,
 ) -> GitProject:
@@ -102,7 +103,7 @@ def get_project(
             if force_custom_instance:
                 raise OgrException(
                     f"Instance of type {kls.__name__} "
-                    f"matching instance url '{url}' was not provided."
+                    f"matching instance url '{url}' was not provided.",
                 )
     if not service:
         service = kls(instance_url=parsed_repo_url.get_instance_url(), **kwargs)
@@ -110,8 +111,9 @@ def get_project(
 
 
 def get_service_class_or_none(
-    url: str, service_mapping_update: Dict[str, Type[GitService]] = None
-) -> Optional[Type[GitService]]:
+    url: str,
+    service_mapping_update: Optional[dict[str, type[GitService]]] = None,
+) -> Optional[type[GitService]]:
     """
     Get the matching service class from the URL.
 
@@ -139,8 +141,9 @@ def get_service_class_or_none(
 
 
 def get_service_class(
-    url: str, service_mapping_update: Dict[str, Type[GitService]] = None
-) -> Type[GitService]:
+    url: str,
+    service_mapping_update: Optional[dict[str, type[GitService]]] = None,
+) -> type[GitService]:
     """
     Get the matching service class from the URL.
 
@@ -155,14 +158,15 @@ def get_service_class(
         Matched class (subclass of `GitService`).
     """
     service_kls = get_service_class_or_none(
-        url=url, service_mapping_update=service_mapping_update
+        url=url,
+        service_mapping_update=service_mapping_update,
     )
     if service_kls:
         return service_kls
     raise OgrException("No matching service was found.")
 
 
-def get_instances_from_dict(instances: Dict) -> Set[GitService]:
+def get_instances_from_dict(instances: dict) -> set[GitService]:
     """
     Load the service instances from the dictionary in the following form:
 
@@ -213,12 +217,12 @@ def get_instances_from_dict(instances: Dict) -> Set[GitService]:
             if "type" not in value:
                 raise OgrException(
                     f"No matching service was found for url '{key}'. "
-                    f"Add the service name as a `type` attribute."
+                    f"Add the service name as a `type` attribute.",
                 )
             service_type = value["type"]
             if service_type not in _SERVICE_MAPPING:
                 raise OgrException(
-                    f"No matching service was found for type '{service_type}'."
+                    f"No matching service was found for type '{service_type}'.",
                 )
 
             service_kls = _SERVICE_MAPPING[service_type]

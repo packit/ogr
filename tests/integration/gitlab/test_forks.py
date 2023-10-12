@@ -3,8 +3,8 @@
 
 from requre.online_replacing import record_requests_for_all_methods
 
-from tests.integration.gitlab.base import GitlabTests
 from ogr.exceptions import OperationNotSupported
+from tests.integration.gitlab.base import GitlabTests
 
 
 @record_requests_for_all_methods()
@@ -45,7 +45,8 @@ class Forks(GitlabTests):
         """
         namespace = f"ogr-tests-{self.service.user.get_username()}"
         expected_fork = self.service.get_project(
-            namespace=namespace, repo=self.project.repo
+            namespace=namespace,
+            repo=self.project.repo,
         )
         assert not expected_fork.exists(), "Fork should not exist before regenerating"
 

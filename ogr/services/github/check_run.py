@@ -3,7 +3,7 @@
 
 import datetime
 from enum import Enum
-from typing import Any, Dict, List, Optional, Union
+from typing import Any, Optional, Union
 
 from github.CheckRun import CheckRun
 from github.CheckRunOutput import CheckRunOutput
@@ -14,7 +14,7 @@ from ogr.abstract import OgrAbstractClass
 from ogr.exceptions import OperationNotSupported
 from ogr.services import github as ogr_github
 
-GithubCheckRunOutput = Dict[str, Union[str, List[Dict[str, Union[str, int]]]]]
+GithubCheckRunOutput = dict[str, Union[str, list[dict[str, Union[str, int]]]]]
 
 
 class GithubCheckRunStatus(Enum):
@@ -59,7 +59,7 @@ def create_github_check_run_output(
     title: str,
     summary: str,
     text: Optional[str] = None,
-    annotations: Optional[List[Dict[str, Union[str, int]]]] = None,
+    annotations: Optional[list[dict[str, Union[str, int]]]] = None,
 ) -> GithubCheckRunOutput:
     """
     Helper function for constructing valid GitHub output for check run.
@@ -91,7 +91,9 @@ def create_github_check_run_output(
 
 class GithubCheckRun(OgrAbstractClass):
     def __init__(
-        self, project: "ogr_github.GithubProject", raw_check_run: CheckRun
+        self,
+        project: "ogr_github.GithubProject",
+        raw_check_run: CheckRun,
     ) -> None:
         self.raw_check_run = raw_check_run
         self.project = project
@@ -219,7 +221,7 @@ class GithubCheckRun(OgrAbstractClass):
         ) and conclusion is None:
             raise OperationNotSupported(
                 "When provided completed status or completed at,"
-                " you need to provide conclusion."
+                " you need to provide conclusion.",
             )
 
         self.raw_check_run.edit(
@@ -234,7 +236,7 @@ class GithubCheckRun(OgrAbstractClass):
         commit_sha: str,
         name: Optional[str] = None,
         status: Optional[GithubCheckRunStatus] = None,
-    ) -> List["GithubCheckRun"]:
+    ) -> list["GithubCheckRun"]:
         """
         Returns list of GitHub check runs.
 
@@ -286,14 +288,16 @@ class GithubCheckRun(OgrAbstractClass):
         """
         if check_run_id is not None and commit_sha:
             raise OperationNotSupported(
-                "Cannot retrieve check run by both ID and commit hash"
+                "Cannot retrieve check run by both ID and commit hash",
             )
-        elif not (check_run_id is not None or commit_sha):
+
+        if not (check_run_id is not None or commit_sha):
             raise OperationNotSupported("Cannot retrieve check run by no criteria")
 
         if check_run_id is not None:
             return GithubCheckRun(
-                project, project.github_repo.get_check_run(check_run_id)
+                project,
+                project.github_repo.get_check_run(check_run_id),
             )
 
         check_runs = project.github_repo.get_commit(commit_sha).get_check_runs()
@@ -313,7 +317,7 @@ class GithubCheckRun(OgrAbstractClass):
         conclusion: Optional[GithubCheckRunResult] = None,
         completed_at: Optional[datetime.datetime] = None,
         output: Optional[GithubCheckRunOutput] = None,
-        actions: Optional[List[Dict[str, str]]] = None,
+        actions: Optional[list[dict[str, str]]] = None,
     ) -> "GithubCheckRun":
         """
         Creates new check run.
@@ -358,7 +362,7 @@ class GithubCheckRun(OgrAbstractClass):
         ) and conclusion is None:
             raise OperationNotSupported(
                 "When provided completed_at or completed status, "
-                "you need to provide conclusion."
+                "you need to provide conclusion.",
             )
 
         created_check_run = project.github_repo.create_check_run(

@@ -2,8 +2,7 @@
 # SPDX-License-Identifier: MIT
 
 import datetime
-from typing import List, Dict, Any
-
+from typing import Any, ClassVar, Optional
 
 from ogr.abstract import CommitFlag, CommitStatus
 from ogr.services import pagure as ogr_pagure
@@ -11,7 +10,7 @@ from ogr.services.base import BaseCommitFlag
 
 
 class PagureCommitFlag(BaseCommitFlag):
-    _states = {
+    _states: ClassVar[dict[str, CommitStatus]] = {
         "pending": CommitStatus.pending,
         "success": CommitStatus.success,
         "failure": CommitStatus.failure,
@@ -30,7 +29,7 @@ class PagureCommitFlag(BaseCommitFlag):
         self.url = self._raw_commit_flag["url"]
 
     @staticmethod
-    def get(project: "ogr_pagure.PagureProject", commit: str) -> List["CommitFlag"]:
+    def get(project: "ogr_pagure.PagureProject", commit: str) -> list["CommitFlag"]:
         response = project._call_project_api("c", commit, "flag")
         return [
             PagureCommitFlag(raw_commit_flag=flag, project=project)
@@ -45,16 +44,16 @@ class PagureCommitFlag(BaseCommitFlag):
         target_url: str,
         description: str,
         context: str,
-        percent: int = None,
+        percent: Optional[int] = None,
         trim: bool = False,
-        uid: str = None,
+        uid: Optional[str] = None,
     ) -> "CommitFlag":
         state = PagureCommitFlag._validate_state(state)
 
         if trim:
             description = description[:140]
 
-        data: Dict[str, Any] = {
+        data: dict[str, Any] = {
             "username": context,
             "comment": description,
             "url": target_url,
@@ -66,20 +65,26 @@ class PagureCommitFlag(BaseCommitFlag):
             data["uid"] = uid
 
         response = project._call_project_api(
-            "c", commit, "flag", method="POST", data=data
+            "c",
+            commit,
+            "flag",
+            method="POST",
+            data=data,
         )
         return PagureCommitFlag(
-            project=project, raw_commit_flag=response["flag"], uid=response["uid"]
+            project=project,
+            raw_commit_flag=response["flag"],
+            uid=response["uid"],
         )
 
     @property
     def created(self) -> datetime.datetime:
         return datetime.datetime.fromtimestamp(
-            int(self._raw_commit_flag["date_created"])
+            int(self._raw_commit_flag["date_created"]),
         )
 
     @property
     def edited(self) -> datetime.datetime:
         return datetime.datetime.fromtimestamp(
-            int(self._raw_commit_flag["date_updated"])
+            int(self._raw_commit_flag["date_updated"]),
         )

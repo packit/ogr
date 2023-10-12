@@ -2,17 +2,17 @@
 # SPDX-License-Identifier: MIT
 
 import logging
-from typing import List, Optional, Union
+from typing import Optional, Union
 
 import requests
 import urllib3
 
 from ogr.exceptions import (
-    PagureAPIException,
-    OgrException,
-    OperationNotSupported,
-    OgrNetworkError,
     GitForgeInternalError,
+    OgrException,
+    OgrNetworkError,
+    OperationNotSupported,
+    PagureAPIException,
 )
 from ogr.factory import use_for_service
 from ogr.parsing import parse_git_repo
@@ -34,7 +34,7 @@ logger = logging.getLogger(__name__)
 class PagureService(BaseGitService):
     def __init__(
         self,
-        token: str = None,
+        token: Optional[str] = None,
         instance_url: str = "https://src.fedoraproject.org",
         read_only: bool = False,
         insecure: bool = False,
@@ -68,13 +68,12 @@ class PagureService(BaseGitService):
         insecure_str = ", insecure=True" if self.insecure else ""
         readonly_str = ", read_only=True" if self.read_only else ""
 
-        str_result = (
+        return (
             f"PagureService(instance_url='{self.instance_url}'"
             f"{token_str}"
             f"{readonly_str}"
             f"{insecure_str})"
         )
-        return str_result
 
     def __eq__(self, o: object) -> bool:
         if not issubclass(o.__class__, PagureService):
@@ -94,10 +93,12 @@ class PagureService(BaseGitService):
     def get_project(self, **kwargs) -> "PagureProject":
         if "username" in kwargs:
             return PagureProject(service=self, **kwargs)
-        else:
-            return PagureProject(
-                service=self, username=self.user.get_username(), **kwargs
-            )
+
+        return PagureProject(
+            service=self,
+            username=self.user.get_username(),
+            **kwargs,
+        )
 
     def get_project_from_url(self, url: str) -> "PagureProject":
         repo_url = parse_git_repo(potential_url=url)
@@ -107,20 +108,23 @@ class PagureService(BaseGitService):
         if not repo_url.is_fork:
             repo_url.username = None
 
-        project = self.get_project(
+        return self.get_project(
             repo=repo_url.repo,
             namespace=repo_url.namespace,
             is_fork=repo_url.is_fork,
             username=repo_url.username,
         )
-        return project
 
     @property
     def user(self) -> "PagureUser":
         return PagureUser(service=self)
 
     def call_api(
-        self, url: str, method: str = None, params: dict = None, data=None
+        self,
+        url: str,
+        method: Optional[str] = None,
+        params: Optional[dict] = None,
+        data=None,
     ) -> dict:
         """
         Call API endpoint.
@@ -154,7 +158,8 @@ class PagureService(BaseGitService):
         if not response.json_content:
             logger.debug(response.content)
             raise PagureAPIException(
-                "Error while decoding JSON: {0}", response_code=response.status_code
+                "Error while decoding JSON: {0}",
+                response_code=response.status_code,
             )
 
         if not response.ok:
@@ -179,7 +184,11 @@ class PagureService(BaseGitService):
         return response.json_content
 
     def call_api_raw(
-        self, url: str, method: str = None, params: dict = None, data=None
+        self,
+        url: str,
+        method: Optional[str] = None,
+        params: Optional[dict] = None,
+        data=None,
     ):
         """
         Call API endpoint and returns raw response.
@@ -198,7 +207,10 @@ class PagureService(BaseGitService):
         method = method or "GET"
         try:
             response = self.get_raw_request(
-                method=method, url=url, params=params, data=data
+                method=method,
+                url=url,
+                params=params,
+                data=data,
             )
 
         except requests.exceptions.ConnectionError as er:
@@ -208,13 +220,18 @@ class PagureService(BaseGitService):
         if response.status_code >= 500:
             raise GitForgeInternalError(
                 f"Pagure API returned {response.status_code} status for `{url}`"
-                f" with reason: `{response.reason}`"
+                f" with reason: `{response.reason}`",
             )
 
         return response
 
     def get_raw_request(
-        self, url, method="GET", params=None, data=None, header=None
+        self,
+        url,
+        method="GET",
+        params=None,
+        data=None,
+        header=None,
     ) -> RequestResponse:
         """
         Call API endpoint and wrap the response in `RequestResponse` type.
@@ -276,7 +293,7 @@ class PagureService(BaseGitService):
         Returns:
             String
         """
-        args_list: List[str] = []
+        args_list: list[str] = []
 
         args_list += filter(lambda x: x is not None, args)
 
@@ -299,15 +316,16 @@ class PagureService(BaseGitService):
             Dictionary with all error codes.
         """
         request_url = self.get_api_url("error_codes")
-        return_value = self.call_api(request_url)
-        return return_value
+        return self.call_api(request_url)
 
     def change_token(self, token: str):
         self._token = token
         self.header = {"Authorization": "token " + self._token}
 
     def __handle_project_create_fail(
-        self, exception: PagureAPIException, namespace: str
+        self,
+        exception: PagureAPIException,
+        namespace: str,
     ) -> None:
         if (
             exception.pagure_response
@@ -322,7 +340,7 @@ class PagureService(BaseGitService):
                 raise OgrException(f"Namespace doesn't exist ({namespace}).") from ex
 
             raise OgrException(
-                "Cannot create project in given namespace (permissions)."
+                "Cannot create project in given namespace (permissions).",
             )
 
         raise exception
@@ -349,9 +367,9 @@ class PagureService(BaseGitService):
 
     def list_projects(
         self,
-        namespace: str = None,
-        user: str = None,
-        search_pattern: str = None,
-        language: str = None,
-    ) -> List[GitProject]:
+        namespace: Optional[str] = None,
+        user: Optional[str] = None,
+        search_pattern: Optional[str] = None,
+        language: Optional[str] = None,
+    ) -> list[GitProject]:
         raise OperationNotSupported

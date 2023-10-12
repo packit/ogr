@@ -2,23 +2,24 @@
 # SPDX-License-Identifier: MIT
 
 import logging
-from typing import Any, List, Optional, Dict, Set, Union
+from typing import Any, Optional, Union
 
 import gitlab
 from gitlab.exceptions import GitlabGetError
-from gitlab.v4.objects import Project as GitlabObjectsProject, ProjectCommit
+from gitlab.v4.objects import Project as GitlabObjectsProject
+from gitlab.v4.objects import ProjectCommit
 
 from ogr.abstract import (
-    PullRequest,
-    Issue,
-    Release,
-    GitTag,
-    IssueStatus,
-    CommitFlag,
-    PRStatus,
-    CommitComment,
-    CommitStatus,
     AccessLevel,
+    CommitComment,
+    CommitFlag,
+    CommitStatus,
+    GitTag,
+    Issue,
+    IssueStatus,
+    PRStatus,
+    PullRequest,
+    Release,
 )
 from ogr.exceptions import GitlabAPIException, OperationNotSupported
 from ogr.services import gitlab as ogr_gitlab
@@ -45,7 +46,7 @@ class GitlabProject(BaseGitProject):
     ) -> None:
         if unprocess_kwargs:
             logger.warning(
-                f"GitlabProject will not process these kwargs: {unprocess_kwargs}"
+                f"GitlabProject will not process these kwargs: {unprocess_kwargs}",
             )
         super().__init__(repo, service, namespace)
         self._gitlab_repo = gitlab_repo
@@ -55,7 +56,7 @@ class GitlabProject(BaseGitProject):
     def gitlab_repo(self) -> GitlabObjectsProject:
         if not self._gitlab_repo:
             self._gitlab_repo = self.service.gitlab_instance.projects.get(
-                f"{self.namespace}/{self.repo}"
+                f"{self.namespace}/{self.repo}",
             )
         return self._gitlab_repo
 
@@ -99,7 +100,9 @@ class GitlabProject(BaseGitProject):
         user_login = self.service.user.get_username()
         try:
             project = GitlabProject(
-                repo=self.repo, service=self.service, namespace=user_login
+                repo=self.repo,
+                service=self.service,
+                namespace=user_login,
             )
             if project.gitlab_repo:
                 return project
@@ -143,20 +146,20 @@ class GitlabProject(BaseGitProject):
         if not self.is_forked():
             if create:
                 return self.fork_create()
-            else:
-                logger.info(
-                    f"Fork of {self.gitlab_repo.attributes['name']}"
-                    " does not exist and we were asked not to create it."
-                )
-                return None
+
+            logger.info(
+                f"Fork of {self.gitlab_repo.attributes['name']}"
+                " does not exist and we were asked not to create it.",
+            )
+            return None
         return self._construct_fork_project()
 
-    def get_owners(self) -> List[str]:
+    def get_owners(self) -> list[str]:
         return self._get_collaborators_with_given_access(
-            access_levels=[gitlab.const.OWNER_ACCESS]
+            access_levels=[gitlab.const.OWNER_ACCESS],
         )
 
-    def who_can_close_issue(self) -> Set[str]:
+    def who_can_close_issue(self) -> set[str]:
         return set(
             self._get_collaborators_with_given_access(
                 access_levels=[
@@ -164,19 +167,19 @@ class GitlabProject(BaseGitProject):
                     gitlab.const.DEVELOPER_ACCESS,
                     gitlab.const.MAINTAINER_ACCESS,
                     gitlab.const.OWNER_ACCESS,
-                ]
-            )
+                ],
+            ),
         )
 
-    def who_can_merge_pr(self) -> Set[str]:
+    def who_can_merge_pr(self) -> set[str]:
         return set(
             self._get_collaborators_with_given_access(
                 access_levels=[
                     gitlab.const.DEVELOPER_ACCESS,
                     gitlab.const.MAINTAINER_ACCESS,
                     gitlab.const.OWNER_ACCESS,
-                ]
-            )
+                ],
+            ),
         )
 
     def can_merge_pr(self, username) -> bool:
@@ -186,8 +189,9 @@ class GitlabProject(BaseGitProject):
         self.gitlab_repo.delete()
 
     def _get_collaborators_with_given_access(
-        self, access_levels: List[int]
-    ) -> List[str]:
+        self,
+        access_levels: list[int],
+    ) -> list[str]:
         """
         Get all project collaborators with one of the given access levels.
         Access levels:
@@ -233,7 +237,7 @@ class GitlabProject(BaseGitProject):
             raise GitlabAPIException(f"User {user} not found") from e
         try:
             self.gitlab_repo.members.create(
-                {"user_id": user_id, "access_level": access_dict[access_level]}
+                {"user_id": user_id, "access_level": access_dict[access_level]},
             )
         except Exception as e:
             raise GitlabAPIException(f"User {user} already exists") from e
@@ -245,7 +249,7 @@ class GitlabProject(BaseGitProject):
             raise GitlabAPIException("Unable to request access") from e
 
     @indirect(GitlabPullRequest.get_list)
-    def get_pr_list(self, status: PRStatus = PRStatus.open) -> List["PullRequest"]:
+    def get_pr_list(self, status: PRStatus = PRStatus.open) -> list["PullRequest"]:
         pass
 
     def get_sha_from_tag(self, tag_name: str) -> str:
@@ -263,12 +267,16 @@ class GitlabProject(BaseGitProject):
         body: str,
         target_branch: str,
         source_branch: str,
-        fork_username: str = None,
+        fork_username: Optional[str] = None,
     ) -> "PullRequest":
         pass
 
     def commit_comment(
-        self, commit: str, body: str, filename: str = None, row: int = None
+        self,
+        commit: str,
+        body: str,
+        filename: Optional[str] = None,
+        row: Optional[int] = None,
     ) -> "CommitComment":
         try:
             commit_object: ProjectCommit = self.gitlab_repo.commits.get(commit)
@@ -278,7 +286,7 @@ class GitlabProject(BaseGitProject):
 
         if filename and row:
             raw_comment = commit_object.comments.create(
-                {"note": body, "path": filename, "line": row, "line_type": "new"}
+                {"note": body, "path": filename, "line": row, "line_type": "new"},
             )
         else:
             raw_comment = commit_object.comments.create({"note": body})
@@ -287,10 +295,12 @@ class GitlabProject(BaseGitProject):
     @staticmethod
     def _commit_comment_from_gitlab_object(raw_comment, commit) -> CommitComment:
         return CommitComment(
-            sha=commit, body=raw_comment.note, author=raw_comment.author["username"]
+            sha=commit,
+            body=raw_comment.note,
+            author=raw_comment.author["username"],
         )
 
-    def get_commit_comments(self, commit: str) -> List[CommitComment]:
+    def get_commit_comments(self, commit: str) -> list[CommitComment]:
         try:
             commit_object: ProjectCommit = self.gitlab_repo.commits.get(commit)
         except gitlab.exceptions.GitlabGetError as ex:
@@ -315,10 +325,10 @@ class GitlabProject(BaseGitProject):
         pass
 
     @indirect(GitlabCommitFlag.get)
-    def get_commit_statuses(self, commit: str) -> List[CommitFlag]:
+    def get_commit_statuses(self, commit: str) -> list[CommitFlag]:
         pass
 
-    def get_git_urls(self) -> Dict[str, str]:
+    def get_git_urls(self) -> dict[str, str]:
         return {
             "git": self.gitlab_repo.attributes["http_url_to_repo"],
             "ssh": self.gitlab_repo.attributes["ssh_url_to_repo"],
@@ -334,17 +344,19 @@ class GitlabProject(BaseGitProject):
         except gitlab.GitlabCreateError as ex:
             logger.error(f"Repo {self.gitlab_repo} cannot be forked")
             raise GitlabAPIException(
-                f"Repo {self.gitlab_repo} cannot be forked"
+                f"Repo {self.gitlab_repo} cannot be forked",
             ) from ex
         logger.debug(f"Forked to {fork.namespace['full_path']}/{fork.path}")
         return GitlabProject(
-            namespace=fork.namespace["full_path"], service=self.service, repo=fork.path
+            namespace=fork.namespace["full_path"],
+            service=self.service,
+            repo=fork.path,
         )
 
     def change_token(self, new_token: str):
         self.service.change_token(new_token)
 
-    def get_branches(self) -> List[str]:
+    def get_branches(self) -> list[str]:
         return [branch.name for branch in self.gitlab_repo.branches.list(all=True)]
 
     def get_file_content(self, path, ref=None) -> str:
@@ -358,13 +370,18 @@ class GitlabProject(BaseGitProject):
             raise GitlabAPIException() from ex
 
     def get_files(
-        self, ref: str = None, filter_regex: str = None, recursive: bool = False
-    ) -> List[str]:
+        self,
+        ref: Optional[str] = None,
+        filter_regex: Optional[str] = None,
+        recursive: bool = False,
+    ) -> list[str]:
         ref = ref or self.default_branch
         paths = [
             file_dict["path"]
             for file_dict in self.gitlab_repo.repository_tree(
-                ref=ref, recursive=recursive, all=True
+                ref=ref,
+                recursive=recursive,
+                all=True,
             )
             if file_dict["type"] != "tree"
         ]
@@ -379,8 +396,8 @@ class GitlabProject(BaseGitProject):
         status: IssueStatus = IssueStatus.open,
         author: Optional[str] = None,
         assignee: Optional[str] = None,
-        labels: Optional[List[str]] = None,
-    ) -> List[Issue]:
+        labels: Optional[list[str]] = None,
+    ) -> list[Issue]:
         pass
 
     @indirect(GitlabIssue.get)
@@ -393,8 +410,8 @@ class GitlabProject(BaseGitProject):
         title: str,
         body: str,
         private: Optional[bool] = None,
-        labels: Optional[List[str]] = None,
-        assignees: Optional[List[str]] = None,
+        labels: Optional[list[str]] = None,
+        assignees: Optional[list[str]] = None,
     ) -> Issue:
         pass
 
@@ -402,7 +419,7 @@ class GitlabProject(BaseGitProject):
     def get_pr(self, pr_id: int) -> PullRequest:
         pass
 
-    def get_tags(self) -> List["GitTag"]:
+    def get_tags(self) -> list["GitTag"]:
         tags = self.gitlab_repo.tags.list()
         return [GitTag(tag.name, tag.commit["id"]) for tag in tags]
 
@@ -411,7 +428,7 @@ class GitlabProject(BaseGitProject):
         return GitTag(name=git_tag.name, commit_sha=git_tag.commit["id"])
 
     @indirect(GitlabRelease.get_list)
-    def get_releases(self) -> List[Release]:
+    def get_releases(self) -> list[Release]:
         pass
 
     @indirect(GitlabRelease.get)
@@ -420,7 +437,11 @@ class GitlabProject(BaseGitProject):
 
     @indirect(GitlabRelease.create)
     def create_release(
-        self, tag: str, name: str, message: str, commit_sha: Optional[str] = None
+        self,
+        tag: str,
+        name: str,
+        message: str,
+        commit_sha: Optional[str] = None,
     ) -> GitlabRelease:
         pass
 
@@ -437,7 +458,7 @@ class GitlabProject(BaseGitProject):
         """
         return list(self.gitlab_repo.labels.list())
 
-    def get_forks(self) -> List["GitlabProject"]:
+    def get_forks(self) -> list["GitlabProject"]:
         try:
             forks = self.gitlab_repo.forks.list()
         except KeyError as ex:
@@ -445,7 +466,7 @@ class GitlabProject(BaseGitProject):
             # > KeyError: 0
             # looks like some API weirdness
             raise OperationNotSupported(
-                "Please upgrade python-gitlab to a newer version."
+                "Please upgrade python-gitlab to a newer version.",
             ) from ex
         return [
             GitlabProject(
@@ -476,7 +497,7 @@ class GitlabProject(BaseGitProject):
                         "name": label.name,
                         "color": color,
                         "description": label.description or "",
-                    }
+                    },
                 )
 
                 changes += 1
@@ -485,7 +506,7 @@ class GitlabProject(BaseGitProject):
     @staticmethod
     def _normalize_label_color(color):
         if not color.startswith("#"):
-            return "#{}".format(color)
+            return f"#{color}"
         return color
 
     def get_web_url(self) -> str:
@@ -499,26 +520,26 @@ class GitlabProject(BaseGitProject):
                 return None
             raise GitlabAPIException from ex
 
-    def get_contributors(self) -> Set[str]:
+    def get_contributors(self) -> set[str]:
         """
         Returns:
             Unique authors of the commits in the project.
         """
 
-        def format_contributor(contributor: Dict[str, Any]) -> str:
+        def format_contributor(contributor: dict[str, Any]) -> str:
             return f"{contributor['name']} <{contributor['email']}>"
 
         return set(
-            map(format_contributor, self.gitlab_repo.repository_contributors(all=True))
+            map(format_contributor, self.gitlab_repo.repository_contributors(all=True)),
         )
 
-    def users_with_write_access(self) -> Set[str]:
+    def users_with_write_access(self) -> set[str]:
         return set(
             self._get_collaborators_with_given_access(
                 access_levels=[
                     gitlab.const.DEVELOPER_ACCESS,
                     gitlab.const.MAINTAINER_ACCESS,
                     gitlab.const.OWNER_ACCESS,
-                ]
-            )
+                ],
+            ),
         )

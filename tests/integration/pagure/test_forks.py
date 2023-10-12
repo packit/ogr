@@ -1,10 +1,11 @@
 # Copyright Contributors to the Packit project.
 # SPDX-License-Identifier: MIT
 
+import pytest
 from requre.online_replacing import record_requests_for_all_methods
 
-from tests.integration.pagure.base import PagureTests
 from ogr.exceptions import OperationNotSupported, PagureAPIException
+from tests.integration.pagure.base import PagureTests
 
 
 @record_requests_for_all_methods()
@@ -17,7 +18,8 @@ class Forks(PagureTests):
         a = self.ogr_fork.parent
         assert a
         is_forked = a.is_forked()
-        assert is_forked and isinstance(is_forked, bool)
+        assert is_forked
+        assert isinstance(is_forked, bool)
         fork = a.get_fork(create=False)
         assert fork
         assert fork.is_fork
@@ -37,9 +39,9 @@ class Forks(PagureTests):
             is_fork=True,
         )
         assert not ogr_project_non_existing_fork.exists()
-        with self.assertRaises(PagureAPIException) as ex:
+        with pytest.raises(PagureAPIException) as ex:
             ogr_project_non_existing_fork.get_description()
-        assert "Project not found" in ex.exception.pagure_error
+        assert "Project not found" in ex.value.pagure_error
 
     def test_fork_property(self):
         fork = self.ogr_project.get_fork()
@@ -69,5 +71,5 @@ class Forks(PagureTests):
         assert len(old_forks) == len(new_forks) - 1
 
     def test_create_fork_with_namespace(self):
-        with self.assertRaises(OperationNotSupported):
+        with pytest.raises(OperationNotSupported):
             self.ogr_project.fork_create(namespace="some_random_namespace")

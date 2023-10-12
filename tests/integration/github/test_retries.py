@@ -2,12 +2,12 @@
 # SPDX-License-Identifier: MIT
 
 import pytest
+from flexmock import flexmock
+from github import Github
+from github.GithubException import BadCredentialsException
+from urllib3.connectionpool import HTTPSConnectionPool
 
 from ogr import GithubService
-from flexmock import flexmock
-from urllib3.connectionpool import HTTPSConnectionPool
-from github.GithubException import BadCredentialsException
-from github import Github
 
 
 @pytest.mark.skip(reason="Will fail until flexmock is fixed")
@@ -26,4 +26,4 @@ def test_bad_credentials(max_retries):
 
     service = GithubService(token="invalid_token", max_retries=max_retries)
     project = service.get_project(namespace="mmuzila", repo="playground")
-    project.github_repo
+    _ = project.github_repo

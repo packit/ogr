@@ -2,12 +2,11 @@
 # SPDX-License-Identifier: MIT
 
 import pytest
-from ogr.exceptions import GitForgeInternalError
-
 from requre.online_replacing import record_requests_for_all_methods
 
-from tests.integration.pagure.base import PagureTests
 from ogr.abstract import AccessLevel
+from ogr.exceptions import GitForgeInternalError
+from tests.integration.pagure.base import PagureTests
 
 
 @record_requests_for_all_methods()
@@ -83,14 +82,16 @@ class GenericCommands(PagureTests):
         assert "a/b/c" not in files
 
         files = self.ogr_project.get_files(
-            ref="for-testing-get-files", filter_regex=".*.c", recursive=True
+            ref="for-testing-get-files",
+            filter_regex=".*.c",
+            recursive=True,
         )
         assert files
         assert len(files) >= 3
         assert {"a/b/lib.c", "a/b/main.c", "a/b/some_other_lib.c"}.issubset(files)
 
     def test_nonexisting_file(self):
-        with self.assertRaises(FileNotFoundError) as _:
+        with pytest.raises(FileNotFoundError) as _:
             self.ogr_project.get_file_content(".blablabla_nonexisting_file")
 
     def test_no_file_server_error(self):
@@ -104,7 +105,7 @@ class GenericCommands(PagureTests):
 
     def test_commit_statuses(self):
         flags = self.ogr_project.get_commit_statuses(
-            commit="d87466de81c72231906a6597758f37f28830bb71"
+            commit="d87466de81c72231906a6597758f37f28830bb71",
         )
         assert isinstance(flags, list)
         assert len(flags) == 0
@@ -153,7 +154,8 @@ class GenericCommands(PagureTests):
 
     def test_get_sha_from_branch(self):
         commit_sha = self.ogr_project.get_sha_from_branch("testPR")
-        assert commit_sha and commit_sha.startswith("1b491a6")
+        assert commit_sha
+        assert commit_sha.startswith("1b491a6")
 
     def test_get_sha_from_branch_non_existing(self):
         commit_sha = self.ogr_project.get_sha_from_branch("non-existing")

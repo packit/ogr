@@ -1,24 +1,21 @@
 # Copyright Contributors to the Packit project.
 # SPDX-License-Identifier: MIT
 
-from typing import Set
 
 import pytest
-from flexmock import Mock
-from flexmock import flexmock
-
+from flexmock import Mock, flexmock
 from urllib3.util import Retry
 
-from ogr import PagureService, GitlabService, GithubService
+from ogr import GithubService, GitlabService, PagureService
 from ogr.exceptions import OgrException
-from ogr.factory import get_service_class, get_project, get_instances_from_dict
+from ogr.factory import get_instances_from_dict, get_project, get_service_class
 from ogr.services.github import GithubProject
 from ogr.services.gitlab import GitlabProject
 from ogr.services.pagure import PagureProject
 
 
 @pytest.mark.parametrize(
-    "url,mapping,result",
+    ("url", "mapping", "result"),
     [
         ("https://github.com/packit-service/ogr", None, GithubService),
         ("github.com/packit-service/ogr", None, GithubService),
@@ -79,7 +76,7 @@ def test_get_service_class(url, mapping, result):
 
 
 @pytest.mark.parametrize(
-    "url,mapping",
+    ("url", "mapping"),
     [
         ("https://unknown.com/packit-service/ogr", None),
         ("unknown.com/packit-service/ogr", None),
@@ -95,7 +92,7 @@ def test_get_service_class_not_found(url, mapping):
 
 
 @pytest.mark.parametrize(
-    "url,mapping,instances,force_custom_instance,result",
+    ("url", "mapping", "instances", "force_custom_instance", "result"),
     [
         (
             "https://github.com/packit-service/ogr",
@@ -103,7 +100,9 @@ def test_get_service_class_not_found(url, mapping):
             None,
             True,
             GithubProject(
-                namespace="packit-service", repo="ogr", service=GithubService()
+                namespace="packit-service",
+                repo="ogr",
+                service=GithubService(),
             ),
         ),
         (
@@ -112,7 +111,9 @@ def test_get_service_class_not_found(url, mapping):
             None,
             True,
             GithubProject(
-                namespace="packit-service", repo="ogr", service=GithubService()
+                namespace="packit-service",
+                repo="ogr",
+                service=GithubService(),
             ),
         ),
         (
@@ -121,7 +122,9 @@ def test_get_service_class_not_found(url, mapping):
             None,
             True,
             GithubProject(
-                namespace="packit-service", repo="ogr", service=GithubService()
+                namespace="packit-service",
+                repo="ogr",
+                service=GithubService(),
             ),
         ),
         (
@@ -130,7 +133,9 @@ def test_get_service_class_not_found(url, mapping):
             None,
             True,
             GithubProject(
-                namespace="packit-service", repo="ogr", service=GithubService()
+                namespace="packit-service",
+                repo="ogr",
+                service=GithubService(),
             ),
         ),
         (
@@ -139,7 +144,9 @@ def test_get_service_class_not_found(url, mapping):
             None,
             True,
             GithubProject(
-                namespace="packit-service", repo="ogr", service=GithubService()
+                namespace="packit-service",
+                repo="ogr",
+                service=GithubService(),
             ),
         ),
         (
@@ -183,7 +190,7 @@ def test_get_service_class_not_found(url, mapping):
                     instance_url="https://host.name",
                     hostname="host.name",
                     get_project_from_url=lambda url: "project",
-                )
+                ),
             ],
             True,
             "project",
@@ -281,7 +288,7 @@ def test_get_project(url, mapping, instances, force_custom_instance, result):
 
 
 @pytest.mark.parametrize(
-    "url,mapping,instances,exc_str",
+    ("url", "mapping", "instances", "exc_str"),
     [
         (
             "https://unknown.com/packit-service/ogr",
@@ -303,7 +310,7 @@ def test_get_project(url, mapping, instances, force_custom_instance, result):
                     instance_url="https://unknown.com",
                     hostname="unknown.com",
                     get_project_from_url=lambda url: "project",
-                )
+                ),
             ],
             "Instance of type",
         ),
@@ -329,13 +336,15 @@ def test_get_project(url, mapping, instances, force_custom_instance, result):
 def test_get_project_not_found(url, mapping, instances, exc_str):
     with pytest.raises(OgrException) as ex:
         _ = get_project(
-            url=url, service_mapping_update=mapping, custom_instances=instances
+            url=url,
+            service_mapping_update=mapping,
+            custom_instances=instances,
         )
     assert exc_str in str(ex.value)
 
 
 @pytest.mark.parametrize(
-    "instances_in_dict,result_instances",
+    ("instances_in_dict", "result_instances"),
     [
         ({}, set()),
         ({"github.com": {"token": "abcd"}}, {GithubService(token="abcd")}),
@@ -346,7 +355,7 @@ def test_get_project_not_found(url, mapping, instances, exc_str):
                 "pagure": {
                     "token": "abcd",
                     "instance_url": "https://src.fedoraproject.org",
-                }
+                },
             },
             {PagureService(token="abcd", instance_url="https://src.fedoraproject.org")},
         ),
@@ -363,12 +372,13 @@ def test_get_project_not_found(url, mapping, instances, exc_str):
                 "github.com": {
                     "github_app_id": "abcd",
                     "github_app_private_key_path": "/abc/def/ghi",
-                }
+                },
             },
             {
                 GithubService(
-                    github_app_id="abcd", github_app_private_key_path="/abc/def/ghi"
-                )
+                    github_app_id="abcd",
+                    github_app_private_key_path="/abc/def/ghi",
+                ),
             },
         ),
         (
@@ -385,13 +395,13 @@ def test_get_project_not_found(url, mapping, instances, exc_str):
         ),
     ],
 )
-def test_get_instances_from_dict(instances_in_dict, result_instances: Set):
+def test_get_instances_from_dict(instances_in_dict, result_instances: set):
     services = get_instances_from_dict(instances=instances_in_dict)
     assert services == result_instances
 
 
 @pytest.mark.parametrize(
-    "instances_in_dict,result_instances",
+    ("instances_in_dict", "result_instances"),
     [
         (
             {"github.com": {"token": "abcd", "github_app_id": "123"}},
@@ -412,7 +422,7 @@ def test_get_instances_from_dict(instances_in_dict, result_instances: Set):
                     "token": "abcd",
                     "github_app_id": "123",
                     "tokman_instance_url": "http://localhost",
-                }
+                },
             },
             {GithubService(tokman_instance_url="http://localhost")},
         ),
@@ -421,7 +431,7 @@ def test_get_instances_from_dict(instances_in_dict, result_instances: Set):
                 "github.com": {
                     "github_app_id": "123",
                     "tokman_instance_url": "http://localhost",
-                }
+                },
             },
             {GithubService(tokman_instance_url="http://localhost")},
         ),
@@ -431,12 +441,13 @@ def test_get_instances_from_dict(instances_in_dict, result_instances: Set):
                     "type": "gitlab",
                     "instance_url": "https://gitlab.com",
                     "token": "my_very_secret_token",
-                }
+                },
             },
             {
                 GitlabService(
-                    instance_url="https://gitlab.com", token="my_very_secret_token"
-                )
+                    instance_url="https://gitlab.com",
+                    token="my_very_secret_token",
+                ),
             },
         ),
     ],
@@ -446,13 +457,13 @@ def test_get_instances_from_dict_multiple_auth(instances_in_dict, result_instanc
 
 
 @pytest.mark.parametrize(
-    "instances_in_dict,result_max_retries_total",
+    ("instances_in_dict", "result_max_retries_total"),
     [
         (
             {
                 "github.com": {
                     "token": "abcd",
-                }
+                },
             },
             0,
         ),
@@ -461,7 +472,7 @@ def test_get_instances_from_dict_multiple_auth(instances_in_dict, result_instanc
                 "github.com": {
                     "token": "abcd",
                     "max_retries": "3",
-                }
+                },
             },
             3,
         ),
@@ -470,7 +481,7 @@ def test_get_instances_from_dict_multiple_auth(instances_in_dict, result_instanc
                 "github.com": {
                     "token": "abcd",
                     "max_retries": 3,
-                }
+                },
             },
             3,
         ),
@@ -479,7 +490,7 @@ def test_get_instances_from_dict_multiple_auth(instances_in_dict, result_instanc
                 "github.com": {
                     "tokman_instance_url": "http://localhost",
                     "max_retries": 3,
-                }
+                },
             },
             3,
         ),
@@ -488,7 +499,7 @@ def test_get_instances_from_dict_multiple_auth(instances_in_dict, result_instanc
                 "github.com": {
                     "github_app_id": "123",
                     "max_retries": 3,
-                }
+                },
             },
             3,
         ),
@@ -506,7 +517,7 @@ def test_get_github_instance_with_retries(instances_in_dict, result_max_retries_
 
 
 @pytest.mark.parametrize(
-    "instances_in_dict,error_str",
+    ("instances_in_dict", "error_str"),
     [
         ({"unknown": {"token": "abcd"}}, "No matching service was found for url"),
         (

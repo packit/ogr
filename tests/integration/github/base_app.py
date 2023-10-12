@@ -1,14 +1,15 @@
 # Copyright Contributors to the Packit project.
 # SPDX-License-Identifier: MIT
 
-from ogr.services.github.service import GithubService
 import os
-from pathlib import Path
 import tempfile
 import unittest
+from pathlib import Path
 
-from requre.utils import get_datafile_filename
 from requre.online_replacing import record_requests_for_all_methods
+from requre.utils import get_datafile_filename
+
+from ogr.services.github.service import GithubService
 
 
 @record_requests_for_all_methods()
@@ -22,14 +23,14 @@ class GithubAppTests(unittest.TestCase):
         "67KslR0PoxOwpzaOz7PkHBn7OH6zuN+PAiB82Lt1IocRhr3aABkCaQ5Kg8RsHxqX\n"
         "zVi5WO+Ku0d1oQIgQA4fHmeDWg3AovM98Vnps4fwjqgCzsO829nrgs7zYK8CIFog\n"
         "uIAEI5e2Sm4P285Pq3B7k1D/1t/cUtR4imzpDheQ\n"
-        "-----END RSA PRIVATE KEY-----"
+        "-----END RSA PRIVATE KEY-----",
     )
 
     def setUp(self):
         self._service = None
         self._github_app_id = os.environ.get("GITHUB_APP_ID")
         self._github_app_private_key_path = os.environ.get(
-            "GITHUB_APP_PRIVATE_KEY_PATH"
+            "GITHUB_APP_PRIVATE_KEY_PATH",
         )
 
         self._temporary_private_key_path = None
@@ -40,7 +41,7 @@ class GithubAppTests(unittest.TestCase):
         ):
             raise OSError(
                 "You are in Requre write mode, please set "
-                "GITHUB_APP_ID GITHUB_APP_PRIVATE_KEY_PATH env variables"
+                "GITHUB_APP_ID GITHUB_APP_PRIVATE_KEY_PATH env variables",
             )
 
     def tearDown(self) -> None:
@@ -60,7 +61,8 @@ class GithubAppTests(unittest.TestCase):
     def hello_world_project(self):
         if not self._hello_world_project:
             self._hello_world_project = self.service.get_project(
-                namespace="packit", repo="hello-world"
+                namespace="packit",
+                repo="hello-world",
             )
         return self._hello_world_project
 

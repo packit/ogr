@@ -2,7 +2,7 @@
 # SPDX-License-Identifier: MIT
 
 from collections import namedtuple
-from typing import Optional, List
+from typing import Optional
 
 from ogr.services import github as ogr_github
 from ogr.services.base import BaseGitUser
@@ -48,7 +48,7 @@ class GithubUser(BaseGitUser):
         # Return the first email we received
         return user_emails[0]["email"]
 
-    def get_projects(self) -> List["ogr_github.GithubProject"]:
+    def get_projects(self) -> list["ogr_github.GithubProject"]:
         raw_repos = self._github_user.get_repos(affiliation="owner")
         return [
             GithubProject(
@@ -60,5 +60,5 @@ class GithubUser(BaseGitUser):
             for repo in raw_repos
         ]
 
-    def get_forks(self) -> List["ogr_github.GithubProject"]:
+    def get_forks(self) -> list["ogr_github.GithubProject"]:
         return [project for project in self.get_projects() if project.github_repo.fork]

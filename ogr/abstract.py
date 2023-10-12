@@ -3,34 +3,32 @@
 
 import datetime
 import functools
+from collections.abc import Sequence
 from enum import Enum, IntEnum
+from re import Match
 from typing import (
-    Optional,
-    Match,
-    List,
-    Dict,
-    Set,
-    TypeVar,
     Any,
-    Sequence,
-    Union,
     Callable,
+    ClassVar,
+    Optional,
+    TypeVar,
+    Union,
 )
 
 import github
 import gitlab
 import requests
 
+from ogr.deprecation import deprecate_and_set_removal
 from ogr.exceptions import (
     APIException,
     GitForgeInternalError,
-    OgrException,
-    GitlabAPIException,
     GithubAPIException,
+    GitlabAPIException,
+    OgrException,
     OgrNetworkError,
 )
 from ogr.parsing import parse_git_repo
-from ogr.deprecation import deprecate_and_set_removal
 
 try:
     from functools import cached_property as _cached_property
@@ -61,7 +59,7 @@ def __check_for_internal_failure(ex: APIException):
 
 
 def __wrap_exception(
-    ex: Union[github.GithubException, gitlab.GitlabError]
+    ex: Union[github.GithubException, gitlab.GitlabError],
 ) -> APIException:
     """
     Wraps uncaught exception in one of ogr exceptions.
@@ -112,7 +110,7 @@ def catch_common_exceptions(function: Callable) -> Any:
             raise GitlabAPIException("Invalid Gitlab credentials") from ex
         except requests.exceptions.ConnectionError as ex:
             raise OgrNetworkError(
-                "Could not perform the request due to a network error"
+                "Could not perform the request due to a network error",
             ) from ex
         except APIException as ex:
             __check_for_internal_failure(ex)
@@ -155,7 +153,7 @@ class CatchCommonErrors(type):
 
 class OgrAbstractClass(metaclass=CatchCommonErrors):
     def __repr__(self) -> str:
-        return f"<{str(self)}>"
+        return f"<{self!s}>"
 
 
 class Reaction(OgrAbstractClass):
@@ -236,7 +234,7 @@ class Comment(OgrAbstractClass):
         """Datetime of last edit of the comment."""
         return self._edited
 
-    def get_reactions(self) -> List[Reaction]:
+    def get_reactions(self) -> list[Reaction]:
         """Returns list of reactions."""
         raise NotImplementedError()
 
@@ -334,7 +332,7 @@ class Issue(OgrAbstractClass):
         raise NotImplementedError()
 
     @property
-    def labels(self) -> List:
+    def labels(self) -> list:
         """Labels of the issue."""
         raise NotImplementedError()
 
@@ -359,8 +357,8 @@ class Issue(OgrAbstractClass):
         title: str,
         body: str,
         private: Optional[bool] = None,
-        labels: Optional[List[str]] = None,
-        assignees: Optional[List[str]] = None,
+        labels: Optional[list[str]] = None,
+        assignees: Optional[list[str]] = None,
     ) -> "Issue":
         """
         Open new issue.
@@ -407,8 +405,8 @@ class Issue(OgrAbstractClass):
         status: IssueStatus = IssueStatus.open,
         author: Optional[str] = None,
         assignee: Optional[str] = None,
-        labels: Optional[List[str]] = None,
-    ) -> List["Issue"]:
+        labels: Optional[list[str]] = None,
+    ) -> list["Issue"]:
         """
         List of issues.
 
@@ -433,7 +431,7 @@ class Issue(OgrAbstractClass):
         """
         raise NotImplementedError()
 
-    def _get_all_comments(self) -> List[IssueComment]:
+    def _get_all_comments(self) -> list[IssueComment]:
         """
         Get list of all issue comments.
 
@@ -443,8 +441,11 @@ class Issue(OgrAbstractClass):
         raise NotImplementedError()
 
     def get_comments(
-        self, filter_regex: str = None, reverse: bool = False, author: str = None
-    ) -> List[IssueComment]:
+        self,
+        filter_regex: Optional[str] = None,
+        reverse: bool = False,
+        author: Optional[str] = None,
+    ) -> list[IssueComment]:
         """
         Get list of issue comments.
 
@@ -623,7 +624,7 @@ class PullRequest(OgrAbstractClass):
         raise NotImplementedError()
 
     @property
-    def labels(self) -> List[Any]:
+    def labels(self) -> list[Any]:
         """Labels of the pull request."""
         raise NotImplementedError()
 
@@ -706,7 +707,7 @@ class PullRequest(OgrAbstractClass):
         body: str,
         target_branch: str,
         source_branch: str,
-        fork_username: str = None,
+        fork_username: Optional[str] = None,
     ) -> "PullRequest":
         """
         Create new pull request.
@@ -740,7 +741,7 @@ class PullRequest(OgrAbstractClass):
         raise NotImplementedError()
 
     @staticmethod
-    def get_list(project: Any, status: PRStatus = PRStatus.open) -> List["PullRequest"]:
+    def get_list(project: Any, status: PRStatus = PRStatus.open) -> list["PullRequest"]:
         """
         List of pull requests.
 
@@ -756,7 +757,9 @@ class PullRequest(OgrAbstractClass):
         raise NotImplementedError()
 
     def update_info(
-        self, title: Optional[str] = None, description: Optional[str] = None
+        self,
+        title: Optional[str] = None,
+        description: Optional[str] = None,
     ) -> "PullRequest":
         """
         Update pull request information.
@@ -774,7 +777,7 @@ class PullRequest(OgrAbstractClass):
         """
         raise NotImplementedError()
 
-    def _get_all_comments(self) -> List[PRComment]:
+    def _get_all_comments(self) -> list[PRComment]:
         """
         Get list of all pull request comments.
 
@@ -788,7 +791,7 @@ class PullRequest(OgrAbstractClass):
         filter_regex: Optional[str] = None,
         reverse: bool = False,
         author: Optional[str] = None,
-    ) -> List["PRComment"]:
+    ) -> list["PRComment"]:
         """
         Get list of pull request comments.
 
@@ -809,7 +812,7 @@ class PullRequest(OgrAbstractClass):
         """
         raise NotImplementedError()
 
-    def get_all_commits(self) -> List[str]:
+    def get_all_commits(self) -> list[str]:
         """
         Returns:
             List of commit hashes of commits in pull request.
@@ -817,7 +820,10 @@ class PullRequest(OgrAbstractClass):
         raise NotImplementedError()
 
     def search(
-        self, filter_regex: str, reverse: bool = False, description: bool = True
+        self,
+        filter_regex: str,
+        reverse: bool = False,
+        description: bool = True,
     ) -> Optional[Match[str]]:
         """
         Find match in pull request description or comments.
@@ -890,7 +896,7 @@ class PullRequest(OgrAbstractClass):
         """
         raise NotImplementedError()
 
-    def get_statuses(self) -> List["CommitFlag"]:
+    def get_statuses(self) -> list["CommitFlag"]:
         """
         Returns statuses for latest commit on pull request.
 
@@ -913,7 +919,7 @@ class PullRequest(OgrAbstractClass):
 
 
 class CommitFlag(OgrAbstractClass):
-    _states: Dict[str, CommitStatus] = {}
+    _states: ClassVar[dict[str, CommitStatus]] = {}
 
     def __init__(
         self,
@@ -979,7 +985,7 @@ class CommitFlag(OgrAbstractClass):
         raise NotImplementedError()
 
     @staticmethod
-    def get(project: Any, commit: str) -> List["CommitFlag"]:
+    def get(project: Any, commit: str) -> list["CommitFlag"]:
         """
         Acquire commit statuses for given commit in the project.
 
@@ -1188,7 +1194,7 @@ class Release(OgrAbstractClass):
         raise NotImplementedError()
 
     @staticmethod
-    def get_list(project: Any) -> List["Release"]:
+    def get_list(project: Any) -> list["Release"]:
         """
         Returns:
             List of the objects that represent releases.
@@ -1346,11 +1352,11 @@ class GitService(OgrAbstractClass):
 
     def list_projects(
         self,
-        namespace: str = None,
-        user: str = None,
-        search_pattern: str = None,
-        language: str = None,
-    ) -> List["GitProject"]:
+        namespace: Optional[str] = None,
+        user: Optional[str] = None,
+        search_pattern: Optional[str] = None,
+        language: Optional[str] = None,
+    ) -> list["GitProject"]:
         """
         List projects for given criteria.
 
@@ -1452,7 +1458,7 @@ class GitProject(OgrAbstractClass):
         """`True` if issues are enabled on the project."""
         raise NotImplementedError()
 
-    def get_branches(self) -> List[str]:
+    def get_branches(self) -> list[str]:
         """
         Returns:
             List with names of branches in the project.
@@ -1484,28 +1490,28 @@ class GitProject(OgrAbstractClass):
         """
         raise NotImplementedError()
 
-    def get_owners(self) -> List[str]:
+    def get_owners(self) -> list[str]:
         """
         Returns:
             List of usernames of project owners.
         """
         raise NotImplementedError()
 
-    def who_can_close_issue(self) -> Set[str]:
+    def who_can_close_issue(self) -> set[str]:
         """
         Returns:
             Names of all users who have permission to modify an issue.
         """
         raise NotImplementedError()
 
-    def who_can_merge_pr(self) -> Set[str]:
+    def who_can_merge_pr(self) -> set[str]:
         """
         Returns:
             Names of all users who have permission to modify pull request.
         """
         raise NotImplementedError()
 
-    def which_groups_can_merge_pr(self) -> Set[str]:
+    def which_groups_can_merge_pr(self) -> set[str]:
         """
         Returns:
             Names of all groups that have permission to modify pull request.
@@ -1572,8 +1578,8 @@ class GitProject(OgrAbstractClass):
         status: IssueStatus = IssueStatus.open,
         author: Optional[str] = None,
         assignee: Optional[str] = None,
-        labels: Optional[List[str]] = None,
-    ) -> List["Issue"]:
+        labels: Optional[list[str]] = None,
+    ) -> list["Issue"]:
         """
         List of issues.
 
@@ -1626,8 +1632,8 @@ class GitProject(OgrAbstractClass):
         title: str,
         body: str,
         private: Optional[bool] = None,
-        labels: Optional[List[str]] = None,
-        assignees: Optional[List[str]] = None,
+        labels: Optional[list[str]] = None,
+        assignees: Optional[list[str]] = None,
     ) -> Issue:
         """
         Open new issue.
@@ -1656,7 +1662,7 @@ class GitProject(OgrAbstractClass):
         """
         raise NotImplementedError()
 
-    def get_pr_list(self, status: PRStatus = PRStatus.open) -> List["PullRequest"]:
+    def get_pr_list(self, status: PRStatus = PRStatus.open) -> list["PullRequest"]:
         """
         List of pull requests.
 
@@ -1682,7 +1688,7 @@ class GitProject(OgrAbstractClass):
         """
         raise NotImplementedError()
 
-    def get_tags(self) -> List["GitTag"]:
+    def get_tags(self) -> list["GitTag"]:
         """
         Returns:
             List of objects that represent tags.
@@ -1731,7 +1737,7 @@ class GitProject(OgrAbstractClass):
         """
         raise NotImplementedError()
 
-    def get_releases(self) -> List[Release]:
+    def get_releases(self) -> list[Release]:
         """
         Returns:
             List of the objects that represent releases.
@@ -1739,7 +1745,11 @@ class GitProject(OgrAbstractClass):
         raise NotImplementedError()
 
     def create_release(
-        self, tag: str, name: str, message: str, ref: Optional[str] = None
+        self,
+        tag: str,
+        name: str,
+        message: str,
+        ref: Optional[str] = None,
     ) -> Release:
         """
         Create new release.
@@ -1764,7 +1774,7 @@ class GitProject(OgrAbstractClass):
         body: str,
         target_branch: str,
         source_branch: str,
-        fork_username: str = None,
+        fork_username: Optional[str] = None,
     ) -> "PullRequest":
         """
         Create new pull request.
@@ -1808,7 +1818,7 @@ class GitProject(OgrAbstractClass):
         """
         raise NotImplementedError()
 
-    def get_commit_comments(self, commit: str) -> List[CommitComment]:
+    def get_commit_comments(self, commit: str) -> list[CommitComment]:
         """
         Get comments for a commit.
 
@@ -1847,7 +1857,7 @@ class GitProject(OgrAbstractClass):
         """
         raise NotImplementedError()
 
-    def get_commit_statuses(self, commit: str) -> List[CommitFlag]:
+    def get_commit_statuses(self, commit: str) -> list[CommitFlag]:
         """
         Get statuses of the commit.
 
@@ -1859,7 +1869,7 @@ class GitProject(OgrAbstractClass):
         """
         raise NotImplementedError()
 
-    def get_git_urls(self) -> Dict[str, str]:
+    def get_git_urls(self) -> dict[str, str]:
         """
         Get git URLs for the project.
 
@@ -1895,7 +1905,7 @@ class GitProject(OgrAbstractClass):
         """
         raise NotImplementedError
 
-    def get_file_content(self, path: str, ref: str = None) -> str:
+    def get_file_content(self, path: str, ref: Optional[str] = None) -> str:
         """
         Get a content of the file in the repo.
 
@@ -1914,8 +1924,11 @@ class GitProject(OgrAbstractClass):
         raise NotImplementedError
 
     def get_files(
-        self, ref: str = None, filter_regex: str = None, recursive: bool = False
-    ) -> List[str]:
+        self,
+        ref: Optional[str] = None,
+        filter_regex: Optional[str] = None,
+        recursive: bool = False,
+    ) -> list[str]:
         """
         Get a list of file paths of the repo.
 
@@ -1957,14 +1970,14 @@ class GitProject(OgrAbstractClass):
         """
         raise NotImplementedError()
 
-    def get_contributors(self) -> Set[str]:
+    def get_contributors(self) -> set[str]:
         """
         Returns:
             Set of all contributors to the given project.
         """
         raise NotImplementedError()
 
-    def users_with_write_access(self) -> Set[str]:
+    def users_with_write_access(self) -> set[str]:
         """
         Returns:
             List of users who have write access to the project

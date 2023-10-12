@@ -3,37 +3,37 @@
 
 import datetime
 import logging
+from typing import ClassVar, Optional, Union
+
+import github
+from github import UnknownObjectException
+from github.Commit import Commit
+from github.CommitComment import CommitComment as GithubCommitComment
+from github.GithubException import GithubException
+from github.Repository import Repository
+
+from ogr.abstract import (
+    AccessLevel,
+    CommitComment,
+    CommitFlag,
+    CommitStatus,
+    GitTag,
+    Issue,
+    IssueStatus,
+    PRStatus,
+    PullRequest,
+    Release,
+)
+from ogr.exceptions import GithubAPIException, OperationNotSupported
+from ogr.read_only import GitProjectReadOnly, if_readonly
+from ogr.services import github as ogr_github
+from ogr.services.base import BaseGitProject
 from ogr.services.github.check_run import (
     GithubCheckRun,
     GithubCheckRunOutput,
     GithubCheckRunResult,
     GithubCheckRunStatus,
 )
-from typing import Optional, Dict, List, Set, Union
-
-import github
-from github import UnknownObjectException
-from github.GithubException import GithubException
-from github.Repository import Repository
-from github.Commit import Commit
-from github.CommitComment import CommitComment as GithubCommitComment
-
-from ogr.abstract import (
-    Issue,
-    IssueStatus,
-    PullRequest,
-    PRStatus,
-    Release,
-    CommitComment,
-    GitTag,
-    CommitFlag,
-    CommitStatus,
-    AccessLevel,
-)
-from ogr.exceptions import GithubAPIException, OperationNotSupported
-from ogr.read_only import if_readonly, GitProjectReadOnly
-from ogr.services import github as ogr_github
-from ogr.services.base import BaseGitProject
 from ogr.services.github.flag import GithubCommitFlag
 from ogr.services.github.issue import GithubIssue
 from ogr.services.github.pull_request import GithubPullRequest
@@ -46,7 +46,7 @@ logger = logging.getLogger(__name__)
 class GithubProject(BaseGitProject):
     service: "ogr_github.GithubService"
     # Permission levels that can merge PRs
-    CAN_MERGE_PERMS = ["admin", "write"]
+    CAN_MERGE_PERMS: ClassVar[set[str]] = {"admin", "write"}
 
     def __init__(
         self,
@@ -59,7 +59,7 @@ class GithubProject(BaseGitProject):
     ) -> None:
         if unprocess_kwargs:
             logger.warning(
-                f"GithubProject will not process these kwargs: {unprocess_kwargs}"
+                f"GithubProject will not process these kwargs: {unprocess_kwargs}",
             )
         super().__init__(repo, service, namespace)
         self._github_repo = github_repo
@@ -71,7 +71,8 @@ class GithubProject(BaseGitProject):
     def github_instance(self):
         if not self._github_instance:
             self._github_instance = self.service.get_pygithub_instance(
-                self.namespace, self.repo
+                self.namespace,
+                self.repo,
             )
 
         return self._github_instance
@@ -80,7 +81,7 @@ class GithubProject(BaseGitProject):
     def github_repo(self):
         if not self._github_repo:
             self._github_repo = self.github_instance.get_repo(
-                full_name_or_id=f"{self.namespace}/{self.repo}"
+                full_name_or_id=f"{self.namespace}/{self.repo}",
             )
         return self._github_repo
 
@@ -115,7 +116,10 @@ class GithubProject(BaseGitProject):
         user_login = gh_user.login
         try:
             project = GithubProject(
-                self.repo, self.service, namespace=user_login, read_only=self.read_only
+                self.repo,
+                self.service,
+                namespace=user_login,
+                read_only=self.read_only,
             )
             if not project.github_repo:
                 # The github_repo attribute is lazy.
@@ -156,7 +160,7 @@ class GithubProject(BaseGitProject):
     def default_branch(self):
         return self.github_repo.default_branch
 
-    def get_branches(self) -> List[str]:
+    def get_branches(self) -> list[str]:
         return [branch.name for branch in self.github_repo.get_branches()]
 
     def get_description(self) -> str:
@@ -172,7 +176,8 @@ class GithubProject(BaseGitProject):
         }
         try:
             invitation = self.github_repo.add_to_collaborators(
-                user, permission=access_dict[access_level]
+                user,
+                permission=access_dict[access_level],
             )
         except Exception as ex:
             raise GithubAPIException(f"User {user} not found") from ex
@@ -192,24 +197,24 @@ class GithubProject(BaseGitProject):
         if not self.is_forked():
             if create:
                 return self.fork_create()
-            else:
-                logger.info(
-                    f"Fork of {self.github_repo.full_name}"
-                    " does not exist and we were asked not to create it."
-                )
-                return None
+
+            logger.info(
+                f"Fork of {self.github_repo.full_name}"
+                " does not exist and we were asked not to create it.",
+            )
+            return None
         return self._construct_fork_project()
 
-    def get_owners(self) -> List[str]:
+    def get_owners(self) -> list[str]:
         # in case of github, repository has only one owner
         return [self.github_repo.owner.login]
 
-    def __get_collaborators(self) -> Set[str]:
+    def __get_collaborators(self) -> set[str]:
         try:
             collaborators = self._get_collaborators_with_permission()
         except github.GithubException:
             logger.debug(
-                "Current Github token must have push access to view repository permissions."
+                "Current Github token must have push access to view repository permissions.",
             )
             return set()
 
@@ -220,10 +225,10 @@ class GithubProject(BaseGitProject):
 
         return set(usernames)
 
-    def who_can_close_issue(self) -> Set[str]:
+    def who_can_close_issue(self) -> set[str]:
         return self.__get_collaborators()
 
-    def who_can_merge_pr(self) -> Set[str]:
+    def who_can_merge_pr(self) -> set[str]:
         return self.__get_collaborators()
 
     def can_merge_pr(self, username) -> bool:
@@ -252,8 +257,8 @@ class GithubProject(BaseGitProject):
         status: IssueStatus = IssueStatus.open,
         author: Optional[str] = None,
         assignee: Optional[str] = None,
-        labels: Optional[List[str]] = None,
-    ) -> List[Issue]:
+        labels: Optional[list[str]] = None,
+    ) -> list[Issue]:
         pass
 
     @indirect(GithubIssue.get)
@@ -266,8 +271,8 @@ class GithubProject(BaseGitProject):
         title: str,
         body: str,
         private: Optional[bool] = None,
-        labels: Optional[List[str]] = None,
-        assignees: Optional[List[str]] = None,
+        labels: Optional[list[str]] = None,
+        assignees: Optional[list[str]] = None,
     ) -> Issue:
         pass
 
@@ -275,7 +280,7 @@ class GithubProject(BaseGitProject):
         self.github_repo.delete()
 
     @indirect(GithubPullRequest.get_list)
-    def get_pr_list(self, status: PRStatus = PRStatus.open) -> List[PullRequest]:
+    def get_pr_list(self, status: PRStatus = PRStatus.open) -> list[PullRequest]:
         pass
 
     @indirect(GithubPullRequest.get)
@@ -314,7 +319,7 @@ class GithubProject(BaseGitProject):
         body: str,
         target_branch: str,
         source_branch: str,
-        fork_username: str = None,
+        fork_username: Optional[str] = None,
     ) -> PullRequest:
         pass
 
@@ -323,12 +328,18 @@ class GithubProject(BaseGitProject):
         log_message="Create Comment to commit",
     )
     def commit_comment(
-        self, commit: str, body: str, filename: str = None, row: int = None
+        self,
+        commit: str,
+        body: str,
+        filename: Optional[str] = None,
+        row: Optional[int] = None,
     ) -> CommitComment:
         github_commit: Commit = self.github_repo.get_commit(commit)
         if filename and row:
             comment = github_commit.create_comment(
-                body=body, position=row, path=filename
+                body=body,
+                position=row,
+                path=filename,
             )
         else:
             comment = github_commit.create_comment(body=body)
@@ -344,7 +355,7 @@ class GithubProject(BaseGitProject):
             sha=raw_commit_coment.commit_id,
         )
 
-    def get_commit_comments(self, commit: str) -> List[CommitComment]:
+    def get_commit_comments(self, commit: str) -> list[CommitComment]:
         github_commit: Commit = self.github_repo.get_commit(commit)
         return [
             self._commit_comment_from_github_object(comment)
@@ -368,7 +379,7 @@ class GithubProject(BaseGitProject):
         pass
 
     @indirect(GithubCommitFlag.get)
-    def get_commit_statuses(self, commit: str) -> List[CommitFlag]:
+    def get_commit_statuses(self, commit: str) -> list[CommitFlag]:
         pass
 
     @indirect(GithubCheckRun.get)
@@ -391,7 +402,7 @@ class GithubProject(BaseGitProject):
         conclusion: Optional[GithubCheckRunResult] = None,
         completed_at: Optional[datetime.datetime] = None,
         output: Optional[GithubCheckRunOutput] = None,
-        actions: Optional[List[Dict[str, str]]] = None,
+        actions: Optional[list[dict[str, str]]] = None,
     ) -> "GithubCheckRun":
         pass
 
@@ -401,10 +412,10 @@ class GithubProject(BaseGitProject):
         commit_sha: str,
         name: Optional[str] = None,
         status: Optional[GithubCheckRunStatus] = None,
-    ) -> List["GithubCheckRun"]:
+    ) -> list["GithubCheckRun"]:
         pass
 
-    def get_git_urls(self) -> Dict[str, str]:
+    def get_git_urls(self) -> dict[str, str]:
         return {"git": self.github_repo.clone_url, "ssh": self.github_repo.ssh_url}
 
     @if_readonly(return_function=GitProjectReadOnly.fork_create)
@@ -426,7 +437,8 @@ class GithubProject(BaseGitProject):
         ref = ref or self.default_branch
         try:
             return self.github_repo.get_contents(
-                path=path, ref=ref
+                path=path,
+                ref=ref,
             ).decoded_content.decode()
         except (UnknownObjectException, GithubException) as ex:
             if ex.status == 404:
@@ -434,8 +446,11 @@ class GithubProject(BaseGitProject):
             raise GithubAPIException() from ex
 
     def get_files(
-        self, ref: str = None, filter_regex: str = None, recursive: bool = False
-    ) -> List[str]:
+        self,
+        ref: Optional[str] = None,
+        filter_regex: Optional[str] = None,
+        recursive: bool = False,
+    ) -> list[str]:
         ref = ref or self.default_branch
         paths = []
         contents = self.github_repo.get_contents(path="", ref=ref)
@@ -445,7 +460,7 @@ class GithubProject(BaseGitProject):
                 file_content = contents.pop(0)
                 if file_content.type == "dir":
                     contents.extend(
-                        self.github_repo.get_contents(path=file_content.path, ref=ref)
+                        self.github_repo.get_contents(path=file_content.path, ref=ref),
                     )
                 else:
                     paths.append(file_content.path)
@@ -487,7 +502,9 @@ class GithubProject(BaseGitProject):
             if label.name not in current_label_names:
                 color = self._normalize_label_color(color=label.color)
                 self.github_repo.create_label(
-                    name=label.name, color=color, description=label.description or ""
+                    name=label.name,
+                    color=color,
+                    description=label.description or "",
                 )
 
                 changes += 1
@@ -508,14 +525,14 @@ class GithubProject(BaseGitProject):
         pass
 
     @indirect(GithubRelease.get_list)
-    def get_releases(self) -> List[Release]:
+    def get_releases(self) -> list[Release]:
         pass
 
     @indirect(GithubRelease.create)
     def create_release(self, tag: str, name: str, message: str) -> GithubRelease:
         pass
 
-    def get_forks(self) -> List["GithubProject"]:
+    def get_forks(self) -> list["GithubProject"]:
         return [
             self.service.get_project_from_github_repository(fork)
             for fork in self.github_repo.get_forks()
@@ -525,7 +542,7 @@ class GithubProject(BaseGitProject):
     def get_web_url(self) -> str:
         return self.github_repo.html_url
 
-    def get_tags(self) -> List["GitTag"]:
+    def get_tags(self) -> list["GitTag"]:
         return [GitTag(tag.name, tag.commit.sha) for tag in self.github_repo.get_tags()]
 
     def get_sha_from_branch(self, branch: str) -> Optional[str]:
@@ -536,12 +553,12 @@ class GithubProject(BaseGitProject):
                 return None
             raise GithubAPIException from ex
 
-    def get_contributors(self) -> Set[str]:
+    def get_contributors(self) -> set[str]:
         """
         Returns:
             Logins of contributors to the project.
         """
-        return set(map(lambda c: c.login, self.github_repo.get_contributors()))
+        return {c.login for c in self.github_repo.get_contributors()}
 
-    def users_with_write_access(self) -> Set[str]:
+    def users_with_write_access(self) -> set[str]:
         return self.__get_collaborators()

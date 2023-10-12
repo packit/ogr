@@ -1,7 +1,7 @@
 # Copyright Contributors to the Packit project.
 # SPDX-License-Identifier: MIT
 
-from typing import Optional, Dict, Any
+from typing import Any, Optional
 
 import github
 import gitlab
@@ -9,8 +9,6 @@ import gitlab
 
 class OgrException(Exception):
     """Something went wrong during our execution."""
-
-    pass
 
 
 class APIException(OgrException):
@@ -28,7 +26,7 @@ class PagureAPIException(APIException):
         self,
         *args: Any,
         pagure_error: Optional[str] = None,
-        pagure_response: Optional[Dict[str, Any]] = None,
+        pagure_response: Optional[dict[str, Any]] = None,
         response_code: Optional[int] = None,
     ) -> None:
         super().__init__(*args)
@@ -51,7 +49,8 @@ class GithubAPIException(APIException):
     @property
     def response_code(self):
         if self.__cause__ is None or not isinstance(
-            self.__cause__, github.GithubException
+            self.__cause__,
+            github.GithubException,
         ):
             return None
         return self.__cause__.status

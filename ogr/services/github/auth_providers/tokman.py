@@ -1,13 +1,13 @@
 # Copyright Contributors to the Packit project.
 # SPDX-License-Identifier: MIT
 
-import requests
 from typing import Optional
 
 import github
+import requests
 
-from ogr.services.github.auth_providers.abstract import GithubAuthentication
 from ogr.exceptions import GithubAppNotInstalledError, OgrException, OgrNetworkError
+from ogr.services.github.auth_providers.abstract import GithubAuthentication
 
 
 class Tokman(GithubAuthentication):
@@ -37,11 +37,14 @@ class Tokman(GithubAuthentication):
 
             cls = OgrNetworkError if response.status_code >= 500 else OgrException
             raise cls(
-                f"Couldn't retrieve token from Tokman: ({response.status_code}) {response.text}"
+                f"Couldn't retrieve token from Tokman: ({response.status_code}) {response.text}",
             )
 
         return response.json().get("access_token", None)
 
     @staticmethod
-    def try_create(tokman_instance_url: str = None, **_) -> Optional["Tokman"]:
+    def try_create(
+        tokman_instance_url: Optional[str] = None,
+        **_,
+    ) -> Optional["Tokman"]:
         return Tokman(tokman_instance_url) if tokman_instance_url else None

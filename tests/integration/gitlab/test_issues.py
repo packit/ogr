@@ -1,11 +1,12 @@
 # Copyright Contributors to the Packit project.
 # SPDX-License-Identifier: MIT
 
+import pytest
 from requre.online_replacing import record_requests_for_all_methods
-from ogr.exceptions import IssueTrackerDisabled
 
-from tests.integration.gitlab.base import GitlabTests
 from ogr.abstract import IssueStatus
+from ogr.exceptions import IssueTrackerDisabled
+from tests.integration.gitlab.base import GitlabTests
 
 
 @record_requests_for_all_methods()
@@ -24,20 +25,23 @@ class Issues(GitlabTests):
 
     def test_get_issue_list_author(self):
         issue_list = self.project.get_issue_list(
-            status=IssueStatus.all, author="mfocko"
+            status=IssueStatus.all,
+            author="mfocko",
         )
         assert issue_list
         assert len(issue_list) >= 5
 
     def test_get_issue_list_nonexisting_author(self):
         issue_list = self.project.get_issue_list(
-            status=IssueStatus.all, author="xyzidontexist"
+            status=IssueStatus.all,
+            author="xyzidontexist",
         )
         assert len(issue_list) == 0
 
     def test_get_issue_list_assignee(self):
         issue_list = self.project.get_issue_list(
-            status=IssueStatus.all, assignee="mfocko"
+            status=IssueStatus.all,
+            assignee="mfocko",
         )
         assert issue_list
         assert len(issue_list) >= 3
@@ -56,7 +60,9 @@ class Issues(GitlabTests):
         issue_title = f"New Issue {self.random_str}"
         issue_desc = f"Description for issue {self.random_str}"
         issue = self.project.create_issue(
-            title=issue_title, body=issue_desc, labels=labels
+            title=issue_title,
+            body=issue_desc,
+            labels=labels,
         )
 
         assert issue.title == issue_title
@@ -74,7 +80,9 @@ class Issues(GitlabTests):
         assign = ["mfocko"]
         project = self.service.get_project(repo="ogr-tests", namespace="packit-service")
         issue = project.create_issue(
-            title=issue_title, body=issue_desc, assignees=assign
+            title=issue_title,
+            body=issue_desc,
+            assignees=assign,
         )
 
         assert issue.title == issue_title
@@ -88,7 +96,9 @@ class Issues(GitlabTests):
         issue_title = f"New Confidential Issue {self.random_str}"
         issue_desc = f"Description for issue {self.random_str}"
         issue = self.project.create_issue(
-            title=issue_title, body=issue_desc, private=True
+            title=issue_title,
+            body=issue_desc,
+            private=True,
         )
         assert issue.title == issue_title
         assert issue.description == issue_desc
@@ -126,7 +136,8 @@ class Issues(GitlabTests):
 
     def test_get_issue_comments_regex_reversed(self):
         comments = self.project.get_issue(2).get_comments(
-            filter_regex="regex", reverse=True
+            filter_regex="regex",
+            reverse=True,
         )
         assert len(comments) == 2
         assert comments[0].body.startswith("regex")
@@ -164,14 +175,16 @@ class Issues(GitlabTests):
 
     def test_issue_list_labels(self):
         issue_list = self.project.get_issue_list(
-            status=IssueStatus.all, labels=["testing-label-for-test-issue-list-labels"]
+            status=IssueStatus.all,
+            labels=["testing-label-for-test-issue-list-labels"],
         )
         assert issue_list
         assert len(issue_list) == 33
 
     def test_get_issue_comments_author_regex(self):
         comments = self.project.get_issue(2).get_comments(
-            filter_regex="2$", author="lbarcziova"
+            filter_regex="2$",
+            author="lbarcziova",
         )
         assert len(comments) == 1
         assert comments[0].body.startswith("Comment")
@@ -227,7 +240,8 @@ class Issues(GitlabTests):
 
     def test_create_with_disabled_issues(self):
         project = self.service.get_project(
-            namespace="packit-service", repo="private-testing-repo"
+            namespace="packit-service",
+            repo="private-testing-repo",
         )
-        with self.assertRaises(IssueTrackerDisabled):
+        with pytest.raises(IssueTrackerDisabled):
             project.create_issue("Testing issue", "shouldn't be created")

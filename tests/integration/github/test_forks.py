@@ -1,9 +1,10 @@
 # Copyright Contributors to the Packit project.
 # SPDX-License-Identifier: MIT
 
+import pytest
 from requre.online_replacing import record_requests_for_all_methods
-from ogr.exceptions import GithubAPIException
 
+from ogr.exceptions import GithubAPIException
 from tests.integration.github.base import GithubTests
 
 
@@ -16,11 +17,12 @@ class Forks(GithubTests):
 
     def test_nonexisting_fork(self):
         self.ogr_nonexisting_fork = self.service.get_project(
-            repo="omfeprkfmwpefmwpefkmwpeofjwepof", is_fork=True
+            repo="omfeprkfmwpefmwpefkmwpeofjwepof",
+            is_fork=True,
         )
-        with self.assertRaises(GithubAPIException) as ex:
+        with pytest.raises(GithubAPIException) as ex:
             self.ogr_nonexisting_fork.get_description()
-        s = str(ex.exception.__cause__)
+        s = str(ex.value.__cause__)
         assert "Not Found" in s
         assert "404" in s
 
@@ -71,7 +73,8 @@ class Forks(GithubTests):
         """
         namespace = f"ogr-tests-{self.service.user.get_username()}"
         expected_fork = self.service.get_project(
-            namespace=namespace, repo=self.hello_world_project
+            namespace=namespace,
+            repo=self.hello_world_project,
         )
         assert not expected_fork.exists(), "Fork should not exist before regenerating"
 

@@ -2,9 +2,9 @@
 # SPDX-License-Identifier: MIT
 
 from typing import Optional, Union
-from urllib3.util import Retry
 
 import github
+from urllib3.util import Retry
 
 from ogr.services.github.auth_providers.abstract import GithubAuthentication
 
@@ -34,6 +34,8 @@ class TokenAuthentication(GithubAuthentication):
 
     @staticmethod
     def try_create(
-        token: str = None, max_retries: Union[int, Retry] = 0, **_
+        token: Optional[str] = None,
+        max_retries: Union[int, Retry] = 0,
+        **_,
     ) -> Optional["TokenAuthentication"]:
         return TokenAuthentication(token, max_retries=max_retries)

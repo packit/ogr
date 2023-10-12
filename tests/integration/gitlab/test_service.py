@@ -5,11 +5,10 @@ import pytest
 from gitlab import GitlabGetError
 from requre.online_replacing import record_requests_for_all_methods
 
-from tests.integration.gitlab.base import GitlabTests
-
 from ogr import GitlabService
 from ogr.exceptions import GitlabAPIException
 from ogr.services.gitlab.pull_request import GitlabPullRequest
+from tests.integration.gitlab.base import GitlabTests
 
 
 @record_requests_for_all_methods()
@@ -20,7 +19,8 @@ class Service(GitlabTests):
         """
         name_of_the_repo = "new-ogr-testing-repo"
         project = self.service.get_project(
-            repo=name_of_the_repo, namespace=self.service.user.get_username()
+            repo=name_of_the_repo,
+            namespace=self.service.user.get_username(),
         )
         with pytest.raises(GitlabGetError):
             assert project.gitlab_repo
@@ -30,7 +30,8 @@ class Service(GitlabTests):
         assert new_project.gitlab_repo
 
         project = self.service.get_project(
-            repo=name_of_the_repo, namespace=self.service.user.get_username()
+            repo=name_of_the_repo,
+            namespace=self.service.user.get_username(),
         )
         assert project.gitlab_repo
 
@@ -58,7 +59,8 @@ class Service(GitlabTests):
         assert new_project.get_description() == description
 
         project = self.service.get_project(
-            repo=name_of_the_repo, namespace=self.service.user.get_username()
+            repo=name_of_the_repo,
+            namespace=self.service.user.get_username(),
         )
         assert project.gitlab_repo
         assert project.get_description() == description
@@ -71,20 +73,23 @@ class Service(GitlabTests):
         name_of_the_repo = "new-ogr-testing-repo-in-the-group"
         namespace_of_the_repo = "packit-service"
         project = self.service.get_project(
-            repo=name_of_the_repo, namespace=namespace_of_the_repo
+            repo=name_of_the_repo,
+            namespace=namespace_of_the_repo,
         )
         with pytest.raises(GitlabGetError):
             assert project.gitlab_repo
 
         new_project = self.service.project_create(
-            repo=name_of_the_repo, namespace=namespace_of_the_repo
+            repo=name_of_the_repo,
+            namespace=namespace_of_the_repo,
         )
         assert new_project.repo == name_of_the_repo
         assert new_project.namespace == namespace_of_the_repo
         assert new_project.gitlab_repo
 
         project = self.service.get_project(
-            repo=name_of_the_repo, namespace=namespace_of_the_repo
+            repo=name_of_the_repo,
+            namespace=namespace_of_the_repo,
         )
         assert project.gitlab_repo
 
@@ -94,7 +99,8 @@ class Service(GitlabTests):
         """
         name_of_the_repo = "new-ogr-testing-repo-fail"
         project = self.service.get_project(
-            repo=name_of_the_repo, namespace=self.service.user.get_username()
+            repo=name_of_the_repo,
+            namespace=self.service.user.get_username(),
         )
         with pytest.raises(GitlabGetError):
             assert project.gitlab_repo
@@ -119,7 +125,8 @@ class Service(GitlabTests):
         language = "C++"
         number_of_projects = 2
         projects = self.service.list_projects(
-            namespace=name_of_the_repo, language=language
+            namespace=name_of_the_repo,
+            language=language,
         )
         assert len(projects) == number_of_projects
 
