@@ -41,7 +41,7 @@ class Forks(PagureTests):
         assert not ogr_project_non_existing_fork.exists()
         with pytest.raises(PagureAPIException) as ex:
             ogr_project_non_existing_fork.get_description()
-        assert "Project not found" in ex.exception.pagure_error
+        assert "Project not found" in ex.value.pagure_error
 
     def test_fork_property(self):
         fork = self.ogr_project.get_fork()

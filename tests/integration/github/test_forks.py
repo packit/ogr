@@ -22,7 +22,7 @@ class Forks(GithubTests):
         )
         with pytest.raises(GithubAPIException) as ex:
             self.ogr_nonexisting_fork.get_description()
-        s = str(ex.exception.__cause__)
+        s = str(ex.value.__cause__)
         assert "Not Found" in s
         assert "404" in s
 
