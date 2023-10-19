@@ -30,6 +30,11 @@ class PullRequests(GitlabTests):
         assert title == pr_list[0].title
         pr.close()
 
+    @pytest.mark.skipif(
+        is_gitlab_version_smaller_than_314(),
+        reason="URL syntax changed between versions and"
+        "our requre data don't work with older gitlab versions",
+    )
     def test_mr_list_limit(self):
         pr_list = self.project.get_pr_list(status=PRStatus.all)
         count = len({pr.id for pr in pr_list})
