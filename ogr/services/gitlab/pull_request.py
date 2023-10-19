@@ -240,10 +240,14 @@ class GitlabPullRequest(BasePullRequest):
         status: PRStatus = PRStatus.open,
     ) -> list["PullRequest"]:
         # Gitlab API has status 'opened', not 'open'
+        # f"Calling a `list()` method without specifying `get_all=True` or "
+        # f"`iterator=True` will return a maximum of 20 items. "
         mrs = project.gitlab_repo.mergerequests.list(
             state=status.name if status != PRStatus.open else "opened",
             order_by="updated_at",
             sort="desc",
+            # gitlab 3.3 syntax was all=True
+            get_all=True,
         )
         return [GitlabPullRequest(mr, project) for mr in mrs]
 

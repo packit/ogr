@@ -1,7 +1,8 @@
 # Copyright Contributors to the Packit project.
 # SPDX-License-Identifier: MIT
-
+import gitlab
 import pytest
+from packaging import version
 from requre.online_replacing import record_requests_for_all_methods
 
 from ogr.abstract import CommitStatus, MergeCommitStatus, PRStatus
@@ -9,8 +10,17 @@ from ogr.exceptions import GitlabAPIException
 from tests.integration.gitlab.base import GitlabTests
 
 
+def is_gitlab_version_smaller_than_314():
+    return version.parse(gitlab.__version__) < version.parse("3.14.0")
+
+
 @record_requests_for_all_methods()
 class PullRequests(GitlabTests):
+    @pytest.mark.skipif(
+        is_gitlab_version_smaller_than_314(),
+        reason="URL syntax changed between versions and"
+        "our requre data don't work with older gitlab versions",
+    )
     def test_pr_list(self):
         title = "some special title"
         pr = self.create_pull_request(title=title)
@@ -19,6 +29,12 @@ class PullRequests(GitlabTests):
         assert count >= 1
         assert title == pr_list[0].title
         pr.close()
+
+    def test_mr_list_limit(self):
+        pr_list = self.project.get_pr_list(status=PRStatus.all)
+        count = len(pr_list)
+        # 20 is internal gitlab's limit; there are 84 as of Oct 2023
+        assert count > 20
 
     def test_pr_info(self):
         pr_info = self.project.get_pr(pr_id=1)
@@ -284,6 +300,11 @@ class PullRequests(GitlabTests):
         assert source_project.namespace == self.service.user.get_username()
         assert source_project.repo == "ogr-tests"
 
+    @pytest.mark.skipif(
+        is_gitlab_version_smaller_than_314(),
+        reason="URL syntax changed between versions and"
+        "our requre data don't work with older gitlab versions",
+    )
     def test_create_pr_upstream_upstream(self):
         prs_before = len(self.project.get_pr_list(status=PRStatus.open))
         pr_upstream_upstream = self.project.create_pr(
@@ -300,6 +321,11 @@ class PullRequests(GitlabTests):
         self.project.get_pr(pr_upstream_upstream.id).close()
         assert prs_after == prs_before + 1
 
+    @pytest.mark.skipif(
+        is_gitlab_version_smaller_than_314(),
+        reason="URL syntax changed between versions and"
+        "our requre data don't work with older gitlab versions",
+    )
     def test_create_pr_upstream_forkusername(self):
         prs_before = len(self.project.get_pr_list(status=PRStatus.open))
         pr_upstream_forkusername = self.project.create_pr(
@@ -321,6 +347,11 @@ class PullRequests(GitlabTests):
         self.project.get_pr(pr_upstream_forkusername.id).close()
         assert prs_after == prs_before + 1
 
+    @pytest.mark.skipif(
+        is_gitlab_version_smaller_than_314(),
+        reason="URL syntax changed between versions and"
+        "our requre data don't work with older gitlab versions",
+    )
     def test_create_pr_upstream_fork(self):
         prs_before = len(self.project.get_pr_list(status=PRStatus.open))
         pr_upstream_fork = self.project.get_fork().create_pr(
@@ -337,6 +368,11 @@ class PullRequests(GitlabTests):
         self.project.get_pr(pr_upstream_fork.id).close()
         assert prs_after == prs_before + 1
 
+    @pytest.mark.skipif(
+        is_gitlab_version_smaller_than_314(),
+        reason="URL syntax changed between versions and"
+        "our requre data don't work with older gitlab versions",
+    )
     def test_pr_create_fork_fork(self):
         """
         Tests creating PR from fork to the fork itself.
@@ -362,6 +398,11 @@ class PullRequests(GitlabTests):
         opened_pr.close()
         assert opened_pr.status == PRStatus.closed
 
+    @pytest.mark.skipif(
+        is_gitlab_version_smaller_than_314(),
+        reason="URL syntax changed between versions and"
+        "our requre data don't work with older gitlab versions",
+    )
     def test_create_pr_fork_other_fork(self):
         username = "jscotka"
         other_fork = self.service.get_project(
