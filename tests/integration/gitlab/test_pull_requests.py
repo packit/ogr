@@ -32,7 +32,7 @@ class PullRequests(GitlabTests):
 
     def test_mr_list_limit(self):
         pr_list = self.project.get_pr_list(status=PRStatus.all)
-        count = len(pr_list)
+        count = len({pr.id for pr in pr_list})
         # 20 is internal gitlab's limit; there are 84 as of Oct 2023
         assert count > 20
 
