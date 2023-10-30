@@ -1,3 +1,7 @@
+# 0.47.1
+
+- Fixed an issue where getting a list of GitLab merge requests using `.list()` would return only 20 items. (#819)
+
 # 0.47.0
 
 - Added support for removing users/groups from a project and possibility to check for groups with permissions to modify a PR. (#815)
