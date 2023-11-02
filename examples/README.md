@@ -5,3 +5,4 @@
 - [Patches to open pull requests on Pagure](list_pr_patches.ipynb)
 - [Listing all pull requests since specific release on GitHub](list_prs_since_release.ipynb)
 - [Actions on issues on GitHub](working_with_issues.ipynb)
+- [Syncing the labels on GitHub](syncing_labels.ipynb)
