@@ -56,7 +56,7 @@ class GithubRelease(Release):
 
     @property
     def url(self) -> Optional[str]:
-        return self._raw_release.url
+        return self._raw_release.html_url
 
     @property
     def created_at(self) -> datetime.datetime:
