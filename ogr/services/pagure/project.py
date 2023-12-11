@@ -275,6 +275,10 @@ class PagureProject(BaseGitProject):
     def get_pr(self, pr_id: int) -> PullRequest:
         pass
 
+    @indirect(PagurePullRequest.get_files_diff)
+    def get_pr_files_diff(self, pr_id: int) -> dict:
+        pass
+
     @if_readonly(return_function=GitProjectReadOnly.create_pr)
     @indirect(PagurePullRequest.create)
     def create_pr(

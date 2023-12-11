@@ -118,3 +118,13 @@ class PullRequests(PagureTests):
     def test_get_comment(self):
         comment = self.ogr_project.get_pr(5).get_comment(comment_id=162373)
         assert "Billy: what the hell is going on up there?" in comment.body
+
+    def test_pr_diff(self):
+        diff = self.ogr_project.get_pr_files_diff(13)
+        assert isinstance(diff, dict)
+        assert "README.md" in diff
+
+    def test_pr_diff_empty_diff(self):
+        diff = self.ogr_project.get_pr_files_diff(6)
+        assert isinstance(diff, dict)
+        assert diff == {}
