@@ -61,6 +61,7 @@ In case you find any error, please [create a new issue](https://github.com/packi
 | `add_group`                 |   ✘    |   ✘    |           ✔            |
 | `remove_group`              |   ✘    |   ✘    |           ✔            |
 | `which_groups_can_merge_pr` |   ✘    |   ✘    |           ✔            |
+| `get_pr_files_diff`         |   ✘    |   ✘    |           ✔            |
 
 ## User
 

@@ -1688,6 +1688,18 @@ class GitProject(OgrAbstractClass):
         """
         raise NotImplementedError()
 
+    def get_pr_files_diff(self, pr_id: int) -> dict:
+        """
+        Get files diff of a pull request.
+
+        Args:
+            pr_id: ID of the pull request.
+
+        Returns:
+            Dictionary representing files diff.
+        """
+        raise NotImplementedError()
+
     def get_tags(self) -> list["GitTag"]:
         """
         Returns:
