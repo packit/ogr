@@ -1688,7 +1688,12 @@ class GitProject(OgrAbstractClass):
         """
         raise NotImplementedError()
 
-    def get_pr_files_diff(self, pr_id: int) -> dict:
+    def get_pr_files_diff(
+        self,
+        pr_id: int,
+        retries: int = 0,
+        wait_seconds: int = 3,
+    ) -> dict:
         """
         Get files diff of a pull request.
 

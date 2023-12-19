@@ -3,6 +3,7 @@
 
 import datetime
 import logging
+from time import sleep
 from typing import Any, Optional, Union
 
 from ogr.abstract import CommitFlag, CommitStatus, PRComment, PRStatus, PullRequest
@@ -191,18 +192,49 @@ class PagurePullRequest(BasePullRequest):
         return PagurePullRequest(raw_pr, project)
 
     @staticmethod
-    def get_files_diff(project: "ogr_pagure.PagureProject", pr_id: int) -> dict:
-        try:
-            return project._call_project_api(
-                "pull-request",
-                str(pr_id),
-                "diffstats",
-                method="GET",
-            )
-        except PagureAPIException as ex:
-            if "No statistics" in ex.pagure_error:
-                return {}
-            raise ex
+    def get_files_diff(
+        project: "ogr_pagure.PagureProject",
+        pr_id: int,
+        retries: int = 0,
+        wait_seconds: int = 3,
+    ) -> dict:
+        """
+        Retrieve pull request diff statistics.
+
+        Pagure API tends to return ENOPRSTATS error when a pull request is transitioning
+        from open to other states, so you can use `retries` and `wait_seconds` to try to
+        mitigate that.
+
+
+        Args:
+            project: Pagure project.
+            pr_id: Pull request ID.
+            retries: Number of extra attempts.
+            wait_seconds: Delay between attempts.
+        """
+        attempt = 0
+        while True:
+            try:
+                return project._call_project_api(
+                    "pull-request",
+                    str(pr_id),
+                    "diffstats",
+                    method="GET",
+                )
+            except PagureAPIException as ex:  # noqa PERF203
+                if "No statistics" in ex.pagure_error:
+                    # this may be a race condition, try once more
+                    logger.error(
+                        f"While retrieving PR diffstats Pagure returned ENOPRSTATS. \n{ex}",
+                    )
+                    if attempt < retries:
+                        logger.debug(
+                            f"Trying again; attempt={attempt} after {wait_seconds}seconds",
+                        )
+                        attempt += 1
+                        sleep(wait_seconds)
+                        continue
+                raise ex
 
     @staticmethod
     def get_list(
