@@ -1,9 +1,11 @@
 # Copyright Contributors to the Packit project.
 # SPDX-License-Identifier: MIT
 
+import pytest
 from requre.online_replacing import record_requests_for_all_methods
 
 from ogr.abstract import CommitStatus, PRStatus
+from ogr.exceptions import PagureAPIException
 from tests.integration.pagure.base import PagureTests
 
 
@@ -124,7 +126,11 @@ class PullRequests(PagureTests):
         assert isinstance(diff, dict)
         assert "README.md" in diff
 
-    def test_pr_diff_empty_diff(self):
-        diff = self.ogr_project.get_pr_files_diff(6)
+    def test_pr_diff_failing(self):
+        with pytest.raises(PagureAPIException):
+            self.ogr_project.get_pr_files_diff(6)
+
+    def test_pr_diff_failing_and_succeding(self):
+        diff = self.ogr_project.get_pr_files_diff(7, retries=1, wait_seconds=0.1)
         assert isinstance(diff, dict)
-        assert diff == {}
+        assert "README.md" in diff
