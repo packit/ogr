@@ -228,7 +228,7 @@ class PagurePullRequest(BasePullRequest):
                         f"While retrieving PR diffstats Pagure returned ENOPRSTATS. \n{ex}",
                     )
                     if attempt < retries:
-                        logger.debug(
+                        logger.error(
                             f"Trying again; attempt={attempt} after {wait_seconds}seconds",
                         )
                         attempt += 1
