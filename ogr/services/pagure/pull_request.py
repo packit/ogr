@@ -212,7 +212,7 @@ class PagurePullRequest(BasePullRequest):
             retries: Number of extra attempts.
             wait_seconds: Delay between attempts.
         """
-        attempt = 0
+        attempt = 1
         while True:
             try:
                 return project._call_project_api(
@@ -224,14 +224,14 @@ class PagurePullRequest(BasePullRequest):
             except PagureAPIException as ex:  # noqa PERF203
                 if "No statistics" in ex.pagure_error:
                     # this may be a race condition, try once more
-                    logger.error(
-                        f"While retrieving PR diffstats Pagure returned ENOPRSTATS. \n{ex}",
+                    logger.info(
+                        f"While retrieving PR diffstats Pagure returned ENOPRSTATS.\n{ex}",
                     )
-                    if attempt < retries:
-                        logger.error(
-                            f"Trying again; attempt={attempt} after {wait_seconds}seconds",
-                        )
+                    if attempt <= retries:
                         attempt += 1
+                        logger.info(
+                            f"Trying again; attempt={attempt} after {wait_seconds} seconds",
+                        )
                         sleep(wait_seconds)
                         continue
                 raise ex
