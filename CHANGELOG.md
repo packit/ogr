@@ -1,3 +1,6 @@
+# 0.48.1
+
+
 # 0.48.0
 
 - There is a new get_pr_files_diff method supported for Pagure. (#826)
