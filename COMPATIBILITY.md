@@ -76,3 +76,9 @@ In case you find any error, please [create a new issue](https://github.com/packi
 |          | GitHub | GitLab | Pagure |
 | -------- | :----: | :----: | :----: |
 | `delete` |   ✔   |   ✔   |   ✘    |
+
+## Service
+
+|             | GitHub | GitLab | Pagure |
+| ----------- | :----: | :----: | :----: |
+| `get_group` |   ✘    |   ✘    |   ✔   |

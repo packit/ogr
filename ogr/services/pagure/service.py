@@ -17,6 +17,7 @@ from ogr.exceptions import (
 from ogr.factory import use_for_service
 from ogr.parsing import parse_git_repo
 from ogr.services.base import BaseGitService, GitProject
+from ogr.services.pagure.group import PagureGroup
 from ogr.services.pagure.project import PagureProject
 from ogr.services.pagure.user import PagureUser
 from ogr.utils import RequestResponse
@@ -373,3 +374,10 @@ class PagureService(BaseGitService):
         language: Optional[str] = None,
     ) -> list[GitProject]:
         raise OperationNotSupported
+
+    def get_group(self, group_name: str) -> PagureGroup:
+        """
+        Get a Pagure group by name.
+        """
+        url = self.get_api_url("group", group_name)
+        return PagureGroup(group_name, self.call_api(url))

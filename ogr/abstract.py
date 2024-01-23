@@ -1369,6 +1369,12 @@ class GitService(OgrAbstractClass):
         """
         raise NotImplementedError
 
+    def get_group(self, group_name: str):
+        """
+        Get a group by name.
+        """
+        raise NotImplementedError
+
 
 class GitProject(OgrAbstractClass):
     def __init__(self, repo: str, service: GitService, namespace: str) -> None:
