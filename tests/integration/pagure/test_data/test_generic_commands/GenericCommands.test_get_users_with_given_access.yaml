@@ -1,0 +1,312 @@
+_requre:
+  DataTypes: 1
+  key_strategy: StorageKeysInspectSimple
+  version_storage_file: 3
+requests.sessions:
+  send:
+    GET:
+      https://pagure.io/api/0/group/packit-service:
+      - metadata:
+          latency: 0.40569329261779785
+          module_call_list:
+          - unittest.case
+          - requre.record_and_replace
+          - tests.integration.pagure.test_generic_commands
+          - ogr.abstract
+          - ogr.services.pagure.project
+          - ogr.abstract
+          - ogr.services.pagure.project
+          - ogr.abstract
+          - ogr.services.pagure.service
+          - ogr.abstract
+          - ogr.services.pagure.service
+          - ogr.abstract
+          - ogr.services.pagure.service
+          - ogr.abstract
+          - ogr.services.pagure.service
+          - requests.sessions
+          - requre.objects
+          - requre.cassette
+          - requests.sessions
+          - send
+        output:
+          __store_indicator: 2
+          _content:
+            creator:
+              default_email: flachman@redhat.com
+              emails:
+              - flachman@redhat.com
+              - lachmanfrantisek@gmail.com
+              full_url: https://pagure.io/user/lachmanfrantisek
+              fullname: "Franti\u0161ek Lachman"
+              name: lachmanfrantisek
+              url_path: user/lachmanfrantisek
+            date_created: '1570798102'
+            description: Packit related projects.
+            display_name: packit-service
+            full_url: https://pagure.io/group/packit-service
+            group_type: user
+            members:
+            - dhodovsk
+            - ttomecek
+            - lachmanfrantisek
+            - mfocko
+            - jscotka
+            - lbarczio
+            - jpopelka
+            name: packit-service
+          _next: null
+          elapsed: 0.2
+          encoding: utf-8
+          headers:
+            Connection: Keep-Alive
+            Content-Length: '703'
+            Content-Security-Policy: default-src 'self';script-src 'self' 'nonce-YqLDC0BS8d7iY8mKO7VtBbIne'
+              https://apps.fedoraproject.org; style-src 'self' 'nonce-YqLDC0BS8d7iY8mKO7VtBbIne';
+              object-src 'none';base-uri 'self';img-src 'self' https:;
+            Content-Type: application/json
+            Date: Fri, 01 Nov 2019 13-36-03 GMT
+            Keep-Alive: timeout=5, max=97
+            Referrer-Policy: same-origin
+            Server: Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_wsgi/4.6.4
+              Python/3.6
+            Set-Cookie: pagure=eyJfcGVybWFuZW50Ijp0cnVlLCJjc3JmX3Rva2VuIjoiZjcxZmY2MDFlZmIzMWNjNzAzYmU4Mjg1YmY0MWMxMzY5NDM5NmMxNyJ9.GJQc-Q.E9wLR9ZatZdALxSvMTXpMsuNNwQ;
+              Expires=Sun, 25-Feb-2024 16:25:29 GMT; Secure; HttpOnly; Path=/
+            Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
+            X-Content-Type-Options: nosniff
+            X-Frame-Options: ALLOW-FROM https://pagure.io/
+            X-Xss-Protection: 1; mode=block
+          raw: !!binary ""
+          reason: OK
+          status_code: 200
+      https://pagure.io/api/0/ogr-tests-group:
+      - metadata:
+          latency: 0.24735426902770996
+          module_call_list:
+          - unittest.case
+          - requre.record_and_replace
+          - tests.integration.pagure.test_generic_commands
+          - ogr.abstract
+          - ogr.services.pagure.project
+          - ogr.abstract
+          - ogr.services.pagure.project
+          - ogr.abstract
+          - ogr.services.pagure.project
+          - ogr.abstract
+          - ogr.services.pagure.project
+          - ogr.abstract
+          - ogr.services.pagure.project
+          - ogr.abstract
+          - ogr.services.pagure.project
+          - ogr.abstract
+          - ogr.services.pagure.service
+          - ogr.abstract
+          - ogr.services.pagure.service
+          - ogr.abstract
+          - ogr.services.pagure.service
+          - requests.sessions
+          - requre.objects
+          - requre.cassette
+          - requests.sessions
+          - send
+        output:
+          __store_indicator: 2
+          _content:
+            access_groups:
+              admin:
+              - packit-service
+              collaborator: []
+              commit: []
+              ticket: []
+            access_users:
+              admin: []
+              collaborator: []
+              commit: []
+              owner:
+              - lbarczio
+              ticket: []
+            close_status: []
+            custom_keys: []
+            date_created: '1706191246'
+            date_modified: '1706191299'
+            description: 'Testing repository for python-ogr package. '
+            full_url: https://pagure.io/ogr-tests-group
+            fullname: ogr-tests-group
+            id: 17549
+            milestones: {}
+            name: ogr-tests-group
+            namespace: null
+            parent: null
+            priorities: {}
+            tags: []
+            url_path: ogr-tests-group
+            user:
+              full_url: https://pagure.io/user/lbarczio
+              fullname: "Laura Barcziov\xC3\xA1"
+              name: lbarczio
+              url_path: user/lbarczio
+          _next: null
+          elapsed: 0.2
+          encoding: utf-8
+          headers:
+            Connection: Keep-Alive
+            Content-Length: '896'
+            Content-Security-Policy: default-src 'self';script-src 'self' 'nonce-YqLDC0BS8d7iY8mKO7VtBbIne'
+              https://apps.fedoraproject.org; style-src 'self' 'nonce-YqLDC0BS8d7iY8mKO7VtBbIne';
+              object-src 'none';base-uri 'self';img-src 'self' https:;
+            Content-Type: application/json
+            Date: Fri, 01 Nov 2019 13-36-03 GMT
+            Keep-Alive: timeout=5, max=99
+            Referrer-Policy: same-origin
+            Server: Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_wsgi/4.6.4
+              Python/3.6
+            Set-Cookie: pagure=eyJfcGVybWFuZW50Ijp0cnVlLCJjc3JmX3Rva2VuIjoiZjcxZmY2MDFlZmIzMWNjNzAzYmU4Mjg1YmY0MWMxMzY5NDM5NmMxNyJ9.GJQc-A.F6wyzEecvC4AtFoCFWyhIn08rdk;
+              Expires=Sun, 25-Feb-2024 16:25:28 GMT; Secure; HttpOnly; Path=/
+            Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
+            X-Content-Type-Options: nosniff
+            X-Frame-Options: ALLOW-FROM https://pagure.io/
+            X-Xss-Protection: 1; mode=block
+          raw: !!binary ""
+          reason: OK
+          status_code: 200
+      - metadata:
+          latency: 0.2754337787628174
+          module_call_list:
+          - unittest.case
+          - requre.record_and_replace
+          - tests.integration.pagure.test_generic_commands
+          - ogr.abstract
+          - ogr.services.pagure.project
+          - ogr.abstract
+          - ogr.services.pagure.project
+          - ogr.abstract
+          - ogr.services.pagure.project
+          - ogr.abstract
+          - ogr.services.pagure.project
+          - ogr.abstract
+          - ogr.services.pagure.project
+          - ogr.abstract
+          - ogr.services.pagure.project
+          - ogr.abstract
+          - ogr.services.pagure.service
+          - ogr.abstract
+          - ogr.services.pagure.service
+          - ogr.abstract
+          - ogr.services.pagure.service
+          - requests.sessions
+          - requre.objects
+          - requre.cassette
+          - requests.sessions
+          - send
+        output:
+          __store_indicator: 2
+          _content:
+            access_groups:
+              admin:
+              - packit-service
+              collaborator: []
+              commit: []
+              ticket: []
+            access_users:
+              admin: []
+              collaborator: []
+              commit: []
+              owner:
+              - lbarczio
+              ticket: []
+            close_status: []
+            custom_keys: []
+            date_created: '1706191246'
+            date_modified: '1706191299'
+            description: 'Testing repository for python-ogr package. '
+            full_url: https://pagure.io/ogr-tests-group
+            fullname: ogr-tests-group
+            id: 17549
+            milestones: {}
+            name: ogr-tests-group
+            namespace: null
+            parent: null
+            priorities: {}
+            tags: []
+            url_path: ogr-tests-group
+            user:
+              full_url: https://pagure.io/user/lbarczio
+              fullname: "Laura Barcziov\xC3\xA1"
+              name: lbarczio
+              url_path: user/lbarczio
+          _next: null
+          elapsed: 0.2
+          encoding: utf-8
+          headers:
+            Connection: Keep-Alive
+            Content-Length: '896'
+            Content-Security-Policy: default-src 'self';script-src 'self' 'nonce-YqLDC0BS8d7iY8mKO7VtBbIne'
+              https://apps.fedoraproject.org; style-src 'self' 'nonce-YqLDC0BS8d7iY8mKO7VtBbIne';
+              object-src 'none';base-uri 'self';img-src 'self' https:;
+            Content-Type: application/json
+            Date: Fri, 01 Nov 2019 13-36-03 GMT
+            Keep-Alive: timeout=5, max=98
+            Referrer-Policy: same-origin
+            Server: Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_wsgi/4.6.4
+              Python/3.6
+            Set-Cookie: pagure=eyJfcGVybWFuZW50Ijp0cnVlLCJjc3JmX3Rva2VuIjoiZjcxZmY2MDFlZmIzMWNjNzAzYmU4Mjg1YmY0MWMxMzY5NDM5NmMxNyJ9.GJQc-Q.E9wLR9ZatZdALxSvMTXpMsuNNwQ;
+              Expires=Sun, 25-Feb-2024 16:25:29 GMT; Secure; HttpOnly; Path=/
+            Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
+            X-Content-Type-Options: nosniff
+            X-Frame-Options: ALLOW-FROM https://pagure.io/
+            X-Xss-Protection: 1; mode=block
+          raw: !!binary ""
+          reason: OK
+          status_code: 200
+    POST:
+      https://pagure.io/api/0/-/whoami:
+      - metadata:
+          latency: 0.7423610687255859
+          module_call_list:
+          - unittest.case
+          - requre.record_and_replace
+          - tests.integration.pagure.test_generic_commands
+          - ogr.abstract
+          - ogr.services.pagure.service
+          - ogr.abstract
+          - ogr.services.pagure.user
+          - ogr.abstract
+          - ogr.services.pagure.service
+          - ogr.abstract
+          - ogr.services.pagure.service
+          - ogr.abstract
+          - ogr.services.pagure.service
+          - requests.sessions
+          - requre.objects
+          - requre.cassette
+          - requests.sessions
+          - send
+        output:
+          __store_indicator: 2
+          _content:
+            username: lbarczio
+          _next: null
+          elapsed: 0.2
+          encoding: utf-8
+          headers:
+            Connection: Upgrade, Keep-Alive
+            Content-Length: '29'
+            Content-Security-Policy: default-src 'self';script-src 'self' 'nonce-YqLDC0BS8d7iY8mKO7VtBbIne'
+              https://apps.fedoraproject.org; style-src 'self' 'nonce-YqLDC0BS8d7iY8mKO7VtBbIne';
+              object-src 'none';base-uri 'self';img-src 'self' https:;
+            Content-Type: application/json
+            Date: Fri, 01 Nov 2019 13-36-03 GMT
+            Keep-Alive: timeout=5, max=100
+            Referrer-Policy: same-origin
+            Server: Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_wsgi/4.6.4
+              Python/3.6
+            Set-Cookie: pagure=eyJfcGVybWFuZW50Ijp0cnVlLCJjc3JmX3Rva2VuIjoiZjcxZmY2MDFlZmIzMWNjNzAzYmU4Mjg1YmY0MWMxMzY5NDM5NmMxNyJ9.GJQc-A.F6wyzEecvC4AtFoCFWyhIn08rdk;
+              Expires=Sun, 25-Feb-2024 16:25:28 GMT; Secure; HttpOnly; Path=/
+            Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
+            Upgrade: h2,h2c
+            X-Content-Type-Options: nosniff
+            X-Frame-Options: ALLOW-FROM https://pagure.io/
+            X-Xss-Protection: 1; mode=block
+          raw: !!binary ""
+          reason: OK
+          status_code: 200

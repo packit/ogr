@@ -5,9 +5,9 @@ _requre:
 requests.sessions:
   send:
     GET:
-      https://pagure.io/api/0/group/copr:
+      https://pagure.io/api/0/group/packit-service:
       - metadata:
-          latency: 0.7013461589813232
+          latency: 0.48254823684692383
           module_call_list:
           - unittest.case
           - requre.record_and_replace
@@ -29,27 +29,34 @@ requests.sessions:
           __store_indicator: 2
           _content:
             creator:
-              full_url: https://pagure.io/user/msuchy
-              fullname: "Miroslav Such\xFD"
-              name: msuchy
-              url_path: user/msuchy
-            date_created: '1471369212'
-            description: 'Copr Team maintenance group - ping us on #buildsys-build'
-            display_name: copr
-            full_url: https://pagure.io/group/copr
+              default_email: flachman@redhat.com
+              emails:
+              - flachman@redhat.com
+              - lachmanfrantisek@gmail.com
+              full_url: https://pagure.io/user/lachmanfrantisek
+              fullname: "Franti\u0161ek Lachman"
+              name: lachmanfrantisek
+              url_path: user/lachmanfrantisek
+            date_created: '1570798102'
+            description: Packit related projects.
+            display_name: packit-service
+            full_url: https://pagure.io/group/packit-service
             group_type: user
             members:
-            - frostyx
-            - msuchy
-            - praiskup
-            - nikromen
-            name: copr
+            - dhodovsk
+            - ttomecek
+            - lachmanfrantisek
+            - mfocko
+            - jscotka
+            - lbarczio
+            - jpopelka
+            name: packit-service
           _next: null
           elapsed: 0.2
           encoding: utf-8
           headers:
             Connection: Upgrade, Keep-Alive
-            Content-Length: '479'
+            Content-Length: '703'
             Content-Security-Policy: default-src 'self';script-src 'self' 'nonce-YqLDC0BS8d7iY8mKO7VtBbIne'
               https://apps.fedoraproject.org; style-src 'self' 'nonce-YqLDC0BS8d7iY8mKO7VtBbIne';
               object-src 'none';base-uri 'self';img-src 'self' https:;
@@ -59,8 +66,8 @@ requests.sessions:
             Referrer-Policy: same-origin
             Server: Apache/2.4.37 (Red Hat Enterprise Linux) OpenSSL/1.1.1k mod_wsgi/4.6.4
               Python/3.6
-            Set-Cookie: pagure=eyJfcGVybWFuZW50Ijp0cnVlLCJjc3JmX3Rva2VuIjoiMTAxNDhjYzEyZGMwMDQ5ZDg1Mzg3ZmUxOGY1ZTk4MDI3ZDI5NzkxMCJ9.GJEaeQ.IbwdL6OezVdZriXlAbNu735FsSw;
-              Expires=Fri, 23-Feb-2024 09:38:01 GMT; Secure; HttpOnly; Path=/
+            Set-Cookie: pagure=eyJfcGVybWFuZW50Ijp0cnVlLCJjc3JmX3Rva2VuIjoiMTM1ZDNkOWY3NTMwMmU4OWE4ZmZjZmQxOTg5ZmI3MDIyNjk1ZTVhMyJ9.GJQARQ.eStdoc-0BudOfITKLj-odOX5QbQ;
+              Expires=Sun, 25-Feb-2024 14:23:01 GMT; Secure; HttpOnly; Path=/
             Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
             Upgrade: h2,h2c
             X-Content-Type-Options: nosniff

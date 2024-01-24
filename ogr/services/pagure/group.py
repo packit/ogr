@@ -11,7 +11,7 @@ logger = logging.getLogger(__name__)
 class PagureGroup:
     service: "ogr_pagure.PagureService"
 
-    def __init__(self, name: str, raw_group) -> None:
+    def __init__(self, name: str, raw_group: dict) -> None:
         self.name = name
         # see https://pagure.io/api/0/#groups-tab
         self._raw_group = raw_group

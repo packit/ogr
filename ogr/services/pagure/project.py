@@ -3,7 +3,7 @@
 
 import logging
 from collections.abc import Iterable
-from typing import Optional
+from typing import ClassVar, Optional
 from urllib.parse import urlparse
 
 from ogr.abstract import (
@@ -37,6 +37,14 @@ logger = logging.getLogger(__name__)
 
 class PagureProject(BaseGitProject):
     service: "ogr_pagure.PagureService"
+    access_dict: ClassVar[dict] = {
+        AccessLevel.pull: "ticket",
+        AccessLevel.triage: "ticket",
+        AccessLevel.push: "commit",
+        AccessLevel.admin: "commit",
+        AccessLevel.maintain: "admin",
+        None: "",
+    }
 
     def __init__(
         self,
@@ -229,7 +237,19 @@ class PagureProject(BaseGitProject):
         return groups
 
     def can_merge_pr(self, username) -> bool:
-        return username in self.who_can_merge_pr()
+        accounts_that_can_merge_pr = self.who_can_merge_pr()
+
+        groups_that_can_merge_pr = self.which_groups_can_merge_pr()
+        accounts_that_can_merge_pr.update(
+            member
+            for group in groups_that_can_merge_pr
+            for member in self.service.get_group(group).members
+        )
+
+        logger.info(
+            f"All users (considering groups) that can merge PR: {accounts_that_can_merge_pr}",
+        )
+        return username in accounts_that_can_merge_pr
 
     def request_access(self):
         raise OperationNotSupported("Not possible on Pagure")
@@ -405,14 +425,6 @@ class PagureProject(BaseGitProject):
         access_level: Optional[AccessLevel],
         user_type: str,
     ) -> None:
-        access_dict = {
-            AccessLevel.pull: "ticket",
-            AccessLevel.triage: "ticket",
-            AccessLevel.push: "commit",
-            AccessLevel.admin: "commit",
-            AccessLevel.maintain: "admin",
-            None: "",
-        }
         response = self._call_project_api_raw(
             "git",
             "modifyacls",
@@ -420,7 +432,7 @@ class PagureProject(BaseGitProject):
             data={
                 "user_type": user_type,
                 "name": user,
-                "acl": access_dict[access_level],
+                "acl": self.access_dict[access_level],
             },
         )
 
@@ -592,9 +604,75 @@ class PagureProject(BaseGitProject):
         raise OperationNotSupported("Pagure doesn't provide list of contributors")
 
     def users_with_write_access(self) -> set[str]:
-        users_with_access = self.get_project_info()["access_users"]
+        return self._get_users_with_given_access(["commit", "admin", "owner"])
+
+    def get_users_with_given_access(self, access_levels: list[AccessLevel]) -> set[str]:
+        access_levels_pagure = [
+            self.access_dict[access_level] for access_level in access_levels
+        ]
+
+        # for AccessLevel.maintain get the maintainer as well
+        if AccessLevel.maintain in access_levels:
+            access_levels_pagure.append("owner")
+
+        return self._get_users_with_given_access(access_levels_pagure)
+
+    def _get_users_with_given_access(self, access_levels: list[str]) -> set[str]:
+        """
+        Get all users (considering groups) with the access levels given by list.
+
+        Arguments:
+            access_levels: list of access levels, e.g. ['commit', 'admin']
+        """
+        users = self._get_user_accounts_with_access(access_levels)
+
+        # group cannot have owner access
+        group_accounts = self._get_group_accounts_with_access(
+            list(set(access_levels) - {"owner"}),
+        )
+
+        users.update(
+            member
+            for group in group_accounts
+            for member in self.service.get_group(group).members
+        )
+
+        logger.info(
+            f"All users (considering groups) with given access levels: {users}",
+        )
+        return users
+
+    def _get_entity_accounts_with_access(
+        self,
+        access_levels: list[str],
+        entity_type: str,
+    ) -> set[str]:
+        """
+        Get the entity account names (users or groups) with the access levels given by the set.
+
+        Arguments:
+            access_levels: list of access levels, e.g. ['commit', 'admin']
+            entity_type: 'users' or 'groups'
+        """
+        if entity_type not in ("users", "groups"):
+            raise OgrException(
+                f"Unsupported entity type {entity_type}: only 'users' and 'groups' are allowed.",
+            )
+        entity_info = self.get_project_info()["access_" + entity_type]
         result = set()
-        for access_level in ["commit", "admin", "owner"]:
-            result.update(users_with_access[access_level])
+        for access_level in access_levels:
+            result.update(entity_info[access_level])
 
         return result
+
+    def _get_user_accounts_with_access(self, access_levels: list[str]) -> set[str]:
+        """
+        Get the users with the access levels given by the set.
+        """
+        return self._get_entity_accounts_with_access(access_levels, "users")
+
+    def _get_group_accounts_with_access(self, access_levels: list[str]) -> set[str]:
+        """
+        Get the groups with the access levels given by list.
+        """
+        return self._get_entity_accounts_with_access(access_levels, "groups")

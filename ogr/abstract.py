@@ -1534,6 +1534,16 @@ class GitProject(OgrAbstractClass):
         """
         raise NotImplementedError()
 
+    def get_users_with_given_access(self, access_levels: list[AccessLevel]) -> set[str]:
+        """
+        Args:
+            access_levels: list of access levels
+
+        Returns:
+            set of users with given access levels
+        """
+        raise NotImplementedError()
+
     def add_user(self, user: str, access_level: AccessLevel) -> None:
         """
         Add user to project.
