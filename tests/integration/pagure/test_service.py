@@ -83,3 +83,14 @@ class Service(PagureTests):
             self.service.project_create(repo=name, namespace=namespace)
         project = self.service.get_project(repo=name, namespace=namespace)
         assert not project.exists()
+
+    def test_get_group(self):
+        name = "packit-service"
+        group = self.service.get_group(name)
+        assert group is not None
+        assert group.name == name
+
+        members = group.members
+        assert members
+        assert len(members) > 1
+        assert "lbarczio" in members

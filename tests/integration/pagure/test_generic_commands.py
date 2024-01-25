@@ -119,11 +119,22 @@ class GenericCommands(PagureTests):
         assert "lachmanfrantisek" in owners
         assert self.ogr_project.can_merge_pr("lachmanfrantisek")
         project = self.service.get_project(
-            repo=f"playground-{self.service.user.get_username()}",
+            repo="ogr-tests-group",
             namespace=None,
         )
         groups = project.which_groups_can_merge_pr()
-        assert "packit-test-group" in groups
+        assert "packit-service" in groups
+        assert project.can_merge_pr("lachmanfrantisek")
+
+    def test_get_users_with_given_access(self):
+        project = self.service.get_project(
+            repo="ogr-tests-group",
+            namespace=None,
+        )
+        users = project.get_users_with_given_access([AccessLevel.maintain])
+
+        assert "lbarczio" in users
+        assert "mfocko" in users
 
     def test_get_web_url(self):
         url = self.ogr_project.get_web_url()

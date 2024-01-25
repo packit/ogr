@@ -1369,6 +1369,12 @@ class GitService(OgrAbstractClass):
         """
         raise NotImplementedError
 
+    def get_group(self, group_name: str):
+        """
+        Get a group by name.
+        """
+        raise NotImplementedError
+
 
 class GitProject(OgrAbstractClass):
     def __init__(self, repo: str, service: GitService, namespace: str) -> None:
@@ -1525,6 +1531,16 @@ class GitProject(OgrAbstractClass):
 
         Returns:
             `True` if user merge pull request, `False` otherwise.
+        """
+        raise NotImplementedError()
+
+    def get_users_with_given_access(self, access_levels: list[AccessLevel]) -> set[str]:
+        """
+        Args:
+            access_levels: list of access levels
+
+        Returns:
+            set of users with given access levels
         """
         raise NotImplementedError()
 

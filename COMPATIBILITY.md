@@ -51,17 +51,18 @@ In case you find any error, please [create a new issue](https://github.com/packi
 
 ## Project
 
-|                             | GitHub | GitLab |         Pagure          |
-| --------------------------- | :----: | :----: | :---------------------: |
-| `change_token`              |   ✘    |   ✔   |           ✔            |
-| `get_release`               |   ✔   |   ✔   |            ✘            |
-| `get_latest_release`        |   ✔   |   ✔   |            ✘            |
-| `is_private`                |   ✔   |   ✔   | ✘ (may not be accurate) |
-| `remove_user`               |   ✘    |   ✘    |           ✔            |
-| `add_group`                 |   ✘    |   ✘    |           ✔            |
-| `remove_group`              |   ✘    |   ✘    |           ✔            |
-| `which_groups_can_merge_pr` |   ✘    |   ✘    |           ✔            |
-| `get_pr_files_diff`         |   ✘    |   ✘    |           ✔            |
+|                               | GitHub | GitLab |         Pagure          |
+| ----------------------------- | :----: | :----: | :---------------------: |
+| `change_token`                |   ✘    |   ✔   |           ✔            |
+| `get_release`                 |   ✔   |   ✔   |            ✘            |
+| `get_latest_release`          |   ✔   |   ✔   |            ✘            |
+| `is_private`                  |   ✔   |   ✔   | ✘ (may not be accurate) |
+| `remove_user`                 |   ✘    |   ✘    |           ✔            |
+| `add_group`                   |   ✘    |   ✘    |           ✔            |
+| `remove_group`                |   ✘    |   ✘    |           ✔            |
+| `which_groups_can_merge_pr`   |   ✘    |   ✘    |           ✔            |
+| `get_pr_files_diff`           |   ✘    |   ✘    |           ✔            |
+| `get_users_with_given_access` |   ✘    |   ✘    |           ✔            |
 
 ## User
 
@@ -76,3 +77,9 @@ In case you find any error, please [create a new issue](https://github.com/packi
 |          | GitHub | GitLab | Pagure |
 | -------- | :----: | :----: | :----: |
 | `delete` |   ✔   |   ✔   |   ✘    |
+
+## Service
+
+|             | GitHub | GitLab | Pagure |
+| ----------- | :----: | :----: | :----: |
+| `get_group` |   ✘    |   ✘    |   ✔   |
