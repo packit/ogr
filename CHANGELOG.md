@@ -1,3 +1,7 @@
+# 0.49.0
+
+- For Pagure there are 2 new methods available: one for getting users with specified access rights and one for getting members of a group. (#834)
+
 # 0.48.1
 
 - Fix log level and wording when Pagure returns an error while retrieving Pagure PR diffstats.
