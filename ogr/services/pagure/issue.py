@@ -4,7 +4,7 @@
 import datetime
 from typing import Any, Optional, Union, cast
 
-from ogr.abstract import Issue, IssueComment, IssueStatus
+from ogr.abstract import Issue, IssueComment, IssueLabel, IssueStatus
 from ogr.exceptions import (
     IssueTrackerDisabled,
     OperationNotSupported,
@@ -13,6 +13,7 @@ from ogr.exceptions import (
 from ogr.services import pagure as ogr_pagure
 from ogr.services.base import BaseIssue
 from ogr.services.pagure.comments import PagureIssueComment
+from ogr.services.pagure.label import PagureIssueLabel
 
 
 class PagureIssue(BaseIssue):
@@ -84,8 +85,8 @@ class PagureIssue(BaseIssue):
         return datetime.datetime.fromtimestamp(int(self._raw_issue["date_created"]))
 
     @property
-    def labels(self) -> list[str]:
-        return self._raw_issue["tags"]
+    def labels(self) -> list[IssueLabel]:
+        return [PagureIssueLabel(label, self) for label in self._raw_issue["tags"]]
 
     def __str__(self) -> str:
         return "Pagure" + super().__str__()

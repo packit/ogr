@@ -125,8 +125,8 @@ class PullRequests(GitlabTests):
 
         labels = self.project.get_pr(1).labels
         assert len(labels) == 2
-        assert labels[0] == "test_lb1"
-        assert labels[1] == "test_lb2"
+        assert labels[0].name == "test_lb1"
+        assert labels[1].name == "test_lb2"
 
     def test_get_pr_comments_author_regex(self):
         comments = self.project.get_pr(1).get_comments(
