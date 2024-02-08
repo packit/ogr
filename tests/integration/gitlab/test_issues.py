@@ -68,7 +68,7 @@ class Issues(GitlabTests):
         assert issue.title == issue_title
         assert issue.description == issue_desc
         for issue_label, label in zip(issue.labels, labels):
-            assert issue_label == label
+            assert issue_label.name == label
 
         issue2 = self.project.create_issue(title=issue_title, body=issue_desc)
         assert issue2.title == issue_title
@@ -155,8 +155,8 @@ class Issues(GitlabTests):
         issue.add_label("test_lb1", "test_lb2")
         labels = self.project.get_issue(1).labels
         assert len(labels) == 2
-        assert labels[0] == "test_lb1"
-        assert labels[1] == "test_lb2"
+        assert labels[0].name == "test_lb1"
+        assert labels[1].name == "test_lb2"
 
     def test_issue_assignees(self):
         """

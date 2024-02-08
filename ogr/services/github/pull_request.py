@@ -9,16 +9,16 @@ import github
 import requests
 from github import UnknownObjectException
 from github.IssueComment import IssueComment as _GithubIssueComment
-from github.Label import Label as GithubLabel
 from github.PullRequest import PullRequest as _GithubPullRequest
 from github.PullRequestComment import PullRequestComment as _GithubPullRequestComment
 from github.Repository import Repository as _GithubRepository
 
-from ogr.abstract import MergeCommitStatus, PRComment, PRStatus, PullRequest
+from ogr.abstract import MergeCommitStatus, PRComment, PRLabel, PRStatus, PullRequest
 from ogr.exceptions import GithubAPIException, OgrNetworkError
 from ogr.services import github as ogr_github
 from ogr.services.base import BasePullRequest
 from ogr.services.github.comments import GithubPRComment
+from ogr.services.github.label import GithubPRLabel
 
 logger = logging.getLogger(__name__)
 
@@ -77,8 +77,10 @@ class GithubPullRequest(BasePullRequest):
         return self._raw_pr.created_at
 
     @property
-    def labels(self) -> list[GithubLabel]:
-        return list(self._raw_pr.get_labels())
+    def labels(self) -> list[PRLabel]:
+        return [
+            GithubPRLabel(raw_label, self) for raw_label in self._raw_pr.get_labels()
+        ]
 
     @property
     def diff_url(self) -> str:

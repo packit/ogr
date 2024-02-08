@@ -6,11 +6,19 @@ import logging
 from time import sleep
 from typing import Any, Optional, Union
 
-from ogr.abstract import CommitFlag, CommitStatus, PRComment, PRStatus, PullRequest
+from ogr.abstract import (
+    CommitFlag,
+    CommitStatus,
+    PRComment,
+    PRLabel,
+    PRStatus,
+    PullRequest,
+)
 from ogr.exceptions import PagureAPIException
 from ogr.services import pagure as ogr_pagure
 from ogr.services.base import BasePullRequest
 from ogr.services.pagure.comments import PagurePRComment
+from ogr.services.pagure.label import PagurePRLabel
 
 logger = logging.getLogger(__name__)
 
@@ -131,6 +139,10 @@ class PagurePullRequest(BasePullRequest):
     def closed_by(self) -> Optional[str]:
         closed_by = self._raw_pr["closed_by"]
         return closed_by["name"] if closed_by else None
+
+    @property
+    def labels(self) -> list[PRLabel]:
+        return [PagurePRLabel(label, self) for label in self._raw_pr["tags"]]
 
     def __str__(self) -> str:
         return "Pagure" + super().__str__()

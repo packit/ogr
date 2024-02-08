@@ -7,11 +7,12 @@ from typing import Optional, Union
 import gitlab
 from gitlab.v4.objects import Issue as _GitlabIssue
 
-from ogr.abstract import Issue, IssueComment, IssueStatus
+from ogr.abstract import Issue, IssueComment, IssueLabel, IssueStatus
 from ogr.exceptions import GitlabAPIException, IssueTrackerDisabled
 from ogr.services import gitlab as ogr_gitlab
 from ogr.services.base import BaseIssue
 from ogr.services.gitlab.comments import GitlabIssueComment
+from ogr.services.gitlab.label import GitlabIssueLabel
 
 
 class GitlabIssue(BaseIssue):
@@ -71,8 +72,8 @@ class GitlabIssue(BaseIssue):
         return self._raw_issue.created_at
 
     @property
-    def labels(self) -> list:
-        return self._raw_issue.labels
+    def labels(self) -> list[IssueLabel]:
+        return [GitlabIssueLabel(label, self) for label in self._raw_issue.labels]
 
     def __str__(self) -> str:
         return "Gitlab" + super().__str__()

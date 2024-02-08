@@ -84,7 +84,7 @@ class Issues(PagureTests):
         assert issue.description == description
         assert issue.private
         for issue_label, label in zip(issue.labels, labels):
-            assert issue_label == label
+            assert issue_label.name == label
 
     def test_create_issue_with_assignees(self):
         random_str = "something"

@@ -9,11 +9,12 @@ import requests
 from gitlab.exceptions import GitlabGetError
 from gitlab.v4.objects import MergeRequest as _GitlabMergeRequest
 
-from ogr.abstract import MergeCommitStatus, PRComment, PRStatus, PullRequest
+from ogr.abstract import MergeCommitStatus, PRComment, PRLabel, PRStatus, PullRequest
 from ogr.exceptions import GitlabAPIException, OgrNetworkError
 from ogr.services import gitlab as ogr_gitlab
 from ogr.services.base import BasePullRequest
 from ogr.services.gitlab.comments import GitlabPRComment
+from ogr.services.gitlab.label import GitlabPRLabel
 
 
 class GitlabPullRequest(BasePullRequest):
@@ -79,8 +80,8 @@ class GitlabPullRequest(BasePullRequest):
         return self._raw_pr.created_at
 
     @property
-    def labels(self) -> list[str]:
-        return self._raw_pr.labels
+    def labels(self) -> list[PRLabel]:
+        return [GitlabPRLabel(label, self) for label in self._raw_pr.labels]
 
     @property
     def diff_url(self) -> str:

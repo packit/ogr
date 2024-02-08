@@ -8,7 +8,7 @@ import github
 from github import UnknownObjectException
 from github.Issue import Issue as _GithubIssue
 
-from ogr.abstract import Issue, IssueComment, IssueStatus
+from ogr.abstract import Issue, IssueComment, IssueLabel, IssueStatus
 from ogr.exceptions import (
     GithubAPIException,
     IssueTrackerDisabled,
@@ -17,6 +17,7 @@ from ogr.exceptions import (
 from ogr.services import github as ogr_github
 from ogr.services.base import BaseIssue
 from ogr.services.github.comments import GithubIssueComment
+from ogr.services.github.label import GithubIssueLabel
 
 
 class GithubIssue(BaseIssue):
@@ -75,8 +76,11 @@ class GithubIssue(BaseIssue):
         return self._raw_issue.created_at
 
     @property
-    def labels(self) -> list:
-        return list(self._raw_issue.get_labels())
+    def labels(self) -> list[IssueLabel]:
+        return [
+            GithubIssueLabel(raw_label, self)
+            for raw_label in self._raw_issue.get_labels()
+        ]
 
     def __str__(self) -> str:
         return "Github" + super().__str__()
