@@ -1,3 +1,7 @@
+# 0.49.1
+
+- Interface for labels was unified and `labels` property for PullRequest and Issue now return list of PRLabel and IssueLabel respectively. (#839)
+
 # 0.49.0
 
 - For Pagure there are 2 new methods available: one for getting users with specified access rights and one for getting members of a group. (#834)
