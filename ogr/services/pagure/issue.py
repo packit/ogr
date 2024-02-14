@@ -100,9 +100,9 @@ class PagureIssue(BaseIssue):
         try:
             data = {
                 "title": title if title is not None else self.title,
-                "issue_content": description
-                if description is not None
-                else self.description,
+                "issue_content": (
+                    description if description is not None else self.description
+                ),
             }
 
             updated_issue = self.project._call_project_api(
