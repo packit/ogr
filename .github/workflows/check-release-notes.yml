@@ -1,0 +1,15 @@
+name: Check release notes
+
+on:
+  pull_request:
+    types:
+      - opened
+      - edited
+      - synchronize
+
+jobs:
+  check_release_notes:
+    name: Notes are either written, or there are none
+    uses: packit/.github/.github/workflows/check-release-notes.yml@main
+    with:
+      description: ${{ github.event.pull_request.body }}
