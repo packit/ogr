@@ -2,6 +2,7 @@
 # SPDX-License-Identifier: MIT
 
 import logging
+import os
 from typing import Any, Optional, Union
 
 import gitlab
@@ -361,6 +362,8 @@ class GitlabProject(BaseGitProject):
 
     def get_file_content(self, path, ref=None) -> str:
         ref = ref or self.default_branch
+        # GitLab cannot resolve './'
+        path = os.path.normpath(path)
         try:
             file = self.gitlab_repo.files.get(file_path=path, ref=ref)
             return file.decode().decode()
