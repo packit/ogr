@@ -23,6 +23,16 @@ class GenericCommands(GitlabTests):
             "https://github.com/packit-service/ogr\n\ntest1\ntest2\n"
         )
 
+    def test_get_file_content_resolve_dot(self):
+        file = self.project.get_file_content(
+            path="./README.md",
+            ref="b8e18207cfdad954f1b3a96db34d0706b272e6cf",
+        )
+        assert (
+            file == "# ogr-tests\n\nTesting repository for python-ogr package. | "
+            "https://github.com/packit-service/ogr\n\ntest1\ntest2\n"
+        )
+
     def test_request_access(self):
         project = self.service.get_project(
             repo="hello-world",
