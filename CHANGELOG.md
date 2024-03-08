@@ -1,3 +1,7 @@
+# 0.49.2
+
+- `GitLabProject.get_file_content` can now correctly handle file paths starting with `./`. (#844)
+
 # 0.49.1
 
 - Interface for labels was unified and `labels` property for PullRequest and Issue now return list of PRLabel and IssueLabel respectively. (#839)
