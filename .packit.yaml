@@ -48,6 +48,9 @@ jobs:
     targets:
       - fedora-all
       - epel-9
+    tf_extra_params:
+      environments:
+        - pool: "container"
 
   - job: upstream_koji_build
     trigger: pull_request
