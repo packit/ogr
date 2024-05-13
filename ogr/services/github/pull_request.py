@@ -3,14 +3,11 @@
 
 import datetime
 import logging
-from typing import Optional, Union
+from typing import Optional
 
-import github
 import requests
 from github import UnknownObjectException
-from github.IssueComment import IssueComment as _GithubIssueComment
 from github.PullRequest import PullRequest as _GithubPullRequest
-from github.PullRequestComment import PullRequestComment as _GithubPullRequestComment
 from github.Repository import Repository as _GithubRepository
 
 from ogr.abstract import MergeCommitStatus, PRComment, PRLabel, PRStatus, PullRequest
@@ -146,30 +143,7 @@ class GithubPullRequest(BasePullRequest):
         If you want to create a pull request to the forked repo, please pass
         the `fork_username` parameter.
         """
-        github_repo = project.github_repo
-
-        target_project = project
-        if project.is_fork and fork_username is None:
-            logger.warning(f"{project.full_repo_name} is fork, ignoring fork_repo.")
-            source_branch = f"{project.namespace}:{source_branch}"
-            github_repo = project.parent.github_repo
-            target_project = project.parent
-        elif fork_username:
-            source_branch = f"{fork_username}:{source_branch}"
-            if fork_username != project.namespace and project.parent is not None:
-                github_repo = GithubPullRequest.__get_fork(
-                    fork_username,
-                    project.parent.github_repo,
-                )
-
-        created_pr = github_repo.create_pull(
-            title=title,
-            body=body,
-            base=target_branch,
-            head=source_branch,
-        )
-        logger.info(f"PR {created_pr.id} created: {target_branch}<-{source_branch}")
-        return GithubPullRequest(created_pr, target_project)
+        raise Exception("I want an exception here.")
 
     @staticmethod
     def __get_fork(fork_username: str, repo: _GithubRepository) -> _GithubRepository:
@@ -182,11 +156,7 @@ class GithubPullRequest(BasePullRequest):
 
     @staticmethod
     def get(project: "ogr_github.GithubProject", pr_id: int) -> "PullRequest":
-        try:
-            pr = project.github_repo.get_pull(number=pr_id)
-        except github.UnknownObjectException as ex:
-            raise GithubAPIException(f"No pull request with id {pr_id} found") from ex
-        return GithubPullRequest(pr, project)
+        raise Exception("I want an exception here.")
 
     @staticmethod
     def get_list(
@@ -238,13 +208,7 @@ class GithubPullRequest(BasePullRequest):
         filename: Optional[str] = None,
         row: Optional[int] = None,
     ) -> "PRComment":
-        comment: Union[_GithubIssueComment, _GithubPullRequestComment] = None
-        if not any([commit, filename, row]):
-            comment = self._raw_pr.create_issue_comment(body)
-        else:
-            github_commit = self._target_project.github_repo.get_commit(commit)
-            comment = self._raw_pr.create_comment(body, github_commit, filename, row)
-        return GithubPRComment(parent=self, raw_comment=comment)
+        raise Exception("I want an exception here.")
 
     def close(self) -> "PullRequest":
         self._raw_pr.edit(state=PRStatus.closed.name)
