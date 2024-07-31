@@ -95,14 +95,9 @@ jobs:
     trigger: commit
     packit_instances: ["stg"]
     allowed_pr_authors: ["packit-stg", "packit"]
+    sidetag_group: packit-specfile-ogr-releases
+    dependents:
+      - packit
     dist_git_branches:
       - fedora-all
-      - epel-9
-  - job: bodhi_update
-    trigger: commit
-    packit_instances: ["stg"]
-    allowed_builders: ["packit-stg", "packit"]
-    dist_git_branches:
-      - fedora-latest # branched version, rawhide updates are created automatically
-      - fedora-stable
       - epel-9

@@ -11,4 +11,4 @@ prepare:
 
   # Make sure the Copr repo has higher priority than TF Tag Repository
   - how: shell
-    script: dnf -y config-manager --save --setopt="*:packit:packit-dev.priority=5"
+    script: sed -i -n '/^priority=/!p;$apriority=5' /etc/yum.repos.d/*:packit:packit-dev.repo
