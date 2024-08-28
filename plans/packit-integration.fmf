@@ -25,7 +25,7 @@ adjust:
       - how: install
         package: python3-pip
       - how: shell
-        script: pip3 install build deepdiff
+        script: pip3 install build 'deepdiff < 8.0.0' # version 8.0.0 depends on numpy, avoid it
 
   - when: "distro == rhel-8 or distro == centos-8 or distro == centos-stream-8"
     because: "packit doesn't support EL 8"
