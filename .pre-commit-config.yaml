@@ -4,7 +4,7 @@
 
 repos:
   - repo: https://github.com/psf/black
-    rev: 24.2.0
+    rev: 24.8.0
     hooks:
       - id: black
   - repo: https://github.com/pre-commit/mirrors-prettier
@@ -12,7 +12,7 @@ repos:
     hooks:
       - id: prettier
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.5.0
+    rev: v4.6.0
     hooks:
       - id: check-added-large-files
       - id: check-ast
@@ -26,14 +26,14 @@ repos:
       - id: mixed-line-ending
       - id: trailing-whitespace
   - repo: https://github.com/pre-commit/mirrors-mypy
-    rev: v1.8.0
+    rev: v1.11.2
     hooks:
       - id: mypy
         args: [--no-strict-optional, --ignore-missing-imports]
         additional_dependencies:
           [types-pkg_resources, types-requests, types-Deprecated]
   - repo: https://github.com/teemtee/tmt.git
-    rev: 1.31.0
+    rev: 1.35.0
     hooks:
       - id: tmt-lint
         # Do not run in pre-commit.ci as it requires an internet access
@@ -56,12 +56,12 @@ repos:
         stages: [manual, push]
   - repo: https://github.com/astral-sh/ruff-pre-commit
     # Ruff version.
-    rev: v0.2.2
+    rev: v0.6.3
     hooks:
       - id: ruff
         args: [--fix, --exit-non-zero-on-fix]
   - repo: https://github.com/python-jsonschema/check-jsonschema
-    rev: 0.28.0
+    rev: 0.29.2
     hooks:
       - id: check-github-workflows
         args: ["--verbose"]
