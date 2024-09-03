@@ -210,13 +210,7 @@ class GithubProject(BaseGitProject):
         return [self.github_repo.owner.login]
 
     def __get_collaborators(self) -> set[str]:
-        try:
-            collaborators = self._get_collaborators_with_permission()
-        except github.GithubException:
-            logger.debug(
-                "Current Github token must have push access to view repository permissions.",
-            )
-            return set()
+        collaborators = self._get_collaborators_with_permission()
 
         usernames = []
         for login, permission in collaborators.items():
