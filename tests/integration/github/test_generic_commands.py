@@ -146,7 +146,7 @@ class GenericCommands(GithubTests):
 
     def test_get_owners(self):
         owners = self.ogr_project.get_owners()
-        assert ["packit"] == owners
+        assert owners == ["packit"]
 
     def test_issue_permissions(self):
         users = self.ogr_project.who_can_close_issue()
