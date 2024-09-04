@@ -9,7 +9,7 @@ from ogr.abstract import PRComment
 from ogr.utils import filter_comments, search_in_comments
 
 
-@pytest.fixture()
+@pytest.fixture
 def comments():
     return [
         PRComment(
