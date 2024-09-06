@@ -63,6 +63,11 @@ class GenericCommands(GitlabTests):
         assert branches
         assert len(branches) > 20
 
+    def test_commits(self):
+        commits = self.project.get_commits()
+        assert commits
+        assert commits[-1] == "24c86d0704694f686329b2ea636c5b7522cfdc40"
+
     def test_get_file(self):
         file_content = self.project.get_file_content("README.md")
         assert file_content

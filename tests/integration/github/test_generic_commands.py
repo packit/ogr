@@ -50,6 +50,11 @@ class GenericCommands(GithubTests):
         assert branches
         assert {"master"}.issubset(set(branches))
 
+    def test_commits(self):
+        commits = self.ogr_project.get_commits()
+        assert commits
+        assert commits[-1] == "7d4b107e0aa5a3fa55886ceb8acfb0b718919b37"
+
     def test_git_urls(self):
         urls = self.ogr_project.get_git_urls()
         assert urls

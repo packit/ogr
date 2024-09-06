@@ -1,0 +1,675 @@
+_requre:
+  DataTypes: 1
+  key_strategy: StorageKeysInspectSimple
+  version_storage_file: 3
+requests.sessions:
+  send:
+    GET:
+      https://gitlab.com/api/v4/projects/14233409/repository/commits?ref_name=master:
+      - metadata:
+          latency: 0.5996875762939453
+          module_call_list:
+          - unittest.case
+          - requre.record_and_replace
+          - tests.integration.gitlab.test_generic_commands
+          - ogr.abstract
+          - ogr.services.gitlab.project
+          - gitlab.exceptions
+          - gitlab.mixins
+          - gitlab.client
+          - gitlab._backends.requests_backend
+          - requests.sessions
+          - requre.objects
+          - requre.cassette
+          - requests.sessions
+          - send
+        output:
+          __store_indicator: 2
+          _content:
+          - author_email: csomortani.hunor@gmail.com
+            author_name: csomh
+            authored_date: '2021-04-27T07:18:37.000+00:00'
+            committed_date: '2021-04-27T07:18:37.000+00:00'
+            committer_email: csomortani.hunor@gmail.com
+            committer_name: csomh
+            created_at: '2021-04-27T07:18:37.000+00:00'
+            extended_trailers: {}
+            id: dd9b6c54c0788301c86bdf058a8e91e3594a0a17
+            message: 'Merge branch ''test-mr-merge'' into ''master''
+
+
+              Comit to test merging MRs
+
+
+              See merge request packit-service/ogr-tests!71'
+            parent_ids:
+            - b8e18207cfdad954f1b3a96db34d0706b272e6cf
+            - 5dd0a9a1f5b9d3bf820e8849c4be7aafcbe9a8c7
+            short_id: dd9b6c54
+            title: Merge branch 'test-mr-merge' into 'master'
+            trailers: {}
+            web_url: https://gitlab.com/packit-service/ogr-tests/-/commit/dd9b6c54c0788301c86bdf058a8e91e3594a0a17
+          - author_email: csomh@redhat.com
+            author_name: "Hunor Csomort\xE1ni"
+            authored_date: '2021-04-27T09:13:06.000+02:00'
+            committed_date: '2021-04-27T09:13:06.000+02:00'
+            committer_email: csomh@redhat.com
+            committer_name: "Hunor Csomort\xE1ni"
+            created_at: '2021-04-27T09:13:06.000+02:00'
+            extended_trailers: {}
+            id: 5dd0a9a1f5b9d3bf820e8849c4be7aafcbe9a8c7
+            message: "Comit to test merging MRs\n\nSigned-off-by: Hunor Csomort\xE1\
+              ni <csomh@redhat.com>\n"
+            parent_ids:
+            - b8e18207cfdad954f1b3a96db34d0706b272e6cf
+            short_id: 5dd0a9a1
+            title: Comit to test merging MRs
+            trailers: {}
+            web_url: https://gitlab.com/packit-service/ogr-tests/-/commit/5dd0a9a1f5b9d3bf820e8849c4be7aafcbe9a8c7
+          - author_email: matej.focko@outlook.com
+            author_name: Matej Focko
+            authored_date: '2019-11-26T19:40:48.000+00:00'
+            committed_date: '2019-11-26T19:40:48.000+00:00'
+            committer_email: matej.focko@outlook.com
+            committer_name: Matej Focko
+            created_at: '2019-11-26T19:40:48.000+00:00'
+            extended_trailers: {}
+            id: b8e18207cfdad954f1b3a96db34d0706b272e6cf
+            message: 'Merge branch ''test_branch'' into ''master''
+
+
+              Got to merge something
+
+
+              See merge request packit-service/ogr-tests!19'
+            parent_ids:
+            - 3d278426b64647aa92fb63c8d7ccdb4d8c4919ff
+            - 59b1a9bab5b5198c619270646410867788685c16
+            short_id: b8e18207
+            title: Merge branch 'test_branch' into 'master'
+            trailers: {}
+            web_url: https://gitlab.com/packit-service/ogr-tests/-/commit/b8e18207cfdad954f1b3a96db34d0706b272e6cf
+          - author_email: matej.focko@outlook.com
+            author_name: Matej Focko
+            authored_date: '2019-11-26T20:38:39.000+01:00'
+            committed_date: '2019-11-26T20:38:39.000+01:00'
+            committer_email: matej.focko@outlook.com
+            committer_name: Matej Focko
+            created_at: '2019-11-26T20:38:39.000+01:00'
+            extended_trailers: {}
+            id: 59b1a9bab5b5198c619270646410867788685c16
+            message: 'Got to merge something
+
+              '
+            parent_ids:
+            - 3d278426b64647aa92fb63c8d7ccdb4d8c4919ff
+            short_id: 59b1a9ba
+            title: Got to merge something
+            trailers: {}
+            web_url: https://gitlab.com/packit-service/ogr-tests/-/commit/59b1a9bab5b5198c619270646410867788685c16
+          - author_email: scottyh@post.cz
+            author_name: jscotka
+            authored_date: '2019-09-27T08:42:55.000+00:00'
+            committed_date: '2019-09-27T08:42:55.000+00:00'
+            committer_email: scottyh@post.cz
+            committer_name: jscotka
+            created_at: '2019-09-27T08:42:55.000+00:00'
+            extended_trailers: {}
+            id: 3d278426b64647aa92fb63c8d7ccdb4d8c4919ff
+            message: 'Merge branch ''pr-test3'' into ''master''
+
+
+              Update README.md
+
+
+              See merge request packit-service/ogr-tests!17'
+            parent_ids:
+            - f6de56d97ec3ec74cd5194e79175162d9f969195
+            - 6970eae72f9ecee667183f52880ca76126bd8b38
+            short_id: 3d278426
+            title: Merge branch 'pr-test3' into 'master'
+            trailers: {}
+            web_url: https://gitlab.com/packit-service/ogr-tests/-/commit/3d278426b64647aa92fb63c8d7ccdb4d8c4919ff
+          - author_email: scottyh@post.cz
+            author_name: jscotka
+            authored_date: '2019-09-27T08:41:42.000+00:00'
+            committed_date: '2019-09-27T08:41:42.000+00:00'
+            committer_email: scottyh@post.cz
+            committer_name: jscotka
+            created_at: '2019-09-27T08:41:42.000+00:00'
+            extended_trailers: {}
+            id: 6970eae72f9ecee667183f52880ca76126bd8b38
+            message: Update README.md
+            parent_ids:
+            - f6de56d97ec3ec74cd5194e79175162d9f969195
+            short_id: 6970eae7
+            title: Update README.md
+            trailers: {}
+            web_url: https://gitlab.com/packit-service/ogr-tests/-/commit/6970eae72f9ecee667183f52880ca76126bd8b38
+          - author_email: scottyh@post.cz
+            author_name: jscotka
+            authored_date: '2019-09-26T14:20:34.000+00:00'
+            committed_date: '2019-09-26T14:20:34.000+00:00'
+            committer_email: scottyh@post.cz
+            committer_name: jscotka
+            created_at: '2019-09-26T14:20:34.000+00:00'
+            extended_trailers: {}
+            id: f6de56d97ec3ec74cd5194e79175162d9f969195
+            message: 'Merge branch ''pr-test2'' into ''master''
+
+
+              Update README.md
+
+
+              See merge request packit-service/ogr-tests!12'
+            parent_ids:
+            - ff3df8288306e95ad76f803d6b9e398efe0b754d
+            - 2543f1728c7e1c2b8772d0dc11dc8b1870f4db60
+            short_id: f6de56d9
+            title: Merge branch 'pr-test2' into 'master'
+            trailers: {}
+            web_url: https://gitlab.com/packit-service/ogr-tests/-/commit/f6de56d97ec3ec74cd5194e79175162d9f969195
+          - author_email: scottyh@post.cz
+            author_name: jscotka
+            authored_date: '2019-09-26T14:08:02.000+00:00'
+            committed_date: '2019-09-26T14:08:02.000+00:00'
+            committer_email: scottyh@post.cz
+            committer_name: jscotka
+            created_at: '2019-09-26T14:08:02.000+00:00'
+            extended_trailers: {}
+            id: 2543f1728c7e1c2b8772d0dc11dc8b1870f4db60
+            message: Update README.md
+            parent_ids:
+            - ff3df8288306e95ad76f803d6b9e398efe0b754d
+            short_id: 2543f172
+            title: Update README.md
+            trailers: {}
+            web_url: https://gitlab.com/packit-service/ogr-tests/-/commit/2543f1728c7e1c2b8772d0dc11dc8b1870f4db60
+          - author_email: scottyh@post.cz
+            author_name: jscotka
+            authored_date: '2019-09-26T10:55:31.000+00:00'
+            committed_date: '2019-09-26T10:55:31.000+00:00'
+            committer_email: scottyh@post.cz
+            committer_name: jscotka
+            created_at: '2019-09-26T10:55:31.000+00:00'
+            extended_trailers: {}
+            id: ff3df8288306e95ad76f803d6b9e398efe0b754d
+            message: 'Merge branch ''pr-test1'' into ''master''
+
+
+              Update README.md
+
+
+              See merge request packit-service/ogr-tests!7'
+            parent_ids:
+            - 1050fc5e57a5d145ebaadb0e1748fbc1d94e7b4c
+            - 257ce9fd8c5421d2e116337847710ba70d215aa6
+            short_id: ff3df828
+            title: Merge branch 'pr-test1' into 'master'
+            trailers: {}
+            web_url: https://gitlab.com/packit-service/ogr-tests/-/commit/ff3df8288306e95ad76f803d6b9e398efe0b754d
+          - author_email: scottyh@post.cz
+            author_name: jscotka
+            authored_date: '2019-09-26T10:42:29.000+00:00'
+            committed_date: '2019-09-26T10:42:29.000+00:00'
+            committer_email: scottyh@post.cz
+            committer_name: jscotka
+            created_at: '2019-09-26T10:42:29.000+00:00'
+            extended_trailers: {}
+            id: 257ce9fd8c5421d2e116337847710ba70d215aa6
+            message: Update README.md
+            parent_ids:
+            - 1050fc5e57a5d145ebaadb0e1748fbc1d94e7b4c
+            short_id: 257ce9fd
+            title: Update README.md
+            trailers: {}
+            web_url: https://gitlab.com/packit-service/ogr-tests/-/commit/257ce9fd8c5421d2e116337847710ba70d215aa6
+          - author_email: laura.barcziova@gmail.com
+            author_name: "Laura Barcziov\xE1"
+            authored_date: '2019-09-11T13:06:44.000+00:00'
+            committed_date: '2019-09-11T13:06:44.000+00:00'
+            committer_email: laura.barcziova@gmail.com
+            committer_name: "Laura Barcziov\xE1"
+            created_at: '2019-09-11T13:06:44.000+00:00'
+            extended_trailers: {}
+            id: 1050fc5e57a5d145ebaadb0e1748fbc1d94e7b4c
+            message: 'Merge branch ''pr-3'' into ''master''
+
+
+              change
+
+
+              See merge request packit-service/ogr-tests!3'
+            parent_ids:
+            - 13b8ff7a38426989ce7093bb97d889a8ffb9b0a2
+            - db843cde94391923c6acb4cce938d830477a9732
+            short_id: 1050fc5e
+            title: Merge branch 'pr-3' into 'master'
+            trailers: {}
+            web_url: https://gitlab.com/packit-service/ogr-tests/-/commit/1050fc5e57a5d145ebaadb0e1748fbc1d94e7b4c
+          - author_email: lbarczio@redhat.com
+            author_name: Laura Barcziova
+            authored_date: '2019-09-11T14:50:41.000+02:00'
+            committed_date: '2019-09-11T14:50:41.000+02:00'
+            committer_email: lbarczio@redhat.com
+            committer_name: Laura Barcziova
+            created_at: '2019-09-11T14:50:41.000+02:00'
+            extended_trailers: {}
+            id: db843cde94391923c6acb4cce938d830477a9732
+            message: 'change
+
+              '
+            parent_ids:
+            - 11b37d913374b14f8519d16c2a2cca3ebc14ac64
+            short_id: db843cde
+            title: change
+            trailers: {}
+            web_url: https://gitlab.com/packit-service/ogr-tests/-/commit/db843cde94391923c6acb4cce938d830477a9732
+          - author_email: laura.barcziova@gmail.com
+            author_name: "Laura Barcziov\xE1"
+            authored_date: '2019-09-11T12:04:08.000+00:00'
+            committed_date: '2019-09-11T12:04:08.000+00:00'
+            committer_email: laura.barcziova@gmail.com
+            committer_name: "Laura Barcziov\xE1"
+            created_at: '2019-09-11T12:04:08.000+00:00'
+            extended_trailers: {}
+            id: 13b8ff7a38426989ce7093bb97d889a8ffb9b0a2
+            message: 'Merge branch ''pr-2'' into ''master''
+
+
+              new
+
+
+              See merge request packit-service/ogr-tests!2'
+            parent_ids:
+            - 101a42bbbe174d04b465d49caf274dc3b4defeca
+            - 11b37d913374b14f8519d16c2a2cca3ebc14ac64
+            short_id: 13b8ff7a
+            title: Merge branch 'pr-2' into 'master'
+            trailers: {}
+            web_url: https://gitlab.com/packit-service/ogr-tests/-/commit/13b8ff7a38426989ce7093bb97d889a8ffb9b0a2
+          - author_email: lbarczio@redhat.com
+            author_name: Laura Barcziova
+            authored_date: '2019-09-11T11:13:22.000+02:00'
+            committed_date: '2019-09-11T11:13:22.000+02:00'
+            committer_email: lbarczio@redhat.com
+            committer_name: Laura Barcziova
+            created_at: '2019-09-11T11:13:22.000+02:00'
+            extended_trailers: {}
+            id: 11b37d913374b14f8519d16c2a2cca3ebc14ac64
+            message: 'new
+
+              '
+            parent_ids:
+            - 101a42bbbe174d04b465d49caf274dc3b4defeca
+            short_id: 11b37d91
+            title: new
+            trailers: {}
+            web_url: https://gitlab.com/packit-service/ogr-tests/-/commit/11b37d913374b14f8519d16c2a2cca3ebc14ac64
+          - author_email: laura.barcziova@gmail.com
+            author_name: "Laura Barcziov\xE1"
+            authored_date: '2019-09-11T08:55:31.000+00:00'
+            committed_date: '2019-09-11T08:55:31.000+00:00'
+            committer_email: laura.barcziova@gmail.com
+            committer_name: "Laura Barcziov\xE1"
+            created_at: '2019-09-11T08:55:31.000+00:00'
+            extended_trailers: {}
+            id: 101a42bbbe174d04b465d49caf274dc3b4defeca
+            message: 'Merge branch ''change'' into ''master''
+
+
+              change
+
+
+              See merge request packit-service/ogr-tests!1'
+            parent_ids:
+            - 24c86d0704694f686329b2ea636c5b7522cfdc40
+            - d490ec67dd98f69dfdc1732b98bb3189f0e0aace
+            short_id: 101a42bb
+            title: Merge branch 'change' into 'master'
+            trailers: {}
+            web_url: https://gitlab.com/packit-service/ogr-tests/-/commit/101a42bbbe174d04b465d49caf274dc3b4defeca
+          - author_email: lbarczio@redhat.com
+            author_name: Laura Barcziova
+            authored_date: '2019-09-10T16:05:10.000+02:00'
+            committed_date: '2019-09-10T16:05:10.000+02:00'
+            committer_email: lbarczio@redhat.com
+            committer_name: Laura Barcziova
+            created_at: '2019-09-10T16:05:10.000+02:00'
+            extended_trailers: {}
+            id: d490ec67dd98f69dfdc1732b98bb3189f0e0aace
+            message: 'another change
+
+              '
+            parent_ids:
+            - 3c1fb11dd358254cc3f1588f173e54e98c1d4c09
+            short_id: d490ec67
+            title: another change
+            trailers: {}
+            web_url: https://gitlab.com/packit-service/ogr-tests/-/commit/d490ec67dd98f69dfdc1732b98bb3189f0e0aace
+          - author_email: lbarczio@redhat.com
+            author_name: Laura Barcziova
+            authored_date: '2019-09-10T15:54:50.000+02:00'
+            committed_date: '2019-09-10T15:54:50.000+02:00'
+            committer_email: lbarczio@redhat.com
+            committer_name: Laura Barcziova
+            created_at: '2019-09-10T15:54:50.000+02:00'
+            extended_trailers: {}
+            id: 3c1fb11dd358254cc3f1588f173e54e98c1d4c09
+            message: 'change
+
+              '
+            parent_ids:
+            - 24c86d0704694f686329b2ea636c5b7522cfdc40
+            short_id: 3c1fb11d
+            title: change
+            trailers: {}
+            web_url: https://gitlab.com/packit-service/ogr-tests/-/commit/3c1fb11dd358254cc3f1588f173e54e98c1d4c09
+          - author_email: lachmanfrantisek@gmail.com
+            author_name: "Franti\u0161ek Lachman"
+            authored_date: '2019-09-10T10:28:10.000+00:00'
+            committed_date: '2019-09-10T10:28:10.000+00:00'
+            committer_email: lachmanfrantisek@gmail.com
+            committer_name: "Franti\u0161ek Lachman"
+            created_at: '2019-09-10T10:28:10.000+00:00'
+            extended_trailers: {}
+            id: 24c86d0704694f686329b2ea636c5b7522cfdc40
+            message: Initial commit
+            parent_ids: []
+            short_id: 24c86d07
+            title: Initial commit
+            trailers: {}
+            web_url: https://gitlab.com/packit-service/ogr-tests/-/commit/24c86d0704694f686329b2ea636c5b7522cfdc40
+          _next: null
+          elapsed: 0.599117
+          encoding: utf-8
+          headers:
+            CF-Cache-Status: MISS
+            CF-RAY: 8beee4996b9cb347-PRG
+            Connection: keep-alive
+            Content-Encoding: gzip
+            Content-Type: application/json
+            Date: Fri, 06 Sep 2024 13:44:18 GMT
+            NEL: '{"success_fraction":0.01,"report_to":"cf-nel","max_age":604800}'
+            Report-To: '{"endpoints":[{"url":"https:\/\/a.nel.cloudflare.com\/report\/v4?s=p1SaxS9HrKB%2FmOWFQDUbnQZTFovUCmHEEu1TgsKyjiq%2FugEtTHynwja57f2o%2BlS7xIZ6dRPV%2F65k%2FIWcadlOB2aTzBFm0OtgJuXuYPMKRg55ysjZB22BxjjvxAcWRk%2Bzvh%2FKRrrsnAU%3D"}],"group":"cf-nel","max_age":604800}'
+            Server: cloudflare
+            Transfer-Encoding: chunked
+            cache-control: max-age=0, private, must-revalidate
+            content-security-policy: default-src 'none'
+            etag: W/"414b865f7658a0ee9ec2623ca4da5cec"
+            gitlab-lb: haproxy-main-25-lb-gprd
+            gitlab-sv: api-gke-us-east1-c
+            link: <https://gitlab.com/api/v4/projects/14233409/repository/commits?id=14233409&order=default&page=1&per_page=20&ref_name=master&trailers=false>;
+              rel="first"
+            referrer-policy: strict-origin-when-cross-origin
+            strict-transport-security: max-age=31536000
+            vary: Origin, Accept-Encoding
+            x-content-type-options: nosniff
+            x-frame-options: SAMEORIGIN
+            x-gitlab-meta: '{"correlation_id":"81a7c4ed5c2294111df530de1c865c32","version":"1"}'
+            x-next-page: ''
+            x-page: '1'
+            x-per-page: '20'
+            x-prev-page: ''
+            x-request-id: 81a7c4ed5c2294111df530de1c865c32
+            x-runtime: '0.090456'
+          raw: !!binary ""
+          reason: OK
+          status_code: 200
+      https://gitlab.com/api/v4/projects/packit-service%2Fogr-tests:
+      - metadata:
+          latency: 0.27229738235473633
+          module_call_list:
+          - unittest.case
+          - requre.record_and_replace
+          - tests.integration.gitlab.test_generic_commands
+          - ogr.abstract
+          - ogr.services.gitlab.project
+          - gitlab.v4.objects.projects
+          - gitlab.exceptions
+          - gitlab.mixins
+          - gitlab.client
+          - gitlab._backends.requests_backend
+          - requests.sessions
+          - requre.objects
+          - requre.cassette
+          - requests.sessions
+          - send
+        output:
+          __store_indicator: 2
+          _content:
+            _links:
+              cluster_agents: https://gitlab.com/api/v4/projects/14233409/cluster_agents
+              events: https://gitlab.com/api/v4/projects/14233409/events
+              issues: https://gitlab.com/api/v4/projects/14233409/issues
+              labels: https://gitlab.com/api/v4/projects/14233409/labels
+              members: https://gitlab.com/api/v4/projects/14233409/members
+              merge_requests: https://gitlab.com/api/v4/projects/14233409/merge_requests
+              repo_branches: https://gitlab.com/api/v4/projects/14233409/repository/branches
+              self: https://gitlab.com/api/v4/projects/14233409
+            allow_merge_on_skipped_pipeline: null
+            analytics_access_level: enabled
+            archived: false
+            autoclose_referenced_issues: true
+            avatar_url: null
+            builds_access_level: enabled
+            can_create_merge_request_in: true
+            ci_config_path: null
+            compliance_frameworks: []
+            container_registry_access_level: enabled
+            container_registry_enabled: true
+            container_registry_image_prefix: registry.gitlab.com/packit-service/ogr-tests
+            created_at: '2019-09-10T10:28:09.946Z'
+            creator_id: 433670
+            default_branch: master
+            description: Testing repository for python-ogr package.  |  https://github.com/packit-service/ogr
+            description_html: <p data-sourcepos="1:1-1:84" dir="auto">Testing repository
+              for python-ogr package.  |  <a href="https://github.com/packit-service/ogr"
+              rel="nofollow noreferrer noopener" target="_blank">https://github.com/packit-service/ogr</a></p>
+            emails_disabled: false
+            emails_enabled: true
+            empty_repo: false
+            enforce_auth_checks_on_uploads: true
+            environments_access_level: enabled
+            external_authorization_classification_label: ''
+            feature_flags_access_level: enabled
+            forking_access_level: enabled
+            forks_count: 5
+            http_url_to_repo: https://gitlab.com/packit-service/ogr-tests.git
+            id: 14233409
+            import_status: none
+            infrastructure_access_level: enabled
+            issue_branch_template: null
+            issues_access_level: enabled
+            issues_enabled: true
+            jobs_enabled: true
+            last_activity_at: '2023-12-02T18:37:49.862Z'
+            lfs_enabled: true
+            merge_commit_template: null
+            merge_method: merge
+            merge_requests_access_level: enabled
+            merge_requests_enabled: true
+            model_experiments_access_level: enabled
+            model_registry_access_level: enabled
+            monitor_access_level: enabled
+            name: ogr-tests
+            name_with_namespace: packit-service / ogr-tests
+            namespace:
+              avatar_url: /uploads/-/system/group/avatar/6032704/logo-square-small-borders.png
+              full_path: packit-service
+              id: 6032704
+              kind: group
+              name: packit-service
+              parent_id: null
+              path: packit-service
+              web_url: https://gitlab.com/groups/packit-service
+            only_allow_merge_if_all_discussions_are_resolved: false
+            only_allow_merge_if_pipeline_succeeds: false
+            open_issues_count: 77
+            packages_enabled: true
+            pages_access_level: enabled
+            path: ogr-tests
+            path_with_namespace: packit-service/ogr-tests
+            permissions:
+              group_access: null
+              project_access: null
+            printing_merge_request_link_enabled: true
+            public_jobs: true
+            readme_url: https://gitlab.com/packit-service/ogr-tests/-/blob/master/README.md
+            releases_access_level: enabled
+            remove_source_branch_after_merge: null
+            repository_access_level: enabled
+            repository_object_format: sha1
+            request_access_enabled: false
+            requirements_access_level: enabled
+            requirements_enabled: false
+            resolve_outdated_diff_discussions: false
+            security_and_compliance_access_level: private
+            security_and_compliance_enabled: false
+            service_desk_enabled: true
+            shared_runners_enabled: true
+            shared_with_groups: []
+            snippets_access_level: enabled
+            snippets_enabled: true
+            squash_commit_template: null
+            squash_option: default_off
+            ssh_url_to_repo: git@gitlab.com:packit-service/ogr-tests.git
+            star_count: 0
+            suggestion_commit_message: null
+            tag_list: []
+            topics: []
+            updated_at: '2024-01-09T09:25:04.219Z'
+            visibility: public
+            warn_about_potentially_unwanted_characters: true
+            web_url: https://gitlab.com/packit-service/ogr-tests
+            wiki_access_level: enabled
+            wiki_enabled: true
+          _next: null
+          elapsed: 0.271669
+          encoding: utf-8
+          headers:
+            CF-Cache-Status: MISS
+            CF-RAY: 8beee497986bb347-PRG
+            Connection: keep-alive
+            Content-Encoding: gzip
+            Content-Type: application/json
+            Date: Fri, 06 Sep 2024 13:44:18 GMT
+            NEL: '{"success_fraction":0.01,"report_to":"cf-nel","max_age":604800}'
+            Report-To: '{"endpoints":[{"url":"https:\/\/a.nel.cloudflare.com\/report\/v4?s=11AWf8Vny90QPukoJTLbHdfp8NbsLrHZHIgyeTRoTY65TJZjwKhNjzCcWbQFFylv7wPF253zB2lBBJHtYYa3q0sGonq90UO%2BIfhG0XuBUVDisOSPw1oLHvpFjsGrHfu8ssnCjzULwxg%3D"}],"group":"cf-nel","max_age":604800}'
+            Server: cloudflare
+            Transfer-Encoding: chunked
+            cache-control: max-age=0, private, must-revalidate
+            content-security-policy: default-src 'none'
+            etag: W/"2a851bfd42dd79f4cd718cdbb2e43a4a"
+            gitlab-lb: haproxy-main-52-lb-gprd
+            gitlab-sv: api-gke-us-east1-c
+            referrer-policy: strict-origin-when-cross-origin
+            strict-transport-security: max-age=31536000
+            vary: Origin, Accept-Encoding
+            x-content-type-options: nosniff
+            x-frame-options: SAMEORIGIN
+            x-gitlab-meta: '{"correlation_id":"c3b3b9ddd966341a9d16c72cddd36844","version":"1"}'
+            x-request-id: c3b3b9ddd966341a9d16c72cddd36844
+            x-runtime: '0.115250'
+          raw: !!binary ""
+          reason: OK
+          status_code: 200
+      https://gitlab.com/api/v4/user:
+      - metadata:
+          latency: 0.5296363830566406
+          module_call_list:
+          - unittest.case
+          - requre.record_and_replace
+          - tests.integration.gitlab.test_generic_commands
+          - ogr.abstract
+          - ogr.services.gitlab.project
+          - ogr.services.gitlab.service
+          - gitlab.client
+          - gitlab.v4.objects.users
+          - gitlab.exceptions
+          - gitlab.mixins
+          - gitlab.client
+          - gitlab._backends.requests_backend
+          - requests.sessions
+          - requre.objects
+          - requre.cassette
+          - requests.sessions
+          - send
+        output:
+          __store_indicator: 2
+          _content:
+            avatar_url: https://secure.gravatar.com/avatar/c0a1b276101723475a0d713e0f2a26a75b86db21d698fd3be9aa83b0eab37e45?s=80&d=identicon
+            bio: ''
+            bot: false
+            can_create_group: true
+            can_create_project: true
+            color_scheme_id: 1
+            commit_email: nforro@redhat.com
+            confirmed_at: '2016-05-05T11:50:33.757Z'
+            created_at: '2016-05-05T11:48:48.873Z'
+            current_sign_in_at: '2024-09-06T12:09:49.796Z'
+            discord: ''
+            email: nforro@redhat.com
+            external: false
+            extra_shared_runners_minutes_limit: null
+            id: 523403
+            identities:
+            - extern_uid: 7a13d8d8-0d75-11e7-9fb1-28d244ea5a6d
+              provider: group_saml
+              saml_provider_id: 1769
+            job_title: ''
+            last_activity_on: '2024-09-06'
+            last_sign_in_at: '2024-06-19T10:02:04.559Z'
+            linkedin: ''
+            local_time: 1:44 PM
+            location: ''
+            locked: false
+            name: "Nikola Forr\xF3"
+            organization: ''
+            private_profile: false
+            projects_limit: 100000
+            pronouns: null
+            public_email: ''
+            scim_identities: []
+            shared_runners_minutes_limit: 2000
+            skype: ''
+            state: active
+            theme_id: null
+            twitter: ''
+            two_factor_enabled: false
+            username: nforro
+            web_url: https://gitlab.com/nforro
+            website_url: ''
+            work_information: null
+          _next: null
+          elapsed: 0.528931
+          encoding: utf-8
+          headers:
+            CF-Cache-Status: MISS
+            CF-RAY: 8beee494caf8b347-PRG
+            Connection: keep-alive
+            Content-Encoding: gzip
+            Content-Type: application/json
+            Date: Fri, 06 Sep 2024 13:44:17 GMT
+            NEL: '{"success_fraction":0.01,"report_to":"cf-nel","max_age":604800}'
+            Report-To: '{"endpoints":[{"url":"https:\/\/a.nel.cloudflare.com\/report\/v4?s=QjA3y0yMf9YyTLCBJr0pv2b%2FLpDnvieYBjcVnqOQndyYR29%2BW7i8AVliqBcdlkJQZ2Uh3wfpl7z4I0DtYD0mSTDOTHq1tVujebYRJv1x0cygzeeq%2F0NIrB440CHoznmlRglWRrkkPok%3D"}],"group":"cf-nel","max_age":604800}'
+            Server: cloudflare
+            Set-Cookie: _cfuvid=N5OdJubF3kHCNyKVe3B30EMUVNNTFHxEfqx7ad2EVRM-1725630257818-0.0.1.1-604800000;
+              path=/; domain=.gitlab.com; HttpOnly; Secure; SameSite=None
+            Transfer-Encoding: chunked
+            cache-control: max-age=0, private, must-revalidate
+            content-security-policy: default-src 'none'
+            etag: W/"19a1b3dae20b70a03d51ea065231a333"
+            gitlab-lb: haproxy-main-20-lb-gprd
+            gitlab-sv: api-gke-us-east1-d
+            referrer-policy: strict-origin-when-cross-origin
+            strict-transport-security: max-age=31536000
+            vary: Origin, Accept-Encoding
+            x-content-type-options: nosniff
+            x-frame-options: SAMEORIGIN
+            x-gitlab-meta: '{"correlation_id":"a3f999f97368af06ffadb1eac3ea9377","version":"1"}'
+            x-request-id: a3f999f97368af06ffadb1eac3ea9377
+            x-runtime: '0.053589'
+          raw: !!binary ""
+          reason: OK
+          status_code: 200
