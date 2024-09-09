@@ -163,6 +163,10 @@ class GithubProject(BaseGitProject):
     def get_branches(self) -> list[str]:
         return [branch.name for branch in self.github_repo.get_branches()]
 
+    def get_commits(self, ref: Optional[str] = None) -> list[str]:
+        ref = ref or self.github_repo.default_branch
+        return [commit.sha for commit in self.github_repo.get_commits(sha=ref)]
+
     def get_description(self) -> str:
         return self.github_repo.description
 

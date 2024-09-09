@@ -54,6 +54,7 @@ In case you find any error, please [create a new issue](https://github.com/packi
 | ----------------------------- | :----: | :----: | :---------------------: |
 | `change_token`                |   ✘    |   ✔   |           ✔            |
 | `get_release`                 |   ✔   |   ✔   |            ✘            |
+| `get_commits`                 |   ✔   |   ✔   |            ✘            |
 | `get_latest_release`          |   ✔   |   ✔   |            ✘            |
 | `is_private`                  |   ✔   |   ✔   | ✘ (may not be accurate) |
 | `remove_user`                 |   ✘    |   ✘    |           ✔            |

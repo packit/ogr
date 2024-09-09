@@ -360,6 +360,13 @@ class GitlabProject(BaseGitProject):
     def get_branches(self) -> list[str]:
         return [branch.name for branch in self.gitlab_repo.branches.list(all=True)]
 
+    def get_commits(self, ref: Optional[str] = None) -> list[str]:
+        ref = ref or self.default_branch
+        return [
+            commit.id
+            for commit in self.gitlab_repo.commits.list(ref_name=ref, all=True)
+        ]
+
     def get_file_content(self, path, ref=None) -> str:
         ref = ref or self.default_branch
         # GitLab cannot resolve './'
