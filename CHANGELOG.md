@@ -1,6 +1,5 @@
 # 0.50.0
 
-
 # 0.49.2
 
 - `GitLabProject.get_file_content` can now correctly handle file paths starting with `./`. (#844)
