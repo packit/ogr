@@ -1,6 +1,6 @@
 # 0.50.0
 
-- A new` get_commits` method was implemented for GitHub and Gitlab projects. (#857) 
+- A new` get_commits` method was implemented for GitHub and Gitlab projects. (#857)
 - An issue with silently ignoring error (#760) was fixed. (#855)
 
 # 0.49.2
