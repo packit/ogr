@@ -65,16 +65,22 @@ class GitlabComment(Comment):
             if "404 Award Emoji Name has already been taken" not in str(ex):
                 raise GitlabAPIException() from ex
 
+            # Take project from the parent (PR's don't have project)
+            login = (
+                getattr(self._parent, "_target_project", None) or self._parent.project
+            ).service.user.get_username()
+
             # this happens only when the reaction was already added
             logger.info(f"The emoji {reaction} has already been taken.")
-            (reaction_obj,) = filter(
-                (
-                    # we want to return that already given reaction
-                    lambda item: item.attributes["name"] == reaction
-                    and item.attributes["user"]["name"]
-                    == item.awardemojis.gitlab.user.name
+            reaction_obj = next(
+                filter(
+                    (
+                        # we want to return that already given reaction
+                        lambda item: item.attributes["name"] == reaction
+                        and item.attributes["user"]["username"] == login
+                    ),
+                    self._raw_comment.awardemojis.list(),
                 ),
-                self._raw_comment.awardemojis.list(),
             )
 
         return GitlabReaction(reaction_obj)

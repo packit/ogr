@@ -1,0 +1,1247 @@
+_requre:
+  DataTypes: 1
+  key_strategy: StorageKeysInspectSimple
+  version_storage_file: 3
+requests.sessions:
+  send:
+    GET:
+      https://gitlab.com/api/v4/projects/19258958/issues/12:
+      - metadata:
+          latency: 0.2599189281463623
+          module_call_list:
+          - unittest.case
+          - requre.record_and_replace
+          - tests.integration.gitlab.test_comments
+          - ogr.abstract
+          - ogr.utils
+          - ogr.abstract
+          - ogr.services.gitlab.issue
+          - gitlab.v4.objects.issues
+          - gitlab.exceptions
+          - gitlab.mixins
+          - gitlab.client
+          - gitlab._backends.requests_backend
+          - requests.sessions
+          - requre.objects
+          - requre.cassette
+          - requests.sessions
+          - send
+        output:
+          __store_indicator: 2
+          _content:
+            _links:
+              award_emoji: https://gitlab.com/api/v4/projects/19258958/issues/12/award_emoji
+              closed_as_duplicate_of: null
+              notes: https://gitlab.com/api/v4/projects/19258958/issues/12/notes
+              project: https://gitlab.com/api/v4/projects/19258958
+              self: https://gitlab.com/api/v4/projects/19258958/issues/12
+            assignee: null
+            assignees: []
+            author:
+              avatar_url: https://secure.gravatar.com/avatar/d963fb545c613760975ebac0be691f2f58164925052525b8a9b9c5819d859fa2?s=80&d=identicon
+              id: 23047056
+              locked: false
+              name: "Luk\xE1\u0161 K\u0159\xED\u017E"
+              state: active
+              username: kapr200
+              web_url: https://gitlab.com/kapr200
+            blocking_issues_count: 0
+            closed_at: null
+            closed_by: null
+            confidential: false
+            created_at: '2024-09-27T09:01:06.710Z'
+            description: ''
+            discussion_locked: null
+            downvotes: 0
+            due_date: null
+            has_tasks: true
+            id: 153915874
+            iid: 12
+            imported: false
+            imported_from: none
+            issue_type: issue
+            labels: []
+            merge_requests_count: 0
+            milestone: null
+            moved_to_id: null
+            project_id: 19258958
+            references:
+              full: packit-service/hello-world#12
+              relative: '#12'
+              short: '#12'
+            service_desk_reply_to: null
+            severity: UNKNOWN
+            state: opened
+            subscribed: true
+            task_completion_status:
+              completed_count: 0
+              count: 0
+            task_status: ''
+            time_stats:
+              human_time_estimate: null
+              human_total_time_spent: null
+              time_estimate: 0
+              total_time_spent: 0
+            title: eyes_issue
+            type: ISSUE
+            updated_at: '2024-09-27T09:01:06.710Z'
+            upvotes: 0
+            user_notes_count: 1
+            web_url: https://gitlab.com/packit-service/hello-world/-/issues/12
+          _next: null
+          elapsed: 0.2
+          encoding: utf-8
+          headers:
+            CF-Cache-Status: MISS
+            CF-RAY: 8c9af6d9cb88b33c-PRG
+            Connection: keep-alive
+            Content-Encoding: gzip
+            Content-Type: application/json
+            Date: Fri, 01 Nov 2019 13-36-03 GMT
+            NEL: '{"success_fraction":0.01,"report_to":"cf-nel","max_age":604800}'
+            Report-To: '{"endpoints":[{"url":"https:\/\/a.nel.cloudflare.com\/report\/v4?s=AQ2eQU%2B5yNJpF%2FUKnQXxY6ndgnnXy1AVLwou%2BR4z9tLSy3c7IwkF1B98wz98WfPjUbACrjY%2BFwHXLgwbM%2BaFpNWuluXtc%2FollBtGev2PRzciYI3PU5Vor66QsUc%3D"}],"group":"cf-nel","max_age":604800}'
+            Server: cloudflare
+            Transfer-Encoding: chunked
+            cache-control: max-age=0, private, must-revalidate
+            content-security-policy: default-src 'none'
+            etag: W/"9547ec2ed3ded40a985b01b1436e8d59"
+            gitlab-lb: haproxy-main-55-lb-gprd
+            gitlab-sv: api-gke-us-east1-c
+            referrer-policy: strict-origin-when-cross-origin
+            strict-transport-security: max-age=31536000
+            vary: Origin, Accept-Encoding
+            x-content-type-options: nosniff
+            x-frame-options: SAMEORIGIN
+            x-gitlab-meta: '{"correlation_id":"0b4378a3ad0b34613014d8b96ace3d08","version":"1"}'
+            x-request-id: 0b4378a3ad0b34613014d8b96ace3d08
+            x-runtime: '0.107516'
+          raw: !!binary ""
+          reason: OK
+          status_code: 200
+      https://gitlab.com/api/v4/projects/19258958/issues/12/notes/2132763676/award_emoji:
+      - metadata:
+          latency: 0.2971370220184326
+          module_call_list:
+          - unittest.case
+          - requre.record_and_replace
+          - tests.integration.gitlab.test_comments
+          - ogr.abstract
+          - ogr.services.gitlab.comments
+          - gitlab.exceptions
+          - gitlab.mixins
+          - gitlab.client
+          - gitlab._backends.requests_backend
+          - requests.sessions
+          - requre.objects
+          - requre.cassette
+          - requests.sessions
+          - send
+        output:
+          __store_indicator: 2
+          _content:
+          - awardable_id: 2132763676
+            awardable_type: Note
+            created_at: '2024-09-27T10:55:57.140Z'
+            id: 28638596
+            name: tractor
+            updated_at: '2024-09-27T10:55:57.140Z'
+            url: null
+            user:
+              avatar_url: https://secure.gravatar.com/avatar/d963fb545c613760975ebac0be691f2f58164925052525b8a9b9c5819d859fa2?s=80&d=identicon
+              id: 23047056
+              locked: false
+              name: "Luk\xE1\u0161 K\u0159\xED\u017E"
+              state: active
+              username: kapr200
+              web_url: https://gitlab.com/kapr200
+          _next: null
+          elapsed: 0.2
+          encoding: utf-8
+          headers:
+            CF-Cache-Status: MISS
+            CF-RAY: 8c9af6e168bcb33c-PRG
+            Connection: keep-alive
+            Content-Encoding: gzip
+            Content-Type: application/json
+            Date: Fri, 01 Nov 2019 13-36-03 GMT
+            NEL: '{"success_fraction":0.01,"report_to":"cf-nel","max_age":604800}'
+            Report-To: '{"endpoints":[{"url":"https:\/\/a.nel.cloudflare.com\/report\/v4?s=phc8tTpiBPGvx59VvmjIZEP04aWIaTc%2BbUbH49qxkYEJt0S7ZYSLYsTMu5WHBSajf8ugIBwhASlhomZIRjQ%2Fwoard%2FLcKrgqJGL2ZrSgY7CTjbg8VvkPBBeCol8%3D"}],"group":"cf-nel","max_age":604800}'
+            Server: cloudflare
+            Transfer-Encoding: chunked
+            cache-control: max-age=0, private, must-revalidate
+            content-security-policy: default-src 'none'
+            etag: W/"cd925725a330dcb7fd7566740f1140d8"
+            gitlab-lb: haproxy-main-20-lb-gprd
+            gitlab-sv: api-gke-us-east1-d
+            link: <https://gitlab.com/api/v4/projects/19258958/issues/12/notes/2132763676/award_emoji?id=19258958&issue_iid=12&page=1&per_page=20>;
+              rel="first", <https://gitlab.com/api/v4/projects/19258958/issues/12/notes/2132763676/award_emoji?id=19258958&issue_iid=12&page=1&per_page=20>;
+              rel="last"
+            referrer-policy: strict-origin-when-cross-origin
+            strict-transport-security: max-age=31536000
+            vary: Origin, Accept-Encoding
+            x-content-type-options: nosniff
+            x-frame-options: SAMEORIGIN
+            x-gitlab-meta: '{"correlation_id":"a1eb44553cd9ce2a1e062279d091783a","version":"1"}'
+            x-next-page: ''
+            x-page: '1'
+            x-per-page: '20'
+            x-prev-page: ''
+            x-request-id: a1eb44553cd9ce2a1e062279d091783a
+            x-runtime: '0.142903'
+            x-total: '1'
+            x-total-pages: '1'
+          raw: !!binary ""
+          reason: OK
+          status_code: 200
+      https://gitlab.com/api/v4/projects/19258958/issues/12/notes?sort=asc:
+      - metadata:
+          latency: 0.26328110694885254
+          module_call_list:
+          - unittest.case
+          - requre.record_and_replace
+          - tests.integration.gitlab.test_comments
+          - ogr.abstract
+          - ogr.services.base
+          - ogr.abstract
+          - ogr.services.gitlab.issue
+          - gitlab.exceptions
+          - gitlab.mixins
+          - gitlab.client
+          - gitlab._backends.requests_backend
+          - requests.sessions
+          - requre.objects
+          - requre.cassette
+          - requests.sessions
+          - send
+        output:
+          __store_indicator: 2
+          _content:
+          - attachment: null
+            author:
+              avatar_url: https://secure.gravatar.com/avatar/d963fb545c613760975ebac0be691f2f58164925052525b8a9b9c5819d859fa2?s=80&d=identicon
+              id: 23047056
+              locked: false
+              name: "Luk\xE1\u0161 K\u0159\xED\u017E"
+              state: active
+              username: kapr200
+              web_url: https://gitlab.com/kapr200
+            body: Eyes
+            commands_changes: {}
+            confidential: false
+            created_at: '2024-09-27T09:01:22.646Z'
+            id: 2132763676
+            imported: false
+            imported_from: none
+            internal: false
+            noteable_id: 153915874
+            noteable_iid: 12
+            noteable_type: Issue
+            project_id: 19258958
+            resolvable: false
+            system: false
+            type: null
+            updated_at: '2024-09-27T10:55:47.644Z'
+          _next: null
+          elapsed: 0.2
+          encoding: utf-8
+          headers:
+            CF-Cache-Status: MISS
+            CF-RAY: 8c9af6db6e2db33c-PRG
+            Connection: keep-alive
+            Content-Encoding: gzip
+            Content-Type: application/json
+            Date: Fri, 01 Nov 2019 13-36-03 GMT
+            NEL: '{"success_fraction":0.01,"report_to":"cf-nel","max_age":604800}'
+            Report-To: '{"endpoints":[{"url":"https:\/\/a.nel.cloudflare.com\/report\/v4?s=%2B8lZqO6Z2plOfmQObfgNlqTH5iw1VaMqjPgYkK1lsI7TlhFPcO%2FRHv9lOHSigl7iJR68GtEwJDHGuur%2FRRSR%2BAaFBAy7icZUW8yWMiPCiwV17MwXRx2FepivPus%3D"}],"group":"cf-nel","max_age":604800}'
+            Server: cloudflare
+            Transfer-Encoding: chunked
+            cache-control: max-age=0, private, must-revalidate
+            content-security-policy: default-src 'none'
+            etag: W/"0f37537af808410fb8001b18d4b33891"
+            gitlab-lb: haproxy-main-16-lb-gprd
+            gitlab-sv: api-gke-us-east1-c
+            link: <https://gitlab.com/api/v4/projects/19258958/issues/12/notes?activity_filter=all_notes&id=19258958&noteable_id=12&order_by=created_at&page=1&per_page=20&sort=asc>;
+              rel="first", <https://gitlab.com/api/v4/projects/19258958/issues/12/notes?activity_filter=all_notes&id=19258958&noteable_id=12&order_by=created_at&page=1&per_page=20&sort=asc>;
+              rel="last"
+            referrer-policy: strict-origin-when-cross-origin
+            strict-transport-security: max-age=31536000
+            vary: Origin, Accept-Encoding
+            x-content-type-options: nosniff
+            x-frame-options: SAMEORIGIN
+            x-gitlab-meta: '{"correlation_id":"12013d89c12b1e0fe3eed1d3eec998e5","version":"1"}'
+            x-next-page: ''
+            x-page: '1'
+            x-per-page: '20'
+            x-prev-page: ''
+            x-request-id: 12013d89c12b1e0fe3eed1d3eec998e5
+            x-runtime: '0.110973'
+            x-total: '1'
+            x-total-pages: '1'
+          raw: !!binary ""
+          reason: OK
+          status_code: 200
+      https://gitlab.com/api/v4/projects/19258958/merge_requests/1149:
+      - metadata:
+          latency: 0.29553842544555664
+          module_call_list:
+          - unittest.case
+          - requre.record_and_replace
+          - tests.integration.gitlab.test_comments
+          - ogr.abstract
+          - ogr.utils
+          - ogr.abstract
+          - ogr.services.gitlab.pull_request
+          - gitlab.v4.objects.merge_requests
+          - gitlab.exceptions
+          - gitlab.mixins
+          - gitlab.client
+          - gitlab._backends.requests_backend
+          - requests.sessions
+          - requre.objects
+          - requre.cassette
+          - requests.sessions
+          - send
+        output:
+          __store_indicator: 2
+          _content:
+            allow_collaboration: true
+            allow_maintainer_to_push: true
+            approvals_before_merge: null
+            assignee: null
+            assignees: []
+            author:
+              avatar_url: https://secure.gravatar.com/avatar/d963fb545c613760975ebac0be691f2f58164925052525b8a9b9c5819d859fa2?s=80&d=identicon
+              id: 23047056
+              locked: false
+              name: "Luk\xE1\u0161 K\u0159\xED\u017E"
+              state: active
+              username: kapr200
+              web_url: https://gitlab.com/kapr200
+            blocking_discussions_resolved: true
+            changes_count: '1'
+            closed_at: null
+            closed_by: null
+            created_at: '2024-09-27T08:43:45.204Z'
+            description: ''
+            detailed_merge_status: mergeable
+            diff_refs:
+              base_sha: 2747e04810b894bacd4f1ce30096aca6b11095aa
+              head_sha: 5efeb6ae7aa0433f1ef1add89c85109cf943ee6e
+              start_sha: 2747e04810b894bacd4f1ce30096aca6b11095aa
+            discussion_locked: null
+            downvotes: 0
+            draft: false
+            first_contribution: true
+            first_deployed_to_production_at: null
+            force_remove_source_branch: true
+            has_conflicts: false
+            head_pipeline: null
+            id: 330469637
+            iid: 1149
+            imported: false
+            imported_from: none
+            labels: []
+            latest_build_finished_at: null
+            latest_build_started_at: null
+            merge_after: null
+            merge_commit_sha: null
+            merge_error: null
+            merge_status: can_be_merged
+            merge_user: null
+            merge_when_pipeline_succeeds: false
+            merged_at: null
+            merged_by: null
+            milestone: null
+            pipeline: null
+            prepared_at: '2024-09-27T08:43:47.445Z'
+            project_id: 19258958
+            reference: '!1149'
+            references:
+              full: packit-service/hello-world!1149
+              relative: '!1149'
+              short: '!1149'
+            reviewers: []
+            sha: 5efeb6ae7aa0433f1ef1add89c85109cf943ee6e
+            should_remove_source_branch: null
+            source_branch: test-reactions
+            source_project_id: 62061518
+            squash: false
+            squash_commit_sha: null
+            squash_on_merge: false
+            state: opened
+            subscribed: true
+            target_branch: master
+            target_project_id: 19258958
+            task_completion_status:
+              completed_count: 0
+              count: 0
+            time_stats:
+              human_time_estimate: null
+              human_total_time_spent: null
+              time_estimate: 0
+              total_time_spent: 0
+            title: Change
+            updated_at: '2024-09-27T08:43:47.473Z'
+            upvotes: 0
+            user:
+              can_merge: false
+            user_notes_count: 1
+            web_url: https://gitlab.com/packit-service/hello-world/-/merge_requests/1149
+            work_in_progress: false
+          _next: null
+          elapsed: 0.2
+          encoding: utf-8
+          headers:
+            CF-Cache-Status: MISS
+            CF-RAY: 8c9af6ce2ed7b33c-PRG
+            Connection: keep-alive
+            Content-Encoding: gzip
+            Content-Type: application/json
+            Date: Fri, 01 Nov 2019 13-36-03 GMT
+            NEL: '{"success_fraction":0.01,"report_to":"cf-nel","max_age":604800}'
+            Report-To: '{"endpoints":[{"url":"https:\/\/a.nel.cloudflare.com\/report\/v4?s=pPh%2FrBr8yiiUFdG4tUZeM6wHDzy8tz6lsgepe2NSyrmPNJpyK4bcOeeLf2q%2Bgeo0SN%2Fx%2FOackIT8kThuYgygScl%2FRAyX7ivmFmXBUaR1FQZ%2FnZYXX7UTJdJrbZI%3D"}],"group":"cf-nel","max_age":604800}'
+            Server: cloudflare
+            Transfer-Encoding: chunked
+            cache-control: max-age=0, private, must-revalidate
+            content-security-policy: default-src 'none'
+            etag: W/"8e9048c5a42ae5d83725ab273c1e7f7e"
+            gitlab-lb: haproxy-main-11-lb-gprd
+            gitlab-sv: api-gke-us-east1-d
+            referrer-policy: strict-origin-when-cross-origin
+            strict-transport-security: max-age=31536000
+            vary: Origin, Accept-Encoding
+            x-content-type-options: nosniff
+            x-frame-options: SAMEORIGIN
+            x-gitlab-meta: '{"correlation_id":"ef0c168e825484229163809b90469644","version":"1"}'
+            x-request-id: ef0c168e825484229163809b90469644
+            x-runtime: '0.138872'
+          raw: !!binary ""
+          reason: OK
+          status_code: 200
+      https://gitlab.com/api/v4/projects/19258958/merge_requests/1149/notes/2132728866/award_emoji:
+      - metadata:
+          latency: 0.24965810775756836
+          module_call_list:
+          - unittest.case
+          - requre.record_and_replace
+          - tests.integration.gitlab.test_comments
+          - ogr.abstract
+          - ogr.services.gitlab.comments
+          - gitlab.exceptions
+          - gitlab.mixins
+          - gitlab.client
+          - gitlab._backends.requests_backend
+          - requests.sessions
+          - requre.objects
+          - requre.cassette
+          - requests.sessions
+          - send
+        output:
+          __store_indicator: 2
+          _content:
+          - awardable_id: 2132728866
+            awardable_type: Note
+            created_at: '2024-09-27T10:55:55.405Z'
+            id: 28638595
+            name: tractor
+            updated_at: '2024-09-27T10:55:55.405Z'
+            url: null
+            user:
+              avatar_url: https://secure.gravatar.com/avatar/d963fb545c613760975ebac0be691f2f58164925052525b8a9b9c5819d859fa2?s=80&d=identicon
+              id: 23047056
+              locked: false
+              name: "Luk\xE1\u0161 K\u0159\xED\u017E"
+              state: active
+              username: kapr200
+              web_url: https://gitlab.com/kapr200
+          _next: null
+          elapsed: 0.2
+          encoding: utf-8
+          headers:
+            CF-Cache-Status: MISS
+            CF-RAY: 8c9af6d65e01b33c-PRG
+            Connection: keep-alive
+            Content-Encoding: gzip
+            Content-Type: application/json
+            Date: Fri, 01 Nov 2019 13-36-03 GMT
+            NEL: '{"success_fraction":0.01,"report_to":"cf-nel","max_age":604800}'
+            Report-To: '{"endpoints":[{"url":"https:\/\/a.nel.cloudflare.com\/report\/v4?s=rtK%2Bw%2Fg95WnU3cg1SJwPJWNvtWNNr9LF4r08mavveFWSf6AFg%2FHpCVubx9RbxNdxPiMzOr7k7wvvmXOwo1j8eoIWDCW1RBa78dOH7Ws%2B6Upgg5NFO5GOhhixbTI%3D"}],"group":"cf-nel","max_age":604800}'
+            Server: cloudflare
+            Transfer-Encoding: chunked
+            cache-control: max-age=0, private, must-revalidate
+            content-security-policy: default-src 'none'
+            etag: W/"88f526986b7ba1a0f1b19ded24785581"
+            gitlab-lb: haproxy-main-11-lb-gprd
+            gitlab-sv: api-gke-us-east1-d
+            link: <https://gitlab.com/api/v4/projects/19258958/merge_requests/1149/notes/2132728866/award_emoji?id=19258958&merge_request_iid=1149&page=1&per_page=20>;
+              rel="first", <https://gitlab.com/api/v4/projects/19258958/merge_requests/1149/notes/2132728866/award_emoji?id=19258958&merge_request_iid=1149&page=1&per_page=20>;
+              rel="last"
+            referrer-policy: strict-origin-when-cross-origin
+            strict-transport-security: max-age=31536000
+            vary: Origin, Accept-Encoding
+            x-content-type-options: nosniff
+            x-frame-options: SAMEORIGIN
+            x-gitlab-meta: '{"correlation_id":"5538353cd8e78dbb1edb084f4cd71a26","version":"1"}'
+            x-next-page: ''
+            x-page: '1'
+            x-per-page: '20'
+            x-prev-page: ''
+            x-request-id: 5538353cd8e78dbb1edb084f4cd71a26
+            x-runtime: '0.098597'
+            x-total: '1'
+            x-total-pages: '1'
+          raw: !!binary ""
+          reason: OK
+          status_code: 200
+      https://gitlab.com/api/v4/projects/19258958/merge_requests/1149/notes?sort=asc:
+      - metadata:
+          latency: 0.2896275520324707
+          module_call_list:
+          - unittest.case
+          - requre.record_and_replace
+          - tests.integration.gitlab.test_comments
+          - ogr.abstract
+          - ogr.services.base
+          - ogr.abstract
+          - ogr.services.gitlab.pull_request
+          - gitlab.exceptions
+          - gitlab.mixins
+          - gitlab.client
+          - gitlab._backends.requests_backend
+          - requests.sessions
+          - requre.objects
+          - requre.cassette
+          - requests.sessions
+          - send
+        output:
+          __store_indicator: 2
+          _content:
+          - attachment: null
+            author:
+              avatar_url: https://secure.gravatar.com/avatar/d963fb545c613760975ebac0be691f2f58164925052525b8a9b9c5819d859fa2?s=80&d=identicon
+              id: 23047056
+              locked: false
+              name: "Luk\xE1\u0161 K\u0159\xED\u017E"
+              state: active
+              username: kapr200
+              web_url: https://gitlab.com/kapr200
+            body: Something
+            commands_changes: {}
+            confidential: false
+            created_at: '2024-09-27T08:44:07.032Z'
+            id: 2132728866
+            imported: false
+            imported_from: none
+            internal: false
+            noteable_id: 330469637
+            noteable_iid: 1149
+            noteable_type: MergeRequest
+            project_id: 19258958
+            resolvable: false
+            system: false
+            type: null
+            updated_at: '2024-09-27T10:55:45.575Z'
+          _next: null
+          elapsed: 0.2
+          encoding: utf-8
+          headers:
+            CF-Cache-Status: MISS
+            CF-RAY: 8c9af6d009f4b33c-PRG
+            Connection: keep-alive
+            Content-Encoding: gzip
+            Content-Type: application/json
+            Date: Fri, 01 Nov 2019 13-36-03 GMT
+            NEL: '{"success_fraction":0.01,"report_to":"cf-nel","max_age":604800}'
+            Report-To: '{"endpoints":[{"url":"https:\/\/a.nel.cloudflare.com\/report\/v4?s=keDSRkjPdjEqKV5KEbbFeJ81cLTMOu8TV4V0fPY4GH2iAiBhnQVrCbPQJ6WUg7CoOrD3EwBE0OXyzF%2FEXrbV93gWYKCwMszstA8BJbMUnzDXHJ8DcmiU1ratbtE%3D"}],"group":"cf-nel","max_age":604800}'
+            Server: cloudflare
+            Transfer-Encoding: chunked
+            cache-control: max-age=0, private, must-revalidate
+            content-security-policy: default-src 'none'
+            etag: W/"fdfadc47fb1f99e9cad7d86cfc6ef618"
+            gitlab-lb: haproxy-main-02-lb-gprd
+            gitlab-sv: api-gke-us-east1-d
+            link: <https://gitlab.com/api/v4/projects/19258958/merge_requests/1149/notes?activity_filter=all_notes&id=19258958&noteable_id=1149&order_by=created_at&page=1&per_page=20&sort=asc>;
+              rel="first", <https://gitlab.com/api/v4/projects/19258958/merge_requests/1149/notes?activity_filter=all_notes&id=19258958&noteable_id=1149&order_by=created_at&page=1&per_page=20&sort=asc>;
+              rel="last"
+            referrer-policy: strict-origin-when-cross-origin
+            strict-transport-security: max-age=31536000
+            vary: Origin, Accept-Encoding
+            x-content-type-options: nosniff
+            x-frame-options: SAMEORIGIN
+            x-gitlab-meta: '{"correlation_id":"2fe175064ea393ef7f76843fc6895cc2","version":"1"}'
+            x-next-page: ''
+            x-page: '1'
+            x-per-page: '20'
+            x-prev-page: ''
+            x-request-id: 2fe175064ea393ef7f76843fc6895cc2
+            x-runtime: '0.121355'
+            x-total: '1'
+            x-total-pages: '1'
+          raw: !!binary ""
+          reason: OK
+          status_code: 200
+      https://gitlab.com/api/v4/projects/packit-service%2Fhello-world:
+      - metadata:
+          latency: 0.2886641025543213
+          module_call_list:
+          - unittest.case
+          - requre.record_and_replace
+          - tests.integration.gitlab.test_comments
+          - ogr.abstract
+          - ogr.utils
+          - ogr.abstract
+          - ogr.services.gitlab.pull_request
+          - ogr.services.gitlab.project
+          - gitlab.v4.objects.projects
+          - gitlab.exceptions
+          - gitlab.mixins
+          - gitlab.client
+          - gitlab._backends.requests_backend
+          - requests.sessions
+          - requre.objects
+          - requre.cassette
+          - requests.sessions
+          - send
+        output:
+          __store_indicator: 2
+          _content:
+            _links:
+              cluster_agents: https://gitlab.com/api/v4/projects/19258958/cluster_agents
+              events: https://gitlab.com/api/v4/projects/19258958/events
+              issues: https://gitlab.com/api/v4/projects/19258958/issues
+              labels: https://gitlab.com/api/v4/projects/19258958/labels
+              members: https://gitlab.com/api/v4/projects/19258958/members
+              merge_requests: https://gitlab.com/api/v4/projects/19258958/merge_requests
+              repo_branches: https://gitlab.com/api/v4/projects/19258958/repository/branches
+              self: https://gitlab.com/api/v4/projects/19258958
+            allow_merge_on_skipped_pipeline: null
+            analytics_access_level: enabled
+            archived: false
+            autoclose_referenced_issues: true
+            avatar_url: null
+            builds_access_level: enabled
+            can_create_merge_request_in: true
+            ci_config_path: ''
+            compliance_frameworks: []
+            container_expiration_policy:
+              cadence: 1d
+              enabled: false
+              keep_n: 10
+              name_regex: null
+              name_regex_keep: null
+              next_run_at: '2020-10-20T16:08:32.164Z'
+              older_than: 90d
+            container_registry_access_level: enabled
+            container_registry_enabled: true
+            container_registry_image_prefix: registry.gitlab.com/packit-service/hello-world
+            created_at: '2020-06-08T14:32:37.622Z'
+            creator_id: 433670
+            default_branch: master
+            description: The most progressive command-line tool in the world.
+            description_html: <p data-sourcepos="1:1-1:52" dir="auto">The most progressive
+              command-line tool in the world.</p>
+            emails_disabled: false
+            emails_enabled: true
+            empty_repo: false
+            enforce_auth_checks_on_uploads: true
+            environments_access_level: enabled
+            external_authorization_classification_label: ''
+            feature_flags_access_level: enabled
+            forking_access_level: enabled
+            forks_count: 7
+            http_url_to_repo: https://gitlab.com/packit-service/hello-world.git
+            id: 19258958
+            import_status: none
+            infrastructure_access_level: enabled
+            issue_branch_template: null
+            issues_access_level: enabled
+            issues_enabled: true
+            jobs_enabled: true
+            last_activity_at: '2024-09-27T08:43:46.891Z'
+            lfs_enabled: true
+            merge_commit_template: null
+            merge_method: merge
+            merge_requests_access_level: enabled
+            merge_requests_enabled: true
+            model_experiments_access_level: enabled
+            model_registry_access_level: enabled
+            monitor_access_level: enabled
+            name: hello-world
+            name_with_namespace: packit-service / hello-world
+            namespace:
+              avatar_url: /uploads/-/system/group/avatar/6032704/logo-square-small-borders.png
+              full_path: packit-service
+              id: 6032704
+              kind: group
+              name: packit-service
+              parent_id: null
+              path: packit-service
+              web_url: https://gitlab.com/groups/packit-service
+            only_allow_merge_if_all_discussions_are_resolved: false
+            only_allow_merge_if_pipeline_succeeds: false
+            open_issues_count: 8
+            packages_enabled: true
+            pages_access_level: enabled
+            path: hello-world
+            path_with_namespace: packit-service/hello-world
+            permissions:
+              group_access: null
+              project_access: null
+            printing_merge_request_link_enabled: true
+            public_jobs: true
+            readme_url: https://gitlab.com/packit-service/hello-world/-/blob/master/README.md
+            releases_access_level: enabled
+            remove_source_branch_after_merge: true
+            repository_access_level: enabled
+            repository_object_format: sha1
+            request_access_enabled: true
+            requirements_access_level: enabled
+            requirements_enabled: false
+            resolve_outdated_diff_discussions: false
+            security_and_compliance_access_level: private
+            security_and_compliance_enabled: false
+            service_desk_enabled: true
+            shared_runners_enabled: true
+            shared_with_groups: []
+            snippets_access_level: enabled
+            snippets_enabled: true
+            squash_commit_template: null
+            squash_option: default_off
+            ssh_url_to_repo: git@gitlab.com:packit-service/hello-world.git
+            star_count: 1
+            suggestion_commit_message: null
+            tag_list: []
+            topics: []
+            updated_at: '2024-09-27T08:43:46.891Z'
+            visibility: public
+            warn_about_potentially_unwanted_characters: true
+            web_url: https://gitlab.com/packit-service/hello-world
+            wiki_access_level: enabled
+            wiki_enabled: true
+          _next: null
+          elapsed: 0.2
+          encoding: utf-8
+          headers:
+            CF-Cache-Status: MISS
+            CF-RAY: 8c9af6cc4b24b33c-PRG
+            Connection: keep-alive
+            Content-Encoding: gzip
+            Content-Type: application/json
+            Date: Fri, 01 Nov 2019 13-36-03 GMT
+            NEL: '{"success_fraction":0.01,"report_to":"cf-nel","max_age":604800}'
+            Report-To: '{"endpoints":[{"url":"https:\/\/a.nel.cloudflare.com\/report\/v4?s=FMv4NOEdE%2FQeF1EqZktr9CFfQyuu7bTJRbIS300eQTaEI%2BgEbXljVH7hDYsXxNGFXF8GRKEHE6in0UiAACMaGTfaEF8mDSstTeoqcloagSI%2FEdgt0F3n%2BLjpRl4%3D"}],"group":"cf-nel","max_age":604800}'
+            Server: cloudflare
+            Transfer-Encoding: chunked
+            cache-control: max-age=0, private, must-revalidate
+            content-security-policy: default-src 'none'
+            etag: W/"65a8644c464dd956be3aff9c1e993491"
+            gitlab-lb: haproxy-main-10-lb-gprd
+            gitlab-sv: api-gke-us-east1-c
+            referrer-policy: strict-origin-when-cross-origin
+            strict-transport-security: max-age=31536000
+            vary: Origin, Accept-Encoding
+            x-content-type-options: nosniff
+            x-frame-options: SAMEORIGIN
+            x-gitlab-meta: '{"correlation_id":"5aa0df47b55d5506b3618c9ac6d40f37","version":"1"}'
+            x-request-id: 5aa0df47b55d5506b3618c9ac6d40f37
+            x-runtime: '0.118976'
+          raw: !!binary ""
+          reason: OK
+          status_code: 200
+      - metadata:
+          latency: 0.2927258014678955
+          module_call_list:
+          - unittest.case
+          - requre.record_and_replace
+          - tests.integration.gitlab.test_comments
+          - ogr.abstract
+          - ogr.utils
+          - ogr.abstract
+          - ogr.services.gitlab.issue
+          - ogr.services.gitlab.project
+          - gitlab.v4.objects.projects
+          - gitlab.exceptions
+          - gitlab.mixins
+          - gitlab.client
+          - gitlab._backends.requests_backend
+          - requests.sessions
+          - requre.objects
+          - requre.cassette
+          - requests.sessions
+          - send
+        output:
+          __store_indicator: 2
+          _content:
+            _links:
+              cluster_agents: https://gitlab.com/api/v4/projects/19258958/cluster_agents
+              events: https://gitlab.com/api/v4/projects/19258958/events
+              issues: https://gitlab.com/api/v4/projects/19258958/issues
+              labels: https://gitlab.com/api/v4/projects/19258958/labels
+              members: https://gitlab.com/api/v4/projects/19258958/members
+              merge_requests: https://gitlab.com/api/v4/projects/19258958/merge_requests
+              repo_branches: https://gitlab.com/api/v4/projects/19258958/repository/branches
+              self: https://gitlab.com/api/v4/projects/19258958
+            allow_merge_on_skipped_pipeline: null
+            analytics_access_level: enabled
+            archived: false
+            autoclose_referenced_issues: true
+            avatar_url: null
+            builds_access_level: enabled
+            can_create_merge_request_in: true
+            ci_config_path: ''
+            compliance_frameworks: []
+            container_expiration_policy:
+              cadence: 1d
+              enabled: false
+              keep_n: 10
+              name_regex: null
+              name_regex_keep: null
+              next_run_at: '2020-10-20T16:08:32.164Z'
+              older_than: 90d
+            container_registry_access_level: enabled
+            container_registry_enabled: true
+            container_registry_image_prefix: registry.gitlab.com/packit-service/hello-world
+            created_at: '2020-06-08T14:32:37.622Z'
+            creator_id: 433670
+            default_branch: master
+            description: The most progressive command-line tool in the world.
+            description_html: <p data-sourcepos="1:1-1:52" dir="auto">The most progressive
+              command-line tool in the world.</p>
+            emails_disabled: false
+            emails_enabled: true
+            empty_repo: false
+            enforce_auth_checks_on_uploads: true
+            environments_access_level: enabled
+            external_authorization_classification_label: ''
+            feature_flags_access_level: enabled
+            forking_access_level: enabled
+            forks_count: 7
+            http_url_to_repo: https://gitlab.com/packit-service/hello-world.git
+            id: 19258958
+            import_status: none
+            infrastructure_access_level: enabled
+            issue_branch_template: null
+            issues_access_level: enabled
+            issues_enabled: true
+            jobs_enabled: true
+            last_activity_at: '2024-09-27T08:43:46.891Z'
+            lfs_enabled: true
+            merge_commit_template: null
+            merge_method: merge
+            merge_requests_access_level: enabled
+            merge_requests_enabled: true
+            model_experiments_access_level: enabled
+            model_registry_access_level: enabled
+            monitor_access_level: enabled
+            name: hello-world
+            name_with_namespace: packit-service / hello-world
+            namespace:
+              avatar_url: /uploads/-/system/group/avatar/6032704/logo-square-small-borders.png
+              full_path: packit-service
+              id: 6032704
+              kind: group
+              name: packit-service
+              parent_id: null
+              path: packit-service
+              web_url: https://gitlab.com/groups/packit-service
+            only_allow_merge_if_all_discussions_are_resolved: false
+            only_allow_merge_if_pipeline_succeeds: false
+            open_issues_count: 8
+            packages_enabled: true
+            pages_access_level: enabled
+            path: hello-world
+            path_with_namespace: packit-service/hello-world
+            permissions:
+              group_access: null
+              project_access: null
+            printing_merge_request_link_enabled: true
+            public_jobs: true
+            readme_url: https://gitlab.com/packit-service/hello-world/-/blob/master/README.md
+            releases_access_level: enabled
+            remove_source_branch_after_merge: true
+            repository_access_level: enabled
+            repository_object_format: sha1
+            request_access_enabled: true
+            requirements_access_level: enabled
+            requirements_enabled: false
+            resolve_outdated_diff_discussions: false
+            security_and_compliance_access_level: private
+            security_and_compliance_enabled: false
+            service_desk_enabled: true
+            shared_runners_enabled: true
+            shared_with_groups: []
+            snippets_access_level: enabled
+            snippets_enabled: true
+            squash_commit_template: null
+            squash_option: default_off
+            ssh_url_to_repo: git@gitlab.com:packit-service/hello-world.git
+            star_count: 1
+            suggestion_commit_message: null
+            tag_list: []
+            topics: []
+            updated_at: '2024-09-27T08:43:46.891Z'
+            visibility: public
+            warn_about_potentially_unwanted_characters: true
+            web_url: https://gitlab.com/packit-service/hello-world
+            wiki_access_level: enabled
+            wiki_enabled: true
+          _next: null
+          elapsed: 0.2
+          encoding: utf-8
+          headers:
+            CF-Cache-Status: MISS
+            CF-RAY: 8c9af6d7e8abb33c-PRG
+            Connection: keep-alive
+            Content-Encoding: gzip
+            Content-Type: application/json
+            Date: Fri, 01 Nov 2019 13-36-03 GMT
+            NEL: '{"success_fraction":0.01,"report_to":"cf-nel","max_age":604800}'
+            Report-To: '{"endpoints":[{"url":"https:\/\/a.nel.cloudflare.com\/report\/v4?s=F3HtSP%2BZ2WodJif0JZCqgXjIk7AjkRmk3mz%2Fi9EDPJ4POxf68JS8zrvAI%2BHN%2BgoA06fWnf2u2TyYMdLPhTQG0JFWfdZt4oFKpMYunDdMOvjJzZRCL5nRKu9bTp8%3D"}],"group":"cf-nel","max_age":604800}'
+            Server: cloudflare
+            Transfer-Encoding: chunked
+            cache-control: max-age=0, private, must-revalidate
+            content-security-policy: default-src 'none'
+            etag: W/"65a8644c464dd956be3aff9c1e993491"
+            gitlab-lb: haproxy-main-43-lb-gprd
+            gitlab-sv: api-gke-us-east1-c
+            referrer-policy: strict-origin-when-cross-origin
+            strict-transport-security: max-age=31536000
+            vary: Origin, Accept-Encoding
+            x-content-type-options: nosniff
+            x-frame-options: SAMEORIGIN
+            x-gitlab-meta: '{"correlation_id":"c5dc80f5eaf79ee56ebb5ef11e22b6d6","version":"1"}'
+            x-request-id: c5dc80f5eaf79ee56ebb5ef11e22b6d6
+            x-runtime: '0.136008'
+          raw: !!binary ""
+          reason: OK
+          status_code: 200
+      https://gitlab.com/api/v4/user:
+      - metadata:
+          latency: 0.4742002487182617
+          module_call_list:
+          - unittest.case
+          - requre.record_and_replace
+          - tests.integration.gitlab.test_comments
+          - ogr.abstract
+          - ogr.utils
+          - ogr.abstract
+          - ogr.services.gitlab.pull_request
+          - ogr.services.gitlab.project
+          - ogr.services.gitlab.service
+          - gitlab.client
+          - gitlab.v4.objects.users
+          - gitlab.exceptions
+          - gitlab.mixins
+          - gitlab.client
+          - gitlab._backends.requests_backend
+          - requests.sessions
+          - requre.objects
+          - requre.cassette
+          - requests.sessions
+          - send
+        output:
+          __store_indicator: 2
+          _content:
+            avatar_url: https://secure.gravatar.com/avatar/d963fb545c613760975ebac0be691f2f58164925052525b8a9b9c5819d859fa2?s=80&d=identicon
+            bio: ''
+            bot: false
+            can_create_group: true
+            can_create_project: true
+            color_scheme_id: 1
+            commit_email: krizlukas211@gmail.com
+            confirmed_at: '2024-09-26T13:08:32.829Z'
+            created_at: '2024-09-26T13:07:37.210Z'
+            current_sign_in_at: '2024-09-27T07:07:12.203Z'
+            discord: ''
+            email: krizlukas211@gmail.com
+            external: false
+            extra_shared_runners_minutes_limit: null
+            id: 23047056
+            identities: []
+            job_title: ''
+            last_activity_on: '2024-09-27'
+            last_sign_in_at: '2024-09-26T13:08:35.579Z'
+            linkedin: ''
+            local_time: null
+            location: ''
+            locked: false
+            name: "Luk\xE1\u0161 K\u0159\xED\u017E"
+            organization: ''
+            private_profile: false
+            projects_limit: 100000
+            pronouns: null
+            public_email: null
+            scim_identities: []
+            shared_runners_minutes_limit: null
+            skype: ''
+            state: active
+            theme_id: 3
+            twitter: ''
+            two_factor_enabled: false
+            username: kapr200
+            web_url: https://gitlab.com/kapr200
+            website_url: ''
+            work_information: null
+          _next: null
+          elapsed: 0.2
+          encoding: utf-8
+          headers:
+            CF-Cache-Status: MISS
+            CF-RAY: 8c9af6c9aee3b33c-PRG
+            Connection: keep-alive
+            Content-Encoding: gzip
+            Content-Type: application/json
+            Date: Fri, 01 Nov 2019 13-36-03 GMT
+            NEL: '{"success_fraction":0.01,"report_to":"cf-nel","max_age":604800}'
+            Report-To: '{"endpoints":[{"url":"https:\/\/a.nel.cloudflare.com\/report\/v4?s=%2FT1vtiGjiZ83XfEUlnLVxFCMBxVZZAH70kfnPhWePhyl6sSfaqrTM3Ny3BqeEI4zdWf72Z87Y3A1eK3Jy31abqSqjtEE%2F1d%2FKpEu%2Bn%2BEaykjn3KVj4aaUIUKm6U%3D"}],"group":"cf-nel","max_age":604800}'
+            Server: cloudflare
+            Set-Cookie: _cfuvid=V0VvRHswqAmGVaXQ4zowkYocvkliBuWoS4xkKN3i8h0-1727434554273-0.0.1.1-604800000;
+              path=/; domain=.gitlab.com; HttpOnly; Secure; SameSite=None
+            Transfer-Encoding: chunked
+            cache-control: max-age=0, private, must-revalidate
+            content-security-policy: default-src 'none'
+            etag: W/"2b79a3393fa5f1a17a0b59870121e73e"
+            gitlab-lb: haproxy-main-59-lb-gprd
+            gitlab-sv: api-gke-us-east1-d
+            referrer-policy: strict-origin-when-cross-origin
+            strict-transport-security: max-age=31536000
+            vary: Origin, Accept-Encoding
+            x-content-type-options: nosniff
+            x-frame-options: SAMEORIGIN
+            x-gitlab-meta: '{"correlation_id":"e79fb074ce333045ca616d58d418a22b","version":"1"}'
+            x-request-id: e79fb074ce333045ca616d58d418a22b
+            x-runtime: '0.251064'
+          raw: !!binary ""
+          reason: OK
+          status_code: 200
+    POST:
+      https://gitlab.com/api/v4/projects/19258958/issues/12/notes/2132763676/award_emoji:
+      - metadata:
+          latency: 0.42879796028137207
+          module_call_list:
+          - unittest.case
+          - requre.record_and_replace
+          - tests.integration.gitlab.test_comments
+          - ogr.abstract
+          - ogr.services.gitlab.comments
+          - gitlab.exceptions
+          - gitlab.mixins
+          - gitlab.client
+          - gitlab._backends.requests_backend
+          - requests.sessions
+          - requre.objects
+          - requre.cassette
+          - requests.sessions
+          - send
+        output:
+          __store_indicator: 2
+          _content:
+            awardable_id: 2132763676
+            awardable_type: Note
+            created_at: '2024-09-27T10:55:57.140Z'
+            id: 28638596
+            name: tractor
+            updated_at: '2024-09-27T10:55:57.140Z'
+            url: null
+            user:
+              avatar_url: https://secure.gravatar.com/avatar/d963fb545c613760975ebac0be691f2f58164925052525b8a9b9c5819d859fa2?s=80&d=identicon
+              id: 23047056
+              locked: false
+              name: "Luk\xE1\u0161 K\u0159\xED\u017E"
+              state: active
+              username: kapr200
+              web_url: https://gitlab.com/kapr200
+          _next: null
+          elapsed: 0.2
+          encoding: utf-8
+          headers:
+            CF-Cache-Status: DYNAMIC
+            CF-RAY: 8c9af6dd18c5b33c-PRG
+            Connection: keep-alive
+            Content-Length: '450'
+            Content-Type: application/json
+            Date: Fri, 01 Nov 2019 13-36-03 GMT
+            NEL: '{"success_fraction":0.01,"report_to":"cf-nel","max_age":604800}'
+            Report-To: '{"endpoints":[{"url":"https:\/\/a.nel.cloudflare.com\/report\/v4?s=IRyssIXnrlmiauRtcUwICG3YeZo%2BAUfpD3T5rD87ZeK9EqPM1Ik7eKmRyKQkpOqrEmeIM2Dl%2F1reeyqkWFN%2FrE219RZVQb99Tbw9nWrq8joqsoiNaX75NGokbKg%3D"}],"group":"cf-nel","max_age":604800}'
+            Server: cloudflare
+            cache-control: max-age=0, private, must-revalidate
+            content-security-policy: default-src 'none'
+            etag: W/"0f23d5a0d42b0e505c571726fc9add59"
+            gitlab-lb: haproxy-main-40-lb-gprd
+            gitlab-sv: api-gke-us-east1-c
+            referrer-policy: strict-origin-when-cross-origin
+            strict-transport-security: max-age=31536000
+            vary: Origin
+            x-content-type-options: nosniff
+            x-frame-options: SAMEORIGIN
+            x-gitlab-meta: '{"correlation_id":"9253a033778be28e7e5b4379eac37908","version":"1"}'
+            x-request-id: 9253a033778be28e7e5b4379eac37908
+            x-runtime: '0.297869'
+          raw: !!binary ""
+          reason: Created
+          status_code: 201
+      - metadata:
+          latency: 0.2551250457763672
+          module_call_list:
+          - unittest.case
+          - requre.record_and_replace
+          - tests.integration.gitlab.test_comments
+          - ogr.abstract
+          - ogr.services.gitlab.comments
+          - gitlab.exceptions
+          - gitlab.mixins
+          - gitlab.client
+          - gitlab._backends.requests_backend
+          - requests.sessions
+          - requre.objects
+          - requre.cassette
+          - requests.sessions
+          - send
+        output:
+          __store_indicator: 2
+          _content:
+            message: 404 Award Emoji Name has already been taken Not Found
+          _next: null
+          elapsed: 0.2
+          encoding: utf-8
+          headers:
+            CF-Cache-Status: DYNAMIC
+            CF-RAY: 8c9af6dfcdfcb33c-PRG
+            Connection: keep-alive
+            Content-Encoding: gzip
+            Content-Type: application/json
+            Date: Fri, 01 Nov 2019 13-36-03 GMT
+            NEL: '{"success_fraction":0.01,"report_to":"cf-nel","max_age":604800}'
+            Report-To: '{"endpoints":[{"url":"https:\/\/a.nel.cloudflare.com\/report\/v4?s=C3idiqiXZGOHrV9zMLsY079%2B%2FIoEqWLqHTE1B5339EGTkryIe6LMcRUaBNrvN9bUy%2BtSWbmUBzhKjv4%2Bad1StYZzIRPJQ5KEZHVKx4p0nLXvWDcRySRJr%2BBpj00%3D"}],"group":"cf-nel","max_age":604800}'
+            Server: cloudflare
+            Transfer-Encoding: chunked
+            cache-control: no-cache
+            content-security-policy: default-src 'none'
+            gitlab-lb: haproxy-main-26-lb-gprd
+            gitlab-sv: api-gke-us-east1-d
+            referrer-policy: strict-origin-when-cross-origin
+            strict-transport-security: max-age=31536000
+            vary: Origin
+            x-content-type-options: nosniff
+            x-frame-options: SAMEORIGIN
+            x-gitlab-meta: '{"correlation_id":"fa4c5cbd3936f90ab7cf751dd8e7af0b","version":"1"}'
+            x-request-id: fa4c5cbd3936f90ab7cf751dd8e7af0b
+            x-runtime: '0.116719'
+          raw: !!binary ""
+          reason: Not Found
+          status_code: 404
+      https://gitlab.com/api/v4/projects/19258958/merge_requests/1149/notes/2132728866/award_emoji:
+      - metadata:
+          latency: 0.36843037605285645
+          module_call_list:
+          - unittest.case
+          - requre.record_and_replace
+          - tests.integration.gitlab.test_comments
+          - ogr.abstract
+          - ogr.services.gitlab.comments
+          - gitlab.exceptions
+          - gitlab.mixins
+          - gitlab.client
+          - gitlab._backends.requests_backend
+          - requests.sessions
+          - requre.objects
+          - requre.cassette
+          - requests.sessions
+          - send
+        output:
+          __store_indicator: 2
+          _content:
+            awardable_id: 2132728866
+            awardable_type: Note
+            created_at: '2024-09-27T10:55:55.405Z'
+            id: 28638595
+            name: tractor
+            updated_at: '2024-09-27T10:55:55.405Z'
+            url: null
+            user:
+              avatar_url: https://secure.gravatar.com/avatar/d963fb545c613760975ebac0be691f2f58164925052525b8a9b9c5819d859fa2?s=80&d=identicon
+              id: 23047056
+              locked: false
+              name: "Luk\xE1\u0161 K\u0159\xED\u017E"
+              state: active
+              username: kapr200
+              web_url: https://gitlab.com/kapr200
+          _next: null
+          elapsed: 0.2
+          encoding: utf-8
+          headers:
+            CF-Cache-Status: DYNAMIC
+            CF-RAY: 8c9af6d1dd3cb33c-PRG
+            Connection: keep-alive
+            Content-Length: '450'
+            Content-Type: application/json
+            Date: Fri, 01 Nov 2019 13-36-03 GMT
+            NEL: '{"success_fraction":0.01,"report_to":"cf-nel","max_age":604800}'
+            Report-To: '{"endpoints":[{"url":"https:\/\/a.nel.cloudflare.com\/report\/v4?s=oG9dy5sv0tvgBRMdLCWGGX8qgSkvE6cDYi3JkoaLYC9p372z1cofEPt1GSSXjbAeFhaYUyXPUIc5N9P0KnacV5r5pnvB9%2F56QT%2BeObch0twDD4WUOpbB4qR%2FSTY%3D"}],"group":"cf-nel","max_age":604800}'
+            Server: cloudflare
+            cache-control: max-age=0, private, must-revalidate
+            content-security-policy: default-src 'none'
+            etag: W/"bbb3ac19730eecf6613e68202b8eaa32"
+            gitlab-lb: haproxy-main-09-lb-gprd
+            gitlab-sv: api-gke-us-east1-b
+            referrer-policy: strict-origin-when-cross-origin
+            strict-transport-security: max-age=31536000
+            vary: Origin
+            x-content-type-options: nosniff
+            x-frame-options: SAMEORIGIN
+            x-gitlab-meta: '{"correlation_id":"d102781d56be628989ce6ba4890951ea","version":"1"}'
+            x-request-id: d102781d56be628989ce6ba4890951ea
+            x-runtime: '0.209962'
+          raw: !!binary ""
+          reason: Created
+          status_code: 201
+      - metadata:
+          latency: 0.34850597381591797
+          module_call_list:
+          - unittest.case
+          - requre.record_and_replace
+          - tests.integration.gitlab.test_comments
+          - ogr.abstract
+          - ogr.services.gitlab.comments
+          - gitlab.exceptions
+          - gitlab.mixins
+          - gitlab.client
+          - gitlab._backends.requests_backend
+          - requests.sessions
+          - requre.objects
+          - requre.cassette
+          - requests.sessions
+          - send
+        output:
+          __store_indicator: 2
+          _content:
+            message: 404 Award Emoji Name has already been taken Not Found
+          _next: null
+          elapsed: 0.2
+          encoding: utf-8
+          headers:
+            CF-Cache-Status: DYNAMIC
+            CF-RAY: 8c9af6d429feb33c-PRG
+            Connection: keep-alive
+            Content-Encoding: gzip
+            Content-Type: application/json
+            Date: Fri, 01 Nov 2019 13-36-03 GMT
+            NEL: '{"success_fraction":0.01,"report_to":"cf-nel","max_age":604800}'
+            Report-To: '{"endpoints":[{"url":"https:\/\/a.nel.cloudflare.com\/report\/v4?s=FoTDb8wukz1zohUmOKMx9wAT09pI8rq7CTzUfw5XdyBGEIOsBArieZsrJOvGAF%2BhsFDA7CnS4PAiGnh2ZEXodRJLHkwP4SpCYdXhT1C%2FFkTtMOVV4x0htpL6dBE%3D"}],"group":"cf-nel","max_age":604800}'
+            Server: cloudflare
+            Transfer-Encoding: chunked
+            cache-control: no-cache
+            content-security-policy: default-src 'none'
+            gitlab-lb: haproxy-main-41-lb-gprd
+            gitlab-sv: api-gke-us-east1-d
+            referrer-policy: strict-origin-when-cross-origin
+            strict-transport-security: max-age=31536000
+            vary: Origin
+            x-content-type-options: nosniff
+            x-frame-options: SAMEORIGIN
+            x-gitlab-meta: '{"correlation_id":"32f4ccb8b79fe4e2f049b16e3e0d531b","version":"1"}'
+            x-request-id: 32f4ccb8b79fe4e2f049b16e3e0d531b
+            x-runtime: '0.117466'
+          raw: !!binary ""
+          reason: Not Found
+          status_code: 404
