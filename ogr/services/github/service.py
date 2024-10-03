@@ -49,7 +49,7 @@ class GithubService(BaseGitService):
         github_app_private_key_path: Optional[str] = None,
         tokman_instance_url: Optional[str] = None,
         github_authentication: GithubAuthentication = None,
-        max_retries: Union[int, Retry] = 0,
+        max_retries: Union[int, Retry] = 1,
         **kwargs,
     ):
         """
@@ -69,12 +69,11 @@ class GithubService(BaseGitService):
         else:
             self._max_retries = Retry(
                 total=int(max_retries),
-                read=0,
                 # Retry mechanism active for these HTTP methods:
                 allowed_methods=["DELETE", "GET", "PATCH", "POST", "PUT"],
                 # Only retry on following HTTP status codes
                 status_forcelist=[500, 503, 403, 401],
-                raise_on_status=False,
+                raise_on_status=True,
             )
 
         if not self._default_auth_method:

@@ -465,7 +465,7 @@ def test_get_instances_from_dict_multiple_auth(instances_in_dict, result_instanc
                     "token": "abcd",
                 },
             },
-            0,
+            1,
         ),
         (
             {
