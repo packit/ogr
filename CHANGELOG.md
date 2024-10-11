@@ -1,3 +1,7 @@
+# 0.50.1
+
+- We have fixed an issue that caused inconsistencies with the expected behavior stated by the documentation when adding duplicate reactions to GitLab comments. (#861)
+
 # 0.50.0
 
 - A new` get_commits` method was implemented for GitHub and Gitlab projects. (#857)
