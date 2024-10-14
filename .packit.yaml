@@ -84,6 +84,23 @@ jobs:
     list_on_homepage: True
     preserve_project: True
 
+  #region GitHub Merge Queue
+  - job: tests
+    trigger: commit
+    branch: gh-readonly-queue/.*
+    status_name_template: "tests:epel9"
+    targets:
+      - epel-9
+    packit_instances: ["stg"]
+  - job: tests
+    trigger: commit
+    branch: gh-readonly-queue/.*
+    status_name_template: "tests:fedora-latest-stable"
+    targets:
+      - fedora-latest-stable
+    packit_instances: ["stg"]
+  #endregion
+
   - job: pull_from_upstream
     trigger: release
     dist_git_branches:
