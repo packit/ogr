@@ -4,11 +4,12 @@
 import datetime
 from typing import Union
 
+from github.CommitComment import CommitComment as _GithubCommitComment
 from github.IssueComment import IssueComment as _GithubIssueComment
 from github.PullRequestComment import PullRequestComment as _GithubPullRequestComment
 from github.Reaction import Reaction as _Reaction
 
-from ogr.abstract import Comment, IssueComment, PRComment, Reaction
+from ogr.abstract import Comment, CommitComment, IssueComment, PRComment, Reaction
 
 
 class GithubReaction(Reaction):
@@ -24,7 +25,11 @@ class GithubReaction(Reaction):
 class GithubComment(Comment):
     def _from_raw_comment(
         self,
-        raw_comment: Union[_GithubIssueComment, _GithubPullRequestComment],
+        raw_comment: Union[
+            _GithubIssueComment,
+            _GithubPullRequestComment,
+            _GithubCommitComment,
+        ],
     ) -> None:
         self._raw_comment = raw_comment
         self._id = raw_comment.id
@@ -58,5 +63,10 @@ class GithubIssueComment(GithubComment, IssueComment):
 
 
 class GithubPRComment(GithubComment, PRComment):
+    def __str__(self) -> str:
+        return "Github" + super().__str__()
+
+
+class GithubCommitComment(GithubComment, CommitComment):
     def __str__(self) -> str:
         return "Github" + super().__str__()

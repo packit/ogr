@@ -210,6 +210,16 @@ class GenericCommands(GitlabTests):
         assert comments[0].sha == "11b37d913374b14f8519d16c2a2cca3ebc14ac64"
         assert comments[0].body == "Comment to line 3"
 
+    def test_get_commit_comment(self):
+        comment = self.project.get_commit_comment(
+            "11b37d913374b14f8519d16c2a2cca3ebc14ac64",
+            1619912175,
+        )
+        assert comment
+        assert comment.sha == "11b37d913374b14f8519d16c2a2cca3ebc14ac64"
+        assert comment.body == "Comment to line 3"
+        assert comment.author == "mfocko"
+
     def test_get_web_url(self):
         url = self.project.get_web_url()
         assert url == "https://gitlab.com/packit-service/ogr-tests"

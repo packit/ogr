@@ -259,6 +259,15 @@ class GenericCommands(GithubTests):
         assert comments[0].sha == "95069d7bedb6ae02def3fccce22169b412d08eac"
         assert comments[0].body == "Testing commit comment"
 
+    def test_get_commit_comment(self):
+        comment = self.hello_world_project.get_commit_comment(
+            "95069d7bedb6ae02def3fccce22169b412d08eac",
+            74596713,
+        )
+        assert comment
+        assert comment.sha == "95069d7bedb6ae02def3fccce22169b412d08eac"
+        assert comment.body == "Testing commit comment"
+
     def test_get_web_url(self):
         url = self.ogr_project.get_web_url()
         assert url == "https://github.com/packit/ogr"

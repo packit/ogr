@@ -25,6 +25,7 @@ from ogr.abstract import (
 from ogr.exceptions import GitlabAPIException, OperationNotSupported
 from ogr.services import gitlab as ogr_gitlab
 from ogr.services.base import BaseGitProject
+from ogr.services.gitlab.comments import GitlabCommitComment
 from ogr.services.gitlab.flag import GitlabCommitFlag
 from ogr.services.gitlab.issue import GitlabIssue
 from ogr.services.gitlab.pull_request import GitlabPullRequest
@@ -294,11 +295,10 @@ class GitlabProject(BaseGitProject):
         return self._commit_comment_from_gitlab_object(raw_comment, commit)
 
     @staticmethod
-    def _commit_comment_from_gitlab_object(raw_comment, commit) -> CommitComment:
-        return CommitComment(
+    def _commit_comment_from_gitlab_object(raw_comment, commit: str) -> CommitComment:
+        return GitlabCommitComment(
+            raw_comment=raw_comment,
             sha=commit,
-            body=raw_comment.note,
-            author=raw_comment.author["username"],
         )
 
     def get_commit_comments(self, commit: str) -> list[CommitComment]:
@@ -312,6 +312,38 @@ class GitlabProject(BaseGitProject):
             self._commit_comment_from_gitlab_object(comment, commit)
             for comment in commit_object.comments.list()
         ]
+
+    def get_commit_comment(self, commit_sha: str, comment_id: int) -> CommitComment:
+        try:
+            commit_object: ProjectCommit = self.gitlab_repo.commits.get(commit_sha)
+        except gitlab.exceptions.GitlabGetError as ex:
+            logger.error(f"Commit with SHA {commit_sha} was not found: {ex}")
+            raise GitlabAPIException(
+                f"Commit with SHA {commit_sha} was not found.",
+            ) from ex
+
+        try:
+            discussions = commit_object.discussions.list(all=True)
+            comment = None
+
+            for discussion in discussions:
+                note_ids = [note["id"] for note in discussion.attributes["notes"]]
+                if comment_id in note_ids:
+                    comment = discussion.notes.get(comment_id)
+                    break
+
+            if comment is None:
+                raise GitlabAPIException(
+                    f"Comment with ID {comment_id} not found in commit {commit_sha}.",
+                )
+
+        except gitlab.exceptions.GitlabGetError as ex:
+            logger.error(f"Failed to retrieve comment with ID {comment_id}: {ex}")
+            raise GitlabAPIException(
+                f"Failed to retrieve comment with ID {comment_id}.",
+            ) from ex
+
+        return self._commit_comment_from_gitlab_object(comment, commit_sha)
 
     @indirect(GitlabCommitFlag.set)
     def set_commit_status(
