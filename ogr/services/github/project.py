@@ -8,7 +8,7 @@ from typing import ClassVar, Optional, Union
 import github
 from github import UnknownObjectException
 from github.Commit import Commit
-from github.CommitComment import CommitComment as GithubCommitComment
+from github.CommitComment import CommitComment as _GithubCommitComment
 from github.GithubException import GithubException
 from github.Repository import Repository
 
@@ -34,6 +34,7 @@ from ogr.services.github.check_run import (
     GithubCheckRunResult,
     GithubCheckRunStatus,
 )
+from ogr.services.github.comments import GithubCommitComment
 from ogr.services.github.flag import GithubCommitFlag
 from ogr.services.github.issue import GithubIssue
 from ogr.services.github.pull_request import GithubPullRequest
@@ -345,11 +346,10 @@ class GithubProject(BaseGitProject):
 
     @staticmethod
     def _commit_comment_from_github_object(
-        raw_commit_coment: GithubCommitComment,
+        raw_commit_coment: _GithubCommitComment,
     ) -> CommitComment:
-        return CommitComment(
-            body=raw_commit_coment.body,
-            author=raw_commit_coment.user.login,
+        return GithubCommitComment(
+            raw_comment=raw_commit_coment,
             sha=raw_commit_coment.commit_id,
         )
 
@@ -359,6 +359,11 @@ class GithubProject(BaseGitProject):
             self._commit_comment_from_github_object(comment)
             for comment in github_commit.get_comments()
         ]
+
+    def get_commit_comment(self, commit_sha: str, comment_id: int) -> CommitComment:
+        return self._commit_comment_from_github_object(
+            self.github_repo.get_comment(comment_id),
+        )
 
     @if_readonly(
         return_function=GitProjectReadOnly.set_commit_status,

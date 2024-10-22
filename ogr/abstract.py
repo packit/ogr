@@ -1031,7 +1031,7 @@ class CommitFlag(OgrAbstractClass):
         raise NotImplementedError()
 
 
-class CommitComment(OgrAbstractClass):
+class CommitComment(Comment):
     """
     Attributes:
         sha (str): Hash of the related commit.
@@ -1039,10 +1039,13 @@ class CommitComment(OgrAbstractClass):
         author (str): Login of the author.
     """
 
-    def __init__(self, sha: str, body: str, author: str) -> None:
+    def __init__(
+        self,
+        sha: str,
+        raw_comment: Any,
+    ) -> None:
+        super().__init__(raw_comment=raw_comment)
         self.sha = sha
-        self.body = body
-        self.author = author
 
     @property  # type: ignore
     @deprecate_and_set_removal(
@@ -1872,6 +1875,19 @@ class GitProject(OgrAbstractClass):
 
         Returns:
             List of all comments for the commit.
+        """
+        raise NotImplementedError()
+
+    def get_commit_comment(self, commit_sha: str, comment_id: int) -> CommitComment:
+        """
+        Get commit comment.
+
+        Args:
+            commit_sha: SHA of the commit
+            comment_id: ID of the commit comment
+
+        Returns:
+            Object representing the commit comment.
         """
         raise NotImplementedError()
 

@@ -252,7 +252,7 @@ class GitProjectReadOnly:
         commit: str,
         body: str,
     ) -> "CommitComment":
-        return CommitComment(sha=commit, body=body, author=cls.author)
+        return CommitComment(sha=commit, raw_comment=original_object)
 
     @classmethod
     def set_commit_status(
