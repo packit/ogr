@@ -1,3 +1,7 @@
+# 0.50.2
+
+- There is a new method for getting a single commit comment, supporting also retrieval and adding reactions in GitHub. (#865)
+
 # 0.50.1
 
 - We have fixed an issue that caused inconsistencies with the expected behavior stated by the documentation when adding duplicate reactions to GitLab comments. (#861)
