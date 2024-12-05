@@ -21,7 +21,7 @@ adjust:
 
   - when: "distro == rhel-9 or distro == centos-9 or distro == centos-stream-9"
     because: "build and deepdiff are not in EPEL 9"
-    prepare:
+    prepare+:
       - how: install
         package: python3-pip
       - how: shell
