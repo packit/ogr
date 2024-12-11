@@ -42,6 +42,7 @@ jobs:
     trigger: pull_request
     targets:
       - fedora-all
+      - fedora-all-aarch64
       - epel-9
   - job: tests
     trigger: pull_request
@@ -60,6 +61,7 @@ jobs:
     branch: main
     targets:
       - fedora-all
+      - fedora-all-aarch64
       - epel-9
     project: packit-dev
     list_on_homepage: True
@@ -70,6 +72,7 @@ jobs:
     branch: stable
     targets:
       - fedora-stable
+      - fedora-stable-aarch64
       - epel-9
     project: packit-stable
     list_on_homepage: True
@@ -79,6 +82,7 @@ jobs:
     trigger: release
     targets:
       - fedora-all
+      - fedora-all-aarch64
       - epel-9
     project: packit-releases
     list_on_homepage: True
