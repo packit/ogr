@@ -322,3 +322,18 @@ class GenericCommands(GithubTests):
 
         assert self.ogr_project.has_write_access(user="csomh")
         assert not self.ogr_project.has_write_access(user="miko")
+
+    def test_redirection(self):
+        p = self.service.get_project(namespace="konveyor", repo="volume-snapshot-mover")
+        assert (p.namespace, p.repo) == (
+            "konveyor",
+            "volume-snapshot-mover",
+        ), "Path is “as is” when constructed"
+
+        # Try to fetch the repo which should cause a redirect on GitHub (e.g., after rename)
+        _ = p.github_repo
+
+        assert (p.namespace, p.repo) == (
+            "migtools",
+            "volume-snapshot-mover",
+        ), "Repo and namespace should be updated to the current ones"
