@@ -195,6 +195,14 @@ from ogr.parsing import RepoUrl, parse_git_repo
                 scheme="git",
             ),
         ),
+        (
+            "https://git.launchpad.net/dkimpy",
+            RepoUrl(
+                repo="dkimpy",
+                hostname="git.launchpad.net",
+                scheme="https",
+            ),
+        ),
     ],
 )
 def test_parse_git_repo(url, expected):
