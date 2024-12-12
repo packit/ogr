@@ -84,6 +84,16 @@ class GithubProject(BaseGitProject):
             self._github_repo = self.github_instance.get_repo(
                 full_name_or_id=f"{self.namespace}/{self.repo}",
             )
+
+            # Handle possible 301
+            if (
+                self._github_repo.owner.login != self.namespace
+                or self._github_repo.name != self.repo
+            ):
+                (self.namespace, self.repo) = (
+                    self._github_repo.owner.login,
+                    self._github_repo.name,
+                )
         return self._github_repo
 
     def __str__(self) -> str:
