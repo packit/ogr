@@ -1,0 +1,18 @@
+summary:
+    Check rpm files with rpminspect
+discover:
+    how: shell
+    tests:
+      - name: rpminspect SRPM and RPMs
+        test: for rpm in /var/share/test-artifacts/*.rpm; do rpminspect-centos -E metadata -v -t VERIFY --profile=centos-stream-9-devel $rpm; done
+prepare:
+  - name: packages
+    how: install
+    package:
+    - rpminspect
+    - rpminspect-data-centos
+execute:
+    how: tmt
+adjust:
+    enabled: false
+    when: distro == fedora
