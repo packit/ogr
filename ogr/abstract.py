@@ -80,7 +80,7 @@ def __wrap_exception(
 
     for caught_exception, ogr_exception in MAPPING.items():
         if isinstance(ex, caught_exception):
-            exc = ogr_exception()
+            exc = ogr_exception(str(ex))
             exc.__cause__ = ex
             return exc
 
