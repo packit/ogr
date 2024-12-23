@@ -4,7 +4,7 @@
 
 repos:
   - repo: https://github.com/psf/black
-    rev: 24.8.0
+    rev: 24.10.0
     hooks:
       - id: black
   - repo: https://github.com/pre-commit/mirrors-prettier
@@ -12,7 +12,7 @@ repos:
     hooks:
       - id: prettier
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.6.0
+    rev: v5.0.0
     hooks:
       - id: check-added-large-files
       - id: check-ast
@@ -26,19 +26,19 @@ repos:
       - id: mixed-line-ending
       - id: trailing-whitespace
   - repo: https://github.com/pre-commit/mirrors-mypy
-    rev: v1.11.2
+    rev: v1.14.0
     hooks:
       - id: mypy
         args: [--no-strict-optional, --ignore-missing-imports]
         additional_dependencies:
           [types-setuptools, types-requests, types-Deprecated]
   - repo: https://github.com/teemtee/tmt.git
-    rev: 1.35.0
+    rev: 1.40.0
     hooks:
       - id: tmt-lint
         # Do not run in pre-commit.ci as it requires an internet access
         # for verifying imported tmt plans
-        stages: [manual, push]
+        stages: [manual, pre-push]
   - repo: https://github.com/packit/pre-commit-hooks
     rev: v1.2.0
     hooks:
@@ -47,21 +47,21 @@ repos:
           - https://github.com/packit-service/ogr.git
         # Do not run in pre-commit.ci as it requires an internet access
         # to verify the rebasing
-        stages: [manual, push]
+        stages: [manual, pre-push]
   - repo: https://github.com/packit/requre
     rev: 0.8.4
     hooks:
       - id: requre-purge
         # Do not run in pre-commit.ci as it requires too much time
-        stages: [manual, push]
+        stages: [manual, pre-push]
   - repo: https://github.com/astral-sh/ruff-pre-commit
     # Ruff version.
-    rev: v0.6.3
+    rev: v0.8.4
     hooks:
       - id: ruff
         args: [--fix, --exit-non-zero-on-fix]
   - repo: https://github.com/python-jsonschema/check-jsonschema
-    rev: 0.29.2
+    rev: 0.30.0
     hooks:
       - id: check-github-workflows
         args: ["--verbose"]
