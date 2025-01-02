@@ -1,0 +1,270 @@
+_requre:
+  DataTypes: 1
+  key_strategy: StorageKeysInspectSimple
+  version_storage_file: 3
+requests.sessions:
+  send:
+    GET:
+      https://api.github.com:443/repos/konveyor/volume-snapshot-mover:
+      - metadata:
+          latency: 0.321486234664917
+          module_call_list:
+          - unittest.case
+          - requre.record_and_replace
+          - tests.integration.github.test_generic_commands
+          - ogr.services.github.project
+          - github.MainClass
+          - github.Requester
+          - requests.sessions
+          - requre.objects
+          - requre.cassette
+          - requests.sessions
+          - send
+        output:
+          __store_indicator: 2
+          _content:
+            documentation_url: https://docs.github.com/rest/guides/best-practices-for-using-the-rest-api#follow-redirects
+            message: Moved Permanently
+            url: https://api.github.com/repositories/464988123
+          _next:
+          - requests.sessions
+          - send
+          - GET
+          - https://api.github.com:443/repos/konveyor/volume-snapshot-mover
+          elapsed: 0.2
+          encoding: utf-8
+          headers:
+            Access-Control-Allow-Origin: '*'
+            Access-Control-Expose-Headers: ETag, Link, Location, Retry-After, X-GitHub-OTP,
+              X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Used, X-RateLimit-Resource,
+              X-RateLimit-Reset, X-OAuth-Scopes, X-Accepted-OAuth-Scopes, X-Poll-Interval,
+              X-GitHub-Media-Type, X-GitHub-SSO, X-GitHub-Request-Id, Deprecation,
+              Sunset
+            Content-Length: '198'
+            Content-Security-Policy: default-src 'self';script-src 'self' 'nonce-YqLDC0BS8d7iY8mKO7VtBbIne'
+              https://apps.fedoraproject.org; style-src 'self' 'nonce-YqLDC0BS8d7iY8mKO7VtBbIne';
+              object-src 'none';base-uri 'self';img-src 'self' https:;
+            Content-Type: application/json; charset=utf-8
+            Date: Fri, 01 Nov 2019 13-36-03 GMT
+            Location: https://api.github.com/repositories/464988123
+            Referrer-Policy: origin-when-cross-origin, strict-origin-when-cross-origin
+            Server: github.com
+            Strict-Transport-Security: max-age=31536000; includeSubdomains; preload
+            Vary: Accept-Encoding, Accept, X-Requested-With
+            X-Accepted-OAuth-Scopes: admin:repo_hook, delete_repo, read:repo_hook,
+              repo, repo:status, repo_deployment, security_events, write:repo_hook
+            X-Content-Type-Options: nosniff
+            X-Frame-Options: deny
+            X-GitHub-Media-Type: github.v3; format=json
+            X-GitHub-Request-Id: 18FB:AA1A:99616C4:B8092CB:5CC15425
+            X-OAuth-Scopes: admin:enterprise, admin:gpg_key, admin:org, admin:org_hook,
+              admin:public_key, admin:repo_hook, delete:packages, delete_repo, gist,
+              notifications, repo, user, workflow, write:discussion, write:packages
+            X-RateLimit-Limit: '5000'
+            X-RateLimit-Remaining: '4972'
+            X-RateLimit-Reset: '1572953901'
+            X-RateLimit-Resource: core
+            X-RateLimit-Used: '5'
+            X-XSS-Protection: '0'
+            x-github-api-version-selected: '2022-11-28'
+          raw: !!binary ""
+          reason: Moved Permanently
+          status_code: 301
+      https://api.github.com:443/repositories/464988123:
+      - metadata:
+          latency: 0.2637467384338379
+          module_call_list:
+          - unittest.case
+          - requre.record_and_replace
+          - tests.integration.github.test_generic_commands
+          - ogr.services.github.project
+          - github.MainClass
+          - github.Requester
+          - requests.sessions
+          - requre.objects
+          - requre.cassette
+          - requests.sessions
+          - send
+        output:
+          __store_indicator: 2
+          _content:
+            allow_forking: true
+            archive_url: https://api.github.com/repos/migtools/volume-snapshot-mover/{archive_format}{/ref}
+            archived: false
+            assignees_url: https://api.github.com/repos/migtools/volume-snapshot-mover/assignees{/user}
+            blobs_url: https://api.github.com/repos/migtools/volume-snapshot-mover/git/blobs{/sha}
+            branches_url: https://api.github.com/repos/migtools/volume-snapshot-mover/branches{/branch}
+            clone_url: https://github.com/migtools/volume-snapshot-mover.git
+            collaborators_url: https://api.github.com/repos/migtools/volume-snapshot-mover/collaborators{/collaborator}
+            comments_url: https://api.github.com/repos/migtools/volume-snapshot-mover/comments{/number}
+            commits_url: https://api.github.com/repos/migtools/volume-snapshot-mover/commits{/sha}
+            compare_url: https://api.github.com/repos/migtools/volume-snapshot-mover/compare/{base}...{head}
+            contents_url: https://api.github.com/repos/migtools/volume-snapshot-mover/contents/{+path}
+            contributors_url: https://api.github.com/repos/migtools/volume-snapshot-mover/contributors
+            created_at: '2022-03-01T17:17:07Z'
+            custom_properties: {}
+            default_branch: master
+            deployments_url: https://api.github.com/repos/migtools/volume-snapshot-mover/deployments
+            description: null
+            disabled: false
+            downloads_url: https://api.github.com/repos/migtools/volume-snapshot-mover/downloads
+            events_url: https://api.github.com/repos/migtools/volume-snapshot-mover/events
+            fork: false
+            forks: 13
+            forks_count: 13
+            forks_url: https://api.github.com/repos/migtools/volume-snapshot-mover/forks
+            full_name: migtools/volume-snapshot-mover
+            git_commits_url: https://api.github.com/repos/migtools/volume-snapshot-mover/git/commits{/sha}
+            git_refs_url: https://api.github.com/repos/migtools/volume-snapshot-mover/git/refs{/sha}
+            git_tags_url: https://api.github.com/repos/migtools/volume-snapshot-mover/git/tags{/sha}
+            git_url: git://github.com/migtools/volume-snapshot-mover.git
+            has_discussions: false
+            has_downloads: true
+            has_issues: true
+            has_pages: true
+            has_projects: true
+            has_wiki: true
+            homepage: https://migtools.github.io/volume-snapshot-mover/developer
+            hooks_url: https://api.github.com/repos/migtools/volume-snapshot-mover/hooks
+            html_url: https://github.com/migtools/volume-snapshot-mover
+            id: 464988123
+            is_template: false
+            issue_comment_url: https://api.github.com/repos/migtools/volume-snapshot-mover/issues/comments{/number}
+            issue_events_url: https://api.github.com/repos/migtools/volume-snapshot-mover/issues/events{/number}
+            issues_url: https://api.github.com/repos/migtools/volume-snapshot-mover/issues{/number}
+            keys_url: https://api.github.com/repos/migtools/volume-snapshot-mover/keys{/key_id}
+            labels_url: https://api.github.com/repos/migtools/volume-snapshot-mover/labels{/name}
+            language: Go
+            languages_url: https://api.github.com/repos/migtools/volume-snapshot-mover/languages
+            license:
+              key: apache-2.0
+              name: Apache License 2.0
+              node_id: MDc6TGljZW5zZTI=
+              spdx_id: Apache-2.0
+              url: https://api.github.com/licenses/apache-2.0
+            merges_url: https://api.github.com/repos/migtools/volume-snapshot-mover/merges
+            milestones_url: https://api.github.com/repos/migtools/volume-snapshot-mover/milestones{/number}
+            mirror_url: null
+            name: volume-snapshot-mover
+            network_count: 13
+            node_id: R_kgDOG7cn2w
+            notifications_url: https://api.github.com/repos/migtools/volume-snapshot-mover/notifications{?since,all,participating}
+            open_issues: 16
+            open_issues_count: 16
+            organization:
+              avatar_url: https://avatars.githubusercontent.com/u/55251026?v=4
+              events_url: https://api.github.com/users/migtools/events{/privacy}
+              followers_url: https://api.github.com/users/migtools/followers
+              following_url: https://api.github.com/users/migtools/following{/other_user}
+              gists_url: https://api.github.com/users/migtools/gists{/gist_id}
+              gravatar_id: ''
+              html_url: https://github.com/migtools
+              id: 55251026
+              login: migtools
+              node_id: MDEyOk9yZ2FuaXphdGlvbjU1MjUxMDI2
+              organizations_url: https://api.github.com/users/migtools/orgs
+              received_events_url: https://api.github.com/users/migtools/received_events
+              repos_url: https://api.github.com/users/migtools/repos
+              site_admin: false
+              starred_url: https://api.github.com/users/migtools/starred{/owner}{/repo}
+              subscriptions_url: https://api.github.com/users/migtools/subscriptions
+              type: Organization
+              url: https://api.github.com/users/migtools
+              user_view_type: public
+            owner:
+              avatar_url: https://avatars.githubusercontent.com/u/55251026?v=4
+              events_url: https://api.github.com/users/migtools/events{/privacy}
+              followers_url: https://api.github.com/users/migtools/followers
+              following_url: https://api.github.com/users/migtools/following{/other_user}
+              gists_url: https://api.github.com/users/migtools/gists{/gist_id}
+              gravatar_id: ''
+              html_url: https://github.com/migtools
+              id: 55251026
+              login: migtools
+              node_id: MDEyOk9yZ2FuaXphdGlvbjU1MjUxMDI2
+              organizations_url: https://api.github.com/users/migtools/orgs
+              received_events_url: https://api.github.com/users/migtools/received_events
+              repos_url: https://api.github.com/users/migtools/repos
+              site_admin: false
+              starred_url: https://api.github.com/users/migtools/starred{/owner}{/repo}
+              subscriptions_url: https://api.github.com/users/migtools/subscriptions
+              type: Organization
+              url: https://api.github.com/users/migtools
+              user_view_type: public
+            permissions:
+              admin: false
+              maintain: false
+              pull: true
+              push: false
+              triage: false
+            private: false
+            pulls_url: https://api.github.com/repos/migtools/volume-snapshot-mover/pulls{/number}
+            pushed_at: '2023-10-18T15:29:21Z'
+            releases_url: https://api.github.com/repos/migtools/volume-snapshot-mover/releases{/id}
+            size: 769
+            ssh_url: git@github.com:migtools/volume-snapshot-mover.git
+            stargazers_count: 18
+            stargazers_url: https://api.github.com/repos/migtools/volume-snapshot-mover/stargazers
+            statuses_url: https://api.github.com/repos/migtools/volume-snapshot-mover/statuses/{sha}
+            subscribers_count: 12
+            subscribers_url: https://api.github.com/repos/migtools/volume-snapshot-mover/subscribers
+            subscription_url: https://api.github.com/repos/migtools/volume-snapshot-mover/subscription
+            svn_url: https://github.com/migtools/volume-snapshot-mover
+            tags_url: https://api.github.com/repos/migtools/volume-snapshot-mover/tags
+            teams_url: https://api.github.com/repos/migtools/volume-snapshot-mover/teams
+            temp_clone_token: ''
+            topics:
+            - backup
+            - kubernetes
+            - restore
+            - volumesnapshot-api
+            trees_url: https://api.github.com/repos/migtools/volume-snapshot-mover/git/trees{/sha}
+            updated_at: '2024-11-14T06:09:24Z'
+            url: https://api.github.com/repos/migtools/volume-snapshot-mover
+            visibility: public
+            watchers: 18
+            watchers_count: 18
+            web_commit_signoff_required: false
+          _next: null
+          elapsed: 0.2
+          encoding: utf-8
+          headers:
+            Access-Control-Allow-Origin: '*'
+            Access-Control-Expose-Headers: ETag, Link, Location, Retry-After, X-GitHub-OTP,
+              X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Used, X-RateLimit-Resource,
+              X-RateLimit-Reset, X-OAuth-Scopes, X-Accepted-OAuth-Scopes, X-Poll-Interval,
+              X-GitHub-Media-Type, X-GitHub-SSO, X-GitHub-Request-Id, Deprecation,
+              Sunset
+            Cache-Control: private, max-age=60, s-maxage=60
+            Content-Encoding: gzip
+            Content-Security-Policy: default-src 'self';script-src 'self' 'nonce-YqLDC0BS8d7iY8mKO7VtBbIne'
+              https://apps.fedoraproject.org; style-src 'self' 'nonce-YqLDC0BS8d7iY8mKO7VtBbIne';
+              object-src 'none';base-uri 'self';img-src 'self' https:;
+            Content-Type: application/json; charset=utf-8
+            Date: Fri, 01 Nov 2019 13-36-03 GMT
+            ETag: W/"1e51b8e1c48787a433405211e9e0fe61"
+            Last-Modified: Thu, 14 Nov 2024 06:09:24 GMT
+            Referrer-Policy: origin-when-cross-origin, strict-origin-when-cross-origin
+            Server: github.com
+            Strict-Transport-Security: max-age=31536000; includeSubdomains; preload
+            Transfer-Encoding: chunked
+            Vary: Accept, Authorization, Cookie, X-GitHub-OTP,Accept-Encoding, Accept,
+              X-Requested-With
+            X-Accepted-OAuth-Scopes: repo
+            X-Content-Type-Options: nosniff
+            X-Frame-Options: deny
+            X-GitHub-Media-Type: github.v3; format=json
+            X-GitHub-Request-Id: 18FB:AA1A:99616C4:B8092CB:5CC15425
+            X-OAuth-Scopes: admin:enterprise, admin:gpg_key, admin:org, admin:org_hook,
+              admin:public_key, admin:repo_hook, delete:packages, delete_repo, gist,
+              notifications, repo, user, workflow, write:discussion, write:packages
+            X-RateLimit-Limit: '5000'
+            X-RateLimit-Remaining: '4972'
+            X-RateLimit-Reset: '1572953901'
+            X-RateLimit-Resource: core
+            X-RateLimit-Used: '6'
+            X-XSS-Protection: '0'
+            x-github-api-version-selected: '2022-11-28'
+          raw: !!binary ""
+          reason: OK
+          status_code: 200
