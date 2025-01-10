@@ -1,3 +1,8 @@
+# 0.50.3
+
+- We have improved wrapping of the forge-specific exceptions, string representation of the original exception is now included. (#884)
+- The test suite for parsing git URLs has been extended and also the handling of GitHub repository with changed owner or name has been improved. (#874)
+
 # 0.50.2
 
 - There is a new method for getting a single commit comment, supporting also retrieval and adding reactions in GitHub. (#865)
