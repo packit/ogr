@@ -29,9 +29,6 @@ srpm_build_deps:
   - python3-hatch-vcs
 
 jobs:
-  - job: sync_from_downstream
-    trigger: commit
-
   - job: propose_downstream
     trigger: release
     dist_git_branches:
