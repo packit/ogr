@@ -26,14 +26,14 @@ repos:
       - id: mixed-line-ending
       - id: trailing-whitespace
   - repo: https://github.com/pre-commit/mirrors-mypy
-    rev: v1.14.0
+    rev: v1.14.1
     hooks:
       - id: mypy
         args: [--no-strict-optional, --ignore-missing-imports]
         additional_dependencies:
           [types-setuptools, types-requests, types-Deprecated]
   - repo: https://github.com/teemtee/tmt.git
-    rev: 1.40.0
+    rev: 1.41.0
     hooks:
       - id: tmt-lint
         # Do not run in pre-commit.ci as it requires an internet access
@@ -56,12 +56,12 @@ repos:
         stages: [manual, pre-push]
   - repo: https://github.com/astral-sh/ruff-pre-commit
     # Ruff version.
-    rev: v0.8.4
+    rev: v0.9.2
     hooks:
       - id: ruff
         args: [--fix, --exit-non-zero-on-fix]
   - repo: https://github.com/python-jsonschema/check-jsonschema
-    rev: 0.30.0
+    rev: 0.31.0
     hooks:
       - id: check-github-workflows
         args: ["--verbose"]
