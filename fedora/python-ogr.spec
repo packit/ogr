@@ -1,5 +1,5 @@
 Name:           python-ogr
-Version:        0.50.3
+Version:        0.50.4
 Release:        1%{?dist}
 Summary:        One API for multiple git forges
 
@@ -47,6 +47,9 @@ One Git library to Rule!
 
 
 %changelog
+* Fri Feb 07 2025 Packit Team <hello@packit.dev> - 0.50.4-1
+- New upstream release 0.50.4
+
 * Fri Jan 10 2025 Packit Team <hello@packit.dev> - 0.50.3-1
 - New upstream release 0.50.3
 
