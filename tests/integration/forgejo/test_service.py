@@ -3,9 +3,7 @@
 
 import pyforgejo
 import pytest
-from requre.online_replacing import (
-    record,
-)
+from requre.helpers import record_httpx
 
 
 @pytest.mark.parametrize(
@@ -25,7 +23,7 @@ from requre.online_replacing import (
         ),
     ],
 )
-@record(what="pyforgejo.core.http_client.HttpClient.request")
+@record_httpx()
 def test_project_create(service, kwargs_):
     user = service.user.get_username()
     kwargs_["user"] = user

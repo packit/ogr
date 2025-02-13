@@ -5,7 +5,8 @@ import os
 import unittest
 from pathlib import Path
 
-from requre.online_replacing import record, record_requests_for_all_methods
+from requre.helpers import record_httpx
+from requre.online_replacing import record_requests_for_all_methods
 from requre.utils import get_datafile_filename
 
 from ogr import ForgejoService, GithubService, GitlabService, PagureService, get_project
@@ -15,6 +16,7 @@ from ogr.services.gitlab import GitlabProject
 from ogr.services.pagure import PagureProject
 
 
+@record_httpx()
 @record_requests_for_all_methods()
 class FactoryTests(unittest.TestCase):
     def setUp(self):
@@ -103,7 +105,6 @@ class FactoryTests(unittest.TestCase):
         assert isinstance(project, GitlabProject)
         assert project.gitlab_repo
 
-    @record(what="pyforgejo.core.http_client.HttpClient.request")
     def test_get_project_forgejo(self):
         project = get_project(
             url="https://v10.next.forgejo.org/packit/test",
