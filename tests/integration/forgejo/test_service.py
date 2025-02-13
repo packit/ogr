@@ -11,11 +11,11 @@ from requre.helpers import record_httpx
     [
         pytest.param(
             {"repo": "test", "namespace": "packit"},
-            id="create project with namespace",
+            id="create project with specified namespace (organization)",
         ),
         pytest.param(
             {"repo": "test", "namespace": None},
-            id="create project without namespace",
+            id="create project without namespace (in the user's namespace)",
         ),
         pytest.param(
             {"repo": "test_1", "namespace": None, "description": "A repo description"},
