@@ -15,6 +15,7 @@ from ogr.factory import (
     get_service_class,
     get_service_class_or_none,
 )
+from ogr.services.forgejo import ForgejoService
 from ogr.services.github import GithubService
 from ogr.services.gitlab import GitlabService
 from ogr.services.pagure import PagureService
@@ -26,6 +27,7 @@ __all__ = [
     GithubService.__name__,
     PagureService.__name__,
     GitlabService.__name__,
+    ForgejoService.__name__,
     AuthMethod.__name__,
     get_project.__name__,
     get_service_class.__name__,

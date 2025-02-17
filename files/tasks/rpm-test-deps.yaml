@@ -12,10 +12,11 @@
     state: present
   become: true
 # flexmock is not in EPEL 9, install it from PyPI
-- name: Install flexmock from PyPI
+- name: Install flexmock and pyforgejo from PyPI
   pip:
     name:
       - flexmock
+      - pyforgejo
     state: latest
   become: true
 - name: Install requre from git
