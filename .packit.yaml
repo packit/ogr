@@ -41,6 +41,8 @@ jobs:
       - fedora-all
       - fedora-all-aarch64
       - epel-9
+    additional_repos:
+      - "copr://packit/packit-dev"
   - job: tests
     trigger: pull_request
     targets:
