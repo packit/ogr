@@ -17,11 +17,13 @@ from typing import (
 
 import github
 import gitlab
+import pyforgejo
 import requests
 
 from ogr.deprecation import deprecate_and_set_removal
 from ogr.exceptions import (
     APIException,
+    ForgejoAPIException,
     GitForgeInternalError,
     GithubAPIException,
     GitlabAPIException,
@@ -59,7 +61,11 @@ def __check_for_internal_failure(ex: APIException):
 
 
 def __wrap_exception(
-    ex: Union[github.GithubException, gitlab.GitlabError],
+    ex: Union[
+        github.GithubException,
+        gitlab.GitlabError,
+        pyforgejo.core.api_error.ApiError,
+    ],
 ) -> APIException:
     """
     Wraps uncaught exception in one of ogr exceptions.
@@ -76,6 +82,7 @@ def __wrap_exception(
     MAPPING = {
         github.GithubException: GithubAPIException,
         gitlab.GitlabError: GitlabAPIException,
+        pyforgejo.core.api_error.ApiError: ForgejoAPIException,
     }
 
     for caught_exception, ogr_exception in MAPPING.items():
@@ -114,7 +121,11 @@ def catch_common_exceptions(function: Callable) -> Any:
             ) from ex
         except APIException as ex:
             __check_for_internal_failure(ex)
-        except (github.GithubException, gitlab.GitlabError) as ex:
+        except (
+            github.GithubException,
+            gitlab.GitlabError,
+            pyforgejo.core.api_error.ApiError,
+        ) as ex:
             __check_for_internal_failure(__wrap_exception(ex))
 
     return wrapper

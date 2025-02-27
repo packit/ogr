@@ -41,11 +41,18 @@ jobs:
       - fedora-all
       - fedora-all-aarch64
       - epel-9
+    additional_repos:
+      - "copr://packit/packit-dev"
   - job: tests
     trigger: pull_request
     targets:
       - fedora-all
       - epel-9
+    tf_extra_params:
+      environments:
+        - artifacts:
+            - type: repository-file
+              id: https://copr.fedorainfracloud.org/coprs/packit/packit-dev/repo/fedora-$releasever/packit-packit-dev-fedora-$releasever.repo
 
   - job: upstream_koji_build
     trigger: pull_request

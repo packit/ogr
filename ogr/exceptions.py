@@ -5,6 +5,7 @@ from typing import Any, Optional
 
 import github
 import gitlab
+import pyforgejo
 
 
 class OgrException(Exception):
@@ -64,6 +65,19 @@ class GitlabAPIException(APIException):
         if self.__cause__ is None or not isinstance(self.__cause__, gitlab.GitlabError):
             return None
         return self.__cause__.response_code
+
+
+class ForgejoAPIException(APIException):
+    """Exception related to Forgejo API."""
+
+    @property
+    def response_code(self):
+        if self.__cause__ is None or not isinstance(
+            self.__cause__,
+            pyforgejo.core.api_error.ApiError,
+        ):
+            return None
+        return self.__cause__.status_code
 
 
 class OperationNotSupported(OgrException):
