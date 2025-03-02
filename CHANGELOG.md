@@ -1,3 +1,7 @@
+# 0.51.0
+
+- Added base support for forgejo. (#891)
+
 # 0.50.4
 
 - Trigger a new release to confirm the correct SPDX licence.
