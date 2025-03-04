@@ -6,7 +6,7 @@ from collections.abc import Sequence
 from functools import cached_property
 from typing import Optional, Union
 
-from pyforgejo import Repository
+from pyforgejo import Repository, types
 
 from ogr.abstract import (
     AccessLevel,
@@ -40,7 +40,7 @@ class ForgejoProject(BaseGitProject):
         self._forgejo_repo = forgejo_repo
 
     @cached_property
-    def forgejo_repo(self):
+    def forgejo_repo(self) -> types.Repository:
         namespace = self.namespace or self.service.user.get_username()
         return self.service.api.repository.repo_get(
             owner=namespace,
