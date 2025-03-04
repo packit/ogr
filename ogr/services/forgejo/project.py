@@ -41,9 +41,8 @@ class ForgejoProject(BaseGitProject):
 
     @cached_property
     def forgejo_repo(self) -> types.Repository:
-        namespace = self.namespace or self.service.user.get_username()
         return self.service.api.repository.repo_get(
-            owner=namespace,
+            owner=self.namespace,
             repo=self.repo,
         )
 

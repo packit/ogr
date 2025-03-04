@@ -25,17 +25,20 @@ from requre.helpers import record_httpx
 )
 @record_httpx()
 def test_project_create(service, kwargs_):
-    user = service.user.get_username()
-    kwargs_["user"] = user
-    project = service.get_project(**kwargs_)
-    with pytest.raises(pyforgejo.core.api_error.ApiError):
-        project.forgejo_repo  # noqa: B018
+    # Construct params for fetching the project
+    kwargs_fetch = kwargs_.copy()
+    kwargs_fetch["namespace"] = kwargs_fetch["namespace"] or service.user.get_username()
 
-    kwargs_no_user = kwargs_.copy()
-    kwargs_no_user.pop("user")
-    new_project = service.project_create(**kwargs_no_user)
+    # Check that project doesn't exist
+    project = service.get_project(**kwargs_fetch)
+    with pytest.raises(pyforgejo.core.api_error.ApiError):
+        _ = project.forgejo_repo
+
+    # Create new project
+    new_project = service.project_create(**kwargs_)
     assert new_project.repo == kwargs_["repo"]
     assert new_project.forgejo_repo
 
-    project = service.get_project(**kwargs_)
+    # Try to fetch newly created project
+    project = service.get_project(**kwargs_fetch)
     assert project.forgejo_repo
