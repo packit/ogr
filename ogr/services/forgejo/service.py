@@ -71,7 +71,7 @@ class ForgejoService(BaseGitService):
             )
         return ForgejoProject(
             repo=repo,
-            namespace=namespace,
+            namespace=namespace or self.user.get_username(),
             service=self,
             github_repo=new_repo,
         )
