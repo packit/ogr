@@ -32,7 +32,7 @@ class ForgejoService(BaseGitService):
         self._api = None
 
     @cached_property
-    def api(self):
+    def api(self) -> PyforgejoApi:
         return PyforgejoApi(base_url=self.instance_url, api_key=self._token)
 
     def get_project(  # type: ignore[override]
