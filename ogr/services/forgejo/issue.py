@@ -1,25 +1,21 @@
 # Copyright Contributors to the Packit project.
 # SPDX-License-Identifier: MIT
-from csv import excel_tab
 from datetime import datetime
-from multiprocessing.process import parent_process
-from typing import Any, Optional, Union
+from typing import Optional, Union
 
 import pyforgejo.types.issue as _issue
 
-from ogr.abstract import Issue, IssueStatus, IssueComment
+from ogr.abstract import Issue, IssueComment, IssueStatus
 from ogr.exceptions import IssueTrackerDisabled, OperationNotSupported
 from ogr.services import forgejo
 from ogr.services.base import BaseIssue
+from ogr.services.forgejo.comments import ForgejoIssueComment
 
 
 class ForgejoIssue(BaseIssue):
     project: "forgejo.ForgejoProject"
 
-    def __init__(self,
-                 raw_issue: _issue,
-                 project: "forgejo.ForgejoProject",
-                 ):
+    def __init__(self, raw_issue: _issue, project: "forgejo.ForgejoProject"):
         super().__init__(raw_issue, project)
         self._raw_issue = raw_issue
 
@@ -33,11 +29,10 @@ class ForgejoIssue(BaseIssue):
 
     @title.setter
     def title(self, new_title: str) -> None:
-        self.project.service.api.issue.edit_issue(owner=self.project.namespace,
-                                                  repo=self.project.repo,
-                                                  index=self._index,
-                                                  title=new_title,
-                                                  )
+        self._issue_api_call(
+            self.project.service.api.issue.edit_issue,
+            title=new_title,
+        )
 
     @property
     def id(self) -> int:
@@ -102,9 +97,7 @@ class ForgejoIssue(BaseIssue):
 
         try:
             issue = project.service.api.issue.get_issue(
-                owner=project.namespace,
-                repo=project.repo,
-                index=issue_id
+                owner=project.namespace, repo=project.repo, index=issue_id,
             )
         except Exception as ex:
             raise OperationNotSupported(f"Issue {issue_id} not found") from ex
@@ -123,7 +116,7 @@ class ForgejoIssue(BaseIssue):
 
         parameters: dict[str, Union[str, list[str], bool]] = {
             "state": status if status != IssueStatus.open else "open",
-            "type": "issues"
+            "type": "issues",
         }
         if author:
             parameters["created_by"] = author
@@ -133,27 +126,42 @@ class ForgejoIssue(BaseIssue):
             parameters["labels"] = labels
 
         issues = project.service.api.issue.list_issues(
-            owner=project.namespace,
-            repo=project.repo,
-            **parameters
+            owner=project.namespace, repo=project.repo, **parameters,
         )
-        return [
-            ForgejoIssue(issue, project)
-            for issue in issues
-        ]
+        return [ForgejoIssue(issue, project) for issue in issues]
 
     def close(self) -> "Issue":
-        self.project.service.api.issue.edit_issue(owner=self.project.namespace,
-                                                  repo=self.project.repo,
-                                                  index=self._index,
-                                                  state="closed",
-                                                  )
+        self._issue_api_call(
+            self.project.service.api.issue.edit_issue,
+            state="closed",
+        )
         return self
 
     def add_label(self, *labels: str) -> None:
-        self.project.service.api.issue.add_label(
-            owner=self.project.namespace,
-            repo=self.project.repo,
-            index=self._index,
+        self._issue_api_call(
+            self.project.service.api.issue.add_label,
             labels=list(labels),
         )
+
+    def comment(self, body: str) -> IssueComment:
+        comment = self._issue_api_call(
+            self.project.service.api.issue.create_comment,
+            body=body,
+        )
+        return ForgejoIssueComment(self, comment)
+
+    def _get_all_comments(self) -> list[IssueComment]:
+        comments = self._issue_api_call(self.project.service.api.issue.get_comments)
+        return [
+            ForgejoIssueComment(raw_comment=comment, parent=self)
+            for comment in comments
+        ]
+
+    def _issue_api_call(self, method, **kwargs):
+        params = {
+            "owner": self.project.namespace,
+            "repo": self.project.repo,
+            "index": self._index,
+        }
+        params.update(kwargs)
+        return method(**params)
