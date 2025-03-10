@@ -3,7 +3,7 @@
 
 import datetime
 import functools
-from collections.abc import Sequence
+from collections.abc import Iterable, Sequence
 from enum import Enum, IntEnum
 from re import Match
 from typing import (
@@ -442,9 +442,18 @@ class Issue(OgrAbstractClass):
         """
         raise NotImplementedError()
 
-    def _get_all_comments(self) -> list[IssueComment]:
+    def _get_all_comments(
+        self,
+        reverse: bool = False,
+    ) -> Union[list[IssueComment], Iterable[IssueComment]]:
         """
         Get list of all issue comments.
+
+        Args:
+            reverse: Defines whether the comments should be listed in a reversed
+                order.
+
+                Defaults to `False`.
 
         Returns:
             List of all comments on the issue.
@@ -456,7 +465,7 @@ class Issue(OgrAbstractClass):
         filter_regex: Optional[str] = None,
         reverse: bool = False,
         author: Optional[str] = None,
-    ) -> list[IssueComment]:
+    ) -> Union[list[IssueComment], Iterable[IssueComment]]:
         """
         Get list of issue comments.
 
@@ -788,9 +797,18 @@ class PullRequest(OgrAbstractClass):
         """
         raise NotImplementedError()
 
-    def _get_all_comments(self) -> list[PRComment]:
+    def _get_all_comments(
+        self,
+        reverse: bool = False,
+    ) -> Union[list[PRComment], Iterable[PRComment]]:
         """
         Get list of all pull request comments.
+
+        Args:
+            reverse: Defines whether the comments should be listed in a reversed
+                order.
+
+                Defaults to `False`.
 
         Returns:
             List of all comments on the pull request.
@@ -802,7 +820,7 @@ class PullRequest(OgrAbstractClass):
         filter_regex: Optional[str] = None,
         reverse: bool = False,
         author: Optional[str] = None,
-    ) -> list["PRComment"]:
+    ) -> Union[list["PRComment"], Iterable["PRComment"]]:
         """
         Get list of pull request comments.
 
