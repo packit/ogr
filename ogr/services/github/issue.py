@@ -2,6 +2,7 @@
 # SPDX-License-Identifier: MIT
 
 import datetime
+from collections.abc import Iterable
 from typing import Optional, Union
 
 import github
@@ -153,11 +154,18 @@ class GithubIssue(BaseIssue):
         except UnknownObjectException:
             return []
 
-    def _get_all_comments(self) -> list[IssueComment]:
-        return [
+    def _get_all_comments(
+        self,
+        reverse: bool = False,
+    ) -> Iterable[IssueComment]:
+        comments = self._raw_issue.get_comments()
+        if reverse:
+            comments = comments.reversed
+
+        return (
             GithubIssueComment(parent=self, raw_comment=raw_comment)
-            for raw_comment in self._raw_issue.get_comments()
-        ]
+            for raw_comment in comments
+        )
 
     def comment(self, body: str) -> IssueComment:
         comment = self._raw_issue.create_comment(body)
