@@ -36,7 +36,7 @@ class ReadOnly(unittest.TestCase):
         return self._ogr_project
 
     def test_pr_comments(self):
-        pr_comments = self.ogr_project.get_pr(9).get_comments()
+        pr_comments = list(self.ogr_project.get_pr(9).get_comments())
         assert pr_comments
         assert len(pr_comments) == 2
 

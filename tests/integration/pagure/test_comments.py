@@ -9,26 +9,28 @@ from tests.integration.pagure.base import PagureTests
 @record_requests_for_all_methods()
 class Comments(PagureTests):
     def test_pr_comments(self):
-        pr_comments = self.ogr_project.get_pr(4).get_comments()
+        pr_comments = list(self.ogr_project.get_pr(4).get_comments())
         assert pr_comments
         print(pr_comments[0].body, pr_comments[1].body, pr_comments[2].body)
         assert len(pr_comments) == 8
         assert pr_comments[0].body.endswith("test")
 
     def test_pr_comments_reversed(self):
-        pr_comments = self.ogr_project.get_pr(4).get_comments(reverse=True)
+        pr_comments = list(self.ogr_project.get_pr(4).get_comments(reverse=True))
         assert pr_comments
         assert len(pr_comments) == 8
         assert pr_comments[2].body.endswith("PR comment 10")
 
     def test_pr_comments_filter(self):
-        pr_comments = self.ogr_project.get_pr(4).get_comments(filter_regex="me")
+        pr_comments = list(self.ogr_project.get_pr(4).get_comments(filter_regex="me"))
         assert pr_comments
         assert len(pr_comments) == 4
         assert pr_comments[0].body == "ignored comment"
 
-        pr_comments = self.ogr_project.get_pr(4).get_comments(
-            filter_regex="PR comment [0-9]*",
+        pr_comments = list(
+            self.ogr_project.get_pr(4).get_comments(
+                filter_regex="PR comment [0-9]*",
+            ),
         )
         assert pr_comments
         assert len(pr_comments) == 2
