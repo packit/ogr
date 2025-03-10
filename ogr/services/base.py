@@ -79,7 +79,10 @@ class BasePullRequest(PullRequest):
         )
 
     def get_statuses(self) -> Union[list[CommitFlag], Iterable[CommitFlag]]:
-        commit = self.get_all_commits()[-1]
+        # [NOTE] Is there any reason we fetch all commits, instead of using the
+        # head commit on the PR?
+        # commit = self.get_all_commits()[-1]
+        commit = self.head_commit
         return self.target_project.get_commit_statuses(commit)
 
 
