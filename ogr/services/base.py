@@ -78,7 +78,7 @@ class BasePullRequest(PullRequest):
             filter_regex=filter_regex,
         )
 
-    def get_statuses(self) -> list[CommitFlag]:
+    def get_statuses(self) -> Union[list[CommitFlag], Iterable[CommitFlag]]:
         commit = self.get_all_commits()[-1]
         return self.target_project.get_commit_statuses(commit)
 
