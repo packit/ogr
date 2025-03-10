@@ -345,7 +345,7 @@ class PagurePullRequest(BasePullRequest):
         self.__dirty = True
         return self
 
-    def get_statuses(self) -> list[CommitFlag]:
+    def get_statuses(self) -> Union[list[CommitFlag], Iterable[CommitFlag]]:
         self.__update()
         return self.target_project.get_commit_statuses(self._raw_pr["commit_stop"])
 
