@@ -245,7 +245,7 @@ class Comment(OgrAbstractClass):
         """Datetime of last edit of the comment."""
         return self._edited
 
-    def get_reactions(self) -> list[Reaction]:
+    def get_reactions(self) -> Union[list[Reaction], Iterable[Reaction]]:
         """Returns list of reactions."""
         raise NotImplementedError()
 
@@ -343,7 +343,7 @@ class Issue(OgrAbstractClass):
         raise NotImplementedError()
 
     @property
-    def labels(self) -> list["IssueLabel"]:
+    def labels(self) -> Union[list["IssueLabel"], Iterable["IssueLabel"]]:
         """Labels of the issue."""
         raise NotImplementedError()
 
@@ -417,7 +417,7 @@ class Issue(OgrAbstractClass):
         author: Optional[str] = None,
         assignee: Optional[str] = None,
         labels: Optional[list[str]] = None,
-    ) -> list["Issue"]:
+    ) -> Union[list["Issue"], Iterable["Issue"]]:
         """
         List of issues.
 
@@ -644,7 +644,7 @@ class PullRequest(OgrAbstractClass):
         raise NotImplementedError()
 
     @property
-    def labels(self) -> list["PRLabel"]:
+    def labels(self) -> Union[list["PRLabel"], Iterable["PRLabel"]]:
         """Labels of the pull request."""
         raise NotImplementedError()
 
@@ -761,7 +761,10 @@ class PullRequest(OgrAbstractClass):
         raise NotImplementedError()
 
     @staticmethod
-    def get_list(project: Any, status: PRStatus = PRStatus.open) -> list["PullRequest"]:
+    def get_list(
+        project: Any,
+        status: PRStatus = PRStatus.open,
+    ) -> Union[list["PullRequest"], Iterable["PullRequest"]]:
         """
         List of pull requests.
 
@@ -841,7 +844,7 @@ class PullRequest(OgrAbstractClass):
         """
         raise NotImplementedError()
 
-    def get_all_commits(self) -> list[str]:
+    def get_all_commits(self) -> Union[list[str], Iterable[str]]:
         """
         Returns:
             List of commit hashes of commits in pull request.
@@ -925,7 +928,7 @@ class PullRequest(OgrAbstractClass):
         """
         raise NotImplementedError()
 
-    def get_statuses(self) -> list["CommitFlag"]:
+    def get_statuses(self) -> Union[list["CommitFlag"], Iterable["CommitFlag"]]:
         """
         Returns statuses for latest commit on pull request.
 
@@ -1014,7 +1017,10 @@ class CommitFlag(OgrAbstractClass):
         raise NotImplementedError()
 
     @staticmethod
-    def get(project: Any, commit: str) -> list["CommitFlag"]:
+    def get(
+        project: Any,
+        commit: str,
+    ) -> Union[list["CommitFlag"], Iterable["CommitFlag"]]:
         """
         Acquire commit statuses for given commit in the project.
 
@@ -1226,7 +1232,7 @@ class Release(OgrAbstractClass):
         raise NotImplementedError()
 
     @staticmethod
-    def get_list(project: Any) -> list["Release"]:
+    def get_list(project: Any) -> Union[list["Release"], Iterable["Release"]]:
         """
         Returns:
             List of the objects that represent releases.
@@ -1388,7 +1394,7 @@ class GitService(OgrAbstractClass):
         user: Optional[str] = None,
         search_pattern: Optional[str] = None,
         language: Optional[str] = None,
-    ) -> list["GitProject"]:
+    ) -> Union[list["GitProject"], Iterable["GitProject"]]:
         """
         List projects for given criteria.
 
@@ -1496,7 +1502,7 @@ class GitProject(OgrAbstractClass):
         """`True` if issues are enabled on the project."""
         raise NotImplementedError()
 
-    def get_branches(self) -> list[str]:
+    def get_branches(self) -> Union[list[str], Iterable[str]]:
         """
         Returns:
             List with names of branches in the project.
@@ -1508,7 +1514,7 @@ class GitProject(OgrAbstractClass):
         """Default branch (usually `main`, `master` or `trunk`)."""
         raise NotImplementedError()
 
-    def get_commits(self, ref: Optional[str] = None) -> list[str]:
+    def get_commits(self, ref: Optional[str] = None) -> Union[list[str], Iterable[str]]:
         """
         Get list of commits for the project.
 
@@ -1540,7 +1546,7 @@ class GitProject(OgrAbstractClass):
         """
         raise NotImplementedError()
 
-    def get_owners(self) -> list[str]:
+    def get_owners(self) -> Union[list[str], Iterable[str]]:
         """
         Returns:
             List of usernames of project owners.
@@ -1639,7 +1645,7 @@ class GitProject(OgrAbstractClass):
         author: Optional[str] = None,
         assignee: Optional[str] = None,
         labels: Optional[list[str]] = None,
-    ) -> list["Issue"]:
+    ) -> Union[list["Issue"], Iterable["Issue"]]:
         """
         List of issues.
 
@@ -1722,7 +1728,10 @@ class GitProject(OgrAbstractClass):
         """
         raise NotImplementedError()
 
-    def get_pr_list(self, status: PRStatus = PRStatus.open) -> list["PullRequest"]:
+    def get_pr_list(
+        self,
+        status: PRStatus = PRStatus.open,
+    ) -> Union[list["PullRequest"], Iterable["PullRequest"]]:
         """
         List of pull requests.
 
@@ -1765,7 +1774,7 @@ class GitProject(OgrAbstractClass):
         """
         raise NotImplementedError()
 
-    def get_tags(self) -> list["GitTag"]:
+    def get_tags(self) -> Union[list["GitTag"], Iterable["GitTag"]]:
         """
         Returns:
             List of objects that represent tags.
@@ -1814,7 +1823,7 @@ class GitProject(OgrAbstractClass):
         """
         raise NotImplementedError()
 
-    def get_releases(self) -> list[Release]:
+    def get_releases(self) -> Union[list[Release], Iterable[Release]]:
         """
         Returns:
             List of the objects that represent releases.
@@ -1895,7 +1904,10 @@ class GitProject(OgrAbstractClass):
         """
         raise NotImplementedError()
 
-    def get_commit_comments(self, commit: str) -> list[CommitComment]:
+    def get_commit_comments(
+        self,
+        commit: str,
+    ) -> Union[list[CommitComment], Iterable[CommitComment]]:
         """
         Get comments for a commit.
 
@@ -1947,7 +1959,10 @@ class GitProject(OgrAbstractClass):
         """
         raise NotImplementedError()
 
-    def get_commit_statuses(self, commit: str) -> list[CommitFlag]:
+    def get_commit_statuses(
+        self,
+        commit: str,
+    ) -> Union[list[CommitFlag], Iterable[CommitFlag]]:
         """
         Get statuses of the commit.
 
@@ -2018,7 +2033,7 @@ class GitProject(OgrAbstractClass):
         ref: Optional[str] = None,
         filter_regex: Optional[str] = None,
         recursive: bool = False,
-    ) -> list[str]:
+    ) -> Union[list[str], Iterable[str]]:
         """
         Get a list of file paths of the repo.
 
@@ -2039,7 +2054,7 @@ class GitProject(OgrAbstractClass):
         """
         raise NotImplementedError
 
-    def get_forks(self) -> Sequence["GitProject"]:
+    def get_forks(self) -> Union[Sequence["GitProject"], Iterable["GitProject"]]:
         """
         Returns:
             All forks of the project.
@@ -2106,14 +2121,14 @@ class GitUser(OgrAbstractClass):
         """
         raise NotImplementedError()
 
-    def get_projects(self) -> Sequence["GitProject"]:
+    def get_projects(self) -> Union[Sequence["GitProject"], Iterable["GitProject"]]:
         """
         Returns:
             Sequence of projects in user's namespace.
         """
         raise NotImplementedError()
 
-    def get_forks(self) -> Sequence["GitProject"]:
+    def get_forks(self) -> Union[Sequence["GitProject"], Iterable["GitProject"]]:
         """
         Returns:
             Sequence of forks in user's namespace.
