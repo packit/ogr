@@ -82,6 +82,7 @@ class GitlabProject(BaseGitProject):
         return self.gitlab_repo.attributes.get("default_branch")
 
     def __str__(self) -> str:
+        # [FIXME] should include instance URL too…
         return f'GitlabProject(namespace="{self.namespace}", repo="{self.repo}")'
 
     def __eq__(self, o: object) -> bool:
