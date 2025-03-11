@@ -5,7 +5,7 @@ _requre:
 requests.sessions:
   send:
     GET:
-      https://api.github.com/repos/packit/ogr/installation: &get_installation
+      https://api.github.com/repos/packit/ogr/installation: &id001
       - metadata:
           latency: 0.4268009662628174
           module_call_list:
@@ -98,7 +98,6 @@ requests.sessions:
           raw: !!binary ""
           reason: OK
           status_code: 200
-      https://api.github.com:443/repos/packit/ogr/installation: *get_installation
       https://api.github.com:443/repos/packit/ogr:
       - metadata:
           latency: 0.4936249256134033
@@ -275,8 +274,9 @@ requests.sessions:
           raw: !!binary ""
           reason: OK
           status_code: 200
+      https://api.github.com:443/repos/packit/ogr/installation: *id001
     POST:
-      https://api.github.com/app/installations/1210186/access_tokens: &post_access_tokens
+      https://api.github.com/app/installations/1210186/access_tokens: &id002
       - metadata:
           latency: 0.42986464500427246
           module_call_list:
@@ -302,7 +302,7 @@ requests.sessions:
               pull_requests: write
               statuses: write
             repository_selection: all
-            token: v1.1cd89d399b8c70f8b88e22cbdaa72abbe5e390db
+            token: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
           _next: null
           elapsed: 0.2
           encoding: utf-8
@@ -333,4 +333,4 @@ requests.sessions:
           raw: !!binary ""
           reason: Created
           status_code: 201
-      https://api.github.com:443/app/installations/1210186/access_tokens: *post_access_tokens
+      https://api.github.com:443/app/installations/1210186/access_tokens: *id002

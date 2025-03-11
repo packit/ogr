@@ -5,7 +5,7 @@ _requre:
 requests.sessions:
   send:
     GET:
-      https://gitlab.com/api/v4/projects/14233409/repository/files/README.md?ref=b8e18207cfdad954f1b3a96db34d0706b272e6cf: &new_request
+      https://gitlab.com/api/v4/projects/14233409/repository/files/README%2Emd?ref=b8e18207cfdad954f1b3a96db34d0706b272e6cf: &id001
       - metadata:
           latency: 0.30714845657348633
           module_call_list:
@@ -148,7 +148,7 @@ requests.sessions:
           raw: !!binary ""
           reason: OK
           status_code: 200
-      https://gitlab.com/api/v4/projects/14233409/repository/files/README%2Emd?ref=b8e18207cfdad954f1b3a96db34d0706b272e6cf: *new_request
+      https://gitlab.com/api/v4/projects/14233409/repository/files/README.md?ref=b8e18207cfdad954f1b3a96db34d0706b272e6cf: *id001
       https://gitlab.com/api/v4/projects/packit-service%2Fogr-tests:
       - metadata:
           latency: 0.49857473373413086
@@ -514,9 +514,7 @@ requests.sessions:
             RateLimit-ResetTime: Thu, 27 Aug 2020 09:20:43 GMT
             Referrer-Policy: strict-origin-when-cross-origin
             Server: cloudflare
-            Set-Cookie: __cfduid=da2cffa7af99d574facf42cf097c40e201598519983; expires=Sat,
-              26-Sep-20 09:19:43 GMT; path=/; domain=.gitlab.com; HttpOnly; SameSite=Lax;
-              Secure
+            Set-Cookie: a='b';
             Strict-Transport-Security: max-age=31536000
             Transfer-Encoding: chunked
             Vary: Accept-Encoding, Origin
@@ -603,9 +601,7 @@ requests.sessions:
             RateLimit-ResetTime: Mon, 31 Aug 2020 08:33:58 GMT
             Referrer-Policy: strict-origin-when-cross-origin
             Server: cloudflare
-            Set-Cookie: __cfduid=d809860c60611bc7457365755dc5a06771598862778; expires=Wed,
-              30-Sep-20 08:32:58 GMT; path=/; domain=.gitlab.com; HttpOnly; SameSite=Lax;
-              Secure
+            Set-Cookie: a='b';
             Strict-Transport-Security: max-age=31536000
             Transfer-Encoding: chunked
             Vary: Accept-Encoding, Origin
