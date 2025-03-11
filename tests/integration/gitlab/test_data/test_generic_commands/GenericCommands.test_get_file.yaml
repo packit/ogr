@@ -5,7 +5,7 @@ _requre:
 requests.sessions:
   send:
     GET:
-      https://gitlab.com/api/v4/projects/14233409/repository/files/README.md?ref=master: &new_request
+      https://gitlab.com/api/v4/projects/14233409/repository/files/README%2Emd?ref=master: &id001
       - metadata:
           latency: 0.30264830589294434
           module_call_list:
@@ -148,7 +148,7 @@ requests.sessions:
           raw: !!binary ""
           reason: OK
           status_code: 200
-      https://gitlab.com/api/v4/projects/14233409/repository/files/README%2Emd?ref=master: *new_request
+      https://gitlab.com/api/v4/projects/14233409/repository/files/README.md?ref=master: *id001
       https://gitlab.com/api/v4/projects/packit-service%2Fogr-tests:
       - metadata:
           latency: 0.29515719413757324
@@ -514,9 +514,7 @@ requests.sessions:
             RateLimit-ResetTime: Thu, 27 Aug 2020 09:20:42 GMT
             Referrer-Policy: strict-origin-when-cross-origin
             Server: cloudflare
-            Set-Cookie: __cfduid=da151391a11e4891a179019a430e904e51598519982; expires=Sat,
-              26-Sep-20 09:19:42 GMT; path=/; domain=.gitlab.com; HttpOnly; SameSite=Lax;
-              Secure
+            Set-Cookie: a='b';
             Strict-Transport-Security: max-age=31536000
             Transfer-Encoding: chunked
             Vary: Accept-Encoding, Origin
@@ -603,9 +601,7 @@ requests.sessions:
             RateLimit-ResetTime: Mon, 31 Aug 2020 08:33:57 GMT
             Referrer-Policy: strict-origin-when-cross-origin
             Server: cloudflare
-            Set-Cookie: __cfduid=d61d1af7a7d53e600a906afcf48a02e931598862777; expires=Wed,
-              30-Sep-20 08:32:57 GMT; path=/; domain=.gitlab.com; HttpOnly; SameSite=Lax;
-              Secure
+            Set-Cookie: a='b';
             Strict-Transport-Security: max-age=31536000
             Transfer-Encoding: chunked
             Vary: Accept-Encoding, Origin
