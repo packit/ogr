@@ -2,11 +2,11 @@
 # SPDX-License-Identifier: MIT
 
 
-from collections.abc import Sequence
+from collections.abc import Iterable, Sequence
 from functools import cached_property
 from typing import Optional, Union
 
-from pyforgejo import Repository, types
+from pyforgejo import NotFoundError, Repository, types
 
 from ogr.abstract import (
     AccessLevel,
@@ -21,8 +21,15 @@ from ogr.abstract import (
     PullRequest,
     Release,
 )
+from ogr.exceptions import OperationNotSupported
 from ogr.services import forgejo
 from ogr.services.base import BaseGitProject
+from ogr.utils import indirect
+
+from .flag import ForgejoCommitFlag
+from .issue import ForgejoIssue
+from .pull_request import ForgejoPullRequest
+from .release import ForgejoRelease
 
 
 class ForgejoProject(BaseGitProject):
@@ -46,103 +53,108 @@ class ForgejoProject(BaseGitProject):
             repo=self.repo,
         )
 
+    def __str__(self) -> str:
+        return (
+            f'ForgejoProject(namespace="{self.namespace}", repo="{self.repo}", '
+            f"service={self.service})"
+        )
+
+    def __eq__(self, o: object) -> bool:
+        return (
+            isinstance(o, ForgejoProject)
+            and self.repo == o.repo
+            and self.namespace == o.namespace
+            and self.service == o.service
+        )
+
     @property
     def description(self) -> str:
-        """
-        Returns:
-            Project description.
-        """
-        raise NotImplementedError()
+        return self.forgejo_repo.description or ""
 
     @description.setter
     def description(self, new_description: str) -> None:
-        """
-        Args:
-            new_description: description to set for project.
-        """
-        raise NotImplementedError()
+        self.service.api.repository.repo_edit(
+            owner=self.namespace,
+            repo=self.repo,
+            description=new_description,
+        )
 
     def delete(self) -> None:
-        """Delete the project."""
-        raise NotImplementedError()
+        self.service.api.repository.repo_delete(
+            owner=self.namespace,
+            repo=self.repo,
+        )
 
     def exists(self) -> bool:
-        """
-        Check the existence of the repo.
-
-        Returns:
-            `True` if the project exists, `False` otherwise.
-        """
-        raise NotImplementedError()
+        try:
+            _ = self.forgejo_repo
+            return True
+        except NotFoundError:
+            return False
 
     def is_private(self) -> bool:
-        """
-        Is this repository private (accessible only by users with permissions).
-
-        Returns:
-            `True`, if the repository is private.
-        """
-        raise NotImplementedError()
+        return self.forgejo_repo.private
 
     def is_forked(self) -> bool:
-        """
-        Is this repository forked by the authenticated user?
-
-        Returns:
-            `True`, if the repository is fork.
-        """
-        raise NotImplementedError()
+        return (
+            self.forgejo_repo.fork
+            and self.forgejo_repo.owner.login == self.service.user.get_username()
+        )
 
     @property
     def is_fork(self) -> bool:
-        """`True` if the project is a fork."""
-        raise NotImplementedError()
+        return self.forgejo_repo.fork
 
     @property
     def full_repo_name(self) -> str:
-        """Get repo name with namespace, e.g. `rpms/python-docker-py`."""
-        raise NotImplementedError()
+        return self.forgejo_repo.full_name
 
     @property
     def parent(self) -> Optional["GitProject"]:
-        """Parent project if the project is a fork, otherwise `None`."""
-        raise NotImplementedError()
+        if not self.forgejo_repo.parent:
+            return None
+
+        return ForgejoProject(
+            service=self.service,
+            repo=self.forgejo_repo.parent.name,
+            namespace=self.forgejo_repo.parent.owner.username,
+        )
 
     @property
     def has_issues(self) -> bool:
-        """`True` if issues are enabled on the project."""
-        raise NotImplementedError()
+        return self.forgejo_repo.has_issues
 
-    def get_branches(self) -> list[str]:
-        """
-        Returns:
-            List with names of branches in the project.
-        """
-        raise NotImplementedError()
+    def get_branches(self) -> Iterable[str]:
+        page = 1
+        while branches := self.service.api.repository.repo_list_branches(
+            owner=self.namespace,
+            repo=self.repo,
+            page=page,
+        ):
+            for branch in branches:
+                yield branch.name
+
+            page += 1
 
     @property
     def default_branch(self) -> str:
-        """Default branch (usually `main`, `master` or `trunk`)."""
-        raise NotImplementedError()
+        return self.forgejo_repo.default_branch
 
-    def get_commits(self, ref: Optional[str] = None) -> list[str]:
-        """
-        Get list of commits for the project.
+    def get_commits(self, ref: Optional[str] = None) -> Iterable[str]:
+        page = 1
+        while commits := self.service.api.repository.repo_get_all_commits(
+            owner=self.namespace,
+            repo=self.repo,
+            sha=ref,
+            page=page,
+        ):
+            for commit in commits:
+                yield commit.sha
 
-        Args:
-            ref: Ref to start listing commits from, defaults to the default project branch.
-
-        Returns:
-            List of commit SHAs for the project.
-        """
-        raise NotImplementedError()
+            page += 1
 
     def get_description(self) -> str:
-        """
-        Returns:
-            Project description.
-        """
-        raise NotImplementedError()
+        return self.description
 
     def get_fork(self, create: bool = True) -> Optional["GitProject"]:
         """
@@ -155,6 +167,7 @@ class ForgejoProject(BaseGitProject):
             `None` if the project is fork itself or there is no fork, otherwise
             instance of a fork if is to be created or exists already.
         """
+        # [TODO]
         raise NotImplementedError()
 
     def get_owners(self) -> list[str]:
@@ -162,28 +175,28 @@ class ForgejoProject(BaseGitProject):
         Returns:
             List of usernames of project owners.
         """
-        raise NotImplementedError()
+        raise NotImplementedError("TBD")
 
     def who_can_close_issue(self) -> set[str]:
         """
         Returns:
             Names of all users who have permission to modify an issue.
         """
-        raise NotImplementedError()
+        raise NotImplementedError("TBD")
 
     def who_can_merge_pr(self) -> set[str]:
         """
         Returns:
             Names of all users who have permission to modify pull request.
         """
-        raise NotImplementedError()
+        raise NotImplementedError("TBD")
 
     def which_groups_can_merge_pr(self) -> set[str]:
         """
         Returns:
             Names of all groups that have permission to modify pull request.
         """
-        raise NotImplementedError()
+        raise NotImplementedError("TBD")
 
     def can_merge_pr(self, username: str) -> bool:
         """
@@ -193,7 +206,7 @@ class ForgejoProject(BaseGitProject):
         Returns:
             `True` if user merge pull request, `False` otherwise.
         """
-        raise NotImplementedError()
+        raise NotImplementedError("TBD")
 
     def get_users_with_given_access(self, access_levels: list[AccessLevel]) -> set[str]:
         """
@@ -203,7 +216,7 @@ class ForgejoProject(BaseGitProject):
         Returns:
             set of users with given access levels
         """
-        raise NotImplementedError()
+        raise NotImplementedError("TBD")
 
     def add_user(self, user: str, access_level: AccessLevel) -> None:
         """
@@ -250,6 +263,7 @@ class ForgejoProject(BaseGitProject):
         """
         raise NotImplementedError()
 
+    @indirect(ForgejoIssue.get_list)
     def get_issue_list(
         self,
         status: IssueStatus = IssueStatus.open,
@@ -257,53 +271,13 @@ class ForgejoProject(BaseGitProject):
         assignee: Optional[str] = None,
         labels: Optional[list[str]] = None,
     ) -> list["Issue"]:
-        """
-        List of issues.
+        pass
 
-        Args:
-            status: Status of the issues that are to be
-                included in the list.
-
-                Defaults to `IssueStatus.open`.
-            author: Username of the author of the issues.
-
-                Defaults to no filtering by author.
-            assignee: Username of the assignee on the issues.
-
-                Defaults to no filtering by assignees.
-            labels: Filter issues that have set specific labels.
-
-                Defaults to no filtering by labels.
-
-        Returns:
-            List of objects that represent requested issues.
-        """
-        raise NotImplementedError()
-
+    @indirect(ForgejoIssue.get)
     def get_issue(self, issue_id: int) -> "Issue":
-        """
-        Get issue.
+        pass
 
-        Args:
-            issue_id: ID of the issue.
-
-        Returns:
-            Object that represents requested issue.
-        """
-        raise NotImplementedError()
-
-    def get_issue_info(self, issue_id: int) -> "Issue":
-        """
-        Get issue info.
-
-        Args:
-            issue_id: ID of the issue.
-
-        Returns:
-            Object that represents requested issue.
-        """
-        raise NotImplementedError()
-
+    @indirect(ForgejoIssue.create)
     def create_issue(
         self,
         title: str,
@@ -312,58 +286,15 @@ class ForgejoProject(BaseGitProject):
         labels: Optional[list[str]] = None,
         assignees: Optional[list[str]] = None,
     ) -> Issue:
-        """
-        Open new issue.
+        pass
 
-        Args:
-            title: Title of the issue.
-            body: Description of the issue.
-            private: Is the new issue supposed to be confidential?
-
-                **Supported only by GitLab and Pagure.**
-
-                Defaults to unset.
-            labels: List of labels that are to be added to
-                the issue.
-
-                Defaults to no labels.
-            assignees: List of usernames of the assignees.
-
-                Defaults to no assignees.
-
-        Returns:
-            Object that represents newly created issue.
-
-        Raises:
-            IssueTrackerDisabled, if issue tracker is disabled.
-        """
-        raise NotImplementedError()
-
+    @indirect(ForgejoPullRequest.get_list)
     def get_pr_list(self, status: PRStatus = PRStatus.open) -> list["PullRequest"]:
-        """
-        List of pull requests.
+        pass
 
-        Args:
-            status: Status of the pull requests that are to be included in the list.
-
-                Defaults to `PRStatus.open`.
-
-        Returns:
-            List of objects that represent pull requests with requested status.
-        """
-        raise NotImplementedError()
-
+    @indirect(ForgejoPullRequest.get)
     def get_pr(self, pr_id: int) -> "PullRequest":
-        """
-        Get pull request.
-
-        Args:
-            pr_id: ID of the pull request.
-
-        Returns:
-            Object that represents requested pull request.
-        """
-        raise NotImplementedError()
+        pass
 
     def get_pr_files_diff(
         self,
@@ -380,64 +311,51 @@ class ForgejoProject(BaseGitProject):
         Returns:
             Dictionary representing files diff.
         """
+        # [NOTE] Implemented only for Pagure, for details see
+        # https://github.com/packit/ogr/issues/895
         raise NotImplementedError()
 
-    def get_tags(self) -> list["GitTag"]:
-        """
-        Returns:
-            List of objects that represent tags.
-        """
-        raise NotImplementedError()
+    def get_tags(self) -> Iterable["GitTag"]:
+        page = 1
+
+        while tags := self.service.api.repository.repo_list_tags(
+            owner=self.namespace,
+            repo=self.repo,
+            page=page,
+        ):
+            for tag in tags:
+                yield GitTag(
+                    name=tag.name,
+                    commit_sha=tag.commit.sha,
+                )
+
+            page += 1
 
     def get_sha_from_tag(self, tag_name: str) -> str:
-        """
-        Args:
-            tag_name: Name of the tag.
+        return self.service.api.repo_get_tag(
+            owner=self.namespace,
+            repo=self.repo,
+            tag=tag_name,
+        ).commit.sha
 
-        Returns:
-            Commit hash of the commit from the requested tag.
-        """
-        raise NotImplementedError()
-
+    @indirect(ForgejoRelease.get)
     def get_release(
         self,
         identifier: Optional[int] = None,
         name: Optional[str] = None,
         tag_name: Optional[str] = None,
     ) -> Release:
-        """
-        Get a single release.
+        pass
 
-        Args:
-            identifier: Identifier of the release.
-
-                Defaults to `None`, which means not being used.
-            name: Name of the release.
-
-                Defaults to `None`, which means not being used.
-            tag_name: Tag that the release is tied to.
-
-                Defaults to `None`, which means not being used.
-
-        Returns:
-            Object that represents release that satisfies requested condition.
-        """
-        raise NotImplementedError()
-
+    @indirect(ForgejoRelease.get_latest)
     def get_latest_release(self) -> Optional[Release]:
-        """
-        Returns:
-            Object that represents the latest release.
-        """
-        raise NotImplementedError()
+        pass
 
+    @indirect(ForgejoRelease.get_list)
     def get_releases(self) -> list[Release]:
-        """
-        Returns:
-            List of the objects that represent releases.
-        """
-        raise NotImplementedError()
+        pass
 
+    @indirect(ForgejoRelease.create)
     def create_release(
         self,
         tag: str,
@@ -445,23 +363,9 @@ class ForgejoProject(BaseGitProject):
         message: str,
         ref: Optional[str] = None,
     ) -> Release:
-        """
-        Create new release.
+        pass
 
-        Args:
-            tag: Tag which is the release based off.
-            name: Name of the release.
-            message: Message or description of the release.
-            ref: Git reference, mainly commit hash for the release. If provided
-                git tag is created prior to creating a release.
-
-                Defaults to `None`.
-
-        Returns:
-            Object that represents newly created release.
-        """
-        raise NotImplementedError()
-
+    @indirect(ForgejoPullRequest.create)
     def create_pr(
         self,
         title: str,
@@ -470,22 +374,7 @@ class ForgejoProject(BaseGitProject):
         source_branch: str,
         fork_username: Optional[str] = None,
     ) -> "PullRequest":
-        """
-        Create new pull request.
-
-        Args:
-            title: Title of the pull request.
-            body: Description of the pull request.
-            target_branch: Name of the branch where the changes are merged.
-            source_branch: Name of the branch from which the changes are pulled.
-            fork_username: The username of forked repository.
-
-                Defaults to `None`.
-
-        Returns:
-            Object that represents newly created pull request.
-        """
-        raise NotImplementedError()
+        pass
 
     def commit_comment(
         self,
@@ -494,49 +383,15 @@ class ForgejoProject(BaseGitProject):
         filename: Optional[str] = None,
         row: Optional[int] = None,
     ) -> "CommitComment":
-        """
-        Add new comment to a commit.
-
-        Args:
-            commit: Hash of the commit.
-            body: Body of the comment.
-            filename: Name of the file that is related to the comment.
-
-                Defaults to `None`, which means no relation to file.
-            row: Number of the row that the comment is related to.
-
-                Defaults to `None`, which means no relation to the row.
-
-        Returns:
-            Object that represents newly created commit comment.
-        """
-        raise NotImplementedError()
+        raise OperationNotSupported("Forgejo doesn't support commit comments")
 
     def get_commit_comments(self, commit: str) -> list[CommitComment]:
-        """
-        Get comments for a commit.
-
-        Args:
-            commit: The hash of the commit.
-
-        Returns:
-            List of all comments for the commit.
-        """
-        raise NotImplementedError()
+        raise OperationNotSupported("Forgejo doesn't support commit comments")
 
     def get_commit_comment(self, commit_sha: str, comment_id: int) -> CommitComment:
-        """
-        Get commit comment.
+        raise OperationNotSupported("Forgejo doesn't support commit comments")
 
-        Args:
-            commit_sha: SHA of the commit
-            comment_id: ID of the commit comment
-
-        Returns:
-            Object representing the commit comment.
-        """
-        raise NotImplementedError()
-
+    @indirect(ForgejoCommitFlag.set)
     def set_commit_status(
         self,
         commit: str,
@@ -546,89 +401,59 @@ class ForgejoProject(BaseGitProject):
         context: str,
         trim: bool = False,
     ) -> "CommitFlag":
-        """
-        Create a status on a commit.
+        pass
 
-        Args:
-            commit: The hash of the commit.
-            state: The state of the status.
-            target_url: The target URL to associate with this status.
-            description: A short description of the status.
-            context: A label to differentiate this status from the status of other systems.
-            trim: Whether to trim the description to 140 characters.
-
-                Defaults to `False`.
-
-        Returns:
-            Object that represents created commit status.
-        """
-        raise NotImplementedError()
-
+    @indirect(ForgejoCommitFlag.get)
     def get_commit_statuses(self, commit: str) -> list[CommitFlag]:
-        """
-        Get statuses of the commit.
-
-        Args:
-            commit: Hash of the commit.
-
-        Returns:
-            List of all commit statuses on the commit.
-        """
-        raise NotImplementedError()
+        pass
 
     def get_git_urls(self) -> dict[str, str]:
-        """
-        Get git URLs for the project.
-
-        Returns:
-            Dictionary with at least SSH and HTTP URLs for the current project.
-        """
-        raise NotImplementedError()
+        return {
+            "git": self.forgejo_repo.clone_url,
+            "ssh": self.forgejo_repo.ssh_url,
+        }
 
     def fork_create(self, namespace: Optional[str] = None) -> "GitProject":
-        """
-        Fork this project using the authenticated user.
+        if namespace:
+            self.service.api.repository.create_fork(
+                owner=self.namespace,
+                repo=self.repo,
+                organization=namespace,
+            )
+            return ForgejoProject(
+                repo=self.repo,
+                service=self.service,
+                namespace=namespace,
+            )
 
-        Args:
-            namespace: Namespace where the project should be forked.
-
-                Defaults to `None`, which means forking to the namespace of
-                currently authenticated user.
-
-        Returns:
-            Fork of the current project.
-
-        Raises:
-            In case the fork already exists.
-        """
-        raise NotImplementedError()
+        self.service.api.repository.create_fork(
+            owner=self.namespace,
+            repo=self.repo,
+        )
+        return ForgejoProject(
+            repo=self.repo,
+            service=self.service,
+            namespace=self.service.user.get_username(),
+        )
 
     def change_token(self, new_token: str) -> None:
-        """
-        Change an API token. Only for the current instance.
-
-        Args:
-            new_token: New token to be set.
-        """
-        raise NotImplementedError
+        # [NOTE] API doesn't provide any method to change the token, and it's
+        # embedded in the httpx client that's wrapped by pyforgejo wrapper to
+        # avoid duplication between sync and async calls…
+        raise NotImplementedError(
+            "Not possible; requires recreation of the httpx client",
+        )
 
     def get_file_content(self, path: str, ref: Optional[str] = None) -> str:
-        """
-        Get a content of the file in the repo.
-
-        Args:
-            path: Path to the file.
-            ref: Branch or commit.
-
-                Defaults to repo's default branch.
-
-        Returns:
-            Contents of the file as string.
-
-        Raises:
-            FileNotFoundError: if there is no such file.
-        """
-        raise NotImplementedError
+        try:
+            return self.service.api.repository.repo_get_contents(
+                owner=self.namespace,
+                repo=self.repo,
+                filepath=path,
+                ref=ref,
+            ).content
+        except NotFoundError as ex:
+            raise FileNotFoundError() from ex
 
     def get_files(
         self,
@@ -654,6 +479,7 @@ class ForgejoProject(BaseGitProject):
         Returns:
             List of paths of the files in the repo.
         """
+        # [TODO]
         raise NotImplementedError
 
     def get_forks(self) -> Sequence["GitProject"]:
@@ -661,41 +487,33 @@ class ForgejoProject(BaseGitProject):
         Returns:
             All forks of the project.
         """
+        # [TODO]
         raise NotImplementedError()
 
     def get_web_url(self) -> str:
-        """
-        Returns:
-            Web URL of the project.
-        """
-        raise NotImplementedError()
+        return self.forgejo_repo.html_url
 
     def get_sha_from_branch(self, branch: str) -> Optional[str]:
-        """
-        Returns:
-            Commit SHA of head of the branch. `None` if no branch was found.
-        """
-        raise NotImplementedError()
+        try:
+            branch_info = self.service.api.repository.repo_get_branch(
+                owner=self.namespace,
+                repo=self.repo,
+                branch=branch,
+            )
+            return branch_info.commit.id
+        except NotFoundError:
+            return None
 
     def get_contributors(self) -> set[str]:
         """
         Returns:
             Set of all contributors to the given project.
         """
-        raise NotImplementedError()
+        raise NotImplementedError("TBD")
 
     def users_with_write_access(self) -> set[str]:
         """
         Returns:
             List of users who have write access to the project
         """
-        raise NotImplementedError("Use subclass instead.")
-
-    def has_write_access(self, user: str) -> bool:
-        """
-        Decides whether a given user has write access to the project.
-
-        Args:
-            user: The user we are going to check to see if he/she has access
-        """
-        return user in self.users_with_write_access()
+        raise NotImplementedError("TBD")
