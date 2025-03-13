@@ -33,21 +33,18 @@ jobs:
     trigger: release
     dist_git_branches:
       - fedora-all
-      - epel-9
 
   - job: copr_build
     trigger: pull_request
     targets:
       - fedora-all
       - fedora-all-aarch64
-      - epel-9
     additional_repos:
       - "copr://packit/packit-dev"
   - job: tests
     trigger: pull_request
     targets:
       - fedora-all
-      - epel-9
     tf_extra_params:
       environments:
         - artifacts:
@@ -66,7 +63,6 @@ jobs:
     targets:
       - fedora-all
       - fedora-all-aarch64
-      - epel-9
     project: packit-dev
     list_on_homepage: True
     preserve_project: True
@@ -75,9 +71,8 @@ jobs:
     trigger: commit
     branch: stable
     targets:
-      - fedora-stable
-      - fedora-stable-aarch64
-      - epel-9
+      - fedora-latest-stable
+      - fedora-latest-stable-aarch64
     project: packit-stable
     list_on_homepage: True
     preserve_project: True
@@ -87,7 +82,6 @@ jobs:
     targets:
       - fedora-all
       - fedora-all-aarch64
-      - epel-9
     project: packit-releases
     list_on_homepage: True
     preserve_project: True
@@ -96,7 +90,6 @@ jobs:
     trigger: release
     dist_git_branches:
       - fedora-all
-      - epel-9
 
   # downstream automation:
   - job: koji_build
@@ -108,4 +101,3 @@ jobs:
       - packit
     dist_git_branches:
       - fedora-all
-      - epel-9
