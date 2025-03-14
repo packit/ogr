@@ -3,6 +3,9 @@
 
 
 from functools import cached_property
+from typing import Optional
+
+from pyforgejo import Repository
 
 from ogr.services import forgejo
 from ogr.services.base import BaseGitProject
@@ -16,10 +19,11 @@ class ForgejoProject(BaseGitProject):
         repo: str,
         service: "forgejo.ForgejoService",
         namespace: str,
+        forgejo_repo: Optional[Repository] = None,
         **kwargs,
     ):
         super().__init__(repo, service, namespace)
-        self._forgejo_repo = None
+        self._forgejo_repo = forgejo_repo
 
     @cached_property
     def forgejo_repo(self):
