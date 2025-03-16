@@ -1,5 +1,9 @@
+# Copyright Contributors to the Packit project.
+# SPDX-License-Identifier: MIT
+
 from ogr.abstract import IssueStatus
 from tests.integration.forgejo.base import ForgejoTests
+
 
 class Issues(ForgejoTests):
 

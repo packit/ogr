@@ -2,12 +2,12 @@
 # SPDX-License-Identifier: MIT
 import re
 from datetime import datetime
-from typing import Optional, Union, Any, Type
+from typing import Any, Optional, Type, Union
 
 import pyforgejo.types.issue as _issue
 from pyforgejo import NotFoundError
 
-from ogr.abstract import Issue, IssueComment, IssueStatus, IssueLabel
+from ogr.abstract import Issue, IssueComment, IssueLabel, IssueStatus
 from ogr.exceptions import IssueTrackerDisabled, OperationNotSupported
 from ogr.services import forgejo
 from ogr.services.base import BaseIssue
@@ -60,10 +60,7 @@ class ForgejoIssue(BaseIssue):
 
     @description.setter
     def description(self, text: str):
-        self._api_call(
-            self.project.service.api.issue.edit_issue,
-            body=text
-        )
+        self._api_call(self.project.service.api.issue.edit_issue, body=text)
         self.__update_info()
 
     @property
@@ -119,7 +116,9 @@ class ForgejoIssue(BaseIssue):
 
         try:
             issue = project.service.api.issue.get_issue(
-                owner=project.namespace, repo=project.repo, index=issue_id,
+                owner=project.namespace,
+                repo=project.repo,
+                index=issue_id,
             )
         except Exception as ex:
             raise OperationNotSupported(f"Issue {issue_id} not found") from ex
@@ -148,7 +147,9 @@ class ForgejoIssue(BaseIssue):
             parameters["labels"] = labels
         try:
             issues = project.service.api.issue.list_issues(
-                owner=project.namespace, repo=project.repo, **parameters,
+                owner=project.namespace,
+                repo=project.repo,
+                **parameters,
             )
         except NotFoundError as ex:
             if "user does not exist" in str(ex):
@@ -177,25 +178,27 @@ class ForgejoIssue(BaseIssue):
 
     def get_comment(self, comment_id: int) -> IssueComment:
         comment = self.project.service.api.issue.get_comment(
-            owner=self.project.namespace, repo=self.project.repo, id=comment_id
+            owner=self.project.namespace, repo=self.project.repo, id=comment_id,
         )
         return ForgejoIssueComment(raw_comment=comment, parent=self)
 
     def get_comments(
-            self,
-            filter_regex: Optional[str] = None,
-            reverse: bool = False,
-            author: Optional[str] = None,
+        self,
+        filter_regex: Optional[str] = None,
+        reverse: bool = False,
+        author: Optional[str] = None,
     ) -> list[IssueComment]:
         comments = self._get_all_comments()
         if filter_regex:
             comments = [
-                comment for comment in comments
+                comment
+                for comment in comments
                 if comment.body and re.search(filter_regex, comment.body)
             ]
         if author:
             comments = [
-                comment for comment in comments
+                comment
+                for comment in comments
                 if comment.author and comment.author == author
             ]
         if reverse:
@@ -211,8 +214,10 @@ class ForgejoIssue(BaseIssue):
         ]
 
     def add_assignee(self, *assignees: str) -> None:
-        current_assignees = [assignee.login if hasattr(assignee, 'login') else assignee
-                             for assignee in self.assignees]
+        current_assignees = [
+            assignee.login if hasattr(assignee, "login") else assignee
+            for assignee in self.assignees
+        ]
         updated_assignees = list(set(current_assignees + list(assignees)))
         self._api_call(
             self.project.service.api.issue.edit_issue,
@@ -221,10 +226,7 @@ class ForgejoIssue(BaseIssue):
         self.__update_info()
 
     def add_label(self, *labels: str) -> None:
-        self._api_call(
-            self.project.service.api.issue.add_label,
-            labels=labels
-        )
+        self._api_call(self.project.service.api.issue.add_label, labels=labels)
         self.__update_info()
 
     def _api_call(self, method, **kwargs):
