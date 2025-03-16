@@ -115,7 +115,7 @@ class ForgejoIssue(BaseIssue):
     @staticmethod
     def get(project: "forgejo.ForgejoProject", issue_id: int) -> _issue:
         if not project.has_issues:
-            raise IssueTrackerDisabled
+            raise IssueTrackerDisabled()
 
         try:
             issue = project.service.api.issue.get_issue(
@@ -134,7 +134,7 @@ class ForgejoIssue(BaseIssue):
         labels: Optional[list[str]] = None,
     ) -> list["Issue"]:
         if not project.has_issues:
-            raise IssueTrackerDisabled
+            raise IssueTrackerDisabled()
 
         parameters: dict[str, Union[str, list[str], bool]] = {
             "state": status if status != IssueStatus.open else "open",
