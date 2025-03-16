@@ -121,7 +121,7 @@ class ForgejoIssue(BaseIssue):
                 index=issue_id,
             )
         except Exception as ex:
-            raise OperationNotSupported(f"Issue {issue_id} not found") from ex
+            raise NotFoundError(f"Issue {issue_id} not found") from ex
         return ForgejoIssue(issue, project)
 
     @staticmethod
