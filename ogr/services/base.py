@@ -31,8 +31,15 @@ except ImportError:
 class BaseGitService(GitService):
     @cached_property
     def hostname(self) -> Optional[str]:
+        if self.instance_url is None:
+            raise ValueError(
+                "instance_url cannot be None",
+            )  # Handle case where instance_url is None early
         parsed_url = parse_git_repo(potential_url=self.instance_url)
-        return parsed_url.hostname if parsed_url else None
+        if parsed_url is None:
+            raise ValueError(f"Failed to parse instance URL: {self.instance_url}")
+
+        return parsed_url.hostname
 
     def get_project_from_url(self, url: str) -> "GitProject":
         repo_url = parse_git_repo(potential_url=url)
@@ -44,6 +51,8 @@ class BaseGitService(GitService):
 class BaseGitProject(GitProject):
     @property
     def full_repo_name(self) -> str:
+        if self.namespace is None or self.repo is None:
+            raise ValueError("Namespace or repo cannot be None")
         return f"{self.namespace}/{self.repo}"
 
 

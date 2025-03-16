@@ -35,7 +35,7 @@ class PagureRelease(Release):
 
     @property
     def created_at(self) -> datetime.datetime:
-        return None
+        return datetime.datetime.now()
 
     @property
     def tarball_url(self) -> str:
@@ -81,7 +81,8 @@ class PagureRelease(Release):
         response = project._call_project_api("git", "tags", data=payload, method="POST")
         if not response["tag_created"]:
             raise PagureAPIException("Release has not been created")
-
+        if ref is None:
+            raise ValueError("Error , ref is None Type")
         return PagureRelease(GitTag(tag, ref), project)
 
     def edit_release(self, name: str, message: str) -> None:

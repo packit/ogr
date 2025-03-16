@@ -25,7 +25,7 @@ logger = logging.getLogger(__name__)
 
 class PagurePullRequest(BasePullRequest):
     _target_project: "ogr_pagure.PagureProject"
-    _source_project: "ogr_pagure.PagureProject" = None
+    _source_project: Optional["ogr_pagure.PagureProject"] = None
 
     def __init__(self, raw_pr, project):
         super().__init__(raw_pr, project)
@@ -56,6 +56,10 @@ class PagurePullRequest(BasePullRequest):
 
     @property
     def url(self) -> str:
+        if self.target_project.service.instance_url is None:
+            raise ValueError(
+                "Error : self.target_project.service.instance_url is None type",
+            )
         return "/".join(
             [
                 self.target_project.service.instance_url,
@@ -176,8 +180,11 @@ class PagurePullRequest(BasePullRequest):
             data["repo_from"] = project.repo
             data["repo_from_username"] = project._user
             data["repo_from_namespace"] = project.namespace
-
             # running the call from the parent project
+            if caller.parent is None:
+                raise ValueError(
+                    "Error: caller.parent is None, cannot create pull request from parent project",
+                )
             caller = caller.parent
         elif fork_username:
             fork_project = project.service.get_project(

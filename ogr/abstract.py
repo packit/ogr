@@ -228,7 +228,9 @@ class Comment(OgrAbstractClass):
 
     @property
     def id(self) -> int:
-        return self._id
+        return (
+            self._id if self._id is not None else -1
+        )  # if return type is None , return -1 , else return id
 
     @property
     def author(self) -> str:
@@ -238,12 +240,14 @@ class Comment(OgrAbstractClass):
     @property
     def created(self) -> datetime.datetime:
         """Datetime of creation of the comment."""
-        return self._created
+        return (
+            self._created if self._created is not None else datetime.min
+        )  # give min possible date in case None
 
     @property
     def edited(self) -> datetime.datetime:
         """Datetime of last edit of the comment."""
-        return self._edited
+        return self._edited if self._edited is not None else datetime.min
 
     def get_reactions(self) -> list[Reaction]:
         """Returns list of reactions."""
@@ -268,6 +272,8 @@ class IssueComment(Comment):
     @property
     def issue(self) -> "Issue":
         """Issue of issue comment."""
+        if self._parent is None:
+            raise ValueError("Parent issue is not set")
         return self._parent
 
     def __str__(self) -> str:
@@ -278,6 +284,8 @@ class PRComment(Comment):
     @property
     def pull_request(self) -> "PullRequest":
         """Pull request of pull request comment."""
+        if self._parent is None:
+            raise ValueError("Parent pull request not set")
         return self._parent
 
     def __str__(self) -> str:

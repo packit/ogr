@@ -84,29 +84,47 @@ def get_project(
     """
     mapping = service_mapping_update.copy() if service_mapping_update else {}
     custom_instances = custom_instances or []
+
     for instance in custom_instances:
-        mapping[instance.hostname] = instance.__class__
+        if instance is None:
+            continue  # Skip None instances
+        if instance.hostname is not None:
+            mapping[instance.hostname] = instance.__class__
+        else:
+            print(
+                f"Warning: {instance} has no hostname! Check instance_url or parsing logic.",
+            )
 
     kls = get_service_class(url=url, service_mapping_update=mapping)
     parsed_repo_url = parse_git_repo(url)
+    if parsed_repo_url is None:
+        raise OgrException(f"Failed to parse repository URL: {url}")
 
     service = None
-    if custom_instances:
-        for service_inst in custom_instances:
-            if (
-                isinstance(service_inst, kls)
-                and service_inst.hostname == parsed_repo_url.hostname
-            ):
-                service = service_inst
-                break
-        else:
-            if force_custom_instance:
-                raise OgrException(
-                    f"Instance of type {kls.__name__} "
-                    f"matching instance url '{url}' was not provided.",
-                )
-    if not service:
-        service = kls(instance_url=parsed_repo_url.get_instance_url(), **kwargs)
+    for service_inst in custom_instances:
+        if service_inst is None:  # Skip None instances
+            continue
+        if (
+            isinstance(service_inst, kls)
+            and service_inst.hostname == parsed_repo_url.hostname
+        ):
+            service = service_inst
+            break  # Found matching service, exit loop
+
+    if service is None:
+        if force_custom_instance and custom_instances:
+            raise OgrException(
+                f"Instance of type {kls.__name__} matching instance URL '{url}' was not provided.",
+            )
+
+        instance_url = parsed_repo_url.get_instance_url()
+        if instance_url is None:
+            raise OgrException(
+                f"Failed to get instance URL from parsed repo: {parsed_repo_url}",
+            )
+
+        service = kls(instance_url=instance_url, **kwargs)
+
     return service.get_project_from_url(url=url)
 
 
@@ -133,9 +151,17 @@ def get_service_class_or_none(
         mapping.update(service_mapping_update)
 
     parsed_url = parse_git_repo(url)
+    if parsed_url is None or parsed_url.hostname is None:
+        return None  # Fail early if URL parsing failed
+
     for service, service_kls in mapping.items():
-        if parse_git_repo(service).hostname in parsed_url.hostname:
-            return service_kls
+        if (
+            parse_git_repo(service).hostname
+            and parse_git_repo(service) is not None
+            and parsed_url.hostname
+        ):
+            if parse_git_repo(service).hostname in parse_git_repo(service).hostname:
+                return service_kls
 
     return None
 

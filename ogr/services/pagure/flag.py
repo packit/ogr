@@ -79,12 +79,16 @@ class PagureCommitFlag(BaseCommitFlag):
 
     @property
     def created(self) -> datetime.datetime:
+        if self._raw_commit_flag["date_created"] is None:
+            raise ValueError("Error: 'date_created' is None")
         return datetime.datetime.fromtimestamp(
             int(self._raw_commit_flag["date_created"]),
         )
 
     @property
     def edited(self) -> datetime.datetime:
+        if self._raw_commit_flag["date_updated"] is None:
+            raise ValueError("Error: 'date_updated' is None")
         return datetime.datetime.fromtimestamp(
             int(self._raw_commit_flag["date_updated"]),
         )
