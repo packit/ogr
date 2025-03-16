@@ -3,9 +3,13 @@
 
 
 from functools import cached_property
+from typing import Optional
 
+from ogr.abstract import Issue, IssueStatus
 from ogr.services import forgejo
 from ogr.services.base import BaseGitProject
+from ogr.services.forgejo import ForgejoIssue
+from ogr.utils import indirect
 
 
 class ForgejoProject(BaseGitProject):
@@ -28,3 +32,32 @@ class ForgejoProject(BaseGitProject):
             owner=namespace,
             repo=self.repo,
         )
+
+    @property
+    def has_issues(self):
+        return self.forgejo_repo.has_issues
+
+    @indirect(ForgejoIssue.get_list)
+    def get_issue_list(
+        self,
+        status: IssueStatus = IssueStatus.open,
+        author: Optional[str] = None,
+        assignee: Optional[str] = None,
+        labels: Optional[list[str]] = None,
+    ) -> list["Issue"]:
+        pass
+
+    @indirect(ForgejoIssue.create)
+    def create_issue(
+        self,
+        title: str,
+        body: str,
+        private: Optional[bool] = None,
+        labels: Optional[list[str]] = None,
+        assignees: Optional[list[str]] = None,
+    ) -> Issue:
+        pass
+
+    @indirect(ForgejoIssue.get)
+    def get_issue(self, issue_id: int) -> "Issue":
+        pass
