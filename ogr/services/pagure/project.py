@@ -346,21 +346,27 @@ class PagureProject(BaseGitProject):
         if self.is_fork:
             raise OgrException("Cannot create fork from fork.")
 
+        # The cheapest check that assumes fork has the same repository name as
+        # the upstream
+        fork, exists = self._is_forked()
+        if exists:
+            return fork
+
+        # If not successful, the fork could still exist, but has a custom name
         for fork in self.get_forks():
             fork_info = fork.get_project_info()
             if self._user == fork_info["user"]["name"]:
                 return fork
 
-        if not self.is_forked():
-            if create:
-                return self.fork_create()
+        # We have not found any fork owned by the auth'd user
+        if create:
+            return self.fork_create()
 
-            logger.info(
-                f"Fork of {self.repo}"
-                " does not exist and we were asked not to create it.",
-            )
-            return None
-        return self._construct_fork_project()
+        logger.info(
+            f"Fork of {self.repo}"
+            " does not exist and we were asked not to create it.",
+        )
+        return None
 
     def exists(self) -> bool:
         response = self._call_project_api_raw()
@@ -382,9 +388,19 @@ class PagureProject(BaseGitProject):
             f"Please open issue in https://github.com/packit/ogr",
         )
 
-    def is_forked(self) -> bool:
+    def _is_forked(self) -> tuple["PagureProject", bool]:
+        """Helper function that does 2in1: both constructs the fork project and
+        also returns whether it exists. Saves some time and resources.
+
+        Returns:
+            Pair of `PagureProject` and `bool` denoting whether the fork exists.
+        """
         f = self._construct_fork_project()
-        return bool(f.exists() and f.parent.exists())
+        return f, bool(f.exists() and f.parent.exists())
+
+    def is_forked(self) -> bool:
+        _, exists = self._is_forked()
+        return exists
 
     def get_is_fork_from_api(self) -> bool:
         return bool(self.get_project_info()["parent"])
