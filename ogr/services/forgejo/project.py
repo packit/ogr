@@ -1,8 +1,8 @@
 # Copyright Contributors to the Packit project.
 # SPDX-License-Identifier: MIT
 
-
-from collections.abc import Iterable, Sequence
+import logging
+from collections.abc import Iterable
 from functools import cached_property
 from typing import Optional, Union
 
@@ -30,6 +30,8 @@ from .flag import ForgejoCommitFlag
 from .issue import ForgejoIssue
 from .pull_request import ForgejoPullRequest
 from .release import ForgejoRelease
+
+logger = logging.getLogger(__name__)
 
 
 class ForgejoProject(BaseGitProject):
@@ -156,19 +158,40 @@ class ForgejoProject(BaseGitProject):
     def get_description(self) -> str:
         return self.description
 
+    def _construct_fork_project(self) -> Optional["ForgejoProject"]:
+        login = self.service.user.get_username()
+        try:
+            project = ForgejoProject(
+                repo=self.repo,
+                service=self.service,
+                namespace=login,
+            )
+            _ = project.forgejo_repo
+            return project
+        except NotFoundError:
+            return None
+
     def get_fork(self, create: bool = True) -> Optional["GitProject"]:
-        """
-        Provide GitProject instance of a fork of this project.
+        # The cheapest check that assumes fork has the same repository name as
+        # the upstream
+        if fork := self._construct_fork_project():
+            return fork
 
-        Args:
-            create: Create fork if it does not exist.
+        # If not successful, the fork could still exist, but has a custom name
+        username = self.service.user.get_username()
+        for fork in self.get_forks():
+            if fork.forgejo_repo.owner.login == username:
+                return fork
 
-        Returns:
-            `None` if the project is fork itself or there is no fork, otherwise
-            instance of a fork if is to be created or exists already.
-        """
-        # [TODO]
-        raise NotImplementedError()
+        # We have not found any fork owned by the auth'd user
+        if create:
+            return self.fork_create()
+
+        logger.info(
+            f"Fork of {self.forgejo_repo.full_name}"
+            " does not exist and we were asked not to create it.",
+        )
+        return None
 
     def get_owners(self) -> list[str]:
         """
@@ -482,13 +505,22 @@ class ForgejoProject(BaseGitProject):
         # [TODO]
         raise NotImplementedError
 
-    def get_forks(self) -> Sequence["GitProject"]:
-        """
-        Returns:
-            All forks of the project.
-        """
-        # [TODO]
-        raise NotImplementedError()
+    def get_forks(self) -> Iterable["ForgejoProject"]:
+        page = 1
+
+        while forks := self.service.api.repository.list_forks(
+            owner=self.namespace,
+            repo=self.repo,
+            page=page,
+        ):
+            for fork in forks:
+                yield ForgejoProject(
+                    namespace=fork.owner.login,
+                    repo=fork.name,
+                    service=self.service,
+                )
+
+            page += 1
 
     def get_web_url(self) -> str:
         return self.forgejo_repo.html_url
