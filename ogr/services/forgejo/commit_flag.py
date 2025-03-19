@@ -4,7 +4,7 @@
 from datetime import datetime
 from typing import Any
 
-import requests
+from pyforgejo import PyforgejoApi
 
 from ogr.abstract import CommitFlag, CommitStatus
 
@@ -51,29 +51,24 @@ class ForgejoCommitFlag(CommitFlag):
         self.comment = raw.get("comment")
         self.uid = raw.get("id")
         self.url = raw.get("url")
-        # Parse timestamps in ISO8601 format (adjust format if needed)
-        self._created = datetime.strptime(raw.get("created"), "%Y-%m-%dT%H:%M:%SZ")
-        self._edited = datetime.strptime(raw.get("updated"), "%Y-%m-%dT%H:%M:%SZ")
+        self._created = raw.get("created")
+        self._edited = raw.get("updated")
 
     @staticmethod
     def get(project: Any, commit: str) -> list["CommitFlag"]:
         """
-        Retrieve commit statuses for the given commit from Forgejo.
-        This method should use Forgejo's API to fetch statuses.
+        Retrieve commit statuses for the given commit from Forgejo using the pyforgejo SDK.
         """
-        # Construct the URL using the project's forge_api_url, owner, repo, and commit hash.
-        url = (
-            f"{project.forge_api_url}/repos/{project.owner}/{project.repo}/commits/"
-            f"{commit}/statuses"
+        client = PyforgejoApi(api_url=project.forge_api_url, token=project.token)
+        raw_flags = client.get_commit_statuses(
+            owner=project.owner,
+            repo=project.repo,
+            commit=commit,
         )
-        headers = project.get_auth_header()  # Get auth headers from project config
-        response = requests.get(url, headers=headers)
-        response.raise_for_status()
-        flags: list[CommitFlag] = [
+        return [
             ForgejoCommitFlag(raw_commit_flag=raw_flag, project=project, commit=commit)
-            for raw_flag in response.json()
+            for raw_flag in raw_flags
         ]
-        return flags
 
     @staticmethod
     def set(
@@ -85,22 +80,20 @@ class ForgejoCommitFlag(CommitFlag):
         context: str,
     ) -> "CommitFlag":
         """
-        Set a new commit status on Forgejo via its API.
+        Set a new commit status on Forgejo via the pyforgejo SDK.
         """
-        url = (
-            f"{project.forge_api_url}/repos/{project.owner}/{project.repo}/commits/"
-            f"{commit}/statuses"
+        client = PyforgejoApi(api_url=project.forge_api_url, token=project.token)
+        raw_response = client.set_commit_status(
+            owner=project.owner,
+            repo=project.repo,
+            commit=commit,
+            state=state.name.lower(),
+            target_url=target_url,
+            description=description,
+            context=context,
         )
-        payload = {
-            "state": state.name.lower(),
-            "target_url": target_url,
-            "description": description,
-            "context": context,
-        }
-        headers = project.get_auth_header()
-        response = requests.post(url, json=payload, headers=headers)
         return ForgejoCommitFlag(
-            raw_commit_flag=response.json(),
+            raw_commit_flag=raw_response,
             project=project,
             commit=commit,
         )

@@ -15,3 +15,13 @@ def service():
         instance_url="https://v10.next.forgejo.org",
         api_key=api_key,
     )
+
+
+@pytest.fixture
+def project(service):
+    repo = os.environ.get("FORGEJO_REPO", "existing_repo_name")
+    namespace = os.environ.get("FORGEJO_NAMESPACE", "existing_namespace")
+    project = service.get_project(repo=repo, namespace=namespace)
+    if not project:
+        pytest.skip(f"Project {namespace}/{repo} does not exist.")
+    return project
