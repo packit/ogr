@@ -6,6 +6,7 @@ from functools import cached_property
 
 from ogr.services import forgejo
 from ogr.services.base import BaseGitUser
+from ogr.services.forgejo.project import ForgejoProject
 
 
 class ForgejoUser(BaseGitUser):
@@ -24,3 +25,21 @@ class ForgejoUser(BaseGitUser):
 
     def get_username(self) -> str:
         return self.forgejo_user.login
+
+    def get_email(self) -> str:
+        return self.forgejo_user.email
+
+    def get_projects(self) -> list["ForgejoProject"]:
+        repos = self.service.api.user.current_list_repos()
+        return [
+            ForgejoProject(
+                repo=repo.name,
+                namespace=repo.owner.login,
+                service=self.service,
+                forgejo_repo=repo,
+            )
+            for repo in repos
+        ]
+
+    def get_forks(self) -> list["ForgejoProject"]:
+        return [project for project in self.get_projects() if project.forgejo_repo.fork]

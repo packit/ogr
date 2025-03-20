@@ -1,0 +1,63 @@
+_requre:
+  DataTypes: 1
+  key_strategy: StorageKeysInspectSimple
+  version_storage_file: 3
+httpx._client:
+  send:
+    GET:
+      https://v10.next.forgejo.org/api/v1/user:
+      - metadata:
+          latency: 0.605745792388916
+          module_call_list:
+          - requre.record_and_replace
+          - tests.integration.forgejo.test_user
+          - ogr.abstract
+          - ogr.services.forgejo.user
+          - functools
+          - ogr.services.forgejo.user
+          - pyforgejo.user.client
+          - pyforgejo.core.http_client
+          - httpx._client
+          - requre.objects
+          - requre.cassette
+          - httpx._client
+          - send
+        output:
+          __store_indicator: 2
+          _content:
+            active: true
+            avatar_url: https://v10.next.forgejo.org/avatars/9c4cb263b7809b180c92b4970f7d0847
+            created: '2025-02-14T09:34:00Z'
+            description: ''
+            email: public-repos-bot@packit.dev
+            followers_count: 0
+            following_count: 0
+            full_name: ''
+            html_url: https://v10.next.forgejo.org/packit-validator
+            id: 618
+            is_admin: false
+            language: en-US
+            last_login: '2025-03-13T13:17:22Z'
+            location: ''
+            login: packit-validator
+            login_name: ''
+            prohibit_login: false
+            pronouns: ''
+            restricted: false
+            source_id: 0
+            starred_repos_count: 0
+            username: packit-validator
+            visibility: public
+            website: ''
+          _elapsed: 0.605662
+          encoding: utf-8
+          headers:
+            cache-control: max-age=0, private, must-revalidate, no-transform
+            content-length: '600'
+            content-type: application/json;charset=utf-8
+            date: Fri, 14 Mar 2025 10:11:07 GMT
+            vary: Origin
+            x-content-type-options: nosniff
+            x-frame-options: SAMEORIGIN
+          next_request: null
+          status_code: 200
