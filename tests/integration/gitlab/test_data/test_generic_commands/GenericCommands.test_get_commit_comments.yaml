@@ -7,16 +7,19 @@ requests.sessions:
     GET:
       https://gitlab.com/api/v4/projects/14233409/repository/commits/11b37d913374b14f8519d16c2a2cca3ebc14ac64:
       - metadata:
-          latency: 0.28677940368652344
+          latency: 0.5014040470123291
           module_call_list:
           - unittest.case
           - requre.record_and_replace
           - tests.integration.gitlab.test_generic_commands
           - ogr.abstract
           - ogr.services.gitlab.project
+          - gitlab.v4.objects.commits
           - gitlab.exceptions
           - gitlab.mixins
           - gitlab.client
+          - gitlab._backends.requests_backend
+          - requests.sessions
           - requre.objects
           - requre.cassette
           - requests.sessions
@@ -31,6 +34,7 @@ requests.sessions:
             committer_email: lbarczio@redhat.com
             committer_name: Laura Barcziova
             created_at: '2019-09-11T11:13:22.000+02:00'
+            extended_trailers: {}
             id: 11b37d913374b14f8519d16c2a2cca3ebc14ac64
             last_pipeline:
               created_at: '2019-09-12T13:15:31.185Z'
@@ -59,42 +63,39 @@ requests.sessions:
             trailers: {}
             web_url: https://gitlab.com/packit-service/ogr-tests/-/commit/11b37d913374b14f8519d16c2a2cca3ebc14ac64
           _next: null
-          elapsed: 0.286172
+          elapsed: 0.501109
           encoding: utf-8
           headers:
-            CF-Cache-Status: DYNAMIC
-            CF-RAY: 71178dc63f41410e-PRG
+            CF-Cache-Status: MISS
+            CF-Ray: 92274561fbb254e8-DEL
             Cache-Control: max-age=0, private, must-revalidate
             Connection: keep-alive
             Content-Encoding: gzip
             Content-Type: application/json
-            Date: Thu, 26 May 2022 15:30:45 GMT
-            Etag: W/"0153a2dfab918bbadd566a3c5ef6b149"
-            Expect-CT: max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
-            GitLab-LB: fe-22-lb-gprd
-            GitLab-SV: localhost
+            Date: Tue, 18 Mar 2025 19:52:32 GMT
+            ETag: W/"ab45a0867d3beaa20ccca6299921808e"
             NEL: '{"success_fraction":0.01,"report_to":"cf-nel","max_age":604800}'
-            RateLimit-Limit: '2000'
-            RateLimit-Observed: '3'
-            RateLimit-Remaining: '1997'
-            RateLimit-Reset: '1653579105'
-            RateLimit-ResetTime: Thu, 26 May 2022 15:31:45 GMT
-            Referrer-Policy: strict-origin-when-cross-origin
-            Report-To: '{"endpoints":[{"url":"https:\/\/a.nel.cloudflare.com\/report\/v3?s=rLsG%2FhOmMDoLAwAexTIgBfSjdlaDDNbc5dHgR1vtihrrDyUpH1TeMctkn%2BvlKVmK6ucbTOTyv32EqG9KxenoDdvN99owNHFzwn7VGnHHeFEra%2Fd8jlUknWXX%2B44%3D"}],"group":"cf-nel","max_age":604800}'
+            Report-To: '{"endpoints":[{"url":"https:\/\/a.nel.cloudflare.com\/report\/v4?s=UBFKzCznVsnd1Z2kj5pli5kpvKp3M4EpWI7NQt2ddd8UxLVQLsgUeM8mFAIfJGjnBpas%2F%2FK8djB0jzVgqSybOO4lt9LNF9okBYkEnLXcBBrkUrOU1pS0NH9W0eM%3D"}],"group":"cf-nel","max_age":604800}'
             Server: cloudflare
             Strict-Transport-Security: max-age=31536000
             Transfer-Encoding: chunked
-            Vary: Origin
-            X-Content-Type-Options: nosniff
-            X-Frame-Options: SAMEORIGIN
-            X-Request-Id: 01G40FVP1ZMX5F8G8ME7TWMV6P
-            X-Runtime: '0.080249'
+            Vary: Origin, Accept-Encoding
+            content-security-policy: default-src 'none'
+            gitlab-lb: haproxy-main-48-lb-gprd
+            gitlab-sv: gke-cny-api
+            referrer-policy: strict-origin-when-cross-origin
+            x-content-type-options: nosniff
+            x-frame-options: SAMEORIGIN
+            x-gitlab-meta: '{"correlation_id":"1975bccb0a2587ae621ad536194ffeef","version":"1"}'
+            x-request-id: 1975bccb0a2587ae621ad536194ffeef
+            x-runtime: '0.116733'
           raw: !!binary ""
+          raw_decoded: !!binary ""
           reason: OK
           status_code: 200
       https://gitlab.com/api/v4/projects/14233409/repository/commits/11b37d913374b14f8519d16c2a2cca3ebc14ac64/comments:
       - metadata:
-          latency: 0.4714832305908203
+          latency: 1.231264352798462
           module_call_list:
           - unittest.case
           - requre.record_and_replace
@@ -104,6 +105,8 @@ requests.sessions:
           - gitlab.exceptions
           - gitlab.mixins
           - gitlab.client
+          - gitlab._backends.requests_backend
+          - requests.sessions
           - requre.objects
           - requre.cassette
           - requests.sessions
@@ -112,8 +115,9 @@ requests.sessions:
           __store_indicator: 2
           _content:
           - author:
-              avatar_url: https://secure.gravatar.com/avatar/9c8d9a288151a8e563547e082c591f2a?s=80&d=identicon
+              avatar_url: https://secure.gravatar.com/avatar/7eaddaccb0af615d1017591ff12acf8566265d393e05dfb853ee08108951e0f7?s=80&d=identicon
               id: 4594931
+              locked: false
               name: "Laura Barcziov\xE1"
               state: active
               username: lbarcziova
@@ -124,8 +128,9 @@ requests.sessions:
             note: Comment to line 3
             path: README.md
           - author:
-              avatar_url: https://secure.gravatar.com/avatar/5a2e7f6710bff47b94d24b44b55fd7f7?s=80&d=identicon
+              avatar_url: https://secure.gravatar.com/avatar/9b3966cd5266e84a03e584aeb2067f00580ca2e04f477c251778aee5a96f9921?s=80&d=identicon
               id: 433670
+              locked: false
               name: "Franti\u0161ek Lachman"
               state: active
               username: lachmanfrantisek
@@ -136,8 +141,9 @@ requests.sessions:
             note: Comment to line 3
             path: README.md
           - author:
-              avatar_url: https://secure.gravatar.com/avatar/e1ae3427f994784121371108f12eceb5?s=80&d=identicon
+              avatar_url: https://secure.gravatar.com/avatar/3bd00d5dc2fe535afffc72a22cf42c5b214f28b1cf2703adba20c105cc57cc66?s=80&d=identicon
               id: 4626962
+              locked: false
               name: jscotka
               state: active
               username: jscotka
@@ -148,8 +154,9 @@ requests.sessions:
             note: Comment to line 3
             path: README.md
           - author:
-              avatar_url: https://secure.gravatar.com/avatar/e1ae3427f994784121371108f12eceb5?s=80&d=identicon
+              avatar_url: https://secure.gravatar.com/avatar/3bd00d5dc2fe535afffc72a22cf42c5b214f28b1cf2703adba20c105cc57cc66?s=80&d=identicon
               id: 4626962
+              locked: false
               name: jscotka
               state: active
               username: jscotka
@@ -160,8 +167,9 @@ requests.sessions:
             note: Comment to line 3
             path: README.md
           - author:
-              avatar_url: https://secure.gravatar.com/avatar/e1ae3427f994784121371108f12eceb5?s=80&d=identicon
+              avatar_url: https://secure.gravatar.com/avatar/3bd00d5dc2fe535afffc72a22cf42c5b214f28b1cf2703adba20c105cc57cc66?s=80&d=identicon
               id: 4626962
+              locked: false
               name: jscotka
               state: active
               username: jscotka
@@ -172,8 +180,9 @@ requests.sessions:
             note: Comment to line 3
             path: README.md
           - author:
-              avatar_url: https://secure.gravatar.com/avatar/e1ae3427f994784121371108f12eceb5?s=80&d=identicon
+              avatar_url: https://secure.gravatar.com/avatar/3bd00d5dc2fe535afffc72a22cf42c5b214f28b1cf2703adba20c105cc57cc66?s=80&d=identicon
               id: 4626962
+              locked: false
               name: jscotka
               state: active
               username: jscotka
@@ -184,8 +193,9 @@ requests.sessions:
             note: Comment to line 3
             path: README.md
           - author:
-              avatar_url: https://secure.gravatar.com/avatar/e1ae3427f994784121371108f12eceb5?s=80&d=identicon
+              avatar_url: https://secure.gravatar.com/avatar/3bd00d5dc2fe535afffc72a22cf42c5b214f28b1cf2703adba20c105cc57cc66?s=80&d=identicon
               id: 4626962
+              locked: false
               name: jscotka
               state: active
               username: jscotka
@@ -196,8 +206,9 @@ requests.sessions:
             note: Comment to line 3
             path: README.md
           - author:
-              avatar_url: https://secure.gravatar.com/avatar/e1ae3427f994784121371108f12eceb5?s=80&d=identicon
+              avatar_url: https://secure.gravatar.com/avatar/3bd00d5dc2fe535afffc72a22cf42c5b214f28b1cf2703adba20c105cc57cc66?s=80&d=identicon
               id: 4626962
+              locked: false
               name: jscotka
               state: active
               username: jscotka
@@ -208,8 +219,9 @@ requests.sessions:
             note: Comment to line 3
             path: README.md
           - author:
-              avatar_url: https://secure.gravatar.com/avatar/e1ae3427f994784121371108f12eceb5?s=80&d=identicon
+              avatar_url: https://secure.gravatar.com/avatar/3bd00d5dc2fe535afffc72a22cf42c5b214f28b1cf2703adba20c105cc57cc66?s=80&d=identicon
               id: 4626962
+              locked: false
               name: jscotka
               state: active
               username: jscotka
@@ -220,8 +232,9 @@ requests.sessions:
             note: Comment to line 3
             path: README.md
           - author:
-              avatar_url: https://secure.gravatar.com/avatar/e1ae3427f994784121371108f12eceb5?s=80&d=identicon
+              avatar_url: https://secure.gravatar.com/avatar/3bd00d5dc2fe535afffc72a22cf42c5b214f28b1cf2703adba20c105cc57cc66?s=80&d=identicon
               id: 4626962
+              locked: false
               name: jscotka
               state: active
               username: jscotka
@@ -232,8 +245,9 @@ requests.sessions:
             note: Comment to line 3
             path: README.md
           - author:
-              avatar_url: https://secure.gravatar.com/avatar/e1ae3427f994784121371108f12eceb5?s=80&d=identicon
+              avatar_url: https://secure.gravatar.com/avatar/3bd00d5dc2fe535afffc72a22cf42c5b214f28b1cf2703adba20c105cc57cc66?s=80&d=identicon
               id: 4626962
+              locked: false
               name: jscotka
               state: active
               username: jscotka
@@ -244,8 +258,9 @@ requests.sessions:
             note: Comment to line 3
             path: README.md
           - author:
-              avatar_url: https://secure.gravatar.com/avatar/e1ae3427f994784121371108f12eceb5?s=80&d=identicon
+              avatar_url: https://secure.gravatar.com/avatar/3bd00d5dc2fe535afffc72a22cf42c5b214f28b1cf2703adba20c105cc57cc66?s=80&d=identicon
               id: 4626962
+              locked: false
               name: jscotka
               state: active
               username: jscotka
@@ -258,6 +273,7 @@ requests.sessions:
           - author:
               avatar_url: https://gitlab.com/uploads/-/system/user/avatar/375555/avatar.png
               id: 375555
+              locked: false
               name: Matej Focko
               state: active
               username: mfocko
@@ -268,8 +284,9 @@ requests.sessions:
             note: Comment to line 3
             path: README.md
           - author:
-              avatar_url: https://secure.gravatar.com/avatar/e1ae3427f994784121371108f12eceb5?s=80&d=identicon
+              avatar_url: https://secure.gravatar.com/avatar/3bd00d5dc2fe535afffc72a22cf42c5b214f28b1cf2703adba20c105cc57cc66?s=80&d=identicon
               id: 4626962
+              locked: false
               name: jscotka
               state: active
               username: jscotka
@@ -280,8 +297,9 @@ requests.sessions:
             note: Comment to line 3
             path: README.md
           - author:
-              avatar_url: https://secure.gravatar.com/avatar/e1ae3427f994784121371108f12eceb5?s=80&d=identicon
+              avatar_url: https://secure.gravatar.com/avatar/3bd00d5dc2fe535afffc72a22cf42c5b214f28b1cf2703adba20c105cc57cc66?s=80&d=identicon
               id: 4626962
+              locked: false
               name: jscotka
               state: active
               username: jscotka
@@ -292,8 +310,9 @@ requests.sessions:
             note: Comment to line 3
             path: README.md
           - author:
-              avatar_url: https://secure.gravatar.com/avatar/e1ae3427f994784121371108f12eceb5?s=80&d=identicon
+              avatar_url: https://secure.gravatar.com/avatar/3bd00d5dc2fe535afffc72a22cf42c5b214f28b1cf2703adba20c105cc57cc66?s=80&d=identicon
               id: 4626962
+              locked: false
               name: jscotka
               state: active
               username: jscotka
@@ -304,8 +323,9 @@ requests.sessions:
             note: Comment to line 3
             path: README.md
           - author:
-              avatar_url: https://secure.gravatar.com/avatar/e1ae3427f994784121371108f12eceb5?s=80&d=identicon
+              avatar_url: https://secure.gravatar.com/avatar/3bd00d5dc2fe535afffc72a22cf42c5b214f28b1cf2703adba20c105cc57cc66?s=80&d=identicon
               id: 4626962
+              locked: false
               name: jscotka
               state: active
               username: jscotka
@@ -316,8 +336,9 @@ requests.sessions:
             note: Comment to line 3
             path: README.md
           - author:
-              avatar_url: https://secure.gravatar.com/avatar/e1ae3427f994784121371108f12eceb5?s=80&d=identicon
+              avatar_url: https://secure.gravatar.com/avatar/3bd00d5dc2fe535afffc72a22cf42c5b214f28b1cf2703adba20c105cc57cc66?s=80&d=identicon
               id: 4626962
+              locked: false
               name: jscotka
               state: active
               username: jscotka
@@ -330,6 +351,7 @@ requests.sessions:
           - author:
               avatar_url: https://gitlab.com/uploads/-/system/user/avatar/375555/avatar.png
               id: 375555
+              locked: false
               name: Matej Focko
               state: active
               username: mfocko
@@ -342,6 +364,7 @@ requests.sessions:
           - author:
               avatar_url: https://gitlab.com/uploads/-/system/user/avatar/375555/avatar.png
               id: 375555
+              locked: false
               name: Matej Focko
               state: active
               username: mfocko
@@ -352,61 +375,175 @@ requests.sessions:
             note: Comment to line 3
             path: README.md
           _next: null
-          elapsed: 0.47087
+          elapsed: 1.230962
           encoding: utf-8
           headers:
-            CF-Cache-Status: DYNAMIC
-            CF-RAY: 71178dc80b09410e-PRG
+            CF-Cache-Status: MISS
+            CF-Ray: 922745652d6254e8-DEL
             Cache-Control: max-age=0, private, must-revalidate
             Connection: keep-alive
             Content-Encoding: gzip
             Content-Type: application/json
-            Date: Thu, 26 May 2022 15:30:45 GMT
-            Etag: W/"1ec9b8bab9edf0123523168dbfd4034f"
-            Expect-CT: max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
-            GitLab-LB: fe-07-lb-gprd
-            GitLab-SV: localhost
+            Date: Tue, 18 Mar 2025 19:52:33 GMT
+            ETag: W/"3301671c58b71eef4d325a749e4882ff"
             Link: <https://gitlab.com/api/v4/projects/14233409/repository/commits/11b37d913374b14f8519d16c2a2cca3ebc14ac64/comments?id=14233409&page=2&per_page=20&sha=11b37d913374b14f8519d16c2a2cca3ebc14ac64>;
               rel="next", <https://gitlab.com/api/v4/projects/14233409/repository/commits/11b37d913374b14f8519d16c2a2cca3ebc14ac64/comments?id=14233409&page=1&per_page=20&sha=11b37d913374b14f8519d16c2a2cca3ebc14ac64>;
               rel="first", <https://gitlab.com/api/v4/projects/14233409/repository/commits/11b37d913374b14f8519d16c2a2cca3ebc14ac64/comments?id=14233409&page=2&per_page=20&sha=11b37d913374b14f8519d16c2a2cca3ebc14ac64>;
               rel="last"
             NEL: '{"success_fraction":0.01,"report_to":"cf-nel","max_age":604800}'
-            RateLimit-Limit: '2000'
-            RateLimit-Observed: '4'
-            RateLimit-Remaining: '1996'
-            RateLimit-Reset: '1653579105'
-            RateLimit-ResetTime: Thu, 26 May 2022 15:31:45 GMT
-            Referrer-Policy: strict-origin-when-cross-origin
-            Report-To: '{"endpoints":[{"url":"https:\/\/a.nel.cloudflare.com\/report\/v3?s=6uk3MvwIt1j1YjOzg0Hj028AYBpcyAaQ9RkihFtj0NuhYOOg%2FY2hgRkAsDTwMspGMdyNE9rm7J%2F%2B0uyWjC%2FY1suJ479NAM%2F9aqXJXZJH7ksTvluArQopJm3VoIs%3D"}],"group":"cf-nel","max_age":604800}'
+            Report-To: '{"endpoints":[{"url":"https:\/\/a.nel.cloudflare.com\/report\/v4?s=80yuu55VD2vOYydo1r6oIDGg5CeBvo%2Fs8DfEFLq3AjMPHsuqJ9aTVKLsWoc%2BAESJdpc%2BNfi4CrWAQQMBhiAVWhjOvgzp9oruP7%2Fs4ZPPiiL2G19mfxZn56h0qfA%3D"}],"group":"cf-nel","max_age":604800}'
             Server: cloudflare
             Strict-Transport-Security: max-age=31536000
             Transfer-Encoding: chunked
-            Vary: Origin
-            X-Content-Type-Options: nosniff
-            X-Frame-Options: SAMEORIGIN
-            X-Next-Page: '2'
-            X-Page: '1'
-            X-Per-Page: '20'
-            X-Prev-Page: ''
-            X-Request-Id: 01G40FVPGTH6CVNGMJEWN2VMND
-            X-Runtime: '0.103474'
-            X-Total: '23'
-            X-Total-Pages: '2'
+            Vary: Origin, Accept-Encoding
+            content-security-policy: default-src 'none'
+            gitlab-lb: haproxy-main-15-lb-gprd
+            gitlab-sv: api-gke-us-east1-b
+            referrer-policy: strict-origin-when-cross-origin
+            x-content-type-options: nosniff
+            x-frame-options: SAMEORIGIN
+            x-gitlab-meta: '{"correlation_id":"407d253659b3b9552019826b9219f205","version":"1"}'
+            x-next-page: '2'
+            x-page: '1'
+            x-per-page: '20'
+            x-prev-page: ''
+            x-request-id: 407d253659b3b9552019826b9219f205
+            x-runtime: '0.165429'
+            x-total: '24'
+            x-total-pages: '2'
           raw: !!binary ""
+          raw_decoded: !!binary ""
           reason: OK
           status_code: 200
+      ? https://gitlab.com/api/v4/projects/14233409/repository/commits/11b37d913374b14f8519d16c2a2cca3ebc14ac64/comments?id=14233409&page=2&per_page=20&sha=11b37d913374b14f8519d16c2a2cca3ebc14ac64
+      : - metadata:
+            latency: 1.6296825408935547
+            module_call_list:
+            - unittest.case
+            - requre.record_and_replace
+            - tests.integration.gitlab.test_generic_commands
+            - ogr.abstract
+            - ogr.services.gitlab.project
+            - gitlab.exceptions
+            - gitlab.mixins
+            - gitlab.client
+            - gitlab._backends.requests_backend
+            - requests.sessions
+            - requre.objects
+            - requre.cassette
+            - requests.sessions
+            - send
+          output:
+            __store_indicator: 2
+            _content:
+            - author:
+                avatar_url: https://gitlab.com/uploads/-/system/user/avatar/375555/avatar.png
+                id: 375555
+                locked: false
+                name: Matej Focko
+                state: active
+                username: mfocko
+                web_url: https://gitlab.com/mfocko
+              created_at: '2020-10-12T10:27:00.416Z'
+              line: 3
+              line_type: new
+              note: Comment to line 3
+              path: README.md
+            - author:
+                avatar_url: https://secure.gravatar.com/avatar/6b565cb18c3fad52f24b6239c182bc8c4f50a9204afabea762f359dfb6d06564?s=80&d=identicon
+                id: 6466632
+                locked: false
+                name: Ben Crocker
+                state: active
+                username: bcrocker
+                web_url: https://gitlab.com/bcrocker
+              created_at: '2021-04-12T21:10:45.927Z'
+              line: 3
+              line_type: new
+              note: Comment to line 3
+              path: README.md
+            - author:
+                avatar_url: https://gitlab.com/uploads/-/system/user/avatar/375555/avatar.png
+                id: 375555
+                locked: false
+                name: Matej Focko
+                state: active
+                username: mfocko
+                web_url: https://gitlab.com/mfocko
+              created_at: '2022-01-05T18:40:30.419Z'
+              line: 3
+              line_type: new
+              note: Comment to line 3
+              path: README.md
+            - author:
+                avatar_url: https://gitlab.com/uploads/-/system/user/avatar/375555/avatar.png
+                id: 375555
+                locked: false
+                name: Matej Focko
+                state: active
+                username: mfocko
+                web_url: https://gitlab.com/mfocko
+              created_at: '2023-10-26T10:11:51.117Z'
+              line: 3
+              line_type: new
+              note: Comment to line 3
+              path: README.md
+            _next: null
+            elapsed: 1.629421
+            encoding: utf-8
+            headers:
+              CF-Cache-Status: MISS
+              CF-Ray: 9227456ce8a254e8-DEL
+              Cache-Control: max-age=0, private, must-revalidate
+              Connection: keep-alive
+              Content-Encoding: gzip
+              Content-Type: application/json
+              Date: Tue, 18 Mar 2025 19:52:35 GMT
+              ETag: W/"db7ea9f0bcb853f99fc0ffa497c0735f"
+              Link: <https://gitlab.com/api/v4/projects/14233409/repository/commits/11b37d913374b14f8519d16c2a2cca3ebc14ac64/comments?id=14233409&page=1&per_page=20&sha=11b37d913374b14f8519d16c2a2cca3ebc14ac64>;
+                rel="prev", <https://gitlab.com/api/v4/projects/14233409/repository/commits/11b37d913374b14f8519d16c2a2cca3ebc14ac64/comments?id=14233409&page=1&per_page=20&sha=11b37d913374b14f8519d16c2a2cca3ebc14ac64>;
+                rel="first", <https://gitlab.com/api/v4/projects/14233409/repository/commits/11b37d913374b14f8519d16c2a2cca3ebc14ac64/comments?id=14233409&page=2&per_page=20&sha=11b37d913374b14f8519d16c2a2cca3ebc14ac64>;
+                rel="last"
+              NEL: '{"success_fraction":0.01,"report_to":"cf-nel","max_age":604800}'
+              Report-To: '{"endpoints":[{"url":"https:\/\/a.nel.cloudflare.com\/report\/v4?s=CS%2FRA%2BOqZ3ZyYFiPH%2FO5DvwmqsegLI95orF8uijqq%2BTxFzmzsEXpmLM3SOTCXcdnbq%2B4smV3XQYM0wQ%2F%2FJ5NNv5JiYcaSoyvse77uelw5JyK8JQvqS18jno7FeM%3D"}],"group":"cf-nel","max_age":604800}'
+              Server: cloudflare
+              Strict-Transport-Security: max-age=31536000
+              Transfer-Encoding: chunked
+              Vary: Origin, Accept-Encoding
+              content-security-policy: default-src 'none'
+              gitlab-lb: haproxy-main-30-lb-gprd
+              gitlab-sv: api-gke-us-east1-b
+              referrer-policy: strict-origin-when-cross-origin
+              x-content-type-options: nosniff
+              x-frame-options: SAMEORIGIN
+              x-gitlab-meta: '{"correlation_id":"70dcbaaa525be798cd57169ef40a62be","version":"1"}'
+              x-next-page: ''
+              x-page: '2'
+              x-per-page: '20'
+              x-prev-page: '1'
+              x-request-id: 70dcbaaa525be798cd57169ef40a62be
+              x-runtime: '0.542831'
+              x-total: '24'
+              x-total-pages: '2'
+            raw: !!binary ""
+            raw_decoded: !!binary ""
+            reason: OK
+            status_code: 200
       https://gitlab.com/api/v4/projects/packit-service%2Fogr-tests:
       - metadata:
-          latency: 0.4903428554534912
+          latency: 0.5942189693450928
           module_call_list:
           - unittest.case
           - requre.record_and_replace
           - tests.integration.gitlab.test_generic_commands
           - ogr.abstract
           - ogr.services.gitlab.project
+          - gitlab.v4.objects.projects
           - gitlab.exceptions
           - gitlab.mixins
           - gitlab.client
+          - gitlab._backends.requests_backend
+          - requests.sessions
           - requre.objects
           - requre.cassette
           - requests.sessions
@@ -425,23 +562,12 @@ requests.sessions:
               self: https://gitlab.com/api/v4/projects/14233409
             allow_merge_on_skipped_pipeline: null
             analytics_access_level: enabled
-            approvals_before_merge: 0
             archived: false
-            auto_cancel_pending_pipelines: enabled
-            auto_devops_deploy_strategy: continuous
-            auto_devops_enabled: false
             autoclose_referenced_issues: true
             avatar_url: null
-            build_coverage_regex: null
-            build_git_strategy: fetch
-            build_timeout: 3600
             builds_access_level: enabled
             can_create_merge_request_in: true
             ci_config_path: null
-            ci_default_git_depth: 50
-            ci_forward_deployment_enabled: null
-            ci_job_token_scope_enabled: false
-            ci_separated_caches: true
             compliance_frameworks: []
             container_registry_access_level: enabled
             container_registry_enabled: true
@@ -450,74 +576,70 @@ requests.sessions:
             creator_id: 433670
             default_branch: master
             description: Testing repository for python-ogr package.  |  https://github.com/packit-service/ogr
-            emails_disabled: null
+            description_html: <p data-sourcepos="1:1-1:84" dir="auto">Testing repository
+              for python-ogr package.  |  <a href="https://github.com/packit-service/ogr"
+              rel="nofollow noreferrer noopener" target="_blank">https://github.com/packit-service/ogr</a></p>
+            emails_disabled: false
+            emails_enabled: true
             empty_repo: false
             enforce_auth_checks_on_uploads: true
+            environments_access_level: enabled
             external_authorization_classification_label: ''
+            feature_flags_access_level: enabled
             forking_access_level: enabled
-            forks_count: 7
+            forks_count: 5
             http_url_to_repo: https://gitlab.com/packit-service/ogr-tests.git
             id: 14233409
-            import_error: null
             import_status: none
-            import_type: null
-            import_url: null
+            infrastructure_access_level: enabled
+            issue_branch_template: null
             issues_access_level: enabled
             issues_enabled: true
-            issues_template: null
             jobs_enabled: true
-            keep_latest_artifact: true
-            last_activity_at: '2022-04-29T14:19:44.320Z'
+            last_activity_at: '2023-12-02T18:37:49.862Z'
             lfs_enabled: true
-            marked_for_deletion_at: null
-            marked_for_deletion_on: null
+            max_artifacts_size: null
             merge_commit_template: null
             merge_method: merge
-            merge_pipelines_enabled: false
             merge_requests_access_level: enabled
             merge_requests_enabled: true
-            merge_requests_template: null
-            merge_trains_enabled: false
-            mirror: false
+            model_experiments_access_level: enabled
+            model_registry_access_level: enabled
+            monitor_access_level: enabled
             name: ogr-tests
-            name_with_namespace: packit-service / ogr-tests
+            name_with_namespace: Packit / ogr-tests
             namespace:
               avatar_url: /uploads/-/system/group/avatar/6032704/logo-square-small-borders.png
               full_path: packit-service
               id: 6032704
               kind: group
-              name: packit-service
+              name: Packit
               parent_id: null
               path: packit-service
               web_url: https://gitlab.com/groups/packit-service
             only_allow_merge_if_all_discussions_are_resolved: false
             only_allow_merge_if_pipeline_succeeds: false
-            open_issues_count: 74
-            operations_access_level: enabled
+            open_issues_count: 77
             packages_enabled: true
             pages_access_level: enabled
             path: ogr-tests
             path_with_namespace: packit-service/ogr-tests
             permissions:
-              group_access:
-                access_level: 50
-                notification_level: 3
+              group_access: null
               project_access: null
             printing_merge_request_link_enabled: true
             public_jobs: true
             readme_url: https://gitlab.com/packit-service/ogr-tests/-/blob/master/README.md
+            releases_access_level: enabled
             remove_source_branch_after_merge: null
             repository_access_level: enabled
+            repository_object_format: sha1
             request_access_enabled: false
             requirements_access_level: enabled
-            requirements_enabled: true
+            requirements_enabled: false
             resolve_outdated_diff_discussions: false
-            restrict_user_defined_variables: false
-            runner_token_expiration_interval: null
-            runners_token: GR1348941sWEgsQKmwrxmdNipZmMH
             security_and_compliance_access_level: private
-            security_and_compliance_enabled: true
-            service_desk_address: contact-project+packit-service-ogr-tests-14233409-issue-@incoming.gitlab.com
+            security_and_compliance_enabled: false
             service_desk_enabled: true
             shared_runners_enabled: true
             shared_with_groups: []
@@ -530,47 +652,46 @@ requests.sessions:
             suggestion_commit_message: null
             tag_list: []
             topics: []
+            updated_at: '2024-01-09T09:25:04.219Z'
             visibility: public
+            warn_about_potentially_unwanted_characters: true
             web_url: https://gitlab.com/packit-service/ogr-tests
             wiki_access_level: enabled
             wiki_enabled: true
           _next: null
-          elapsed: 0.489449
+          elapsed: 0.59389
           encoding: utf-8
           headers:
-            CF-Cache-Status: DYNAMIC
-            CF-RAY: 71178dc31818410e-PRG
+            CF-Cache-Status: MISS
+            CF-Ray: 9227455e3a4754e8-DEL
             Cache-Control: max-age=0, private, must-revalidate
             Connection: keep-alive
             Content-Encoding: gzip
             Content-Type: application/json
-            Date: Thu, 26 May 2022 15:30:44 GMT
-            Etag: W/"43ace7cec009b61b8ce5874cf9bdf510"
-            Expect-CT: max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
-            GitLab-LB: fe-18-lb-gprd
-            GitLab-SV: localhost
+            Date: Tue, 18 Mar 2025 19:52:32 GMT
+            ETag: W/"d8b6734419ac0ab2c97df8ce7f583338"
             NEL: '{"success_fraction":0.01,"report_to":"cf-nel","max_age":604800}'
-            RateLimit-Limit: '2000'
-            RateLimit-Observed: '2'
-            RateLimit-Remaining: '1998'
-            RateLimit-Reset: '1653579104'
-            RateLimit-ResetTime: Thu, 26 May 2022 15:31:44 GMT
-            Referrer-Policy: strict-origin-when-cross-origin
-            Report-To: '{"endpoints":[{"url":"https:\/\/a.nel.cloudflare.com\/report\/v3?s=vzVIM9cvmrM7mKD4BxHVF5svQTClf7XQvVdfVOX7gnB3lZADJOEeEFnrcH9PJ%2FW4aVeivL3BRuFgbKvJkkM%2FVWwv0Ul1iRCvVSQ3rghwk4w9xq9jg2yLV0PAP4U%3D"}],"group":"cf-nel","max_age":604800}'
+            Report-To: '{"endpoints":[{"url":"https:\/\/a.nel.cloudflare.com\/report\/v4?s=WWg43CO%2FKcw9NIsWra8Nv7eGiSIu7Jf7q4vrty6bKYm77lVgiXpoVjQE%2Fat75cMpvvi2CFm2AwENnd15oLa7oRFinRsU9VAkHR6W2lGb8VLLzFoKhN2mkvllmJk%3D"}],"group":"cf-nel","max_age":604800}'
             Server: cloudflare
             Strict-Transport-Security: max-age=31536000
             Transfer-Encoding: chunked
-            Vary: Origin
-            X-Content-Type-Options: nosniff
-            X-Frame-Options: SAMEORIGIN
-            X-Request-Id: 01G40FVNR7WSVJKD7CXH43X5NH
-            X-Runtime: '0.126134'
+            Vary: Origin, Accept-Encoding
+            content-security-policy: default-src 'none'
+            gitlab-lb: haproxy-main-40-lb-gprd
+            gitlab-sv: api-gke-us-east1-c
+            referrer-policy: strict-origin-when-cross-origin
+            x-content-type-options: nosniff
+            x-frame-options: SAMEORIGIN
+            x-gitlab-meta: '{"correlation_id":"c60482cd917c29df48f494b1fc1f6c96","version":"1"}'
+            x-request-id: c60482cd917c29df48f494b1fc1f6c96
+            x-runtime: '0.128985'
           raw: !!binary ""
+          raw_decoded: !!binary ""
           reason: OK
           status_code: 200
       https://gitlab.com/api/v4/user:
       - metadata:
-          latency: 0.4318065643310547
+          latency: 1.1756997108459473
           module_call_list:
           - unittest.case
           - requre.record_and_replace
@@ -579,9 +700,12 @@ requests.sessions:
           - ogr.services.gitlab.project
           - ogr.services.gitlab.service
           - gitlab.client
+          - gitlab.v4.objects.users
           - gitlab.exceptions
           - gitlab.mixins
           - gitlab.client
+          - gitlab._backends.requests_backend
+          - requests.sessions
           - requre.objects
           - requre.cassette
           - requests.sessions
@@ -589,89 +713,85 @@ requests.sessions:
         output:
           __store_indicator: 2
           _content:
-            avatar_url: https://gitlab.com/uploads/-/system/user/avatar/2952463/avatar.png
+            avatar_url: https://secure.gravatar.com/avatar/ea447f6182fcd593607d9535df0d1ebbf1302f2119cd3b15f40ef7e3c44c3baa?s=80&d=identicon
             bio: ''
             bot: false
             can_create_group: true
             can_create_project: true
-            color_scheme_id: 1
-            commit_email: jpopelka@redhat.com
-            confirmed_at: '2018-10-08T14:26:41.419Z'
-            created_at: '2018-10-08T14:26:41.721Z'
-            current_sign_in_at: '2022-05-16T12:05:52.399Z'
-            email: jpopelka@redhat.com
+            color_scheme_id: 5
+            commit_email: mr.mayankgame@gmail.com
+            confirmed_at: '2021-10-06T12:27:40.682Z'
+            created_at: '2021-10-06T12:27:40.727Z'
+            current_sign_in_at: '2025-02-24T08:16:51.226Z'
+            discord: ''
+            email: mr.mayankgame@gmail.com
             external: false
             extra_shared_runners_minutes_limit: null
-            followers: 0
-            following: 0
-            id: 2952463
+            id: 9904067
             identities:
-            - extern_uid: jpopelka
-              provider: group_saml
-              saml_provider_id: 2868
-            - extern_uid: 78e344c6-0d75-11e7-80dc-28d244ea5a6d
-              provider: group_saml
-              saml_provider_id: 1769
-            - extern_uid: '115977727485665327598'
+            - extern_uid: '107055298348443395839'
               provider: google_oauth2
               saml_provider_id: null
-            - extern_uid: '288686'
+            - extern_uid: '166798988'
               provider: github
               saml_provider_id: null
-            is_followed: false
+            - extern_uid: manky201
+              provider: group_saml
+              saml_provider_id: null
             job_title: ''
-            last_activity_on: '2022-05-26'
-            last_sign_in_at: '2022-05-11T15:31:40.147Z'
-            linkedin: https://www.linkedin.com/in/ji%C5%99%C3%AD-popelka-6301345
-            local_time: 5:30 PM
-            location: Brno
-            name: Jiri Popelka
-            organization: Red Hat, inc.
+            last_activity_on: '2025-03-18'
+            last_sign_in_at: '2025-02-08T13:36:12.908Z'
+            linkedin: ''
+            local_time: null
+            location: ''
+            locked: false
+            name: Mayank
+            organization: ''
             private_profile: false
             projects_limit: 100000
             pronouns: ''
             public_email: ''
+            scim_identities: []
             shared_runners_minutes_limit: null
             skype: ''
             state: active
-            theme_id: 1
+            theme_id: 7
             twitter: ''
-            two_factor_enabled: true
-            username: jpopelka
-            web_url: https://gitlab.com/jpopelka
+            two_factor_enabled: false
+            username: mynk8s
+            web_url: https://gitlab.com/mynk8s
             website_url: ''
-            work_information: Red Hat, inc.
+            work_information: null
           _next: null
-          elapsed: 0.431118
+          elapsed: 1.175125
           encoding: utf-8
           headers:
-            CF-Cache-Status: DYNAMIC
-            CF-RAY: 71178dc09a44410e-PRG
+            CF-Cache-Status: MISS
+            CF-Ray: 922745575ed854e8-DEL
             Cache-Control: max-age=0, private, must-revalidate
             Connection: keep-alive
             Content-Encoding: gzip
             Content-Type: application/json
-            Date: Thu, 26 May 2022 15:30:44 GMT
-            Etag: W/"e90d2758d9a2f49f8912d03d05439a5d"
-            Expect-CT: max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
-            GitLab-LB: fe-13-lb-gprd
-            GitLab-SV: localhost
+            Date: Tue, 18 Mar 2025 19:52:31 GMT
+            ETag: W/"cfb034510c923f56e9a88a229482676b"
             NEL: '{"success_fraction":0.01,"report_to":"cf-nel","max_age":604800}'
-            RateLimit-Limit: '2000'
-            RateLimit-Observed: '1'
-            RateLimit-Remaining: '1999'
-            RateLimit-Reset: '1653579104'
-            RateLimit-ResetTime: Thu, 26 May 2022 15:31:44 GMT
-            Referrer-Policy: strict-origin-when-cross-origin
-            Report-To: '{"endpoints":[{"url":"https:\/\/a.nel.cloudflare.com\/report\/v3?s=XZilJylmTjD2MWXUgQ8cFzqIZPKhMP3oP1gbsudMibYsW3a9VSNxwjOZtIZnft7R%2F9Loc9DZuTOQ1uTgeo%2BkWGzCVED59kjtqjJl60h5KXTCoaaUIBhW2eBEivs%3D"}],"group":"cf-nel","max_age":604800}'
+            Report-To: '{"endpoints":[{"url":"https:\/\/a.nel.cloudflare.com\/report\/v4?s=8%2ByRKgTmjs9ksIo%2F5bIX8RIVou%2FZcTekMrgk65GuflHLMSo12sf7zo7YTRcm0Ar%2BNE5LxIWFhBC%2BENhxV58NOtLwlfmtcxGk2CUcuMJhLu1%2B1Vnw7UqTcCFmC3M%3D"}],"group":"cf-nel","max_age":604800}'
             Server: cloudflare
+            Set-Cookie: _cfuvid=62qVZCB_k51dVwEAvvCPUbZZYic3HJy2UIEszc7cITA-1742327551667-0.0.1.1-604800000;
+              path=/; domain=.gitlab.com; HttpOnly; Secure; SameSite=None
             Strict-Transport-Security: max-age=31536000
             Transfer-Encoding: chunked
-            Vary: Origin
-            X-Content-Type-Options: nosniff
-            X-Frame-Options: SAMEORIGIN
-            X-Request-Id: 01G40FVN6JFTMBGVE4XMN7M575
-            X-Runtime: '0.146915'
+            Vary: Origin, Accept-Encoding
+            content-security-policy: default-src 'none'
+            gitlab-lb: haproxy-main-45-lb-gprd
+            gitlab-sv: api-gke-us-east1-b
+            referrer-policy: strict-origin-when-cross-origin
+            x-content-type-options: nosniff
+            x-frame-options: SAMEORIGIN
+            x-gitlab-meta: '{"correlation_id":"3ee4ed8910fdf3edabd01345175c231b","version":"1"}'
+            x-request-id: 3ee4ed8910fdf3edabd01345175c231b
+            x-runtime: '0.086648'
           raw: !!binary ""
+          raw_decoded: !!binary ""
           reason: OK
           status_code: 200

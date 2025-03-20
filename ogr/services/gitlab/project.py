@@ -310,7 +310,7 @@ class GitlabProject(BaseGitProject):
 
         return [
             self._commit_comment_from_gitlab_object(comment, commit)
-            for comment in commit_object.comments.list()
+            for comment in commit_object.comments.list(all=True)
         ]
 
     def get_commit_comment(self, commit_sha: str, comment_id: int) -> CommitComment:
