@@ -1,6 +1,7 @@
 # Copyright Contributors to the Packit project.
 # SPDX-License-Identifier: MIT
 
+import codecs
 import logging
 from collections.abc import Iterable
 from functools import cached_property, partial
@@ -479,11 +480,24 @@ class ForgejoProject(BaseGitProject):
 
     def get_file_content(self, path: str, ref: Optional[str] = None) -> str:
         try:
-            return self.partial_api(
+            remote_file: types.ContentsResponse = self.partial_api(
                 self.api.repo_get_contents,
                 filepath=path,
                 ref=ref,
-            )().content
+            )()
+
+            # [NOTE] If you touch this, good luck, have fun…
+            # tl;dr ‹ContentsResponse› from the Pyforgejo contains the content
+            # of the file that's (I hope always) base64-encoded, but it's stored
+            # as a string, so here it's needed to convert the UTF-8 encoded
+            # string back to bytes (duh, cause base64 is used for encoding raw
+            # data), then decode the base64 bytes to just bytes and then decode
+            # those to a UTF-8 string… EWWW…
+            return codecs.decode(
+                bytes(remote_file.content, "utf-8"),
+                encoding=remote_file.encoding,
+            ).decode("utf-8")
+
         except NotFoundError as ex:
             raise FileNotFoundError() from ex
 
