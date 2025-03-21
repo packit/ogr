@@ -1,0 +1,63 @@
+_requre:
+  DataTypes: 1
+  key_strategy: StorageKeysInspectSimple
+  version_storage_file: 3
+httpx._client:
+  send:
+    GET:
+      https://v10.next.forgejo.org/api/v1/user:
+      - metadata:
+          latency: 3.9099366664886475
+          module_call_list:
+          - requre.record_and_replace
+          - tests.integration.forgejo.test_user
+          - ogr.abstract
+          - ogr.services.forgejo.user
+          - functools
+          - ogr.services.forgejo.user
+          - pyforgejo.user.client
+          - pyforgejo.core.http_client
+          - httpx._client
+          - requre.objects
+          - requre.cassette
+          - httpx._client
+          - send
+        output:
+          __store_indicator: 2
+          _content:
+            active: true
+            avatar_url: https://v10.next.forgejo.org/avatars/ee44221e4bd2b983751872d3cde92cf4
+            created: '2025-02-12T13:52:32Z'
+            description: ''
+            email: mfocko@proton.me
+            followers_count: 0
+            following_count: 0
+            full_name: ''
+            html_url: https://v10.next.forgejo.org/mfocko
+            id: 601
+            is_admin: false
+            language: en-US
+            last_login: '2025-03-05T11:57:25Z'
+            location: ''
+            login: mfocko
+            login_name: ''
+            prohibit_login: false
+            pronouns: ''
+            restricted: false
+            source_id: 0
+            starred_repos_count: 0
+            username: mfocko
+            visibility: public
+            website: ''
+          _elapsed: 3.909858
+          encoding: utf-8
+          headers:
+            cache-control: max-age=0, private, must-revalidate, no-transform
+            content-length: '559'
+            content-type: application/json;charset=utf-8
+            date: Thu, 20 Mar 2025 22:01:03 GMT
+            vary: Origin
+            x-content-type-options: nosniff
+            x-frame-options: SAMEORIGIN
+          next_request: null
+          status_code: 200

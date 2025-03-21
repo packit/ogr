@@ -1,0 +1,43 @@
+_requre:
+  DataTypes: 1
+  key_strategy: StorageKeysInspectSimple
+  version_storage_file: 3
+httpx._client:
+  send:
+    GET:
+      https://v10.next.forgejo.org/api/v1/repos/some-none-existing-namespace/some-non-existing-repo:
+      - metadata:
+          latency: 0.4425477981567383
+          module_call_list:
+          - requre.record_and_replace
+          - tests.integration.forgejo.test_project
+          - ogr.abstract
+          - ogr.services.forgejo.project
+          - functools
+          - ogr.services.forgejo.project
+          - pyforgejo.repository.client
+          - pyforgejo.core.http_client
+          - httpx._client
+          - requre.objects
+          - requre.cassette
+          - httpx._client
+          - send
+        output:
+          __store_indicator: 2
+          _content:
+            errors:
+            - 'user redirect does not exist [name: some-none-existing-namespace]'
+            message: GetUserByName
+            url: https://v10.next.forgejo.org/api/swagger
+          _elapsed: 0.442467
+          encoding: utf-8
+          headers:
+            cache-control: max-age=0, private, must-revalidate, no-transform
+            content-length: '156'
+            content-type: application/json;charset=utf-8
+            date: Thu, 20 Mar 2025 22:08:13 GMT
+            vary: Origin
+            x-content-type-options: nosniff
+            x-frame-options: SAMEORIGIN
+          next_request: null
+          status_code: 404
