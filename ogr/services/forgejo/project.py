@@ -3,7 +3,7 @@
 
 import logging
 from collections.abc import Iterable
-from functools import cached_property
+from functools import cached_property, partial
 from typing import Optional, Union
 
 from pyforgejo import NotFoundError, Repository, types
@@ -57,6 +57,28 @@ class ForgejoProject(BaseGitProject):
         """
         return self.service.api.repository
 
+    def partial_api(self, method, /, *args, **kwargs):
+        """Returns a partial API call for `ForgejoProject`.
+
+        Injects `owner` and `repo` for the calls to `/repository/` endpoints.
+
+        Args:
+            method: Specific method on the Pyforgejo API that is to be wrapped.
+            *args: Positional arguments that get injected into every call.
+            **kwargs: Keyword-arguments that get injected into every call.
+
+        Returns:
+            Callable with pre-injected parameters.
+
+        """
+        return partial(
+            method,
+            *args,
+            **kwargs,
+            owner=self.namespace,
+            repo=self.repo,
+        )
+
     @cached_property
     def forgejo_repo(self) -> types.Repository:
         return self.api.repo_get(
@@ -84,17 +106,10 @@ class ForgejoProject(BaseGitProject):
 
     @description.setter
     def description(self, new_description: str) -> None:
-        self.api.repo_edit(
-            owner=self.namespace,
-            repo=self.repo,
-            description=new_description,
-        )
+        self.partial_api(self.api.repo_edit)(description=new_description)
 
     def delete(self) -> None:
-        self.api.repo_delete(
-            owner=self.namespace,
-            repo=self.repo,
-        )
+        self.partial_api(self.api.repo_delete)()
 
     def exists(self) -> bool:
         try:
@@ -139,9 +154,7 @@ class ForgejoProject(BaseGitProject):
         return (
             branch.name
             for branch in paginate(
-                self.api.repo_list_branches,
-                owner=self.namespace,
-                repo=self.repo,
+                self.partial_api(self.api.repo_list_branches),
             )
         )
 
@@ -153,10 +166,10 @@ class ForgejoProject(BaseGitProject):
         return (
             commit.sha
             for commit in paginate(
-                self.api.repo_get_all_commits,
-                owner=self.namespace,
-                repo=self.repo,
-                sha=ref,
+                self.partial_api(
+                    self.api.repo_get_all_commits,
+                    sha=ref,
+                ),
             )
         )
 
@@ -349,19 +362,14 @@ class ForgejoProject(BaseGitProject):
                 name=tag.name,
                 commit_sha=tag.commit.sha,
             )
-            for tag in paginate(
-                self.api.repo_list_tags,
-                owner=self.namespace,
-                repo=self.repo,
-            )
+            for tag in paginate(self.partial_api(self.api.repo_list_tags))
         )
 
     def get_sha_from_tag(self, tag_name: str) -> str:
-        return self.api.repo_get_tag(
-            owner=self.namespace,
-            repo=self.repo,
+        return self.partial_api(
+            self.api.repo_get_tag,
             tag=tag_name,
-        ).commit.sha
+        )().commit.sha
 
     @indirect(ForgejoRelease.get)
     def get_release(
@@ -471,12 +479,11 @@ class ForgejoProject(BaseGitProject):
 
     def get_file_content(self, path: str, ref: Optional[str] = None) -> str:
         try:
-            return self.api.repo_get_contents(
-                owner=self.namespace,
-                repo=self.repo,
+            return self.partial_api(
+                self.api.repo_get_contents,
                 filepath=path,
                 ref=ref,
-            ).content
+            )().content
         except NotFoundError as ex:
             raise FileNotFoundError() from ex
 
@@ -515,9 +522,7 @@ class ForgejoProject(BaseGitProject):
                 service=self.service,
             )
             for fork in paginate(
-                self.api.list_forks,
-                owner=self.namespace,
-                repo=self.repo,
+                self.partial_api(self.api.list_forks),
             )
         )
 
@@ -526,11 +531,10 @@ class ForgejoProject(BaseGitProject):
 
     def get_sha_from_branch(self, branch: str) -> Optional[str]:
         try:
-            branch_info = self.api.repo_get_branch(
-                owner=self.namespace,
-                repo=self.repo,
+            branch_info = self.partial_api(
+                self.api.repo_get_branch,
                 branch=branch,
-            )
+            )()
             return branch_info.commit.id
         except NotFoundError:
             return None
