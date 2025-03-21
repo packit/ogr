@@ -355,7 +355,7 @@ class ForgejoProject(BaseGitProject):
             page += 1
 
     def get_sha_from_tag(self, tag_name: str) -> str:
-        return self.service.api.repo_get_tag(
+        return self.service.api.repository.repo_get_tag(
             owner=self.namespace,
             repo=self.repo,
             tag=tag_name,
