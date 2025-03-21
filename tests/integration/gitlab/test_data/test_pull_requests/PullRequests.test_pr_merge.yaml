@@ -100,7 +100,7 @@ requests.sessions:
             web_url: https://gitlab.com/packit-service/ogr-tests/-/merge_requests/71
             work_in_progress: false
           _next: null
-          elapsed: 0.299335
+          elapsed: 0.2
           encoding: utf-8
           headers:
             CF-Cache-Status: DYNAMIC
@@ -109,7 +109,7 @@ requests.sessions:
             Connection: keep-alive
             Content-Encoding: gzip
             Content-Type: application/json
-            Date: Tue, 27 Apr 2021 07:18:36 GMT
+            Date: Fri, 01 Nov 2019 13-36-03 GMT
             Etag: W/"624d44b1e39567f67e5b65cba8364af7"
             Expect-CT: max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
             GitLab-LB: fe-02-lb-gprd
@@ -257,7 +257,7 @@ requests.sessions:
             wiki_access_level: enabled
             wiki_enabled: true
           _next: null
-          elapsed: 0.289599
+          elapsed: 0.2
           encoding: utf-8
           headers:
             CF-Cache-Status: DYNAMIC
@@ -266,7 +266,7 @@ requests.sessions:
             Connection: keep-alive
             Content-Encoding: gzip
             Content-Type: application/json
-            Date: Tue, 27 Apr 2021 07:18:36 GMT
+            Date: Fri, 01 Nov 2019 13-36-03 GMT
             Etag: W/"b21676b679d25085342f53ee37110c03"
             Expect-CT: max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
             GitLab-LB: fe-01-lb-gprd
@@ -360,7 +360,7 @@ requests.sessions:
             website_url: ''
             work_information: null
           _next: null
-          elapsed: 0.258448
+          elapsed: 0.2
           encoding: utf-8
           headers:
             CF-Cache-Status: DYNAMIC
@@ -369,7 +369,7 @@ requests.sessions:
             Connection: keep-alive
             Content-Encoding: gzip
             Content-Type: application/json
-            Date: Tue, 27 Apr 2021 07:18:36 GMT
+            Date: Fri, 01 Nov 2019 13-36-03 GMT
             Etag: W/"4e0db1d66a6e393facd54bfc135cb434"
             Expect-CT: max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
             GitLab-LB: fe-12-lb-gprd
@@ -381,9 +381,7 @@ requests.sessions:
             RateLimit-ResetTime: Tue, 27 Apr 2021 07:19:36 GMT
             Referrer-Policy: strict-origin-when-cross-origin
             Server: cloudflare
-            Set-Cookie: __cfduid=d8b203f6f798115c3c8e9dbfde13aa1931619507916; expires=Thu,
-              27-May-21 07:18:36 GMT; path=/; domain=.gitlab.com; HttpOnly; SameSite=Lax;
-              Secure
+            Set-Cookie: a='b';
             Strict-Transport-Security: max-age=31536000
             Transfer-Encoding: chunked
             Vary: Accept-Encoding, Origin
@@ -397,139 +395,6 @@ requests.sessions:
           reason: OK
           status_code: 200
     PUT:
-      https://gitlab.com/api/v4/projects/14233409/merge_requests/71/merge?should_remove_source_branch=False:
-      - metadata:
-          latency: 1.2172091007232666
-          module_call_list:
-          - unittest.case
-          - requre.online_replacing
-          - tests.integration.gitlab.test_pull_requests
-          - ogr.services.gitlab.pull_request
-          - gitlab.cli
-          - gitlab.exceptions
-          - gitlab.v4.objects.merge_requests
-          - gitlab.client
-          - requre.objects
-          - requre.cassette
-          - requests.sessions
-          - send
-        output:
-          __store_indicator: 2
-          _content:
-            allow_collaboration: true
-            allow_maintainer_to_push: true
-            approvals_before_merge: null
-            assignee: null
-            assignees: []
-            author:
-              avatar_url: https://secure.gravatar.com/avatar/96d32a99efb796de3669943fcf6e5bbb?s=80&d=identicon
-              id: 551273
-              name: csomh
-              state: active
-              username: csomh
-              web_url: https://gitlab.com/csomh
-            blocking_discussions_resolved: true
-            changes_count: '1'
-            closed_at: null
-            closed_by: null
-            created_at: '2021-04-27T07:13:34.828Z'
-            description: "Signed-off-by: Hunor Csomort\xE1ni <csomh@redhat.com>"
-            diff_refs:
-              base_sha: b8e18207cfdad954f1b3a96db34d0706b272e6cf
-              head_sha: 5dd0a9a1f5b9d3bf820e8849c4be7aafcbe9a8c7
-              start_sha: b8e18207cfdad954f1b3a96db34d0706b272e6cf
-            discussion_locked: null
-            downvotes: 0
-            first_deployed_to_production_at: null
-            force_remove_source_branch: true
-            has_conflicts: false
-            head_pipeline: null
-            id: 97512283
-            iid: 71
-            labels: []
-            latest_build_finished_at: null
-            latest_build_started_at: null
-            merge_commit_sha: dd9b6c54c0788301c86bdf058a8e91e3594a0a17
-            merge_error: null
-            merge_status: can_be_merged
-            merge_when_pipeline_succeeds: false
-            merged_at: '2021-04-27T07:18:37.595Z'
-            merged_by:
-              avatar_url: https://secure.gravatar.com/avatar/96d32a99efb796de3669943fcf6e5bbb?s=80&d=identicon
-              id: 551273
-              name: csomh
-              state: active
-              username: csomh
-              web_url: https://gitlab.com/csomh
-            milestone: null
-            pipeline: null
-            project_id: 14233409
-            reference: '!71'
-            references:
-              full: packit-service/ogr-tests!71
-              relative: '!71'
-              short: '!71'
-            reviewers: []
-            sha: 5dd0a9a1f5b9d3bf820e8849c4be7aafcbe9a8c7
-            should_remove_source_branch: null
-            source_branch: test-mr-merge
-            source_project_id: 26200368
-            squash: false
-            squash_commit_sha: null
-            state: merged
-            subscribed: true
-            target_branch: master
-            target_project_id: 14233409
-            task_completion_status:
-              completed_count: 0
-              count: 0
-            time_stats:
-              human_time_estimate: null
-              human_total_time_spent: null
-              time_estimate: 0
-              total_time_spent: 0
-            title: Comit to test merging MRs
-            updated_at: '2021-04-27T07:18:37.563Z'
-            upvotes: 0
-            user:
-              can_merge: true
-            user_notes_count: 0
-            web_url: https://gitlab.com/packit-service/ogr-tests/-/merge_requests/71
-            work_in_progress: false
-          _next: null
-          elapsed: 1.21656
-          encoding: utf-8
-          headers:
-            CF-Cache-Status: DYNAMIC
-            CF-RAY: 64664720b8f5413e-PRG
-            Cache-Control: max-age=0, private, must-revalidate
-            Connection: keep-alive
-            Content-Encoding: gzip
-            Content-Type: application/json
-            Date: Tue, 27 Apr 2021 07:18:38 GMT
-            Etag: W/"46984100a2a578317e80fb215a2f56fa"
-            Expect-CT: max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
-            GitLab-LB: fe-01-lb-gprd
-            GitLab-SV: localhost
-            RateLimit-Limit: '2000'
-            RateLimit-Observed: '3'
-            RateLimit-Remaining: '1997'
-            RateLimit-Reset: '1619507977'
-            RateLimit-ResetTime: Tue, 27 Apr 2021 07:19:37 GMT
-            Referrer-Policy: strict-origin-when-cross-origin
-            Server: cloudflare
-            Strict-Transport-Security: max-age=31536000
-            Transfer-Encoding: chunked
-            Vary: Accept-Encoding, Origin
-            X-Content-Type-Options: nosniff
-            X-Frame-Options: SAMEORIGIN
-            X-Gitlab-Feature-Category: code_review
-            X-Request-Id: 01F4933C6KQNEV0VC1KXMDWSHH
-            X-Runtime: '0.947440'
-            cf-request-id: 09b3cac8740000413e292a4000000001
-          raw: !!binary ""
-          reason: OK
-          status_code: 200
       https://gitlab.com/api/v4/projects/14233409/merge_requests/71/merge:
       - metadata:
           latency: 1.2172091007232666
@@ -630,7 +495,7 @@ requests.sessions:
             web_url: https://gitlab.com/packit-service/ogr-tests/-/merge_requests/71
             work_in_progress: false
           _next: null
-          elapsed: 1.21656
+          elapsed: 0.2
           encoding: utf-8
           headers:
             CF-Cache-Status: DYNAMIC
@@ -639,7 +504,140 @@ requests.sessions:
             Connection: keep-alive
             Content-Encoding: gzip
             Content-Type: application/json
-            Date: Tue, 27 Apr 2021 07:18:38 GMT
+            Date: Fri, 01 Nov 2019 13-36-03 GMT
+            Etag: W/"46984100a2a578317e80fb215a2f56fa"
+            Expect-CT: max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
+            GitLab-LB: fe-01-lb-gprd
+            GitLab-SV: localhost
+            RateLimit-Limit: '2000'
+            RateLimit-Observed: '3'
+            RateLimit-Remaining: '1997'
+            RateLimit-Reset: '1619507977'
+            RateLimit-ResetTime: Tue, 27 Apr 2021 07:19:37 GMT
+            Referrer-Policy: strict-origin-when-cross-origin
+            Server: cloudflare
+            Strict-Transport-Security: max-age=31536000
+            Transfer-Encoding: chunked
+            Vary: Accept-Encoding, Origin
+            X-Content-Type-Options: nosniff
+            X-Frame-Options: SAMEORIGIN
+            X-Gitlab-Feature-Category: code_review
+            X-Request-Id: 01F4933C6KQNEV0VC1KXMDWSHH
+            X-Runtime: '0.947440'
+            cf-request-id: 09b3cac8740000413e292a4000000001
+          raw: !!binary ""
+          reason: OK
+          status_code: 200
+      https://gitlab.com/api/v4/projects/14233409/merge_requests/71/merge?should_remove_source_branch=False:
+      - metadata:
+          latency: 1.2172091007232666
+          module_call_list:
+          - unittest.case
+          - requre.online_replacing
+          - tests.integration.gitlab.test_pull_requests
+          - ogr.services.gitlab.pull_request
+          - gitlab.cli
+          - gitlab.exceptions
+          - gitlab.v4.objects.merge_requests
+          - gitlab.client
+          - requre.objects
+          - requre.cassette
+          - requests.sessions
+          - send
+        output:
+          __store_indicator: 2
+          _content:
+            allow_collaboration: true
+            allow_maintainer_to_push: true
+            approvals_before_merge: null
+            assignee: null
+            assignees: []
+            author:
+              avatar_url: https://secure.gravatar.com/avatar/96d32a99efb796de3669943fcf6e5bbb?s=80&d=identicon
+              id: 551273
+              name: csomh
+              state: active
+              username: csomh
+              web_url: https://gitlab.com/csomh
+            blocking_discussions_resolved: true
+            changes_count: '1'
+            closed_at: null
+            closed_by: null
+            created_at: '2021-04-27T07:13:34.828Z'
+            description: "Signed-off-by: Hunor Csomort\xE1ni <csomh@redhat.com>"
+            diff_refs:
+              base_sha: b8e18207cfdad954f1b3a96db34d0706b272e6cf
+              head_sha: 5dd0a9a1f5b9d3bf820e8849c4be7aafcbe9a8c7
+              start_sha: b8e18207cfdad954f1b3a96db34d0706b272e6cf
+            discussion_locked: null
+            downvotes: 0
+            first_deployed_to_production_at: null
+            force_remove_source_branch: true
+            has_conflicts: false
+            head_pipeline: null
+            id: 97512283
+            iid: 71
+            labels: []
+            latest_build_finished_at: null
+            latest_build_started_at: null
+            merge_commit_sha: dd9b6c54c0788301c86bdf058a8e91e3594a0a17
+            merge_error: null
+            merge_status: can_be_merged
+            merge_when_pipeline_succeeds: false
+            merged_at: '2021-04-27T07:18:37.595Z'
+            merged_by:
+              avatar_url: https://secure.gravatar.com/avatar/96d32a99efb796de3669943fcf6e5bbb?s=80&d=identicon
+              id: 551273
+              name: csomh
+              state: active
+              username: csomh
+              web_url: https://gitlab.com/csomh
+            milestone: null
+            pipeline: null
+            project_id: 14233409
+            reference: '!71'
+            references:
+              full: packit-service/ogr-tests!71
+              relative: '!71'
+              short: '!71'
+            reviewers: []
+            sha: 5dd0a9a1f5b9d3bf820e8849c4be7aafcbe9a8c7
+            should_remove_source_branch: null
+            source_branch: test-mr-merge
+            source_project_id: 26200368
+            squash: false
+            squash_commit_sha: null
+            state: merged
+            subscribed: true
+            target_branch: master
+            target_project_id: 14233409
+            task_completion_status:
+              completed_count: 0
+              count: 0
+            time_stats:
+              human_time_estimate: null
+              human_total_time_spent: null
+              time_estimate: 0
+              total_time_spent: 0
+            title: Comit to test merging MRs
+            updated_at: '2021-04-27T07:18:37.563Z'
+            upvotes: 0
+            user:
+              can_merge: true
+            user_notes_count: 0
+            web_url: https://gitlab.com/packit-service/ogr-tests/-/merge_requests/71
+            work_in_progress: false
+          _next: null
+          elapsed: 0.2
+          encoding: utf-8
+          headers:
+            CF-Cache-Status: DYNAMIC
+            CF-RAY: 64664720b8f5413e-PRG
+            Cache-Control: max-age=0, private, must-revalidate
+            Connection: keep-alive
+            Content-Encoding: gzip
+            Content-Type: application/json
+            Date: Fri, 01 Nov 2019 13-36-03 GMT
             Etag: W/"46984100a2a578317e80fb215a2f56fa"
             Expect-CT: max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
             GitLab-LB: fe-01-lb-gprd

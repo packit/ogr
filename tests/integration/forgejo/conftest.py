@@ -15,3 +15,11 @@ def service():
         instance_url="https://v10.next.forgejo.org",
         api_key=api_key,
     )
+
+
+@pytest.fixture
+def project(service):
+    return service.get_project(
+        namespace="packit-validator",
+        repo="ogr-tests",
+    )

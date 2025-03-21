@@ -5,7 +5,7 @@ _requre:
 requests.sessions:
   send:
     GET:
-      https://gitlab.com/api/v4/projects/14233409/repository/tags/0.1.0: &new_request
+      https://gitlab.com/api/v4/projects/14233409/repository/tags/0%2E1%2E0: &id001
       - metadata:
           latency: 0.29453587532043457
           module_call_list:
@@ -148,7 +148,7 @@ requests.sessions:
           raw: !!binary ""
           reason: OK
           status_code: 200
-      https://gitlab.com/api/v4/projects/14233409/repository/tags/0%2E1%2E0: *new_request
+      https://gitlab.com/api/v4/projects/14233409/repository/tags/0.1.0: *id001
       https://gitlab.com/api/v4/projects/14233409/repository/tags/future:
       - metadata:
           latency: 0.2960646152496338
@@ -609,9 +609,7 @@ requests.sessions:
             RateLimit-ResetTime: Thu, 27 Aug 2020 09:20:48 GMT
             Referrer-Policy: strict-origin-when-cross-origin
             Server: cloudflare
-            Set-Cookie: __cfduid=dd712671168129499d352fc43b9e10f451598519988; expires=Sat,
-              26-Sep-20 09:19:48 GMT; path=/; domain=.gitlab.com; HttpOnly; SameSite=Lax;
-              Secure
+            Set-Cookie: a='b';
             Strict-Transport-Security: max-age=31536000
             Transfer-Encoding: chunked
             Vary: Accept-Encoding, Origin
@@ -698,9 +696,7 @@ requests.sessions:
             RateLimit-ResetTime: Mon, 31 Aug 2020 08:34:02 GMT
             Referrer-Policy: strict-origin-when-cross-origin
             Server: cloudflare
-            Set-Cookie: __cfduid=dc8f29e142652ce0bdb9eb35dfd26a48e1598862782; expires=Wed,
-              30-Sep-20 08:33:02 GMT; path=/; domain=.gitlab.com; HttpOnly; SameSite=Lax;
-              Secure
+            Set-Cookie: a='b';
             Strict-Transport-Security: max-age=31536000
             Transfer-Encoding: chunked
             Vary: Accept-Encoding, Origin

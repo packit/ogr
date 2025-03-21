@@ -2,6 +2,7 @@
 # SPDX-License-Identifier: MIT
 
 import datetime
+from collections.abc import Iterable
 from typing import ClassVar, Optional
 
 import gitlab
@@ -265,11 +266,12 @@ class GitlabPullRequest(BasePullRequest):
         self._raw_pr.save()
         return self
 
-    def _get_all_comments(self) -> list[PRComment]:
-        return [
+    def _get_all_comments(self, reverse: bool = False) -> Iterable[PRComment]:
+        ordering = "desc" if reverse else "asc"
+        return (
             GitlabPRComment(parent=self, raw_comment=raw_comment)
-            for raw_comment in self._raw_pr.notes.list(sort="asc", all=True)
-        ]
+            for raw_comment in self._raw_pr.notes.list(sort=ordering, iterator=True)
+        )
 
     def get_all_commits(self) -> list[str]:
         return [commit.id for commit in self._raw_pr.commits()]

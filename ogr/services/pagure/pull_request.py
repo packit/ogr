@@ -3,6 +3,7 @@
 
 import datetime
 import logging
+from collections.abc import Iterable
 from time import sleep
 from typing import Any, Optional, Union
 
@@ -292,13 +293,16 @@ class PagurePullRequest(BasePullRequest):
         except Exception as ex:
             raise PagureAPIException("there was an error while updating the PR") from ex
 
-    def _get_all_comments(self) -> list[PRComment]:
+    def _get_all_comments(self, reverse: bool = False) -> Iterable[PRComment]:
         self.__update()
         raw_comments = self._raw_pr["comments"]
-        return [
+        if reverse:
+            raw_comments = reversed(raw_comments)
+
+        return (
             PagurePRComment(parent=self, raw_comment=comment_dict)
             for comment_dict in raw_comments
-        ]
+        )
 
     def comment(
         self,
@@ -341,7 +345,7 @@ class PagurePullRequest(BasePullRequest):
         self.__dirty = True
         return self
 
-    def get_statuses(self) -> list[CommitFlag]:
+    def get_statuses(self) -> Union[list[CommitFlag], Iterable[CommitFlag]]:
         self.__update()
         return self.target_project.get_commit_statuses(self._raw_pr["commit_stop"])
 

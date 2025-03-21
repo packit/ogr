@@ -45,7 +45,7 @@ class PagureProjectTokenCommands(PagureTests):
         assert issue.can_close("lachmanfrantisek")
 
     def test_issue_comments(self):
-        issue_comments = self.ogr_project.get_issue(3)._get_all_comments()
+        issue_comments = list(self.ogr_project.get_issue(3)._get_all_comments())
         assert issue_comments
         assert len(issue_comments) == 4
         assert issue_comments[0].body.startswith("test")
@@ -58,7 +58,7 @@ class PagureProjectTokenCommands(PagureTests):
         assert issue_info.status == IssueStatus.closed
 
     def test_issue_comments_reversed(self):
-        issue_comments = self.ogr_project.get_issue(3).get_comments(reverse=True)
+        issue_comments = list(self.ogr_project.get_issue(3).get_comments(reverse=True))
         assert len(issue_comments) == 4
         assert issue_comments[0].body.startswith("regex")
 

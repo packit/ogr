@@ -175,9 +175,9 @@ class Issues(GithubTests):
 
     def test_issue_updates(self):
         issue = self.hello_world_project.get_issue(issue_id=61)
-        old_comments = issue.get_comments()
+        old_comments = list(issue.get_comments())
         issue.comment("test comment")
-        new_comments = issue.get_comments()
+        new_comments = list(issue.get_comments())
         assert len(new_comments) > len(old_comments)
 
     def test_setters(self):

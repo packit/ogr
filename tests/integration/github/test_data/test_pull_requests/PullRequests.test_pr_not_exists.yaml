@@ -156,7 +156,7 @@ requests.sessions:
             watchers: 36
             watchers_count: 36
           _next: null
-          elapsed: 6.014206
+          elapsed: 0.2
           encoding: utf-8
           headers:
             Access-Control-Allow-Origin: '*'
@@ -166,10 +166,12 @@ requests.sessions:
               X-GitHub-Media-Type, Deprecation, Sunset
             Cache-Control: private, max-age=60, s-maxage=60
             Content-Encoding: gzip
-            Content-Security-Policy: default-src 'none'
+            Content-Security-Policy: default-src 'self';script-src 'self' 'nonce-YqLDC0BS8d7iY8mKO7VtBbIne'
+              https://apps.fedoraproject.org; style-src 'self' 'nonce-YqLDC0BS8d7iY8mKO7VtBbIne';
+              object-src 'none';base-uri 'self';img-src 'self' https:;
             Content-Type: application/json; charset=utf-8
-            Date: Wed, 29 Sep 2021 09:04:30 GMT
-            ETag: W/"2c9d195dd8a1a4046ae4e76a824804d04b33ad6b823fe00f98142f2af32785c4"
+            Date: Fri, 01 Nov 2019 13-36-03 GMT
+            ETag: W/"1e51b8e1c48787a433405211e9e0fe61"
             Last-Modified: Mon, 27 Sep 2021 20:07:49 GMT
             Referrer-Policy: origin-when-cross-origin, strict-origin-when-cross-origin
             Server: GitHub.com
@@ -181,13 +183,13 @@ requests.sessions:
             X-Content-Type-Options: nosniff
             X-Frame-Options: deny
             X-GitHub-Media-Type: github.v3; format=json
-            X-GitHub-Request-Id: 6806:DD5F:1D8BEB:1E815C:61542C1E
+            X-GitHub-Request-Id: 18FB:AA1A:99616C4:B8092CB:5CC15425
             X-OAuth-Scopes: admin:enterprise, admin:gpg_key, admin:org, admin:org_hook,
               admin:public_key, admin:repo_hook, delete:packages, delete_repo, gist,
               notifications, repo, user, workflow, write:discussion, write:packages
             X-RateLimit-Limit: '5000'
-            X-RateLimit-Remaining: '4985'
-            X-RateLimit-Reset: '1632907061'
+            X-RateLimit-Remaining: '4972'
+            X-RateLimit-Reset: '1572953901'
             X-RateLimit-Resource: core
             X-RateLimit-Used: '15'
             X-XSS-Protection: '0'
@@ -217,7 +219,7 @@ requests.sessions:
             documentation_url: https://docs.github.com/rest/reference/pulls#get-a-pull-request
             message: Not Found
           _next: null
-          elapsed: 0.20709
+          elapsed: 0.2
           encoding: utf-8
           headers:
             Access-Control-Allow-Origin: '*'
@@ -226,9 +228,11 @@ requests.sessions:
               X-RateLimit-Reset, X-OAuth-Scopes, X-Accepted-OAuth-Scopes, X-Poll-Interval,
               X-GitHub-Media-Type, Deprecation, Sunset
             Content-Encoding: gzip
-            Content-Security-Policy: default-src 'none'
+            Content-Security-Policy: default-src 'self';script-src 'self' 'nonce-YqLDC0BS8d7iY8mKO7VtBbIne'
+              https://apps.fedoraproject.org; style-src 'self' 'nonce-YqLDC0BS8d7iY8mKO7VtBbIne';
+              object-src 'none';base-uri 'self';img-src 'self' https:;
             Content-Type: application/json; charset=utf-8
-            Date: Wed, 29 Sep 2021 09:04:30 GMT
+            Date: Fri, 01 Nov 2019 13-36-03 GMT
             Referrer-Policy: origin-when-cross-origin, strict-origin-when-cross-origin
             Server: GitHub.com
             Strict-Transport-Security: max-age=31536000; includeSubdomains; preload
@@ -238,13 +242,13 @@ requests.sessions:
             X-Content-Type-Options: nosniff
             X-Frame-Options: deny
             X-GitHub-Media-Type: github.v3; format=json
-            X-GitHub-Request-Id: 6806:DD5F:1D8C2D:1E81A0:61542C1E
+            X-GitHub-Request-Id: 18FB:AA1A:99616C4:B8092CB:5CC15425
             X-OAuth-Scopes: admin:enterprise, admin:gpg_key, admin:org, admin:org_hook,
               admin:public_key, admin:repo_hook, delete:packages, delete_repo, gist,
               notifications, repo, user, workflow, write:discussion, write:packages
             X-RateLimit-Limit: '5000'
-            X-RateLimit-Remaining: '4984'
-            X-RateLimit-Reset: '1632907061'
+            X-RateLimit-Remaining: '4972'
+            X-RateLimit-Reset: '1572953901'
             X-RateLimit-Resource: core
             X-RateLimit-Used: '16'
             X-XSS-Protection: '0'

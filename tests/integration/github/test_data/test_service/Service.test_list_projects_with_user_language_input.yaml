@@ -1533,7 +1533,7 @@ requests.sessions:
               watchers_count: 0
             total_count: 15
           _next: null
-          elapsed: 1.038609
+          elapsed: 0.2
           encoding: utf-8
           headers:
             Access-Control-Allow-Origin: '*'
@@ -1543,9 +1543,11 @@ requests.sessions:
               Deprecation, Sunset
             Cache-Control: no-cache
             Content-Encoding: gzip
-            Content-Security-Policy: default-src 'none'
+            Content-Security-Policy: default-src 'self';script-src 'self' 'nonce-YqLDC0BS8d7iY8mKO7VtBbIne'
+              https://apps.fedoraproject.org; style-src 'self' 'nonce-YqLDC0BS8d7iY8mKO7VtBbIne';
+              object-src 'none';base-uri 'self';img-src 'self' https:;
             Content-Type: application/json; charset=utf-8
-            Date: Tue, 20 Apr 2021 05:03:17 GMT
+            Date: Fri, 01 Nov 2019 13-36-03 GMT
             Referrer-Policy: origin-when-cross-origin, strict-origin-when-cross-origin
             Server: GitHub.com
             Strict-Transport-Security: max-age=31536000; includeSubdomains; preload
@@ -1556,13 +1558,13 @@ requests.sessions:
             X-Content-Type-Options: nosniff
             X-Frame-Options: deny
             X-GitHub-Media-Type: github.v3; format=json
-            X-GitHub-Request-Id: C4BF:7A44:337046C:5D9FECA:607E6094
+            X-GitHub-Request-Id: 18FB:AA1A:99616C4:B8092CB:5CC15425
             X-OAuth-Scopes: admin:enterprise, admin:gpg_key, admin:org, admin:org_hook,
               admin:public_key, admin:repo_hook, delete:packages, repo, user, workflow,
               write:discussion, write:packages
             X-RateLimit-Limit: '30'
-            X-RateLimit-Remaining: '28'
-            X-RateLimit-Reset: '1618895055'
+            X-RateLimit-Remaining: '4972'
+            X-RateLimit-Reset: '1572953901'
             X-RateLimit-Used: '2'
             X-XSS-Protection: '0'
           raw: !!binary ""
