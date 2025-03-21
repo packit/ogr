@@ -1,0 +1,55 @@
+_requre:
+  DataTypes: 1
+  key_strategy: StorageKeysInspectSimple
+  version_storage_file: 3
+httpx._client:
+  send:
+    GET:
+      ? https://v10.next.forgejo.org/api/v1/repos/packit-validator/ogr-tests/contents/README.md?ref=b8e18207cfdad954f1b3a96db34d0706b272e6cf
+      : - metadata:
+            latency: 0.553175687789917
+            module_call_list:
+            - requre.record_and_replace
+            - tests.integration.forgejo.test_project
+            - ogr.abstract
+            - ogr.services.forgejo.project
+            - pyforgejo.repository.client
+            - pyforgejo.core.http_client
+            - httpx._client
+            - requre.objects
+            - requre.cassette
+            - httpx._client
+            - send
+          output:
+            __store_indicator: 2
+            _content:
+              _links:
+                git: https://v10.next.forgejo.org/api/v1/repos/packit-validator/ogr-tests/git/blobs/e2e4fde810a779db69c2ecb2b90863a7ea7507ac
+                html: https://v10.next.forgejo.org/packit-validator/ogr-tests/src/commit/b8e18207cfdad954f1b3a96db34d0706b272e6cf/README.md
+                self: https://v10.next.forgejo.org/api/v1/repos/packit-validator/ogr-tests/contents/README.md?ref=b8e18207cfdad954f1b3a96db34d0706b272e6cf
+              content: IyBvZ3ItdGVzdHMKClRlc3RpbmcgcmVwb3NpdG9yeSBmb3IgcHl0aG9uLW9nciBwYWNrYWdlLiB8IGh0dHBzOi8vZ2l0aHViLmNvbS9wYWNraXQtc2VydmljZS9vZ3IKCnRlc3QxCnRlc3QyCg==
+              download_url: https://v10.next.forgejo.org/packit-validator/ogr-tests/raw/commit/b8e18207cfdad954f1b3a96db34d0706b272e6cf/README.md
+              encoding: base64
+              git_url: https://v10.next.forgejo.org/api/v1/repos/packit-validator/ogr-tests/git/blobs/e2e4fde810a779db69c2ecb2b90863a7ea7507ac
+              html_url: https://v10.next.forgejo.org/packit-validator/ogr-tests/src/commit/b8e18207cfdad954f1b3a96db34d0706b272e6cf/README.md
+              last_commit_sha: 59b1a9bab5b5198c619270646410867788685c16
+              name: README.md
+              path: README.md
+              sha: e2e4fde810a779db69c2ecb2b90863a7ea7507ac
+              size: 109
+              submodule_git_url: null
+              target: null
+              type: file
+              url: https://v10.next.forgejo.org/api/v1/repos/packit-validator/ogr-tests/contents/README.md?ref=b8e18207cfdad954f1b3a96db34d0706b272e6cf
+            _elapsed: 0.553025
+            encoding: utf-8
+            headers:
+              cache-control: max-age=0, private, must-revalidate, no-transform
+              content-length: '1342'
+              content-type: application/json;charset=utf-8
+              date: Thu, 20 Mar 2025 21:47:33 GMT
+              vary: Origin
+              x-content-type-options: nosniff
+              x-frame-options: SAMEORIGIN
+            next_request: null
+            status_code: 200

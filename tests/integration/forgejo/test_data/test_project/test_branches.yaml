@@ -1,0 +1,447 @@
+_requre:
+  DataTypes: 1
+  key_strategy: StorageKeysInspectSimple
+  version_storage_file: 3
+httpx._client:
+  send:
+    GET:
+      https://v10.next.forgejo.org/api/v1/repos/packit-validator/ogr-tests/branches?page=1:
+      - metadata:
+          latency: 0.5268886089324951
+          module_call_list:
+          - requre.record_and_replace
+          - tests.integration.forgejo.test_project
+          - ogr.services.forgejo.project
+          - pyforgejo.repository.client
+          - pyforgejo.core.http_client
+          - httpx._client
+          - requre.objects
+          - requre.cassette
+          - httpx._client
+          - send
+        output:
+          __store_indicator: 2
+          _content:
+          - commit:
+              added: null
+              author:
+                email: mfocko@redhat.com
+                name: Matej Focko
+                username: ''
+              committer:
+                email: mfocko@redhat.com
+                name: Matej Focko
+                username: ''
+              id: 6a9b824f6fa26eb6a3c0d8f164a5bbe95118d2c9
+              message: 'Create new file for test
+
+
+                Signed-off-by: Matej Focko <mfocko@redhat.com>
+
+                '
+              modified: null
+              removed: null
+              timestamp: '2021-08-19T14:16:47+02:00'
+              url: https://v10.next.forgejo.org/packit-validator/ogr-tests/commit/6a9b824f6fa26eb6a3c0d8f164a5bbe95118d2c9
+              verification:
+                payload: 'tree ce9a9c781923347c9f73adbe1b61b08d84a1ff2e
+
+                  parent 353361738fdefd9cd4f9fd669fa1c5792b9fe299
+
+                  author Matej Focko <mfocko@redhat.com> 1629375407 +0200
+
+                  committer Matej Focko <mfocko@redhat.com> 1629375407 +0200
+
+
+                  Create new file for test
+
+
+                  Signed-off-by: Matej Focko <mfocko@redhat.com>
+
+                  '
+                reason: gpg.error.no_gpg_keys_found
+                signature: '-----BEGIN PGP SIGNATURE-----
+
+
+                  iQIzBAABCAAdFiEEIBu6ODorFF0/5qy3MyFx+t8duQsFAmEeS7QACgkQMyFx+t8d
+
+                  uQtIfg//SHFq1A0FG2XSGwnkJE0YKQlPEjwwWNkiqGj1sLR8P6H0X3nhL7zGEtZx
+
+                  ESWcIhpQwKaeRVzmFN3R6IG3QtMBdGafTNEP1FHEvrAtY9btkCtC8HhL9MxEatFf
+
+                  WZDjLy88My772LanNVXHo+6xFcZAMTOUDg2RGAeVMMo9CFerhFoRW7SufYTt3rrF
+
+                  gcTac+ukPZ/d3XqWZ+sr/1TSoQO37RItmhgow6M2rF1ViFmKaQjO26GSXpEx2e5O
+
+                  rHxb687TPIudDG0UXkRXl30WRK2F5umaTjbtl1n7339akn1suyL9VtC0muruKLZ1
+
+                  zwVN6Vp5fma+VIBjOZDyHFAd4L6ooV/Rl2TS82psvIsId9UXL4HW89Hd+J8xVD6O
+
+                  DJuho40cT+h/reHfDXtoquU73prH+h+WHSys8z0x5L5XaO7sHFzTVzLoVv5pZRSW
+
+                  U7XP6SuJ6wpcBC53JFV6uawz319FTYCpvIZBp3pShPglJ+REF5l9v5UhTVNadnAS
+
+                  0o6wki9MVPGIP9Nedp4OWMLe6Ws6K41VudWYuxhTdO5xQh520IuWDsaSzk54m80R
+
+                  1CV/u1j33RhfiH+ZE08lvu3+OzL1A0sVXEXQbA8ydvq7XMDnwCYh32OCaEQB9CUl
+
+                  oKfYoTIVJidvqqiTXoI9xSVxDyam1KAM/t0T2XlxZjx6vA26X6w=
+
+                  =vlqD
+
+                  -----END PGP SIGNATURE-----
+
+                  '
+                signer: null
+                verified: false
+            effective_branch_protection_name: ''
+            enable_status_check: false
+            name: pr-test1
+            protected: false
+            required_approvals: 0
+            status_check_contexts: []
+            user_can_merge: false
+            user_can_push: false
+          - commit:
+              added: null
+              author:
+                email: csomortani.hunor@gmail.com
+                name: csomh
+                username: ''
+              committer:
+                email: csomortani.hunor@gmail.com
+                name: csomh
+                username: ''
+              id: dd9b6c54c0788301c86bdf058a8e91e3594a0a17
+              message: 'Merge branch ''test-mr-merge'' into ''master''
+
+
+                Comit to test merging MRs
+
+
+                See merge request packit-service/ogr-tests!71'
+              modified: null
+              removed: null
+              timestamp: '2021-04-27T07:18:37Z'
+              url: https://v10.next.forgejo.org/packit-validator/ogr-tests/commit/dd9b6c54c0788301c86bdf058a8e91e3594a0a17
+              verification:
+                payload: ''
+                reason: gpg.error.not_signed_commit
+                signature: ''
+                signer: null
+                verified: false
+            effective_branch_protection_name: ''
+            enable_status_check: false
+            name: master
+            protected: false
+            required_approvals: 0
+            status_check_contexts: []
+            user_can_merge: false
+            user_can_push: false
+          - commit:
+              added: null
+              author:
+                email: mfocko@redhat.com
+                name: Matej Focko
+                username: ''
+              committer:
+                email: mfocko@redhat.com
+                name: Matej Focko
+                username: ''
+              id: af1ec13d0e232ff1d5f4cc042381da19ffa6f892
+              message: 'Adding more to README
+
+                '
+              modified: null
+              removed: null
+              timestamp: '2020-05-26T11:46:11+02:00'
+              url: https://v10.next.forgejo.org/packit-validator/ogr-tests/commit/af1ec13d0e232ff1d5f4cc042381da19ffa6f892
+              verification:
+                payload: 'tree 822dcfd19813154845ea67c49f85a06133a7f976
+
+                  parent b8e18207cfdad954f1b3a96db34d0706b272e6cf
+
+                  author Matej Focko <mfocko@redhat.com> 1590486371 +0200
+
+                  committer Matej Focko <mfocko@redhat.com> 1590486371 +0200
+
+
+                  Adding more to README
+
+                  '
+                reason: gpg.error.no_gpg_keys_found
+                signature: '-----BEGIN PGP SIGNATURE-----
+
+
+                  iQIzBAABCAAdFiEEIBu6ODorFF0/5qy3MyFx+t8duQsFAl7M5WMACgkQMyFx+t8d
+
+                  uQtLjxAAwxPWOy5ZWecdVjYO+wkVl67LNx3HmcO7ra8s+zv72Xx3+tR3ZREouggH
+
+                  KYQaIfhDPcY5sDjrJLAlxSEOBO4pCI5+UPn/7BpcynMw+MrF0MujsXGn10E+AH1o
+
+                  Jsd1v4xAA0mBjFhgSoUVeQA7cAHAipiAIlNNvGfr4i3rk00yqEyzP35XN57t4khn
+
+                  1bQmTSg/HqC2eEtyNKtGPWBGzRM8SKGcUF2laLp1tsb2ETprbxXIvKLBlgBRzMyA
+
+                  3h49cOVLRjdwGMQ5Huxrq2Sd0Y9fCLpzm7HQHBZXnf8aPDWL4JuxfOUhacZuraJB
+
+                  a+3LLgDeAdrGTmUveiGMkPBoCC/IKszF/junooO53b6BJcSJWUjDql5QpvTDCQ2q
+
+                  aNafwpaml9ZBBQU9v0+9ypZRugVuqwYEbVAe7Iu5a3BMXxu1yKzsreNWY17Rpt5l
+
+                  FZX0XNpBqPBFCxpJENGhZxLZ6PvAy7VF0N63UvynAEvljW+4KO35IN+LSiV1RwkJ
+
+                  sOe48/X6irZnPj8R3e1y1g/WNh9EJN/XAB9dLh4aSJRY2kOJwLUxWPIi4CVvwzuQ
+
+                  EVddHxQQyoNBKeUcEHQ+QxwnD7frw52biwWSmiuFV/6thKh8ijiFieUpO3DUSStw
+
+                  n6HcFgWenz+hg3yKfB4tG+ss5dmzwtFEOASrgLUnEerCfYTQ1Us=
+
+                  =AU0l
+
+                  -----END PGP SIGNATURE-----
+
+                  '
+                signer: null
+                verified: false
+            effective_branch_protection_name: ''
+            enable_status_check: false
+            name: test-branch1
+            protected: false
+            required_approvals: 0
+            status_check_contexts: []
+            user_can_merge: false
+            user_can_push: false
+          - commit:
+              added: null
+              author:
+                email: matej.focko@outlook.com
+                name: Matej Focko
+                username: ''
+              committer:
+                email: matej.focko@outlook.com
+                name: Matej Focko
+                username: ''
+              id: 59b1a9bab5b5198c619270646410867788685c16
+              message: 'Got to merge something
+
+                '
+              modified: null
+              removed: null
+              timestamp: '2019-11-26T20:38:39+01:00'
+              url: https://v10.next.forgejo.org/packit-validator/ogr-tests/commit/59b1a9bab5b5198c619270646410867788685c16
+              verification:
+                payload: ''
+                reason: gpg.error.not_signed_commit
+                signature: ''
+                signer: null
+                verified: false
+            effective_branch_protection_name: ''
+            enable_status_check: false
+            name: test_branch
+            protected: false
+            required_approvals: 0
+            status_check_contexts: []
+            user_can_merge: false
+            user_can_push: false
+          - commit:
+              added: null
+              author:
+                email: scottyh@post.cz
+                name: jscotka
+                username: ''
+              committer:
+                email: scottyh@post.cz
+                name: jscotka
+                username: ''
+              id: 6970eae72f9ecee667183f52880ca76126bd8b38
+              message: Update README.md
+              modified: null
+              removed: null
+              timestamp: '2019-09-27T08:41:42Z'
+              url: https://v10.next.forgejo.org/packit-validator/ogr-tests/commit/6970eae72f9ecee667183f52880ca76126bd8b38
+              verification:
+                payload: ''
+                reason: gpg.error.not_signed_commit
+                signature: ''
+                signer: null
+                verified: false
+            effective_branch_protection_name: ''
+            enable_status_check: false
+            name: pr-test3
+            protected: false
+            required_approvals: 0
+            status_check_contexts: []
+            user_can_merge: false
+            user_can_push: false
+          - commit:
+              added: null
+              author:
+                email: scottyh@post.cz
+                name: jscotka
+                username: ''
+              committer:
+                email: scottyh@post.cz
+                name: jscotka
+                username: ''
+              id: 2543f1728c7e1c2b8772d0dc11dc8b1870f4db60
+              message: Update README.md
+              modified: null
+              removed: null
+              timestamp: '2019-09-26T14:08:02Z'
+              url: https://v10.next.forgejo.org/packit-validator/ogr-tests/commit/2543f1728c7e1c2b8772d0dc11dc8b1870f4db60
+              verification:
+                payload: ''
+                reason: gpg.error.not_signed_commit
+                signature: ''
+                signer: null
+                verified: false
+            effective_branch_protection_name: ''
+            enable_status_check: false
+            name: pr-test2
+            protected: false
+            required_approvals: 0
+            status_check_contexts: []
+            user_can_merge: false
+            user_can_push: false
+          - commit:
+              added: null
+              author:
+                email: lbarczio@redhat.com
+                name: Laura Barcziova
+                username: ''
+              committer:
+                email: lbarczio@redhat.com
+                name: Laura Barcziova
+                username: ''
+              id: db843cde94391923c6acb4cce938d830477a9732
+              message: 'change
+
+                '
+              modified: null
+              removed: null
+              timestamp: '2019-09-11T14:50:41+02:00'
+              url: https://v10.next.forgejo.org/packit-validator/ogr-tests/commit/db843cde94391923c6acb4cce938d830477a9732
+              verification:
+                payload: ''
+                reason: gpg.error.not_signed_commit
+                signature: ''
+                signer: null
+                verified: false
+            effective_branch_protection_name: ''
+            enable_status_check: false
+            name: pr-3
+            protected: false
+            required_approvals: 0
+            status_check_contexts: []
+            user_can_merge: false
+            user_can_push: false
+          - commit:
+              added: null
+              author:
+                email: lbarczio@redhat.com
+                name: Laura Barcziova
+                username: ''
+              committer:
+                email: lbarczio@redhat.com
+                name: Laura Barcziova
+                username: ''
+              id: 11b37d913374b14f8519d16c2a2cca3ebc14ac64
+              message: 'new
+
+                '
+              modified: null
+              removed: null
+              timestamp: '2019-09-11T11:13:22+02:00'
+              url: https://v10.next.forgejo.org/packit-validator/ogr-tests/commit/11b37d913374b14f8519d16c2a2cca3ebc14ac64
+              verification:
+                payload: ''
+                reason: gpg.error.not_signed_commit
+                signature: ''
+                signer: null
+                verified: false
+            effective_branch_protection_name: ''
+            enable_status_check: false
+            name: pr-2
+            protected: false
+            required_approvals: 0
+            status_check_contexts: []
+            user_can_merge: false
+            user_can_push: false
+          - commit:
+              added: null
+              author:
+                email: lbarczio@redhat.com
+                name: Laura Barcziova
+                username: ''
+              committer:
+                email: lbarczio@redhat.com
+                name: Laura Barcziova
+                username: ''
+              id: d490ec67dd98f69dfdc1732b98bb3189f0e0aace
+              message: 'another change
+
+                '
+              modified: null
+              removed: null
+              timestamp: '2019-09-10T16:05:10+02:00'
+              url: https://v10.next.forgejo.org/packit-validator/ogr-tests/commit/d490ec67dd98f69dfdc1732b98bb3189f0e0aace
+              verification:
+                payload: ''
+                reason: gpg.error.not_signed_commit
+                signature: ''
+                signer: null
+                verified: false
+            effective_branch_protection_name: ''
+            enable_status_check: false
+            name: change
+            protected: false
+            required_approvals: 0
+            status_check_contexts: []
+            user_can_merge: false
+            user_can_push: false
+          _elapsed: 0.526677
+          encoding: utf-8
+          headers:
+            access-control-expose-headers: X-Total-Count
+            cache-control: max-age=0, private, must-revalidate, no-transform
+            content-type: application/json;charset=utf-8
+            date: Thu, 20 Mar 2025 21:54:09 GMT
+            transfer-encoding: chunked
+            vary: Origin
+            x-content-type-options: nosniff
+            x-frame-options: SAMEORIGIN
+            x-total-count: '9'
+          next_request: null
+          status_code: 200
+      https://v10.next.forgejo.org/api/v1/repos/packit-validator/ogr-tests/branches?page=2:
+      - metadata:
+          latency: 0.5494720935821533
+          module_call_list:
+          - requre.record_and_replace
+          - tests.integration.forgejo.test_project
+          - ogr.services.forgejo.project
+          - pyforgejo.repository.client
+          - pyforgejo.core.http_client
+          - httpx._client
+          - requre.objects
+          - requre.cassette
+          - httpx._client
+          - send
+        output:
+          __store_indicator: 2
+          _content: []
+          _elapsed: 0.549393
+          encoding: utf-8
+          headers:
+            access-control-expose-headers: X-Total-Count
+            cache-control: max-age=0, private, must-revalidate, no-transform
+            content-length: '3'
+            content-type: application/json;charset=utf-8
+            date: Thu, 20 Mar 2025 21:54:09 GMT
+            vary: Origin
+            x-content-type-options: nosniff
+            x-frame-options: SAMEORIGIN
+            x-total-count: '9'
+          next_request: null
+          status_code: 200
