@@ -7,6 +7,7 @@ from functools import cached_property
 from typing import Optional, Union
 
 from pyforgejo import NotFoundError, Repository, types
+from pyforgejo.repository.client import RepositoryClient
 
 from ogr.abstract import (
     AccessLevel,
@@ -48,9 +49,16 @@ class ForgejoProject(BaseGitProject):
         super().__init__(repo, service, namespace)
         self._forgejo_repo = forgejo_repo
 
+    @property
+    def api(self) -> RepositoryClient:
+        """Returns a `RepositoryClient` from pyforgejo. Helper to save some
+        typing.
+        """
+        return self.service.api.repository
+
     @cached_property
     def forgejo_repo(self) -> types.Repository:
-        return self.service.api.repository.repo_get(
+        return self.api.repo_get(
             owner=self.namespace,
             repo=self.repo,
         )
@@ -75,14 +83,14 @@ class ForgejoProject(BaseGitProject):
 
     @description.setter
     def description(self, new_description: str) -> None:
-        self.service.api.repository.repo_edit(
+        self.api.repo_edit(
             owner=self.namespace,
             repo=self.repo,
             description=new_description,
         )
 
     def delete(self) -> None:
-        self.service.api.repository.repo_delete(
+        self.api.repo_delete(
             owner=self.namespace,
             repo=self.repo,
         )
@@ -128,7 +136,7 @@ class ForgejoProject(BaseGitProject):
 
     def get_branches(self) -> Iterable[str]:
         page = 1
-        while branches := self.service.api.repository.repo_list_branches(
+        while branches := self.api.repo_list_branches(
             owner=self.namespace,
             repo=self.repo,
             page=page,
@@ -144,7 +152,7 @@ class ForgejoProject(BaseGitProject):
 
     def get_commits(self, ref: Optional[str] = None) -> Iterable[str]:
         page = 1
-        while commits := self.service.api.repository.repo_get_all_commits(
+        while commits := self.api.repo_get_all_commits(
             owner=self.namespace,
             repo=self.repo,
             sha=ref,
@@ -341,7 +349,7 @@ class ForgejoProject(BaseGitProject):
     def get_tags(self) -> Iterable["GitTag"]:
         page = 1
 
-        while tags := self.service.api.repository.repo_list_tags(
+        while tags := self.api.repo_list_tags(
             owner=self.namespace,
             repo=self.repo,
             page=page,
@@ -355,7 +363,7 @@ class ForgejoProject(BaseGitProject):
             page += 1
 
     def get_sha_from_tag(self, tag_name: str) -> str:
-        return self.service.api.repository.repo_get_tag(
+        return self.api.repo_get_tag(
             owner=self.namespace,
             repo=self.repo,
             tag=tag_name,
@@ -438,7 +446,7 @@ class ForgejoProject(BaseGitProject):
 
     def fork_create(self, namespace: Optional[str] = None) -> "GitProject":
         if namespace:
-            self.service.api.repository.create_fork(
+            self.api.create_fork(
                 owner=self.namespace,
                 repo=self.repo,
                 organization=namespace,
@@ -449,7 +457,7 @@ class ForgejoProject(BaseGitProject):
                 namespace=namespace,
             )
 
-        self.service.api.repository.create_fork(
+        self.api.create_fork(
             owner=self.namespace,
             repo=self.repo,
         )
@@ -469,7 +477,7 @@ class ForgejoProject(BaseGitProject):
 
     def get_file_content(self, path: str, ref: Optional[str] = None) -> str:
         try:
-            return self.service.api.repository.repo_get_contents(
+            return self.api.repo_get_contents(
                 owner=self.namespace,
                 repo=self.repo,
                 filepath=path,
@@ -508,7 +516,7 @@ class ForgejoProject(BaseGitProject):
     def get_forks(self) -> Iterable["ForgejoProject"]:
         page = 1
 
-        while forks := self.service.api.repository.list_forks(
+        while forks := self.api.list_forks(
             owner=self.namespace,
             repo=self.repo,
             page=page,
@@ -527,7 +535,7 @@ class ForgejoProject(BaseGitProject):
 
     def get_sha_from_branch(self, branch: str) -> Optional[str]:
         try:
-            branch_info = self.service.api.repository.repo_get_branch(
+            branch_info = self.api.repo_get_branch(
                 owner=self.namespace,
                 repo=self.repo,
                 branch=branch,
