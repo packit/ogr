@@ -31,6 +31,7 @@ from .flag import ForgejoCommitFlag
 from .issue import ForgejoIssue
 from .pull_request import ForgejoPullRequest
 from .release import ForgejoRelease
+from .utils import paginate
 
 logger = logging.getLogger(__name__)
 
@@ -135,33 +136,29 @@ class ForgejoProject(BaseGitProject):
         return self.forgejo_repo.has_issues
 
     def get_branches(self) -> Iterable[str]:
-        page = 1
-        while branches := self.api.repo_list_branches(
-            owner=self.namespace,
-            repo=self.repo,
-            page=page,
-        ):
-            for branch in branches:
-                yield branch.name
-
-            page += 1
+        return (
+            branch.name
+            for branch in paginate(
+                self.api.repo_list_branches,
+                owner=self.namespace,
+                repo=self.repo,
+            )
+        )
 
     @property
     def default_branch(self) -> str:
         return self.forgejo_repo.default_branch
 
     def get_commits(self, ref: Optional[str] = None) -> Iterable[str]:
-        page = 1
-        while commits := self.api.repo_get_all_commits(
-            owner=self.namespace,
-            repo=self.repo,
-            sha=ref,
-            page=page,
-        ):
-            for commit in commits:
-                yield commit.sha
-
-            page += 1
+        return (
+            commit.sha
+            for commit in paginate(
+                self.api.repo_get_all_commits,
+                owner=self.namespace,
+                repo=self.repo,
+                sha=ref,
+            )
+        )
 
     def get_description(self) -> str:
         return self.description
@@ -347,20 +344,17 @@ class ForgejoProject(BaseGitProject):
         raise NotImplementedError()
 
     def get_tags(self) -> Iterable["GitTag"]:
-        page = 1
-
-        while tags := self.api.repo_list_tags(
-            owner=self.namespace,
-            repo=self.repo,
-            page=page,
-        ):
-            for tag in tags:
-                yield GitTag(
-                    name=tag.name,
-                    commit_sha=tag.commit.sha,
-                )
-
-            page += 1
+        return (
+            GitTag(
+                name=tag.name,
+                commit_sha=tag.commit.sha,
+            )
+            for tag in paginate(
+                self.api.repo_list_tags,
+                owner=self.namespace,
+                repo=self.repo,
+            )
+        )
 
     def get_sha_from_tag(self, tag_name: str) -> str:
         return self.api.repo_get_tag(
@@ -514,21 +508,18 @@ class ForgejoProject(BaseGitProject):
         raise NotImplementedError
 
     def get_forks(self) -> Iterable["ForgejoProject"]:
-        page = 1
-
-        while forks := self.api.list_forks(
-            owner=self.namespace,
-            repo=self.repo,
-            page=page,
-        ):
-            for fork in forks:
-                yield ForgejoProject(
-                    namespace=fork.owner.login,
-                    repo=fork.name,
-                    service=self.service,
-                )
-
-            page += 1
+        return (
+            ForgejoProject(
+                namespace=fork.owner.login,
+                repo=fork.name,
+                service=self.service,
+            )
+            for fork in paginate(
+                self.api.list_forks,
+                owner=self.namespace,
+                repo=self.repo,
+            )
+        )
 
     def get_web_url(self) -> str:
         return self.forgejo_repo.html_url
