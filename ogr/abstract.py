@@ -168,15 +168,34 @@ class OgrAbstractClass(metaclass=CatchCommonErrors):
 
 
 class Reaction(OgrAbstractClass):
-    def __init__(self, raw_reaction: Any) -> None:
+    def __init__(
+        self,
+        raw_reaction: Any,
+        reaction_id: Optional[int] = None,
+        parent: Optional[Any] = None,
+    ) -> None:
         self._raw_reaction = raw_reaction
+        self._id = reaction_id
+        self._parent = parent
 
     def __str__(self):
         return f"Reaction(raw_reaction={self._raw_reaction})"
 
     def delete(self) -> None:
         """Delete a reaction."""
-        raise NotImplementedError()
+        if not self._id:
+            raise ValueError("Cannot delete a reaction without an ID.")
+        if not self._parent:
+            raise ValueError("Cannot delete a reaction without a parent object.")
+        if not self._raw_reaction or "content" not in self._raw_reaction:
+            raise ValueError("Invalid raw reaction data.")
+
+        self._parent.client.issue.delete_comment_reaction(
+            owner=self._parent.repo_namespace,
+            repo=self._parent.repo_name,
+            id=self._id,
+            content=self._raw_reaction["content"],
+        )
 
 
 class Comment(OgrAbstractClass):
@@ -215,7 +234,11 @@ class Comment(OgrAbstractClass):
 
     def _from_raw_comment(self, raw_comment: Any) -> None:
         """Constructs Comment object from raw_comment given from API."""
-        raise NotImplementedError()
+        self._id = raw_comment["id"]
+        self._body = raw_comment["body"]
+        self._author = raw_comment["user"]["login"]
+        self._created = raw_comment["created_at"]
+        self._edited = raw_comment.get("updated_at")
 
     @property
     def body(self) -> str:
@@ -247,7 +270,15 @@ class Comment(OgrAbstractClass):
 
     def get_reactions(self) -> list[Reaction]:
         """Returns list of reactions."""
-        raise NotImplementedError()
+        if not self._id or not self._parent:
+            raise ValueError("Cannot fetch reactions without a comment ID and parent.")
+
+        reactions_data = self._parent.client.issue.get_comment_reactions(
+            owner=self._parent.repo_namespace,
+            repo=self._parent.repo_name,
+            id=self._id,
+        )
+        return [Reaction(raw_reaction=react) for react in reactions_data]
 
     def add_reaction(self, reaction: str) -> Reaction:
         """
@@ -261,7 +292,16 @@ class Comment(OgrAbstractClass):
         Returns:
             Object representing newly added reaction.
         """
-        raise NotImplementedError()
+        if not self._id or not self._parent:
+            raise ValueError("Cannot add reaction without a comment ID and parent.")
+
+        reaction_data = self._parent.client.issue.add_comment_reaction(
+            owner=self._parent.repo_namespace,
+            repo=self._parent.repo_name,
+            id=self._id,
+            content=reaction,
+        )
+        return Reaction(raw_reaction=reaction_data)
 
 
 class IssueComment(Comment):
