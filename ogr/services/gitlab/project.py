@@ -434,7 +434,7 @@ class GitlabProject(BaseGitProject):
             if file_dict["type"] != "tree"
         ]
         if filter_regex:
-            paths = filter_paths(paths, filter_regex)
+            paths = list(filter_paths(paths, filter_regex))
 
         return paths
 

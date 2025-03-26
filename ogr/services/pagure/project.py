@@ -606,7 +606,7 @@ class PagureProject(BaseGitProject):
         ref = ref or self.default_branch
         paths = list(self.__get_files(".", ref, recursive))
         if filter_regex:
-            paths = filter_paths(paths, filter_regex)
+            paths = list(filter_paths(paths, filter_regex))
 
         return paths
 

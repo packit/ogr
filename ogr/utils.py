@@ -162,19 +162,19 @@ class RequestResponse:
         return self.json_content
 
 
-def filter_paths(paths: list[str], filter_regex: str) -> list[str]:
+def filter_paths(paths: Iterable[str], filter_regex: str) -> Iterable[str]:
     """
     Filters paths from the given list.
 
     Args:
-        paths: List of paths to be filtered.
+        paths: List of paths to be filtered, in a form of an iterable.
         filter_regex: Regex to be used for filtering paths.
 
     Returns:
-        List of path that satisfy regex.
+        List of path that satisfy regex, in a from of an iterable.
     """
     pattern = re.compile(filter_regex)
-    return [path for path in paths if (not pattern or bool(pattern.search(path)))]
+    return (path for path in paths if not pattern or bool(pattern.search(path)))
 
 
 def indirect(specialized_function: Callable) -> Any:
