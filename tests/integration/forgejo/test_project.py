@@ -53,13 +53,13 @@ def test_get_file(project):
 
 
 @record_httpx()
-def test_get_files(project):
-    files = project.get_files()
+def test_get_files(hello_world_project):
+    files = list(hello_world_project.get_files())
     assert files
     assert len(files) >= 1
     assert "README.md" in files
 
-    files = project.get_files(filter_regex=".*.md")
+    files = list(hello_world_project.get_files(filter_regex=".*.md"))
     assert files
     assert len(files) >= 1
     assert "README.md" in files
