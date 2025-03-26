@@ -2,6 +2,7 @@
 # SPDX-License-Identifier: MIT
 
 import codecs
+import contextlib
 import logging
 from collections.abc import Iterable
 from functools import cached_property, partial
@@ -26,7 +27,7 @@ from ogr.abstract import (
 from ogr.exceptions import OperationNotSupported
 from ogr.services import forgejo
 from ogr.services.base import BaseGitProject
-from ogr.utils import indirect
+from ogr.utils import filter_paths, indirect
 
 from .flag import ForgejoCommitFlag
 from .issue import ForgejoIssue
@@ -501,32 +502,49 @@ class ForgejoProject(BaseGitProject):
         except NotFoundError as ex:
             raise FileNotFoundError() from ex
 
+    def __get_files(
+        self,
+        path: str,
+        ref: str,
+        recursive: bool,
+    ) -> Iterable[str]:
+        contents: types.ContentsResponse | list[types.ContentsResponse]
+
+        subdirectories = ["."]
+
+        with contextlib.suppress(IndexError):
+            while path := subdirectories.pop():
+                contents = self.partial_api(
+                    self.api.repo_get_contents,
+                    filepath=path,
+                    ref=ref,
+                )()
+
+                if isinstance(contents, types.ContentsResponse):
+                    # singular file, return path and skip any further processing
+                    yield contents.path
+                    continue
+
+                for file in contents:
+                    if file.type == "dir":
+                        subdirectories.append(file.path)
+                        continue
+
+                    yield file.path
+
     def get_files(
         self,
         ref: Optional[str] = None,
         filter_regex: Optional[str] = None,
         recursive: bool = False,
-    ) -> list[str]:
-        """
-        Get a list of file paths of the repo.
+    ) -> Iterable[str]:
+        ref = ref or self.default_branch
+        paths = self.__get_files(".", ref=ref, recursive=recursive)
 
-        Args:
-            ref: Branch or commit.
+        if filter_regex:
+            return filter_paths(paths, filter_regex)
 
-                Defaults to repo's default branch.
-            filter_regex: Filter the paths with `re.search`.
-
-                Defaults to `None`, which means no filtering.
-            recursive: Whether to return only top directory files
-                or all files recursively.
-
-                Defaults to `False`, which means only top-level directory.
-
-        Returns:
-            List of paths of the files in the repo.
-        """
-        # [TODO]
-        raise NotImplementedError
+        return paths
 
     def get_forks(self) -> Iterable["ForgejoProject"]:
         return (

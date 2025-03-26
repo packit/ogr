@@ -23,3 +23,11 @@ def project(service):
         namespace="packit-validator",
         repo="ogr-tests",
     )
+
+
+@pytest.fixture
+def hello_world_project(service):
+    return service.get_project(
+        namespace="packit-validator",
+        repo="hello-world",
+    )
