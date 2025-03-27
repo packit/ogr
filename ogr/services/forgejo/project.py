@@ -538,6 +538,11 @@ class ForgejoProject(BaseGitProject):
         filter_regex: Optional[str] = None,
         recursive: bool = False,
     ) -> Iterable[str]:
+        logger.warning(
+            "‹ForgejoProject.get_files()› method can fail because of incorrect"
+            " OpenAPI spec",
+        )
+
         ref = ref or self.default_branch
         paths = self.__get_files(".", ref=ref, recursive=recursive)
 

@@ -52,6 +52,9 @@ def test_get_file(project):
     assert "Testing repository for python-ogr package." in file_content
 
 
+@pytest.mark.skip(
+    reason="Broken API spec resulting in failing validation in pyforgejo (#11)",
+)
 @record_httpx()
 def test_get_files(hello_world_project):
     files = list(hello_world_project.get_files())
