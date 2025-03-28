@@ -1,3 +1,7 @@
+# 0.52.0
+
+- We have fixed pagination problems in ogr's `GitlabProject.get_commit_comments()`. (#901)
+
 # 0.51.0
 
 - Added base support for forgejo. (#891)
