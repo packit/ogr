@@ -45,7 +45,7 @@ class GithubApp(GithubAuthentication):
         return f"GithubApp({censored_id}{censored_private_key}{private_key_path})"
 
     @property
-    def private_key(self) -> str:
+    def private_key(self) -> Optional[str]:
         if self._private_key:
             return self._private_key
 
@@ -73,7 +73,7 @@ class GithubApp(GithubAuthentication):
 
     def get_token(self, namespace: str, repo: str) -> str:
         if not self.private_key:
-            return None
+            raise OgrException("Private key is missing, cannot generate token.")
 
         # PyGithub 1.58 deprecated get_installation() in favor of get_repo_installation()
         # that raises an exception on error rather than returning None
@@ -111,9 +111,9 @@ class GithubApp(GithubAuthentication):
     ) -> Optional["GithubApp"]:
         return (
             GithubApp(
-                github_app_id,
-                github_app_private_key,
-                github_app_private_key_path,
+                github_app_id or "",
+                github_app_private_key or "",
+                github_app_private_key_path or "",
             )
             if github_app_id
             else None

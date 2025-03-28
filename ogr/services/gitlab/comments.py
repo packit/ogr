@@ -74,11 +74,22 @@ class GitlabComment(Comment):
         except gitlab.exceptions.GitlabCreateError as ex:
             if "404 Award Emoji Name has already been taken" not in str(ex):
                 raise GitlabAPIException() from ex
-
+            # ensure parent is not None
+            if self._parent is None:
+                raise ValueError(
+                    "Parent object is None, cannot retrieve project information.",
+                )
+            parent_project = getattr(self._parent, "_target_project", None) or getattr(
+                self._parent,
+                "project",
+                None,
+            )
+            if parent_project is None:
+                raise ValueError(
+                    "Parent project is not set, unable to retrieve user information.",
+                )
             # Take project from the parent (PR's don't have project)
-            login = (
-                getattr(self._parent, "_target_project", None) or self._parent.project
-            ).service.user.get_username()
+            login = parent_project.service.user.get_username()
 
             # this happens only when the reaction was already added
             logger.info(f"The emoji {reaction} has already been taken.")
