@@ -2,6 +2,7 @@
 # SPDX-License-Identifier: MIT
 
 import datetime
+from collections.abc import Iterable
 from typing import Optional, Union
 
 import gitlab
@@ -146,11 +147,12 @@ class GitlabIssue(BaseIssue):
         issues = project.gitlab_repo.issues.list(**parameters)
         return [GitlabIssue(issue, project) for issue in issues]
 
-    def _get_all_comments(self) -> list[IssueComment]:
-        return [
+    def _get_all_comments(self, reverse: bool = False) -> Iterable[IssueComment]:
+        ordering = "desc" if reverse else "asc"
+        return (
             GitlabIssueComment(parent=self, raw_comment=raw_comment)
-            for raw_comment in self._raw_issue.notes.list(sort="asc", all=True)
-        ]
+            for raw_comment in self._raw_issue.notes.list(sort=ordering, iterator=True)
+        )
 
     def comment(self, body: str) -> IssueComment:
         comment = self._raw_issue.notes.create({"body": body})

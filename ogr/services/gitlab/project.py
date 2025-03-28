@@ -82,6 +82,7 @@ class GitlabProject(BaseGitProject):
         return self.gitlab_repo.attributes.get("default_branch")
 
     def __str__(self) -> str:
+        # [FIXME] should include instance URL too…
         return f'GitlabProject(namespace="{self.namespace}", repo="{self.repo}")'
 
     def __eq__(self, o: object) -> bool:
@@ -140,21 +141,26 @@ class GitlabProject(BaseGitProject):
         self.gitlab_repo.save()
 
     def get_fork(self, create: bool = True) -> Optional["GitlabProject"]:
+        # The cheapest check that assumes fork has the same repository name as
+        # the upstream
+        if fork := self._construct_fork_project():
+            return fork
+
+        # If not successful, the fork could still exist, but has a custom name
         username = self.service.user.get_username()
         for fork in self.get_forks():
             if fork.gitlab_repo.namespace["full_path"] == username:
                 return fork
 
-        if not self.is_forked():
-            if create:
-                return self.fork_create()
+        # We have not found any fork owned by the auth'd user
+        if create:
+            return self.fork_create()
 
-            logger.info(
-                f"Fork of {self.gitlab_repo.attributes['name']}"
-                " does not exist and we were asked not to create it.",
-            )
-            return None
-        return self._construct_fork_project()
+        logger.info(
+            f"Fork of {self.gitlab_repo.attributes['name']}"
+            " does not exist and we were asked not to create it.",
+        )
+        return None
 
     def get_owners(self) -> list[str]:
         return self._get_collaborators_with_given_access(
@@ -428,7 +434,7 @@ class GitlabProject(BaseGitProject):
             if file_dict["type"] != "tree"
         ]
         if filter_regex:
-            paths = filter_paths(paths, filter_regex)
+            paths = list(filter_paths(paths, filter_regex))
 
         return paths
 

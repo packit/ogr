@@ -204,21 +204,26 @@ class GithubProject(BaseGitProject):
         raise OperationNotSupported("Not possible on GitHub")
 
     def get_fork(self, create: bool = True) -> Optional["GithubProject"]:
+        # The cheapest check that assumes fork has the same repository name as
+        # the upstream
+        if fork := self._construct_fork_project():
+            return fork
+
+        # If not successful, the fork could still exist, but has a custom name
         username = self.service.user.get_username()
         for fork in self.get_forks():
             if fork.github_repo.owner.login == username:
                 return fork
 
-        if not self.is_forked():
-            if create:
-                return self.fork_create()
+        # We have not found any fork owned by the auth'd user
+        if create:
+            return self.fork_create()
 
-            logger.info(
-                f"Fork of {self.github_repo.full_name}"
-                " does not exist and we were asked not to create it.",
-            )
-            return None
-        return self._construct_fork_project()
+        logger.info(
+            f"Fork of {self.github_repo.full_name}"
+            " does not exist and we were asked not to create it.",
+        )
+        return None
 
     def get_owners(self) -> list[str]:
         # in case of github, repository has only one owner
@@ -486,7 +491,7 @@ class GithubProject(BaseGitProject):
             ]
 
         if filter_regex:
-            paths = filter_paths(paths, filter_regex)
+            paths = list(filter_paths(paths, filter_regex))
 
         return paths
 

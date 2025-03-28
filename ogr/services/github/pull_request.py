@@ -3,6 +3,7 @@
 
 import datetime
 import logging
+from collections.abc import Iterable
 from typing import Optional, Union
 
 import github
@@ -222,11 +223,18 @@ class GithubPullRequest(BasePullRequest):
         except Exception as ex:
             raise GithubAPIException("there was an error while updating the PR") from ex
 
-    def _get_all_comments(self) -> list[PRComment]:
-        return [
+    def _get_all_comments(
+        self,
+        reverse: bool = False,
+    ) -> Iterable[PRComment]:
+        comments = self._raw_pr.get_issue_comments()
+        if reverse:
+            comments = comments.reversed
+
+        return (
             GithubPRComment(parent=self, raw_comment=raw_comment)
-            for raw_comment in self._raw_pr.get_issue_comments()
-        ]
+            for raw_comment in comments
+        )
 
     def get_all_commits(self) -> list[str]:
         return [commit.sha for commit in self._raw_pr.get_commits()]

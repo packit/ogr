@@ -119,25 +119,27 @@ class Issues(GitlabTests):
         assert issue.status == IssueStatus.closed
 
     def test_get_issue_comments(self):
-        comments = self.project.get_issue(2).get_comments()
+        comments = list(self.project.get_issue(2).get_comments())
         assert len(comments) == 5
         assert comments[0].body.startswith("Comment")
         assert comments[0].author == "lbarcziova"
 
     def test_get_issue_comments_reversed(self):
-        comments = self.project.get_issue(2).get_comments(reverse=True)
+        comments = list(self.project.get_issue(2).get_comments(reverse=True))
         assert len(comments) == 5
         assert comments[0].body.startswith("regex")
 
     def test_get_issue_comments_regex(self):
-        comments = self.project.get_issue(2).get_comments(filter_regex="regex")
+        comments = list(self.project.get_issue(2).get_comments(filter_regex="regex"))
         assert len(comments) == 2
         assert comments[0].body.startswith("let's")
 
     def test_get_issue_comments_regex_reversed(self):
-        comments = self.project.get_issue(2).get_comments(
-            filter_regex="regex",
-            reverse=True,
+        comments = list(
+            self.project.get_issue(2).get_comments(
+                filter_regex="regex",
+                reverse=True,
+            ),
         )
         assert len(comments) == 2
         assert comments[0].body.startswith("regex")
@@ -182,28 +184,32 @@ class Issues(GitlabTests):
         assert len(issue_list) == 33
 
     def test_get_issue_comments_author_regex(self):
-        comments = self.project.get_issue(2).get_comments(
-            filter_regex="2$",
-            author="lbarcziova",
+        comments = list(
+            self.project.get_issue(2).get_comments(
+                filter_regex="2$",
+                author="lbarcziova",
+            ),
         )
         assert len(comments) == 1
         assert comments[0].body.startswith("Comment")
 
     def test_get_issue_comments_author(self):
-        comments = self.project.get_issue(2).get_comments(author="mfocko")
+        comments = list(self.project.get_issue(2).get_comments(author="mfocko"))
         assert len(comments) == 2
         assert comments[0].body.startswith("let's")
         assert comments[1].body.startswith("regex")
 
     def test_issue_updates(self):
         issue = self.project.get_issue(issue_id=1)
-        old_comments = issue.get_comments()
+        old_comments = list(issue.get_comments())
         issue.comment("test comment")
-        new_comments = issue.get_comments()
+        new_comments = list(issue.get_comments())
         assert len(new_comments) > len(old_comments)
 
     def test_issue_comments_updates(self):
-        comments = self.project.get_issue(3).get_comments(filter_regex="to be updated")
+        comments = list(
+            self.project.get_issue(3).get_comments(filter_regex="to be updated"),
+        )
         assert len(comments) == 1
         before_comment = comments[0].body
         before_edited = comments[0].edited
