@@ -27,6 +27,7 @@
         name:
           - twine # we need newest twine, b/c of the check command
           - readme_renderer[md]
+          - pytest-cov
         state: latest
       become: true
     - name: Install requre
