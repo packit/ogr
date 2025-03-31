@@ -1,3 +1,5 @@
+# 0.52.1
+
 # 0.52.0
 
 - We have fixed pagination problems in ogr's `GitlabProject.get_commit_comments()`. (#901)
