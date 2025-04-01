@@ -45,10 +45,10 @@ class BaseGitProject(GitProject):
     @property
     def full_repo_name(self) -> str:
         return f"{self.namespace}/{self.repo}"
-    
+
     def can_close_issue(self, username: str) -> bool:
         return username in self.who_can_close_issue()
-    
+
     def can_merge_pr(self, username: str) -> bool:
         return username in self.who_can_merge_pr()
 
@@ -86,11 +86,13 @@ class BasePullRequest(PullRequest):
     def get_statuses(self) -> list[CommitFlag]:
         commit = self.get_all_commits()[-1]
         return self.target_project.get_commit_statuses(commit)
-    
+
     def can_close(self, username):
         return self.status == "open" and username in self.who_can_close()
+
     def can_merge(self, username) -> bool:
         return self.status == "open" and username in self.who_can_merge()
+
 
 class BaseGitUser(GitUser):
     pass

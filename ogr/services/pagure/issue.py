@@ -241,9 +241,6 @@ class PagureIssue(BaseIssue):
                 method="GET",
             ),
         )
-    
+
     def who_can_close_issue(self) -> set[str]:
         return self.project.who_can_close_issue()
-    
-    
-

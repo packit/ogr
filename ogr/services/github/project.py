@@ -239,7 +239,7 @@ class GithubProject(BaseGitProject):
 
     def who_can_merge_pr(self) -> set[str]:
         return self.__get_collaborators()
-    
+
     def can_close_issue(self, username: str) -> bool:
         return username in self.who_can_close_issue()
 

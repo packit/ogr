@@ -183,6 +183,6 @@ class GitlabIssue(BaseIssue):
 
     def get_comment(self, comment_id: int) -> IssueComment:
         return GitlabIssueComment(self._raw_issue.notes.get(comment_id))
-    
+
     def who_can_close(self) -> set[str]:
         return self.project.who_can_close_issue()
