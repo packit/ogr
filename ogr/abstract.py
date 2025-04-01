@@ -922,7 +922,7 @@ class PullRequest(OgrAbstractClass):
         Returns:
             `True` if user can merge the pull request, `False` otherwise.
         """
-        raise NotImplementedError
+        raise NotImplementedError()
 
     def merge(self) -> "PullRequest":
         """
