@@ -253,10 +253,34 @@ class GithubPullRequest(BasePullRequest):
     def merge(self) -> "PullRequest":
         self._raw_pr.merge()
         return self
-
+        
     def add_label(self, *labels: str) -> None:
         for label in labels:
             self._raw_pr.add_to_labels(label)
 
     def get_comment(self, comment_id: int) -> PRComment:
         return GithubPRComment(self._raw_pr.get_issue_comment(comment_id))
+        
+    def who_can_close(self) -> set[str]:
+        people_who_can_close: set[str] = set()
+
+        people_who_can_close.add(self.author)
+        project = self._target_project
+        people_who_can_close.update(project.__get_collaborators())
+
+        return people_who_can_close
+        
+    def can_close(self, username):
+        return username == self.author or username in self.who_can_close()
+    
+    def who_can_merge(self) -> set[str]:
+        people_who_can_merge: set[str] = set()
+        project = self._target_project
+        people_who_can_merge.update(project.__get_collaborators())
+
+        return people_who_can_merge
+    
+    def can_merge(self, username):
+        return username in self.who_can_merge()
+    
+

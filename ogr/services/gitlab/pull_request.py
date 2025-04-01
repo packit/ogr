@@ -299,3 +299,25 @@ class GitlabPullRequest(BasePullRequest):
 
     def get_comment(self, comment_id: int) -> PRComment:
         return GitlabPRComment(self._raw_pr.notes.get(comment_id))
+    
+    def who_can_close(self) -> set[str]:
+        people_who_can_close: set[str] = set()
+        people_who_can_close.add(self.author)
+
+        project = self._target_project
+        people_who_can_close.update(set(project.get_owners()))
+
+        return people_who_can_close
+    
+    def can_close(self, username):
+        return username in self.who_can_close()
+    
+    def who_can_merge(self) -> set[str]:
+        people_who_can_merge: set[str] = set()
+        project = self._target_project
+        people_who_can_merge.update(set(project.get_owners()))
+
+        return people_who_can_merge
+    
+    def can_merge(self, username):
+        return username in self.who_can_merge()

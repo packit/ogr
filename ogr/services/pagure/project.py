@@ -235,7 +235,10 @@ class PagureProject(BaseGitProject):
         groups.update(project["access_groups"]["admin"])
         groups.update(project["access_groups"]["commit"])
         return groups
-
+    
+    def can_close_issue(self, username):
+        return username in self.who_can_close_issue()
+        
     def can_merge_pr(self, username) -> bool:
         accounts_that_can_merge_pr = self.who_can_merge_pr()
 

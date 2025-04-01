@@ -166,6 +166,12 @@ class GithubIssue(BaseIssue):
     def close(self) -> "Issue":
         self._raw_issue.edit(state="closed")
         return self
+    
+    def who_can_close(self) -> set[str]:
+        return self.project.who_can_close_issue()
+    
+    def can_close(self, username):
+        return username == self.author or username in self.who_can_close()
 
     def add_label(self, *labels: str) -> None:
         for label in labels:

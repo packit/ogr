@@ -394,3 +394,20 @@ class PagurePullRequest(BasePullRequest):
             f"No comment with id#{comment_id} in PR#{self.id} found.",
             response_code=404,
         )
+    
+    def who_can_close(self) -> set[str]:
+        people_who_can_close: set[str] = set()
+        people_who_can_close.add(self.author)
+
+        project: ogr_pagure.PagureProject = self.target_project
+        people_who_can_close.update(project.get_owners())
+        return people_who_can_close
+
+    def can_close(self, username):
+        return username in self.who_can_close()
+    
+    def who_can_merge(self) -> set[str]:
+        return self._target_project.who_can_merge_pr()
+    
+    def can_merge(self, username):
+        return username in self.who_can_merge()
