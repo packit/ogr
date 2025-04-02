@@ -178,7 +178,9 @@ class ForgejoIssue(BaseIssue):
 
     def get_comment(self, comment_id: int) -> IssueComment:
         comment = self.project.service.api.issue.get_comment(
-            owner=self.project.namespace, repo=self.project.repo, id=comment_id,
+            owner=self.project.namespace,
+            repo=self.project.repo,
+            id=comment_id,
         )
         return ForgejoIssueComment(raw_comment=comment, parent=self)
 
