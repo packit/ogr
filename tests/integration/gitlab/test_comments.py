@@ -58,7 +58,7 @@ class Comments(GitlabTests):
             repo="hello-world",
             namespace="packit-service",
         ).get_pr(1149)
-        pr_comment = pr.get_comments()[-1]
+        pr_comment = list(pr.get_comments())[-1]
 
         pr_reaction_1 = pr_comment.add_reaction("tractor")
         pr_reaction_2 = pr_comment.add_reaction("tractor")
@@ -68,7 +68,7 @@ class Comments(GitlabTests):
             repo="hello-world",
             namespace="packit-service",
         ).get_issue(12)
-        issue_comment = issue.get_comments()[-1]
+        issue_comment = list(issue.get_comments())[-1]
 
         issue_reaction_1 = issue_comment.add_reaction("tractor")
         issue_reaction_2 = issue_comment.add_reaction("tractor")

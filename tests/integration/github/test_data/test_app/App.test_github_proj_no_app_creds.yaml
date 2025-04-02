@@ -5,7 +5,7 @@ _requre:
 requests.sessions:
   send:
     GET:
-      https://api.github.com/repos/packit/packit/installation: &get_installation
+      https://api.github.com/repos/packit/packit/installation: &id001
       - metadata:
           latency: 0.4730544090270996
           module_call_list:
@@ -55,4 +55,4 @@ requests.sessions:
           raw: !!binary ""
           reason: Unauthorized
           status_code: 401
-      https://api.github.com:443/repos/packit/packit/installation: *get_installation
+      https://api.github.com:443/repos/packit/packit/installation: *id001

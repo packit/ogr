@@ -5,7 +5,7 @@ _requre:
 requests.sessions:
   send:
     GET:
-      https://api.github.com/repos/packit/hello-world/installation: &get_installation
+      https://api.github.com/repos/packit/hello-world/installation: &id001
       - metadata:
           latency: 0.25350522994995117
           module_call_list:
@@ -75,7 +75,7 @@ requests.sessions:
             target_type: Organization
             updated_at: '2021-05-27T12:19:11.000Z'
           _next: null
-          elapsed: 0.253181
+          elapsed: 0.2
           encoding: utf-8
           headers:
             Access-Control-Allow-Origin: '*'
@@ -85,10 +85,12 @@ requests.sessions:
               X-GitHub-Media-Type, Deprecation, Sunset
             Cache-Control: public, max-age=60, s-maxage=60
             Content-Encoding: gzip
-            Content-Security-Policy: default-src 'none'
+            Content-Security-Policy: default-src 'self';script-src 'self' 'nonce-YqLDC0BS8d7iY8mKO7VtBbIne'
+              https://apps.fedoraproject.org; style-src 'self' 'nonce-YqLDC0BS8d7iY8mKO7VtBbIne';
+              object-src 'none';base-uri 'self';img-src 'self' https:;
             Content-Type: application/json; charset=utf-8
-            Date: Thu, 27 May 2021 13:05:29 GMT
-            ETag: W/"752f619bfba4b101afbbd32d69757a6180f8a6486e42b9a3ea97b226d51b98e7"
+            Date: Fri, 01 Nov 2019 13-36-03 GMT
+            ETag: W/"1e51b8e1c48787a433405211e9e0fe61"
             Referrer-Policy: origin-when-cross-origin, strict-origin-when-cross-origin
             Server: GitHub.com
             Strict-Transport-Security: max-age=31536000; includeSubdomains; preload
@@ -97,12 +99,11 @@ requests.sessions:
             X-Content-Type-Options: nosniff
             X-Frame-Options: deny
             X-GitHub-Media-Type: github.v3; param=machine-man-preview; format=json
-            X-GitHub-Request-Id: 984E:85E3:66AA6D:704A30:60AF9918
+            X-GitHub-Request-Id: 18FB:AA1A:99616C4:B8092CB:5CC15425
             X-XSS-Protection: '0'
           raw: !!binary ""
           reason: OK
           status_code: 200
-      https://api.github.com:443/repos/packit/hello-world/installation: *get_installation
       https://api.github.com:443/repos/packit/hello-world:
       - metadata:
           latency: 0.3098289966583252
@@ -246,7 +247,7 @@ requests.sessions:
             watchers: 2
             watchers_count: 2
           _next: null
-          elapsed: 0.309281
+          elapsed: 0.2
           encoding: utf-8
           headers:
             Access-Control-Allow-Origin: '*'
@@ -256,10 +257,12 @@ requests.sessions:
               X-GitHub-Media-Type, Deprecation, Sunset
             Cache-Control: private, max-age=60, s-maxage=60
             Content-Encoding: gzip
-            Content-Security-Policy: default-src 'none'
+            Content-Security-Policy: default-src 'self';script-src 'self' 'nonce-YqLDC0BS8d7iY8mKO7VtBbIne'
+              https://apps.fedoraproject.org; style-src 'self' 'nonce-YqLDC0BS8d7iY8mKO7VtBbIne';
+              object-src 'none';base-uri 'self';img-src 'self' https:;
             Content-Type: application/json; charset=utf-8
-            Date: Thu, 27 May 2021 13:05:29 GMT
-            ETag: W/"cde93b9d99517684bfbab6f312598c54c88b7558ce1cdf2992c3a902226d2e8c"
+            Date: Fri, 01 Nov 2019 13-36-03 GMT
+            ETag: W/"1e51b8e1c48787a433405211e9e0fe61"
             Last-Modified: Fri, 19 Feb 2021 00:22:16 GMT
             Referrer-Policy: origin-when-cross-origin, strict-origin-when-cross-origin
             Server: GitHub.com
@@ -270,18 +273,19 @@ requests.sessions:
             X-Content-Type-Options: nosniff
             X-Frame-Options: deny
             X-GitHub-Media-Type: github.v3; format=json
-            X-GitHub-Request-Id: 9852:6ACB:366ECD8:392FD45:60AF9919
+            X-GitHub-Request-Id: 18FB:AA1A:99616C4:B8092CB:5CC15425
             X-RateLimit-Limit: '5000'
-            X-RateLimit-Remaining: '4997'
-            X-RateLimit-Reset: '1622124298'
+            X-RateLimit-Remaining: '4972'
+            X-RateLimit-Reset: '1572953901'
             X-RateLimit-Resource: core
             X-RateLimit-Used: '3'
             X-XSS-Protection: '0'
           raw: !!binary ""
           reason: OK
           status_code: 200
+      https://api.github.com:443/repos/packit/hello-world/installation: *id001
     POST:
-      https://api.github.com/app/installations/1924121/access_tokens: &post_access_tokens
+      https://api.github.com/app/installations/1924121/access_tokens: &id002
       - metadata:
           latency: 0.24237823486328125
           module_call_list:
@@ -303,7 +307,7 @@ requests.sessions:
         output:
           __store_indicator: 2
           _content:
-            expires_at: '2021-05-27T14:05:29Z'
+            expires_at: '2019-11-01T14:35:53Z'
             permissions:
               checks: write
               contents: read
@@ -312,9 +316,9 @@ requests.sessions:
               pull_requests: write
               statuses: write
             repository_selection: selected
-            token: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+            token: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
           _next: null
-          elapsed: 0.242148
+          elapsed: 0.2
           encoding: utf-8
           headers:
             Access-Control-Allow-Origin: '*'
@@ -324,10 +328,12 @@ requests.sessions:
               X-GitHub-Media-Type, Deprecation, Sunset
             Cache-Control: public, max-age=60, s-maxage=60
             Content-Length: '251'
-            Content-Security-Policy: default-src 'none'
+            Content-Security-Policy: default-src 'self';script-src 'self' 'nonce-YqLDC0BS8d7iY8mKO7VtBbIne'
+              https://apps.fedoraproject.org; style-src 'self' 'nonce-YqLDC0BS8d7iY8mKO7VtBbIne';
+              object-src 'none';base-uri 'self';img-src 'self' https:;
             Content-Type: application/json; charset=utf-8
-            Date: Thu, 27 May 2021 13:05:29 GMT
-            ETag: '"213b7329bb4b0d3c29e7f511c3fd9207812df8129d79305ee2344b3f416626e9"'
+            Date: Fri, 01 Nov 2019 13-36-03 GMT
+            ETag: W/"1e51b8e1c48787a433405211e9e0fe61"
             Referrer-Policy: origin-when-cross-origin, strict-origin-when-cross-origin
             Server: GitHub.com
             Strict-Transport-Security: max-age=31536000; includeSubdomains; preload
@@ -335,11 +341,12 @@ requests.sessions:
             X-Content-Type-Options: nosniff
             X-Frame-Options: deny
             X-GitHub-Media-Type: github.v3; param=machine-man-preview; format=json
-            X-GitHub-Request-Id: 9850:56A0:5D7E606:6051CAB:60AF9919
+            X-GitHub-Request-Id: 18FB:AA1A:99616C4:B8092CB:5CC15425
             X-XSS-Protection: '0'
           raw: !!binary ""
           reason: Created
           status_code: 201
+      https://api.github.com:443/app/installations/1924121/access_tokens: *id002
       https://api.github.com:443/repos/packit/hello-world/check-runs:
       - metadata:
           latency: 0.3585336208343506
@@ -441,7 +448,7 @@ requests.sessions:
             status: completed
             url: https://api.github.com/repos/packit/hello-world/check-runs/2685140734
           _next: null
-          elapsed: 0.358291
+          elapsed: 0.2
           encoding: utf-8
           headers:
             Access-Control-Allow-Origin: '*'
@@ -451,10 +458,12 @@ requests.sessions:
               X-GitHub-Media-Type, Deprecation, Sunset
             Cache-Control: private, max-age=60, s-maxage=60
             Content-Length: '2742'
-            Content-Security-Policy: default-src 'none'
+            Content-Security-Policy: default-src 'self';script-src 'self' 'nonce-YqLDC0BS8d7iY8mKO7VtBbIne'
+              https://apps.fedoraproject.org; style-src 'self' 'nonce-YqLDC0BS8d7iY8mKO7VtBbIne';
+              object-src 'none';base-uri 'self';img-src 'self' https:;
             Content-Type: application/json; charset=utf-8
-            Date: Thu, 27 May 2021 13:05:29 GMT
-            ETag: '"6dbadf5bd6c5a940166b4878c5d22fa8ee79c4129ffc3999a3c0db628e63a8f9"'
+            Date: Fri, 01 Nov 2019 13-36-03 GMT
+            ETag: W/"1e51b8e1c48787a433405211e9e0fe61"
             Location: https://api.github.com/repos/packit/hello-world/check-runs/2685140734
             Referrer-Policy: origin-when-cross-origin, strict-origin-when-cross-origin
             Server: GitHub.com
@@ -464,14 +473,13 @@ requests.sessions:
             X-Content-Type-Options: nosniff
             X-Frame-Options: deny
             X-GitHub-Media-Type: github.v3; format=json
-            X-GitHub-Request-Id: 9852:6ACB:366ECFD:392FD6B:60AF9919
+            X-GitHub-Request-Id: 18FB:AA1A:99616C4:B8092CB:5CC15425
             X-RateLimit-Limit: '5000'
-            X-RateLimit-Remaining: '4996'
-            X-RateLimit-Reset: '1622124298'
+            X-RateLimit-Remaining: '4972'
+            X-RateLimit-Reset: '1572953901'
             X-RateLimit-Resource: core
             X-RateLimit-Used: '4'
             X-XSS-Protection: '0'
           raw: !!binary ""
           reason: Created
           status_code: 201
-      https://api.github.com:443/app/installations/1924121/access_tokens: *post_access_tokens

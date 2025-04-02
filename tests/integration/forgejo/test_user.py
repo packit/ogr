@@ -28,3 +28,18 @@ def test_get_projects(service):
 def test_get_forks(service):
     forks = service.user.get_forks()
     assert len(forks) == 0
+
+
+@record_httpx()
+def test_username(service):
+    # check just length, because it is based who regenerated data files
+    assert len(service.user.get_username()) > 3
+
+
+@record_httpx()
+def test_email(service):
+    email = service.user.get_email()
+    assert email
+    assert len(email) > 3
+    assert "@" in email
+    assert "." in email

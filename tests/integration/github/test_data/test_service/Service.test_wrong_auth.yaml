@@ -27,7 +27,7 @@ requests.sessions:
             documentation_url: https://docs.github.com/rest
             message: Bad credentials
           _next: null
-          elapsed: 0.259641
+          elapsed: 0.2
           encoding: utf-8
           headers:
             Access-Control-Allow-Origin: '*'
@@ -36,9 +36,11 @@ requests.sessions:
               X-RateLimit-Reset, X-OAuth-Scopes, X-Accepted-OAuth-Scopes, X-Poll-Interval,
               X-GitHub-Media-Type, Deprecation, Sunset
             Content-Length: '80'
-            Content-Security-Policy: default-src 'none'
+            Content-Security-Policy: default-src 'self';script-src 'self' 'nonce-YqLDC0BS8d7iY8mKO7VtBbIne'
+              https://apps.fedoraproject.org; style-src 'self' 'nonce-YqLDC0BS8d7iY8mKO7VtBbIne';
+              object-src 'none';base-uri 'self';img-src 'self' https:;
             Content-Type: application/json; charset=utf-8
-            Date: Wed, 29 Sep 2021 09:28:27 GMT
+            Date: Fri, 01 Nov 2019 13-36-03 GMT
             Referrer-Policy: origin-when-cross-origin, strict-origin-when-cross-origin
             Server: GitHub.com
             Strict-Transport-Security: max-age=31536000; includeSubdomains; preload
@@ -46,10 +48,10 @@ requests.sessions:
             X-Content-Type-Options: nosniff
             X-Frame-Options: deny
             X-GitHub-Media-Type: github.v3; format=json
-            X-GitHub-Request-Id: 685E:5C19:36948C:37D437:615431BA
+            X-GitHub-Request-Id: 18FB:AA1A:99616C4:B8092CB:5CC15425
             X-RateLimit-Limit: '60'
-            X-RateLimit-Remaining: '59'
-            X-RateLimit-Reset: '1632911307'
+            X-RateLimit-Remaining: '4972'
+            X-RateLimit-Reset: '1572953901'
             X-RateLimit-Resource: core
             X-RateLimit-Used: '1'
             X-XSS-Protection: '0'

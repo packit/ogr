@@ -2,6 +2,7 @@
 # SPDX-License-Identifier: MIT
 
 import datetime
+from collections.abc import Iterable
 from typing import Any, Optional, Union, cast
 
 from ogr.abstract import Issue, IssueComment, IssueLabel, IssueStatus
@@ -187,13 +188,16 @@ class PagureIssue(BaseIssue):
 
         return [PagureIssue(issue_dict, project) for issue_dict in raw_issues]
 
-    def _get_all_comments(self) -> list[IssueComment]:
+    def _get_all_comments(self, reverse: bool = False) -> Iterable[IssueComment]:
         self.__update()
         raw_comments = self._raw_issue["comments"]
-        return [
+        if reverse:
+            raw_comments = reversed(raw_comments)
+
+        return (
             PagureIssueComment(parent=self, raw_comment=raw_comment)
             for raw_comment in raw_comments
-        ]
+        )
 
     def comment(self, body: str) -> IssueComment:
         payload = {"comment": body}

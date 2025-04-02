@@ -1,0 +1,870 @@
+_requre:
+  DataTypes: 1
+  key_strategy: StorageKeysInspectSimple
+  version_storage_file: 3
+httpx._client:
+  send:
+    GET:
+      https://v10.next.forgejo.org/api/v1/repos/packit-validator/ogr-tests/commits?page=1:
+      - metadata:
+          latency: 0.81484055519104
+          module_call_list:
+          - requre.record_and_replace
+          - tests.integration.forgejo.test_project
+          - ogr.services.forgejo.project
+          - pyforgejo.repository.client
+          - pyforgejo.core.http_client
+          - httpx._client
+          - requre.objects
+          - requre.cassette
+          - httpx._client
+          - send
+        output:
+          __store_indicator: 2
+          _content:
+          - author: null
+            commit:
+              author:
+                date: '2021-04-27T07:18:37Z'
+                email: csomortani.hunor@gmail.com
+                name: csomh
+              committer:
+                date: '2021-04-27T07:18:37Z'
+                email: csomortani.hunor@gmail.com
+                name: csomh
+              message: 'Merge branch ''test-mr-merge'' into ''master''
+
+
+                Comit to test merging MRs
+
+
+                See merge request packit-service/ogr-tests!71'
+              tree:
+                created: '2021-04-27T07:18:37Z'
+                sha: dd9b6c54c0788301c86bdf058a8e91e3594a0a17
+                url: https://v10.next.forgejo.org/api/v1/repos/packit-validator/ogr-tests/git/trees/dd9b6c54c0788301c86bdf058a8e91e3594a0a17
+              url: https://v10.next.forgejo.org/api/v1/repos/packit-validator/ogr-tests/git/commits/dd9b6c54c0788301c86bdf058a8e91e3594a0a17
+              verification:
+                payload: ''
+                reason: gpg.error.not_signed_commit
+                signature: ''
+                signer: null
+                verified: false
+            committer: null
+            created: '2021-04-27T07:18:37Z'
+            files:
+            - filename: README.md
+              status: modified
+            html_url: https://v10.next.forgejo.org/packit-validator/ogr-tests/commit/dd9b6c54c0788301c86bdf058a8e91e3594a0a17
+            parents:
+            - created: '0001-01-01T00:00:00Z'
+              sha: b8e18207cfdad954f1b3a96db34d0706b272e6cf
+              url: https://v10.next.forgejo.org/api/v1/repos/packit-validator/ogr-tests/git/commits/b8e18207cfdad954f1b3a96db34d0706b272e6cf
+            - created: '0001-01-01T00:00:00Z'
+              sha: 5dd0a9a1f5b9d3bf820e8849c4be7aafcbe9a8c7
+              url: https://v10.next.forgejo.org/api/v1/repos/packit-validator/ogr-tests/git/commits/5dd0a9a1f5b9d3bf820e8849c4be7aafcbe9a8c7
+            sha: dd9b6c54c0788301c86bdf058a8e91e3594a0a17
+            stats:
+              additions: 2
+              deletions: 0
+              total: 2
+            url: https://v10.next.forgejo.org/api/v1/repos/packit-validator/ogr-tests/git/commits/dd9b6c54c0788301c86bdf058a8e91e3594a0a17
+          - author: null
+            commit:
+              author:
+                date: '2021-04-27T09:13:06+02:00'
+                email: csomh@redhat.com
+                name: "Hunor Csomort\xE1ni"
+              committer:
+                date: '2021-04-27T09:13:06+02:00'
+                email: csomh@redhat.com
+                name: "Hunor Csomort\xE1ni"
+              message: "Comit to test merging MRs\n\nSigned-off-by: Hunor Csomort\xE1\
+                ni <csomh@redhat.com>\n"
+              tree:
+                created: '2021-04-27T09:13:06+02:00'
+                sha: 5dd0a9a1f5b9d3bf820e8849c4be7aafcbe9a8c7
+                url: https://v10.next.forgejo.org/api/v1/repos/packit-validator/ogr-tests/git/trees/5dd0a9a1f5b9d3bf820e8849c4be7aafcbe9a8c7
+              url: https://v10.next.forgejo.org/api/v1/repos/packit-validator/ogr-tests/git/commits/5dd0a9a1f5b9d3bf820e8849c4be7aafcbe9a8c7
+              verification:
+                payload: "tree 3c4f0d6d6aa77b1ce26a8c540afcdbac12f60333\nparent b8e18207cfdad954f1b3a96db34d0706b272e6cf\n\
+                  author Hunor Csomort\xE1ni <csomh@redhat.com> 1619507586 +0200\n\
+                  committer Hunor Csomort\xE1ni <csomh@redhat.com> 1619507586 +0200\n\
+                  \nComit to test merging MRs\n\nSigned-off-by: Hunor Csomort\xE1\
+                  ni <csomh@redhat.com>\n"
+                reason: gpg.error.no_gpg_keys_found
+                signature: '-----BEGIN PGP SIGNATURE-----
+
+
+                  iQEzBAABCAAdFiEEvbtio33HhIXR9z4nJOzqhCG/J58FAmCHuYIACgkQJOzqhCG/
+
+                  J58HMAgApbz028TbsOUF3zypQLFNRn+yvBR9OJr1ClOX/Xln+hnCPLXVwwIJjcFc
+
+                  uwMLlid7pwhLeZjZF8QNJof3KCl43Qhl6p5M84gLUNPmbIjng/JEi2jX1WO1gBHF
+
+                  PvxIBtIivUMfG7FFbbjd67oc2xKXwvJlPeJHrl/bOr97/XFHho2qtQ/WpCmXukjj
+
+                  7kV8p+jMxYSRsGBLoX/LWyEV0UsAhQz+AlMhMVWqiCoeY2/LtyuF5qm2zUGRDymz
+
+                  +T2kPmMIiGpY5cQlLUvvlHeDtwIhqwat/ONuIJdO76THhvw0qEGjeUFeQqLOBTt9
+
+                  r2wHpZja45JdbESjaygwevTpy3hYwA==
+
+                  =erXG
+
+                  -----END PGP SIGNATURE-----
+
+                  '
+                signer: null
+                verified: false
+            committer: null
+            created: '2021-04-27T09:13:06+02:00'
+            files:
+            - filename: README.md
+              status: modified
+            html_url: https://v10.next.forgejo.org/packit-validator/ogr-tests/commit/5dd0a9a1f5b9d3bf820e8849c4be7aafcbe9a8c7
+            parents:
+            - created: '0001-01-01T00:00:00Z'
+              sha: b8e18207cfdad954f1b3a96db34d0706b272e6cf
+              url: https://v10.next.forgejo.org/api/v1/repos/packit-validator/ogr-tests/git/commits/b8e18207cfdad954f1b3a96db34d0706b272e6cf
+            sha: 5dd0a9a1f5b9d3bf820e8849c4be7aafcbe9a8c7
+            stats:
+              additions: 2
+              deletions: 0
+              total: 2
+            url: https://v10.next.forgejo.org/api/v1/repos/packit-validator/ogr-tests/git/commits/5dd0a9a1f5b9d3bf820e8849c4be7aafcbe9a8c7
+          - author: null
+            commit:
+              author:
+                date: '2019-11-26T19:40:48Z'
+                email: matej.focko@outlook.com
+                name: Matej Focko
+              committer:
+                date: '2019-11-26T19:40:48Z'
+                email: matej.focko@outlook.com
+                name: Matej Focko
+              message: 'Merge branch ''test_branch'' into ''master''
+
+
+                Got to merge something
+
+
+                See merge request packit-service/ogr-tests!19'
+              tree:
+                created: '2019-11-26T19:40:48Z'
+                sha: b8e18207cfdad954f1b3a96db34d0706b272e6cf
+                url: https://v10.next.forgejo.org/api/v1/repos/packit-validator/ogr-tests/git/trees/b8e18207cfdad954f1b3a96db34d0706b272e6cf
+              url: https://v10.next.forgejo.org/api/v1/repos/packit-validator/ogr-tests/git/commits/b8e18207cfdad954f1b3a96db34d0706b272e6cf
+              verification:
+                payload: ''
+                reason: gpg.error.not_signed_commit
+                signature: ''
+                signer: null
+                verified: false
+            committer: null
+            created: '2019-11-26T19:40:48Z'
+            files:
+            - filename: README.md
+              status: modified
+            html_url: https://v10.next.forgejo.org/packit-validator/ogr-tests/commit/b8e18207cfdad954f1b3a96db34d0706b272e6cf
+            parents:
+            - created: '0001-01-01T00:00:00Z'
+              sha: 3d278426b64647aa92fb63c8d7ccdb4d8c4919ff
+              url: https://v10.next.forgejo.org/api/v1/repos/packit-validator/ogr-tests/git/commits/3d278426b64647aa92fb63c8d7ccdb4d8c4919ff
+            - created: '0001-01-01T00:00:00Z'
+              sha: 59b1a9bab5b5198c619270646410867788685c16
+              url: https://v10.next.forgejo.org/api/v1/repos/packit-validator/ogr-tests/git/commits/59b1a9bab5b5198c619270646410867788685c16
+            sha: b8e18207cfdad954f1b3a96db34d0706b272e6cf
+            stats:
+              additions: 2
+              deletions: 1
+              total: 3
+            url: https://v10.next.forgejo.org/api/v1/repos/packit-validator/ogr-tests/git/commits/b8e18207cfdad954f1b3a96db34d0706b272e6cf
+          - author: null
+            commit:
+              author:
+                date: '2019-11-26T20:38:39+01:00'
+                email: matej.focko@outlook.com
+                name: Matej Focko
+              committer:
+                date: '2019-11-26T20:38:39+01:00'
+                email: matej.focko@outlook.com
+                name: Matej Focko
+              message: 'Got to merge something
+
+                '
+              tree:
+                created: '2019-11-26T20:38:39+01:00'
+                sha: 59b1a9bab5b5198c619270646410867788685c16
+                url: https://v10.next.forgejo.org/api/v1/repos/packit-validator/ogr-tests/git/trees/59b1a9bab5b5198c619270646410867788685c16
+              url: https://v10.next.forgejo.org/api/v1/repos/packit-validator/ogr-tests/git/commits/59b1a9bab5b5198c619270646410867788685c16
+              verification:
+                payload: ''
+                reason: gpg.error.not_signed_commit
+                signature: ''
+                signer: null
+                verified: false
+            committer: null
+            created: '2019-11-26T20:38:39+01:00'
+            files:
+            - filename: README.md
+              status: modified
+            html_url: https://v10.next.forgejo.org/packit-validator/ogr-tests/commit/59b1a9bab5b5198c619270646410867788685c16
+            parents:
+            - created: '0001-01-01T00:00:00Z'
+              sha: 3d278426b64647aa92fb63c8d7ccdb4d8c4919ff
+              url: https://v10.next.forgejo.org/api/v1/repos/packit-validator/ogr-tests/git/commits/3d278426b64647aa92fb63c8d7ccdb4d8c4919ff
+            sha: 59b1a9bab5b5198c619270646410867788685c16
+            stats:
+              additions: 2
+              deletions: 1
+              total: 3
+            url: https://v10.next.forgejo.org/api/v1/repos/packit-validator/ogr-tests/git/commits/59b1a9bab5b5198c619270646410867788685c16
+          - author: null
+            commit:
+              author:
+                date: '2019-09-27T08:42:55Z'
+                email: scottyh@post.cz
+                name: jscotka
+              committer:
+                date: '2019-09-27T08:42:55Z'
+                email: scottyh@post.cz
+                name: jscotka
+              message: 'Merge branch ''pr-test3'' into ''master''
+
+
+                Update README.md
+
+
+                See merge request packit-service/ogr-tests!17'
+              tree:
+                created: '2019-09-27T08:42:55Z'
+                sha: 3d278426b64647aa92fb63c8d7ccdb4d8c4919ff
+                url: https://v10.next.forgejo.org/api/v1/repos/packit-validator/ogr-tests/git/trees/3d278426b64647aa92fb63c8d7ccdb4d8c4919ff
+              url: https://v10.next.forgejo.org/api/v1/repos/packit-validator/ogr-tests/git/commits/3d278426b64647aa92fb63c8d7ccdb4d8c4919ff
+              verification:
+                payload: ''
+                reason: gpg.error.not_signed_commit
+                signature: ''
+                signer: null
+                verified: false
+            committer: null
+            created: '2019-09-27T08:42:55Z'
+            files:
+            - filename: README.md
+              status: modified
+            html_url: https://v10.next.forgejo.org/packit-validator/ogr-tests/commit/3d278426b64647aa92fb63c8d7ccdb4d8c4919ff
+            parents:
+            - created: '0001-01-01T00:00:00Z'
+              sha: f6de56d97ec3ec74cd5194e79175162d9f969195
+              url: https://v10.next.forgejo.org/api/v1/repos/packit-validator/ogr-tests/git/commits/f6de56d97ec3ec74cd5194e79175162d9f969195
+            - created: '0001-01-01T00:00:00Z'
+              sha: 6970eae72f9ecee667183f52880ca76126bd8b38
+              url: https://v10.next.forgejo.org/api/v1/repos/packit-validator/ogr-tests/git/commits/6970eae72f9ecee667183f52880ca76126bd8b38
+            sha: 3d278426b64647aa92fb63c8d7ccdb4d8c4919ff
+            stats:
+              additions: 2
+              deletions: 0
+              total: 2
+            url: https://v10.next.forgejo.org/api/v1/repos/packit-validator/ogr-tests/git/commits/3d278426b64647aa92fb63c8d7ccdb4d8c4919ff
+          - author: null
+            commit:
+              author:
+                date: '2019-09-27T08:41:42Z'
+                email: scottyh@post.cz
+                name: jscotka
+              committer:
+                date: '2019-09-27T08:41:42Z'
+                email: scottyh@post.cz
+                name: jscotka
+              message: Update README.md
+              tree:
+                created: '2019-09-27T08:41:42Z'
+                sha: 6970eae72f9ecee667183f52880ca76126bd8b38
+                url: https://v10.next.forgejo.org/api/v1/repos/packit-validator/ogr-tests/git/trees/6970eae72f9ecee667183f52880ca76126bd8b38
+              url: https://v10.next.forgejo.org/api/v1/repos/packit-validator/ogr-tests/git/commits/6970eae72f9ecee667183f52880ca76126bd8b38
+              verification:
+                payload: ''
+                reason: gpg.error.not_signed_commit
+                signature: ''
+                signer: null
+                verified: false
+            committer: null
+            created: '2019-09-27T08:41:42Z'
+            files:
+            - filename: README.md
+              status: modified
+            html_url: https://v10.next.forgejo.org/packit-validator/ogr-tests/commit/6970eae72f9ecee667183f52880ca76126bd8b38
+            parents:
+            - created: '0001-01-01T00:00:00Z'
+              sha: f6de56d97ec3ec74cd5194e79175162d9f969195
+              url: https://v10.next.forgejo.org/api/v1/repos/packit-validator/ogr-tests/git/commits/f6de56d97ec3ec74cd5194e79175162d9f969195
+            sha: 6970eae72f9ecee667183f52880ca76126bd8b38
+            stats:
+              additions: 2
+              deletions: 0
+              total: 2
+            url: https://v10.next.forgejo.org/api/v1/repos/packit-validator/ogr-tests/git/commits/6970eae72f9ecee667183f52880ca76126bd8b38
+          - author: null
+            commit:
+              author:
+                date: '2019-09-26T14:20:34Z'
+                email: scottyh@post.cz
+                name: jscotka
+              committer:
+                date: '2019-09-26T14:20:34Z'
+                email: scottyh@post.cz
+                name: jscotka
+              message: 'Merge branch ''pr-test2'' into ''master''
+
+
+                Update README.md
+
+
+                See merge request packit-service/ogr-tests!12'
+              tree:
+                created: '2019-09-26T14:20:34Z'
+                sha: f6de56d97ec3ec74cd5194e79175162d9f969195
+                url: https://v10.next.forgejo.org/api/v1/repos/packit-validator/ogr-tests/git/trees/f6de56d97ec3ec74cd5194e79175162d9f969195
+              url: https://v10.next.forgejo.org/api/v1/repos/packit-validator/ogr-tests/git/commits/f6de56d97ec3ec74cd5194e79175162d9f969195
+              verification:
+                payload: ''
+                reason: gpg.error.not_signed_commit
+                signature: ''
+                signer: null
+                verified: false
+            committer: null
+            created: '2019-09-26T14:20:34Z'
+            files:
+            - filename: README.md
+              status: modified
+            html_url: https://v10.next.forgejo.org/packit-validator/ogr-tests/commit/f6de56d97ec3ec74cd5194e79175162d9f969195
+            parents:
+            - created: '0001-01-01T00:00:00Z'
+              sha: ff3df8288306e95ad76f803d6b9e398efe0b754d
+              url: https://v10.next.forgejo.org/api/v1/repos/packit-validator/ogr-tests/git/commits/ff3df8288306e95ad76f803d6b9e398efe0b754d
+            - created: '0001-01-01T00:00:00Z'
+              sha: 2543f1728c7e1c2b8772d0dc11dc8b1870f4db60
+              url: https://v10.next.forgejo.org/api/v1/repos/packit-validator/ogr-tests/git/commits/2543f1728c7e1c2b8772d0dc11dc8b1870f4db60
+            sha: f6de56d97ec3ec74cd5194e79175162d9f969195
+            stats:
+              additions: 0
+              deletions: 2
+              total: 2
+            url: https://v10.next.forgejo.org/api/v1/repos/packit-validator/ogr-tests/git/commits/f6de56d97ec3ec74cd5194e79175162d9f969195
+          - author: null
+            commit:
+              author:
+                date: '2019-09-26T14:08:02Z'
+                email: scottyh@post.cz
+                name: jscotka
+              committer:
+                date: '2019-09-26T14:08:02Z'
+                email: scottyh@post.cz
+                name: jscotka
+              message: Update README.md
+              tree:
+                created: '2019-09-26T14:08:02Z'
+                sha: 2543f1728c7e1c2b8772d0dc11dc8b1870f4db60
+                url: https://v10.next.forgejo.org/api/v1/repos/packit-validator/ogr-tests/git/trees/2543f1728c7e1c2b8772d0dc11dc8b1870f4db60
+              url: https://v10.next.forgejo.org/api/v1/repos/packit-validator/ogr-tests/git/commits/2543f1728c7e1c2b8772d0dc11dc8b1870f4db60
+              verification:
+                payload: ''
+                reason: gpg.error.not_signed_commit
+                signature: ''
+                signer: null
+                verified: false
+            committer: null
+            created: '2019-09-26T14:08:02Z'
+            files:
+            - filename: README.md
+              status: modified
+            html_url: https://v10.next.forgejo.org/packit-validator/ogr-tests/commit/2543f1728c7e1c2b8772d0dc11dc8b1870f4db60
+            parents:
+            - created: '0001-01-01T00:00:00Z'
+              sha: ff3df8288306e95ad76f803d6b9e398efe0b754d
+              url: https://v10.next.forgejo.org/api/v1/repos/packit-validator/ogr-tests/git/commits/ff3df8288306e95ad76f803d6b9e398efe0b754d
+            sha: 2543f1728c7e1c2b8772d0dc11dc8b1870f4db60
+            stats:
+              additions: 0
+              deletions: 2
+              total: 2
+            url: https://v10.next.forgejo.org/api/v1/repos/packit-validator/ogr-tests/git/commits/2543f1728c7e1c2b8772d0dc11dc8b1870f4db60
+          - author: null
+            commit:
+              author:
+                date: '2019-09-26T10:55:31Z'
+                email: scottyh@post.cz
+                name: jscotka
+              committer:
+                date: '2019-09-26T10:55:31Z'
+                email: scottyh@post.cz
+                name: jscotka
+              message: 'Merge branch ''pr-test1'' into ''master''
+
+
+                Update README.md
+
+
+                See merge request packit-service/ogr-tests!7'
+              tree:
+                created: '2019-09-26T10:55:31Z'
+                sha: ff3df8288306e95ad76f803d6b9e398efe0b754d
+                url: https://v10.next.forgejo.org/api/v1/repos/packit-validator/ogr-tests/git/trees/ff3df8288306e95ad76f803d6b9e398efe0b754d
+              url: https://v10.next.forgejo.org/api/v1/repos/packit-validator/ogr-tests/git/commits/ff3df8288306e95ad76f803d6b9e398efe0b754d
+              verification:
+                payload: ''
+                reason: gpg.error.not_signed_commit
+                signature: ''
+                signer: null
+                verified: false
+            committer: null
+            created: '2019-09-26T10:55:31Z'
+            files:
+            - filename: README.md
+              status: modified
+            html_url: https://v10.next.forgejo.org/packit-validator/ogr-tests/commit/ff3df8288306e95ad76f803d6b9e398efe0b754d
+            parents:
+            - created: '0001-01-01T00:00:00Z'
+              sha: 1050fc5e57a5d145ebaadb0e1748fbc1d94e7b4c
+              url: https://v10.next.forgejo.org/api/v1/repos/packit-validator/ogr-tests/git/commits/1050fc5e57a5d145ebaadb0e1748fbc1d94e7b4c
+            - created: '0001-01-01T00:00:00Z'
+              sha: 257ce9fd8c5421d2e116337847710ba70d215aa6
+              url: https://v10.next.forgejo.org/api/v1/repos/packit-validator/ogr-tests/git/commits/257ce9fd8c5421d2e116337847710ba70d215aa6
+            sha: ff3df8288306e95ad76f803d6b9e398efe0b754d
+            stats:
+              additions: 1
+              deletions: 0
+              total: 1
+            url: https://v10.next.forgejo.org/api/v1/repos/packit-validator/ogr-tests/git/commits/ff3df8288306e95ad76f803d6b9e398efe0b754d
+          - author: null
+            commit:
+              author:
+                date: '2019-09-26T10:42:29Z'
+                email: scottyh@post.cz
+                name: jscotka
+              committer:
+                date: '2019-09-26T10:42:29Z'
+                email: scottyh@post.cz
+                name: jscotka
+              message: Update README.md
+              tree:
+                created: '2019-09-26T10:42:29Z'
+                sha: 257ce9fd8c5421d2e116337847710ba70d215aa6
+                url: https://v10.next.forgejo.org/api/v1/repos/packit-validator/ogr-tests/git/trees/257ce9fd8c5421d2e116337847710ba70d215aa6
+              url: https://v10.next.forgejo.org/api/v1/repos/packit-validator/ogr-tests/git/commits/257ce9fd8c5421d2e116337847710ba70d215aa6
+              verification:
+                payload: ''
+                reason: gpg.error.not_signed_commit
+                signature: ''
+                signer: null
+                verified: false
+            committer: null
+            created: '2019-09-26T10:42:29Z'
+            files:
+            - filename: README.md
+              status: modified
+            html_url: https://v10.next.forgejo.org/packit-validator/ogr-tests/commit/257ce9fd8c5421d2e116337847710ba70d215aa6
+            parents:
+            - created: '0001-01-01T00:00:00Z'
+              sha: 1050fc5e57a5d145ebaadb0e1748fbc1d94e7b4c
+              url: https://v10.next.forgejo.org/api/v1/repos/packit-validator/ogr-tests/git/commits/1050fc5e57a5d145ebaadb0e1748fbc1d94e7b4c
+            sha: 257ce9fd8c5421d2e116337847710ba70d215aa6
+            stats:
+              additions: 1
+              deletions: 0
+              total: 1
+            url: https://v10.next.forgejo.org/api/v1/repos/packit-validator/ogr-tests/git/commits/257ce9fd8c5421d2e116337847710ba70d215aa6
+          - author: null
+            commit:
+              author:
+                date: '2019-09-11T13:06:44Z'
+                email: laura.barcziova@gmail.com
+                name: "Laura Barcziov\xE1"
+              committer:
+                date: '2019-09-11T13:06:44Z'
+                email: laura.barcziova@gmail.com
+                name: "Laura Barcziov\xE1"
+              message: 'Merge branch ''pr-3'' into ''master''
+
+
+                change
+
+
+                See merge request packit-service/ogr-tests!3'
+              tree:
+                created: '2019-09-11T13:06:44Z'
+                sha: 1050fc5e57a5d145ebaadb0e1748fbc1d94e7b4c
+                url: https://v10.next.forgejo.org/api/v1/repos/packit-validator/ogr-tests/git/trees/1050fc5e57a5d145ebaadb0e1748fbc1d94e7b4c
+              url: https://v10.next.forgejo.org/api/v1/repos/packit-validator/ogr-tests/git/commits/1050fc5e57a5d145ebaadb0e1748fbc1d94e7b4c
+              verification:
+                payload: ''
+                reason: gpg.error.not_signed_commit
+                signature: ''
+                signer: null
+                verified: false
+            committer: null
+            created: '2019-09-11T13:06:44Z'
+            files:
+            - filename: README.md
+              status: modified
+            html_url: https://v10.next.forgejo.org/packit-validator/ogr-tests/commit/1050fc5e57a5d145ebaadb0e1748fbc1d94e7b4c
+            parents:
+            - created: '0001-01-01T00:00:00Z'
+              sha: 13b8ff7a38426989ce7093bb97d889a8ffb9b0a2
+              url: https://v10.next.forgejo.org/api/v1/repos/packit-validator/ogr-tests/git/commits/13b8ff7a38426989ce7093bb97d889a8ffb9b0a2
+            - created: '0001-01-01T00:00:00Z'
+              sha: db843cde94391923c6acb4cce938d830477a9732
+              url: https://v10.next.forgejo.org/api/v1/repos/packit-validator/ogr-tests/git/commits/db843cde94391923c6acb4cce938d830477a9732
+            sha: 1050fc5e57a5d145ebaadb0e1748fbc1d94e7b4c
+            stats:
+              additions: 2
+              deletions: 1
+              total: 3
+            url: https://v10.next.forgejo.org/api/v1/repos/packit-validator/ogr-tests/git/commits/1050fc5e57a5d145ebaadb0e1748fbc1d94e7b4c
+          - author: null
+            commit:
+              author:
+                date: '2019-09-11T14:50:41+02:00'
+                email: lbarczio@redhat.com
+                name: Laura Barcziova
+              committer:
+                date: '2019-09-11T14:50:41+02:00'
+                email: lbarczio@redhat.com
+                name: Laura Barcziova
+              message: 'change
+
+                '
+              tree:
+                created: '2019-09-11T14:50:41+02:00'
+                sha: db843cde94391923c6acb4cce938d830477a9732
+                url: https://v10.next.forgejo.org/api/v1/repos/packit-validator/ogr-tests/git/trees/db843cde94391923c6acb4cce938d830477a9732
+              url: https://v10.next.forgejo.org/api/v1/repos/packit-validator/ogr-tests/git/commits/db843cde94391923c6acb4cce938d830477a9732
+              verification:
+                payload: ''
+                reason: gpg.error.not_signed_commit
+                signature: ''
+                signer: null
+                verified: false
+            committer: null
+            created: '2019-09-11T14:50:41+02:00'
+            files:
+            - filename: README.md
+              status: modified
+            html_url: https://v10.next.forgejo.org/packit-validator/ogr-tests/commit/db843cde94391923c6acb4cce938d830477a9732
+            parents:
+            - created: '0001-01-01T00:00:00Z'
+              sha: 11b37d913374b14f8519d16c2a2cca3ebc14ac64
+              url: https://v10.next.forgejo.org/api/v1/repos/packit-validator/ogr-tests/git/commits/11b37d913374b14f8519d16c2a2cca3ebc14ac64
+            sha: db843cde94391923c6acb4cce938d830477a9732
+            stats:
+              additions: 2
+              deletions: 1
+              total: 3
+            url: https://v10.next.forgejo.org/api/v1/repos/packit-validator/ogr-tests/git/commits/db843cde94391923c6acb4cce938d830477a9732
+          - author: null
+            commit:
+              author:
+                date: '2019-09-11T12:04:08Z'
+                email: laura.barcziova@gmail.com
+                name: "Laura Barcziov\xE1"
+              committer:
+                date: '2019-09-11T12:04:08Z'
+                email: laura.barcziova@gmail.com
+                name: "Laura Barcziov\xE1"
+              message: 'Merge branch ''pr-2'' into ''master''
+
+
+                new
+
+
+                See merge request packit-service/ogr-tests!2'
+              tree:
+                created: '2019-09-11T12:04:08Z'
+                sha: 13b8ff7a38426989ce7093bb97d889a8ffb9b0a2
+                url: https://v10.next.forgejo.org/api/v1/repos/packit-validator/ogr-tests/git/trees/13b8ff7a38426989ce7093bb97d889a8ffb9b0a2
+              url: https://v10.next.forgejo.org/api/v1/repos/packit-validator/ogr-tests/git/commits/13b8ff7a38426989ce7093bb97d889a8ffb9b0a2
+              verification:
+                payload: ''
+                reason: gpg.error.not_signed_commit
+                signature: ''
+                signer: null
+                verified: false
+            committer: null
+            created: '2019-09-11T12:04:08Z'
+            files:
+            - filename: README.md
+              status: modified
+            html_url: https://v10.next.forgejo.org/packit-validator/ogr-tests/commit/13b8ff7a38426989ce7093bb97d889a8ffb9b0a2
+            parents:
+            - created: '0001-01-01T00:00:00Z'
+              sha: 101a42bbbe174d04b465d49caf274dc3b4defeca
+              url: https://v10.next.forgejo.org/api/v1/repos/packit-validator/ogr-tests/git/commits/101a42bbbe174d04b465d49caf274dc3b4defeca
+            - created: '0001-01-01T00:00:00Z'
+              sha: 11b37d913374b14f8519d16c2a2cca3ebc14ac64
+              url: https://v10.next.forgejo.org/api/v1/repos/packit-validator/ogr-tests/git/commits/11b37d913374b14f8519d16c2a2cca3ebc14ac64
+            sha: 13b8ff7a38426989ce7093bb97d889a8ffb9b0a2
+            stats:
+              additions: 1
+              deletions: 3
+              total: 4
+            url: https://v10.next.forgejo.org/api/v1/repos/packit-validator/ogr-tests/git/commits/13b8ff7a38426989ce7093bb97d889a8ffb9b0a2
+          - author: null
+            commit:
+              author:
+                date: '2019-09-11T11:13:22+02:00'
+                email: lbarczio@redhat.com
+                name: Laura Barcziova
+              committer:
+                date: '2019-09-11T11:13:22+02:00'
+                email: lbarczio@redhat.com
+                name: Laura Barcziova
+              message: 'new
+
+                '
+              tree:
+                created: '2019-09-11T11:13:22+02:00'
+                sha: 11b37d913374b14f8519d16c2a2cca3ebc14ac64
+                url: https://v10.next.forgejo.org/api/v1/repos/packit-validator/ogr-tests/git/trees/11b37d913374b14f8519d16c2a2cca3ebc14ac64
+              url: https://v10.next.forgejo.org/api/v1/repos/packit-validator/ogr-tests/git/commits/11b37d913374b14f8519d16c2a2cca3ebc14ac64
+              verification:
+                payload: ''
+                reason: gpg.error.not_signed_commit
+                signature: ''
+                signer: null
+                verified: false
+            committer: null
+            created: '2019-09-11T11:13:22+02:00'
+            files:
+            - filename: README.md
+              status: modified
+            html_url: https://v10.next.forgejo.org/packit-validator/ogr-tests/commit/11b37d913374b14f8519d16c2a2cca3ebc14ac64
+            parents:
+            - created: '0001-01-01T00:00:00Z'
+              sha: 101a42bbbe174d04b465d49caf274dc3b4defeca
+              url: https://v10.next.forgejo.org/api/v1/repos/packit-validator/ogr-tests/git/commits/101a42bbbe174d04b465d49caf274dc3b4defeca
+            sha: 11b37d913374b14f8519d16c2a2cca3ebc14ac64
+            stats:
+              additions: 1
+              deletions: 3
+              total: 4
+            url: https://v10.next.forgejo.org/api/v1/repos/packit-validator/ogr-tests/git/commits/11b37d913374b14f8519d16c2a2cca3ebc14ac64
+          - author: null
+            commit:
+              author:
+                date: '2019-09-11T08:55:31Z'
+                email: laura.barcziova@gmail.com
+                name: "Laura Barcziov\xE1"
+              committer:
+                date: '2019-09-11T08:55:31Z'
+                email: laura.barcziova@gmail.com
+                name: "Laura Barcziov\xE1"
+              message: 'Merge branch ''change'' into ''master''
+
+
+                change
+
+
+                See merge request packit-service/ogr-tests!1'
+              tree:
+                created: '2019-09-11T08:55:31Z'
+                sha: 101a42bbbe174d04b465d49caf274dc3b4defeca
+                url: https://v10.next.forgejo.org/api/v1/repos/packit-validator/ogr-tests/git/trees/101a42bbbe174d04b465d49caf274dc3b4defeca
+              url: https://v10.next.forgejo.org/api/v1/repos/packit-validator/ogr-tests/git/commits/101a42bbbe174d04b465d49caf274dc3b4defeca
+              verification:
+                payload: ''
+                reason: gpg.error.not_signed_commit
+                signature: ''
+                signer: null
+                verified: false
+            committer: null
+            created: '2019-09-11T08:55:31Z'
+            files:
+            - filename: README.md
+              status: modified
+            html_url: https://v10.next.forgejo.org/packit-validator/ogr-tests/commit/101a42bbbe174d04b465d49caf274dc3b4defeca
+            parents:
+            - created: '0001-01-01T00:00:00Z'
+              sha: 24c86d0704694f686329b2ea636c5b7522cfdc40
+              url: https://v10.next.forgejo.org/api/v1/repos/packit-validator/ogr-tests/git/commits/24c86d0704694f686329b2ea636c5b7522cfdc40
+            - created: '0001-01-01T00:00:00Z'
+              sha: d490ec67dd98f69dfdc1732b98bb3189f0e0aace
+              url: https://v10.next.forgejo.org/api/v1/repos/packit-validator/ogr-tests/git/commits/d490ec67dd98f69dfdc1732b98bb3189f0e0aace
+            sha: 101a42bbbe174d04b465d49caf274dc3b4defeca
+            stats:
+              additions: 3
+              deletions: 1
+              total: 4
+            url: https://v10.next.forgejo.org/api/v1/repos/packit-validator/ogr-tests/git/commits/101a42bbbe174d04b465d49caf274dc3b4defeca
+          - author: null
+            commit:
+              author:
+                date: '2019-09-10T16:05:10+02:00'
+                email: lbarczio@redhat.com
+                name: Laura Barcziova
+              committer:
+                date: '2019-09-10T16:05:10+02:00'
+                email: lbarczio@redhat.com
+                name: Laura Barcziova
+              message: 'another change
+
+                '
+              tree:
+                created: '2019-09-10T16:05:10+02:00'
+                sha: d490ec67dd98f69dfdc1732b98bb3189f0e0aace
+                url: https://v10.next.forgejo.org/api/v1/repos/packit-validator/ogr-tests/git/trees/d490ec67dd98f69dfdc1732b98bb3189f0e0aace
+              url: https://v10.next.forgejo.org/api/v1/repos/packit-validator/ogr-tests/git/commits/d490ec67dd98f69dfdc1732b98bb3189f0e0aace
+              verification:
+                payload: ''
+                reason: gpg.error.not_signed_commit
+                signature: ''
+                signer: null
+                verified: false
+            committer: null
+            created: '2019-09-10T16:05:10+02:00'
+            files:
+            - filename: README.md
+              status: modified
+            html_url: https://v10.next.forgejo.org/packit-validator/ogr-tests/commit/d490ec67dd98f69dfdc1732b98bb3189f0e0aace
+            parents:
+            - created: '0001-01-01T00:00:00Z'
+              sha: 3c1fb11dd358254cc3f1588f173e54e98c1d4c09
+              url: https://v10.next.forgejo.org/api/v1/repos/packit-validator/ogr-tests/git/commits/3c1fb11dd358254cc3f1588f173e54e98c1d4c09
+            sha: d490ec67dd98f69dfdc1732b98bb3189f0e0aace
+            stats:
+              additions: 1
+              deletions: 0
+              total: 1
+            url: https://v10.next.forgejo.org/api/v1/repos/packit-validator/ogr-tests/git/commits/d490ec67dd98f69dfdc1732b98bb3189f0e0aace
+          - author: null
+            commit:
+              author:
+                date: '2019-09-10T15:54:50+02:00'
+                email: lbarczio@redhat.com
+                name: Laura Barcziova
+              committer:
+                date: '2019-09-10T15:54:50+02:00'
+                email: lbarczio@redhat.com
+                name: Laura Barcziova
+              message: 'change
+
+                '
+              tree:
+                created: '2019-09-10T15:54:50+02:00'
+                sha: 3c1fb11dd358254cc3f1588f173e54e98c1d4c09
+                url: https://v10.next.forgejo.org/api/v1/repos/packit-validator/ogr-tests/git/trees/3c1fb11dd358254cc3f1588f173e54e98c1d4c09
+              url: https://v10.next.forgejo.org/api/v1/repos/packit-validator/ogr-tests/git/commits/3c1fb11dd358254cc3f1588f173e54e98c1d4c09
+              verification:
+                payload: ''
+                reason: gpg.error.not_signed_commit
+                signature: ''
+                signer: null
+                verified: false
+            committer: null
+            created: '2019-09-10T15:54:50+02:00'
+            files:
+            - filename: README.md
+              status: modified
+            html_url: https://v10.next.forgejo.org/packit-validator/ogr-tests/commit/3c1fb11dd358254cc3f1588f173e54e98c1d4c09
+            parents:
+            - created: '0001-01-01T00:00:00Z'
+              sha: 24c86d0704694f686329b2ea636c5b7522cfdc40
+              url: https://v10.next.forgejo.org/api/v1/repos/packit-validator/ogr-tests/git/commits/24c86d0704694f686329b2ea636c5b7522cfdc40
+            sha: 3c1fb11dd358254cc3f1588f173e54e98c1d4c09
+            stats:
+              additions: 2
+              deletions: 1
+              total: 3
+            url: https://v10.next.forgejo.org/api/v1/repos/packit-validator/ogr-tests/git/commits/3c1fb11dd358254cc3f1588f173e54e98c1d4c09
+          - author: null
+            commit:
+              author:
+                date: '2019-09-10T10:28:10Z'
+                email: lachmanfrantisek@gmail.com
+                name: "Franti\u0161ek Lachman"
+              committer:
+                date: '2019-09-10T10:28:10Z'
+                email: lachmanfrantisek@gmail.com
+                name: "Franti\u0161ek Lachman"
+              message: Initial commit
+              tree:
+                created: '2019-09-10T10:28:10Z'
+                sha: 24c86d0704694f686329b2ea636c5b7522cfdc40
+                url: https://v10.next.forgejo.org/api/v1/repos/packit-validator/ogr-tests/git/trees/24c86d0704694f686329b2ea636c5b7522cfdc40
+              url: https://v10.next.forgejo.org/api/v1/repos/packit-validator/ogr-tests/git/commits/24c86d0704694f686329b2ea636c5b7522cfdc40
+              verification:
+                payload: ''
+                reason: gpg.error.not_signed_commit
+                signature: ''
+                signer: null
+                verified: false
+            committer: null
+            created: '2019-09-10T10:28:10Z'
+            files:
+            - filename: README.md
+              status: added
+            html_url: https://v10.next.forgejo.org/packit-validator/ogr-tests/commit/24c86d0704694f686329b2ea636c5b7522cfdc40
+            parents: []
+            sha: 24c86d0704694f686329b2ea636c5b7522cfdc40
+            stats:
+              additions: 3
+              deletions: 0
+              total: 3
+            url: https://v10.next.forgejo.org/api/v1/repos/packit-validator/ogr-tests/git/commits/24c86d0704694f686329b2ea636c5b7522cfdc40
+          _elapsed: 0.814676
+          encoding: utf-8
+          headers:
+            access-control-expose-headers: X-Total-Count, X-Page, X-PerPage, X-Total,
+              X-PageCount, X-HasMore
+            cache-control: max-age=0, private, must-revalidate, no-transform
+            content-type: application/json;charset=utf-8
+            date: Thu, 20 Mar 2025 21:54:46 GMT
+            transfer-encoding: chunked
+            vary: Origin
+            x-content-type-options: nosniff
+            x-frame-options: SAMEORIGIN
+            x-hasmore: 'false'
+            x-page: '1'
+            x-pagecount: '1'
+            x-perpage: '30'
+            x-total: '18'
+            x-total-count: '18'
+          next_request: null
+          status_code: 200
+      https://v10.next.forgejo.org/api/v1/repos/packit-validator/ogr-tests/commits?page=2:
+      - metadata:
+          latency: 0.34566259384155273
+          module_call_list:
+          - requre.record_and_replace
+          - tests.integration.forgejo.test_project
+          - ogr.services.forgejo.project
+          - pyforgejo.repository.client
+          - pyforgejo.core.http_client
+          - httpx._client
+          - requre.objects
+          - requre.cassette
+          - httpx._client
+          - send
+        output:
+          __store_indicator: 2
+          _content: []
+          _elapsed: 0.345568
+          encoding: utf-8
+          headers:
+            access-control-expose-headers: X-Total-Count, X-Page, X-PerPage, X-Total,
+              X-PageCount, X-HasMore
+            cache-control: max-age=0, private, must-revalidate, no-transform
+            content-length: '3'
+            content-type: application/json;charset=utf-8
+            date: Thu, 20 Mar 2025 21:54:47 GMT
+            vary: Origin
+            x-content-type-options: nosniff
+            x-frame-options: SAMEORIGIN
+            x-hasmore: 'false'
+            x-page: '2'
+            x-pagecount: '1'
+            x-perpage: '30'
+            x-total: '18'
+            x-total-count: '18'
+          next_request: null
+          status_code: 200

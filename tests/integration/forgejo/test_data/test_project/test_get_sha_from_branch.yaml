@@ -1,0 +1,69 @@
+_requre:
+  DataTypes: 1
+  key_strategy: StorageKeysInspectSimple
+  version_storage_file: 3
+httpx._client:
+  send:
+    GET:
+      https://v10.next.forgejo.org/api/v1/repos/packit-validator/ogr-tests/branches/change:
+      - metadata:
+          latency: 0.4276905059814453
+          module_call_list:
+          - requre.record_and_replace
+          - tests.integration.forgejo.test_project
+          - ogr.abstract
+          - ogr.services.forgejo.project
+          - pyforgejo.repository.client
+          - pyforgejo.core.http_client
+          - httpx._client
+          - requre.objects
+          - requre.cassette
+          - httpx._client
+          - send
+        output:
+          __store_indicator: 2
+          _content:
+            commit:
+              added: null
+              author:
+                email: lbarczio@redhat.com
+                name: Laura Barcziova
+                username: ''
+              committer:
+                email: lbarczio@redhat.com
+                name: Laura Barcziova
+                username: ''
+              id: d490ec67dd98f69dfdc1732b98bb3189f0e0aace
+              message: 'another change
+
+                '
+              modified: null
+              removed: null
+              timestamp: '2019-09-10T16:05:10+02:00'
+              url: https://v10.next.forgejo.org/packit-validator/ogr-tests/commit/d490ec67dd98f69dfdc1732b98bb3189f0e0aace
+              verification:
+                payload: ''
+                reason: gpg.error.not_signed_commit
+                signature: ''
+                signer: null
+                verified: false
+            effective_branch_protection_name: ''
+            enable_status_check: false
+            name: change
+            protected: false
+            required_approvals: 0
+            status_check_contexts: []
+            user_can_merge: false
+            user_can_push: false
+          _elapsed: 0.427617
+          encoding: utf-8
+          headers:
+            cache-control: max-age=0, private, must-revalidate, no-transform
+            content-length: '759'
+            content-type: application/json;charset=utf-8
+            date: Thu, 20 Mar 2025 22:00:57 GMT
+            vary: Origin
+            x-content-type-options: nosniff
+            x-frame-options: SAMEORIGIN
+          next_request: null
+          status_code: 200

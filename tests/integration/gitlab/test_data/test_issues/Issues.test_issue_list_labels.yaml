@@ -1656,7 +1656,7 @@ requests.sessions:
               web_url: https://gitlab.com/packit-service/ogr-tests/-/issues/25
               weight: null
             _next: null
-            elapsed: 0.467798
+            elapsed: 0.2
             encoding: utf-8
             headers:
               CF-Cache-Status: DYNAMIC
@@ -1664,9 +1664,11 @@ requests.sessions:
               Cache-Control: max-age=0, private, must-revalidate
               Connection: keep-alive
               Content-Encoding: gzip
-              Content-Security-Policy: default-src 'none'
+              Content-Security-Policy: default-src 'self';script-src 'self' 'nonce-YqLDC0BS8d7iY8mKO7VtBbIne'
+                https://apps.fedoraproject.org; style-src 'self' 'nonce-YqLDC0BS8d7iY8mKO7VtBbIne';
+                object-src 'none';base-uri 'self';img-src 'self' https:;
               Content-Type: application/json
-              Date: Sun, 21 Aug 2022 21:47:44 GMT
+              Date: Fri, 01 Nov 2019 13-36-03 GMT
               Etag: W/"7fa5d7d7221fd865b1456b784752f8c9"
               Expect-CT: max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
               GitLab-LB: fe-19-lb-gprd
@@ -5604,9 +5606,7 @@ requests.sessions:
             GitLab-SV: api-18-sv-gprd
             Referrer-Policy: strict-origin-when-cross-origin
             Server: cloudflare
-            Set-Cookie: __cfduid=d7044ca63a17d6088ce39689b539264171598258639; expires=Wed,
-              23-Sep-20 08:43:59 GMT; path=/; domain=.gitlab.com; HttpOnly; SameSite=Lax;
-              Secure
+            Set-Cookie: a='b';
             Strict-Transport-Security: max-age=31536000
             Transfer-Encoding: chunked
             Vary: Accept-Encoding, Origin
@@ -5655,9 +5655,7 @@ requests.sessions:
             GitLab-LB: fe-12-lb-gprd
             GitLab-SV: api-15-sv-gprd
             Server: cloudflare
-            Set-Cookie: __cfduid=df16c21963fa53f564a3162ec896c608e1598431275; expires=Fri,
-              25-Sep-20 08:41:15 GMT; path=/; domain=.gitlab.com; HttpOnly; SameSite=Lax;
-              Secure
+            Set-Cookie: a='b';
             Vary: Origin
             X-Content-Type-Options: nosniff
             X-Frame-Options: SAMEORIGIN
@@ -5742,9 +5740,7 @@ requests.sessions:
             GitLab-SV: api-05-sv-gprd
             Referrer-Policy: strict-origin-when-cross-origin
             Server: cloudflare
-            Set-Cookie: __cfduid=d27623846db47a834e64146b5408e9be21598431313; expires=Fri,
-              25-Sep-20 08:41:53 GMT; path=/; domain=.gitlab.com; HttpOnly; SameSite=Lax;
-              Secure
+            Set-Cookie: a='b';
             Strict-Transport-Security: max-age=31536000
             Transfer-Encoding: chunked
             Vary: Accept-Encoding, Origin
@@ -5833,9 +5829,7 @@ requests.sessions:
             RateLimit-ResetTime: Mon, 31 Aug 2020 08:34:41 GMT
             Referrer-Policy: strict-origin-when-cross-origin
             Server: cloudflare
-            Set-Cookie: __cfduid=d6aba533e6a893a51fb6a4fe96c7c721d1598862821; expires=Wed,
-              30-Sep-20 08:33:41 GMT; path=/; domain=.gitlab.com; HttpOnly; SameSite=Lax;
-              Secure
+            Set-Cookie: a='b';
             Strict-Transport-Security: max-age=31536000
             Transfer-Encoding: chunked
             Vary: Accept-Encoding, Origin

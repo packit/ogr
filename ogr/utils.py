@@ -4,6 +4,7 @@
 import functools
 import logging
 import re
+from collections.abc import Iterable
 from re import Match
 from typing import Any, Callable, Optional, Union
 
@@ -13,11 +14,10 @@ logger = logging.getLogger(__name__)
 
 
 def filter_comments(
-    comments: list[AnyComment],
+    comments: Union[list[AnyComment], Iterable[AnyComment]],
     filter_regex: Optional[str] = None,
-    reverse: bool = False,
     author: Optional[str] = None,
-) -> list[AnyComment]:
+) -> Union[list[AnyComment], Iterable[AnyComment]]:
     """
     Filters comments from the given list.
 
@@ -27,9 +27,6 @@ def filter_comments(
             comments.
 
             Defaults to `None`, which means no filtering by regex.
-        reverse: Specifies ordering of the comments.
-
-            Defaults to `False`, which means the order is kept from the input.
         author: Login of the author of the comments.
 
             Defaults to `None`, which means no filtering by author.
@@ -37,9 +34,6 @@ def filter_comments(
     Returns:
         List of comments that satisfy requested criteria.
     """
-    if reverse:
-        comments.reverse()
-
     if filter_regex or author:
         pattern = None
         if filter_regex:
@@ -56,7 +50,7 @@ def filter_comments(
 
 
 def search_in_comments(
-    comments: list[Union[str, Comment]],
+    comments: Iterable[Union[str, Comment]],
     filter_regex: str,
 ) -> Optional[Match[str]]:
     """
@@ -168,19 +162,19 @@ class RequestResponse:
         return self.json_content
 
 
-def filter_paths(paths: list[str], filter_regex: str) -> list[str]:
+def filter_paths(paths: Iterable[str], filter_regex: str) -> Iterable[str]:
     """
     Filters paths from the given list.
 
     Args:
-        paths: List of paths to be filtered.
+        paths: List of paths to be filtered, in a form of an iterable.
         filter_regex: Regex to be used for filtering paths.
 
     Returns:
-        List of path that satisfy regex.
+        List of path that satisfy regex, in a from of an iterable.
     """
     pattern = re.compile(filter_regex)
-    return [path for path in paths if (not pattern or bool(pattern.search(path)))]
+    return (path for path in paths if not pattern or bool(pattern.search(path)))
 
 
 def indirect(specialized_function: Callable) -> Any:

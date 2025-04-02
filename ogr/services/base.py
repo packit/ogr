@@ -1,7 +1,9 @@
 # Copyright Contributors to the Packit project.
 # SPDX-License-Identifier: MIT
 
-from typing import Any, Optional
+import re
+from collections.abc import Iterable
+from typing import Optional, Union
 from urllib.request import urlopen
 
 from ogr.abstract import (
@@ -12,6 +14,7 @@ from ogr.abstract import (
     GitUser,
     Issue,
     IssueComment,
+    PRComment,
     PullRequest,
     Release,
 )
@@ -57,28 +60,29 @@ class BasePullRequest(PullRequest):
         filter_regex: Optional[str] = None,
         reverse: bool = False,
         author: Optional[str] = None,
-    ):
-        all_comments = self._get_all_comments()
-        return filter_comments(all_comments, filter_regex, reverse, author)
+    ) -> Union[list[PRComment], Iterable[PRComment]]:
+        all_comments = self._get_all_comments(reverse=reverse)
+        return filter_comments(all_comments, filter_regex, author)
 
     def search(
         self,
         filter_regex: str,
         reverse: bool = False,
         description: bool = True,
-    ):
-        all_comments: list[Any] = self.get_comments(reverse=reverse)
-        if description:
-            description_content = self.description
-            if reverse:
-                all_comments.append(description_content)
-            else:
-                all_comments.insert(0, description_content)
+    ) -> Optional[re.Match[str]]:
+        if description and (found_match := re.search(filter_regex, self.description)):
+            return found_match
 
-        return search_in_comments(comments=all_comments, filter_regex=filter_regex)
+        return search_in_comments(
+            comments=self.get_comments(reverse=reverse),
+            filter_regex=filter_regex,
+        )
 
-    def get_statuses(self) -> list[CommitFlag]:
-        commit = self.get_all_commits()[-1]
+    def get_statuses(self) -> Union[list[CommitFlag], Iterable[CommitFlag]]:
+        # [NOTE] Is there any reason we fetch all commits, instead of using the
+        # head commit on the PR?
+        # commit = self.get_all_commits()[-1]
+        commit = self.head_commit
         return self.target_project.get_commit_statuses(commit)
 
 
@@ -92,9 +96,9 @@ class BaseIssue(Issue):
         filter_regex: Optional[str] = None,
         reverse: bool = False,
         author: Optional[str] = None,
-    ) -> list[IssueComment]:
-        all_comments: list[IssueComment] = self._get_all_comments()
-        return filter_comments(all_comments, filter_regex, reverse, author)
+    ) -> Union[list[IssueComment], Iterable[IssueComment]]:
+        all_comments = self._get_all_comments(reverse=reverse)
+        return filter_comments(all_comments, filter_regex, author)
 
     def can_close(self, username: str) -> bool:
         return username == self.author or username in self.project.who_can_close_issue()
