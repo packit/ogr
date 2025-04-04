@@ -1,0 +1,433 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+<meta name="generator" content="pdoc3 0.11.6">
+<title>ogr.utils API documentation</title>
+<meta name="description" content="">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/sanitize.min.css" integrity="sha512-y1dtMcuvtTMJc1yPgEqF0ZjQbhnc/bFhyvIyVNb9Zk5mIGtqVaAB1Ttl28su8AvFMOY0EwRbAe+HCLqj6W7/KA==" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/typography.min.css" integrity="sha512-Y1DYSb995BAfxobCkKepB1BqJJTPrOp3zPL74AWFugHHmmdcvO+C48WLrUOlhGMc0QG7AE3f7gmvvcrmX2fDoA==" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:1.5em;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:2em 0 .50em 0}h3{font-size:1.4em;margin:1.6em 0 .7em 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .2s ease-in-out}a:visited{color:#503}a:hover{color:#b62}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900;font-weight:bold}pre code{font-size:.8em;line-height:1.4em;padding:1em;display:block}code{background:#f3f3f3;font-family:"DejaVu Sans Mono",monospace;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source > summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible;min-width:max-content}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em 1em;margin:1em 0}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul ul{padding-left:1em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js" integrity="sha512-D9gUyxqja7hBtkWpPWGt9wfbfaMGVt9gnyCvYa+jojwwPHLCzUm5i8rpk7vD7wNee9bA35eYIjobYPaQuKS1MQ==" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => {
+hljs.configure({languages: ['bash', 'css', 'diff', 'graphql', 'ini', 'javascript', 'json', 'plaintext', 'python', 'python-repl', 'rust', 'shell', 'sql', 'typescript', 'xml', 'yaml']});
+hljs.highlightAll();
+/* Collapse source docstrings */
+setTimeout(() => {
+[...document.querySelectorAll('.hljs.language-python > .hljs-string')]
+.filter(el => el.innerHTML.length > 200 && ['"""', "'''"].includes(el.innerHTML.substring(0, 3)))
+.forEach(el => {
+let d = document.createElement('details');
+d.classList.add('hljs-string');
+d.innerHTML = '<summary>"""</summary>' + el.innerHTML.substring(3);
+el.replaceWith(d);
+});
+}, 100);
+})</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>ogr.utils</code></h1>
+</header>
+<section id="section-intro">
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-functions">Functions</h2>
+<dl>
+<dt id="ogr.utils.filter_comments"><code class="name flex">
+<span>def <span class="ident">filter_comments</span></span>(<span>comments: list[~AnyComment] | Iterable[~AnyComment],<br>filter_regex: str | None = None,<br>author: str | None = None) ‑> list[~AnyComment] | Iterable[~AnyComment]</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def filter_comments(
+    comments: Union[list[AnyComment], Iterable[AnyComment]],
+    filter_regex: Optional[str] = None,
+    author: Optional[str] = None,
+) -&gt; Union[list[AnyComment], Iterable[AnyComment]]:
+    &#34;&#34;&#34;
+    Filters comments from the given list.
+
+    Args:
+        comments: List of comments to be filtered.
+        filter_regex: Regex to be used for filtering body of the
+            comments.
+
+            Defaults to `None`, which means no filtering by regex.
+        author: Login of the author of the comments.
+
+            Defaults to `None`, which means no filtering by author.
+
+    Returns:
+        List of comments that satisfy requested criteria.
+    &#34;&#34;&#34;
+    if filter_regex or author:
+        pattern = None
+        if filter_regex:
+            pattern = re.compile(filter_regex)
+
+        comments = list(
+            filter(
+                lambda comment: (not pattern or bool(pattern.search(comment.body)))
+                and (not author or comment.author == author),
+                comments,
+            ),
+        )
+    return comments</code></pre>
+</details>
+<div class="desc"><p>Filters comments from the given list.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>comments</code></strong></dt>
+<dd>List of comments to be filtered.</dd>
+<dt><strong><code>filter_regex</code></strong></dt>
+<dd>
+<p>Regex to be used for filtering body of the
+comments.</p>
+<p>Defaults to <code>None</code>, which means no filtering by regex.</p>
+</dd>
+<dt><strong><code>author</code></strong></dt>
+<dd>
+<p>Login of the author of the comments.</p>
+<p>Defaults to <code>None</code>, which means no filtering by author.</p>
+</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p>List of comments that satisfy requested criteria.</p></div>
+</dd>
+<dt id="ogr.utils.filter_paths"><code class="name flex">
+<span>def <span class="ident">filter_paths</span></span>(<span>paths: Iterable[str], filter_regex: str) ‑> Iterable[str]</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def filter_paths(paths: Iterable[str], filter_regex: str) -&gt; Iterable[str]:
+    &#34;&#34;&#34;
+    Filters paths from the given list.
+
+    Args:
+        paths: List of paths to be filtered, in a form of an iterable.
+        filter_regex: Regex to be used for filtering paths.
+
+    Returns:
+        List of path that satisfy regex, in a from of an iterable.
+    &#34;&#34;&#34;
+    pattern = re.compile(filter_regex)
+    return (path for path in paths if not pattern or bool(pattern.search(path)))</code></pre>
+</details>
+<div class="desc"><p>Filters paths from the given list.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>paths</code></strong></dt>
+<dd>List of paths to be filtered, in a form of an iterable.</dd>
+<dt><strong><code>filter_regex</code></strong></dt>
+<dd>Regex to be used for filtering paths.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p>List of path that satisfy regex, in a from of an iterable.</p></div>
+</dd>
+<dt id="ogr.utils.indirect"><code class="name flex">
+<span>def <span class="ident">indirect</span></span>(<span>specialized_function: Callable) ‑> Any</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def indirect(specialized_function: Callable) -&gt; Any:
+    &#34;&#34;&#34;
+    Decorator to wrap methods on `GitProject`s that call specialized classes.
+
+    Args:
+        specialized_function: Static method of the specialized class
+            that takes as first argument the `GitProject` itself.
+
+    Returns:
+        Decorator that calls `specialized_function` once called.
+    &#34;&#34;&#34;
+
+    def indirect_caller(func):
+        @functools.wraps(func)
+        def indirectly_called(self, *args, **kwargs):
+            return specialized_function(self, *args, **kwargs)
+
+        return indirectly_called
+
+    return indirect_caller</code></pre>
+</details>
+<div class="desc"><p>Decorator to wrap methods on <code>GitProject</code>s that call specialized classes.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>specialized_function</code></strong></dt>
+<dd>Static method of the specialized class
+that takes as first argument the <code>GitProject</code> itself.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p>Decorator that calls <code>specialized_function</code> once called.</p></div>
+</dd>
+<dt id="ogr.utils.search_in_comments"><code class="name flex">
+<span>def <span class="ident">search_in_comments</span></span>(<span>comments: Iterable[str | <a title="ogr.abstract.Comment" href="abstract.html#ogr.abstract.Comment">Comment</a>],<br>filter_regex: str) ‑> re.Match[str] | None</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def search_in_comments(
+    comments: Iterable[Union[str, Comment]],
+    filter_regex: str,
+) -&gt; Optional[Match[str]]:
+    &#34;&#34;&#34;
+    Find match in pull request description or comments.
+
+    Args:
+        comments: List of comments or bodies of comments
+            to be searched through.
+        filter_regex: Regex to be used for filtering with `re.search`.
+
+    Returns:
+        Match that has been found, `None` otherwise.
+    &#34;&#34;&#34;
+    pattern = re.compile(filter_regex)
+    for comment in comments:
+        if isinstance(comment, Comment):
+            comment = comment.body
+        re_search = pattern.search(comment)
+        if re_search:
+            return re_search
+    return None</code></pre>
+</details>
+<div class="desc"><p>Find match in pull request description or comments.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>comments</code></strong></dt>
+<dd>List of comments or bodies of comments
+to be searched through.</dd>
+<dt><strong><code>filter_regex</code></strong></dt>
+<dd>Regex to be used for filtering with <code>re.search</code>.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p>Match that has been found, <code>None</code> otherwise.</p></div>
+</dd>
+</dl>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="ogr.utils.RequestResponse"><code class="flex name class">
+<span>class <span class="ident">RequestResponse</span></span>
+<span>(</span><span>status_code: int,<br>ok: bool,<br>content: bytes,<br>json: dict[typing.Any, typing.Any] | None = None,<br>reason: str | None = None,<br>headers: list[tuple[typing.Any, typing.Any]] | None = None,<br>links: list[str] | None = None,<br>exception: dict[typing.Any, typing.Any] | None = None)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class RequestResponse:
+    &#34;&#34;&#34;
+    Class that holds response for Pagure requests.
+
+    Attributes:
+        status_code (int): Status code of the response.
+        ok (bool): `True` if successful, `False` otherwise.
+        content (bytes): Content of the response.
+        json_content (Optional[Dict[Any, Any]]): JSON content of the response.
+    &#34;&#34;&#34;
+
+    def __init__(
+        self,
+        status_code: int,
+        ok: bool,
+        content: bytes,
+        json: Optional[dict[Any, Any]] = None,
+        reason: Optional[str] = None,
+        headers: Optional[list[tuple[Any, Any]]] = None,
+        links: Optional[list[str]] = None,
+        exception: Optional[dict[Any, Any]] = None,
+    ) -&gt; None:
+        self.status_code = status_code
+        self.ok = ok
+        self.content = content
+        self.json_content = json
+        self.reason = reason
+        self.headers = dict(headers) if headers else None
+        self.links = links
+        self.exception = exception
+
+    def __str__(self) -&gt; str:
+        return (
+            f&#34;RequestResponse(&#34;
+            f&#34;status_code={self.status_code}, &#34;
+            f&#34;ok={self.ok}, &#34;
+            f&#34;content={self.content.decode()}, &#34;
+            f&#34;json={self.json_content}, &#34;
+            f&#34;reason={self.reason}, &#34;
+            f&#34;headers={self.headers}, &#34;
+            f&#34;links={self.links}, &#34;
+            f&#34;exception={self.exception})&#34;
+        )
+
+    def __eq__(self, o: object) -&gt; bool:
+        if not isinstance(o, RequestResponse):
+            return False
+        return (
+            self.status_code == o.status_code
+            and self.ok == o.ok
+            and self.content == o.content
+            and self.json_content == o.json_content
+            and self.reason == o.reason
+            and self.headers == o.headers
+            and self.links == o.links
+            and self.exception == o.exception
+        )
+
+    def to_json_format(self) -&gt; dict[str, Any]:
+        &#34;&#34;&#34;
+        Returns:
+            Response in a JSON format.
+        &#34;&#34;&#34;
+        output = {
+            &#34;status_code&#34;: self.status_code,
+            &#34;ok&#34;: self.ok,
+            &#34;content&#34;: self.content,
+        }
+        if self.json_content:
+            output[&#34;json&#34;] = self.json_content
+        if self.reason:
+            output[&#34;reason&#34;] = self.reason
+        if self.headers:
+            output[&#34;headers&#34;] = self.headers
+        if self.links:
+            output[&#34;links&#34;] = self.links
+        if self.exception:
+            output[&#34;exception&#34;] = self.exception
+        return output
+
+    def json(self) -&gt; Optional[dict[Any, Any]]:
+        &#34;&#34;&#34;
+        Returns:
+            JSON content of the response.
+        &#34;&#34;&#34;
+        return self.json_content</code></pre>
+</details>
+<div class="desc"><p>Class that holds response for Pagure requests.</p>
+<h2 id="attributes">Attributes</h2>
+<dl>
+<dt><strong><code>status_code</code></strong> :&ensp;<code>int</code></dt>
+<dd>Status code of the response.</dd>
+<dt><strong><code>ok</code></strong> :&ensp;<code>bool</code></dt>
+<dd><code>True</code> if successful, <code>False</code> otherwise.</dd>
+<dt><strong><code>content</code></strong> :&ensp;<code>bytes</code></dt>
+<dd>Content of the response.</dd>
+<dt><strong><code>json_content</code></strong> :&ensp;<code>Optional[Dict[Any, Any]]</code></dt>
+<dd>JSON content of the response.</dd>
+</dl></div>
+<h3>Methods</h3>
+<dl>
+<dt id="ogr.utils.RequestResponse.json"><code class="name flex">
+<span>def <span class="ident">json</span></span>(<span>self) ‑> dict[typing.Any, typing.Any] | None</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def json(self) -&gt; Optional[dict[Any, Any]]:
+    &#34;&#34;&#34;
+    Returns:
+        JSON content of the response.
+    &#34;&#34;&#34;
+    return self.json_content</code></pre>
+</details>
+<div class="desc"><h2 id="returns">Returns</h2>
+<p>JSON content of the response.</p></div>
+</dd>
+<dt id="ogr.utils.RequestResponse.to_json_format"><code class="name flex">
+<span>def <span class="ident">to_json_format</span></span>(<span>self) ‑> dict[str, typing.Any]</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def to_json_format(self) -&gt; dict[str, Any]:
+    &#34;&#34;&#34;
+    Returns:
+        Response in a JSON format.
+    &#34;&#34;&#34;
+    output = {
+        &#34;status_code&#34;: self.status_code,
+        &#34;ok&#34;: self.ok,
+        &#34;content&#34;: self.content,
+    }
+    if self.json_content:
+        output[&#34;json&#34;] = self.json_content
+    if self.reason:
+        output[&#34;reason&#34;] = self.reason
+    if self.headers:
+        output[&#34;headers&#34;] = self.headers
+    if self.links:
+        output[&#34;links&#34;] = self.links
+    if self.exception:
+        output[&#34;exception&#34;] = self.exception
+    return output</code></pre>
+</details>
+<div class="desc"><h2 id="returns">Returns</h2>
+<p>Response in a JSON format.</p></div>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="ogr" href="index.html">ogr</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-functions">Functions</a></h3>
+<ul class="">
+<li><code><a title="ogr.utils.filter_comments" href="#ogr.utils.filter_comments">filter_comments</a></code></li>
+<li><code><a title="ogr.utils.filter_paths" href="#ogr.utils.filter_paths">filter_paths</a></code></li>
+<li><code><a title="ogr.utils.indirect" href="#ogr.utils.indirect">indirect</a></code></li>
+<li><code><a title="ogr.utils.search_in_comments" href="#ogr.utils.search_in_comments">search_in_comments</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="ogr.utils.RequestResponse" href="#ogr.utils.RequestResponse">RequestResponse</a></code></h4>
+<ul class="">
+<li><code><a title="ogr.utils.RequestResponse.json" href="#ogr.utils.RequestResponse.json">json</a></code></li>
+<li><code><a title="ogr.utils.RequestResponse.to_json_format" href="#ogr.utils.RequestResponse.to_json_format">to_json_format</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.11.6</a>.</p>
+</footer>
+</body>
+</html>
