@@ -66,7 +66,7 @@ class PagureIssue(BaseIssue):
         try:
             return self._raw_issue["assignee"]["name"]
         except Exception:
-            return None
+            raise ValueError("Error: Issue does not have an assignee")
 
     @property
     def description(self) -> str:

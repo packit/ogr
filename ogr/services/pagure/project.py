@@ -1,9 +1,9 @@
 # Copyright Contributors to the Packit project.
 # SPDX-License-Identifier: MIT
-
 import logging
+import time
 from collections.abc import Iterable
-from typing import ClassVar, Optional
+from typing import ClassVar, NoReturn, Optional
 from urllib.parse import urlparse
 
 from ogr.abstract import (
@@ -54,6 +54,10 @@ class PagureProject(BaseGitProject):
         username: Optional[str] = None,
         is_fork: bool = False,
     ) -> None:
+        if namespace is None:
+            return ValueError("Error : namespace is None type")
+        if username is None:
+            return ValueError("Error : username is None type")
         super().__init__(repo, service, namespace)
         self.read_only = service.read_only
 
@@ -251,7 +255,7 @@ class PagureProject(BaseGitProject):
         )
         return username in accounts_that_can_merge_pr
 
-    def request_access(self):
+    def request_access(self) -> NoReturn:
         raise OperationNotSupported("Not possible on Pagure")
 
     @indirect(PagureIssue.get_list)
@@ -262,14 +266,36 @@ class PagureProject(BaseGitProject):
         assignee: Optional[str] = None,
         labels: Optional[list[str]] = None,
     ) -> list[Issue]:
-        pass
+        # Build parameters for filtering the issue list.
+        # # Adjust parameter names to match the Pagure API.
+        params = {
+            "status": status.name,  # Assuming the API expects a string; adjust if necessary
+        }
+        if author is not None:
+            params["author"] = author
+        if assignee is not None:
+            params["assignee"] = assignee
+        if labels is not None:
+            params["labels"] = ",".join(labels)
+        # Call the Pagure API for listing issues.
+        # The endpoint "issue/list" is used as an example; adjust as needed.
+        response = self._call_project_api("issue", "list", method="GET", data=params)
+        # Assume the response contains a key "issues" with a list of raw issue data.
+        raw_issues = response.get("issues", [])
+        issues = [PagureIssue(raw_issue, self) for raw_issue in raw_issues]
+        return issues
 
     @indirect(PagureIssue.get)
     def get_issue(self, issue_id: int) -> Issue:
-        pass
+        response = self._call_project_api(
+            f"issue/{issue_id}",
+            method="GET",
+        )
+        return PagureIssue(response, self)
 
     def delete(self) -> None:
         self._call_project_api_raw("delete", method="POST")
+        return
 
     @indirect(PagureIssue.create)
     def create_issue(
@@ -280,7 +306,29 @@ class PagureProject(BaseGitProject):
         labels: Optional[list[str]] = None,
         assignees: Optional[list[str]] = None,
     ) -> Issue:
-        pass
+        data = {
+            "title": title,
+            "initial_comment": body,
+        }
+        if private is not None:
+            data["private"] = private
+        if labels is not None:
+            # Depending on the API, you might need to send labels as a comma-separated string
+            data["labels"] = ",".join(labels)
+        if assignees is not None:
+            # Similarly, assignees might be expected as a comma-separated list
+            data["assignees"] = ",".join(assignees)
+        # Call the Pagure API for issue creation.
+        # The endpoint "issue/new" is used as an example; adjust as needed.
+        response = self._call_project_api("issue", "new", method="POST", data=data)
+
+        # Check for a successful response (adjust based on the actual response format)
+        if not response.get("issue_created", False):
+            raise PagureAPIException("Issue has not been created")
+
+        # Create and return a new PagureIssue instance.
+        # Here, 'response' is expected to contain the raw issue data.
+        return PagureIssue(response, self)
 
     @indirect(PagurePullRequest.get_list)
     def get_pr_list(
@@ -289,11 +337,21 @@ class PagureProject(BaseGitProject):
         assignee=None,
         author=None,
     ) -> list[PullRequest]:
-        pass
+        params = {"status": status.value}
+        if assignee:
+            params["assignee"] = assignee
+        if author:
+            params["author"] = author
+        response = self._call_project_api("pull-requests", method="GET", params=params)
+        return [PagurePullRequest(pr, self) for pr in response]
 
     @indirect(PagurePullRequest.get)
     def get_pr(self, pr_id: int) -> PullRequest:
-        pass
+        response = self._call_project_api(
+            f"pull-request/{pr_id}",
+            method="GET",
+        )
+        return PagurePullRequest(response, self)
 
     @indirect(PagurePullRequest.get_files_diff)
     def get_pr_files_diff(
@@ -302,7 +360,18 @@ class PagureProject(BaseGitProject):
         retries: int = 0,
         wait_seconds: int = 3,
     ) -> dict:
-        pass
+        for _ in range(retries + 1):
+            try:
+                response = self._call_project_api(
+                    f"pull-request/{pr_id}/diff",
+                    method="GET",
+                )
+                return response
+            except Exception as e:
+                if _ < retries:
+                    time.sleep(wait_seconds)
+                else:
+                    raise e
 
     @if_readonly(return_function=GitProjectReadOnly.create_pr)
     @indirect(PagurePullRequest.create)
@@ -314,7 +383,36 @@ class PagureProject(BaseGitProject):
         source_branch: str,
         fork_username: Optional[str] = None,
     ) -> PullRequest:
-        pass
+        data = {
+            "title": title,
+            "branch_to": target_branch,
+            "branch_from": source_branch,
+            "initial_comment": body,
+        }
+        caller = self
+        if self.is_fork:
+            data["repo_from"] = self.repo
+            data["repo_from_username"] = self._username
+            data["repo_from_namespace"] = self.namespace
+            caller = caller.parent
+        elif fork_username:
+            fork_project = self.service.get_project(
+                username=fork_username,
+                repo=self.repo,
+                namespace=self.namespace,
+                is_fork=True,
+            )
+            data["repo_from_username"] = fork_username
+            data["repo_from"] = fork_project.repo
+            data["repo_from_namespace"] = fork_project.namespace
+
+        response = caller._call_project_api(
+            "pull-request",
+            "new",
+            method="POST",
+            data=data,
+        )
+        return PagurePullRequest(response, caller)
 
     @if_readonly(return_function=GitProjectReadOnly.fork_create)
     def fork_create(self, namespace: Optional[str] = None) -> "PagureProject":
