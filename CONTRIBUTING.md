@@ -58,7 +58,7 @@ As a CI we use [Zuul](https://softwarefactory-project.io/zuul/t/local/builds?pro
 If you want to re-run CI/tests in a pull request, just include `recheck` in a comment.
 
 When running the tests we use the pregenerated responses that are saved in ./tests/integration/test_data.
-If you need to generate a new file, just run the tests and provide environment variables for the service, e.g. `GITHUB_TOKEN`, `GITLAB_TOKEN`, `PAGURE_TOKEN`. Some API endpoints of Pagure require setting up token for a project: `PAGURE_OGR_TEST_TOKEN`.
+If you need to generate a new file, just run the tests and provide environment variables for the service, e.g. `GITHUB_TOKEN`, `GITLAB_TOKEN`, `PAGURE_TOKEN`, `FORGEJO_TOKEN`. Some API endpoints of Pagure require setting up token for a project: `PAGURE_OGR_TEST_TOKEN`.
 The missing file will be automatically generated from the real response. Do not forget to commit the file as well.
 
 If you need to regenerate a response file, just remove it and rerun the tests.
