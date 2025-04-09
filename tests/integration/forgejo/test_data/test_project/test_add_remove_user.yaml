@@ -1,0 +1,64 @@
+_requre:
+  DataTypes: 1
+  key_strategy: StorageKeysInspectSimple
+  version_storage_file: 3
+httpx._client:
+  send:
+    DELETE:
+      https://v10.next.forgejo.org/api/v1/repos/packit-validator/ogr-tests/collaborators/lbarcziova:
+      - metadata:
+          latency: 0.40206241607666016
+          module_call_list:
+          - requre.record_and_replace
+          - tests.integration.forgejo.test_project
+          - ogr.abstract
+          - ogr.services.forgejo.project
+          - pyforgejo.repository.client
+          - pyforgejo.core.http_client
+          - httpx._client
+          - requre.objects
+          - requre.cassette
+          - httpx._client
+          - send
+        output:
+          __store_indicator: 1
+          _content: ''
+          _elapsed: 0.401719
+          encoding: utf-8
+          headers:
+            cache-control: max-age=0, private, must-revalidate, no-transform
+            date: Tue, 08 Apr 2025 18:42:25 GMT
+            vary: Origin
+            x-content-type-options: nosniff
+            x-frame-options: SAMEORIGIN
+          next_request: null
+          status_code: 204
+    PUT:
+      https://v10.next.forgejo.org/api/v1/repos/packit-validator/ogr-tests/collaborators/lbarcziova:
+      - metadata:
+          latency: 0.831289529800415
+          module_call_list:
+          - requre.record_and_replace
+          - tests.integration.forgejo.test_project
+          - ogr.abstract
+          - ogr.services.forgejo.project
+          - pyforgejo.repository.client
+          - pyforgejo.core.http_client
+          - httpx._client
+          - requre.objects
+          - requre.cassette
+          - httpx._client
+          - send
+        output:
+          __store_indicator: 1
+          _content: ''
+          _elapsed: 0.831017
+          encoding: utf-8
+          headers:
+            cache-control: max-age=0, private, must-revalidate, no-transform
+            date: Tue, 08 Apr 2025 18:42:25 GMT
+            vary: Origin
+            x-content-type-options: nosniff
+            x-frame-options: SAMEORIGIN
+          next_request: null
+          status_code: 204
