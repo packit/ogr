@@ -4,6 +4,7 @@
 import pytest
 from requre.helpers import record_httpx
 
+from ogr.abstract import AccessLevel
 from ogr.exceptions import ForgejoAPIException
 
 
@@ -211,3 +212,43 @@ def test_has_issues(service, project):
         namespace="packit-validator",
         repo="test",
     ).has_issues
+
+
+@record_httpx()
+def test_get_owners(project):
+    owners = project.get_owners()
+    assert owners == ["packit-validator"]
+
+
+@record_httpx()
+def test_get_contributors(project):
+    users = project.get_contributors()
+    assert users == {"mfocko", "packit-validator"}
+
+
+@record_httpx()
+def test_issue_permissions(project):
+    users = project.who_can_close_issue()
+    assert "mfocko" in users
+
+
+@record_httpx()
+def test_pr_permissions(project):
+    users = project.who_can_merge_pr()
+    assert "mfocko" in users
+    assert not project.can_merge_pr("lbarcziova")
+
+
+@record_httpx()
+def test_get_users_with_given_access(project):
+    maintainers = project.get_users_with_given_access([AccessLevel.maintain])
+    assert "packit-validator" in maintainers
+
+    admins = project.get_users_with_given_access([AccessLevel.admin])
+    assert "mfocko" in admins
+
+
+@record_httpx()
+def test_add_remove_user(project):
+    project.add_user("lbarcziova", AccessLevel.push)
+    project.remove_user("lbarcziova")
