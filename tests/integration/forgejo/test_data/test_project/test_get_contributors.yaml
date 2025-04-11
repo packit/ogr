@@ -7,10 +7,12 @@ httpx._client:
     GET:
       https://v10.next.forgejo.org/api/v1/repos/packit-validator/ogr-tests:
       - metadata:
-          latency: 0.22250580787658691
+          latency: 0.2857069969177246
           module_call_list:
           - requre.record_and_replace
           - tests.integration.forgejo.test_project
+          - ogr.abstract
+          - ogr.services.forgejo.project
           - ogr.abstract
           - ogr.services.forgejo.project
           - ogr.abstract
@@ -120,12 +122,12 @@ httpx._client:
             watchers_count: 1
             website: ''
             wiki_branch: master
-          _elapsed: 0.22227
+          _elapsed: 0.285493
           encoding: utf-8
           headers:
             cache-control: max-age=0, private, must-revalidate, no-transform
             content-type: application/json;charset=utf-8
-            date: Tue, 08 Apr 2025 19:01:50 GMT
+            date: Fri, 11 Apr 2025 13:34:00 GMT
             transfer-encoding: chunked
             vary: Origin
             x-content-type-options: nosniff
@@ -134,7 +136,7 @@ httpx._client:
           status_code: 200
       https://v10.next.forgejo.org/api/v1/repos/packit-validator/ogr-tests/collaborators:
       - metadata:
-          latency: 0.4366331100463867
+          latency: 0.4319467544555664
           module_call_list:
           - requre.record_and_replace
           - tests.integration.forgejo.test_project
@@ -176,17 +178,53 @@ httpx._client:
             username: mfocko
             visibility: public
             website: ''
-          _elapsed: 0.436326
+          _elapsed: 0.431688
           encoding: utf-8
           headers:
             access-control-expose-headers: X-Total-Count
             cache-control: max-age=0, private, must-revalidate, no-transform
             content-length: '576'
             content-type: application/json;charset=utf-8
-            date: Tue, 08 Apr 2025 19:01:50 GMT
+            date: Fri, 11 Apr 2025 13:33:59 GMT
             vary: Origin
             x-content-type-options: nosniff
             x-frame-options: SAMEORIGIN
             x-total-count: '1'
           next_request: null
           status_code: 200
+      https://v10.next.forgejo.org/api/v1/repos/packit-validator/ogr-tests/teams:
+      - metadata:
+          latency: 0.22438693046569824
+          module_call_list:
+          - requre.record_and_replace
+          - tests.integration.forgejo.test_project
+          - ogr.abstract
+          - ogr.services.forgejo.project
+          - ogr.abstract
+          - ogr.services.forgejo.project
+          - ogr.abstract
+          - ogr.services.forgejo.project
+          - pyforgejo.repository.client
+          - pyforgejo.core.http_client
+          - httpx._client
+          - requre.objects
+          - requre.cassette
+          - httpx._client
+          - send
+        output:
+          __store_indicator: 2
+          _content:
+            message: repo is not owned by an organization
+            url: https://v10.next.forgejo.org/api/swagger
+          _elapsed: 0.224212
+          encoding: utf-8
+          headers:
+            cache-control: max-age=0, private, must-revalidate, no-transform
+            content-length: '100'
+            content-type: application/json;charset=utf-8
+            date: Fri, 11 Apr 2025 13:34:00 GMT
+            vary: Origin
+            x-content-type-options: nosniff
+            x-frame-options: SAMEORIGIN
+          next_request: null
+          status_code: 405

@@ -224,6 +224,28 @@ class ForgejoProject(BaseGitProject):
     def get_owners(self) -> list[str]:
         return [self.forgejo_repo.owner.username]
 
+    def _get_owner_or_org_collaborators(self) -> set[str]:
+        namespace = self.get_owners()[0]
+        try:
+            teams = self.api.repo_list_teams(
+                owner=self.namespace,
+                repo=self.repo,
+            )
+        except Exception as ex:
+            # no teams, repo owned by regular user
+            if "not owned by an organization" in str(ex):
+                return {namespace}
+            raise
+
+        # repo owned by org, each org can have multiple teams with
+        # different levels of access
+        collaborators: set[str] = set()
+        for team in teams:
+            members = self.service.api.organization.org_list_team_members(team.id)
+            collaborators.update(user.username for user in members)
+
+        return collaborators
+
     def _get_collaborators(self) -> list[str]:
         return [
             c.username
@@ -231,7 +253,7 @@ class ForgejoProject(BaseGitProject):
                 owner=self.namespace,
                 repo=self.repo,
             )
-        ] + self.get_owners()
+        ] + list(self._get_owner_or_org_collaborators())
 
     def _get_collaborators_with_access(self) -> dict[str, str]:
         return {

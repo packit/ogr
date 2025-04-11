@@ -7,10 +7,16 @@ httpx._client:
     GET:
       https://v10.next.forgejo.org/api/v1/repos/packit-validator/ogr-tests:
       - metadata:
-          latency: 0.23102498054504395
+          latency: 0.393721342086792
           module_call_list:
           - requre.record_and_replace
           - tests.integration.forgejo.test_project
+          - ogr.abstract
+          - ogr.services.forgejo.project
+          - ogr.abstract
+          - ogr.services.forgejo.project
+          - ogr.abstract
+          - ogr.services.forgejo.project
           - ogr.abstract
           - ogr.services.forgejo.project
           - ogr.abstract
@@ -120,12 +126,12 @@ httpx._client:
             watchers_count: 1
             website: ''
             wiki_branch: master
-          _elapsed: 0.230716
+          _elapsed: 0.393435
           encoding: utf-8
           headers:
             cache-control: max-age=0, private, must-revalidate, no-transform
             content-type: application/json;charset=utf-8
-            date: Tue, 08 Apr 2025 18:24:56 GMT
+            date: Fri, 11 Apr 2025 13:37:51 GMT
             transfer-encoding: chunked
             vary: Origin
             x-content-type-options: nosniff
@@ -134,10 +140,14 @@ httpx._client:
           status_code: 200
       https://v10.next.forgejo.org/api/v1/repos/packit-validator/ogr-tests/collaborators:
       - metadata:
-          latency: 0.31401848793029785
+          latency: 0.5264222621917725
           module_call_list:
           - requre.record_and_replace
           - tests.integration.forgejo.test_project
+          - ogr.abstract
+          - ogr.services.forgejo.project
+          - ogr.abstract
+          - ogr.services.forgejo.project
           - ogr.abstract
           - ogr.services.forgejo.project
           - ogr.abstract
@@ -176,14 +186,14 @@ httpx._client:
             username: mfocko
             visibility: public
             website: ''
-          _elapsed: 0.313761
+          _elapsed: 0.526169
           encoding: utf-8
           headers:
             access-control-expose-headers: X-Total-Count
             cache-control: max-age=0, private, must-revalidate, no-transform
             content-length: '576'
             content-type: application/json;charset=utf-8
-            date: Tue, 08 Apr 2025 18:24:56 GMT
+            date: Fri, 11 Apr 2025 13:37:51 GMT
             vary: Origin
             x-content-type-options: nosniff
             x-frame-options: SAMEORIGIN
@@ -192,10 +202,12 @@ httpx._client:
           status_code: 200
       https://v10.next.forgejo.org/api/v1/repos/packit-validator/ogr-tests/collaborators/mfocko/permission:
       - metadata:
-          latency: 0.3810129165649414
+          latency: 0.2216343879699707
           module_call_list:
           - requre.record_and_replace
           - tests.integration.forgejo.test_project
+          - ogr.abstract
+          - ogr.services.forgejo.project
           - ogr.abstract
           - ogr.services.forgejo.project
           - ogr.abstract
@@ -237,13 +249,13 @@ httpx._client:
               username: mfocko
               visibility: public
               website: ''
-          _elapsed: 0.380734
+          _elapsed: 0.221391
           encoding: utf-8
           headers:
             cache-control: max-age=0, private, must-revalidate, no-transform
             content-length: '624'
             content-type: application/json;charset=utf-8
-            date: Tue, 08 Apr 2025 18:24:57 GMT
+            date: Fri, 11 Apr 2025 13:37:52 GMT
             vary: Origin
             x-content-type-options: nosniff
             x-frame-options: SAMEORIGIN
@@ -251,10 +263,12 @@ httpx._client:
           status_code: 200
       https://v10.next.forgejo.org/api/v1/repos/packit-validator/ogr-tests/collaborators/packit-validator/permission:
       - metadata:
-          latency: 0.23930954933166504
+          latency: 0.31739068031311035
           module_call_list:
           - requre.record_and_replace
           - tests.integration.forgejo.test_project
+          - ogr.abstract
+          - ogr.services.forgejo.project
           - ogr.abstract
           - ogr.services.forgejo.project
           - ogr.abstract
@@ -296,15 +310,55 @@ httpx._client:
               username: packit-validator
               visibility: public
               website: ''
-          _elapsed: 0.239038
+          _elapsed: 0.317195
           encoding: utf-8
           headers:
             cache-control: max-age=0, private, must-revalidate, no-transform
             content-length: '650'
             content-type: application/json;charset=utf-8
-            date: Tue, 08 Apr 2025 18:24:57 GMT
+            date: Fri, 11 Apr 2025 13:37:52 GMT
             vary: Origin
             x-content-type-options: nosniff
             x-frame-options: SAMEORIGIN
           next_request: null
           status_code: 200
+      https://v10.next.forgejo.org/api/v1/repos/packit-validator/ogr-tests/teams:
+      - metadata:
+          latency: 0.24696755409240723
+          module_call_list:
+          - requre.record_and_replace
+          - tests.integration.forgejo.test_project
+          - ogr.abstract
+          - ogr.services.forgejo.project
+          - ogr.abstract
+          - ogr.services.forgejo.project
+          - ogr.abstract
+          - ogr.services.forgejo.project
+          - ogr.abstract
+          - ogr.services.forgejo.project
+          - ogr.abstract
+          - ogr.services.forgejo.project
+          - pyforgejo.repository.client
+          - pyforgejo.core.http_client
+          - httpx._client
+          - requre.objects
+          - requre.cassette
+          - httpx._client
+          - send
+        output:
+          __store_indicator: 2
+          _content:
+            message: repo is not owned by an organization
+            url: https://v10.next.forgejo.org/api/swagger
+          _elapsed: 0.246732
+          encoding: utf-8
+          headers:
+            cache-control: max-age=0, private, must-revalidate, no-transform
+            content-length: '100'
+            content-type: application/json;charset=utf-8
+            date: Fri, 11 Apr 2025 13:37:52 GMT
+            vary: Origin
+            x-content-type-options: nosniff
+            x-frame-options: SAMEORIGIN
+          next_request: null
+          status_code: 405
