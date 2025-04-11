@@ -486,6 +486,13 @@ class Issue(OgrAbstractClass):
         """
         raise NotImplementedError()
 
+    def who_can_close() -> set[str]:
+        """
+        Returns:
+            Set of usernames who can close the issue.
+        """
+        raise NotImplementedError()
+
     def can_close(self, username: str) -> bool:
         """
         Check if user have permissions to modify an issue.
@@ -907,6 +914,34 @@ class PullRequest(OgrAbstractClass):
 
         Returns:
             Pull request itself.
+        """
+        raise NotImplementedError()
+
+    def who_can_close() -> set[str]:
+        """
+        Returns:
+            Set of usernames who can close the pull request.
+        """
+        raise NotImplementedError()
+
+    def who_can_merge() -> set[str]:
+        """
+        Returns:
+            Set of usernames who can merge the pull request.
+        """
+        raise NotImplementedError()
+
+    def can_close(self, username: str) -> bool:
+        """
+        Returns:
+            `True` if user can close the pull request, `False` otherwise.
+        """
+        raise NotImplementedError()
+
+    def can_merge(self, username: str) -> bool:
+        """
+        Returns:
+            `True` if user can merge the pull request, `False` otherwise.
         """
         raise NotImplementedError()
 
@@ -1557,6 +1592,16 @@ class GitProject(OgrAbstractClass):
         """
         Returns:
             Names of all users who have permission to modify an issue.
+        """
+        raise NotImplementedError()
+
+    def can_close_issue(username: str) -> bool:
+        """
+        Args:
+            username: Login of the user.
+
+        Returns:
+            `True` if user can close the issue, `False` otherwise.
         """
         raise NotImplementedError()
 
