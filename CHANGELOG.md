@@ -1,4 +1,6 @@
-# 0.52.1
+# 0.53.0
+
+- Added support for Forgejo projects. (#893)
 
 # 0.52.0
 
