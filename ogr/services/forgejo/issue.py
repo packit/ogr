@@ -1,19 +1,17 @@
 # Copyright Contributors to the Packit project.
 # SPDX-License-Identifier: MIT
-import re
 from datetime import datetime
-from typing import Any, Optional, Type, Union
+from functools import partial
+from typing import Any, Optional, Type, Union, Iterable
 
 import pyforgejo.types.issue as _issue
 from pyforgejo import NotFoundError
 
-from ogr.abstract import Issue, IssueComment, IssueLabel, IssueStatus
-from ogr.exceptions import IssueTrackerDisabled
+from ogr.abstract import Issue, IssueStatus
+from ogr.exceptions import IssueTrackerDisabled, OperationNotSupported
 from ogr.services import forgejo
 from ogr.services.base import BaseIssue
-from ogr.services.forgejo.comments import ForgejoIssueComment
-from ogr.services.forgejo.label import ForgejoIssueLabel
-
+from ogr.services.forgejo.utils import paginate
 
 class ForgejoIssue(BaseIssue):
     project: "forgejo.ForgejoProject"
@@ -26,13 +24,35 @@ class ForgejoIssue(BaseIssue):
     def _index(self):
         return self._raw_issue.number
 
+    @property
+    def api(self):
+        """Returns the issue API client from pyforgejo."""
+        return self.project.service.api.issue
+
+    def partial_api(self, method, /, *args, **kwargs):
+        """Returns a partial API call for ForgejoIssue.
+
+        Injects owner, repo, and index parameters for the calls to issue API endpoints.
+
+        Args:
+            method: Specific method on the Pyforgejo API that is to be wrapped.
+            *args: Positional arguments that get injected into every call.
+            **kwargs: Keyword-arguments that get injected into every call.
+
+        Returns:
+            Callable with pre-injected parameters.
+        """
+        params = {"owner": self.project.namespace, "repo": self.project.repo}
+
+        # Include the issue index only for methods that need it
+        if "get_issue" in str(method) or "edit_issue" in str(method):
+            params["index"] = self._index
+
+        return partial(method, *args, **kwargs, **params)
+
     def __update_info(self) -> None:
         """Refresh the local issue object with the latest data from the server."""
-        self._raw_issue = self.project.service.api.issue.get_issue(
-            owner=self.project.namespace,
-            repo=self.project.repo,
-            index=self._index,
-        )
+        self._raw_issue = self.partial_api(self.api.get_issue)()
 
     @property
     def title(self) -> str:
@@ -40,10 +60,7 @@ class ForgejoIssue(BaseIssue):
 
     @title.setter
     def title(self, new_title: str) -> None:
-        self._api_call(
-            self.project.service.api.issue.edit_issue,
-            title=new_title,
-        )
+        self.partial_api(self.api.edit_issue)(title=new_title)
         self.__update_info()
 
     @property
@@ -60,7 +77,7 @@ class ForgejoIssue(BaseIssue):
 
     @description.setter
     def description(self, text: str):
-        self._api_call(self.project.service.api.issue.edit_issue, body=text)
+        self.partial_api(self.api.edit_issue)(body=text)
         self.__update_info()
 
     @property
@@ -72,26 +89,21 @@ class ForgejoIssue(BaseIssue):
         return self._raw_issue.created_at
 
     @property
-    def status(self) -> Type[IssueStatus[Any]]:
+    def status(self) -> IssueStatus:
         return IssueStatus[self._raw_issue.state]
 
     @property
     def assignees(self) -> list:
         return getattr(self._raw_issue, "assignees", []) or []
 
-    @property
-    def labels(self) -> list["IssueLabel"]:
-        labels = self._api_call(self.project.service.api.issue.get_labels)
-        return [ForgejoIssueLabel(label.name, self) for label in labels]
-
     @staticmethod
     def create(
-        project: "forgejo.ForgejoProject",
-        title: str,
-        body: str,
-        private: Optional[bool] = None,
-        labels: Optional[list[str]] = None,
-        assignees: Optional[list[str]] = None,
+            project: "forgejo.ForgejoProject",
+            title: str,
+            body: str,
+            private: Optional[bool] = None,
+            labels: Optional[list[str]] = None,
+            assignees: Optional[list[str]] = None,
     ) -> "Issue":
 
         if private:
@@ -110,7 +122,7 @@ class ForgejoIssue(BaseIssue):
         return ForgejoIssue(issue, project)
 
     @staticmethod
-    def get(project: "forgejo.ForgejoProject", issue_id: int) -> _issue:
+    def get(project: "forgejo.ForgejoProject", issue_id: int) -> "Issue":
         if not project.has_issues:
             raise IssueTrackerDisabled()
 
@@ -126,12 +138,12 @@ class ForgejoIssue(BaseIssue):
 
     @staticmethod
     def get_list(
-        project: "forgejo.ForgejoProject",
-        status: IssueStatus = IssueStatus.open,
-        author: Optional[str] = None,
-        assignee: Optional[str] = None,
-        labels: Optional[list[str]] = None,
-    ) -> list["Issue"]:
+            project: "forgejo.ForgejoProject",
+            status: IssueStatus = IssueStatus.open,
+            author: Optional[str] = None,
+            assignee: Optional[str] = None,
+            labels: Optional[list[str]] = None,
+    ) -> Iterable["Issue"]:
         if not project.has_issues:
             raise IssueTrackerDisabled()
 
@@ -146,74 +158,22 @@ class ForgejoIssue(BaseIssue):
         if labels:
             parameters["labels"] = labels
         try:
-            issues = project.service.api.issue.list_issues(
+            issues_paginator = paginate(
+                project.service.api.issue.list_issues,
                 owner=project.namespace,
                 repo=project.repo,
                 **parameters,
             )
+            return (ForgejoIssue(issue, project) for issue in issues_paginator)
         except NotFoundError as ex:
             if "user does not exist" in str(ex):
                 return []
             raise OperationNotSupported(f"Failed to list issues {ex}") from ex
-        return [ForgejoIssue(issue, project) for issue in issues]
 
     def close(self) -> "Issue":
-        self._api_call(
-            self.project.service.api.issue.edit_issue,
-            state="closed",
-        )
-        self._raw_issue = self.project.service.api.issue.get_issue(
-            owner=self.project.namespace,
-            repo=self.project.repo,
-            index=self._index,
-        )
+        self.partial_api(self.api.edit_issue)(state="closed")
+        self.__update_info()
         return self
-
-    def comment(self, body: str) -> IssueComment:
-        comment = self._api_call(
-            self.project.service.api.issue.create_comment,
-            body=body,
-        )
-        return ForgejoIssueComment(parent=self, raw_comment=comment)
-
-    def get_comment(self, comment_id: int) -> IssueComment:
-        comment = self.project.service.api.issue.get_comment(
-            owner=self.project.namespace,
-            repo=self.project.repo,
-            id=comment_id,
-        )
-        return ForgejoIssueComment(raw_comment=comment, parent=self)
-
-    def get_comments(
-        self,
-        filter_regex: Optional[str] = None,
-        reverse: bool = False,
-        author: Optional[str] = None,
-    ) -> list[IssueComment]:
-        comments = self._get_all_comments()
-        if filter_regex:
-            comments = [
-                comment
-                for comment in comments
-                if comment.body and re.search(filter_regex, comment.body)
-            ]
-        if author:
-            comments = [
-                comment
-                for comment in comments
-                if comment.author and comment.author == author
-            ]
-        if reverse:
-            comments = comments[::-1]
-
-        return comments
-
-    def _get_all_comments(self) -> list[IssueComment]:
-        comments = self._api_call(self.project.service.api.issue.get_comments)
-        return [
-            ForgejoIssueComment(raw_comment=comment, parent=self)
-            for comment in comments
-        ]
 
     def add_assignee(self, *assignees: str) -> None:
         current_assignees = [
@@ -221,21 +181,9 @@ class ForgejoIssue(BaseIssue):
             for assignee in self.assignees
         ]
         updated_assignees = list(set(current_assignees + list(assignees)))
-        self._api_call(
-            self.project.service.api.issue.edit_issue,
-            assignees=updated_assignees,
-        )
+        self.partial_api(self.api.edit_issue)(assignees=updated_assignees)
         self.__update_info()
 
     def add_label(self, *labels: str) -> None:
-        self._api_call(self.project.service.api.issue.add_label, labels=labels)
+        self.partial_api(self.api.add_label)(labels=labels, index=self._index)
         self.__update_info()
-
-    def _api_call(self, method, **kwargs):
-        params = {
-            "owner": self.project.namespace,
-            "repo": self.project.repo,
-            "index": self._index,
-        }
-        params.update(kwargs)
-        return method(**params)
