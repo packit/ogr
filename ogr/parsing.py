@@ -186,7 +186,7 @@ class RepoUrl:
         if not potential_url:
             return None
 
-        repo = RepoUrl(None)
+        repo = RepoUrl(potential_url if potential_url is not None else "")
         parsed_url = cls._prepare_url(potential_url)
         if not parsed_url:
             return None

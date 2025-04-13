@@ -257,6 +257,7 @@ class GitlabProject(BaseGitProject):
             raise GitlabAPIException("Unable to request access") from e
 
     @indirect(GitlabPullRequest.get_list)
+    # type: ignore
     def get_pr_list(self, status: PRStatus = PRStatus.open) -> list["PullRequest"]:
         pass
 
@@ -269,6 +270,7 @@ class GitlabProject(BaseGitProject):
             raise GitlabAPIException(f"Tag {tag_name} was not found.") from ex
 
     @indirect(GitlabPullRequest.create)
+    # type: ignore
     def create_pr(
         self,
         title: str,
@@ -352,6 +354,7 @@ class GitlabProject(BaseGitProject):
         return self._commit_comment_from_gitlab_object(comment, commit_sha)
 
     @indirect(GitlabCommitFlag.set)
+    # type: ignore
     def set_commit_status(
         self,
         commit: str,
@@ -364,6 +367,7 @@ class GitlabProject(BaseGitProject):
         pass
 
     @indirect(GitlabCommitFlag.get)
+    # type: ignore
     def get_commit_statuses(self, commit: str) -> list[CommitFlag]:
         pass
 
@@ -439,6 +443,7 @@ class GitlabProject(BaseGitProject):
         return paths
 
     @indirect(GitlabIssue.get_list)
+    # type: ignore
     def get_issue_list(
         self,
         status: IssueStatus = IssueStatus.open,
@@ -449,10 +454,12 @@ class GitlabProject(BaseGitProject):
         pass
 
     @indirect(GitlabIssue.get)
+    # type: ignore
     def get_issue(self, issue_id: int) -> Issue:
         pass
 
     @indirect(GitlabIssue.create)
+    # type: ignore
     def create_issue(
         self,
         title: str,
@@ -464,6 +471,7 @@ class GitlabProject(BaseGitProject):
         pass
 
     @indirect(GitlabPullRequest.get)
+    # type: ignore
     def get_pr(self, pr_id: int) -> PullRequest:
         pass
 
@@ -476,14 +484,17 @@ class GitlabProject(BaseGitProject):
         return GitTag(name=git_tag.name, commit_sha=git_tag.commit["id"])
 
     @indirect(GitlabRelease.get_list)
+    # type: ignore
     def get_releases(self) -> list[Release]:
         pass
 
     @indirect(GitlabRelease.get)
+    # type: ignore
     def get_release(self, identifier=None, name=None, tag_name=None) -> GitlabRelease:
         pass
 
     @indirect(GitlabRelease.create)
+    # type: ignore
     def create_release(
         self,
         tag: str,
@@ -494,6 +505,7 @@ class GitlabProject(BaseGitProject):
         pass
 
     @indirect(GitlabRelease.get_latest)
+    # type: ignore
     def get_latest_release(self) -> Optional[GitlabRelease]:
         pass
 

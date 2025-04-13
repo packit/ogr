@@ -26,7 +26,9 @@ logger = logging.getLogger(__name__)
 
 class PagurePullRequest(BasePullRequest):
     _target_project: "ogr_pagure.PagureProject"
-    _source_project: "ogr_pagure.PagureProject" = None
+    if ogr_pagure.PagureProject is None:
+        _source_project = ""
+    _source_project: "ogr_pagure.PagureProject"
 
     def __init__(self, raw_pr, project):
         super().__init__(raw_pr, project)
@@ -59,7 +61,11 @@ class PagurePullRequest(BasePullRequest):
     def url(self) -> str:
         return "/".join(
             [
-                self.target_project.service.instance_url,
+                (
+                    self.target_project.service.instance_url
+                    if self.target_project.service.instance_url is not None
+                    else ""
+                ),
                 self._raw_pr["project"]["url_path"],
                 "pull-request",
                 str(self.id),

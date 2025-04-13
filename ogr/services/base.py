@@ -34,7 +34,9 @@ except ImportError:
 class BaseGitService(GitService):
     @cached_property
     def hostname(self) -> Optional[str]:
-        parsed_url = parse_git_repo(potential_url=self.instance_url)
+        parsed_url = parse_git_repo(
+            potential_url=self.instance_url if self.instance_url is not None else "",
+        )
         return parsed_url.hostname if parsed_url else None
 
     def get_project_from_url(self, url: str) -> "GitProject":
@@ -53,7 +55,11 @@ class BaseGitProject(GitProject):
 class BasePullRequest(PullRequest):
     @property
     def target_branch_head_commit(self) -> str:
-        return self.target_project.get_sha_from_branch(self.target_branch)
+        return (
+            self.target_project.get_sha_from_branch(self.target_branch)
+            if self.target_project.get_sha_from_branch(self.target_branch) is not None
+            else ""
+        )
 
     def get_comments(
         self,
