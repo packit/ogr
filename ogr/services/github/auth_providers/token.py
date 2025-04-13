@@ -38,4 +38,6 @@ class TokenAuthentication(GithubAuthentication):
         max_retries: Union[int, Retry] = 0,
         **_,
     ) -> Optional["TokenAuthentication"]:
-        return TokenAuthentication(token if token is not None else "", max_retries=max_retries)
+        return TokenAuthentication(
+            token if token is not None else "", max_retries=max_retries,
+        )

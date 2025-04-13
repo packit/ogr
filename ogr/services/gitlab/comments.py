@@ -76,7 +76,7 @@ class GitlabComment(Comment):
                 raise GitlabAPIException() from ex
 
             # Take project from the parent (PR's don't have project)
-            if self._parent is  None:
+            if self._parent is None:
                 raise ValueError("No parent instance")
             login = (
                 getattr(self._parent, "_target_project", None) or self._parent.project
