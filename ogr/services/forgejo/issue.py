@@ -1,8 +1,9 @@
 # Copyright Contributors to the Packit project.
 # SPDX-License-Identifier: MIT
+from collections.abc import Iterable
 from datetime import datetime
 from functools import partial
-from typing import Any, Optional, Type, Union, Iterable
+from typing import Optional, Union
 
 import pyforgejo.types.issue as _issue
 from pyforgejo import NotFoundError
@@ -12,6 +13,7 @@ from ogr.exceptions import IssueTrackerDisabled, OperationNotSupported
 from ogr.services import forgejo
 from ogr.services.base import BaseIssue
 from ogr.services.forgejo.utils import paginate
+
 
 class ForgejoIssue(BaseIssue):
     project: "forgejo.ForgejoProject"
@@ -98,12 +100,12 @@ class ForgejoIssue(BaseIssue):
 
     @staticmethod
     def create(
-            project: "forgejo.ForgejoProject",
-            title: str,
-            body: str,
-            private: Optional[bool] = None,
-            labels: Optional[list[str]] = None,
-            assignees: Optional[list[str]] = None,
+        project: "forgejo.ForgejoProject",
+        title: str,
+        body: str,
+        private: Optional[bool] = None,
+        labels: Optional[list[str]] = None,
+        assignees: Optional[list[str]] = None,
     ) -> "Issue":
 
         if private:
@@ -138,11 +140,11 @@ class ForgejoIssue(BaseIssue):
 
     @staticmethod
     def get_list(
-            project: "forgejo.ForgejoProject",
-            status: IssueStatus = IssueStatus.open,
-            author: Optional[str] = None,
-            assignee: Optional[str] = None,
-            labels: Optional[list[str]] = None,
+        project: "forgejo.ForgejoProject",
+        status: IssueStatus = IssueStatus.open,
+        author: Optional[str] = None,
+        assignee: Optional[str] = None,
+        labels: Optional[list[str]] = None,
     ) -> Iterable["Issue"]:
         if not project.has_issues:
             raise IssueTrackerDisabled()
