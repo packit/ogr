@@ -2,7 +2,7 @@
 # SPDX-License-Identifier: MIT
 from datetime import datetime
 from functools import partial
-from typing import Any, Optional, Type, Union, Iterable
+from typing import Optional, Union
 
 import pyforgejo.types.issue as _issue
 from pyforgejo import NotFoundError
@@ -12,6 +12,7 @@ from ogr.exceptions import IssueTrackerDisabled, OperationNotSupported
 from ogr.services import forgejo
 from ogr.services.base import BaseIssue
 from ogr.services.forgejo.utils import paginate
+
 
 class ForgejoIssue(BaseIssue):
     project: "forgejo.ForgejoProject"
@@ -98,12 +99,12 @@ class ForgejoIssue(BaseIssue):
 
     @staticmethod
     def create(
-            project: "forgejo.ForgejoProject",
-            title: str,
-            body: str,
-            private: Optional[bool] = None,
-            labels: Optional[list[str]] = None,
-            assignees: Optional[list[str]] = None,
+        project: "forgejo.ForgejoProject",
+        title: str,
+        body: str,
+        private: Optional[bool] = None,
+        labels: Optional[list[str]] = None,
+        assignees: Optional[list[str]] = None,
     ) -> "Issue":
 
         if private:
@@ -138,17 +139,17 @@ class ForgejoIssue(BaseIssue):
 
     @staticmethod
     def get_list(
-            project: "forgejo.ForgejoProject",
-            status: IssueStatus = IssueStatus.open,
-            author: Optional[str] = None,
-            assignee: Optional[str] = None,
-            labels: Optional[list[str]] = None,
-    ) -> Iterable["Issue"]:
+        project: "forgejo.ForgejoProject",
+        status: IssueStatus = IssueStatus.open,
+        author: Optional[str] = None,
+        assignee: Optional[str] = None,
+        labels: Optional[list[str]] = None,
+    ) -> list["Issue"]:
         if not project.has_issues:
             raise IssueTrackerDisabled()
 
         parameters: dict[str, Union[str, list[str], bool]] = {
-            "state": status if status != IssueStatus.open else "open",
+            "state": status.name,
             "type": "issues",
         }
         if author:
@@ -164,7 +165,7 @@ class ForgejoIssue(BaseIssue):
                 repo=project.repo,
                 **parameters,
             )
-            return (ForgejoIssue(issue, project) for issue in issues_paginator)
+            return [ForgejoIssue(issue, project) for issue in issues_paginator]
         except NotFoundError as ex:
             if "user does not exist" in str(ex):
                 return []

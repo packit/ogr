@@ -1,5 +1,5 @@
 BASE_IMAGE := fedora:latest
-TEST_TARGET ?= ./tests/
+TEST_TARGET ?= ./tests/integration/forgejo/test_issues.py
 PY_PACKAGE := ogr
 OGR_IMAGE := ogr
 COLOR ?= yes
@@ -20,7 +20,7 @@ check-in-container:
 		--env COLOR \
 		--env COV_REPORT \
 		$(OGR_IMAGE) \
-		make -e GITHUB_TOKEN=$(GITHUB_TOKEN) GITLAB_TOKEN=$(GITLAB_TOKEN) check
+		make -e GITHUB_TOKEN=$(GITHUB_TOKEN) GITLAB_TOKEN=$(GITLAB_TOKEN) FORGEJO_TOKEN=$(FORGEJO_TOKEN) check
 
 shell:
 	podman run --rm -ti -v $(CURDIR):/src:Z -w /src $(OGR_IMAGE) bash
