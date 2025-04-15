@@ -149,7 +149,7 @@ class ForgejoIssue(BaseIssue):
             raise IssueTrackerDisabled()
 
         parameters: dict[str, Union[str, list[str], bool]] = {
-            "state": status.name,
+            "state": status if status != IssueStatus.open else "open",
             "type": "issues",
         }
         if author:
