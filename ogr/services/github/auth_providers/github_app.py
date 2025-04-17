@@ -58,7 +58,7 @@ class GithubApp(GithubAuthentication):
                 )
             return Path(self._private_key_path).read_text()
 
-        return None
+        return ""
 
     @property
     def pygithub_instance(self) -> Optional[github.Github]:
@@ -73,7 +73,7 @@ class GithubApp(GithubAuthentication):
 
     def get_token(self, namespace: str, repo: str) -> str:
         if not self.private_key:
-            return None
+            return ""
 
         # PyGithub 1.58 deprecated get_installation() in favor of get_repo_installation()
         # that raises an exception on error rather than returning None
@@ -112,8 +112,12 @@ class GithubApp(GithubAuthentication):
         return (
             GithubApp(
                 github_app_id,
-                github_app_private_key,
-                github_app_private_key_path,
+                github_app_private_key if github_app_private_key is not None else "",
+                (
+                    github_app_private_key_path
+                    if github_app_private_key_path is not None
+                    else ""
+                ),
             )
             if github_app_id
             else None

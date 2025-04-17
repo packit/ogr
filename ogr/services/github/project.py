@@ -266,6 +266,7 @@ class GithubProject(BaseGitProject):
         return collaborators
 
     @indirect(GithubIssue.get_list)
+    # type: ignore
     def get_issue_list(
         self,
         status: IssueStatus = IssueStatus.open,
@@ -276,10 +277,12 @@ class GithubProject(BaseGitProject):
         pass
 
     @indirect(GithubIssue.get)
+    # type: ignore
     def get_issue(self, issue_id: int) -> Issue:
         pass
 
     @indirect(GithubIssue.create)
+    # type: ignore
     def create_issue(
         self,
         title: str,
@@ -290,14 +293,17 @@ class GithubProject(BaseGitProject):
     ) -> Issue:
         pass
 
+    # type: ignore
     def delete(self) -> None:
         self.github_repo.delete()
 
     @indirect(GithubPullRequest.get_list)
+    # type: ignore
     def get_pr_list(self, status: PRStatus = PRStatus.open) -> list[PullRequest]:
         pass
 
     @indirect(GithubPullRequest.get)
+    # type: ignore
     def get_pr(self, pr_id: int) -> PullRequest:
         pass
 
@@ -327,6 +333,7 @@ class GithubProject(BaseGitProject):
 
     @if_readonly(return_function=GitProjectReadOnly.create_pr)
     @indirect(GithubPullRequest.create)
+    # type: ignore
     def create_pr(
         self,
         title: str,
@@ -385,6 +392,7 @@ class GithubProject(BaseGitProject):
         log_message="Create a status on a commit",
     )
     @indirect(GithubCommitFlag.set)
+    # type: ignore
     def set_commit_status(
         self,
         commit: str,
@@ -397,10 +405,12 @@ class GithubProject(BaseGitProject):
         pass
 
     @indirect(GithubCommitFlag.get)
+    # type: ignore
     def get_commit_statuses(self, commit: str) -> list[CommitFlag]:
         pass
 
     @indirect(GithubCheckRun.get)
+    # type: ignore
     def get_check_run(
         self,
         check_run_id: Optional[int] = None,
@@ -409,6 +419,7 @@ class GithubProject(BaseGitProject):
         pass
 
     @indirect(GithubCheckRun.create)
+    # type: ignore
     def create_check_run(
         self,
         name: str,
@@ -425,6 +436,7 @@ class GithubProject(BaseGitProject):
         pass
 
     @indirect(GithubCheckRun.get_list)
+    # type: ignore
     def get_check_runs(
         self,
         commit_sha: str,
@@ -448,6 +460,7 @@ class GithubProject(BaseGitProject):
         logger.debug(f"Forked to {fork.namespace}/{fork.repo}")
         return fork
 
+    # type: ignore
     def change_token(self, new_token: str):
         raise OperationNotSupported
 
@@ -535,18 +548,22 @@ class GithubProject(BaseGitProject):
         return color
 
     @indirect(GithubRelease.get)
+    # type: ignore
     def get_release(self, identifier=None, name=None, tag_name=None) -> GithubRelease:
         pass
 
     @indirect(GithubRelease.get_latest)
+    # type: ignore
     def get_latest_release(self) -> Optional[GithubRelease]:
         pass
 
     @indirect(GithubRelease.get_list)
+    # type: ignore
     def get_releases(self) -> list[Release]:
         pass
 
     @indirect(GithubRelease.create)
+    # type: ignore
     def create_release(self, tag: str, name: str, message: str) -> GithubRelease:
         pass
 

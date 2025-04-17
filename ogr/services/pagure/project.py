@@ -255,6 +255,7 @@ class PagureProject(BaseGitProject):
         raise OperationNotSupported("Not possible on Pagure")
 
     @indirect(PagureIssue.get_list)
+    # type: ignore
     def get_issue_list(
         self,
         status: IssueStatus = IssueStatus.open,
@@ -265,13 +266,16 @@ class PagureProject(BaseGitProject):
         pass
 
     @indirect(PagureIssue.get)
+    # type: ignore
     def get_issue(self, issue_id: int) -> Issue:
         pass
 
+    # type: ignore
     def delete(self) -> None:
         self._call_project_api_raw("delete", method="POST")
 
     @indirect(PagureIssue.create)
+    # type: ignore
     def create_issue(
         self,
         title: str,
@@ -283,6 +287,7 @@ class PagureProject(BaseGitProject):
         pass
 
     @indirect(PagurePullRequest.get_list)
+    # type: ignore
     def get_pr_list(
         self,
         status: PRStatus = PRStatus.open,
@@ -291,11 +296,13 @@ class PagureProject(BaseGitProject):
     ) -> list[PullRequest]:
         pass
 
+    # type: ignore
     @indirect(PagurePullRequest.get)
     def get_pr(self, pr_id: int) -> PullRequest:
         pass
 
     @indirect(PagurePullRequest.get_files_diff)
+    # type: ignore
     def get_pr_files_diff(
         self,
         pr_id: int,
@@ -306,6 +313,7 @@ class PagureProject(BaseGitProject):
 
     @if_readonly(return_function=GitProjectReadOnly.create_pr)
     @indirect(PagurePullRequest.create)
+    # type: ignore
     def create_pr(
         self,
         title: str,
@@ -498,11 +506,13 @@ class PagureProject(BaseGitProject):
     def get_commit_comments(self, commit: str) -> list[CommitComment]:
         raise OperationNotSupported("Commit comments are not supported on Pagure.")
 
+    # type: ignore
     def get_commit_comment(self, commit_sha: str, comment_id: int) -> CommitComment:
         raise OperationNotSupported("Commit comments are not supported on Pagure.")
 
     @if_readonly(return_function=GitProjectReadOnly.set_commit_status)
     @indirect(PagureCommitFlag.set)
+    # type: ignore
     def set_commit_status(
         self,
         commit: str,
@@ -517,30 +527,37 @@ class PagureProject(BaseGitProject):
         pass
 
     @indirect(PagureCommitFlag.get)
+    # type: ignore
     def get_commit_statuses(self, commit: str) -> list[CommitFlag]:
         pass
 
+    # type: ignore
     def get_tags(self) -> list[GitTag]:
         response = self._call_project_api("git", "tags", params={"with_commits": True})
         return [GitTag(name=n, commit_sha=c) for n, c in response["tags"].items()]
 
+    # type: ignore
     def get_tags_dict(self) -> dict[str, GitTag]:
         response = self._call_project_api("git", "tags", params={"with_commits": True})
         return {n: GitTag(name=n, commit_sha=c) for n, c in response["tags"].items()}
 
     @indirect(PagureRelease.get_list)
+    # type: ignore
     def get_releases(self) -> list[Release]:
         pass
 
+    # type: ignore
     @indirect(PagureRelease.get)
     def get_release(self, identifier=None, name=None, tag_name=None) -> PagureRelease:
         pass
 
     @indirect(PagureRelease.get_latest)
+    # type: ignore
     def get_latest_release(self) -> Optional[PagureRelease]:
         pass
 
     @indirect(PagureRelease.create)
+    # type: ignore
     def create_release(
         self,
         tag: str,

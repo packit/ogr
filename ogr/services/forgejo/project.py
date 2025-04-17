@@ -321,6 +321,7 @@ class ForgejoProject(BaseGitProject):
         raise OperationNotSupported("Not possible on Forgejo")
 
     @indirect(ForgejoIssue.get_list)
+    # type: ignore
     def get_issue_list(
         self,
         status: IssueStatus = IssueStatus.open,
@@ -331,10 +332,12 @@ class ForgejoProject(BaseGitProject):
         pass
 
     @indirect(ForgejoIssue.get)
+    # type: ignore
     def get_issue(self, issue_id: int) -> "Issue":
         pass
 
     @indirect(ForgejoIssue.create)
+    # type: ignore
     def create_issue(
         self,
         title: str,
@@ -346,13 +349,16 @@ class ForgejoProject(BaseGitProject):
         pass
 
     @indirect(ForgejoPullRequest.get_list)
+    # type: ignore
     def get_pr_list(self, status: PRStatus = PRStatus.open) -> list["PullRequest"]:
         pass
 
     @indirect(ForgejoPullRequest.get)
+    # type: ignore
     def get_pr(self, pr_id: int) -> "PullRequest":
         pass
 
+    # type: ignore
     def get_pr_files_diff(
         self,
         pr_id: int,
@@ -388,6 +394,7 @@ class ForgejoProject(BaseGitProject):
         )().commit.sha
 
     @indirect(ForgejoRelease.get)
+    # type: ignore
     def get_release(
         self,
         identifier: Optional[int] = None,
@@ -397,14 +404,17 @@ class ForgejoProject(BaseGitProject):
         pass
 
     @indirect(ForgejoRelease.get_latest)
+    # type: ignore
     def get_latest_release(self) -> Optional[Release]:
         pass
 
     @indirect(ForgejoRelease.get_list)
+    # type: ignore
     def get_releases(self) -> list[Release]:
         pass
 
     @indirect(ForgejoRelease.create)
+    # type: ignore
     def create_release(
         self,
         tag: str,
@@ -415,6 +425,7 @@ class ForgejoProject(BaseGitProject):
         pass
 
     @indirect(ForgejoPullRequest.create)
+    # type: ignore
     def create_pr(
         self,
         title: str,
@@ -441,6 +452,7 @@ class ForgejoProject(BaseGitProject):
         raise OperationNotSupported("Forgejo doesn't support commit comments")
 
     @indirect(ForgejoCommitFlag.set)
+    # type: ignore
     def set_commit_status(
         self,
         commit: str,
@@ -453,6 +465,7 @@ class ForgejoProject(BaseGitProject):
         pass
 
     @indirect(ForgejoCommitFlag.get)
+    # type: ignore
     def get_commit_statuses(self, commit: str) -> list[CommitFlag]:
         pass
 
