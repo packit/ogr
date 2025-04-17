@@ -6,7 +6,7 @@ import contextlib
 import logging
 from collections.abc import Iterable
 from functools import cached_property, partial
-from typing import Optional, Union
+from typing import ClassVar, Optional, Union
 
 from pyforgejo import NotFoundError, Repository, types
 from pyforgejo.repository.client import RepositoryClient
@@ -40,6 +40,14 @@ logger = logging.getLogger(__name__)
 
 class ForgejoProject(BaseGitProject):
     service: "forgejo.ForgejoService"
+    access_dict: ClassVar[dict] = {
+        AccessLevel.pull: "read",
+        AccessLevel.triage: "read",
+        AccessLevel.push: "write",
+        AccessLevel.admin: "admin",
+        AccessLevel.maintain: "owner",
+        None: "",
+    }
 
     def __init__(
         self,
@@ -214,97 +222,103 @@ class ForgejoProject(BaseGitProject):
         return None
 
     def get_owners(self) -> list[str]:
-        """
-        Returns:
-            List of usernames of project owners.
-        """
-        raise NotImplementedError("TBD")
+        return [self.forgejo_repo.owner.username]
+
+    def _get_owner_or_org_collaborators(self) -> set[str]:
+        namespace = self.get_owners()[0]
+        try:
+            teams = self.api.repo_list_teams(
+                owner=self.namespace,
+                repo=self.repo,
+            )
+        except Exception as ex:
+            # no teams, repo owned by regular user
+            if "not owned by an organization" in str(ex):
+                return {namespace}
+            raise
+
+        # repo owned by org, each org can have multiple teams with
+        # different levels of access
+        collaborators: set[str] = set()
+        for team in teams:
+            members = self.service.api.organization.org_list_team_members(team.id)
+            collaborators.update(user.username for user in members)
+
+        return collaborators
+
+    def _get_collaborators(self) -> list[str]:
+        return [
+            c.username
+            for c in self.api.repo_list_collaborators(
+                owner=self.namespace,
+                repo=self.repo,
+            )
+        ] + list(self._get_owner_or_org_collaborators())
+
+    def _get_collaborators_with_access(self) -> dict[str, str]:
+        return {
+            c: self.api.repo_get_repo_permissions(
+                owner=self.namespace,
+                repo=self.repo,
+                collaborator=c,
+            ).permission
+            for c in self._get_collaborators()
+        }
+
+    def get_contributors(self) -> set[str]:
+        return set(self._get_collaborators())
+
+    def users_with_write_access(self) -> set[str]:
+        return {
+            collaborator
+            for collaborator, access in self._get_collaborators_with_access().items()
+            if access in ("owner", "admin", "write")
+        }
 
     def who_can_close_issue(self) -> set[str]:
-        """
-        Returns:
-            Names of all users who have permission to modify an issue.
-        """
-        raise NotImplementedError("TBD")
+        return self.users_with_write_access()
 
     def who_can_merge_pr(self) -> set[str]:
-        """
-        Returns:
-            Names of all users who have permission to modify pull request.
-        """
-        raise NotImplementedError("TBD")
-
-    def which_groups_can_merge_pr(self) -> set[str]:
-        """
-        Returns:
-            Names of all groups that have permission to modify pull request.
-        """
-        raise NotImplementedError("TBD")
+        return self.users_with_write_access()
 
     def can_merge_pr(self, username: str) -> bool:
-        """
-        Args:
-            username: Username.
-
-        Returns:
-            `True` if user merge pull request, `False` otherwise.
-        """
-        raise NotImplementedError("TBD")
+        return self.api.repo_get_repo_permissions(
+            owner=self.namespace,
+            repo=self.repo,
+            collaborator=username,
+        ).permission in ("owner", "admin", "write")
 
     def get_users_with_given_access(self, access_levels: list[AccessLevel]) -> set[str]:
-        """
-        Args:
-            access_levels: list of access levels
+        access_levels_forgejo = [
+            self.access_dict[access_level] for access_level in access_levels
+        ]
 
-        Returns:
-            set of users with given access levels
-        """
-        raise NotImplementedError("TBD")
+        return {
+            user
+            for user, permission in self._get_collaborators_with_access().items()
+            if permission in access_levels_forgejo
+        }
 
     def add_user(self, user: str, access_level: AccessLevel) -> None:
-        """
-        Add user to project.
+        if access_level == AccessLevel.maintain:
+            raise OperationNotSupported("Not possible to add a user as `owner`.")
 
-        Args:
-            user: Username of the user.
-            access_level: Permissions for the user.
-        """
-        raise NotImplementedError()
+        self.api.repo_add_collaborator(
+            owner=self.namespace,
+            repo=self.repo,
+            collaborator=user,
+            permission=self.access_dict[access_level],
+        )
 
     def remove_user(self, user: str) -> None:
-        """
-        Remove user from project.
-
-        Args:
-            user: Username of the user.
-        """
-        raise NotImplementedError()
+        self.api.repo_delete_collaborator(
+            owner=self.namespace,
+            repo=self.repo,
+            collaborator=user,
+        )
 
     def request_access(self) -> None:
-        """
-        Request an access to the project (cannot specify access level to be granted;
-        needs to be approved and specified by the user with maintainer/admin rights).
-        """
-        raise NotImplementedError()
-
-    def add_group(self, group: str, access_level: AccessLevel) -> None:
-        """
-        Add group to project.
-
-        Args:
-            group: Name of the group.
-            access_level: Permissions for the group.
-        """
-        raise NotImplementedError()
-
-    def remove_group(self, group: str) -> None:
-        """
-        Remove group from project.
-
-        Args:
-            group: Name of the group.
-        """
-        raise NotImplementedError()
+        raise OperationNotSupported("Not possible on Forgejo")
 
     @indirect(ForgejoIssue.get_list)
     def get_issue_list(
@@ -575,17 +589,3 @@ class ForgejoProject(BaseGitProject):
             return branch_info.commit.id
         except NotFoundError:
             return None
-
-    def get_contributors(self) -> set[str]:
-        """
-        Returns:
-            Set of all contributors to the given project.
-        """
-        raise NotImplementedError("TBD")
-
-    def users_with_write_access(self) -> set[str]:
-        """
-        Returns:
-            List of users who have write access to the project
-        """
-        raise NotImplementedError("TBD")
