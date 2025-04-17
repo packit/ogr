@@ -1,0 +1,2023 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+<meta name="generator" content="pdoc3 0.11.6">
+<title>ogr API documentation</title>
+<meta name="description" content="Module providing one api for multiple git services (github/gitlab/pagure)">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/sanitize.min.css" integrity="sha512-y1dtMcuvtTMJc1yPgEqF0ZjQbhnc/bFhyvIyVNb9Zk5mIGtqVaAB1Ttl28su8AvFMOY0EwRbAe+HCLqj6W7/KA==" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/typography.min.css" integrity="sha512-Y1DYSb995BAfxobCkKepB1BqJJTPrOp3zPL74AWFugHHmmdcvO+C48WLrUOlhGMc0QG7AE3f7gmvvcrmX2fDoA==" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:1.5em;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:2em 0 .50em 0}h3{font-size:1.4em;margin:1.6em 0 .7em 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .2s ease-in-out}a:visited{color:#503}a:hover{color:#b62}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900;font-weight:bold}pre code{font-size:.8em;line-height:1.4em;padding:1em;display:block}code{background:#f3f3f3;font-family:"DejaVu Sans Mono",monospace;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source > summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible;min-width:max-content}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em 1em;margin:1em 0}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul ul{padding-left:1em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js" integrity="sha512-D9gUyxqja7hBtkWpPWGt9wfbfaMGVt9gnyCvYa+jojwwPHLCzUm5i8rpk7vD7wNee9bA35eYIjobYPaQuKS1MQ==" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => {
+hljs.configure({languages: ['bash', 'css', 'diff', 'graphql', 'ini', 'javascript', 'json', 'plaintext', 'python', 'python-repl', 'rust', 'shell', 'sql', 'typescript', 'xml', 'yaml']});
+hljs.highlightAll();
+/* Collapse source docstrings */
+setTimeout(() => {
+[...document.querySelectorAll('.hljs.language-python > .hljs-string')]
+.filter(el => el.innerHTML.length > 200 && ['"""', "'''"].includes(el.innerHTML.substring(0, 3)))
+.forEach(el => {
+let d = document.createElement('details');
+d.classList.add('hljs-string');
+d.innerHTML = '<summary>"""</summary>' + el.innerHTML.substring(3);
+el.replaceWith(d);
+});
+}, 100);
+})</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Package <code>ogr</code></h1>
+</header>
+<section id="section-intro">
+<p>Module providing one api for multiple git services (github/gitlab/pagure)</p>
+</section>
+<section>
+<h2 class="section-title" id="header-submodules">Sub-modules</h2>
+<dl>
+<dt><code class="name"><a title="ogr.abstract" href="abstract.html">ogr.abstract</a></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt><code class="name"><a title="ogr.constant" href="constant.html">ogr.constant</a></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt><code class="name"><a title="ogr.deprecation" href="deprecation.html">ogr.deprecation</a></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt><code class="name"><a title="ogr.exceptions" href="exceptions.html">ogr.exceptions</a></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt><code class="name"><a title="ogr.factory" href="factory.html">ogr.factory</a></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt><code class="name"><a title="ogr.parsing" href="parsing.html">ogr.parsing</a></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt><code class="name"><a title="ogr.read_only" href="read_only.html">ogr.read_only</a></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt><code class="name"><a title="ogr.services" href="services/index.html">ogr.services</a></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt><code class="name"><a title="ogr.utils" href="utils.html">ogr.utils</a></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-functions">Functions</h2>
+<dl>
+<dt id="ogr.get_instances_from_dict"><code class="name flex">
+<span>def <span class="ident">get_instances_from_dict</span></span>(<span>instances: dict) ‑> set[<a title="ogr.abstract.GitService" href="abstract.html#ogr.abstract.GitService">GitService</a>]</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_instances_from_dict(instances: dict) -&gt; set[GitService]:
+    &#34;&#34;&#34;
+    Load the service instances from the dictionary in the following form:
+
+    - `key`   : hostname, url or name that can be mapped to the service-type
+    - `value` : dictionary with arguments used when creating a new instance of the
+    service (passed to the `__init__` method)
+
+    e.g.:
+    ```py
+    get_instances_from_dict({
+        &#34;github.com&#34;: {&#34;token&#34;: &#34;abcd&#34;},
+        &#34;pagure&#34;: {
+            &#34;token&#34;: &#34;abcd&#34;,
+            &#34;instance_url&#34;: &#34;https://src.fedoraproject.org&#34;,
+        },
+    }) == {
+        GithubService(token=&#34;abcd&#34;),
+        PagureService(token=&#34;abcd&#34;, instance_url=&#34;https://src.fedoraproject.org&#34;)
+    }
+    ```
+
+    When the mapping `key-&gt;service-type` is not recognised, you can add a `type`
+    key to the dictionary and specify the type of the instance.
+    (It can be either name, hostname or url. The used mapping is same as for
+    key-&gt;service-type.)
+
+    The provided `key` is used as an `instance_url` and passed to the `__init__`
+    method as well.
+
+    e.g.:
+    ```py
+    get_instances_from_dict({
+        &#34;https://my.gtlb&#34;: {&#34;token&#34;: &#34;abcd&#34;, &#34;type&#34;: &#34;gitlab&#34;},
+    }) == {GitlabService(token=&#34;abcd&#34;, instance_url=&#34;https://my.gtlb&#34;)}
+    ```
+
+    Args:
+        instances: Mapping from service name/url/hostname to attributes for the
+            service creation.
+
+    Returns:
+        Set of the service instances.
+    &#34;&#34;&#34;
+    services = set()
+    for key, value in instances.items():
+        service_kls = get_service_class_or_none(url=key)
+        if not service_kls:
+            if &#34;type&#34; not in value:
+                raise OgrException(
+                    f&#34;No matching service was found for url &#39;{key}&#39;. &#34;
+                    f&#34;Add the service name as a `type` attribute.&#34;,
+                )
+            service_type = value[&#34;type&#34;]
+            if service_type not in _SERVICE_MAPPING:
+                raise OgrException(
+                    f&#34;No matching service was found for type &#39;{service_type}&#39;.&#34;,
+                )
+
+            service_kls = _SERVICE_MAPPING[service_type]
+            value.setdefault(&#34;instance_url&#34;, key)
+            del value[&#34;type&#34;]
+
+        service_instance = service_kls(**value)
+        services.add(service_instance)
+
+    return services</code></pre>
+</details>
+<div class="desc"><p>Load the service instances from the dictionary in the following form:</p>
+<ul>
+<li><code>key</code>
+: hostname, url or name that can be mapped to the service-type</li>
+<li><code>value</code> : dictionary with arguments used when creating a new instance of the
+service (passed to the <code>__init__</code> method)</li>
+</ul>
+<p>e.g.:</p>
+<pre><code class="language-py">get_instances_from_dict({
+    &quot;github.com&quot;: {&quot;token&quot;: &quot;abcd&quot;},
+    &quot;pagure&quot;: {
+        &quot;token&quot;: &quot;abcd&quot;,
+        &quot;instance_url&quot;: &quot;https://src.fedoraproject.org&quot;,
+    },
+}) == {
+    GithubService(token=&quot;abcd&quot;),
+    PagureService(token=&quot;abcd&quot;, instance_url=&quot;https://src.fedoraproject.org&quot;)
+}
+</code></pre>
+<p>When the mapping <code>key-&gt;service-type</code> is not recognised, you can add a <code>type</code>
+key to the dictionary and specify the type of the instance.
+(It can be either name, hostname or url. The used mapping is same as for
+key-&gt;service-type.)</p>
+<p>The provided <code>key</code> is used as an <code>instance_url</code> and passed to the <code>__init__</code>
+method as well.</p>
+<p>e.g.:</p>
+<pre><code class="language-py">get_instances_from_dict({
+    &quot;https://my.gtlb&quot;: {&quot;token&quot;: &quot;abcd&quot;, &quot;type&quot;: &quot;gitlab&quot;},
+}) == {GitlabService(token=&quot;abcd&quot;, instance_url=&quot;https://my.gtlb&quot;)}
+</code></pre>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>instances</code></strong></dt>
+<dd>Mapping from service name/url/hostname to attributes for the
+service creation.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p>Set of the service instances.</p></div>
+</dd>
+<dt id="ogr.get_project"><code class="name flex">
+<span>def <span class="ident">get_project</span></span>(<span>url,<br>service_mapping_update: dict[str, type[<a title="ogr.abstract.GitService" href="abstract.html#ogr.abstract.GitService">GitService</a>]] | None = None,<br>custom_instances: Iterable[<a title="ogr.abstract.GitService" href="abstract.html#ogr.abstract.GitService">GitService</a>] | None = None,<br>force_custom_instance: bool = True,<br>**kwargs) ‑> <a title="ogr.abstract.GitProject" href="abstract.html#ogr.abstract.GitProject">GitProject</a></span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_project(
+    url,
+    service_mapping_update: Optional[dict[str, type[GitService]]] = None,
+    custom_instances: Optional[Iterable[GitService]] = None,
+    force_custom_instance: bool = True,
+    **kwargs,
+) -&gt; GitProject:
+    &#34;&#34;&#34;
+    Return the project for the given URL.
+
+    Args:
+        url: URL of the project, e.g. `&#34;https://github.com/packit/ogr&#34;`.
+        service_mapping_update: Custom mapping from
+            service url/hostname (`str`) to service class.
+
+            Defaults to no mapping.
+        custom_instances: List of instances that will be
+            used when creating a project instance.
+
+            Defaults to `None`.
+        force_custom_instance: Force picking a Git service from the
+            `custom_instances` list, if there is any provided, raise an error if
+            that is not possible.
+
+            Defaults to `True`.
+        **kwargs: Arguments forwarded to __init__ of the matching service.
+
+    Returns:
+        `GitProject` using the matching implementation.
+    &#34;&#34;&#34;
+    mapping = service_mapping_update.copy() if service_mapping_update else {}
+    custom_instances = custom_instances or []
+    for instance in custom_instances:
+        mapping[instance.hostname] = instance.__class__
+
+    kls = get_service_class(url=url, service_mapping_update=mapping)
+    parsed_repo_url = parse_git_repo(url)
+
+    service = None
+    if custom_instances:
+        for service_inst in custom_instances:
+            if (
+                isinstance(service_inst, kls)
+                and service_inst.hostname == parsed_repo_url.hostname
+            ):
+                service = service_inst
+                break
+        else:
+            if force_custom_instance:
+                raise OgrException(
+                    f&#34;Instance of type {kls.__name__} &#34;
+                    f&#34;matching instance url &#39;{url}&#39; was not provided.&#34;,
+                )
+    if not service:
+        service = kls(instance_url=parsed_repo_url.get_instance_url(), **kwargs)
+    return service.get_project_from_url(url=url)</code></pre>
+</details>
+<div class="desc"><p>Return the project for the given URL.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>url</code></strong></dt>
+<dd>URL of the project, e.g. <code>"https://github.com/packit/ogr"</code>.</dd>
+<dt><strong><code>service_mapping_update</code></strong></dt>
+<dd>
+<p>Custom mapping from
+service url/hostname (<code>str</code>) to service class.</p>
+<p>Defaults to no mapping.</p>
+</dd>
+<dt><strong><code>custom_instances</code></strong></dt>
+<dd>
+<p>List of instances that will be
+used when creating a project instance.</p>
+<p>Defaults to <code>None</code>.</p>
+</dd>
+<dt><strong><code>force_custom_instance</code></strong></dt>
+<dd>
+<p>Force picking a Git service from the
+<code>custom_instances</code> list, if there is any provided, raise an error if
+that is not possible.</p>
+<p>Defaults to <code>True</code>.</p>
+</dd>
+<dt><strong><code>**kwargs</code></strong></dt>
+<dd>Arguments forwarded to <strong>init</strong> of the matching service.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p><code>GitProject</code> using the matching implementation.</p></div>
+</dd>
+<dt id="ogr.get_service_class"><code class="name flex">
+<span>def <span class="ident">get_service_class</span></span>(<span>url: str,<br>service_mapping_update: dict[str, type[<a title="ogr.abstract.GitService" href="abstract.html#ogr.abstract.GitService">GitService</a>]] | None = None) ‑> type[<a title="ogr.abstract.GitService" href="abstract.html#ogr.abstract.GitService">GitService</a>]</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_service_class(
+    url: str,
+    service_mapping_update: Optional[dict[str, type[GitService]]] = None,
+) -&gt; type[GitService]:
+    &#34;&#34;&#34;
+    Get the matching service class from the URL.
+
+    Args:
+        url: URL of the project, e.g. `&#34;https://github.com/packit/ogr&#34;`.
+        service_mapping_update: Custom mapping from service url/hostname (str) to service
+            class.
+
+            Defaults to `None`.
+
+    Returns:
+        Matched class (subclass of `GitService`).
+    &#34;&#34;&#34;
+    service_kls = get_service_class_or_none(
+        url=url,
+        service_mapping_update=service_mapping_update,
+    )
+    if service_kls:
+        return service_kls
+    raise OgrException(&#34;No matching service was found.&#34;)</code></pre>
+</details>
+<div class="desc"><p>Get the matching service class from the URL.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>url</code></strong></dt>
+<dd>URL of the project, e.g. <code>"https://github.com/packit/ogr"</code>.</dd>
+<dt><strong><code>service_mapping_update</code></strong></dt>
+<dd>
+<p>Custom mapping from service url/hostname (str) to service
+class.</p>
+<p>Defaults to <code>None</code>.</p>
+</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p>Matched class (subclass of <code>GitService</code>).</p></div>
+</dd>
+<dt id="ogr.get_service_class_or_none"><code class="name flex">
+<span>def <span class="ident">get_service_class_or_none</span></span>(<span>url: str,<br>service_mapping_update: dict[str, type[<a title="ogr.abstract.GitService" href="abstract.html#ogr.abstract.GitService">GitService</a>]] | None = None) ‑> type[<a title="ogr.abstract.GitService" href="abstract.html#ogr.abstract.GitService">GitService</a>] | None</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_service_class_or_none(
+    url: str,
+    service_mapping_update: Optional[dict[str, type[GitService]]] = None,
+) -&gt; Optional[type[GitService]]:
+    &#34;&#34;&#34;
+    Get the matching service class from the URL.
+
+    Args:
+        url: URL of the project, e.g. `&#34;https://github.com/packit/ogr&#34;`.
+        service_mapping_update: Custom mapping from service url/hostname (`str`) to service
+            class.
+
+            Defaults to `None`.
+
+    Returns:
+        Matched class (subclass of `GitService`) or `None`.
+    &#34;&#34;&#34;
+    mapping = {}
+    mapping.update(_SERVICE_MAPPING)
+    if service_mapping_update:
+        mapping.update(service_mapping_update)
+
+    parsed_url = parse_git_repo(url)
+    for service, service_kls in mapping.items():
+        if parse_git_repo(service).hostname in parsed_url.hostname:
+            return service_kls
+
+    return None</code></pre>
+</details>
+<div class="desc"><p>Get the matching service class from the URL.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>url</code></strong></dt>
+<dd>URL of the project, e.g. <code>"https://github.com/packit/ogr"</code>.</dd>
+<dt><strong><code>service_mapping_update</code></strong></dt>
+<dd>
+<p>Custom mapping from service url/hostname (<code>str</code>) to service
+class.</p>
+<p>Defaults to <code>None</code>.</p>
+</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p>Matched class (subclass of <code>GitService</code>) or <code>None</code>.</p></div>
+</dd>
+</dl>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="ogr.AuthMethod"><code class="flex name class">
+<span>class <span class="ident">AuthMethod</span></span>
+<span>(</span><span>*args, **kwds)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class AuthMethod(str, Enum):
+    tokman = &#34;tokman&#34;
+    github_app = &#34;github_app&#34;
+    token = &#34;token&#34;</code></pre>
+</details>
+<div class="desc"><p>str(object='') -&gt; str
+str(bytes_or_buffer[, encoding[, errors]]) -&gt; str</p>
+<p>Create a new string object from the given object. If encoding or
+errors is specified, then the object must expose a data buffer
+that will be decoded using the given encoding and error handler.
+Otherwise, returns the result of object.<strong>str</strong>() (if defined)
+or repr(object).
+encoding defaults to sys.getdefaultencoding().
+errors defaults to 'strict'.</p></div>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li>builtins.str</li>
+<li>enum.Enum</li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="ogr.AuthMethod.github_app"><code class="name">var <span class="ident">github_app</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="ogr.AuthMethod.token"><code class="name">var <span class="ident">token</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="ogr.AuthMethod.tokman"><code class="name">var <span class="ident">tokman</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+</dd>
+<dt id="ogr.ForgejoService"><code class="flex name class">
+<span>class <span class="ident">ForgejoService</span></span>
+<span>(</span><span>instance_url: str = 'https://codeberg.org',<br>api_key: str | None = None,<br>**kwargs)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@use_for_service(&#34;forgejo&#34;)
+@use_for_service(&#34;codeberg.org&#34;)
+class ForgejoService(BaseGitService):
+    version = &#34;/api/v1&#34;
+
+    def __init__(
+        self,
+        instance_url: str = &#34;https://codeberg.org&#34;,
+        api_key: Optional[str] = None,
+        **kwargs,
+    ):
+        super().__init__()
+        self.instance_url = instance_url + self.version
+        self._token = f&#34;token {api_key}&#34;
+        self._api = None
+
+    @cached_property
+    def api(self) -&gt; PyforgejoApi:
+        return PyforgejoApi(base_url=self.instance_url, api_key=self._token)
+
+    def get_project(  # type: ignore[override]
+        self,
+        repo: str,
+        namespace: str,
+        **kwargs,
+    ) -&gt; &#34;ForgejoProject&#34;:
+        return ForgejoProject(
+            repo=repo,
+            namespace=namespace,
+            service=self,
+            **kwargs,
+        )
+
+    @property
+    def user(self) -&gt; GitUser:
+        return ForgejoUser(self)
+
+    def project_create(
+        self,
+        repo: str,
+        namespace: Optional[str] = None,
+        description: Optional[str] = None,
+    ) -&gt; &#34;ForgejoProject&#34;:
+        if namespace:
+            new_repo = self.api.organization.create_org_repo(
+                org=namespace,
+                name=repo,
+                description=description,
+            )
+        else:
+            new_repo = self.api.repository.create_current_user_repo(
+                name=repo,
+                description=description,
+            )
+        return ForgejoProject(
+            repo=repo,
+            namespace=namespace or self.user.get_username(),
+            service=self,
+            github_repo=new_repo,
+        )
+
+    def get_project_from_url(self, url: str) -&gt; &#34;ForgejoProject&#34;:
+        parsed_url = urlparse(url)
+        path_parts = parsed_url.path.strip(&#34;/&#34;).split(&#34;/&#34;)
+
+        if len(path_parts) &lt; 2:
+            raise OgrException(f&#34;Invalid Forgejo URL: {url}&#34;)
+
+        namespace = path_parts[0]
+        repo = path_parts[1]
+
+        return self.get_project(repo=repo, namespace=namespace)</code></pre>
+</details>
+<div class="desc"><h2 id="attributes">Attributes</h2>
+<dl>
+<dt><strong><code>instance_url</code></strong> :&ensp;<code>str</code></dt>
+<dd>URL of the git forge instance.</dd>
+</dl></div>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="ogr.services.base.BaseGitService" href="services/base.html#ogr.services.base.BaseGitService">BaseGitService</a></li>
+<li><a title="ogr.abstract.GitService" href="abstract.html#ogr.abstract.GitService">GitService</a></li>
+<li><a title="ogr.abstract.OgrAbstractClass" href="abstract.html#ogr.abstract.OgrAbstractClass">OgrAbstractClass</a></li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="ogr.ForgejoService.version"><code class="name">var <span class="ident">version</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Instance variables</h3>
+<dl>
+<dt id="ogr.ForgejoService.api"><code class="name">var <span class="ident">api</span> : pyforgejo.client.PyforgejoApi</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@cached_property
+def api(self) -&gt; PyforgejoApi:
+    return PyforgejoApi(base_url=self.instance_url, api_key=self._token)</code></pre>
+</details>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="ogr.services.base.BaseGitService" href="services/base.html#ogr.services.base.BaseGitService">BaseGitService</a></b></code>:
+<ul class="hlist">
+<li><code><a title="ogr.services.base.BaseGitService.get_project" href="abstract.html#ogr.abstract.GitService.get_project">get_project</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitService.project_create" href="abstract.html#ogr.abstract.GitService.project_create">project_create</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitService.user" href="abstract.html#ogr.abstract.GitService.user">user</a></code></li>
+</ul>
+</li>
+<li><code><b><a title="ogr.services.base.BaseGitService" href="services/base.html#ogr.services.base.BaseGitService">BaseGitService</a></b></code>:
+<ul class="hlist">
+<li><code><a title="ogr.services.base.BaseGitService.change_token" href="abstract.html#ogr.abstract.GitService.change_token">change_token</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitService.get_group" href="abstract.html#ogr.abstract.GitService.get_group">get_group</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitService.list_projects" href="abstract.html#ogr.abstract.GitService.list_projects">list_projects</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitService.reset_auth_method" href="abstract.html#ogr.abstract.GitService.reset_auth_method">reset_auth_method</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitService.set_auth_method" href="abstract.html#ogr.abstract.GitService.set_auth_method">set_auth_method</a></code></li>
+</ul>
+</li>
+<li><code><b><a title="ogr.abstract.GitService" href="abstract.html#ogr.abstract.GitService">GitService</a></b></code>:
+<ul class="hlist">
+<li><code><a title="ogr.abstract.GitService.get_project_from_url" href="abstract.html#ogr.abstract.GitService.get_project_from_url">get_project_from_url</a></code></li>
+</ul>
+</li>
+<li><code><b><a title="ogr.abstract.GitService" href="abstract.html#ogr.abstract.GitService">GitService</a></b></code>:
+<ul class="hlist">
+<li><code><a title="ogr.abstract.GitService.hostname" href="abstract.html#ogr.abstract.GitService.hostname">hostname</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+<dt id="ogr.GithubService"><code class="flex name class">
+<span>class <span class="ident">GithubService</span></span>
+<span>(</span><span>token=None,<br>read_only=False,<br>github_app_id: str | None = None,<br>github_app_private_key: str | None = None,<br>github_app_private_key_path: str | None = None,<br>tokman_instance_url: str | None = None,<br>github_authentication: <a title="ogr.services.github.auth_providers.abstract.GithubAuthentication" href="services/github/auth_providers/abstract.html#ogr.services.github.auth_providers.abstract.GithubAuthentication">GithubAuthentication</a> = None,<br>max_retries: int | urllib3.util.retry.Retry = 1,<br>**kwargs)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@use_for_service(&#34;github.com&#34;)
+class GithubService(BaseGitService):
+    # class parameter could be used to mock Github class api
+    github_class: type[github.Github]
+    instance_url = &#34;https://github.com&#34;
+
+    def __init__(
+        self,
+        token=None,
+        read_only=False,
+        github_app_id: Optional[str] = None,
+        github_app_private_key: Optional[str] = None,
+        github_app_private_key_path: Optional[str] = None,
+        tokman_instance_url: Optional[str] = None,
+        github_authentication: GithubAuthentication = None,
+        max_retries: Union[int, Retry] = 1,
+        **kwargs,
+    ):
+        &#34;&#34;&#34;
+        If multiple authentication methods are provided, they are prioritised:
+            1. Tokman
+            2. GithubApp
+            3. TokenAuthentication (which is also default one, that works without specified token)
+        &#34;&#34;&#34;
+        super().__init__()
+        self.read_only = read_only
+        self._default_auth_method = github_authentication
+        self._other_auth_method: GithubAuthentication = None
+        self._auth_methods: dict[AuthMethod, GithubAuthentication] = {}
+
+        if isinstance(max_retries, Retry):
+            self._max_retries = max_retries
+        else:
+            self._max_retries = Retry(
+                total=int(max_retries),
+                # Retry mechanism active for these HTTP methods:
+                allowed_methods=[&#34;DELETE&#34;, &#34;GET&#34;, &#34;PATCH&#34;, &#34;POST&#34;, &#34;PUT&#34;],
+                # Only retry on following HTTP status codes
+                status_forcelist=[500, 503, 403, 401],
+                raise_on_status=True,
+            )
+
+        if not self._default_auth_method:
+            self.__set_authentication(
+                token=token,
+                github_app_id=github_app_id,
+                github_app_private_key=github_app_private_key,
+                github_app_private_key_path=github_app_private_key_path,
+                tokman_instance_url=tokman_instance_url,
+                max_retries=self._max_retries,
+            )
+
+        if kwargs:
+            logger.warning(f&#34;Ignored keyword arguments: {kwargs}&#34;)
+
+    def __set_authentication(self, **kwargs):
+        auth_methods = [
+            (Tokman, AuthMethod.tokman),
+            (GithubApp, AuthMethod.github_app),
+            (TokenAuthentication, AuthMethod.token),
+        ]
+        for auth_class, auth_name in auth_methods:
+            auth_inst = auth_class.try_create(**kwargs)
+            self._auth_methods[auth_name] = auth_inst
+            if not self._default_auth_method:
+                self._default_auth_method = auth_inst
+
+        return None if self._default_auth_method else TokenAuthentication(None)
+
+    def set_auth_method(self, method: AuthMethod):
+        if self._auth_methods[method]:
+            logger.info(&#34;Forced Github auth method to %s&#34;, method)
+            self._other_auth_method = self._auth_methods[method]
+        else:
+            raise GithubAPIException(
+                f&#34;Choosen authentication method ({method}) is not available&#34;,
+            )
+
+    def reset_auth_method(self):
+        logger.info(&#34;Reset Github auth method to the default&#34;)
+        self._other_auth_method = None
+
+    @property
+    def authentication(self):
+        return self._other_auth_method or self._default_auth_method
+
+    @property
+    def github(self):
+        return self.authentication.pygithub_instance
+
+    def __str__(self) -&gt; str:
+        readonly_str = &#34;, read_only=True&#34; if self.read_only else &#34;&#34;
+        arguments = f&#34;, github_authentication={self.authentication!s}{readonly_str}&#34;
+
+        if arguments:
+            # remove the first &#39;- &#39;
+            arguments = arguments[2:]
+
+        return f&#34;GithubService({arguments})&#34;
+
+    def __eq__(self, o: object) -&gt; bool:
+        if not issubclass(o.__class__, GithubService):
+            return False
+
+        return (
+            self.read_only == o.read_only  # type: ignore
+            and self.authentication == o.authentication  # type: ignore
+        )
+
+    def __hash__(self) -&gt; int:
+        return hash(str(self))
+
+    def get_project(
+        self,
+        repo=None,
+        namespace=None,
+        is_fork=False,
+        **kwargs,
+    ) -&gt; &#34;GithubProject&#34;:
+        if is_fork:
+            namespace = self.user.get_username()
+        return GithubProject(
+            repo=repo,
+            namespace=namespace,
+            service=self,
+            read_only=self.read_only,
+            **kwargs,
+        )
+
+    def get_project_from_github_repository(
+        self,
+        github_repo: PyGithubRepository.Repository,
+    ) -&gt; &#34;GithubProject&#34;:
+        return GithubProject(
+            repo=github_repo.name,
+            namespace=github_repo.owner.login,
+            github_repo=github_repo,
+            service=self,
+            read_only=self.read_only,
+        )
+
+    @property
+    def user(self) -&gt; GitUser:
+        return GithubUser(service=self)
+
+    def change_token(self, new_token: str) -&gt; None:
+        self._default_auth_method = TokenAuthentication(new_token)
+
+    def project_create(
+        self,
+        repo: str,
+        namespace: Optional[str] = None,
+        description: Optional[str] = None,
+    ) -&gt; &#34;GithubProject&#34;:
+        if namespace:
+            try:
+                owner = self.github.get_organization(namespace)
+            except UnknownObjectException as ex:
+                raise GithubAPIException(f&#34;Group {namespace} not found.&#34;) from ex
+        else:
+            owner = self.github.get_user()
+
+        try:
+            new_repo = owner.create_repo(
+                name=repo,
+                description=description if description else github.GithubObject.NotSet,
+            )
+        except github.GithubException as ex:
+            raise GithubAPIException(&#34;Project creation failed&#34;) from ex
+        return GithubProject(
+            repo=repo,
+            namespace=namespace or owner.login,
+            service=self,
+            github_repo=new_repo,
+        )
+
+    def get_pygithub_instance(self, namespace: str, repo: str) -&gt; PyGithubInstance:
+        token = self.authentication.get_token(namespace, repo)
+        return PyGithubInstance(login_or_token=token, retry=self._max_retries)
+
+    def list_projects(
+        self,
+        namespace: Optional[str] = None,
+        user: Optional[str] = None,
+        search_pattern: Optional[str] = None,
+        language: Optional[str] = None,
+    ) -&gt; list[GitProject]:
+        search_query = &#34;&#34;
+
+        if user:
+            search_query += f&#34;user:{user}&#34;
+
+        if language:
+            search_query += f&#34; language:{language}&#34;
+
+        projects: list[GitProject]
+        projects = [
+            GithubProject(
+                repo=repo.name,
+                namespace=repo.owner.login,
+                github_repo=repo,
+                service=self,
+            )
+            for repo in self.github.search_repositories(search_query, order=&#34;asc&#34;)
+        ]
+
+        if search_pattern:
+            projects = [
+                project
+                for project in projects
+                if re.search(search_pattern, project.repo)
+            ]
+
+        return projects</code></pre>
+</details>
+<div class="desc"><h2 id="attributes">Attributes</h2>
+<dl>
+<dt><strong><code>instance_url</code></strong> :&ensp;<code>str</code></dt>
+<dd>URL of the git forge instance.</dd>
+</dl>
+<p>If multiple authentication methods are provided, they are prioritised:
+1. Tokman
+2. GithubApp
+3. TokenAuthentication (which is also default one, that works without specified token)</p></div>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="ogr.services.base.BaseGitService" href="services/base.html#ogr.services.base.BaseGitService">BaseGitService</a></li>
+<li><a title="ogr.abstract.GitService" href="abstract.html#ogr.abstract.GitService">GitService</a></li>
+<li><a title="ogr.abstract.OgrAbstractClass" href="abstract.html#ogr.abstract.OgrAbstractClass">OgrAbstractClass</a></li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="ogr.GithubService.github_class"><code class="name">var <span class="ident">github_class</span> : type[github.MainClass.Github]</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="ogr.GithubService.instance_url"><code class="name">var <span class="ident">instance_url</span> : str | None</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Instance variables</h3>
+<dl>
+<dt id="ogr.GithubService.authentication"><code class="name">prop <span class="ident">authentication</span></code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def authentication(self):
+    return self._other_auth_method or self._default_auth_method</code></pre>
+</details>
+<div class="desc"></div>
+</dd>
+<dt id="ogr.GithubService.github"><code class="name">prop <span class="ident">github</span></code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def github(self):
+    return self.authentication.pygithub_instance</code></pre>
+</details>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Methods</h3>
+<dl>
+<dt id="ogr.GithubService.get_project_from_github_repository"><code class="name flex">
+<span>def <span class="ident">get_project_from_github_repository</span></span>(<span>self, github_repo: github.Repository.Repository) ‑> <a title="ogr.services.github.project.GithubProject" href="services/github/project.html#ogr.services.github.project.GithubProject">GithubProject</a></span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_project_from_github_repository(
+    self,
+    github_repo: PyGithubRepository.Repository,
+) -&gt; &#34;GithubProject&#34;:
+    return GithubProject(
+        repo=github_repo.name,
+        namespace=github_repo.owner.login,
+        github_repo=github_repo,
+        service=self,
+        read_only=self.read_only,
+    )</code></pre>
+</details>
+<div class="desc"></div>
+</dd>
+<dt id="ogr.GithubService.get_pygithub_instance"><code class="name flex">
+<span>def <span class="ident">get_pygithub_instance</span></span>(<span>self, namespace: str, repo: str) ‑> github.MainClass.Github</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_pygithub_instance(self, namespace: str, repo: str) -&gt; PyGithubInstance:
+    token = self.authentication.get_token(namespace, repo)
+    return PyGithubInstance(login_or_token=token, retry=self._max_retries)</code></pre>
+</details>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="ogr.services.base.BaseGitService" href="services/base.html#ogr.services.base.BaseGitService">BaseGitService</a></b></code>:
+<ul class="hlist">
+<li><code><a title="ogr.services.base.BaseGitService.change_token" href="abstract.html#ogr.abstract.GitService.change_token">change_token</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitService.get_group" href="abstract.html#ogr.abstract.GitService.get_group">get_group</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitService.get_project" href="abstract.html#ogr.abstract.GitService.get_project">get_project</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitService.list_projects" href="abstract.html#ogr.abstract.GitService.list_projects">list_projects</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitService.project_create" href="abstract.html#ogr.abstract.GitService.project_create">project_create</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitService.reset_auth_method" href="abstract.html#ogr.abstract.GitService.reset_auth_method">reset_auth_method</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitService.set_auth_method" href="abstract.html#ogr.abstract.GitService.set_auth_method">set_auth_method</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitService.user" href="abstract.html#ogr.abstract.GitService.user">user</a></code></li>
+</ul>
+</li>
+<li><code><b><a title="ogr.abstract.GitService" href="abstract.html#ogr.abstract.GitService">GitService</a></b></code>:
+<ul class="hlist">
+<li><code><a title="ogr.abstract.GitService.get_project_from_url" href="abstract.html#ogr.abstract.GitService.get_project_from_url">get_project_from_url</a></code></li>
+<li><code><a title="ogr.abstract.GitService.hostname" href="abstract.html#ogr.abstract.GitService.hostname">hostname</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+<dt id="ogr.GitlabService"><code class="flex name class">
+<span>class <span class="ident">GitlabService</span></span>
+<span>(</span><span>token=None, instance_url=None, ssl_verify=True, **kwargs)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@use_for_service(&#34;gitlab&#34;)  # anything containing a gitlab word in hostname
+# + list of community-hosted instances based on the following list
+# https://wiki.p2pfoundation.net/List_of_Community-Hosted_GitLab_Instances
+@use_for_service(&#34;salsa.debian.org&#34;)
+@use_for_service(&#34;git.fosscommunity.in&#34;)
+@use_for_service(&#34;framagit.org&#34;)
+@use_for_service(&#34;dev.gajim.org&#34;)
+@use_for_service(&#34;git.coop&#34;)
+@use_for_service(&#34;lab.libreho.st&#34;)
+@use_for_service(&#34;git.linux-kernel.at&#34;)
+@use_for_service(&#34;git.pleroma.social&#34;)
+@use_for_service(&#34;git.silence.dev&#34;)
+@use_for_service(&#34;code.videolan.org&#34;)
+@use_for_service(&#34;source.puri.sm&#34;)
+class GitlabService(BaseGitService):
+    name = &#34;gitlab&#34;
+
+    def __init__(self, token=None, instance_url=None, ssl_verify=True, **kwargs):
+        super().__init__(token=token)
+        self.instance_url = instance_url or &#34;https://gitlab.com&#34;
+        self.token = token
+        self.ssl_verify = ssl_verify
+        self._gitlab_instance = None
+
+        if kwargs:
+            logger.warning(f&#34;Ignored keyword arguments: {kwargs}&#34;)
+
+    @property
+    def gitlab_instance(self) -&gt; gitlab.Gitlab:
+        if not self._gitlab_instance:
+            self._gitlab_instance = gitlab.Gitlab(
+                url=self.instance_url,
+                private_token=self.token,
+                ssl_verify=self.ssl_verify,
+            )
+            if self.token:
+                self._gitlab_instance.auth()
+        return self._gitlab_instance
+
+    @property
+    def user(self) -&gt; GitUser:
+        return GitlabUser(service=self)
+
+    def __str__(self) -&gt; str:
+        token_str = (
+            f&#34;, token=&#39;{self.token[:1]}***{self.token[-1:]}&#39;&#34; if self.token else &#34;&#34;
+        )
+        ssl_str = &#34;, ssl_verify=False&#34; if not self.ssl_verify else &#34;&#34;
+        return (
+            f&#34;GitlabService(instance_url=&#39;{self.instance_url}&#39;&#34;
+            f&#34;{token_str}&#34;
+            f&#34;{ssl_str})&#34;
+        )
+
+    def __eq__(self, o: object) -&gt; bool:
+        if not issubclass(o.__class__, GitlabService):
+            return False
+
+        return (
+            self.token == o.token  # type: ignore
+            and self.instance_url == o.instance_url  # type: ignore
+            and self.ssl_verify == o.ssl_verify  # type: ignore
+        )
+
+    def __hash__(self) -&gt; int:
+        return hash(str(self))
+
+    def get_project(
+        self,
+        repo=None,
+        namespace=None,
+        is_fork=False,
+        **kwargs,
+    ) -&gt; &#34;GitlabProject&#34;:
+        if is_fork:
+            namespace = self.user.get_username()
+        return GitlabProject(repo=repo, namespace=namespace, service=self, **kwargs)
+
+    def get_project_from_project_id(self, iid: int) -&gt; &#34;GitlabProject&#34;:
+        gitlab_repo = self.gitlab_instance.projects.get(iid)
+        return GitlabProject(
+            repo=gitlab_repo.attributes[&#34;path&#34;],
+            namespace=gitlab_repo.attributes[&#34;namespace&#34;][&#34;full_path&#34;],
+            service=self,
+            gitlab_repo=gitlab_repo,
+        )
+
+    def change_token(self, new_token: str) -&gt; None:
+        self.token = new_token
+        self._gitlab_instance = None
+
+    def project_create(
+        self,
+        repo: str,
+        namespace: Optional[str] = None,
+        description: Optional[str] = None,
+    ) -&gt; &#34;GitlabProject&#34;:
+        data = {&#34;name&#34;: repo}
+        if namespace:
+            try:
+                group = self.gitlab_instance.groups.get(namespace)
+            except gitlab.GitlabGetError as ex:
+                raise GitlabAPIException(f&#34;Group {namespace} not found.&#34;) from ex
+            data[&#34;namespace_id&#34;] = group.id
+
+        if description:
+            data[&#34;description&#34;] = description
+        try:
+            new_project = self.gitlab_instance.projects.create(data)
+        except gitlab.GitlabCreateError as ex:
+            raise GitlabAPIException(&#34;Project already exists&#34;) from ex
+        return GitlabProject(
+            repo=repo,
+            namespace=namespace,
+            service=self,
+            gitlab_repo=new_project,
+        )
+
+    def list_projects(
+        self,
+        namespace: Optional[str] = None,
+        user: Optional[str] = None,
+        search_pattern: Optional[str] = None,
+        language: Optional[str] = None,
+    ) -&gt; list[GitProject]:
+        if namespace:
+            group = self.gitlab_instance.groups.get(namespace)
+            projects = group.projects.list(all=True)
+        elif user:
+            user_object = self.gitlab_instance.users.list(username=user)[0]
+            projects = user_object.projects.list(all=True)
+        else:
+            raise OperationNotSupported
+
+        if language:
+            # group.projects.list gives us a GroupProject instance
+            # in order to be able to filter by language we need Project instance
+            projects_to_convert = [
+                self.gitlab_instance.projects.get(item.attributes[&#34;id&#34;])
+                for item in projects
+                if language
+                in self.gitlab_instance.projects.get(item.attributes[&#34;id&#34;]).languages()
+            ]
+        else:
+            projects_to_convert = projects
+        return [
+            GitlabProject(
+                repo=project.attributes[&#34;path&#34;],
+                namespace=project.attributes[&#34;namespace&#34;][&#34;full_path&#34;],
+                service=self,
+            )
+            for project in projects_to_convert
+        ]</code></pre>
+</details>
+<div class="desc"><h2 id="attributes">Attributes</h2>
+<dl>
+<dt><strong><code>instance_url</code></strong> :&ensp;<code>str</code></dt>
+<dd>URL of the git forge instance.</dd>
+</dl></div>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="ogr.services.base.BaseGitService" href="services/base.html#ogr.services.base.BaseGitService">BaseGitService</a></li>
+<li><a title="ogr.abstract.GitService" href="abstract.html#ogr.abstract.GitService">GitService</a></li>
+<li><a title="ogr.abstract.OgrAbstractClass" href="abstract.html#ogr.abstract.OgrAbstractClass">OgrAbstractClass</a></li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="ogr.GitlabService.name"><code class="name">var <span class="ident">name</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Instance variables</h3>
+<dl>
+<dt id="ogr.GitlabService.gitlab_instance"><code class="name">prop <span class="ident">gitlab_instance</span> : gitlab.client.Gitlab</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def gitlab_instance(self) -&gt; gitlab.Gitlab:
+    if not self._gitlab_instance:
+        self._gitlab_instance = gitlab.Gitlab(
+            url=self.instance_url,
+            private_token=self.token,
+            ssl_verify=self.ssl_verify,
+        )
+        if self.token:
+            self._gitlab_instance.auth()
+    return self._gitlab_instance</code></pre>
+</details>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Methods</h3>
+<dl>
+<dt id="ogr.GitlabService.get_project_from_project_id"><code class="name flex">
+<span>def <span class="ident">get_project_from_project_id</span></span>(<span>self, iid: int) ‑> <a title="ogr.services.gitlab.project.GitlabProject" href="services/gitlab/project.html#ogr.services.gitlab.project.GitlabProject">GitlabProject</a></span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_project_from_project_id(self, iid: int) -&gt; &#34;GitlabProject&#34;:
+    gitlab_repo = self.gitlab_instance.projects.get(iid)
+    return GitlabProject(
+        repo=gitlab_repo.attributes[&#34;path&#34;],
+        namespace=gitlab_repo.attributes[&#34;namespace&#34;][&#34;full_path&#34;],
+        service=self,
+        gitlab_repo=gitlab_repo,
+    )</code></pre>
+</details>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="ogr.services.base.BaseGitService" href="services/base.html#ogr.services.base.BaseGitService">BaseGitService</a></b></code>:
+<ul class="hlist">
+<li><code><a title="ogr.services.base.BaseGitService.change_token" href="abstract.html#ogr.abstract.GitService.change_token">change_token</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitService.get_group" href="abstract.html#ogr.abstract.GitService.get_group">get_group</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitService.get_project" href="abstract.html#ogr.abstract.GitService.get_project">get_project</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitService.list_projects" href="abstract.html#ogr.abstract.GitService.list_projects">list_projects</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitService.project_create" href="abstract.html#ogr.abstract.GitService.project_create">project_create</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitService.reset_auth_method" href="abstract.html#ogr.abstract.GitService.reset_auth_method">reset_auth_method</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitService.set_auth_method" href="abstract.html#ogr.abstract.GitService.set_auth_method">set_auth_method</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitService.user" href="abstract.html#ogr.abstract.GitService.user">user</a></code></li>
+</ul>
+</li>
+<li><code><b><a title="ogr.abstract.GitService" href="abstract.html#ogr.abstract.GitService">GitService</a></b></code>:
+<ul class="hlist">
+<li><code><a title="ogr.abstract.GitService.get_project_from_url" href="abstract.html#ogr.abstract.GitService.get_project_from_url">get_project_from_url</a></code></li>
+<li><code><a title="ogr.abstract.GitService.hostname" href="abstract.html#ogr.abstract.GitService.hostname">hostname</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+<dt id="ogr.PagureService"><code class="flex name class">
+<span>class <span class="ident">PagureService</span></span>
+<span>(</span><span>token: str | None = None,<br>instance_url: str = 'https://src.fedoraproject.org',<br>read_only: bool = False,<br>insecure: bool = False,<br>max_retries: int | urllib3.util.retry.Retry = 5,<br>**kwargs)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@use_for_service(&#34;pagure&#34;)
+@use_for_service(&#34;src.fedoraproject.org&#34;)
+@use_for_service(&#34;src.stg.fedoraproject.org&#34;)
+@use_for_service(&#34;pkgs.fedoraproject.org&#34;)
+@use_for_service(&#34;pkgs.stg.fedoraproject.org&#34;)
+@use_for_service(&#34;git.centos.org&#34;)
+@use_for_service(&#34;git.stg.centos.org&#34;)
+class PagureService(BaseGitService):
+    def __init__(
+        self,
+        token: Optional[str] = None,
+        instance_url: str = &#34;https://src.fedoraproject.org&#34;,
+        read_only: bool = False,
+        insecure: bool = False,
+        max_retries: Union[int, urllib3.util.Retry] = 5,
+        **kwargs,
+    ) -&gt; None:
+        super().__init__()
+        self.instance_url = instance_url
+        self._token = token
+        self.read_only = read_only
+
+        self.session = requests.session()
+
+        adapter = requests.adapters.HTTPAdapter(max_retries=max_retries)
+
+        self.insecure = insecure
+        if self.insecure:
+            self.session.mount(&#34;http://&#34;, adapter)
+        else:
+            self.session.mount(&#34;https://&#34;, adapter)
+
+        self.header = {&#34;Authorization&#34;: &#34;token &#34; + self._token} if self._token else {}
+
+        if kwargs:
+            logger.warning(f&#34;Ignored keyword arguments: {kwargs}&#34;)
+
+    def __str__(self) -&gt; str:
+        token_str = (
+            f&#34;, token=&#39;{self._token[:1]}***{self._token[-1:]}&#39;&#34; if self._token else &#34;&#34;
+        )
+        insecure_str = &#34;, insecure=True&#34; if self.insecure else &#34;&#34;
+        readonly_str = &#34;, read_only=True&#34; if self.read_only else &#34;&#34;
+
+        return (
+            f&#34;PagureService(instance_url=&#39;{self.instance_url}&#39;&#34;
+            f&#34;{token_str}&#34;
+            f&#34;{readonly_str}&#34;
+            f&#34;{insecure_str})&#34;
+        )
+
+    def __eq__(self, o: object) -&gt; bool:
+        if not issubclass(o.__class__, PagureService):
+            return False
+
+        return (
+            self._token == o._token  # type: ignore
+            and self.read_only == o.read_only  # type: ignore
+            and self.instance_url == o.instance_url  # type: ignore
+            and self.insecure == o.insecure  # type: ignore
+            and self.header == o.header  # type: ignore
+        )
+
+    def __hash__(self) -&gt; int:
+        return hash(str(self))
+
+    def get_project(self, **kwargs) -&gt; &#34;PagureProject&#34;:
+        if &#34;username&#34; in kwargs:
+            return PagureProject(service=self, **kwargs)
+
+        return PagureProject(
+            service=self,
+            username=self.user.get_username(),
+            **kwargs,
+        )
+
+    def get_project_from_url(self, url: str) -&gt; &#34;PagureProject&#34;:
+        repo_url = parse_git_repo(potential_url=url)
+        if not repo_url:
+            raise OgrException(f&#34;Cannot parse project url: &#39;{url}&#39;&#34;)
+
+        if not repo_url.is_fork:
+            repo_url.username = None
+
+        return self.get_project(
+            repo=repo_url.repo,
+            namespace=repo_url.namespace,
+            is_fork=repo_url.is_fork,
+            username=repo_url.username,
+        )
+
+    @property
+    def user(self) -&gt; &#34;PagureUser&#34;:
+        return PagureUser(service=self)
+
+    def call_api(
+        self,
+        url: str,
+        method: Optional[str] = None,
+        params: Optional[dict] = None,
+        data=None,
+    ) -&gt; dict:
+        &#34;&#34;&#34;
+        Call API endpoint.
+
+        Args:
+            url: URL to be called.
+            method: Method of the HTTP request, e.g. `&#34;GET&#34;`, `&#34;POST&#34;`, etc.
+            params: HTTP(S) query parameters in form of a dictionary.
+            data: Data to be sent in form of a dictionary.
+
+        Returns:
+            Dictionary representing response.
+
+        Raises:
+            PagureAPIException, if error occurs.
+        &#34;&#34;&#34;
+        response = self.call_api_raw(url=url, method=method, params=params, data=data)
+
+        if response.status_code == 404:
+            error_msg = (
+                response.json_content[&#34;error&#34;]
+                if response.json_content and &#34;error&#34; in response.json_content
+                else None
+            )
+            raise PagureAPIException(
+                f&#34;Page &#39;{url}&#39; not found when calling Pagure API.&#34;,
+                pagure_error=error_msg,
+                response_code=response.status_code,
+            )
+
+        if not response.json_content:
+            logger.debug(response.content)
+            raise PagureAPIException(
+                &#34;Error while decoding JSON: {0}&#34;,
+                response_code=response.status_code,
+            )
+
+        if not response.ok:
+            logger.error(response.json_content)
+            if &#34;error&#34; in response.json_content:
+                error_msg = response.json_content[&#34;error&#34;]
+                error_msg_ext = response.json_content.get(&#34;errors&#34;, &#34;&#34;)
+                msg = f&#34;Pagure API returned an error when calling &#39;{url}&#39;: {error_msg}&#34;
+                if error_msg_ext:
+                    msg += f&#34; - {error_msg_ext}&#34;
+                raise PagureAPIException(
+                    msg,
+                    pagure_error=error_msg,
+                    pagure_response=response.json_content,
+                    response_code=response.status_code,
+                )
+            raise PagureAPIException(
+                f&#34;Problem with Pagure API when calling &#39;{url}&#39;&#34;,
+                response_code=response.status_code,
+            )
+
+        return response.json_content
+
+    def call_api_raw(
+        self,
+        url: str,
+        method: Optional[str] = None,
+        params: Optional[dict] = None,
+        data=None,
+    ):
+        &#34;&#34;&#34;
+        Call API endpoint and returns raw response.
+
+        Args:
+            url: URL to be called.
+            method: Method of the HTTP request, e.g. `&#34;GET&#34;`, `&#34;POST&#34;`, etc.
+            params: HTTP(S) query parameters in form of a dictionary.
+            data: Data to be sent in form of a dictionary.
+
+        Returns:
+            `RequestResponse` object that represents the response from the API
+            endpoint.
+        &#34;&#34;&#34;
+
+        method = method or &#34;GET&#34;
+        try:
+            response = self.get_raw_request(
+                method=method,
+                url=url,
+                params=params,
+                data=data,
+            )
+
+        except requests.exceptions.ConnectionError as er:
+            logger.error(er)
+            raise OgrNetworkError(f&#34;Cannot connect to url: &#39;{url}&#39;.&#34;) from er
+
+        if response.status_code &gt;= 500:
+            raise GitForgeInternalError(
+                f&#34;Pagure API returned {response.status_code} status for `{url}`&#34;
+                f&#34; with reason: `{response.reason}`&#34;,
+            )
+
+        return response
+
+    def get_raw_request(
+        self,
+        url,
+        method=&#34;GET&#34;,
+        params=None,
+        data=None,
+        header=None,
+    ) -&gt; RequestResponse:
+        &#34;&#34;&#34;
+        Call API endpoint and wrap the response in `RequestResponse` type.
+
+        Args:
+            url: URL to be called.
+            method: Method of the HTTP request, e.g. `&#34;GET&#34;`, `&#34;POST&#34;`, etc.
+
+                Defaults to `&#34;GET&#34;`.
+            params: HTTP(S) query parameters in form of a dictionary.
+            data: Data to be sent in form of a dictionary.
+            header: Header of the HTTP request.
+
+        Returns:
+            `RequestResponse` object representing the response.
+
+        Raises:
+            ValueError, if JSON cannot be retrieved.
+        &#34;&#34;&#34;
+
+        response = self.session.request(
+            method=method,
+            url=url,
+            params=params,
+            headers=header or self.header,
+            data=data,
+            verify=not self.insecure,
+        )
+
+        json_output = None
+        try:
+            json_output = response.json()
+        except ValueError:
+            logger.debug(response.text)
+
+        return RequestResponse(
+            status_code=response.status_code,
+            ok=response.ok,
+            content=response.content,
+            json=json_output,
+            reason=response.reason,
+        )
+
+    @property
+    def api_url(self):
+        &#34;&#34;&#34;URL to the Pagure API.&#34;&#34;&#34;
+        return f&#34;{self.instance_url}/api/0/&#34;
+
+    def get_api_url(self, *args, add_api_endpoint_part: bool = True) -&gt; str:
+        &#34;&#34;&#34;
+        Get a URL from its parts.
+
+        Args:
+            *args: String parts of the URL, e.g. `&#34;a&#34;, &#34;b&#34;` will call `project/a/b`
+            add_api_endpoint_part: Add part with API endpoint (`/api/0/`).
+
+                Defaults to `True`.
+
+        Returns:
+            String
+        &#34;&#34;&#34;
+        args_list: list[str] = []
+
+        args_list += filter(lambda x: x is not None, args)
+
+        if add_api_endpoint_part:
+            return self.api_url + &#34;/&#34;.join(args_list)
+        return f&#34;{self.instance_url}/&#34; + &#34;/&#34;.join(args_list)
+
+    def get_api_version(self) -&gt; str:
+        &#34;&#34;&#34;
+        Returns:
+            Version of the Pagure API.
+        &#34;&#34;&#34;
+        request_url = self.get_api_url(&#34;version&#34;)
+        return_value = self.call_api(request_url)
+        return return_value[&#34;version&#34;]
+
+    def get_error_codes(self):
+        &#34;&#34;&#34;
+        Returns:
+            Dictionary with all error codes.
+        &#34;&#34;&#34;
+        request_url = self.get_api_url(&#34;error_codes&#34;)
+        return self.call_api(request_url)
+
+    def change_token(self, token: str):
+        self._token = token
+        self.header = {&#34;Authorization&#34;: &#34;token &#34; + self._token}
+
+    def __handle_project_create_fail(
+        self,
+        exception: PagureAPIException,
+        namespace: str,
+    ) -&gt; None:
+        if (
+            exception.pagure_response
+            and exception.pagure_response[&#34;errors&#34;][&#34;namespace&#34;][0]
+            == &#34;Not a valid choice&#34;
+        ):
+            request_url = self.get_api_url(&#34;group&#34;, namespace)
+
+            try:
+                self.call_api(request_url, data={&#34;projects&#34;: False})
+            except PagureAPIException as ex:
+                raise OgrException(f&#34;Namespace doesn&#39;t exist ({namespace}).&#34;) from ex
+
+            raise OgrException(
+                &#34;Cannot create project in given namespace (permissions).&#34;,
+            )
+
+        raise exception
+
+    def project_create(
+        self,
+        repo: str,
+        namespace: Optional[str] = None,
+        description: Optional[str] = None,
+    ) -&gt; PagureProject:
+        request_url = self.get_api_url(&#34;new&#34;)
+
+        parameters = {&#34;name&#34;: repo, &#34;description&#34;: description, &#34;wait&#34;: True}
+        if not description:
+            parameters[&#34;description&#34;] = repo
+        if namespace:
+            parameters[&#34;namespace&#34;] = namespace
+
+        try:
+            self.call_api(request_url, &#34;POST&#34;, data=parameters)
+        except PagureAPIException as ex:
+            self.__handle_project_create_fail(ex, namespace)
+        return PagureProject(repo=repo, namespace=namespace, service=self)
+
+    def list_projects(
+        self,
+        namespace: Optional[str] = None,
+        user: Optional[str] = None,
+        search_pattern: Optional[str] = None,
+        language: Optional[str] = None,
+    ) -&gt; list[GitProject]:
+        raise OperationNotSupported
+
+    def get_group(self, group_name: str) -&gt; PagureGroup:
+        &#34;&#34;&#34;
+        Get a Pagure group by name.
+        &#34;&#34;&#34;
+        url = self.get_api_url(&#34;group&#34;, group_name)
+        return PagureGroup(group_name, self.call_api(url))</code></pre>
+</details>
+<div class="desc"><h2 id="attributes">Attributes</h2>
+<dl>
+<dt><strong><code>instance_url</code></strong> :&ensp;<code>str</code></dt>
+<dd>URL of the git forge instance.</dd>
+</dl></div>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="ogr.services.base.BaseGitService" href="services/base.html#ogr.services.base.BaseGitService">BaseGitService</a></li>
+<li><a title="ogr.abstract.GitService" href="abstract.html#ogr.abstract.GitService">GitService</a></li>
+<li><a title="ogr.abstract.OgrAbstractClass" href="abstract.html#ogr.abstract.OgrAbstractClass">OgrAbstractClass</a></li>
+</ul>
+<h3>Instance variables</h3>
+<dl>
+<dt id="ogr.PagureService.api_url"><code class="name">prop <span class="ident">api_url</span></code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def api_url(self):
+    &#34;&#34;&#34;URL to the Pagure API.&#34;&#34;&#34;
+    return f&#34;{self.instance_url}/api/0/&#34;</code></pre>
+</details>
+<div class="desc"><p>URL to the Pagure API.</p></div>
+</dd>
+</dl>
+<h3>Methods</h3>
+<dl>
+<dt id="ogr.PagureService.call_api"><code class="name flex">
+<span>def <span class="ident">call_api</span></span>(<span>self, url: str, method: str | None = None, params: dict | None = None, data=None) ‑> dict</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def call_api(
+    self,
+    url: str,
+    method: Optional[str] = None,
+    params: Optional[dict] = None,
+    data=None,
+) -&gt; dict:
+    &#34;&#34;&#34;
+    Call API endpoint.
+
+    Args:
+        url: URL to be called.
+        method: Method of the HTTP request, e.g. `&#34;GET&#34;`, `&#34;POST&#34;`, etc.
+        params: HTTP(S) query parameters in form of a dictionary.
+        data: Data to be sent in form of a dictionary.
+
+    Returns:
+        Dictionary representing response.
+
+    Raises:
+        PagureAPIException, if error occurs.
+    &#34;&#34;&#34;
+    response = self.call_api_raw(url=url, method=method, params=params, data=data)
+
+    if response.status_code == 404:
+        error_msg = (
+            response.json_content[&#34;error&#34;]
+            if response.json_content and &#34;error&#34; in response.json_content
+            else None
+        )
+        raise PagureAPIException(
+            f&#34;Page &#39;{url}&#39; not found when calling Pagure API.&#34;,
+            pagure_error=error_msg,
+            response_code=response.status_code,
+        )
+
+    if not response.json_content:
+        logger.debug(response.content)
+        raise PagureAPIException(
+            &#34;Error while decoding JSON: {0}&#34;,
+            response_code=response.status_code,
+        )
+
+    if not response.ok:
+        logger.error(response.json_content)
+        if &#34;error&#34; in response.json_content:
+            error_msg = response.json_content[&#34;error&#34;]
+            error_msg_ext = response.json_content.get(&#34;errors&#34;, &#34;&#34;)
+            msg = f&#34;Pagure API returned an error when calling &#39;{url}&#39;: {error_msg}&#34;
+            if error_msg_ext:
+                msg += f&#34; - {error_msg_ext}&#34;
+            raise PagureAPIException(
+                msg,
+                pagure_error=error_msg,
+                pagure_response=response.json_content,
+                response_code=response.status_code,
+            )
+        raise PagureAPIException(
+            f&#34;Problem with Pagure API when calling &#39;{url}&#39;&#34;,
+            response_code=response.status_code,
+        )
+
+    return response.json_content</code></pre>
+</details>
+<div class="desc"><p>Call API endpoint.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>url</code></strong></dt>
+<dd>URL to be called.</dd>
+<dt><strong><code>method</code></strong></dt>
+<dd>Method of the HTTP request, e.g. <code>"GET"</code>, <code>"POST"</code>, etc.</dd>
+<dt><strong><code>params</code></strong></dt>
+<dd>HTTP(S) query parameters in form of a dictionary.</dd>
+<dt><strong><code>data</code></strong></dt>
+<dd>Data to be sent in form of a dictionary.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p>Dictionary representing response.</p>
+<h2 id="raises">Raises</h2>
+<p>PagureAPIException, if error occurs.</p></div>
+</dd>
+<dt id="ogr.PagureService.call_api_raw"><code class="name flex">
+<span>def <span class="ident">call_api_raw</span></span>(<span>self, url: str, method: str | None = None, params: dict | None = None, data=None)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def call_api_raw(
+    self,
+    url: str,
+    method: Optional[str] = None,
+    params: Optional[dict] = None,
+    data=None,
+):
+    &#34;&#34;&#34;
+    Call API endpoint and returns raw response.
+
+    Args:
+        url: URL to be called.
+        method: Method of the HTTP request, e.g. `&#34;GET&#34;`, `&#34;POST&#34;`, etc.
+        params: HTTP(S) query parameters in form of a dictionary.
+        data: Data to be sent in form of a dictionary.
+
+    Returns:
+        `RequestResponse` object that represents the response from the API
+        endpoint.
+    &#34;&#34;&#34;
+
+    method = method or &#34;GET&#34;
+    try:
+        response = self.get_raw_request(
+            method=method,
+            url=url,
+            params=params,
+            data=data,
+        )
+
+    except requests.exceptions.ConnectionError as er:
+        logger.error(er)
+        raise OgrNetworkError(f&#34;Cannot connect to url: &#39;{url}&#39;.&#34;) from er
+
+    if response.status_code &gt;= 500:
+        raise GitForgeInternalError(
+            f&#34;Pagure API returned {response.status_code} status for `{url}`&#34;
+            f&#34; with reason: `{response.reason}`&#34;,
+        )
+
+    return response</code></pre>
+</details>
+<div class="desc"><p>Call API endpoint and returns raw response.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>url</code></strong></dt>
+<dd>URL to be called.</dd>
+<dt><strong><code>method</code></strong></dt>
+<dd>Method of the HTTP request, e.g. <code>"GET"</code>, <code>"POST"</code>, etc.</dd>
+<dt><strong><code>params</code></strong></dt>
+<dd>HTTP(S) query parameters in form of a dictionary.</dd>
+<dt><strong><code>data</code></strong></dt>
+<dd>Data to be sent in form of a dictionary.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p><code>RequestResponse</code> object that represents the response from the API
+endpoint.</p></div>
+</dd>
+<dt id="ogr.PagureService.get_api_url"><code class="name flex">
+<span>def <span class="ident">get_api_url</span></span>(<span>self, *args, add_api_endpoint_part: bool = True) ‑> str</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_api_url(self, *args, add_api_endpoint_part: bool = True) -&gt; str:
+    &#34;&#34;&#34;
+    Get a URL from its parts.
+
+    Args:
+        *args: String parts of the URL, e.g. `&#34;a&#34;, &#34;b&#34;` will call `project/a/b`
+        add_api_endpoint_part: Add part with API endpoint (`/api/0/`).
+
+            Defaults to `True`.
+
+    Returns:
+        String
+    &#34;&#34;&#34;
+    args_list: list[str] = []
+
+    args_list += filter(lambda x: x is not None, args)
+
+    if add_api_endpoint_part:
+        return self.api_url + &#34;/&#34;.join(args_list)
+    return f&#34;{self.instance_url}/&#34; + &#34;/&#34;.join(args_list)</code></pre>
+</details>
+<div class="desc"><p>Get a URL from its parts.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>*args</code></strong></dt>
+<dd>String parts of the URL, e.g. <code>"a", "b"</code> will call <code>project/a/b</code></dd>
+<dt><strong><code>add_api_endpoint_part</code></strong></dt>
+<dd>
+<p>Add part with API endpoint (<code>/api/0/</code>).</p>
+<p>Defaults to <code>True</code>.</p>
+</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p>String</p></div>
+</dd>
+<dt id="ogr.PagureService.get_api_version"><code class="name flex">
+<span>def <span class="ident">get_api_version</span></span>(<span>self) ‑> str</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_api_version(self) -&gt; str:
+    &#34;&#34;&#34;
+    Returns:
+        Version of the Pagure API.
+    &#34;&#34;&#34;
+    request_url = self.get_api_url(&#34;version&#34;)
+    return_value = self.call_api(request_url)
+    return return_value[&#34;version&#34;]</code></pre>
+</details>
+<div class="desc"><h2 id="returns">Returns</h2>
+<p>Version of the Pagure API.</p></div>
+</dd>
+<dt id="ogr.PagureService.get_error_codes"><code class="name flex">
+<span>def <span class="ident">get_error_codes</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_error_codes(self):
+    &#34;&#34;&#34;
+    Returns:
+        Dictionary with all error codes.
+    &#34;&#34;&#34;
+    request_url = self.get_api_url(&#34;error_codes&#34;)
+    return self.call_api(request_url)</code></pre>
+</details>
+<div class="desc"><h2 id="returns">Returns</h2>
+<p>Dictionary with all error codes.</p></div>
+</dd>
+<dt id="ogr.PagureService.get_group"><code class="name flex">
+<span>def <span class="ident">get_group</span></span>(<span>self, group_name: str) ‑> <a title="ogr.services.pagure.group.PagureGroup" href="services/pagure/group.html#ogr.services.pagure.group.PagureGroup">PagureGroup</a></span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_group(self, group_name: str) -&gt; PagureGroup:
+    &#34;&#34;&#34;
+    Get a Pagure group by name.
+    &#34;&#34;&#34;
+    url = self.get_api_url(&#34;group&#34;, group_name)
+    return PagureGroup(group_name, self.call_api(url))</code></pre>
+</details>
+<div class="desc"><p>Get a Pagure group by name.</p></div>
+</dd>
+<dt id="ogr.PagureService.get_raw_request"><code class="name flex">
+<span>def <span class="ident">get_raw_request</span></span>(<span>self, url, method='GET', params=None, data=None, header=None) ‑> <a title="ogr.utils.RequestResponse" href="utils.html#ogr.utils.RequestResponse">RequestResponse</a></span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_raw_request(
+    self,
+    url,
+    method=&#34;GET&#34;,
+    params=None,
+    data=None,
+    header=None,
+) -&gt; RequestResponse:
+    &#34;&#34;&#34;
+    Call API endpoint and wrap the response in `RequestResponse` type.
+
+    Args:
+        url: URL to be called.
+        method: Method of the HTTP request, e.g. `&#34;GET&#34;`, `&#34;POST&#34;`, etc.
+
+            Defaults to `&#34;GET&#34;`.
+        params: HTTP(S) query parameters in form of a dictionary.
+        data: Data to be sent in form of a dictionary.
+        header: Header of the HTTP request.
+
+    Returns:
+        `RequestResponse` object representing the response.
+
+    Raises:
+        ValueError, if JSON cannot be retrieved.
+    &#34;&#34;&#34;
+
+    response = self.session.request(
+        method=method,
+        url=url,
+        params=params,
+        headers=header or self.header,
+        data=data,
+        verify=not self.insecure,
+    )
+
+    json_output = None
+    try:
+        json_output = response.json()
+    except ValueError:
+        logger.debug(response.text)
+
+    return RequestResponse(
+        status_code=response.status_code,
+        ok=response.ok,
+        content=response.content,
+        json=json_output,
+        reason=response.reason,
+    )</code></pre>
+</details>
+<div class="desc"><p>Call API endpoint and wrap the response in <code>RequestResponse</code> type.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>url</code></strong></dt>
+<dd>URL to be called.</dd>
+<dt><strong><code>method</code></strong></dt>
+<dd>
+<p>Method of the HTTP request, e.g. <code>"GET"</code>, <code>"POST"</code>, etc.</p>
+<p>Defaults to <code>"GET"</code>.</p>
+</dd>
+<dt><strong><code>params</code></strong></dt>
+<dd>HTTP(S) query parameters in form of a dictionary.</dd>
+<dt><strong><code>data</code></strong></dt>
+<dd>Data to be sent in form of a dictionary.</dd>
+<dt><strong><code>header</code></strong></dt>
+<dd>Header of the HTTP request.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p><code>RequestResponse</code> object representing the response.</p>
+<h2 id="raises">Raises</h2>
+<p>ValueError, if JSON cannot be retrieved.</p></div>
+</dd>
+</dl>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="ogr.services.base.BaseGitService" href="services/base.html#ogr.services.base.BaseGitService">BaseGitService</a></b></code>:
+<ul class="hlist">
+<li><code><a title="ogr.services.base.BaseGitService.get_project" href="abstract.html#ogr.abstract.GitService.get_project">get_project</a></code></li>
+</ul>
+</li>
+<li><code><b><a title="ogr.services.base.BaseGitService" href="services/base.html#ogr.services.base.BaseGitService">BaseGitService</a></b></code>:
+<ul class="hlist">
+<li><code><a title="ogr.services.base.BaseGitService.change_token" href="abstract.html#ogr.abstract.GitService.change_token">change_token</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitService.list_projects" href="abstract.html#ogr.abstract.GitService.list_projects">list_projects</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitService.project_create" href="abstract.html#ogr.abstract.GitService.project_create">project_create</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitService.reset_auth_method" href="abstract.html#ogr.abstract.GitService.reset_auth_method">reset_auth_method</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitService.set_auth_method" href="abstract.html#ogr.abstract.GitService.set_auth_method">set_auth_method</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitService.user" href="abstract.html#ogr.abstract.GitService.user">user</a></code></li>
+</ul>
+</li>
+<li><code><b><a title="ogr.abstract.GitService" href="abstract.html#ogr.abstract.GitService">GitService</a></b></code>:
+<ul class="hlist">
+<li><code><a title="ogr.abstract.GitService.get_project_from_url" href="abstract.html#ogr.abstract.GitService.get_project_from_url">get_project_from_url</a></code></li>
+</ul>
+</li>
+<li><code><b><a title="ogr.abstract.GitService" href="abstract.html#ogr.abstract.GitService">GitService</a></b></code>:
+<ul class="hlist">
+<li><code><a title="ogr.abstract.GitService.hostname" href="abstract.html#ogr.abstract.GitService.hostname">hostname</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3><a href="#header-submodules">Sub-modules</a></h3>
+<ul>
+<li><code><a title="ogr.abstract" href="abstract.html">ogr.abstract</a></code></li>
+<li><code><a title="ogr.constant" href="constant.html">ogr.constant</a></code></li>
+<li><code><a title="ogr.deprecation" href="deprecation.html">ogr.deprecation</a></code></li>
+<li><code><a title="ogr.exceptions" href="exceptions.html">ogr.exceptions</a></code></li>
+<li><code><a title="ogr.factory" href="factory.html">ogr.factory</a></code></li>
+<li><code><a title="ogr.parsing" href="parsing.html">ogr.parsing</a></code></li>
+<li><code><a title="ogr.read_only" href="read_only.html">ogr.read_only</a></code></li>
+<li><code><a title="ogr.services" href="services/index.html">ogr.services</a></code></li>
+<li><code><a title="ogr.utils" href="utils.html">ogr.utils</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-functions">Functions</a></h3>
+<ul class="">
+<li><code><a title="ogr.get_instances_from_dict" href="#ogr.get_instances_from_dict">get_instances_from_dict</a></code></li>
+<li><code><a title="ogr.get_project" href="#ogr.get_project">get_project</a></code></li>
+<li><code><a title="ogr.get_service_class" href="#ogr.get_service_class">get_service_class</a></code></li>
+<li><code><a title="ogr.get_service_class_or_none" href="#ogr.get_service_class_or_none">get_service_class_or_none</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="ogr.AuthMethod" href="#ogr.AuthMethod">AuthMethod</a></code></h4>
+<ul class="">
+<li><code><a title="ogr.AuthMethod.github_app" href="#ogr.AuthMethod.github_app">github_app</a></code></li>
+<li><code><a title="ogr.AuthMethod.token" href="#ogr.AuthMethod.token">token</a></code></li>
+<li><code><a title="ogr.AuthMethod.tokman" href="#ogr.AuthMethod.tokman">tokman</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="ogr.ForgejoService" href="#ogr.ForgejoService">ForgejoService</a></code></h4>
+<ul class="">
+<li><code><a title="ogr.ForgejoService.api" href="#ogr.ForgejoService.api">api</a></code></li>
+<li><code><a title="ogr.ForgejoService.version" href="#ogr.ForgejoService.version">version</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="ogr.GithubService" href="#ogr.GithubService">GithubService</a></code></h4>
+<ul class="">
+<li><code><a title="ogr.GithubService.authentication" href="#ogr.GithubService.authentication">authentication</a></code></li>
+<li><code><a title="ogr.GithubService.get_project_from_github_repository" href="#ogr.GithubService.get_project_from_github_repository">get_project_from_github_repository</a></code></li>
+<li><code><a title="ogr.GithubService.get_pygithub_instance" href="#ogr.GithubService.get_pygithub_instance">get_pygithub_instance</a></code></li>
+<li><code><a title="ogr.GithubService.github" href="#ogr.GithubService.github">github</a></code></li>
+<li><code><a title="ogr.GithubService.github_class" href="#ogr.GithubService.github_class">github_class</a></code></li>
+<li><code><a title="ogr.GithubService.instance_url" href="#ogr.GithubService.instance_url">instance_url</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="ogr.GitlabService" href="#ogr.GitlabService">GitlabService</a></code></h4>
+<ul class="">
+<li><code><a title="ogr.GitlabService.get_project_from_project_id" href="#ogr.GitlabService.get_project_from_project_id">get_project_from_project_id</a></code></li>
+<li><code><a title="ogr.GitlabService.gitlab_instance" href="#ogr.GitlabService.gitlab_instance">gitlab_instance</a></code></li>
+<li><code><a title="ogr.GitlabService.name" href="#ogr.GitlabService.name">name</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="ogr.PagureService" href="#ogr.PagureService">PagureService</a></code></h4>
+<ul class="two-column">
+<li><code><a title="ogr.PagureService.api_url" href="#ogr.PagureService.api_url">api_url</a></code></li>
+<li><code><a title="ogr.PagureService.call_api" href="#ogr.PagureService.call_api">call_api</a></code></li>
+<li><code><a title="ogr.PagureService.call_api_raw" href="#ogr.PagureService.call_api_raw">call_api_raw</a></code></li>
+<li><code><a title="ogr.PagureService.get_api_url" href="#ogr.PagureService.get_api_url">get_api_url</a></code></li>
+<li><code><a title="ogr.PagureService.get_api_version" href="#ogr.PagureService.get_api_version">get_api_version</a></code></li>
+<li><code><a title="ogr.PagureService.get_error_codes" href="#ogr.PagureService.get_error_codes">get_error_codes</a></code></li>
+<li><code><a title="ogr.PagureService.get_group" href="#ogr.PagureService.get_group">get_group</a></code></li>
+<li><code><a title="ogr.PagureService.get_raw_request" href="#ogr.PagureService.get_raw_request">get_raw_request</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.11.6</a>.</p>
+</footer>
+</body>
+</html>
