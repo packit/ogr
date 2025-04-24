@@ -8,6 +8,7 @@ from typing import Any, Optional, Union
 
 from ogr import abstract as _abstract
 from ogr.abstract.abstract_class import OgrAbstractClass
+from ogr.abstract.commit import CommitLikeChanges
 from ogr.abstract.commit_flag import CommitFlag
 from ogr.abstract.git_project import GitProject
 from ogr.abstract.status import MergeCommitStatus, PRStatus
@@ -79,6 +80,11 @@ class PullRequest(OgrAbstractClass):
     @property
     def labels(self) -> Union[list["_abstract.PRLabel"], Iterable["_abstract.PRLabel"]]:
         """Labels of the pull request."""
+        raise NotImplementedError()
+
+    @property
+    def changes(self) -> "PullRequestChanges":
+        """Commit-like change information."""
         raise NotImplementedError()
 
     @property
@@ -381,3 +387,19 @@ class PullRequest(OgrAbstractClass):
             Object representing a PR comment.
         """
         raise NotImplementedError()
+
+
+class PullRequestChanges(CommitLikeChanges):
+    """
+    Class representing a PullRequest's changes
+
+    Attributes:
+        pull_request (PullRequest): Parent pull request.
+    """
+
+    def __init__(self, pull_request: "PullRequest") -> None:
+        self.pull_request = pull_request
+
+    @property
+    def parent(self) -> "PullRequest":
+        return self.pull_request
