@@ -649,6 +649,11 @@ class PullRequest(OgrAbstractClass):
         raise NotImplementedError()
 
     @property
+    def changes(self) -> "PullRequestChanges":
+        """Commit-like change information."""
+        raise NotImplementedError()
+
+    @property
     def diff_url(self) -> str:
         """Web URL to the diff of the pull request."""
         raise NotImplementedError()
@@ -1097,6 +1102,89 @@ class CommitComment(Comment):
         )
 
 
+class CommitLikeChanges(OgrAbstractClass):
+    """
+    Class representing a commit-like changes.
+
+    Can be from a single commit or aggregated like from a PR.
+    """
+
+    @property
+    def parent(self) -> Union["GitCommit", "PullRequest"]:
+        """Parent object containing the changes."""
+        raise NotImplementedError()
+
+    @property
+    def files(self) -> Union[list[str], Iterable[str]]:
+        """Files changed by the current change."""
+        raise NotImplementedError()
+
+    @property
+    def patch(self) -> bytes:
+        """Patch of the changes."""
+        raise NotImplementedError()
+
+    @property
+    def diff_url(self) -> str:
+        """Web URL to the diff of the pull request."""
+        raise NotImplementedError()
+
+
+class CommitChanges(CommitLikeChanges):
+    """
+    Class representing a Commit's change
+
+    Attributes:
+        commit (GitCommit): Parent commit.
+    """
+
+    def __init__(self, commit: "GitCommit") -> None:
+        self.commit = commit
+
+    @property
+    def parent(self) -> "GitCommit":
+        return self.commit
+
+
+class PullRequestChanges(CommitLikeChanges):
+    """
+    Class representing a PullRequest's changes
+
+    Attributes:
+        pull_request (PullRequest): Parent pull request.
+    """
+
+    def __init__(self, pull_request: "PullRequest") -> None:
+        self.pull_request = pull_request
+
+    @property
+    def parent(self) -> "PullRequest":
+        return self.pull_request
+
+
+class GitCommit(OgrAbstractClass):
+    """
+    Class representing a git commit
+
+    Attributes:
+        project (GitProject): Git project where the commit belongs to.
+    """
+
+    def __init__(self, raw_commit: Any, project: "GitProject") -> None:
+        self._raw_commit = raw_commit
+        self.project = project
+
+    @property
+    def sha(self) -> str:
+        """Commit hash."""
+        raise NotImplementedError()
+
+    @property
+    def changes(self) -> "CommitChanges":
+        """Commit change information."""
+        raise NotImplementedError()
+
+
 class GitTag(OgrAbstractClass):
     """
     Class representing a git tag.
@@ -1512,6 +1600,16 @@ class GitProject(OgrAbstractClass):
     @property
     def default_branch(self) -> str:
         """Default branch (usually `main`, `master` or `trunk`)."""
+        raise NotImplementedError()
+
+    def get_commit(self, sha: str) -> "GitCommit":
+        """
+        Get a specific commit information.
+
+        Args:
+            sha: Specific sha of the commit
+
+        """
         raise NotImplementedError()
 
     def get_commits(self, ref: Optional[str] = None) -> Union[list[str], Iterable[str]]:
