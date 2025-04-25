@@ -700,7 +700,7 @@ class PullRequest(OgrAbstractClass):
     @property
     def closed_by(self) -> Optional[str]:
         """Login of the account that closed the pull request."""
-        raise NotImplementedError
+        raise NotImplementedError()
 
     def __str__(self) -> str:
         description = (
