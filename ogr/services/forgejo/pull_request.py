@@ -29,6 +29,7 @@ logger = logging.getLogger(__name__)
 class ForgejoPullRequest(BasePullRequest):
     _target_project: "forgejo.ForgejoProject" = None
     _source_project: "forgejo.ForgejoProject" = None
+    _labels: list[PRLabel] = None
 
     def __init__(
         self,
@@ -86,11 +87,13 @@ class ForgejoPullRequest(BasePullRequest):
 
     @property
     def labels(self) -> list[PRLabel]:
-        return (
-            [ForgejoPRLabel(raw_label, self) for raw_label in self._raw_pr.labels]
-            if self._raw_pr.labels
-            else []
-        )
+        if not self._labels:
+            self._labels = (
+                [ForgejoPRLabel(raw_label, self) for raw_label in self._raw_pr.labels]
+                if self._raw_pr.labels
+                else []
+            )
+        return self._labels
 
     @property
     def diff_url(self) -> str:
@@ -262,7 +265,14 @@ class ForgejoPullRequest(BasePullRequest):
         return self.get(self._target_project, self.id)
 
     def add_label(self, *labels: str) -> None:
-        raise NotImplementedError("Not possible via Forgejo API.")
+        issue_client = self._target_project.service.api.issue
+        new_labels = issue_client.add_label(
+            owner=self.target_project.namespace,
+            repo=self.target_project.repo,
+            index=self.id,
+            labels=list(labels),
+        )
+        self._labels = [ForgejoPRLabel(raw_label, self) for raw_label in new_labels]
 
     def get_all_commits(self) -> list[str]:
         return [

@@ -63,7 +63,14 @@ def test_get_all_pr_commits(project):
 
 @record_httpx()
 def test_pr_labels(project):
-    labels = project.get_pr(119).labels
+    # remove the labels before generating
+    pr = project.get_pr(209)
+    labels = pr.labels
+    assert not labels
+
+    pr.add_label("test_lb1", "test_lb2")
+    labels = pr.labels
+
     assert {label.name for label in labels} >= {"test_lb1", "test_lb2"}
 
 
