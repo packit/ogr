@@ -1,0 +1,42 @@
+_requre:
+  DataTypes: 1
+  key_strategy: StorageKeysInspectSimple
+  version_storage_file: 3
+httpx._client:
+  send:
+    GET:
+      https://v10.next.forgejo.org/api/v1/repos/packit-validator/ogr-tests/pulls/2000:
+      - metadata:
+          latency: 0.5539884567260742
+          module_call_list:
+          - requre.record_and_replace
+          - tests.integration.forgejo.test_pull_request
+          - ogr.abstract
+          - ogr.utils
+          - ogr.abstract
+          - ogr.services.forgejo.pull_request
+          - pyforgejo.repository.client
+          - pyforgejo.core.http_client
+          - httpx._client
+          - requre.objects
+          - requre.cassette
+          - httpx._client
+          - send
+        output:
+          __store_indicator: 2
+          _content:
+            errors: []
+            message: The target couldn't be found.
+            url: https://v10.next.forgejo.org/api/swagger
+          _elapsed: 0.553768
+          encoding: utf-8
+          headers:
+            cache-control: max-age=0, private, must-revalidate, no-transform
+            content-length: '105'
+            content-type: application/json;charset=utf-8
+            date: Tue, 22 Apr 2025 12:42:45 GMT
+            vary: Origin
+            x-content-type-options: nosniff
+            x-frame-options: SAMEORIGIN
+          next_request: null
+          status_code: 404
