@@ -10,7 +10,7 @@ from ogr.exceptions import ForgejoAPIException
 
 @record_httpx()
 def test_pr_list(project):
-    pr_list = project.get_pr_list(status=PRStatus.all)
+    pr_list = list(project.get_pr_list(status=PRStatus.all))
     assert len({pr.id for pr in pr_list}) > 20
 
 
@@ -54,7 +54,7 @@ def test_pr_patch(project):
 
 @record_httpx()
 def test_get_all_pr_commits(project):
-    commits = project.get_pr(119).get_all_commits()
+    commits = list(project.get_pr(119).get_all_commits())
     assert commits == [
         "d490ec67dd98f69dfdc1732b98bb3189f0e0aace",
         "3c1fb11dd358254cc3f1588f173e54e98c1d4c09",
@@ -109,14 +109,14 @@ def test_merge_commit_sha(project):
 
 @record_httpx()
 def test_pr_create_upstream_upstream(project):
-    pr_opened_before = len(project.get_pr_list(status=PRStatus.open))
+    pr_opened_before = len(list(project.get_pr_list(status=PRStatus.open)))
     pr = project.create_pr(
         title="test: upstream <- upstream",
         body="pull request body",
         target_branch="master",
         source_branch="readme-change-1",
     )
-    pr_opened_after = len(project.get_pr_list(status=PRStatus.open))
+    pr_opened_after = len(list(project.get_pr_list(status=PRStatus.open)))
 
     assert pr.title == "test: upstream <- upstream"
     assert pr.status == PRStatus.open
@@ -129,7 +129,7 @@ def test_pr_create_upstream_upstream(project):
 
 @record_httpx()
 def test_pr_create_upstream_forkusername(project):
-    pr_opened_before = len(project.get_pr_list(status=PRStatus.open))
+    pr_opened_before = len(list(project.get_pr_list(status=PRStatus.open)))
     pr = project.create_pr(
         title="test: upstream <- fork_username:source_branch",
         body="pull request body",
@@ -137,7 +137,7 @@ def test_pr_create_upstream_forkusername(project):
         source_branch="readme-change-1",
         fork_username="lbarcziova",
     )
-    pr_opened_after = len(project.get_pr_list(status=PRStatus.open))
+    pr_opened_after = len(list(project.get_pr_list(status=PRStatus.open)))
 
     assert pr.title == "test: upstream <- fork_username:source_branch"
     assert pr.status == PRStatus.open
@@ -151,14 +151,14 @@ def test_pr_create_upstream_forkusername(project):
 @record_httpx()
 def test_pr_create_upstream_fork(project):
     fork_project = project.service.get_project(namespace="lbarcziova", repo="ogr-tests")
-    pr_opened_before = len(project.get_pr_list(status=PRStatus.open))
+    pr_opened_before = len(list(project.get_pr_list(status=PRStatus.open)))
     pr = fork_project.create_pr(
         title="test: upstream <- fork",
         body="pull request body",
         target_branch="master",
         source_branch="readme-change-1",
     )
-    pr_opened_after = len(project.get_pr_list(status=PRStatus.open))
+    pr_opened_after = len(list(project.get_pr_list(status=PRStatus.open)))
 
     assert pr.title == "test: upstream <- fork"
     assert pr.status == PRStatus.open
@@ -173,7 +173,7 @@ def test_pr_create_upstream_fork(project):
 def test_pr_create_fork_fork(project):
     fork_project = project.service.get_project(namespace="lbarcziova", repo="ogr-tests")
 
-    pr_opened_before = len(fork_project.get_pr_list(status=PRStatus.open))
+    pr_opened_before = len(list(fork_project.get_pr_list(status=PRStatus.open)))
     pr = fork_project.create_pr(
         title="test: fork(master) <- fork",
         body="pull request body",
@@ -181,7 +181,7 @@ def test_pr_create_fork_fork(project):
         source_branch="readme-change-1",
         fork_username="lbarcziova",
     )
-    pr_opened_after = len(fork_project.get_pr_list(status=PRStatus.open))
+    pr_opened_after = len(list(fork_project.get_pr_list(status=PRStatus.open)))
 
     assert pr.title == "test: fork(master) <- fork"
     assert pr.status == PRStatus.open

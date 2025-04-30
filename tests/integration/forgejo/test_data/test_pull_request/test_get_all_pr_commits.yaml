@@ -7,7 +7,7 @@ httpx._client:
     GET:
       https://v10.next.forgejo.org/api/v1/repos/packit-validator/ogr-tests/pulls/119:
       - metadata:
-          latency: 0.37145280838012695
+          latency: 0.4216587543487549
           module_call_list:
           - requre.record_and_replace
           - tests.integration.forgejo.test_pull_request
@@ -52,7 +52,7 @@ httpx._client:
                 description: Testing repository for python-ogr package.  |  https://github.com/packit-service/ogr
                 empty: false
                 fork: false
-                forks_count: 1
+                forks_count: 2
                 full_name: packit-validator/ogr-tests
                 globally_editable_wiki: false
                 has_actions: true
@@ -79,7 +79,7 @@ httpx._client:
                 name: ogr-tests
                 object_format_name: sha1
                 open_issues_count: 92
-                open_pr_counter: 7
+                open_pr_counter: 9
                 original_url: https://gitlab.com/packit-service/ogr-tests.git
                 owner:
                   active: false
@@ -114,12 +114,12 @@ httpx._client:
                 private: false
                 release_counter: 12
                 repo_transfer: null
-                size: 65
+                size: 68
                 ssh_url: ssh://git@v10.next.forgejo.org:2100/packit-validator/ogr-tests.git
                 stars_count: 0
                 template: false
                 topics: null
-                updated_at: '2025-03-21T10:30:54Z'
+                updated_at: '2025-04-25T08:52:56Z'
                 url: https://v10.next.forgejo.org/api/v1/repos/packit-validator/ogr-tests
                 watchers_count: 1
                 website: ''
@@ -158,7 +158,7 @@ httpx._client:
                 description: Testing repository for python-ogr package.  |  https://github.com/packit-service/ogr
                 empty: false
                 fork: false
-                forks_count: 1
+                forks_count: 2
                 full_name: packit-validator/ogr-tests
                 globally_editable_wiki: false
                 has_actions: true
@@ -185,7 +185,7 @@ httpx._client:
                 name: ogr-tests
                 object_format_name: sha1
                 open_issues_count: 92
-                open_pr_counter: 7
+                open_pr_counter: 9
                 original_url: https://gitlab.com/packit-service/ogr-tests.git
                 owner:
                   active: false
@@ -220,12 +220,12 @@ httpx._client:
                 private: false
                 release_counter: 12
                 repo_transfer: null
-                size: 65
+                size: 68
                 ssh_url: ssh://git@v10.next.forgejo.org:2100/packit-validator/ogr-tests.git
                 stars_count: 0
                 template: false
                 topics: null
-                updated_at: '2025-03-21T10:30:54Z'
+                updated_at: '2025-04-25T08:52:56Z'
                 url: https://v10.next.forgejo.org/api/v1/repos/packit-validator/ogr-tests
                 watchers_count: 1
                 website: ''
@@ -289,7 +289,7 @@ httpx._client:
             review_comments: 0
             state: closed
             title: change
-            updated_at: '2019-09-10T14:03:24Z'
+            updated_at: '2025-04-24T08:36:47Z'
             url: https://v10.next.forgejo.org/packit-validator/ogr-tests/pulls/119
             user:
               active: false
@@ -316,26 +316,26 @@ httpx._client:
               username: Ghost
               visibility: public
               website: ''
-          _elapsed: 0.371259
+          _elapsed: 0.421381
           encoding: utf-8
           headers:
             cache-control: max-age=0, private, must-revalidate, no-transform
             content-type: application/json;charset=utf-8
-            date: Tue, 22 Apr 2025 12:46:11 GMT
+            date: Wed, 30 Apr 2025 12:55:59 GMT
             transfer-encoding: chunked
             vary: Origin
             x-content-type-options: nosniff
             x-frame-options: SAMEORIGIN
           next_request: null
           status_code: 200
-      https://v10.next.forgejo.org/api/v1/repos/packit-validator/ogr-tests/pulls/119/commits:
+      https://v10.next.forgejo.org/api/v1/repos/packit-validator/ogr-tests/pulls/119/commits?page=1:
       - metadata:
-          latency: 0.2902522087097168
+          latency: 0.38907790184020996
           module_call_list:
           - requre.record_and_replace
           - tests.integration.forgejo.test_pull_request
-          - ogr.abstract
           - ogr.services.forgejo.pull_request
+          - ogr.services.forgejo.utils
           - pyforgejo.repository.client
           - pyforgejo.core.http_client
           - httpx._client
@@ -426,20 +426,57 @@ httpx._client:
               deletions: 1
               total: 3
             url: https://v10.next.forgejo.org/api/v1/repos/packit-validator/ogr-tests/git/commits/3c1fb11dd358254cc3f1588f173e54e98c1d4c09
-          _elapsed: 0.290003
+          _elapsed: 0.388903
           encoding: utf-8
           headers:
             access-control-expose-headers: X-Total-Count, X-Page, X-PerPage, X-PageCount,
               X-HasMore
             cache-control: max-age=0, private, must-revalidate, no-transform
             content-type: application/json;charset=utf-8
-            date: Tue, 22 Apr 2025 12:46:11 GMT
+            date: Wed, 30 Apr 2025 12:55:59 GMT
             transfer-encoding: chunked
             vary: Origin
             x-content-type-options: nosniff
             x-frame-options: SAMEORIGIN
             x-hasmore: 'false'
             x-page: '1'
+            x-pagecount: '1'
+            x-perpage: '30'
+            x-total-count: '2'
+          next_request: null
+          status_code: 200
+      https://v10.next.forgejo.org/api/v1/repos/packit-validator/ogr-tests/pulls/119/commits?page=2:
+      - metadata:
+          latency: 0.33638548851013184
+          module_call_list:
+          - requre.record_and_replace
+          - tests.integration.forgejo.test_pull_request
+          - ogr.services.forgejo.pull_request
+          - ogr.services.forgejo.utils
+          - pyforgejo.repository.client
+          - pyforgejo.core.http_client
+          - httpx._client
+          - requre.objects
+          - requre.cassette
+          - httpx._client
+          - send
+        output:
+          __store_indicator: 2
+          _content: []
+          _elapsed: 0.336219
+          encoding: utf-8
+          headers:
+            access-control-expose-headers: X-Total-Count, X-Page, X-PerPage, X-PageCount,
+              X-HasMore
+            cache-control: max-age=0, private, must-revalidate, no-transform
+            content-length: '3'
+            content-type: application/json;charset=utf-8
+            date: Wed, 30 Apr 2025 12:56:00 GMT
+            vary: Origin
+            x-content-type-options: nosniff
+            x-frame-options: SAMEORIGIN
+            x-hasmore: 'false'
+            x-page: '2'
             x-pagecount: '1'
             x-perpage: '30'
             x-total-count: '2'

@@ -7,7 +7,7 @@ httpx._client:
     GET:
       https://v10.next.forgejo.org/api/v1/repos/lbarcziova/ogr-tests:
       - metadata:
-          latency: 0.4748063087463379
+          latency: 0.23170924186706543
           module_call_list:
           - requre.record_and_replace
           - tests.integration.forgejo.test_pull_request
@@ -205,12 +205,12 @@ httpx._client:
             url: https://v10.next.forgejo.org/api/v1/repos/lbarcziova/ogr-tests
             watchers_count: 1
             website: ''
-          _elapsed: 0.474616
+          _elapsed: 0.231449
           encoding: utf-8
           headers:
             cache-control: max-age=0, private, must-revalidate, no-transform
             content-type: application/json;charset=utf-8
-            date: Fri, 25 Apr 2025 11:07:36 GMT
+            date: Wed, 30 Apr 2025 15:18:34 GMT
             transfer-encoding: chunked
             vary: Origin
             x-content-type-options: nosniff
@@ -219,7 +219,7 @@ httpx._client:
           status_code: 200
       https://v10.next.forgejo.org/api/v1/repos/packit-validator/ogr-tests:
       - metadata:
-          latency: 0.47054433822631836
+          latency: 0.22219562530517578
           module_call_list:
           - requre.record_and_replace
           - tests.integration.forgejo.test_pull_request
@@ -327,28 +327,26 @@ httpx._client:
             watchers_count: 1
             website: ''
             wiki_branch: master
-          _elapsed: 0.470372
+          _elapsed: 0.221954
           encoding: utf-8
           headers:
             cache-control: max-age=0, private, must-revalidate, no-transform
             content-type: application/json;charset=utf-8
-            date: Fri, 25 Apr 2025 11:07:39 GMT
+            date: Wed, 30 Apr 2025 15:18:36 GMT
             transfer-encoding: chunked
             vary: Origin
             x-content-type-options: nosniff
             x-frame-options: SAMEORIGIN
           next_request: null
           status_code: 200
-      https://v10.next.forgejo.org/api/v1/repos/packit-validator/ogr-tests/pulls?state=open:
+      https://v10.next.forgejo.org/api/v1/repos/packit-validator/ogr-tests/pulls?state=open&page=1:
       - metadata:
-          latency: 0.8202424049377441
+          latency: 0.6947021484375
           module_call_list:
           - requre.record_and_replace
           - tests.integration.forgejo.test_pull_request
-          - ogr.abstract
-          - ogr.utils
-          - ogr.abstract
           - ogr.services.forgejo.pull_request
+          - ogr.services.forgejo.utils
           - pyforgejo.repository.client
           - pyforgejo.core.http_client
           - httpx._client
@@ -569,7 +567,21 @@ httpx._client:
             html_url: https://v10.next.forgejo.org/packit-validator/ogr-tests/pulls/209
             id: 487
             is_locked: false
-            labels: []
+            labels:
+            - color: 428bca
+              description: ''
+              exclusive: false
+              id: 641
+              is_archived: false
+              name: test_lb1
+              url: https://v10.next.forgejo.org/api/v1/repos/packit-validator/ogr-tests/labels/641
+            - color: 428bca
+              description: ''
+              exclusive: false
+              id: 642
+              is_archived: false
+              name: test_lb2
+              url: https://v10.next.forgejo.org/api/v1/repos/packit-validator/ogr-tests/labels/642
             merge_base: 59b1a9bab5b5198c619270646410867788685c16
             merge_commit_sha: null
             mergeable: true
@@ -585,7 +597,7 @@ httpx._client:
             review_comments: 0
             state: open
             title: testing
-            updated_at: '2025-04-25T08:54:53Z'
+            updated_at: '2025-04-25T14:37:26Z'
             url: https://v10.next.forgejo.org/packit-validator/ogr-tests/pulls/209
             user:
               active: false
@@ -2383,13 +2395,13 @@ httpx._client:
               username: Ghost
               visibility: public
               website: ''
-          _elapsed: 0.820072
+          _elapsed: 0.694452
           encoding: utf-8
           headers:
             access-control-expose-headers: X-Total-Count
             cache-control: max-age=0, private, must-revalidate, no-transform
             content-type: application/json;charset=utf-8
-            date: Fri, 25 Apr 2025 11:07:36 GMT
+            date: Wed, 30 Apr 2025 15:18:33 GMT
             transfer-encoding: chunked
             vary: Origin
             x-content-type-options: nosniff
@@ -2398,14 +2410,12 @@ httpx._client:
           next_request: null
           status_code: 200
       - metadata:
-          latency: 0.6884174346923828
+          latency: 0.5712697505950928
           module_call_list:
           - requre.record_and_replace
           - tests.integration.forgejo.test_pull_request
-          - ogr.abstract
-          - ogr.utils
-          - ogr.abstract
           - ogr.services.forgejo.pull_request
+          - ogr.services.forgejo.utils
           - pyforgejo.repository.client
           - pyforgejo.core.http_client
           - httpx._client
@@ -2521,9 +2531,9 @@ httpx._client:
             changed_files: 1
             closed_at: null
             comments: 0
-            created_at: '2025-04-25T11:07:37Z'
+            created_at: '2025-04-30T15:18:34Z'
             deletions: 0
-            diff_url: https://v10.next.forgejo.org/packit-validator/ogr-tests/pulls/215.diff
+            diff_url: https://v10.next.forgejo.org/packit-validator/ogr-tests/pulls/219.diff
             draft: false
             due_date: null
             head:
@@ -2709,8 +2719,8 @@ httpx._client:
                 website: ''
               repo_id: 644
               sha: c2dd0817e07d02fcd2f73258fde75ffcdc420341
-            html_url: https://v10.next.forgejo.org/packit-validator/ogr-tests/pulls/215
-            id: 493
+            html_url: https://v10.next.forgejo.org/packit-validator/ogr-tests/pulls/219
+            id: 501
             is_locked: false
             labels: []
             merge_base: dd9b6c54c0788301c86bdf058a8e91e3594a0a17
@@ -2720,16 +2730,16 @@ httpx._client:
             merged_at: null
             merged_by: null
             milestone: null
-            number: 215
-            patch_url: https://v10.next.forgejo.org/packit-validator/ogr-tests/pulls/215.patch
+            number: 219
+            patch_url: https://v10.next.forgejo.org/packit-validator/ogr-tests/pulls/219.patch
             pin_order: 0
             requested_reviewers: null
             requested_reviewers_teams: null
             review_comments: 0
             state: open
             title: 'test: upstream <- fork'
-            updated_at: '2025-04-25T11:07:37Z'
-            url: https://v10.next.forgejo.org/packit-validator/ogr-tests/pulls/215
+            updated_at: '2025-04-30T15:18:35Z'
+            url: https://v10.next.forgejo.org/packit-validator/ogr-tests/pulls/219
             user:
               active: true
               avatar_url: https://v10.next.forgejo.org/avatars/9c4cb263b7809b180c92b4970f7d0847
@@ -2743,7 +2753,7 @@ httpx._client:
               id: 618
               is_admin: false
               language: en-US
-              last_login: '2025-04-25T08:51:35Z'
+              last_login: '2025-04-30T15:17:53Z'
               location: ''
               login: packit-validator
               login_name: ''
@@ -2965,7 +2975,21 @@ httpx._client:
             html_url: https://v10.next.forgejo.org/packit-validator/ogr-tests/pulls/209
             id: 487
             is_locked: false
-            labels: []
+            labels:
+            - color: 428bca
+              description: ''
+              exclusive: false
+              id: 641
+              is_archived: false
+              name: test_lb1
+              url: https://v10.next.forgejo.org/api/v1/repos/packit-validator/ogr-tests/labels/641
+            - color: 428bca
+              description: ''
+              exclusive: false
+              id: 642
+              is_archived: false
+              name: test_lb2
+              url: https://v10.next.forgejo.org/api/v1/repos/packit-validator/ogr-tests/labels/642
             merge_base: 59b1a9bab5b5198c619270646410867788685c16
             merge_commit_sha: null
             mergeable: true
@@ -2981,7 +3005,7 @@ httpx._client:
             review_comments: 0
             state: open
             title: testing
-            updated_at: '2025-04-25T08:54:53Z'
+            updated_at: '2025-04-25T14:37:26Z'
             url: https://v10.next.forgejo.org/packit-validator/ogr-tests/pulls/209
             user:
               active: false
@@ -4779,13 +4803,13 @@ httpx._client:
               username: Ghost
               visibility: public
               website: ''
-          _elapsed: 0.688317
+          _elapsed: 0.57106
           encoding: utf-8
           headers:
             access-control-expose-headers: X-Total-Count
             cache-control: max-age=0, private, must-revalidate, no-transform
             content-type: application/json;charset=utf-8
-            date: Fri, 25 Apr 2025 11:07:39 GMT
+            date: Wed, 30 Apr 2025 15:18:36 GMT
             transfer-encoding: chunked
             vary: Origin
             x-content-type-options: nosniff
@@ -4793,10 +4817,73 @@ httpx._client:
             x-total-count: '9'
           next_request: null
           status_code: 200
-    PATCH:
-      https://v10.next.forgejo.org/api/v1/repos/packit-validator/ogr-tests/pulls/215:
+      https://v10.next.forgejo.org/api/v1/repos/packit-validator/ogr-tests/pulls?state=open&page=2:
       - metadata:
-          latency: 1.13204026222229
+          latency: 0.24805641174316406
+          module_call_list:
+          - requre.record_and_replace
+          - tests.integration.forgejo.test_pull_request
+          - ogr.services.forgejo.pull_request
+          - ogr.services.forgejo.utils
+          - pyforgejo.repository.client
+          - pyforgejo.core.http_client
+          - httpx._client
+          - requre.objects
+          - requre.cassette
+          - httpx._client
+          - send
+        output:
+          __store_indicator: 2
+          _content: []
+          _elapsed: 0.247838
+          encoding: utf-8
+          headers:
+            access-control-expose-headers: X-Total-Count
+            cache-control: max-age=0, private, must-revalidate, no-transform
+            content-length: '3'
+            content-type: application/json;charset=utf-8
+            date: Wed, 30 Apr 2025 15:18:34 GMT
+            vary: Origin
+            x-content-type-options: nosniff
+            x-frame-options: SAMEORIGIN
+            x-total-count: '8'
+          next_request: null
+          status_code: 200
+      - metadata:
+          latency: 0.41072726249694824
+          module_call_list:
+          - requre.record_and_replace
+          - tests.integration.forgejo.test_pull_request
+          - ogr.services.forgejo.pull_request
+          - ogr.services.forgejo.utils
+          - pyforgejo.repository.client
+          - pyforgejo.core.http_client
+          - httpx._client
+          - requre.objects
+          - requre.cassette
+          - httpx._client
+          - send
+        output:
+          __store_indicator: 2
+          _content: []
+          _elapsed: 0.410501
+          encoding: utf-8
+          headers:
+            access-control-expose-headers: X-Total-Count
+            cache-control: max-age=0, private, must-revalidate, no-transform
+            content-length: '3'
+            content-type: application/json;charset=utf-8
+            date: Wed, 30 Apr 2025 15:18:36 GMT
+            vary: Origin
+            x-content-type-options: nosniff
+            x-frame-options: SAMEORIGIN
+            x-total-count: '9'
+          next_request: null
+          status_code: 200
+    PATCH:
+      https://v10.next.forgejo.org/api/v1/repos/packit-validator/ogr-tests/pulls/219:
+      - metadata:
+          latency: 1.1911392211914062
           module_call_list:
           - requre.record_and_replace
           - tests.integration.forgejo.test_pull_request
@@ -4915,11 +5002,11 @@ httpx._client:
               sha: dd9b6c54c0788301c86bdf058a8e91e3594a0a17
             body: pull request body
             changed_files: 1
-            closed_at: '2025-04-25T11:07:40Z'
+            closed_at: '2025-04-30T15:18:37Z'
             comments: 0
-            created_at: '2025-04-25T11:07:37Z'
+            created_at: '2025-04-30T15:18:34Z'
             deletions: 0
-            diff_url: https://v10.next.forgejo.org/packit-validator/ogr-tests/pulls/215.diff
+            diff_url: https://v10.next.forgejo.org/packit-validator/ogr-tests/pulls/219.diff
             draft: false
             due_date: null
             head:
@@ -5105,8 +5192,8 @@ httpx._client:
                 website: ''
               repo_id: 644
               sha: c2dd0817e07d02fcd2f73258fde75ffcdc420341
-            html_url: https://v10.next.forgejo.org/packit-validator/ogr-tests/pulls/215
-            id: 493
+            html_url: https://v10.next.forgejo.org/packit-validator/ogr-tests/pulls/219
+            id: 501
             is_locked: false
             labels: []
             merge_base: dd9b6c54c0788301c86bdf058a8e91e3594a0a17
@@ -5116,16 +5203,16 @@ httpx._client:
             merged_at: null
             merged_by: null
             milestone: null
-            number: 215
-            patch_url: https://v10.next.forgejo.org/packit-validator/ogr-tests/pulls/215.patch
+            number: 219
+            patch_url: https://v10.next.forgejo.org/packit-validator/ogr-tests/pulls/219.patch
             pin_order: 0
             requested_reviewers: null
             requested_reviewers_teams: null
             review_comments: 0
             state: closed
             title: 'test: upstream <- fork'
-            updated_at: '2025-04-25T11:07:40Z'
-            url: https://v10.next.forgejo.org/packit-validator/ogr-tests/pulls/215
+            updated_at: '2025-04-30T15:18:37Z'
+            url: https://v10.next.forgejo.org/packit-validator/ogr-tests/pulls/219
             user:
               active: true
               avatar_url: https://v10.next.forgejo.org/avatars/9c4cb263b7809b180c92b4970f7d0847
@@ -5139,7 +5226,7 @@ httpx._client:
               id: 618
               is_admin: false
               language: en-US
-              last_login: '2025-04-25T08:51:35Z'
+              last_login: '2025-04-30T15:17:53Z'
               location: ''
               login: packit-validator
               login_name: ''
@@ -5151,12 +5238,12 @@ httpx._client:
               username: packit-validator
               visibility: public
               website: ''
-          _elapsed: 1.131852
+          _elapsed: 1.190946
           encoding: utf-8
           headers:
             cache-control: max-age=0, private, must-revalidate, no-transform
             content-type: application/json;charset=utf-8
-            date: Fri, 25 Apr 2025 11:07:40 GMT
+            date: Wed, 30 Apr 2025 15:18:38 GMT
             transfer-encoding: chunked
             vary: Origin
             x-content-type-options: nosniff
@@ -5166,7 +5253,7 @@ httpx._client:
     POST:
       https://v10.next.forgejo.org/api/v1/repos/packit-validator/ogr-tests/pulls:
       - metadata:
-          latency: 1.3849186897277832
+          latency: 1.3081324100494385
           module_call_list:
           - requre.record_and_replace
           - tests.integration.forgejo.test_pull_request
@@ -5289,9 +5376,9 @@ httpx._client:
             changed_files: 1
             closed_at: null
             comments: 0
-            created_at: '2025-04-25T11:07:37Z'
+            created_at: '2025-04-30T15:18:34Z'
             deletions: 0
-            diff_url: https://v10.next.forgejo.org/packit-validator/ogr-tests/pulls/215.diff
+            diff_url: https://v10.next.forgejo.org/packit-validator/ogr-tests/pulls/219.diff
             draft: false
             due_date: null
             head:
@@ -5477,8 +5564,8 @@ httpx._client:
                 website: ''
               repo_id: 644
               sha: c2dd0817e07d02fcd2f73258fde75ffcdc420341
-            html_url: https://v10.next.forgejo.org/packit-validator/ogr-tests/pulls/215
-            id: 493
+            html_url: https://v10.next.forgejo.org/packit-validator/ogr-tests/pulls/219
+            id: 501
             is_locked: false
             labels: []
             merge_base: dd9b6c54c0788301c86bdf058a8e91e3594a0a17
@@ -5488,16 +5575,16 @@ httpx._client:
             merged_at: null
             merged_by: null
             milestone: null
-            number: 215
-            patch_url: https://v10.next.forgejo.org/packit-validator/ogr-tests/pulls/215.patch
+            number: 219
+            patch_url: https://v10.next.forgejo.org/packit-validator/ogr-tests/pulls/219.patch
             pin_order: 0
             requested_reviewers: null
             requested_reviewers_teams: null
             review_comments: 0
             state: open
             title: 'test: upstream <- fork'
-            updated_at: '2025-04-25T11:07:37Z'
-            url: https://v10.next.forgejo.org/packit-validator/ogr-tests/pulls/215
+            updated_at: '2025-04-30T15:18:35Z'
+            url: https://v10.next.forgejo.org/packit-validator/ogr-tests/pulls/219
             user:
               active: true
               avatar_url: https://v10.next.forgejo.org/avatars/9c4cb263b7809b180c92b4970f7d0847
@@ -5511,7 +5598,7 @@ httpx._client:
               id: 618
               is_admin: false
               language: en-US
-              last_login: '2025-04-25T08:51:35Z'
+              last_login: '2025-04-30T15:17:53Z'
               location: ''
               login: packit-validator
               login_name: ''
@@ -5523,12 +5610,12 @@ httpx._client:
               username: packit-validator
               visibility: public
               website: ''
-          _elapsed: 1.384739
+          _elapsed: 1.307939
           encoding: utf-8
           headers:
             cache-control: max-age=0, private, must-revalidate, no-transform
             content-type: application/json;charset=utf-8
-            date: Fri, 25 Apr 2025 11:07:38 GMT
+            date: Wed, 30 Apr 2025 15:18:35 GMT
             transfer-encoding: chunked
             vary: Origin
             x-content-type-options: nosniff

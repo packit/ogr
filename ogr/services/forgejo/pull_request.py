@@ -3,6 +3,7 @@
 import datetime
 import logging
 from collections.abc import Iterable
+from functools import cached_property, partial
 from typing import Optional, Union
 
 import requests
@@ -19,9 +20,9 @@ from ogr.abstract import (
 )
 from ogr.exceptions import ForgejoAPIException, OgrNetworkError
 from ogr.services import forgejo
-from ogr.services import forgejo as ogr_forgejo
 from ogr.services.base import BasePullRequest
 from ogr.services.forgejo.label import ForgejoPRLabel
+from ogr.services.forgejo.utils import paginate
 
 logger = logging.getLogger(__name__)
 
@@ -116,7 +117,7 @@ class ForgejoPullRequest(BasePullRequest):
         return self._raw_pr.head.sha
 
     @property
-    def merge_commit_sha(self) -> str:
+    def merge_commit_sha(self) -> Optional[str]:
         # this is None for non-merged PRs
         return self._raw_pr.merge_commit_sha
 
@@ -128,16 +129,14 @@ class ForgejoPullRequest(BasePullRequest):
             else MergeCommitStatus.cannot_be_merged
         )
 
-    @property
-    def source_project(self) -> "ogr_forgejo.ForgejoProject":
-        if self._source_project is None:
-            pyforgejo_repo = self._raw_pr.head.repo
-            self._source_project = self._target_project.service.get_project(
-                repo=pyforgejo_repo.name,
-                namespace=pyforgejo_repo.owner.login,
-                forgejo_repo=pyforgejo_repo,
-            )
-        return self._source_project
+    @cached_property
+    def source_project(self) -> "forgejo.ForgejoProject":
+        pyforgejo_repo = self._raw_pr.head.repo
+        return self._target_project.service.get_project(
+            repo=pyforgejo_repo.name,
+            namespace=pyforgejo_repo.owner.login,
+            forgejo_repo=pyforgejo_repo,
+        )
 
     @property
     def commits_url(self) -> str:
@@ -211,14 +210,17 @@ class ForgejoPullRequest(BasePullRequest):
     def get_list(
         project: "forgejo.ForgejoProject",
         status: PRStatus = PRStatus.open,
-    ) -> list["PullRequest"]:
-        prs = project.api.repo_list_pull_requests(
-            owner=project.namespace,
-            repo=project.repo,
-            # Forgejo has just open/closed/all
-            state=status.name if status != PRStatus.merged else "closed",
+    ) -> Iterable["PullRequest"]:
+        prs = paginate(
+            partial(
+                project.api.repo_list_pull_requests,
+                owner=project.namespace,
+                repo=project.repo,
+                # Forgejo has just open/closed/all
+                state=status.name if status != PRStatus.merged else "closed",
+            ),
         )
-        return [ForgejoPullRequest(pr, project) for pr in prs]
+        return (ForgejoPullRequest(pr, project) for pr in prs)
 
     def update_info(
         self,
@@ -274,15 +276,18 @@ class ForgejoPullRequest(BasePullRequest):
         )
         self._labels = [ForgejoPRLabel(raw_label, self) for raw_label in new_labels]
 
-    def get_all_commits(self) -> list[str]:
-        return [
+    def get_all_commits(self) -> Iterable[str]:
+        return (
             commit.sha
-            for commit in self._target_project.api.repo_get_pull_request_commits(
-                owner=self.target_project.namespace,
-                repo=self.target_project.repo,
-                index=self.id,
+            for commit in paginate(
+                partial(
+                    self._target_project.api.repo_get_pull_request_commits,
+                    owner=self.target_project.namespace,
+                    repo=self.target_project.repo,
+                    index=self.id,
+                ),
             )
-        ]
+        )
 
     def get_comments(
         self,
