@@ -346,7 +346,7 @@ class ForgejoProject(BaseGitProject):
         pass
 
     @indirect(ForgejoPullRequest.get_list)
-    def get_pr_list(self, status: PRStatus = PRStatus.open) -> list["PullRequest"]:
+    def get_pr_list(self, status: PRStatus = PRStatus.open) -> Iterable["PullRequest"]:
         pass
 
     @indirect(ForgejoPullRequest.get)

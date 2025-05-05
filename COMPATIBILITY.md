@@ -32,8 +32,8 @@ In case you find any error, please [create a new issue](https://github.com/packi
 
 |                   | GitHub | GitLab | Pagure | Forgejo |
 | ----------------- | :----: | :----: | :----: | :-----: |
-| `add_label`       |   ✔   |   ✔   |   ✘    |    ✘    |
-| `get_all_commits` |   ✔   |   ✔   |   ✘    |    ✘    |
+| `add_label`       |   ✔   |   ✔   |   ✘    |   ✔    |
+| `get_all_commits` |   ✔   |   ✔   |   ✘    |   ✔    |
 
 ## Release
 
