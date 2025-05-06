@@ -1432,6 +1432,10 @@ class GitProject(OgrAbstractClass):
         self.repo = repo
         self.namespace = namespace
 
+    @property
+    def owner(self) -> str:
+        return self.namespace
+
     def __str__(self) -> str:
         return f"GitProject(namespace={self.namespace}, repo={self.repo}, service={self.service})"
 
