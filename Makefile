@@ -1,5 +1,5 @@
 BASE_IMAGE := fedora:latest
-TEST_TARGET ?= ./tests/
+TEST_TARGET ?= ./tests/integration/forgejo/test_issues.py
 PY_PACKAGE := ogr
 OGR_IMAGE := ogr
 COLOR ?= yes
