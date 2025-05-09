@@ -1,3 +1,8 @@
+# 0.54.0
+
+- Support for Forgejo pull requests has been added. (#925)
+- We have added support for Forgejo methods related to permissions. (#918)
+
 # 0.53.0
 
 - Added support for Forgejo projects. (#893)
