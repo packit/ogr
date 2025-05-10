@@ -1,0 +1,422 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+<meta name="generator" content="pdoc3 0.11.6">
+<title>ogr.services.github.service API documentation</title>
+<meta name="description" content="">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/sanitize.min.css" integrity="sha512-y1dtMcuvtTMJc1yPgEqF0ZjQbhnc/bFhyvIyVNb9Zk5mIGtqVaAB1Ttl28su8AvFMOY0EwRbAe+HCLqj6W7/KA==" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/typography.min.css" integrity="sha512-Y1DYSb995BAfxobCkKepB1BqJJTPrOp3zPL74AWFugHHmmdcvO+C48WLrUOlhGMc0QG7AE3f7gmvvcrmX2fDoA==" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:1.5em;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:2em 0 .50em 0}h3{font-size:1.4em;margin:1.6em 0 .7em 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .2s ease-in-out}a:visited{color:#503}a:hover{color:#b62}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900;font-weight:bold}pre code{font-size:.8em;line-height:1.4em;padding:1em;display:block}code{background:#f3f3f3;font-family:"DejaVu Sans Mono",monospace;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source > summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible;min-width:max-content}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em 1em;margin:1em 0}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul ul{padding-left:1em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js" integrity="sha512-D9gUyxqja7hBtkWpPWGt9wfbfaMGVt9gnyCvYa+jojwwPHLCzUm5i8rpk7vD7wNee9bA35eYIjobYPaQuKS1MQ==" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => {
+hljs.configure({languages: ['bash', 'css', 'diff', 'graphql', 'ini', 'javascript', 'json', 'plaintext', 'python', 'python-repl', 'rust', 'shell', 'sql', 'typescript', 'xml', 'yaml']});
+hljs.highlightAll();
+/* Collapse source docstrings */
+setTimeout(() => {
+[...document.querySelectorAll('.hljs.language-python > .hljs-string')]
+.filter(el => el.innerHTML.length > 200 && ['"""', "'''"].includes(el.innerHTML.substring(0, 3)))
+.forEach(el => {
+let d = document.createElement('details');
+d.classList.add('hljs-string');
+d.innerHTML = '<summary>"""</summary>' + el.innerHTML.substring(3);
+el.replaceWith(d);
+});
+}, 100);
+})</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>ogr.services.github.service</code></h1>
+</header>
+<section id="section-intro">
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="ogr.services.github.service.GithubService"><code class="flex name class">
+<span>class <span class="ident">GithubService</span></span>
+<span>(</span><span>token=None,<br>read_only=False,<br>github_app_id: str | None = None,<br>github_app_private_key: str | None = None,<br>github_app_private_key_path: str | None = None,<br>tokman_instance_url: str | None = None,<br>github_authentication: <a title="ogr.services.github.auth_providers.abstract.GithubAuthentication" href="auth_providers/abstract.html#ogr.services.github.auth_providers.abstract.GithubAuthentication">GithubAuthentication</a> = None,<br>max_retries: int | urllib3.util.retry.Retry = 1,<br>**kwargs)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@use_for_service(&#34;github.com&#34;)
+class GithubService(BaseGitService):
+    # class parameter could be used to mock Github class api
+    github_class: type[github.Github]
+    instance_url = &#34;https://github.com&#34;
+
+    def __init__(
+        self,
+        token=None,
+        read_only=False,
+        github_app_id: Optional[str] = None,
+        github_app_private_key: Optional[str] = None,
+        github_app_private_key_path: Optional[str] = None,
+        tokman_instance_url: Optional[str] = None,
+        github_authentication: GithubAuthentication = None,
+        max_retries: Union[int, Retry] = 1,
+        **kwargs,
+    ):
+        &#34;&#34;&#34;
+        If multiple authentication methods are provided, they are prioritised:
+            1. Tokman
+            2. GithubApp
+            3. TokenAuthentication (which is also default one, that works without specified token)
+        &#34;&#34;&#34;
+        super().__init__()
+        self.read_only = read_only
+        self._default_auth_method = github_authentication
+        self._other_auth_method: GithubAuthentication = None
+        self._auth_methods: dict[AuthMethod, GithubAuthentication] = {}
+
+        if isinstance(max_retries, Retry):
+            self._max_retries = max_retries
+        else:
+            self._max_retries = Retry(
+                total=int(max_retries),
+                # Retry mechanism active for these HTTP methods:
+                allowed_methods=[&#34;DELETE&#34;, &#34;GET&#34;, &#34;PATCH&#34;, &#34;POST&#34;, &#34;PUT&#34;],
+                # Only retry on following HTTP status codes
+                status_forcelist=[500, 503, 403, 401],
+                raise_on_status=True,
+            )
+
+        if not self._default_auth_method:
+            self.__set_authentication(
+                token=token,
+                github_app_id=github_app_id,
+                github_app_private_key=github_app_private_key,
+                github_app_private_key_path=github_app_private_key_path,
+                tokman_instance_url=tokman_instance_url,
+                max_retries=self._max_retries,
+            )
+
+        if kwargs:
+            logger.warning(f&#34;Ignored keyword arguments: {kwargs}&#34;)
+
+    def __set_authentication(self, **kwargs):
+        auth_methods = [
+            (Tokman, AuthMethod.tokman),
+            (GithubApp, AuthMethod.github_app),
+            (TokenAuthentication, AuthMethod.token),
+        ]
+        for auth_class, auth_name in auth_methods:
+            auth_inst = auth_class.try_create(**kwargs)
+            self._auth_methods[auth_name] = auth_inst
+            if not self._default_auth_method:
+                self._default_auth_method = auth_inst
+
+        return None if self._default_auth_method else TokenAuthentication(None)
+
+    def set_auth_method(self, method: AuthMethod):
+        if self._auth_methods[method]:
+            logger.info(&#34;Forced Github auth method to %s&#34;, method)
+            self._other_auth_method = self._auth_methods[method]
+        else:
+            raise GithubAPIException(
+                f&#34;Choosen authentication method ({method}) is not available&#34;,
+            )
+
+    def reset_auth_method(self):
+        logger.info(&#34;Reset Github auth method to the default&#34;)
+        self._other_auth_method = None
+
+    @property
+    def authentication(self):
+        return self._other_auth_method or self._default_auth_method
+
+    @property
+    def github(self):
+        return self.authentication.pygithub_instance
+
+    def __str__(self) -&gt; str:
+        readonly_str = &#34;, read_only=True&#34; if self.read_only else &#34;&#34;
+        arguments = f&#34;, github_authentication={self.authentication!s}{readonly_str}&#34;
+
+        if arguments:
+            # remove the first &#39;- &#39;
+            arguments = arguments[2:]
+
+        return f&#34;GithubService({arguments})&#34;
+
+    def __eq__(self, o: object) -&gt; bool:
+        if not issubclass(o.__class__, GithubService):
+            return False
+
+        return (
+            self.read_only == o.read_only  # type: ignore
+            and self.authentication == o.authentication  # type: ignore
+        )
+
+    def __hash__(self) -&gt; int:
+        return hash(str(self))
+
+    def get_project(
+        self,
+        repo=None,
+        namespace=None,
+        is_fork=False,
+        **kwargs,
+    ) -&gt; &#34;GithubProject&#34;:
+        if is_fork:
+            namespace = self.user.get_username()
+        return GithubProject(
+            repo=repo,
+            namespace=namespace,
+            service=self,
+            read_only=self.read_only,
+            **kwargs,
+        )
+
+    def get_project_from_github_repository(
+        self,
+        github_repo: PyGithubRepository.Repository,
+    ) -&gt; &#34;GithubProject&#34;:
+        return GithubProject(
+            repo=github_repo.name,
+            namespace=github_repo.owner.login,
+            github_repo=github_repo,
+            service=self,
+            read_only=self.read_only,
+        )
+
+    @property
+    def user(self) -&gt; GitUser:
+        return GithubUser(service=self)
+
+    def change_token(self, new_token: str) -&gt; None:
+        self._default_auth_method = TokenAuthentication(new_token)
+
+    def project_create(
+        self,
+        repo: str,
+        namespace: Optional[str] = None,
+        description: Optional[str] = None,
+    ) -&gt; &#34;GithubProject&#34;:
+        if namespace:
+            try:
+                owner = self.github.get_organization(namespace)
+            except UnknownObjectException as ex:
+                raise GithubAPIException(f&#34;Group {namespace} not found.&#34;) from ex
+        else:
+            owner = self.github.get_user()
+
+        try:
+            new_repo = owner.create_repo(
+                name=repo,
+                description=description if description else github.GithubObject.NotSet,
+            )
+        except github.GithubException as ex:
+            raise GithubAPIException(&#34;Project creation failed&#34;) from ex
+        return GithubProject(
+            repo=repo,
+            namespace=namespace or owner.login,
+            service=self,
+            github_repo=new_repo,
+        )
+
+    def get_pygithub_instance(self, namespace: str, repo: str) -&gt; PyGithubInstance:
+        token = self.authentication.get_token(namespace, repo)
+        return PyGithubInstance(login_or_token=token, retry=self._max_retries)
+
+    def list_projects(
+        self,
+        namespace: Optional[str] = None,
+        user: Optional[str] = None,
+        search_pattern: Optional[str] = None,
+        language: Optional[str] = None,
+    ) -&gt; list[GitProject]:
+        search_query = &#34;&#34;
+
+        if user:
+            search_query += f&#34;user:{user}&#34;
+
+        if language:
+            search_query += f&#34; language:{language}&#34;
+
+        projects: list[GitProject]
+        projects = [
+            GithubProject(
+                repo=repo.name,
+                namespace=repo.owner.login,
+                github_repo=repo,
+                service=self,
+            )
+            for repo in self.github.search_repositories(search_query, order=&#34;asc&#34;)
+        ]
+
+        if search_pattern:
+            projects = [
+                project
+                for project in projects
+                if re.search(search_pattern, project.repo)
+            ]
+
+        return projects</code></pre>
+</details>
+<div class="desc"><h2 id="attributes">Attributes</h2>
+<dl>
+<dt><strong><code>instance_url</code></strong> :&ensp;<code>str</code></dt>
+<dd>URL of the git forge instance.</dd>
+</dl>
+<p>If multiple authentication methods are provided, they are prioritised:
+1. Tokman
+2. GithubApp
+3. TokenAuthentication (which is also default one, that works without specified token)</p></div>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="ogr.services.base.BaseGitService" href="../base.html#ogr.services.base.BaseGitService">BaseGitService</a></li>
+<li><a title="ogr.abstract.GitService" href="../../abstract.html#ogr.abstract.GitService">GitService</a></li>
+<li><a title="ogr.abstract.OgrAbstractClass" href="../../abstract.html#ogr.abstract.OgrAbstractClass">OgrAbstractClass</a></li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="ogr.services.github.service.GithubService.github_class"><code class="name">var <span class="ident">github_class</span> : type[github.MainClass.Github]</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="ogr.services.github.service.GithubService.instance_url"><code class="name">var <span class="ident">instance_url</span> : str | None</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Instance variables</h3>
+<dl>
+<dt id="ogr.services.github.service.GithubService.authentication"><code class="name">prop <span class="ident">authentication</span></code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def authentication(self):
+    return self._other_auth_method or self._default_auth_method</code></pre>
+</details>
+<div class="desc"></div>
+</dd>
+<dt id="ogr.services.github.service.GithubService.github"><code class="name">prop <span class="ident">github</span></code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def github(self):
+    return self.authentication.pygithub_instance</code></pre>
+</details>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Methods</h3>
+<dl>
+<dt id="ogr.services.github.service.GithubService.get_project_from_github_repository"><code class="name flex">
+<span>def <span class="ident">get_project_from_github_repository</span></span>(<span>self, github_repo: github.Repository.Repository) ‑> <a title="ogr.services.github.project.GithubProject" href="project.html#ogr.services.github.project.GithubProject">GithubProject</a></span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_project_from_github_repository(
+    self,
+    github_repo: PyGithubRepository.Repository,
+) -&gt; &#34;GithubProject&#34;:
+    return GithubProject(
+        repo=github_repo.name,
+        namespace=github_repo.owner.login,
+        github_repo=github_repo,
+        service=self,
+        read_only=self.read_only,
+    )</code></pre>
+</details>
+<div class="desc"></div>
+</dd>
+<dt id="ogr.services.github.service.GithubService.get_pygithub_instance"><code class="name flex">
+<span>def <span class="ident">get_pygithub_instance</span></span>(<span>self, namespace: str, repo: str) ‑> github.MainClass.Github</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_pygithub_instance(self, namespace: str, repo: str) -&gt; PyGithubInstance:
+    token = self.authentication.get_token(namespace, repo)
+    return PyGithubInstance(login_or_token=token, retry=self._max_retries)</code></pre>
+</details>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="ogr.services.base.BaseGitService" href="../base.html#ogr.services.base.BaseGitService">BaseGitService</a></b></code>:
+<ul class="hlist">
+<li><code><a title="ogr.services.base.BaseGitService.change_token" href="../../abstract.html#ogr.abstract.GitService.change_token">change_token</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitService.get_group" href="../../abstract.html#ogr.abstract.GitService.get_group">get_group</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitService.get_project" href="../../abstract.html#ogr.abstract.GitService.get_project">get_project</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitService.list_projects" href="../../abstract.html#ogr.abstract.GitService.list_projects">list_projects</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitService.project_create" href="../../abstract.html#ogr.abstract.GitService.project_create">project_create</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitService.reset_auth_method" href="../../abstract.html#ogr.abstract.GitService.reset_auth_method">reset_auth_method</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitService.set_auth_method" href="../../abstract.html#ogr.abstract.GitService.set_auth_method">set_auth_method</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitService.user" href="../../abstract.html#ogr.abstract.GitService.user">user</a></code></li>
+</ul>
+</li>
+<li><code><b><a title="ogr.abstract.GitService" href="../../abstract.html#ogr.abstract.GitService">GitService</a></b></code>:
+<ul class="hlist">
+<li><code><a title="ogr.abstract.GitService.get_project_from_url" href="../../abstract.html#ogr.abstract.GitService.get_project_from_url">get_project_from_url</a></code></li>
+<li><code><a title="ogr.abstract.GitService.hostname" href="../../abstract.html#ogr.abstract.GitService.hostname">hostname</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="ogr.services.github" href="index.html">ogr.services.github</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="ogr.services.github.service.GithubService" href="#ogr.services.github.service.GithubService">GithubService</a></code></h4>
+<ul class="">
+<li><code><a title="ogr.services.github.service.GithubService.authentication" href="#ogr.services.github.service.GithubService.authentication">authentication</a></code></li>
+<li><code><a title="ogr.services.github.service.GithubService.get_project_from_github_repository" href="#ogr.services.github.service.GithubService.get_project_from_github_repository">get_project_from_github_repository</a></code></li>
+<li><code><a title="ogr.services.github.service.GithubService.get_pygithub_instance" href="#ogr.services.github.service.GithubService.get_pygithub_instance">get_pygithub_instance</a></code></li>
+<li><code><a title="ogr.services.github.service.GithubService.github" href="#ogr.services.github.service.GithubService.github">github</a></code></li>
+<li><code><a title="ogr.services.github.service.GithubService.github_class" href="#ogr.services.github.service.GithubService.github_class">github_class</a></code></li>
+<li><code><a title="ogr.services.github.service.GithubService.instance_url" href="#ogr.services.github.service.GithubService.instance_url">instance_url</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.11.6</a>.</p>
+</footer>
+</body>
+</html>
