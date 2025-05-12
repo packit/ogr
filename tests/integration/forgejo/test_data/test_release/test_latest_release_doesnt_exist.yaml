@@ -1,0 +1,41 @@
+_requre:
+  DataTypes: 1
+  key_strategy: StorageKeysInspectSimple
+  version_storage_file: 3
+httpx._client:
+  send:
+    GET:
+      https://v10.next.forgejo.org/api/v1/repos/packit-validator/hello-world/releases?page=1&limit=1:
+      - metadata:
+          latency: 0.37145066261291504
+          module_call_list:
+          - requre.record_and_replace
+          - tests.integration.forgejo.test_release
+          - ogr.abstract
+          - ogr.utils
+          - ogr.abstract
+          - ogr.services.forgejo.release
+          - pyforgejo.repository.client
+          - pyforgejo.core.http_client
+          - httpx._client
+          - requre.objects
+          - requre.cassette
+          - httpx._client
+          - send
+        output:
+          __store_indicator: 2
+          _content: []
+          _elapsed: 0.371156
+          encoding: utf-8
+          headers:
+            access-control-expose-headers: X-Total-Count
+            cache-control: max-age=0, private, must-revalidate, no-transform
+            content-length: '3'
+            content-type: application/json;charset=utf-8
+            date: Mon, 12 May 2025 12:45:58 GMT
+            vary: Origin
+            x-content-type-options: nosniff
+            x-frame-options: SAMEORIGIN
+            x-total-count: '0'
+          next_request: null
+          status_code: 200
