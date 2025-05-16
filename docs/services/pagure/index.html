@@ -1,0 +1,2976 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+<meta name="generator" content="pdoc3 0.11.6">
+<title>ogr.services.pagure API documentation</title>
+<meta name="description" content="">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/sanitize.min.css" integrity="sha512-y1dtMcuvtTMJc1yPgEqF0ZjQbhnc/bFhyvIyVNb9Zk5mIGtqVaAB1Ttl28su8AvFMOY0EwRbAe+HCLqj6W7/KA==" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/typography.min.css" integrity="sha512-Y1DYSb995BAfxobCkKepB1BqJJTPrOp3zPL74AWFugHHmmdcvO+C48WLrUOlhGMc0QG7AE3f7gmvvcrmX2fDoA==" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:1.5em;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:2em 0 .50em 0}h3{font-size:1.4em;margin:1.6em 0 .7em 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .2s ease-in-out}a:visited{color:#503}a:hover{color:#b62}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900;font-weight:bold}pre code{font-size:.8em;line-height:1.4em;padding:1em;display:block}code{background:#f3f3f3;font-family:"DejaVu Sans Mono",monospace;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source > summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible;min-width:max-content}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em 1em;margin:1em 0}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul ul{padding-left:1em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js" integrity="sha512-D9gUyxqja7hBtkWpPWGt9wfbfaMGVt9gnyCvYa+jojwwPHLCzUm5i8rpk7vD7wNee9bA35eYIjobYPaQuKS1MQ==" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => {
+hljs.configure({languages: ['bash', 'css', 'diff', 'graphql', 'ini', 'javascript', 'json', 'plaintext', 'python', 'python-repl', 'rust', 'shell', 'sql', 'typescript', 'xml', 'yaml']});
+hljs.highlightAll();
+/* Collapse source docstrings */
+setTimeout(() => {
+[...document.querySelectorAll('.hljs.language-python > .hljs-string')]
+.filter(el => el.innerHTML.length > 200 && ['"""', "'''"].includes(el.innerHTML.substring(0, 3)))
+.forEach(el => {
+let d = document.createElement('details');
+d.classList.add('hljs-string');
+d.innerHTML = '<summary>"""</summary>' + el.innerHTML.substring(3);
+el.replaceWith(d);
+});
+}, 100);
+})</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>ogr.services.pagure</code></h1>
+</header>
+<section id="section-intro">
+</section>
+<section>
+<h2 class="section-title" id="header-submodules">Sub-modules</h2>
+<dl>
+<dt><code class="name"><a title="ogr.services.pagure.comments" href="comments.html">ogr.services.pagure.comments</a></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt><code class="name"><a title="ogr.services.pagure.flag" href="flag.html">ogr.services.pagure.flag</a></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt><code class="name"><a title="ogr.services.pagure.group" href="group.html">ogr.services.pagure.group</a></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt><code class="name"><a title="ogr.services.pagure.issue" href="issue.html">ogr.services.pagure.issue</a></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt><code class="name"><a title="ogr.services.pagure.label" href="label.html">ogr.services.pagure.label</a></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt><code class="name"><a title="ogr.services.pagure.project" href="project.html">ogr.services.pagure.project</a></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt><code class="name"><a title="ogr.services.pagure.pull_request" href="pull_request.html">ogr.services.pagure.pull_request</a></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt><code class="name"><a title="ogr.services.pagure.release" href="release.html">ogr.services.pagure.release</a></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt><code class="name"><a title="ogr.services.pagure.service" href="service.html">ogr.services.pagure.service</a></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt><code class="name"><a title="ogr.services.pagure.user" href="user.html">ogr.services.pagure.user</a></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="ogr.services.pagure.PagureIssue"><code class="flex name class">
+<span>class <span class="ident">PagureIssue</span></span>
+<span>(</span><span>raw_issue, project)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class PagureIssue(BaseIssue):
+    project: &#34;ogr_pagure.PagureProject&#34;
+
+    def __init__(self, raw_issue, project):
+        super().__init__(raw_issue, project)
+        self.__dirty = False
+
+    def __update(self):
+        if self.__dirty:
+            self._raw_issue = self.project._call_project_api(&#34;issue&#34;, str(self.id))
+            self.__dirty = False
+
+    @property
+    def title(self) -&gt; str:
+        self.__update()
+        return self._raw_issue[&#34;title&#34;]
+
+    @title.setter
+    def title(self, new_title: str) -&gt; None:
+        self.__update_info(title=new_title)
+
+    @property
+    def private(self) -&gt; bool:
+        self.__update()
+        return self._raw_issue[&#34;private&#34;]
+
+    @property
+    def id(self) -&gt; int:
+        return self._raw_issue[&#34;id&#34;]
+
+    @property
+    def status(self) -&gt; IssueStatus:
+        self.__update()
+        return IssueStatus[self._raw_issue[&#34;status&#34;].lower()]
+
+    @property
+    def url(self) -&gt; str:
+        return self.project._get_project_url(
+            &#34;issue&#34;,
+            str(self.id),
+            add_api_endpoint_part=False,
+        )
+
+    @property
+    def assignee(self) -&gt; str:
+        self.__update()
+        try:
+            return self._raw_issue[&#34;assignee&#34;][&#34;name&#34;]
+        except Exception:
+            return None
+
+    @property
+    def description(self) -&gt; str:
+        self.__update()
+        return self._raw_issue[&#34;content&#34;]
+
+    @description.setter
+    def description(self, new_description: str) -&gt; None:
+        self.__update_info(description=new_description)
+
+    @property
+    def author(self) -&gt; str:
+        return self._raw_issue[&#34;user&#34;][&#34;name&#34;]
+
+    @property
+    def created(self) -&gt; datetime.datetime:
+        return datetime.datetime.fromtimestamp(int(self._raw_issue[&#34;date_created&#34;]))
+
+    @property
+    def labels(self) -&gt; list[IssueLabel]:
+        return [PagureIssueLabel(label, self) for label in self._raw_issue[&#34;tags&#34;]]
+
+    def __str__(self) -&gt; str:
+        return &#34;Pagure&#34; + super().__str__()
+
+    def __update_info(
+        self,
+        title: Optional[str] = None,
+        description: Optional[str] = None,
+        assignee: Optional[str] = None,
+    ) -&gt; None:
+        try:
+            data = {
+                &#34;title&#34;: title if title is not None else self.title,
+                &#34;issue_content&#34;: (
+                    description if description is not None else self.description
+                ),
+            }
+
+            updated_issue = self.project._call_project_api(
+                &#34;issue&#34;,
+                str(self.id),
+                method=&#34;POST&#34;,
+                data=data,
+            )
+            self._raw_issue = updated_issue[&#34;issue&#34;]
+        except Exception as ex:
+            raise PagureAPIException(
+                &#34;there was an error while updating the issue&#34;,
+            ) from ex
+
+    @staticmethod
+    def create(
+        project: &#34;ogr_pagure.PagureProject&#34;,
+        title: str,
+        body: str,
+        private: Optional[bool] = None,
+        labels: Optional[list[str]] = None,
+        assignees: Optional[list[str]] = None,
+    ) -&gt; &#34;Issue&#34;:
+        if not project.has_issues:
+            raise IssueTrackerDisabled()
+
+        payload = {&#34;title&#34;: title, &#34;issue_content&#34;: body}
+        if labels is not None:
+            payload[&#34;tag&#34;] = &#34;,&#34;.join(labels)
+        if private:
+            payload[&#34;private&#34;] = &#34;true&#34;
+        if assignees and len(assignees) &gt; 1:
+            raise OperationNotSupported(&#34;Pagure does not support multiple assignees&#34;)
+
+        if assignees:
+            payload[&#34;assignee&#34;] = assignees[0]
+
+        new_issue = project._call_project_api(&#34;new_issue&#34;, data=payload, method=&#34;POST&#34;)[
+            &#34;issue&#34;
+        ]
+        return PagureIssue(new_issue, project)
+
+    @staticmethod
+    def get(project: &#34;ogr_pagure.PagureProject&#34;, issue_id: int) -&gt; &#34;Issue&#34;:
+        if not project.has_issues:
+            raise IssueTrackerDisabled()
+
+        raw_issue = project._call_project_api(&#34;issue&#34;, str(issue_id))
+        return PagureIssue(raw_issue, project)
+
+    @staticmethod
+    def get_list(
+        project: &#34;ogr_pagure.PagureProject&#34;,
+        status: IssueStatus = IssueStatus.open,
+        author: Optional[str] = None,
+        assignee: Optional[str] = None,
+        labels: Optional[list[str]] = None,
+    ) -&gt; list[&#34;Issue&#34;]:
+        if not project.has_issues:
+            raise IssueTrackerDisabled()
+
+        payload: dict[str, Union[str, list[str], int]] = {
+            &#34;status&#34;: status.name.capitalize(),
+            &#34;page&#34;: 1,
+            &#34;per_page&#34;: 100,
+        }
+        if author:
+            payload[&#34;author&#34;] = author
+        if assignee:
+            payload[&#34;assignee&#34;] = assignee
+        if labels:
+            payload[&#34;tags&#34;] = labels
+
+        raw_issues: list[Any] = []
+
+        while True:
+            issues_info = project._call_project_api(&#34;issues&#34;, params=payload)
+            raw_issues += issues_info[&#34;issues&#34;]
+            if not issues_info[&#34;pagination&#34;][&#34;next&#34;]:
+                break
+            payload[&#34;page&#34;] = cast(int, payload[&#34;page&#34;]) + 1
+
+        return [PagureIssue(issue_dict, project) for issue_dict in raw_issues]
+
+    def _get_all_comments(self, reverse: bool = False) -&gt; Iterable[IssueComment]:
+        self.__update()
+        raw_comments = self._raw_issue[&#34;comments&#34;]
+        if reverse:
+            raw_comments = reversed(raw_comments)
+
+        return (
+            PagureIssueComment(parent=self, raw_comment=raw_comment)
+            for raw_comment in raw_comments
+        )
+
+    def comment(self, body: str) -&gt; IssueComment:
+        payload = {&#34;comment&#34;: body}
+        self.project._call_project_api(
+            &#34;issue&#34;,
+            str(self.id),
+            &#34;comment&#34;,
+            data=payload,
+            method=&#34;POST&#34;,
+        )
+        self.__dirty = True
+        return PagureIssueComment(parent=self, body=body, author=self.project._user)
+
+    def close(self) -&gt; &#34;PagureIssue&#34;:
+        payload = {&#34;status&#34;: &#34;Closed&#34;}
+        self.project._call_project_api(
+            &#34;issue&#34;,
+            str(self.id),
+            &#34;status&#34;,
+            data=payload,
+            method=&#34;POST&#34;,
+        )
+        self.__dirty = True
+        return self
+
+    def add_assignee(self, *assignees: str) -&gt; None:
+        if len(assignees) &gt; 1:
+            raise OperationNotSupported(&#34;Pagure does not support multiple assignees&#34;)
+        payload = {&#34;assignee&#34;: assignees[0]}
+        self.project._call_project_api(
+            &#34;issue&#34;,
+            str(self.id),
+            &#34;assign&#34;,
+            data=payload,
+            method=&#34;POST&#34;,
+        )
+
+    def get_comment(self, comment_id: int) -&gt; IssueComment:
+        return PagureIssueComment(
+            self.project._call_project_api(
+                &#34;issue&#34;,
+                str(self.id),
+                &#34;comment&#34;,
+                str(comment_id),
+                method=&#34;GET&#34;,
+            ),
+        )</code></pre>
+</details>
+<div class="desc"><h2 id="attributes">Attributes</h2>
+<dl>
+<dt><strong><code>project</code></strong> :&ensp;<code>GitProject</code></dt>
+<dd>Project of the issue.</dd>
+</dl></div>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="ogr.services.base.BaseIssue" href="../base.html#ogr.services.base.BaseIssue">BaseIssue</a></li>
+<li><a title="ogr.abstract.Issue" href="../../abstract.html#ogr.abstract.Issue">Issue</a></li>
+<li><a title="ogr.abstract.OgrAbstractClass" href="../../abstract.html#ogr.abstract.OgrAbstractClass">OgrAbstractClass</a></li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="ogr.services.pagure.PagureIssue.project"><code class="name">var <span class="ident">project</span> : <a title="ogr.services.pagure.project.PagureProject" href="project.html#ogr.services.pagure.project.PagureProject">PagureProject</a></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Instance variables</h3>
+<dl>
+<dt id="ogr.services.pagure.PagureIssue.assignee"><code class="name">prop <span class="ident">assignee</span> : str</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def assignee(self) -&gt; str:
+    self.__update()
+    try:
+        return self._raw_issue[&#34;assignee&#34;][&#34;name&#34;]
+    except Exception:
+        return None</code></pre>
+</details>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="ogr.services.base.BaseIssue" href="../base.html#ogr.services.base.BaseIssue">BaseIssue</a></b></code>:
+<ul class="hlist">
+<li><code><a title="ogr.services.base.BaseIssue.add_assignee" href="../../abstract.html#ogr.abstract.Issue.add_assignee">add_assignee</a></code></li>
+<li><code><a title="ogr.services.base.BaseIssue.add_label" href="../../abstract.html#ogr.abstract.Issue.add_label">add_label</a></code></li>
+<li><code><a title="ogr.services.base.BaseIssue.author" href="../../abstract.html#ogr.abstract.Issue.author">author</a></code></li>
+<li><code><a title="ogr.services.base.BaseIssue.close" href="../../abstract.html#ogr.abstract.Issue.close">close</a></code></li>
+<li><code><a title="ogr.services.base.BaseIssue.comment" href="../../abstract.html#ogr.abstract.Issue.comment">comment</a></code></li>
+<li><code><a title="ogr.services.base.BaseIssue.create" href="../../abstract.html#ogr.abstract.Issue.create">create</a></code></li>
+<li><code><a title="ogr.services.base.BaseIssue.created" href="../../abstract.html#ogr.abstract.Issue.created">created</a></code></li>
+<li><code><a title="ogr.services.base.BaseIssue.description" href="../../abstract.html#ogr.abstract.Issue.description">description</a></code></li>
+<li><code><a title="ogr.services.base.BaseIssue.get" href="../../abstract.html#ogr.abstract.Issue.get">get</a></code></li>
+<li><code><a title="ogr.services.base.BaseIssue.get_comment" href="../../abstract.html#ogr.abstract.Issue.get_comment">get_comment</a></code></li>
+<li><code><a title="ogr.services.base.BaseIssue.get_list" href="../../abstract.html#ogr.abstract.Issue.get_list">get_list</a></code></li>
+<li><code><a title="ogr.services.base.BaseIssue.id" href="../../abstract.html#ogr.abstract.Issue.id">id</a></code></li>
+<li><code><a title="ogr.services.base.BaseIssue.labels" href="../../abstract.html#ogr.abstract.Issue.labels">labels</a></code></li>
+<li><code><a title="ogr.services.base.BaseIssue.private" href="../../abstract.html#ogr.abstract.Issue.private">private</a></code></li>
+<li><code><a title="ogr.services.base.BaseIssue.status" href="../../abstract.html#ogr.abstract.Issue.status">status</a></code></li>
+<li><code><a title="ogr.services.base.BaseIssue.title" href="../../abstract.html#ogr.abstract.Issue.title">title</a></code></li>
+<li><code><a title="ogr.services.base.BaseIssue.url" href="../../abstract.html#ogr.abstract.Issue.url">url</a></code></li>
+</ul>
+</li>
+<li><code><b><a title="ogr.abstract.Issue" href="../../abstract.html#ogr.abstract.Issue">Issue</a></b></code>:
+<ul class="hlist">
+<li><code><a title="ogr.abstract.Issue.can_close" href="../../abstract.html#ogr.abstract.Issue.can_close">can_close</a></code></li>
+<li><code><a title="ogr.abstract.Issue.get_comments" href="../../abstract.html#ogr.abstract.Issue.get_comments">get_comments</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+<dt id="ogr.services.pagure.PagureIssueComment"><code class="flex name class">
+<span>class <span class="ident">PagureIssueComment</span></span>
+<span>(</span><span>raw_comment: Any | None = None,<br>parent: Any | None = None,<br>body: str | None = None,<br>id_: int | None = None,<br>author: str | None = None,<br>created: datetime.datetime | None = None,<br>edited: datetime.datetime | None = None)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class PagureIssueComment(PagureComment, IssueComment):
+    def __str__(self) -&gt; str:
+        return &#34;Pagure&#34; + super().__str__()</code></pre>
+</details>
+<div class="desc"></div>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="ogr.services.pagure.comments.PagureComment" href="comments.html#ogr.services.pagure.comments.PagureComment">PagureComment</a></li>
+<li><a title="ogr.abstract.IssueComment" href="../../abstract.html#ogr.abstract.IssueComment">IssueComment</a></li>
+<li><a title="ogr.abstract.Comment" href="../../abstract.html#ogr.abstract.Comment">Comment</a></li>
+<li><a title="ogr.abstract.OgrAbstractClass" href="../../abstract.html#ogr.abstract.OgrAbstractClass">OgrAbstractClass</a></li>
+</ul>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="ogr.services.pagure.comments.PagureComment" href="comments.html#ogr.services.pagure.comments.PagureComment">PagureComment</a></b></code>:
+<ul class="hlist">
+<li><code><a title="ogr.services.pagure.comments.PagureComment.add_reaction" href="../../abstract.html#ogr.abstract.Comment.add_reaction">add_reaction</a></code></li>
+<li><code><a title="ogr.services.pagure.comments.PagureComment.author" href="../../abstract.html#ogr.abstract.Comment.author">author</a></code></li>
+<li><code><a title="ogr.services.pagure.comments.PagureComment.body" href="../../abstract.html#ogr.abstract.Comment.body">body</a></code></li>
+<li><code><a title="ogr.services.pagure.comments.PagureComment.created" href="../../abstract.html#ogr.abstract.Comment.created">created</a></code></li>
+<li><code><a title="ogr.services.pagure.comments.PagureComment.edited" href="../../abstract.html#ogr.abstract.Comment.edited">edited</a></code></li>
+<li><code><a title="ogr.services.pagure.comments.PagureComment.get_reactions" href="../../abstract.html#ogr.abstract.Comment.get_reactions">get_reactions</a></code></li>
+</ul>
+</li>
+<li><code><b><a title="ogr.abstract.IssueComment" href="../../abstract.html#ogr.abstract.IssueComment">IssueComment</a></b></code>:
+<ul class="hlist">
+<li><code><a title="ogr.abstract.IssueComment.issue" href="../../abstract.html#ogr.abstract.IssueComment.issue">issue</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+<dt id="ogr.services.pagure.PagurePRComment"><code class="flex name class">
+<span>class <span class="ident">PagurePRComment</span></span>
+<span>(</span><span>raw_comment: Any | None = None,<br>parent: Any | None = None,<br>body: str | None = None,<br>id_: int | None = None,<br>author: str | None = None,<br>created: datetime.datetime | None = None,<br>edited: datetime.datetime | None = None)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class PagurePRComment(PagureComment, PRComment):
+    def __str__(self) -&gt; str:
+        return &#34;Pagure&#34; + super().__str__()</code></pre>
+</details>
+<div class="desc"></div>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="ogr.services.pagure.comments.PagureComment" href="comments.html#ogr.services.pagure.comments.PagureComment">PagureComment</a></li>
+<li><a title="ogr.abstract.PRComment" href="../../abstract.html#ogr.abstract.PRComment">PRComment</a></li>
+<li><a title="ogr.abstract.Comment" href="../../abstract.html#ogr.abstract.Comment">Comment</a></li>
+<li><a title="ogr.abstract.OgrAbstractClass" href="../../abstract.html#ogr.abstract.OgrAbstractClass">OgrAbstractClass</a></li>
+</ul>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="ogr.services.pagure.comments.PagureComment" href="comments.html#ogr.services.pagure.comments.PagureComment">PagureComment</a></b></code>:
+<ul class="hlist">
+<li><code><a title="ogr.services.pagure.comments.PagureComment.add_reaction" href="../../abstract.html#ogr.abstract.Comment.add_reaction">add_reaction</a></code></li>
+<li><code><a title="ogr.services.pagure.comments.PagureComment.author" href="../../abstract.html#ogr.abstract.Comment.author">author</a></code></li>
+<li><code><a title="ogr.services.pagure.comments.PagureComment.body" href="../../abstract.html#ogr.abstract.Comment.body">body</a></code></li>
+<li><code><a title="ogr.services.pagure.comments.PagureComment.created" href="../../abstract.html#ogr.abstract.Comment.created">created</a></code></li>
+<li><code><a title="ogr.services.pagure.comments.PagureComment.edited" href="../../abstract.html#ogr.abstract.Comment.edited">edited</a></code></li>
+<li><code><a title="ogr.services.pagure.comments.PagureComment.get_reactions" href="../../abstract.html#ogr.abstract.Comment.get_reactions">get_reactions</a></code></li>
+</ul>
+</li>
+<li><code><b><a title="ogr.abstract.PRComment" href="../../abstract.html#ogr.abstract.PRComment">PRComment</a></b></code>:
+<ul class="hlist">
+<li><code><a title="ogr.abstract.PRComment.pull_request" href="../../abstract.html#ogr.abstract.PRComment.pull_request">pull_request</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+<dt id="ogr.services.pagure.PagureProject"><code class="flex name class">
+<span>class <span class="ident">PagureProject</span></span>
+<span>(</span><span>repo: str,<br>namespace: str | None,<br>service: ogr_pagure.PagureService,<br>username: str | None = None,<br>is_fork: bool = False)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class PagureProject(BaseGitProject):
+    service: &#34;ogr_pagure.PagureService&#34;
+    access_dict: ClassVar[dict] = {
+        AccessLevel.pull: &#34;ticket&#34;,
+        AccessLevel.triage: &#34;ticket&#34;,
+        AccessLevel.push: &#34;commit&#34;,
+        AccessLevel.admin: &#34;commit&#34;,
+        AccessLevel.maintain: &#34;admin&#34;,
+        None: &#34;&#34;,
+    }
+
+    def __init__(
+        self,
+        repo: str,
+        namespace: Optional[str],
+        service: &#34;ogr_pagure.PagureService&#34;,
+        username: Optional[str] = None,
+        is_fork: bool = False,
+    ) -&gt; None:
+        super().__init__(repo, service, namespace)
+        self.read_only = service.read_only
+
+        self._is_fork = is_fork
+        self._username = username
+
+        self.repo = repo
+        self.namespace = namespace
+
+    def __str__(self) -&gt; str:
+        fork_info = &#34;&#34;
+        if self._is_fork:
+            fork_info = f&#39;, username=&#34;{self._username}&#34;, is_fork={self._is_fork}&#39;
+        return f&#39;PagureProject(namespace=&#34;{self.namespace}&#34;, repo=&#34;{self.repo}&#34;{fork_info})&#39;
+
+    def __eq__(self, o: object) -&gt; bool:
+        if not isinstance(o, PagureProject):
+            return False
+
+        return (
+            self.repo == o.repo
+            and self.namespace == o.namespace
+            and self.service == o.service
+            and self._username == o._username
+            and self._is_fork == o._is_fork
+            and self.read_only == o.read_only
+        )
+
+    @property
+    def _user(self) -&gt; str:
+        if not self._username:
+            self._username = self.service.user.get_username()
+        return self._username
+
+    def _call_project_api(
+        self,
+        *args,
+        add_fork_part: bool = True,
+        add_api_endpoint_part: bool = True,
+        method: Optional[str] = None,
+        params: Optional[dict] = None,
+        data: Optional[dict] = None,
+    ) -&gt; dict:
+        &#34;&#34;&#34;
+        Call project API endpoint.
+
+        Args:
+            *args: String parts of the URL, e.g. `&#34;a&#34;, &#34;b&#34;` will call `project/a/b`
+            add_fork_part: If the project is a fork, use `fork/username` prefix.
+
+                Defaults to `True`.
+            add_api_endpoint_part: Add part with API endpoint (`/api/0/`).
+
+                Defaults to `True`.
+            method: Method of the HTTP request, e.g. `&#34;GET&#34;`, `&#34;POST&#34;`, etc.
+            params: HTTP(S) query parameters in form of a dictionary.
+            data: Data to be sent in form of a dictionary.
+
+        Returns:
+            Dictionary representing response.
+        &#34;&#34;&#34;
+        request_url = self._get_project_url(
+            *args,
+            add_api_endpoint_part=add_api_endpoint_part,
+            add_fork_part=add_fork_part,
+        )
+
+        return self.service.call_api(
+            url=request_url,
+            method=method,
+            params=params,
+            data=data,
+        )
+
+    def _call_project_api_raw(
+        self,
+        *args,
+        add_fork_part: bool = True,
+        add_api_endpoint_part: bool = True,
+        method: Optional[str] = None,
+        params: Optional[dict] = None,
+        data: Optional[dict] = None,
+    ) -&gt; RequestResponse:
+        &#34;&#34;&#34;
+        Call project API endpoint.
+
+        Args:
+            *args: String parts of the URL, e.g. `&#34;a&#34;, &#34;b&#34;` will call `project/a/b`
+            add_fork_part: If the project is a fork, use `fork/username` prefix.
+
+                Defaults to `True`.
+            add_api_endpoint_part: Add part with API endpoint (`/api/0/`).
+
+                Defaults to `True`.
+            method: Method of the HTTP request, e.g. `&#34;GET&#34;`, `&#34;POST&#34;`, etc.
+            params: HTTP(S) query parameters in form of a dictionary.
+            data: Data to be sent in form of a dictionary.
+
+        Returns:
+            `RequestResponse` object containing response.
+        &#34;&#34;&#34;
+        request_url = self._get_project_url(
+            *args,
+            add_api_endpoint_part=add_api_endpoint_part,
+            add_fork_part=add_fork_part,
+        )
+
+        return self.service.call_api_raw(
+            url=request_url,
+            method=method,
+            params=params,
+            data=data,
+        )
+
+    def _get_project_url(self, *args, add_fork_part=True, add_api_endpoint_part=True):
+        additional_parts = []
+        if self._is_fork and add_fork_part:
+            additional_parts += [&#34;fork&#34;, self._user]
+        return self.service.get_api_url(
+            *additional_parts,
+            self.namespace,
+            self.repo,
+            *args,
+            add_api_endpoint_part=add_api_endpoint_part,
+        )
+
+    def get_project_info(self):
+        return self._call_project_api(method=&#34;GET&#34;)
+
+    def get_branches(self) -&gt; list[str]:
+        return_value = self._call_project_api(&#34;git&#34;, &#34;branches&#34;, method=&#34;GET&#34;)
+        return return_value[&#34;branches&#34;]
+
+    @property
+    def default_branch(self) -&gt; str:
+        return_value = self._call_project_api(&#34;git&#34;, &#34;branches&#34;, method=&#34;GET&#34;)
+        return return_value[&#34;default&#34;]
+
+    def get_description(self) -&gt; str:
+        return self.get_project_info()[&#34;description&#34;]
+
+    @property
+    def description(self) -&gt; str:
+        return self.get_project_info()[&#34;description&#34;]
+
+    @description.setter
+    def description(self, new_description: str) -&gt; None:
+        raise OperationNotSupported(&#34;Not possible on Pagure&#34;)
+
+    @property
+    def has_issues(self) -&gt; bool:
+        options = self._call_project_api(&#34;options&#34;, method=&#34;GET&#34;)
+        return options[&#34;settings&#34;][&#34;issue_tracker&#34;]
+
+    def get_owners(self) -&gt; list[str]:
+        project = self.get_project_info()
+        return project[&#34;access_users&#34;][&#34;owner&#34;]
+
+    def who_can_close_issue(self) -&gt; set[str]:
+        users: set[str] = set()
+        project = self.get_project_info()
+        users.update(project[&#34;access_users&#34;][&#34;admin&#34;])
+        users.update(project[&#34;access_users&#34;][&#34;commit&#34;])
+        users.update(project[&#34;access_users&#34;][&#34;ticket&#34;])
+        users.update(project[&#34;access_users&#34;][&#34;owner&#34;])
+        return users
+
+    def who_can_merge_pr(self) -&gt; set[str]:
+        users: set[str] = set()
+        project = self.get_project_info()
+        users.update(project[&#34;access_users&#34;][&#34;admin&#34;])
+        users.update(project[&#34;access_users&#34;][&#34;commit&#34;])
+        users.update(project[&#34;access_users&#34;][&#34;owner&#34;])
+        return users
+
+    def which_groups_can_merge_pr(self) -&gt; set[str]:
+        groups: set[str] = set()
+        project = self.get_project_info()
+        groups.update(project[&#34;access_groups&#34;][&#34;admin&#34;])
+        groups.update(project[&#34;access_groups&#34;][&#34;commit&#34;])
+        return groups
+
+    def can_merge_pr(self, username) -&gt; bool:
+        accounts_that_can_merge_pr = self.who_can_merge_pr()
+
+        groups_that_can_merge_pr = self.which_groups_can_merge_pr()
+        accounts_that_can_merge_pr.update(
+            member
+            for group in groups_that_can_merge_pr
+            for member in self.service.get_group(group).members
+        )
+
+        logger.info(
+            f&#34;All users (considering groups) that can merge PR: {accounts_that_can_merge_pr}&#34;,
+        )
+        return username in accounts_that_can_merge_pr
+
+    def request_access(self):
+        raise OperationNotSupported(&#34;Not possible on Pagure&#34;)
+
+    @indirect(PagureIssue.get_list)
+    def get_issue_list(
+        self,
+        status: IssueStatus = IssueStatus.open,
+        author: Optional[str] = None,
+        assignee: Optional[str] = None,
+        labels: Optional[list[str]] = None,
+    ) -&gt; list[Issue]:
+        pass
+
+    @indirect(PagureIssue.get)
+    def get_issue(self, issue_id: int) -&gt; Issue:
+        pass
+
+    def delete(self) -&gt; None:
+        self._call_project_api_raw(&#34;delete&#34;, method=&#34;POST&#34;)
+
+    @indirect(PagureIssue.create)
+    def create_issue(
+        self,
+        title: str,
+        body: str,
+        private: Optional[bool] = None,
+        labels: Optional[list[str]] = None,
+        assignees: Optional[list[str]] = None,
+    ) -&gt; Issue:
+        pass
+
+    @indirect(PagurePullRequest.get_list)
+    def get_pr_list(
+        self,
+        status: PRStatus = PRStatus.open,
+        assignee=None,
+        author=None,
+    ) -&gt; list[PullRequest]:
+        pass
+
+    @indirect(PagurePullRequest.get)
+    def get_pr(self, pr_id: int) -&gt; PullRequest:
+        pass
+
+    @indirect(PagurePullRequest.get_files_diff)
+    def get_pr_files_diff(
+        self,
+        pr_id: int,
+        retries: int = 0,
+        wait_seconds: int = 3,
+    ) -&gt; dict:
+        pass
+
+    @if_readonly(return_function=GitProjectReadOnly.create_pr)
+    @indirect(PagurePullRequest.create)
+    def create_pr(
+        self,
+        title: str,
+        body: str,
+        target_branch: str,
+        source_branch: str,
+        fork_username: Optional[str] = None,
+    ) -&gt; PullRequest:
+        pass
+
+    @if_readonly(return_function=GitProjectReadOnly.fork_create)
+    def fork_create(self, namespace: Optional[str] = None) -&gt; &#34;PagureProject&#34;:
+        if namespace is not None:
+            raise OperationNotSupported(
+                &#34;Pagure does not support forking to namespaces.&#34;,
+            )
+
+        request_url = self.service.get_api_url(&#34;fork&#34;)
+        self.service.call_api(
+            url=request_url,
+            method=&#34;POST&#34;,
+            data={&#34;repo&#34;: self.repo, &#34;namespace&#34;: self.namespace, &#34;wait&#34;: True},
+        )
+        fork = self._construct_fork_project()
+        logger.debug(f&#34;Forked to {fork.full_repo_name}&#34;)
+        return fork
+
+    def _construct_fork_project(self) -&gt; &#34;PagureProject&#34;:
+        return PagureProject(
+            service=self.service,
+            repo=self.repo,
+            namespace=self.namespace,
+            username=self._user,
+            is_fork=True,
+        )
+
+    def get_fork(self, create: bool = True) -&gt; Optional[&#34;PagureProject&#34;]:
+        if self.is_fork:
+            raise OgrException(&#34;Cannot create fork from fork.&#34;)
+
+        # The cheapest check that assumes fork has the same repository name as
+        # the upstream
+        fork, exists = self._is_forked()
+        if exists:
+            return fork
+
+        # If not successful, the fork could still exist, but has a custom name
+        for fork in self.get_forks():
+            fork_info = fork.get_project_info()
+            if self._user == fork_info[&#34;user&#34;][&#34;name&#34;]:
+                return fork
+
+        # We have not found any fork owned by the auth&#39;d user
+        if create:
+            return self.fork_create()
+
+        logger.info(
+            f&#34;Fork of {self.repo}&#34;
+            &#34; does not exist and we were asked not to create it.&#34;,
+        )
+        return None
+
+    def exists(self) -&gt; bool:
+        response = self._call_project_api_raw()
+        return response.ok
+
+    def is_private(self) -&gt; bool:
+        host = urlparse(self.service.instance_url).hostname
+        if host in [
+            &#34;git.centos.org&#34;,
+            &#34;git.stg.centos.org&#34;,
+            &#34;pagure.io&#34;,
+            &#34;src.fedoraproject.org&#34;,
+            &#34;src.stg.fedoraproject.org&#34;,
+        ]:
+            # private repositories are not allowed on generally used pagure instances
+            return False
+        raise OperationNotSupported(
+            f&#34;is_private is not implemented for {self.service.instance_url}.&#34;
+            f&#34;Please open issue in https://github.com/packit/ogr&#34;,
+        )
+
+    def _is_forked(self) -&gt; tuple[&#34;PagureProject&#34;, bool]:
+        &#34;&#34;&#34;Helper function that does 2in1: both constructs the fork project and
+        also returns whether it exists. Saves some time and resources.
+
+        Returns:
+            Pair of `PagureProject` and `bool` denoting whether the fork exists.
+        &#34;&#34;&#34;
+        f = self._construct_fork_project()
+        return f, bool(f.exists() and f.parent.exists())
+
+    def is_forked(self) -&gt; bool:
+        _, exists = self._is_forked()
+        return exists
+
+    def get_is_fork_from_api(self) -&gt; bool:
+        return bool(self.get_project_info()[&#34;parent&#34;])
+
+    @property
+    def is_fork(self) -&gt; bool:
+        return self._is_fork
+
+    @property
+    def parent(self) -&gt; Optional[&#34;PagureProject&#34;]:
+        if self.get_is_fork_from_api():
+            return PagureProject(
+                repo=self.repo,
+                namespace=self.get_project_info()[&#34;parent&#34;][&#34;namespace&#34;],
+                service=self.service,
+            )
+        return None
+
+    def get_git_urls(self) -&gt; dict[str, str]:
+        return_value = self._call_project_api(&#34;git&#34;, &#34;urls&#34;)
+        return return_value[&#34;urls&#34;]
+
+    def add_user(self, user: str, access_level: AccessLevel) -&gt; None:
+        self.add_user_or_group(user, access_level, &#34;user&#34;)
+
+    def remove_user(self, user: str) -&gt; None:
+        self.add_user_or_group(user, None, &#34;user&#34;)
+
+    def add_group(self, group: str, access_level: AccessLevel):
+        self.add_user_or_group(group, access_level, &#34;group&#34;)
+
+    def remove_group(self, group: str) -&gt; None:
+        self.add_user_or_group(group, None, &#34;group&#34;)
+
+    def add_user_or_group(
+        self,
+        user: str,
+        access_level: Optional[AccessLevel],
+        user_type: str,
+    ) -&gt; None:
+        response = self._call_project_api_raw(
+            &#34;git&#34;,
+            &#34;modifyacls&#34;,
+            method=&#34;POST&#34;,
+            data={
+                &#34;user_type&#34;: user_type,
+                &#34;name&#34;: user,
+                &#34;acl&#34;: self.access_dict[access_level],
+            },
+        )
+
+        if response.status_code == 401:
+            raise PagureAPIException(
+                &#34;You are not allowed to modify ACL&#39;s&#34;,
+                response_code=response.status_code,
+            )
+
+    def change_token(self, new_token: str) -&gt; None:
+        self.service.change_token(new_token)
+
+    def get_file_content(self, path: str, ref=None) -&gt; str:
+        ref = ref or self.default_branch
+        result = self._call_project_api_raw(
+            &#34;raw&#34;,
+            ref,
+            &#34;f&#34;,
+            path,
+            add_api_endpoint_part=False,
+        )
+
+        if not result or result.reason == &#34;NOT FOUND&#34;:
+            raise FileNotFoundError(f&#34;File &#39;{path}&#39; on {ref} not found&#34;)
+        if result.reason != &#34;OK&#34;:
+            raise PagureAPIException(
+                f&#34;File &#39;{path}&#39; on {ref} not found due to {result.reason}&#34;,
+            )
+        return result.content.decode()
+
+    def get_sha_from_tag(self, tag_name: str) -&gt; str:
+        tags_dict = self.get_tags_dict()
+        if tag_name not in tags_dict:
+            raise PagureAPIException(f&#34;Tag &#39;{tag_name}&#39; not found.&#34;, response_code=404)
+
+        return tags_dict[tag_name].commit_sha
+
+    def commit_comment(
+        self,
+        commit: str,
+        body: str,
+        filename: Optional[str] = None,
+        row: Optional[int] = None,
+    ) -&gt; CommitComment:
+        raise OperationNotSupported(&#34;Commit comments are not supported on Pagure.&#34;)
+
+    def get_commit_comments(self, commit: str) -&gt; list[CommitComment]:
+        raise OperationNotSupported(&#34;Commit comments are not supported on Pagure.&#34;)
+
+    def get_commit_comment(self, commit_sha: str, comment_id: int) -&gt; CommitComment:
+        raise OperationNotSupported(&#34;Commit comments are not supported on Pagure.&#34;)
+
+    @if_readonly(return_function=GitProjectReadOnly.set_commit_status)
+    @indirect(PagureCommitFlag.set)
+    def set_commit_status(
+        self,
+        commit: str,
+        state: CommitStatus,
+        target_url: str,
+        description: str,
+        context: str,
+        percent: Optional[int] = None,
+        uid: Optional[str] = None,
+        trim: bool = False,
+    ) -&gt; &#34;CommitFlag&#34;:
+        pass
+
+    @indirect(PagureCommitFlag.get)
+    def get_commit_statuses(self, commit: str) -&gt; list[CommitFlag]:
+        pass
+
+    def get_tags(self) -&gt; list[GitTag]:
+        response = self._call_project_api(&#34;git&#34;, &#34;tags&#34;, params={&#34;with_commits&#34;: True})
+        return [GitTag(name=n, commit_sha=c) for n, c in response[&#34;tags&#34;].items()]
+
+    def get_tags_dict(self) -&gt; dict[str, GitTag]:
+        response = self._call_project_api(&#34;git&#34;, &#34;tags&#34;, params={&#34;with_commits&#34;: True})
+        return {n: GitTag(name=n, commit_sha=c) for n, c in response[&#34;tags&#34;].items()}
+
+    @indirect(PagureRelease.get_list)
+    def get_releases(self) -&gt; list[Release]:
+        pass
+
+    @indirect(PagureRelease.get)
+    def get_release(self, identifier=None, name=None, tag_name=None) -&gt; PagureRelease:
+        pass
+
+    @indirect(PagureRelease.get_latest)
+    def get_latest_release(self) -&gt; Optional[PagureRelease]:
+        pass
+
+    @indirect(PagureRelease.create)
+    def create_release(
+        self,
+        tag: str,
+        name: str,
+        message: str,
+        ref: Optional[str] = None,
+    ) -&gt; Release:
+        pass
+
+    def get_forks(self) -&gt; list[&#34;PagureProject&#34;]:
+        forks_url = self.service.get_api_url(&#34;projects&#34;)
+        projects_response = self.service.call_api(
+            url=forks_url,
+            params={&#34;fork&#34;: True, &#34;pattern&#34;: self.repo},
+        )
+        return [
+            PagureProject(
+                repo=fork[&#34;name&#34;],
+                namespace=fork[&#34;namespace&#34;],
+                service=self.service,
+                username=fork[&#34;user&#34;][&#34;name&#34;],
+                is_fork=True,
+            )
+            for fork in projects_response[&#34;projects&#34;]
+        ]
+
+    def get_web_url(self) -&gt; str:
+        return f&#39;{self.service.instance_url}/{self.get_project_info()[&#34;url_path&#34;]}&#39;
+
+    @property
+    def full_repo_name(self) -&gt; str:
+        fork = f&#34;fork/{self._user}/&#34; if self.is_fork else &#34;&#34;
+        namespace = f&#34;{self.namespace}/&#34; if self.namespace else &#34;&#34;
+        return f&#34;{fork}{namespace}{self.repo}&#34;
+
+    def __get_files(
+        self,
+        path: str,
+        ref: Optional[str] = None,
+        recursive: bool = False,
+    ) -&gt; Iterable[str]:
+        subfolders = [&#34;.&#34;]
+
+        while subfolders:
+            path = subfolders.pop()
+            split_path = []
+            if path != &#34;.&#34;:
+                split_path = [&#34;f&#34;, *path.split(&#34;/&#34;)]
+            response = self._call_project_api(&#34;tree&#34;, ref, *split_path)
+
+            for file in response[&#34;content&#34;]:
+                if file[&#34;type&#34;] == &#34;file&#34;:
+                    yield file[&#34;path&#34;]
+                elif recursive and file[&#34;type&#34;] == &#34;folder&#34;:
+                    subfolders.append(file[&#34;path&#34;])
+
+    def get_files(
+        self,
+        ref: Optional[str] = None,
+        filter_regex: Optional[str] = None,
+        recursive: bool = False,
+    ) -&gt; list[str]:
+        ref = ref or self.default_branch
+        paths = list(self.__get_files(&#34;.&#34;, ref, recursive))
+        if filter_regex:
+            paths = list(filter_paths(paths, filter_regex))
+
+        return paths
+
+    def get_sha_from_branch(self, branch: str) -&gt; Optional[str]:
+        branches = self._call_project_api(
+            &#34;git&#34;,
+            &#34;branches&#34;,
+            params={&#34;with_commits&#34;: True},
+        )[&#34;branches&#34;]
+
+        return branches.get(branch)
+
+    def get_contributors(self) -&gt; set[str]:
+        raise OperationNotSupported(&#34;Pagure doesn&#39;t provide list of contributors&#34;)
+
+    def users_with_write_access(self) -&gt; set[str]:
+        return self._get_users_with_given_access([&#34;commit&#34;, &#34;admin&#34;, &#34;owner&#34;])
+
+    def get_users_with_given_access(self, access_levels: list[AccessLevel]) -&gt; set[str]:
+        access_levels_pagure = [
+            self.access_dict[access_level] for access_level in access_levels
+        ]
+
+        # for AccessLevel.maintain get the maintainer as well
+        if AccessLevel.maintain in access_levels:
+            access_levels_pagure.append(&#34;owner&#34;)
+
+        return self._get_users_with_given_access(access_levels_pagure)
+
+    def _get_users_with_given_access(self, access_levels: list[str]) -&gt; set[str]:
+        &#34;&#34;&#34;
+        Get all users (considering groups) with the access levels given by list.
+
+        Arguments:
+            access_levels: list of access levels, e.g. [&#39;commit&#39;, &#39;admin&#39;]
+        &#34;&#34;&#34;
+        users = self._get_user_accounts_with_access(access_levels)
+
+        # group cannot have owner access
+        group_accounts = self._get_group_accounts_with_access(
+            list(set(access_levels) - {&#34;owner&#34;}),
+        )
+
+        users.update(
+            member
+            for group in group_accounts
+            for member in self.service.get_group(group).members
+        )
+
+        logger.info(
+            f&#34;All users (considering groups) with given access levels: {users}&#34;,
+        )
+        return users
+
+    def _get_entity_accounts_with_access(
+        self,
+        access_levels: list[str],
+        entity_type: str,
+    ) -&gt; set[str]:
+        &#34;&#34;&#34;
+        Get the entity account names (users or groups) with the access levels given by the set.
+
+        Arguments:
+            access_levels: list of access levels, e.g. [&#39;commit&#39;, &#39;admin&#39;]
+            entity_type: &#39;users&#39; or &#39;groups&#39;
+        &#34;&#34;&#34;
+        if entity_type not in (&#34;users&#34;, &#34;groups&#34;):
+            raise OgrException(
+                f&#34;Unsupported entity type {entity_type}: only &#39;users&#39; and &#39;groups&#39; are allowed.&#34;,
+            )
+        entity_info = self.get_project_info()[&#34;access_&#34; + entity_type]
+        result = set()
+        for access_level in access_levels:
+            result.update(entity_info[access_level])
+
+        return result
+
+    def _get_user_accounts_with_access(self, access_levels: list[str]) -&gt; set[str]:
+        &#34;&#34;&#34;
+        Get the users with the access levels given by the set.
+        &#34;&#34;&#34;
+        return self._get_entity_accounts_with_access(access_levels, &#34;users&#34;)
+
+    def _get_group_accounts_with_access(self, access_levels: list[str]) -&gt; set[str]:
+        &#34;&#34;&#34;
+        Get the groups with the access levels given by list.
+        &#34;&#34;&#34;
+        return self._get_entity_accounts_with_access(access_levels, &#34;groups&#34;)</code></pre>
+</details>
+<div class="desc"><h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>repo</code></strong></dt>
+<dd>Name of the project.</dd>
+<dt><strong><code>service</code></strong></dt>
+<dd>GitService instance.</dd>
+<dt><strong><code>namespace</code></strong></dt>
+<dd>
+<p>Namespace of the project.</p>
+<ul>
+<li>GitHub: username or org name.</li>
+<li>GitLab: username or org name.</li>
+<li>Pagure: namespace (e.g. <code>"rpms"</code>).</li>
+</ul>
+<p>In case of forks: <code>"fork/{username}/{namespace}"</code>.</p>
+</dd>
+</dl></div>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="ogr.services.base.BaseGitProject" href="../base.html#ogr.services.base.BaseGitProject">BaseGitProject</a></li>
+<li><a title="ogr.abstract.GitProject" href="../../abstract.html#ogr.abstract.GitProject">GitProject</a></li>
+<li><a title="ogr.abstract.OgrAbstractClass" href="../../abstract.html#ogr.abstract.OgrAbstractClass">OgrAbstractClass</a></li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="ogr.services.pagure.PagureProject.access_dict"><code class="name">var <span class="ident">access_dict</span> : ClassVar[dict]</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="ogr.services.pagure.PagureProject.service"><code class="name">var <span class="ident">service</span> : <a title="ogr.services.pagure.service.PagureService" href="service.html#ogr.services.pagure.service.PagureService">PagureService</a></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Methods</h3>
+<dl>
+<dt id="ogr.services.pagure.PagureProject.add_user_or_group"><code class="name flex">
+<span>def <span class="ident">add_user_or_group</span></span>(<span>self,<br>user: str,<br>access_level: <a title="ogr.abstract.AccessLevel" href="../../abstract.html#ogr.abstract.AccessLevel">AccessLevel</a> | None,<br>user_type: str) ‑> None</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def add_user_or_group(
+    self,
+    user: str,
+    access_level: Optional[AccessLevel],
+    user_type: str,
+) -&gt; None:
+    response = self._call_project_api_raw(
+        &#34;git&#34;,
+        &#34;modifyacls&#34;,
+        method=&#34;POST&#34;,
+        data={
+            &#34;user_type&#34;: user_type,
+            &#34;name&#34;: user,
+            &#34;acl&#34;: self.access_dict[access_level],
+        },
+    )
+
+    if response.status_code == 401:
+        raise PagureAPIException(
+            &#34;You are not allowed to modify ACL&#39;s&#34;,
+            response_code=response.status_code,
+        )</code></pre>
+</details>
+<div class="desc"></div>
+</dd>
+<dt id="ogr.services.pagure.PagureProject.get_is_fork_from_api"><code class="name flex">
+<span>def <span class="ident">get_is_fork_from_api</span></span>(<span>self) ‑> bool</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_is_fork_from_api(self) -&gt; bool:
+    return bool(self.get_project_info()[&#34;parent&#34;])</code></pre>
+</details>
+<div class="desc"></div>
+</dd>
+<dt id="ogr.services.pagure.PagureProject.get_project_info"><code class="name flex">
+<span>def <span class="ident">get_project_info</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_project_info(self):
+    return self._call_project_api(method=&#34;GET&#34;)</code></pre>
+</details>
+<div class="desc"></div>
+</dd>
+<dt id="ogr.services.pagure.PagureProject.get_tags_dict"><code class="name flex">
+<span>def <span class="ident">get_tags_dict</span></span>(<span>self) ‑> dict[str, <a title="ogr.abstract.GitTag" href="../../abstract.html#ogr.abstract.GitTag">GitTag</a>]</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_tags_dict(self) -&gt; dict[str, GitTag]:
+    response = self._call_project_api(&#34;git&#34;, &#34;tags&#34;, params={&#34;with_commits&#34;: True})
+    return {n: GitTag(name=n, commit_sha=c) for n, c in response[&#34;tags&#34;].items()}</code></pre>
+</details>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="ogr.services.base.BaseGitProject" href="../base.html#ogr.services.base.BaseGitProject">BaseGitProject</a></b></code>:
+<ul class="hlist">
+<li><code><a title="ogr.services.base.BaseGitProject.add_group" href="../../abstract.html#ogr.abstract.GitProject.add_group">add_group</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitProject.add_user" href="../../abstract.html#ogr.abstract.GitProject.add_user">add_user</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitProject.can_merge_pr" href="../../abstract.html#ogr.abstract.GitProject.can_merge_pr">can_merge_pr</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitProject.change_token" href="../../abstract.html#ogr.abstract.GitProject.change_token">change_token</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitProject.commit_comment" href="../../abstract.html#ogr.abstract.GitProject.commit_comment">commit_comment</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitProject.create_issue" href="../../abstract.html#ogr.abstract.GitProject.create_issue">create_issue</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitProject.create_pr" href="../../abstract.html#ogr.abstract.GitProject.create_pr">create_pr</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitProject.create_release" href="../../abstract.html#ogr.abstract.GitProject.create_release">create_release</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitProject.default_branch" href="../../abstract.html#ogr.abstract.GitProject.default_branch">default_branch</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitProject.delete" href="../../abstract.html#ogr.abstract.GitProject.delete">delete</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitProject.description" href="../../abstract.html#ogr.abstract.GitProject.description">description</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitProject.exists" href="../../abstract.html#ogr.abstract.GitProject.exists">exists</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitProject.fork_create" href="../../abstract.html#ogr.abstract.GitProject.fork_create">fork_create</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitProject.full_repo_name" href="../../abstract.html#ogr.abstract.GitProject.full_repo_name">full_repo_name</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitProject.get_branches" href="../../abstract.html#ogr.abstract.GitProject.get_branches">get_branches</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitProject.get_commit_comment" href="../../abstract.html#ogr.abstract.GitProject.get_commit_comment">get_commit_comment</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitProject.get_commit_comments" href="../../abstract.html#ogr.abstract.GitProject.get_commit_comments">get_commit_comments</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitProject.get_commit_statuses" href="../../abstract.html#ogr.abstract.GitProject.get_commit_statuses">get_commit_statuses</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitProject.get_commits" href="../../abstract.html#ogr.abstract.GitProject.get_commits">get_commits</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitProject.get_contributors" href="../../abstract.html#ogr.abstract.GitProject.get_contributors">get_contributors</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitProject.get_description" href="../../abstract.html#ogr.abstract.GitProject.get_description">get_description</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitProject.get_file_content" href="../../abstract.html#ogr.abstract.GitProject.get_file_content">get_file_content</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitProject.get_files" href="../../abstract.html#ogr.abstract.GitProject.get_files">get_files</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitProject.get_fork" href="../../abstract.html#ogr.abstract.GitProject.get_fork">get_fork</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitProject.get_forks" href="../../abstract.html#ogr.abstract.GitProject.get_forks">get_forks</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitProject.get_git_urls" href="../../abstract.html#ogr.abstract.GitProject.get_git_urls">get_git_urls</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitProject.get_issue" href="../../abstract.html#ogr.abstract.GitProject.get_issue">get_issue</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitProject.get_issue_info" href="../../abstract.html#ogr.abstract.GitProject.get_issue_info">get_issue_info</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitProject.get_issue_list" href="../../abstract.html#ogr.abstract.GitProject.get_issue_list">get_issue_list</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitProject.get_latest_release" href="../../abstract.html#ogr.abstract.GitProject.get_latest_release">get_latest_release</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitProject.get_owners" href="../../abstract.html#ogr.abstract.GitProject.get_owners">get_owners</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitProject.get_pr" href="../../abstract.html#ogr.abstract.GitProject.get_pr">get_pr</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitProject.get_pr_files_diff" href="../../abstract.html#ogr.abstract.GitProject.get_pr_files_diff">get_pr_files_diff</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitProject.get_pr_list" href="../../abstract.html#ogr.abstract.GitProject.get_pr_list">get_pr_list</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitProject.get_release" href="../../abstract.html#ogr.abstract.GitProject.get_release">get_release</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitProject.get_releases" href="../../abstract.html#ogr.abstract.GitProject.get_releases">get_releases</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitProject.get_sha_from_branch" href="../../abstract.html#ogr.abstract.GitProject.get_sha_from_branch">get_sha_from_branch</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitProject.get_sha_from_tag" href="../../abstract.html#ogr.abstract.GitProject.get_sha_from_tag">get_sha_from_tag</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitProject.get_tags" href="../../abstract.html#ogr.abstract.GitProject.get_tags">get_tags</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitProject.get_users_with_given_access" href="../../abstract.html#ogr.abstract.GitProject.get_users_with_given_access">get_users_with_given_access</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitProject.get_web_url" href="../../abstract.html#ogr.abstract.GitProject.get_web_url">get_web_url</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitProject.has_issues" href="../../abstract.html#ogr.abstract.GitProject.has_issues">has_issues</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitProject.has_write_access" href="../../abstract.html#ogr.abstract.GitProject.has_write_access">has_write_access</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitProject.is_fork" href="../../abstract.html#ogr.abstract.GitProject.is_fork">is_fork</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitProject.is_forked" href="../../abstract.html#ogr.abstract.GitProject.is_forked">is_forked</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitProject.is_private" href="../../abstract.html#ogr.abstract.GitProject.is_private">is_private</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitProject.parent" href="../../abstract.html#ogr.abstract.GitProject.parent">parent</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitProject.remove_group" href="../../abstract.html#ogr.abstract.GitProject.remove_group">remove_group</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitProject.remove_user" href="../../abstract.html#ogr.abstract.GitProject.remove_user">remove_user</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitProject.request_access" href="../../abstract.html#ogr.abstract.GitProject.request_access">request_access</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitProject.set_commit_status" href="../../abstract.html#ogr.abstract.GitProject.set_commit_status">set_commit_status</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitProject.users_with_write_access" href="../../abstract.html#ogr.abstract.GitProject.users_with_write_access">users_with_write_access</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitProject.which_groups_can_merge_pr" href="../../abstract.html#ogr.abstract.GitProject.which_groups_can_merge_pr">which_groups_can_merge_pr</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitProject.who_can_close_issue" href="../../abstract.html#ogr.abstract.GitProject.who_can_close_issue">who_can_close_issue</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitProject.who_can_merge_pr" href="../../abstract.html#ogr.abstract.GitProject.who_can_merge_pr">who_can_merge_pr</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+<dt id="ogr.services.pagure.PagurePullRequest"><code class="flex name class">
+<span>class <span class="ident">PagurePullRequest</span></span>
+<span>(</span><span>raw_pr, project)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class PagurePullRequest(BasePullRequest):
+    _target_project: &#34;ogr_pagure.PagureProject&#34;
+    _source_project: &#34;ogr_pagure.PagureProject&#34; = None
+
+    def __init__(self, raw_pr, project):
+        super().__init__(raw_pr, project)
+        self.__dirty = False
+
+    def __update(self):
+        if self.__dirty:
+            self._raw_pr = self.__call_api()
+            self.__dirty = False
+
+    @property
+    def title(self) -&gt; str:
+        self.__update()
+        return self._raw_pr[&#34;title&#34;]
+
+    @title.setter
+    def title(self, new_title: str) -&gt; None:
+        self.update_info(title=new_title)
+
+    @property
+    def id(self) -&gt; int:
+        return self._raw_pr[&#34;id&#34;]
+
+    @property
+    def status(self) -&gt; PRStatus:
+        self.__update()
+        return PRStatus[self._raw_pr[&#34;status&#34;].lower()]
+
+    @property
+    def url(self) -&gt; str:
+        return &#34;/&#34;.join(
+            [
+                self.target_project.service.instance_url,
+                self._raw_pr[&#34;project&#34;][&#34;url_path&#34;],
+                &#34;pull-request&#34;,
+                str(self.id),
+            ],
+        )
+
+    @property
+    def description(self) -&gt; str:
+        self.__update()
+        return self._raw_pr[&#34;initial_comment&#34;]
+
+    @description.setter
+    def description(self, new_description: str) -&gt; None:
+        self.update_info(description=new_description)
+
+    @property
+    def author(self) -&gt; str:
+        return self._raw_pr[&#34;user&#34;][&#34;name&#34;]
+
+    @property
+    def source_branch(self) -&gt; str:
+        return self._raw_pr[&#34;branch_from&#34;]
+
+    @property
+    def target_branch(self) -&gt; str:
+        return self._raw_pr[&#34;branch&#34;]
+
+    @property
+    def created(self) -&gt; datetime.datetime:
+        return datetime.datetime.fromtimestamp(int(self._raw_pr[&#34;date_created&#34;]))
+
+    @property
+    def diff_url(self) -&gt; str:
+        return f&#34;{self.url}#request_diff&#34;
+
+    @property
+    def commits_url(self) -&gt; str:
+        return f&#34;{self.url}#commit_list&#34;
+
+    @property
+    def patch(self) -&gt; bytes:
+        request_response = self._target_project._call_project_api_raw(
+            &#34;pull-request&#34;,
+            f&#34;{self.id}.patch&#34;,
+            add_api_endpoint_part=False,
+        )
+        if request_response.status_code != 200:
+            raise PagureAPIException(
+                f&#34;Cannot get patch from {self.url}.patch because {request_response.reason}.&#34;,
+                response_code=request_response.status_code,
+            )
+        return request_response.content
+
+    @property
+    def head_commit(self) -&gt; str:
+        return self._raw_pr[&#34;commit_stop&#34;]
+
+    @property
+    def source_project(self) -&gt; &#34;ogr_pagure.PagureProject&#34;:
+        if self._source_project is None:
+            source = self._raw_pr[&#34;repo_from&#34;]
+            source_project_info = {
+                &#34;repo&#34;: source[&#34;name&#34;],
+                &#34;namespace&#34;: source[&#34;namespace&#34;],
+            }
+
+            if source[&#34;parent&#34;] is not None:
+                source_project_info[&#34;is_fork&#34;] = True
+                source_project_info[&#34;username&#34;] = source[&#34;user&#34;][&#34;name&#34;]
+
+            self._source_project = self._target_project.service.get_project(
+                **source_project_info,
+            )
+
+        return self._source_project
+
+    @property
+    def closed_by(self) -&gt; Optional[str]:
+        closed_by = self._raw_pr[&#34;closed_by&#34;]
+        return closed_by[&#34;name&#34;] if closed_by else None
+
+    @property
+    def labels(self) -&gt; list[PRLabel]:
+        return [PagurePRLabel(label, self) for label in self._raw_pr[&#34;tags&#34;]]
+
+    def __str__(self) -&gt; str:
+        return &#34;Pagure&#34; + super().__str__()
+
+    def __call_api(self, *args, **kwargs) -&gt; dict:
+        return self._target_project._call_project_api(
+            &#34;pull-request&#34;,
+            str(self.id),
+            *args,
+            **kwargs,
+        )
+
+    @staticmethod
+    def create(
+        project: &#34;ogr_pagure.PagureProject&#34;,
+        title: str,
+        body: str,
+        target_branch: str,
+        source_branch: str,
+        fork_username: Optional[str] = None,
+    ) -&gt; &#34;PullRequest&#34;:
+        data = {
+            &#34;title&#34;: title,
+            &#34;branch_to&#34;: target_branch,
+            &#34;branch_from&#34;: source_branch,
+            &#34;initial_comment&#34;: body,
+        }
+
+        caller = project
+        if project.is_fork:
+            data[&#34;repo_from&#34;] = project.repo
+            data[&#34;repo_from_username&#34;] = project._user
+            data[&#34;repo_from_namespace&#34;] = project.namespace
+
+            # running the call from the parent project
+            caller = caller.parent
+        elif fork_username:
+            fork_project = project.service.get_project(
+                username=fork_username,
+                repo=project.repo,
+                namespace=project.namespace,
+                is_fork=True,
+            )
+            data[&#34;repo_from_username&#34;] = fork_username
+            data[&#34;repo_from&#34;] = fork_project.repo
+            data[&#34;repo_from_namespace&#34;] = fork_project.namespace
+
+        response = caller._call_project_api(
+            &#34;pull-request&#34;,
+            &#34;new&#34;,
+            method=&#34;POST&#34;,
+            data=data,
+        )
+        return PagurePullRequest(response, caller)
+
+    @staticmethod
+    def get(project: &#34;ogr_pagure.PagureProject&#34;, pr_id: int) -&gt; &#34;PullRequest&#34;:
+        raw_pr = project._call_project_api(&#34;pull-request&#34;, str(pr_id))
+        return PagurePullRequest(raw_pr, project)
+
+    @staticmethod
+    def get_files_diff(
+        project: &#34;ogr_pagure.PagureProject&#34;,
+        pr_id: int,
+        retries: int = 0,
+        wait_seconds: int = 3,
+    ) -&gt; dict:
+        &#34;&#34;&#34;
+        Retrieve pull request diff statistics.
+
+        Pagure API tends to return ENOPRSTATS error when a pull request is transitioning
+        from open to other states, so you can use `retries` and `wait_seconds` to try to
+        mitigate that.
+
+
+        Args:
+            project: Pagure project.
+            pr_id: Pull request ID.
+            retries: Number of extra attempts.
+            wait_seconds: Delay between attempts.
+        &#34;&#34;&#34;
+        attempt = 1
+        while True:
+            try:
+                return project._call_project_api(
+                    &#34;pull-request&#34;,
+                    str(pr_id),
+                    &#34;diffstats&#34;,
+                    method=&#34;GET&#34;,
+                )
+            except PagureAPIException as ex:  # noqa PERF203
+                if &#34;No statistics&#34; in ex.pagure_error:
+                    # this may be a race condition, try once more
+                    logger.info(
+                        f&#34;While retrieving PR diffstats Pagure returned ENOPRSTATS.\n{ex}&#34;,
+                    )
+                    if attempt &lt;= retries:
+                        attempt += 1
+                        logger.info(
+                            f&#34;Trying again; attempt={attempt} after {wait_seconds} seconds&#34;,
+                        )
+                        sleep(wait_seconds)
+                        continue
+                raise ex
+
+    @staticmethod
+    def get_list(
+        project: &#34;ogr_pagure.PagureProject&#34;,
+        status: PRStatus = PRStatus.open,
+        assignee=None,
+        author=None,
+    ) -&gt; list[&#34;PullRequest&#34;]:
+        payload = {&#34;page&#34;: 1, &#34;status&#34;: status.name.capitalize()}
+        if assignee is not None:
+            payload[&#34;assignee&#34;] = assignee
+        if author is not None:
+            payload[&#34;author&#34;] = author
+
+        raw_prs = []
+        while True:
+            page_result = project._call_project_api(&#34;pull-requests&#34;, params=payload)
+            raw_prs += page_result[&#34;requests&#34;]
+            if not page_result[&#34;pagination&#34;][&#34;next&#34;]:
+                break
+
+            # mypy don&#39;t know that key &#34;page&#34; really contains int...
+            payload[&#34;page&#34;] += 1  # type: ignore
+
+        return [PagurePullRequest(pr_dict, project) for pr_dict in raw_prs]
+
+    def update_info(
+        self,
+        title: Optional[str] = None,
+        description: Optional[str] = None,
+    ) -&gt; &#34;PullRequest&#34;:
+        try:
+            data = {&#34;title&#34;: title if title else self.title}
+
+            if description:
+                data[&#34;initial_comment&#34;] = description
+
+            updated_pr = self.__call_api(method=&#34;POST&#34;, data=data)
+            logger.info(&#34;PR updated.&#34;)
+
+            self._raw_pr = updated_pr
+            return self
+        except Exception as ex:
+            raise PagureAPIException(&#34;there was an error while updating the PR&#34;) from ex
+
+    def _get_all_comments(self, reverse: bool = False) -&gt; Iterable[PRComment]:
+        self.__update()
+        raw_comments = self._raw_pr[&#34;comments&#34;]
+        if reverse:
+            raw_comments = reversed(raw_comments)
+
+        return (
+            PagurePRComment(parent=self, raw_comment=comment_dict)
+            for comment_dict in raw_comments
+        )
+
+    def comment(
+        self,
+        body: str,
+        commit: Optional[str] = None,
+        filename: Optional[str] = None,
+        row: Optional[int] = None,
+    ) -&gt; &#34;PRComment&#34;:
+        payload: dict[str, Any] = {&#34;comment&#34;: body}
+        if commit is not None:
+            payload[&#34;commit&#34;] = commit
+        if filename is not None:
+            payload[&#34;filename&#34;] = filename
+        if row is not None:
+            payload[&#34;row&#34;] = row
+
+        self.__call_api(&#34;comment&#34;, method=&#34;POST&#34;, data=payload)
+        self.__dirty = True
+        return PagurePRComment(
+            parent=self,
+            body=body,
+            author=self.target_project.service.user.get_username(),
+        )
+
+    def close(self) -&gt; &#34;PullRequest&#34;:
+        return_value = self.__call_api(&#34;close&#34;, method=&#34;POST&#34;)
+
+        if return_value[&#34;message&#34;] != &#34;Pull-request closed!&#34;:
+            raise PagureAPIException(return_value[&#34;message&#34;])
+
+        self.__dirty = True
+        return self
+
+    def merge(self) -&gt; &#34;PullRequest&#34;:
+        return_value = self.__call_api(&#34;merge&#34;, method=&#34;POST&#34;)
+
+        if return_value[&#34;message&#34;] != &#34;Changes merged!&#34;:
+            raise PagureAPIException(return_value[&#34;message&#34;])
+
+        self.__dirty = True
+        return self
+
+    def get_statuses(self) -&gt; Union[list[CommitFlag], Iterable[CommitFlag]]:
+        self.__update()
+        return self.target_project.get_commit_statuses(self._raw_pr[&#34;commit_stop&#34;])
+
+    def set_flag(
+        self,
+        username: str,
+        comment: str,
+        url: str,
+        status: Optional[CommitStatus] = None,
+        percent: Optional[int] = None,
+        uid: Optional[str] = None,
+    ) -&gt; dict:
+        &#34;&#34;&#34;
+        Set a flag on a pull-request to display results or status of CI tasks.
+
+        See &#34;Flag a pull-request&#34; at https://pagure.io/api/0/#pull_requests-tab
+        for a full description of the parameters.
+
+        Args:
+            username: The name of the application to be presented to users
+                on the pull request page.
+            comment: A short message summarizing the presented results.
+            url: A URL to the result of this flag.
+            status: The status to be displayed for this flag.
+            percent: A percentage of completion compared to the goal.
+            uid: A unique identifier used to identify a flag on the pull-request.
+
+        Returns:
+            Dictionary with the response received from Pagure.
+        &#34;&#34;&#34;
+        data: dict[str, Union[str, int]] = {
+            &#34;username&#34;: username,
+            &#34;comment&#34;: comment,
+            &#34;url&#34;: url,
+        }
+        if status is not None:
+            data[&#34;status&#34;] = status.name
+        if percent is not None:
+            data[&#34;percent&#34;] = percent
+        if uid is not None:
+            data[&#34;uid&#34;] = uid
+        return self.__call_api(&#34;flag&#34;, method=&#34;POST&#34;, data=data)
+
+    def get_comment(self, comment_id: int) -&gt; PRComment:
+        for comment in self._get_all_comments():
+            if comment.id == comment_id:
+                return comment
+
+        raise PagureAPIException(
+            f&#34;No comment with id#{comment_id} in PR#{self.id} found.&#34;,
+            response_code=404,
+        )</code></pre>
+</details>
+<div class="desc"><h2 id="attributes">Attributes</h2>
+<dl>
+<dt><strong><code>project</code></strong> :&ensp;<code>GitProject</code></dt>
+<dd>Project of the pull request.</dd>
+</dl></div>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="ogr.services.base.BasePullRequest" href="../base.html#ogr.services.base.BasePullRequest">BasePullRequest</a></li>
+<li><a title="ogr.abstract.PullRequest" href="../../abstract.html#ogr.abstract.PullRequest">PullRequest</a></li>
+<li><a title="ogr.abstract.OgrAbstractClass" href="../../abstract.html#ogr.abstract.OgrAbstractClass">OgrAbstractClass</a></li>
+</ul>
+<h3>Static methods</h3>
+<dl>
+<dt id="ogr.services.pagure.PagurePullRequest.get_files_diff"><code class="name flex">
+<span>def <span class="ident">get_files_diff</span></span>(<span>project: ogr_pagure.PagureProject,<br>pr_id: int,<br>retries: int = 0,<br>wait_seconds: int = 3) ‑> dict</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@staticmethod
+def get_files_diff(
+    project: &#34;ogr_pagure.PagureProject&#34;,
+    pr_id: int,
+    retries: int = 0,
+    wait_seconds: int = 3,
+) -&gt; dict:
+    &#34;&#34;&#34;
+    Retrieve pull request diff statistics.
+
+    Pagure API tends to return ENOPRSTATS error when a pull request is transitioning
+    from open to other states, so you can use `retries` and `wait_seconds` to try to
+    mitigate that.
+
+
+    Args:
+        project: Pagure project.
+        pr_id: Pull request ID.
+        retries: Number of extra attempts.
+        wait_seconds: Delay between attempts.
+    &#34;&#34;&#34;
+    attempt = 1
+    while True:
+        try:
+            return project._call_project_api(
+                &#34;pull-request&#34;,
+                str(pr_id),
+                &#34;diffstats&#34;,
+                method=&#34;GET&#34;,
+            )
+        except PagureAPIException as ex:  # noqa PERF203
+            if &#34;No statistics&#34; in ex.pagure_error:
+                # this may be a race condition, try once more
+                logger.info(
+                    f&#34;While retrieving PR diffstats Pagure returned ENOPRSTATS.\n{ex}&#34;,
+                )
+                if attempt &lt;= retries:
+                    attempt += 1
+                    logger.info(
+                        f&#34;Trying again; attempt={attempt} after {wait_seconds} seconds&#34;,
+                    )
+                    sleep(wait_seconds)
+                    continue
+            raise ex</code></pre>
+</details>
+<div class="desc"><p>Retrieve pull request diff statistics.</p>
+<p>Pagure API tends to return ENOPRSTATS error when a pull request is transitioning
+from open to other states, so you can use <code>retries</code> and <code>wait_seconds</code> to try to
+mitigate that.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>project</code></strong></dt>
+<dd>Pagure project.</dd>
+<dt><strong><code>pr_id</code></strong></dt>
+<dd>Pull request ID.</dd>
+<dt><strong><code>retries</code></strong></dt>
+<dd>Number of extra attempts.</dd>
+<dt><strong><code>wait_seconds</code></strong></dt>
+<dd>Delay between attempts.</dd>
+</dl></div>
+</dd>
+</dl>
+<h3>Methods</h3>
+<dl>
+<dt id="ogr.services.pagure.PagurePullRequest.set_flag"><code class="name flex">
+<span>def <span class="ident">set_flag</span></span>(<span>self,<br>username: str,<br>comment: str,<br>url: str,<br>status: <a title="ogr.abstract.CommitStatus" href="../../abstract.html#ogr.abstract.CommitStatus">CommitStatus</a> | None = None,<br>percent: int | None = None,<br>uid: str | None = None) ‑> dict</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def set_flag(
+    self,
+    username: str,
+    comment: str,
+    url: str,
+    status: Optional[CommitStatus] = None,
+    percent: Optional[int] = None,
+    uid: Optional[str] = None,
+) -&gt; dict:
+    &#34;&#34;&#34;
+    Set a flag on a pull-request to display results or status of CI tasks.
+
+    See &#34;Flag a pull-request&#34; at https://pagure.io/api/0/#pull_requests-tab
+    for a full description of the parameters.
+
+    Args:
+        username: The name of the application to be presented to users
+            on the pull request page.
+        comment: A short message summarizing the presented results.
+        url: A URL to the result of this flag.
+        status: The status to be displayed for this flag.
+        percent: A percentage of completion compared to the goal.
+        uid: A unique identifier used to identify a flag on the pull-request.
+
+    Returns:
+        Dictionary with the response received from Pagure.
+    &#34;&#34;&#34;
+    data: dict[str, Union[str, int]] = {
+        &#34;username&#34;: username,
+        &#34;comment&#34;: comment,
+        &#34;url&#34;: url,
+    }
+    if status is not None:
+        data[&#34;status&#34;] = status.name
+    if percent is not None:
+        data[&#34;percent&#34;] = percent
+    if uid is not None:
+        data[&#34;uid&#34;] = uid
+    return self.__call_api(&#34;flag&#34;, method=&#34;POST&#34;, data=data)</code></pre>
+</details>
+<div class="desc"><p>Set a flag on a pull-request to display results or status of CI tasks.</p>
+<p>See "Flag a pull-request" at <a href="https://pagure.io/api/0/#pull_requests-tab">https://pagure.io/api/0/#pull_requests-tab</a>
+for a full description of the parameters.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>username</code></strong></dt>
+<dd>The name of the application to be presented to users
+on the pull request page.</dd>
+<dt><strong><code>comment</code></strong></dt>
+<dd>A short message summarizing the presented results.</dd>
+<dt><strong><code>url</code></strong></dt>
+<dd>A URL to the result of this flag.</dd>
+<dt><strong><code>status</code></strong></dt>
+<dd>The status to be displayed for this flag.</dd>
+<dt><strong><code>percent</code></strong></dt>
+<dd>A percentage of completion compared to the goal.</dd>
+<dt><strong><code>uid</code></strong></dt>
+<dd>A unique identifier used to identify a flag on the pull-request.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p>Dictionary with the response received from Pagure.</p></div>
+</dd>
+</dl>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="ogr.services.base.BasePullRequest" href="../base.html#ogr.services.base.BasePullRequest">BasePullRequest</a></b></code>:
+<ul class="hlist">
+<li><code><a title="ogr.services.base.BasePullRequest.author" href="../../abstract.html#ogr.abstract.PullRequest.author">author</a></code></li>
+<li><code><a title="ogr.services.base.BasePullRequest.close" href="../../abstract.html#ogr.abstract.PullRequest.close">close</a></code></li>
+<li><code><a title="ogr.services.base.BasePullRequest.closed_by" href="../../abstract.html#ogr.abstract.PullRequest.closed_by">closed_by</a></code></li>
+<li><code><a title="ogr.services.base.BasePullRequest.comment" href="../../abstract.html#ogr.abstract.PullRequest.comment">comment</a></code></li>
+<li><code><a title="ogr.services.base.BasePullRequest.commits_url" href="../../abstract.html#ogr.abstract.PullRequest.commits_url">commits_url</a></code></li>
+<li><code><a title="ogr.services.base.BasePullRequest.create" href="../../abstract.html#ogr.abstract.PullRequest.create">create</a></code></li>
+<li><code><a title="ogr.services.base.BasePullRequest.created" href="../../abstract.html#ogr.abstract.PullRequest.created">created</a></code></li>
+<li><code><a title="ogr.services.base.BasePullRequest.description" href="../../abstract.html#ogr.abstract.PullRequest.description">description</a></code></li>
+<li><code><a title="ogr.services.base.BasePullRequest.diff_url" href="../../abstract.html#ogr.abstract.PullRequest.diff_url">diff_url</a></code></li>
+<li><code><a title="ogr.services.base.BasePullRequest.get" href="../../abstract.html#ogr.abstract.PullRequest.get">get</a></code></li>
+<li><code><a title="ogr.services.base.BasePullRequest.get_list" href="../../abstract.html#ogr.abstract.PullRequest.get_list">get_list</a></code></li>
+<li><code><a title="ogr.services.base.BasePullRequest.head_commit" href="../../abstract.html#ogr.abstract.PullRequest.head_commit">head_commit</a></code></li>
+<li><code><a title="ogr.services.base.BasePullRequest.id" href="../../abstract.html#ogr.abstract.PullRequest.id">id</a></code></li>
+<li><code><a title="ogr.services.base.BasePullRequest.labels" href="../../abstract.html#ogr.abstract.PullRequest.labels">labels</a></code></li>
+<li><code><a title="ogr.services.base.BasePullRequest.merge" href="../../abstract.html#ogr.abstract.PullRequest.merge">merge</a></code></li>
+<li><code><a title="ogr.services.base.BasePullRequest.patch" href="../../abstract.html#ogr.abstract.PullRequest.patch">patch</a></code></li>
+<li><code><a title="ogr.services.base.BasePullRequest.source_branch" href="../../abstract.html#ogr.abstract.PullRequest.source_branch">source_branch</a></code></li>
+<li><code><a title="ogr.services.base.BasePullRequest.source_project" href="../../abstract.html#ogr.abstract.PullRequest.source_project">source_project</a></code></li>
+<li><code><a title="ogr.services.base.BasePullRequest.status" href="../../abstract.html#ogr.abstract.PullRequest.status">status</a></code></li>
+<li><code><a title="ogr.services.base.BasePullRequest.target_branch" href="../../abstract.html#ogr.abstract.PullRequest.target_branch">target_branch</a></code></li>
+<li><code><a title="ogr.services.base.BasePullRequest.title" href="../../abstract.html#ogr.abstract.PullRequest.title">title</a></code></li>
+<li><code><a title="ogr.services.base.BasePullRequest.update_info" href="../../abstract.html#ogr.abstract.PullRequest.update_info">update_info</a></code></li>
+<li><code><a title="ogr.services.base.BasePullRequest.url" href="../../abstract.html#ogr.abstract.PullRequest.url">url</a></code></li>
+</ul>
+</li>
+<li><code><b><a title="ogr.services.base.BasePullRequest" href="../base.html#ogr.services.base.BasePullRequest">BasePullRequest</a></b></code>:
+<ul class="hlist">
+<li><code><a title="ogr.services.base.BasePullRequest.add_label" href="../../abstract.html#ogr.abstract.PullRequest.add_label">add_label</a></code></li>
+<li><code><a title="ogr.services.base.BasePullRequest.get_all_commits" href="../../abstract.html#ogr.abstract.PullRequest.get_all_commits">get_all_commits</a></code></li>
+<li><code><a title="ogr.services.base.BasePullRequest.get_comment" href="../../abstract.html#ogr.abstract.PullRequest.get_comment">get_comment</a></code></li>
+<li><code><a title="ogr.services.base.BasePullRequest.merge_commit_sha" href="../../abstract.html#ogr.abstract.PullRequest.merge_commit_sha">merge_commit_sha</a></code></li>
+<li><code><a title="ogr.services.base.BasePullRequest.merge_commit_status" href="../../abstract.html#ogr.abstract.PullRequest.merge_commit_status">merge_commit_status</a></code></li>
+<li><code><a title="ogr.services.base.BasePullRequest.target_branch_head_commit" href="../../abstract.html#ogr.abstract.PullRequest.target_branch_head_commit">target_branch_head_commit</a></code></li>
+<li><code><a title="ogr.services.base.BasePullRequest.target_project" href="../../abstract.html#ogr.abstract.PullRequest.target_project">target_project</a></code></li>
+</ul>
+</li>
+<li><code><b><a title="ogr.abstract.PullRequest" href="../../abstract.html#ogr.abstract.PullRequest">PullRequest</a></b></code>:
+<ul class="hlist">
+<li><code><a title="ogr.abstract.PullRequest.get_statuses" href="../../abstract.html#ogr.abstract.PullRequest.get_statuses">get_statuses</a></code></li>
+</ul>
+</li>
+<li><code><b><a title="ogr.abstract.PullRequest" href="../../abstract.html#ogr.abstract.PullRequest">PullRequest</a></b></code>:
+<ul class="hlist">
+<li><code><a title="ogr.abstract.PullRequest.get_comments" href="../../abstract.html#ogr.abstract.PullRequest.get_comments">get_comments</a></code></li>
+<li><code><a title="ogr.abstract.PullRequest.search" href="../../abstract.html#ogr.abstract.PullRequest.search">search</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+<dt id="ogr.services.pagure.PagureRelease"><code class="flex name class">
+<span>class <span class="ident">PagureRelease</span></span>
+<span>(</span><span>raw_release: Any, project: GitProject)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class PagureRelease(Release):
+    _raw_release: GitTag
+    project: &#34;ogr_pagure.PagureProject&#34;
+
+    @property
+    def title(self):
+        return self.git_tag.name
+
+    @property
+    def body(self):
+        return &#34;&#34;
+
+    @property
+    def git_tag(self) -&gt; GitTag:
+        return self._raw_release
+
+    @property
+    def tag_name(self) -&gt; str:
+        return self._raw_release.name
+
+    @property
+    def url(self) -&gt; Optional[str]:
+        return &#34;&#34;
+
+    @property
+    def created_at(self) -&gt; datetime.datetime:
+        return None
+
+    @property
+    def tarball_url(self) -&gt; str:
+        return &#34;&#34;
+
+    def __str__(self) -&gt; str:
+        return &#34;Pagure&#34; + super().__str__()
+
+    @staticmethod
+    def get(
+        project: &#34;ogr_pagure.PagureProject&#34;,
+        identifier: Optional[int] = None,
+        name: Optional[str] = None,
+        tag_name: Optional[str] = None,
+    ) -&gt; &#34;Release&#34;:
+        raise OperationNotSupported()
+
+    @staticmethod
+    def get_latest(project: &#34;ogr_pagure.PagureProject&#34;) -&gt; Optional[&#34;Release&#34;]:
+        raise OperationNotSupported(&#34;Pagure API does not provide timestamps&#34;)
+
+    @staticmethod
+    def get_list(project: &#34;ogr_pagure.PagureProject&#34;) -&gt; list[&#34;Release&#34;]:
+        # git tag for Pagure is shown as Release in Pagure UI
+        git_tags = project.get_tags()
+        return [PagureRelease(git_tag, project) for git_tag in git_tags]
+
+    @staticmethod
+    def create(
+        project: &#34;ogr_pagure.PagureProject&#34;,
+        tag: str,
+        name: str,
+        message: str,
+        ref: Optional[str] = None,
+    ) -&gt; &#34;Release&#34;:
+        payload = {
+            &#34;tagname&#34;: tag,
+            &#34;commit_hash&#34;: ref,
+        }
+        if message:
+            payload[&#34;message&#34;] = message
+
+        response = project._call_project_api(&#34;git&#34;, &#34;tags&#34;, data=payload, method=&#34;POST&#34;)
+        if not response[&#34;tag_created&#34;]:
+            raise PagureAPIException(&#34;Release has not been created&#34;)
+
+        return PagureRelease(GitTag(tag, ref), project)
+
+    def edit_release(self, name: str, message: str) -&gt; None:
+        raise OperationNotSupported(&#34;edit_release not supported on Pagure&#34;)</code></pre>
+</details>
+<div class="desc"><p>Object that represents release.</p>
+<h2 id="attributes">Attributes</h2>
+<dl>
+<dt><strong><code>project</code></strong> :&ensp;<code>GitProject</code></dt>
+<dd>Project on which the release is created.</dd>
+</dl></div>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="ogr.abstract.Release" href="../../abstract.html#ogr.abstract.Release">Release</a></li>
+<li><a title="ogr.abstract.OgrAbstractClass" href="../../abstract.html#ogr.abstract.OgrAbstractClass">OgrAbstractClass</a></li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="ogr.services.pagure.PagureRelease.project"><code class="name">var <span class="ident">project</span> : <a title="ogr.services.pagure.project.PagureProject" href="project.html#ogr.services.pagure.project.PagureProject">PagureProject</a></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="ogr.abstract.Release" href="../../abstract.html#ogr.abstract.Release">Release</a></b></code>:
+<ul class="hlist">
+<li><code><a title="ogr.abstract.Release.body" href="../../abstract.html#ogr.abstract.Release.body">body</a></code></li>
+<li><code><a title="ogr.abstract.Release.create" href="../../abstract.html#ogr.abstract.Release.create">create</a></code></li>
+<li><code><a title="ogr.abstract.Release.created_at" href="../../abstract.html#ogr.abstract.Release.created_at">created_at</a></code></li>
+<li><code><a title="ogr.abstract.Release.edit_release" href="../../abstract.html#ogr.abstract.Release.edit_release">edit_release</a></code></li>
+<li><code><a title="ogr.abstract.Release.get" href="../../abstract.html#ogr.abstract.Release.get">get</a></code></li>
+<li><code><a title="ogr.abstract.Release.get_latest" href="../../abstract.html#ogr.abstract.Release.get_latest">get_latest</a></code></li>
+<li><code><a title="ogr.abstract.Release.get_list" href="../../abstract.html#ogr.abstract.Release.get_list">get_list</a></code></li>
+<li><code><a title="ogr.abstract.Release.git_tag" href="../../abstract.html#ogr.abstract.Release.git_tag">git_tag</a></code></li>
+<li><code><a title="ogr.abstract.Release.save_archive" href="../../abstract.html#ogr.abstract.Release.save_archive">save_archive</a></code></li>
+<li><code><a title="ogr.abstract.Release.tag_name" href="../../abstract.html#ogr.abstract.Release.tag_name">tag_name</a></code></li>
+<li><code><a title="ogr.abstract.Release.tarball_url" href="../../abstract.html#ogr.abstract.Release.tarball_url">tarball_url</a></code></li>
+<li><code><a title="ogr.abstract.Release.title" href="../../abstract.html#ogr.abstract.Release.title">title</a></code></li>
+<li><code><a title="ogr.abstract.Release.url" href="../../abstract.html#ogr.abstract.Release.url">url</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+<dt id="ogr.services.pagure.PagureService"><code class="flex name class">
+<span>class <span class="ident">PagureService</span></span>
+<span>(</span><span>token: str | None = None,<br>instance_url: str = 'https://src.fedoraproject.org',<br>read_only: bool = False,<br>insecure: bool = False,<br>max_retries: int | urllib3.util.retry.Retry = 5,<br>**kwargs)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@use_for_service(&#34;pagure&#34;)
+@use_for_service(&#34;src.fedoraproject.org&#34;)
+@use_for_service(&#34;src.stg.fedoraproject.org&#34;)
+@use_for_service(&#34;pkgs.fedoraproject.org&#34;)
+@use_for_service(&#34;pkgs.stg.fedoraproject.org&#34;)
+@use_for_service(&#34;git.centos.org&#34;)
+@use_for_service(&#34;git.stg.centos.org&#34;)
+class PagureService(BaseGitService):
+    def __init__(
+        self,
+        token: Optional[str] = None,
+        instance_url: str = &#34;https://src.fedoraproject.org&#34;,
+        read_only: bool = False,
+        insecure: bool = False,
+        max_retries: Union[int, urllib3.util.Retry] = 5,
+        **kwargs,
+    ) -&gt; None:
+        super().__init__()
+        self.instance_url = instance_url
+        self._token = token
+        self.read_only = read_only
+
+        self.session = requests.session()
+
+        adapter = requests.adapters.HTTPAdapter(max_retries=max_retries)
+
+        self.insecure = insecure
+        if self.insecure:
+            self.session.mount(&#34;http://&#34;, adapter)
+        else:
+            self.session.mount(&#34;https://&#34;, adapter)
+
+        self.header = {&#34;Authorization&#34;: &#34;token &#34; + self._token} if self._token else {}
+
+        if kwargs:
+            logger.warning(f&#34;Ignored keyword arguments: {kwargs}&#34;)
+
+    def __str__(self) -&gt; str:
+        token_str = (
+            f&#34;, token=&#39;{self._token[:1]}***{self._token[-1:]}&#39;&#34; if self._token else &#34;&#34;
+        )
+        insecure_str = &#34;, insecure=True&#34; if self.insecure else &#34;&#34;
+        readonly_str = &#34;, read_only=True&#34; if self.read_only else &#34;&#34;
+
+        return (
+            f&#34;PagureService(instance_url=&#39;{self.instance_url}&#39;&#34;
+            f&#34;{token_str}&#34;
+            f&#34;{readonly_str}&#34;
+            f&#34;{insecure_str})&#34;
+        )
+
+    def __eq__(self, o: object) -&gt; bool:
+        if not issubclass(o.__class__, PagureService):
+            return False
+
+        return (
+            self._token == o._token  # type: ignore
+            and self.read_only == o.read_only  # type: ignore
+            and self.instance_url == o.instance_url  # type: ignore
+            and self.insecure == o.insecure  # type: ignore
+            and self.header == o.header  # type: ignore
+        )
+
+    def __hash__(self) -&gt; int:
+        return hash(str(self))
+
+    def get_project(self, **kwargs) -&gt; &#34;PagureProject&#34;:
+        if &#34;username&#34; in kwargs:
+            return PagureProject(service=self, **kwargs)
+
+        return PagureProject(
+            service=self,
+            username=self.user.get_username(),
+            **kwargs,
+        )
+
+    def get_project_from_url(self, url: str) -&gt; &#34;PagureProject&#34;:
+        repo_url = parse_git_repo(potential_url=url)
+        if not repo_url:
+            raise OgrException(f&#34;Cannot parse project url: &#39;{url}&#39;&#34;)
+
+        if not repo_url.is_fork:
+            repo_url.username = None
+
+        return self.get_project(
+            repo=repo_url.repo,
+            namespace=repo_url.namespace,
+            is_fork=repo_url.is_fork,
+            username=repo_url.username,
+        )
+
+    @property
+    def user(self) -&gt; &#34;PagureUser&#34;:
+        return PagureUser(service=self)
+
+    def call_api(
+        self,
+        url: str,
+        method: Optional[str] = None,
+        params: Optional[dict] = None,
+        data=None,
+    ) -&gt; dict:
+        &#34;&#34;&#34;
+        Call API endpoint.
+
+        Args:
+            url: URL to be called.
+            method: Method of the HTTP request, e.g. `&#34;GET&#34;`, `&#34;POST&#34;`, etc.
+            params: HTTP(S) query parameters in form of a dictionary.
+            data: Data to be sent in form of a dictionary.
+
+        Returns:
+            Dictionary representing response.
+
+        Raises:
+            PagureAPIException, if error occurs.
+        &#34;&#34;&#34;
+        response = self.call_api_raw(url=url, method=method, params=params, data=data)
+
+        if response.status_code == 404:
+            error_msg = (
+                response.json_content[&#34;error&#34;]
+                if response.json_content and &#34;error&#34; in response.json_content
+                else None
+            )
+            raise PagureAPIException(
+                f&#34;Page &#39;{url}&#39; not found when calling Pagure API.&#34;,
+                pagure_error=error_msg,
+                response_code=response.status_code,
+            )
+
+        if not response.json_content:
+            logger.debug(response.content)
+            raise PagureAPIException(
+                &#34;Error while decoding JSON: {0}&#34;,
+                response_code=response.status_code,
+            )
+
+        if not response.ok:
+            logger.error(response.json_content)
+            if &#34;error&#34; in response.json_content:
+                error_msg = response.json_content[&#34;error&#34;]
+                error_msg_ext = response.json_content.get(&#34;errors&#34;, &#34;&#34;)
+                msg = f&#34;Pagure API returned an error when calling &#39;{url}&#39;: {error_msg}&#34;
+                if error_msg_ext:
+                    msg += f&#34; - {error_msg_ext}&#34;
+                raise PagureAPIException(
+                    msg,
+                    pagure_error=error_msg,
+                    pagure_response=response.json_content,
+                    response_code=response.status_code,
+                )
+            raise PagureAPIException(
+                f&#34;Problem with Pagure API when calling &#39;{url}&#39;&#34;,
+                response_code=response.status_code,
+            )
+
+        return response.json_content
+
+    def call_api_raw(
+        self,
+        url: str,
+        method: Optional[str] = None,
+        params: Optional[dict] = None,
+        data=None,
+    ):
+        &#34;&#34;&#34;
+        Call API endpoint and returns raw response.
+
+        Args:
+            url: URL to be called.
+            method: Method of the HTTP request, e.g. `&#34;GET&#34;`, `&#34;POST&#34;`, etc.
+            params: HTTP(S) query parameters in form of a dictionary.
+            data: Data to be sent in form of a dictionary.
+
+        Returns:
+            `RequestResponse` object that represents the response from the API
+            endpoint.
+        &#34;&#34;&#34;
+
+        method = method or &#34;GET&#34;
+        try:
+            response = self.get_raw_request(
+                method=method,
+                url=url,
+                params=params,
+                data=data,
+            )
+
+        except requests.exceptions.ConnectionError as er:
+            logger.error(er)
+            raise OgrNetworkError(f&#34;Cannot connect to url: &#39;{url}&#39;.&#34;) from er
+
+        if response.status_code &gt;= 500:
+            raise GitForgeInternalError(
+                f&#34;Pagure API returned {response.status_code} status for `{url}`&#34;
+                f&#34; with reason: `{response.reason}`&#34;,
+            )
+
+        return response
+
+    def get_raw_request(
+        self,
+        url,
+        method=&#34;GET&#34;,
+        params=None,
+        data=None,
+        header=None,
+    ) -&gt; RequestResponse:
+        &#34;&#34;&#34;
+        Call API endpoint and wrap the response in `RequestResponse` type.
+
+        Args:
+            url: URL to be called.
+            method: Method of the HTTP request, e.g. `&#34;GET&#34;`, `&#34;POST&#34;`, etc.
+
+                Defaults to `&#34;GET&#34;`.
+            params: HTTP(S) query parameters in form of a dictionary.
+            data: Data to be sent in form of a dictionary.
+            header: Header of the HTTP request.
+
+        Returns:
+            `RequestResponse` object representing the response.
+
+        Raises:
+            ValueError, if JSON cannot be retrieved.
+        &#34;&#34;&#34;
+
+        response = self.session.request(
+            method=method,
+            url=url,
+            params=params,
+            headers=header or self.header,
+            data=data,
+            verify=not self.insecure,
+        )
+
+        json_output = None
+        try:
+            json_output = response.json()
+        except ValueError:
+            logger.debug(response.text)
+
+        return RequestResponse(
+            status_code=response.status_code,
+            ok=response.ok,
+            content=response.content,
+            json=json_output,
+            reason=response.reason,
+        )
+
+    @property
+    def api_url(self):
+        &#34;&#34;&#34;URL to the Pagure API.&#34;&#34;&#34;
+        return f&#34;{self.instance_url}/api/0/&#34;
+
+    def get_api_url(self, *args, add_api_endpoint_part: bool = True) -&gt; str:
+        &#34;&#34;&#34;
+        Get a URL from its parts.
+
+        Args:
+            *args: String parts of the URL, e.g. `&#34;a&#34;, &#34;b&#34;` will call `project/a/b`
+            add_api_endpoint_part: Add part with API endpoint (`/api/0/`).
+
+                Defaults to `True`.
+
+        Returns:
+            String
+        &#34;&#34;&#34;
+        args_list: list[str] = []
+
+        args_list += filter(lambda x: x is not None, args)
+
+        if add_api_endpoint_part:
+            return self.api_url + &#34;/&#34;.join(args_list)
+        return f&#34;{self.instance_url}/&#34; + &#34;/&#34;.join(args_list)
+
+    def get_api_version(self) -&gt; str:
+        &#34;&#34;&#34;
+        Returns:
+            Version of the Pagure API.
+        &#34;&#34;&#34;
+        request_url = self.get_api_url(&#34;version&#34;)
+        return_value = self.call_api(request_url)
+        return return_value[&#34;version&#34;]
+
+    def get_error_codes(self):
+        &#34;&#34;&#34;
+        Returns:
+            Dictionary with all error codes.
+        &#34;&#34;&#34;
+        request_url = self.get_api_url(&#34;error_codes&#34;)
+        return self.call_api(request_url)
+
+    def change_token(self, token: str):
+        self._token = token
+        self.header = {&#34;Authorization&#34;: &#34;token &#34; + self._token}
+
+    def __handle_project_create_fail(
+        self,
+        exception: PagureAPIException,
+        namespace: str,
+    ) -&gt; None:
+        if (
+            exception.pagure_response
+            and exception.pagure_response[&#34;errors&#34;][&#34;namespace&#34;][0]
+            == &#34;Not a valid choice&#34;
+        ):
+            request_url = self.get_api_url(&#34;group&#34;, namespace)
+
+            try:
+                self.call_api(request_url, data={&#34;projects&#34;: False})
+            except PagureAPIException as ex:
+                raise OgrException(f&#34;Namespace doesn&#39;t exist ({namespace}).&#34;) from ex
+
+            raise OgrException(
+                &#34;Cannot create project in given namespace (permissions).&#34;,
+            )
+
+        raise exception
+
+    def project_create(
+        self,
+        repo: str,
+        namespace: Optional[str] = None,
+        description: Optional[str] = None,
+    ) -&gt; PagureProject:
+        request_url = self.get_api_url(&#34;new&#34;)
+
+        parameters = {&#34;name&#34;: repo, &#34;description&#34;: description, &#34;wait&#34;: True}
+        if not description:
+            parameters[&#34;description&#34;] = repo
+        if namespace:
+            parameters[&#34;namespace&#34;] = namespace
+
+        try:
+            self.call_api(request_url, &#34;POST&#34;, data=parameters)
+        except PagureAPIException as ex:
+            self.__handle_project_create_fail(ex, namespace)
+        return PagureProject(repo=repo, namespace=namespace, service=self)
+
+    def list_projects(
+        self,
+        namespace: Optional[str] = None,
+        user: Optional[str] = None,
+        search_pattern: Optional[str] = None,
+        language: Optional[str] = None,
+    ) -&gt; list[GitProject]:
+        raise OperationNotSupported
+
+    def get_group(self, group_name: str) -&gt; PagureGroup:
+        &#34;&#34;&#34;
+        Get a Pagure group by name.
+        &#34;&#34;&#34;
+        url = self.get_api_url(&#34;group&#34;, group_name)
+        return PagureGroup(group_name, self.call_api(url))</code></pre>
+</details>
+<div class="desc"><h2 id="attributes">Attributes</h2>
+<dl>
+<dt><strong><code>instance_url</code></strong> :&ensp;<code>str</code></dt>
+<dd>URL of the git forge instance.</dd>
+</dl></div>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="ogr.services.base.BaseGitService" href="../base.html#ogr.services.base.BaseGitService">BaseGitService</a></li>
+<li><a title="ogr.abstract.GitService" href="../../abstract.html#ogr.abstract.GitService">GitService</a></li>
+<li><a title="ogr.abstract.OgrAbstractClass" href="../../abstract.html#ogr.abstract.OgrAbstractClass">OgrAbstractClass</a></li>
+</ul>
+<h3>Instance variables</h3>
+<dl>
+<dt id="ogr.services.pagure.PagureService.api_url"><code class="name">prop <span class="ident">api_url</span></code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def api_url(self):
+    &#34;&#34;&#34;URL to the Pagure API.&#34;&#34;&#34;
+    return f&#34;{self.instance_url}/api/0/&#34;</code></pre>
+</details>
+<div class="desc"><p>URL to the Pagure API.</p></div>
+</dd>
+</dl>
+<h3>Methods</h3>
+<dl>
+<dt id="ogr.services.pagure.PagureService.call_api"><code class="name flex">
+<span>def <span class="ident">call_api</span></span>(<span>self, url: str, method: str | None = None, params: dict | None = None, data=None) ‑> dict</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def call_api(
+    self,
+    url: str,
+    method: Optional[str] = None,
+    params: Optional[dict] = None,
+    data=None,
+) -&gt; dict:
+    &#34;&#34;&#34;
+    Call API endpoint.
+
+    Args:
+        url: URL to be called.
+        method: Method of the HTTP request, e.g. `&#34;GET&#34;`, `&#34;POST&#34;`, etc.
+        params: HTTP(S) query parameters in form of a dictionary.
+        data: Data to be sent in form of a dictionary.
+
+    Returns:
+        Dictionary representing response.
+
+    Raises:
+        PagureAPIException, if error occurs.
+    &#34;&#34;&#34;
+    response = self.call_api_raw(url=url, method=method, params=params, data=data)
+
+    if response.status_code == 404:
+        error_msg = (
+            response.json_content[&#34;error&#34;]
+            if response.json_content and &#34;error&#34; in response.json_content
+            else None
+        )
+        raise PagureAPIException(
+            f&#34;Page &#39;{url}&#39; not found when calling Pagure API.&#34;,
+            pagure_error=error_msg,
+            response_code=response.status_code,
+        )
+
+    if not response.json_content:
+        logger.debug(response.content)
+        raise PagureAPIException(
+            &#34;Error while decoding JSON: {0}&#34;,
+            response_code=response.status_code,
+        )
+
+    if not response.ok:
+        logger.error(response.json_content)
+        if &#34;error&#34; in response.json_content:
+            error_msg = response.json_content[&#34;error&#34;]
+            error_msg_ext = response.json_content.get(&#34;errors&#34;, &#34;&#34;)
+            msg = f&#34;Pagure API returned an error when calling &#39;{url}&#39;: {error_msg}&#34;
+            if error_msg_ext:
+                msg += f&#34; - {error_msg_ext}&#34;
+            raise PagureAPIException(
+                msg,
+                pagure_error=error_msg,
+                pagure_response=response.json_content,
+                response_code=response.status_code,
+            )
+        raise PagureAPIException(
+            f&#34;Problem with Pagure API when calling &#39;{url}&#39;&#34;,
+            response_code=response.status_code,
+        )
+
+    return response.json_content</code></pre>
+</details>
+<div class="desc"><p>Call API endpoint.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>url</code></strong></dt>
+<dd>URL to be called.</dd>
+<dt><strong><code>method</code></strong></dt>
+<dd>Method of the HTTP request, e.g. <code>"GET"</code>, <code>"POST"</code>, etc.</dd>
+<dt><strong><code>params</code></strong></dt>
+<dd>HTTP(S) query parameters in form of a dictionary.</dd>
+<dt><strong><code>data</code></strong></dt>
+<dd>Data to be sent in form of a dictionary.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p>Dictionary representing response.</p>
+<h2 id="raises">Raises</h2>
+<p>PagureAPIException, if error occurs.</p></div>
+</dd>
+<dt id="ogr.services.pagure.PagureService.call_api_raw"><code class="name flex">
+<span>def <span class="ident">call_api_raw</span></span>(<span>self, url: str, method: str | None = None, params: dict | None = None, data=None)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def call_api_raw(
+    self,
+    url: str,
+    method: Optional[str] = None,
+    params: Optional[dict] = None,
+    data=None,
+):
+    &#34;&#34;&#34;
+    Call API endpoint and returns raw response.
+
+    Args:
+        url: URL to be called.
+        method: Method of the HTTP request, e.g. `&#34;GET&#34;`, `&#34;POST&#34;`, etc.
+        params: HTTP(S) query parameters in form of a dictionary.
+        data: Data to be sent in form of a dictionary.
+
+    Returns:
+        `RequestResponse` object that represents the response from the API
+        endpoint.
+    &#34;&#34;&#34;
+
+    method = method or &#34;GET&#34;
+    try:
+        response = self.get_raw_request(
+            method=method,
+            url=url,
+            params=params,
+            data=data,
+        )
+
+    except requests.exceptions.ConnectionError as er:
+        logger.error(er)
+        raise OgrNetworkError(f&#34;Cannot connect to url: &#39;{url}&#39;.&#34;) from er
+
+    if response.status_code &gt;= 500:
+        raise GitForgeInternalError(
+            f&#34;Pagure API returned {response.status_code} status for `{url}`&#34;
+            f&#34; with reason: `{response.reason}`&#34;,
+        )
+
+    return response</code></pre>
+</details>
+<div class="desc"><p>Call API endpoint and returns raw response.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>url</code></strong></dt>
+<dd>URL to be called.</dd>
+<dt><strong><code>method</code></strong></dt>
+<dd>Method of the HTTP request, e.g. <code>"GET"</code>, <code>"POST"</code>, etc.</dd>
+<dt><strong><code>params</code></strong></dt>
+<dd>HTTP(S) query parameters in form of a dictionary.</dd>
+<dt><strong><code>data</code></strong></dt>
+<dd>Data to be sent in form of a dictionary.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p><code>RequestResponse</code> object that represents the response from the API
+endpoint.</p></div>
+</dd>
+<dt id="ogr.services.pagure.PagureService.get_api_url"><code class="name flex">
+<span>def <span class="ident">get_api_url</span></span>(<span>self, *args, add_api_endpoint_part: bool = True) ‑> str</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_api_url(self, *args, add_api_endpoint_part: bool = True) -&gt; str:
+    &#34;&#34;&#34;
+    Get a URL from its parts.
+
+    Args:
+        *args: String parts of the URL, e.g. `&#34;a&#34;, &#34;b&#34;` will call `project/a/b`
+        add_api_endpoint_part: Add part with API endpoint (`/api/0/`).
+
+            Defaults to `True`.
+
+    Returns:
+        String
+    &#34;&#34;&#34;
+    args_list: list[str] = []
+
+    args_list += filter(lambda x: x is not None, args)
+
+    if add_api_endpoint_part:
+        return self.api_url + &#34;/&#34;.join(args_list)
+    return f&#34;{self.instance_url}/&#34; + &#34;/&#34;.join(args_list)</code></pre>
+</details>
+<div class="desc"><p>Get a URL from its parts.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>*args</code></strong></dt>
+<dd>String parts of the URL, e.g. <code>"a", "b"</code> will call <code>project/a/b</code></dd>
+<dt><strong><code>add_api_endpoint_part</code></strong></dt>
+<dd>
+<p>Add part with API endpoint (<code>/api/0/</code>).</p>
+<p>Defaults to <code>True</code>.</p>
+</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p>String</p></div>
+</dd>
+<dt id="ogr.services.pagure.PagureService.get_api_version"><code class="name flex">
+<span>def <span class="ident">get_api_version</span></span>(<span>self) ‑> str</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_api_version(self) -&gt; str:
+    &#34;&#34;&#34;
+    Returns:
+        Version of the Pagure API.
+    &#34;&#34;&#34;
+    request_url = self.get_api_url(&#34;version&#34;)
+    return_value = self.call_api(request_url)
+    return return_value[&#34;version&#34;]</code></pre>
+</details>
+<div class="desc"><h2 id="returns">Returns</h2>
+<p>Version of the Pagure API.</p></div>
+</dd>
+<dt id="ogr.services.pagure.PagureService.get_error_codes"><code class="name flex">
+<span>def <span class="ident">get_error_codes</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_error_codes(self):
+    &#34;&#34;&#34;
+    Returns:
+        Dictionary with all error codes.
+    &#34;&#34;&#34;
+    request_url = self.get_api_url(&#34;error_codes&#34;)
+    return self.call_api(request_url)</code></pre>
+</details>
+<div class="desc"><h2 id="returns">Returns</h2>
+<p>Dictionary with all error codes.</p></div>
+</dd>
+<dt id="ogr.services.pagure.PagureService.get_group"><code class="name flex">
+<span>def <span class="ident">get_group</span></span>(<span>self, group_name: str) ‑> <a title="ogr.services.pagure.group.PagureGroup" href="group.html#ogr.services.pagure.group.PagureGroup">PagureGroup</a></span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_group(self, group_name: str) -&gt; PagureGroup:
+    &#34;&#34;&#34;
+    Get a Pagure group by name.
+    &#34;&#34;&#34;
+    url = self.get_api_url(&#34;group&#34;, group_name)
+    return PagureGroup(group_name, self.call_api(url))</code></pre>
+</details>
+<div class="desc"><p>Get a Pagure group by name.</p></div>
+</dd>
+<dt id="ogr.services.pagure.PagureService.get_raw_request"><code class="name flex">
+<span>def <span class="ident">get_raw_request</span></span>(<span>self, url, method='GET', params=None, data=None, header=None) ‑> <a title="ogr.utils.RequestResponse" href="../../utils.html#ogr.utils.RequestResponse">RequestResponse</a></span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_raw_request(
+    self,
+    url,
+    method=&#34;GET&#34;,
+    params=None,
+    data=None,
+    header=None,
+) -&gt; RequestResponse:
+    &#34;&#34;&#34;
+    Call API endpoint and wrap the response in `RequestResponse` type.
+
+    Args:
+        url: URL to be called.
+        method: Method of the HTTP request, e.g. `&#34;GET&#34;`, `&#34;POST&#34;`, etc.
+
+            Defaults to `&#34;GET&#34;`.
+        params: HTTP(S) query parameters in form of a dictionary.
+        data: Data to be sent in form of a dictionary.
+        header: Header of the HTTP request.
+
+    Returns:
+        `RequestResponse` object representing the response.
+
+    Raises:
+        ValueError, if JSON cannot be retrieved.
+    &#34;&#34;&#34;
+
+    response = self.session.request(
+        method=method,
+        url=url,
+        params=params,
+        headers=header or self.header,
+        data=data,
+        verify=not self.insecure,
+    )
+
+    json_output = None
+    try:
+        json_output = response.json()
+    except ValueError:
+        logger.debug(response.text)
+
+    return RequestResponse(
+        status_code=response.status_code,
+        ok=response.ok,
+        content=response.content,
+        json=json_output,
+        reason=response.reason,
+    )</code></pre>
+</details>
+<div class="desc"><p>Call API endpoint and wrap the response in <code>RequestResponse</code> type.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>url</code></strong></dt>
+<dd>URL to be called.</dd>
+<dt><strong><code>method</code></strong></dt>
+<dd>
+<p>Method of the HTTP request, e.g. <code>"GET"</code>, <code>"POST"</code>, etc.</p>
+<p>Defaults to <code>"GET"</code>.</p>
+</dd>
+<dt><strong><code>params</code></strong></dt>
+<dd>HTTP(S) query parameters in form of a dictionary.</dd>
+<dt><strong><code>data</code></strong></dt>
+<dd>Data to be sent in form of a dictionary.</dd>
+<dt><strong><code>header</code></strong></dt>
+<dd>Header of the HTTP request.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p><code>RequestResponse</code> object representing the response.</p>
+<h2 id="raises">Raises</h2>
+<p>ValueError, if JSON cannot be retrieved.</p></div>
+</dd>
+</dl>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="ogr.services.base.BaseGitService" href="../base.html#ogr.services.base.BaseGitService">BaseGitService</a></b></code>:
+<ul class="hlist">
+<li><code><a title="ogr.services.base.BaseGitService.get_project" href="../../abstract.html#ogr.abstract.GitService.get_project">get_project</a></code></li>
+</ul>
+</li>
+<li><code><b><a title="ogr.services.base.BaseGitService" href="../base.html#ogr.services.base.BaseGitService">BaseGitService</a></b></code>:
+<ul class="hlist">
+<li><code><a title="ogr.services.base.BaseGitService.change_token" href="../../abstract.html#ogr.abstract.GitService.change_token">change_token</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitService.list_projects" href="../../abstract.html#ogr.abstract.GitService.list_projects">list_projects</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitService.project_create" href="../../abstract.html#ogr.abstract.GitService.project_create">project_create</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitService.reset_auth_method" href="../../abstract.html#ogr.abstract.GitService.reset_auth_method">reset_auth_method</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitService.set_auth_method" href="../../abstract.html#ogr.abstract.GitService.set_auth_method">set_auth_method</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitService.user" href="../../abstract.html#ogr.abstract.GitService.user">user</a></code></li>
+</ul>
+</li>
+<li><code><b><a title="ogr.abstract.GitService" href="../../abstract.html#ogr.abstract.GitService">GitService</a></b></code>:
+<ul class="hlist">
+<li><code><a title="ogr.abstract.GitService.get_project_from_url" href="../../abstract.html#ogr.abstract.GitService.get_project_from_url">get_project_from_url</a></code></li>
+</ul>
+</li>
+<li><code><b><a title="ogr.abstract.GitService" href="../../abstract.html#ogr.abstract.GitService">GitService</a></b></code>:
+<ul class="hlist">
+<li><code><a title="ogr.abstract.GitService.hostname" href="../../abstract.html#ogr.abstract.GitService.hostname">hostname</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+<dt id="ogr.services.pagure.PagureUser"><code class="flex name class">
+<span>class <span class="ident">PagureUser</span></span>
+<span>(</span><span>service: ogr_pagure.PagureService)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class PagureUser(BaseGitUser):
+    service: &#34;ogr_pagure.PagureService&#34;
+
+    def __init__(self, service: &#34;ogr_pagure.PagureService&#34;) -&gt; None:
+        super().__init__(service=service)
+
+    def __str__(self) -&gt; str:
+        return f&#39;PagureUser(username=&#34;{self.get_username()}&#34;)&#39;
+
+    def get_username(self) -&gt; str:
+        request_url = self.service.get_api_url(&#34;-&#34;, &#34;whoami&#34;)
+
+        return_value = self.service.call_api(url=request_url, method=&#34;POST&#34;, data={})
+        return return_value[&#34;username&#34;]
+
+    def get_projects(self) -&gt; list[&#34;PagureProject&#34;]:
+        user_url = self.service.get_api_url(&#34;user&#34;, self.get_username())
+        raw_projects = self.service.call_api(user_url)[&#34;repos&#34;]
+
+        return [
+            PagureProject(
+                repo=project[&#34;name&#34;],
+                namespace=project[&#34;namespace&#34;],
+                service=self.service,
+            )
+            for project in raw_projects
+        ]
+
+    def get_forks(self) -&gt; list[&#34;PagureProject&#34;]:
+        user_url = self.service.get_api_url(&#34;user&#34;, self.get_username())
+        raw_forks = self.service.call_api(user_url)[&#34;forks&#34;]
+
+        return [
+            PagureProject(
+                repo=fork[&#34;name&#34;],
+                namespace=fork[&#34;namespace&#34;],
+                service=self.service,
+                is_fork=True,
+            )
+            for fork in raw_forks
+        ]
+
+    def get_email(self) -&gt; str:
+        # Not supported by Pagure
+        raise OperationNotSupported(
+            &#34;Pagure does not support retrieving of user&#39;s email address&#34;,
+        )</code></pre>
+</details>
+<div class="desc"><p>Represents currently authenticated user through service.</p></div>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="ogr.services.base.BaseGitUser" href="../base.html#ogr.services.base.BaseGitUser">BaseGitUser</a></li>
+<li><a title="ogr.abstract.GitUser" href="../../abstract.html#ogr.abstract.GitUser">GitUser</a></li>
+<li><a title="ogr.abstract.OgrAbstractClass" href="../../abstract.html#ogr.abstract.OgrAbstractClass">OgrAbstractClass</a></li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="ogr.services.pagure.PagureUser.service"><code class="name">var <span class="ident">service</span> : <a title="ogr.services.pagure.service.PagureService" href="service.html#ogr.services.pagure.service.PagureService">PagureService</a></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="ogr.services.base.BaseGitUser" href="../base.html#ogr.services.base.BaseGitUser">BaseGitUser</a></b></code>:
+<ul class="hlist">
+<li><code><a title="ogr.services.base.BaseGitUser.get_email" href="../../abstract.html#ogr.abstract.GitUser.get_email">get_email</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitUser.get_forks" href="../../abstract.html#ogr.abstract.GitUser.get_forks">get_forks</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitUser.get_projects" href="../../abstract.html#ogr.abstract.GitUser.get_projects">get_projects</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitUser.get_username" href="../../abstract.html#ogr.abstract.GitUser.get_username">get_username</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="ogr.services" href="../index.html">ogr.services</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-submodules">Sub-modules</a></h3>
+<ul>
+<li><code><a title="ogr.services.pagure.comments" href="comments.html">ogr.services.pagure.comments</a></code></li>
+<li><code><a title="ogr.services.pagure.flag" href="flag.html">ogr.services.pagure.flag</a></code></li>
+<li><code><a title="ogr.services.pagure.group" href="group.html">ogr.services.pagure.group</a></code></li>
+<li><code><a title="ogr.services.pagure.issue" href="issue.html">ogr.services.pagure.issue</a></code></li>
+<li><code><a title="ogr.services.pagure.label" href="label.html">ogr.services.pagure.label</a></code></li>
+<li><code><a title="ogr.services.pagure.project" href="project.html">ogr.services.pagure.project</a></code></li>
+<li><code><a title="ogr.services.pagure.pull_request" href="pull_request.html">ogr.services.pagure.pull_request</a></code></li>
+<li><code><a title="ogr.services.pagure.release" href="release.html">ogr.services.pagure.release</a></code></li>
+<li><code><a title="ogr.services.pagure.service" href="service.html">ogr.services.pagure.service</a></code></li>
+<li><code><a title="ogr.services.pagure.user" href="user.html">ogr.services.pagure.user</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="ogr.services.pagure.PagureIssue" href="#ogr.services.pagure.PagureIssue">PagureIssue</a></code></h4>
+<ul class="">
+<li><code><a title="ogr.services.pagure.PagureIssue.assignee" href="#ogr.services.pagure.PagureIssue.assignee">assignee</a></code></li>
+<li><code><a title="ogr.services.pagure.PagureIssue.project" href="#ogr.services.pagure.PagureIssue.project">project</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="ogr.services.pagure.PagureIssueComment" href="#ogr.services.pagure.PagureIssueComment">PagureIssueComment</a></code></h4>
+</li>
+<li>
+<h4><code><a title="ogr.services.pagure.PagurePRComment" href="#ogr.services.pagure.PagurePRComment">PagurePRComment</a></code></h4>
+</li>
+<li>
+<h4><code><a title="ogr.services.pagure.PagureProject" href="#ogr.services.pagure.PagureProject">PagureProject</a></code></h4>
+<ul class="">
+<li><code><a title="ogr.services.pagure.PagureProject.access_dict" href="#ogr.services.pagure.PagureProject.access_dict">access_dict</a></code></li>
+<li><code><a title="ogr.services.pagure.PagureProject.add_user_or_group" href="#ogr.services.pagure.PagureProject.add_user_or_group">add_user_or_group</a></code></li>
+<li><code><a title="ogr.services.pagure.PagureProject.get_is_fork_from_api" href="#ogr.services.pagure.PagureProject.get_is_fork_from_api">get_is_fork_from_api</a></code></li>
+<li><code><a title="ogr.services.pagure.PagureProject.get_project_info" href="#ogr.services.pagure.PagureProject.get_project_info">get_project_info</a></code></li>
+<li><code><a title="ogr.services.pagure.PagureProject.get_tags_dict" href="#ogr.services.pagure.PagureProject.get_tags_dict">get_tags_dict</a></code></li>
+<li><code><a title="ogr.services.pagure.PagureProject.service" href="#ogr.services.pagure.PagureProject.service">service</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="ogr.services.pagure.PagurePullRequest" href="#ogr.services.pagure.PagurePullRequest">PagurePullRequest</a></code></h4>
+<ul class="">
+<li><code><a title="ogr.services.pagure.PagurePullRequest.get_files_diff" href="#ogr.services.pagure.PagurePullRequest.get_files_diff">get_files_diff</a></code></li>
+<li><code><a title="ogr.services.pagure.PagurePullRequest.set_flag" href="#ogr.services.pagure.PagurePullRequest.set_flag">set_flag</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="ogr.services.pagure.PagureRelease" href="#ogr.services.pagure.PagureRelease">PagureRelease</a></code></h4>
+<ul class="">
+<li><code><a title="ogr.services.pagure.PagureRelease.project" href="#ogr.services.pagure.PagureRelease.project">project</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="ogr.services.pagure.PagureService" href="#ogr.services.pagure.PagureService">PagureService</a></code></h4>
+<ul class="two-column">
+<li><code><a title="ogr.services.pagure.PagureService.api_url" href="#ogr.services.pagure.PagureService.api_url">api_url</a></code></li>
+<li><code><a title="ogr.services.pagure.PagureService.call_api" href="#ogr.services.pagure.PagureService.call_api">call_api</a></code></li>
+<li><code><a title="ogr.services.pagure.PagureService.call_api_raw" href="#ogr.services.pagure.PagureService.call_api_raw">call_api_raw</a></code></li>
+<li><code><a title="ogr.services.pagure.PagureService.get_api_url" href="#ogr.services.pagure.PagureService.get_api_url">get_api_url</a></code></li>
+<li><code><a title="ogr.services.pagure.PagureService.get_api_version" href="#ogr.services.pagure.PagureService.get_api_version">get_api_version</a></code></li>
+<li><code><a title="ogr.services.pagure.PagureService.get_error_codes" href="#ogr.services.pagure.PagureService.get_error_codes">get_error_codes</a></code></li>
+<li><code><a title="ogr.services.pagure.PagureService.get_group" href="#ogr.services.pagure.PagureService.get_group">get_group</a></code></li>
+<li><code><a title="ogr.services.pagure.PagureService.get_raw_request" href="#ogr.services.pagure.PagureService.get_raw_request">get_raw_request</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="ogr.services.pagure.PagureUser" href="#ogr.services.pagure.PagureUser">PagureUser</a></code></h4>
+<ul class="">
+<li><code><a title="ogr.services.pagure.PagureUser.service" href="#ogr.services.pagure.PagureUser.service">service</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.11.6</a>.</p>
+</footer>
+</body>
+</html>
