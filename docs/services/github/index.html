@@ -1,0 +1,3180 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+<meta name="generator" content="pdoc3 0.11.6">
+<title>ogr.services.github API documentation</title>
+<meta name="description" content="">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/sanitize.min.css" integrity="sha512-y1dtMcuvtTMJc1yPgEqF0ZjQbhnc/bFhyvIyVNb9Zk5mIGtqVaAB1Ttl28su8AvFMOY0EwRbAe+HCLqj6W7/KA==" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/typography.min.css" integrity="sha512-Y1DYSb995BAfxobCkKepB1BqJJTPrOp3zPL74AWFugHHmmdcvO+C48WLrUOlhGMc0QG7AE3f7gmvvcrmX2fDoA==" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:1.5em;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:2em 0 .50em 0}h3{font-size:1.4em;margin:1.6em 0 .7em 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .2s ease-in-out}a:visited{color:#503}a:hover{color:#b62}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900;font-weight:bold}pre code{font-size:.8em;line-height:1.4em;padding:1em;display:block}code{background:#f3f3f3;font-family:"DejaVu Sans Mono",monospace;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source > summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible;min-width:max-content}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em 1em;margin:1em 0}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul ul{padding-left:1em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js" integrity="sha512-D9gUyxqja7hBtkWpPWGt9wfbfaMGVt9gnyCvYa+jojwwPHLCzUm5i8rpk7vD7wNee9bA35eYIjobYPaQuKS1MQ==" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => {
+hljs.configure({languages: ['bash', 'css', 'diff', 'graphql', 'ini', 'javascript', 'json', 'plaintext', 'python', 'python-repl', 'rust', 'shell', 'sql', 'typescript', 'xml', 'yaml']});
+hljs.highlightAll();
+/* Collapse source docstrings */
+setTimeout(() => {
+[...document.querySelectorAll('.hljs.language-python > .hljs-string')]
+.filter(el => el.innerHTML.length > 200 && ['"""', "'''"].includes(el.innerHTML.substring(0, 3)))
+.forEach(el => {
+let d = document.createElement('details');
+d.classList.add('hljs-string');
+d.innerHTML = '<summary>"""</summary>' + el.innerHTML.substring(3);
+el.replaceWith(d);
+});
+}, 100);
+})</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>ogr.services.github</code></h1>
+</header>
+<section id="section-intro">
+</section>
+<section>
+<h2 class="section-title" id="header-submodules">Sub-modules</h2>
+<dl>
+<dt><code class="name"><a title="ogr.services.github.auth_providers" href="auth_providers/index.html">ogr.services.github.auth_providers</a></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt><code class="name"><a title="ogr.services.github.check_run" href="check_run.html">ogr.services.github.check_run</a></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt><code class="name"><a title="ogr.services.github.comments" href="comments.html">ogr.services.github.comments</a></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt><code class="name"><a title="ogr.services.github.flag" href="flag.html">ogr.services.github.flag</a></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt><code class="name"><a title="ogr.services.github.issue" href="issue.html">ogr.services.github.issue</a></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt><code class="name"><a title="ogr.services.github.label" href="label.html">ogr.services.github.label</a></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt><code class="name"><a title="ogr.services.github.project" href="project.html">ogr.services.github.project</a></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt><code class="name"><a title="ogr.services.github.pull_request" href="pull_request.html">ogr.services.github.pull_request</a></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt><code class="name"><a title="ogr.services.github.release" href="release.html">ogr.services.github.release</a></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt><code class="name"><a title="ogr.services.github.service" href="service.html">ogr.services.github.service</a></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt><code class="name"><a title="ogr.services.github.user" href="user.html">ogr.services.github.user</a></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="ogr.services.github.GithubCheckRun"><code class="flex name class">
+<span>class <span class="ident">GithubCheckRun</span></span>
+<span>(</span><span>project: ogr_github.GithubProject, raw_check_run: github.CheckRun.CheckRun)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class GithubCheckRun(OgrAbstractClass):
+    def __init__(
+        self,
+        project: &#34;ogr_github.GithubProject&#34;,
+        raw_check_run: CheckRun,
+    ) -&gt; None:
+        self.raw_check_run = raw_check_run
+        self.project = project
+
+    def __str__(self) -&gt; str:
+        return (
+            f&#34;GithubCheckRun(project={self.project}, name=&#39;{self.name}&#39;, &#34;
+            f&#34;commit_sha=&#39;{self.commit_sha}&#39;, &#34;
+            f&#34;url=&#39;{self.url}&#39;, &#34;
+            f&#34;external_id=&#39;{self.external_id}&#39;, &#34;
+            f&#34;status={self.status.name}, &#34;
+            f&#34;started_at={self.started_at}, &#34;
+            f&#34;conclusion={self.conclusion}, &#34;
+            f&#34;completed_at={self.completed_at}, &#34;
+            f&#34;output={self.output}, &#34;
+            f&#34;app={self.app})&#34;
+        )
+
+    @property
+    def name(self) -&gt; str:
+        &#34;&#34;&#34;Name of the check run.&#34;&#34;&#34;
+        return self.raw_check_run.name
+
+    @name.setter
+    def name(self, name: str) -&gt; None:
+        self.raw_check_run.edit(name=name)
+
+    @property
+    def commit_sha(self) -&gt; str:
+        &#34;&#34;&#34;Commit SHA that check run is related to.&#34;&#34;&#34;
+        return self.raw_check_run.head_sha
+
+    @property
+    def url(self) -&gt; Optional[str]:
+        &#34;&#34;&#34;URL with additional details.&#34;&#34;&#34;
+        return self.raw_check_run.details_url
+
+    @url.setter
+    def url(self, url: str) -&gt; None:
+        self.raw_check_run.edit(details_url=url)
+
+    @property
+    def external_id(self) -&gt; Optional[str]:
+        &#34;&#34;&#34;External ID that can be used internally by the integrator.&#34;&#34;&#34;
+        return self.raw_check_run.external_id
+
+    @external_id.setter
+    def external_id(self, external_id: str) -&gt; None:
+        self.raw_check_run.edit(external_id=external_id)
+
+    @property
+    def status(self) -&gt; GithubCheckRunStatus:
+        &#34;&#34;&#34;Current status of the check run.&#34;&#34;&#34;
+        return GithubCheckRunStatus(self.raw_check_run.status)
+
+    @property
+    def started_at(self) -&gt; Optional[datetime.datetime]:
+        &#34;&#34;&#34;Timestamp of start of the check run.&#34;&#34;&#34;
+        return self.raw_check_run.started_at
+
+    @started_at.setter
+    def started_at(self, started_at: datetime.datetime) -&gt; None:
+        self.raw_check_run.edit(started_at=started_at)
+
+    @property
+    def conclusion(self) -&gt; Optional[GithubCheckRunResult]:
+        &#34;&#34;&#34;Conclusion/result of the check run.&#34;&#34;&#34;
+        return (
+            GithubCheckRunResult(self.raw_check_run.conclusion)
+            if self.raw_check_run.conclusion
+            else None
+        )
+
+    @property
+    def completed_at(self) -&gt; Optional[datetime.datetime]:
+        &#34;&#34;&#34;Timestamp of completion of the check run.&#34;&#34;&#34;
+        return self.raw_check_run.completed_at
+
+    @property
+    def output(self) -&gt; CheckRunOutput:
+        &#34;&#34;&#34;Output of the check run.&#34;&#34;&#34;
+        return self.raw_check_run.output
+
+    @output.setter
+    def output(self, output: GithubCheckRunOutput) -&gt; None:
+        self.raw_check_run.edit(output=output)
+
+    @property
+    def app(self) -&gt; GithubApp:
+        &#34;&#34;&#34;Github App of the check run.&#34;&#34;&#34;
+        return self.raw_check_run.app
+
+    def change_status(
+        self,
+        status: Optional[GithubCheckRunStatus] = None,
+        completed_at: Optional[datetime.datetime] = None,
+        conclusion: Optional[GithubCheckRunResult] = None,
+    ) -&gt; None:
+        &#34;&#34;&#34;
+        Changes the status of the check run and checks the validity of new state.
+
+        Args:
+            status: Status of the check run to be set. If set to completed, you
+                must provide conclusion.
+
+                Defaults to `None`.
+            completed_at: Timestamp of completion of the check run. If set, you
+                must provide conclusion.
+
+                Defaults to `None`.
+            conclusion: Conclusion/result of the check run. If only conclusion
+                is set, status is automatically set to completed.
+
+                Defaults to `None`.
+
+        Raises:
+            OperationNotSupported, if given completed or timestamp of completed
+                without conclusion.
+        &#34;&#34;&#34;
+        if not (status or completed_at or conclusion):
+            return
+
+        if (
+            status == GithubCheckRunStatus.completed or completed_at
+        ) and conclusion is None:
+            raise OperationNotSupported(
+                &#34;When provided completed status or completed at,&#34;
+                &#34; you need to provide conclusion.&#34;,
+            )
+
+        self.raw_check_run.edit(
+            status=value_or_NotSet(status.name if status else None),
+            conclusion=value_or_NotSet(conclusion.name if conclusion else None),
+            completed_at=value_or_NotSet(completed_at),
+        )
+
+    @staticmethod
+    def get_list(
+        project: &#34;ogr_github.GithubProject&#34;,
+        commit_sha: str,
+        name: Optional[str] = None,
+        status: Optional[GithubCheckRunStatus] = None,
+    ) -&gt; list[&#34;GithubCheckRun&#34;]:
+        &#34;&#34;&#34;
+        Returns list of GitHub check runs.
+
+        Args:
+            project: Project from which the check runs are retrieved.
+            commit_sha: Commit to which are the check runs related to.
+            name: Name of the check run for filtering.
+
+                Defaults to `None`, no filtering.
+            status: Status of the check runs to be returned.
+
+                Defaults to `None`, no filtering.
+
+        Returns:
+            List of the check runs.
+        &#34;&#34;&#34;
+        check_runs = project.github_repo.get_commit(commit_sha).get_check_runs(
+            check_name=value_or_NotSet(name),
+            status=value_or_NotSet(status.name if status else None),
+        )
+
+        return [GithubCheckRun(project, run) for run in check_runs]
+
+    @staticmethod
+    def get(
+        project: &#34;ogr_github.GithubProject&#34;,
+        check_run_id: Optional[int] = None,
+        commit_sha: Optional[str] = None,
+    ) -&gt; Optional[&#34;GithubCheckRun&#34;]:
+        &#34;&#34;&#34;
+        Retrieves GitHub check run as ogr object.
+
+        Args:
+            project: Project from which the check run is retrieved.
+            check_run_id: Check run ID.
+
+                Defaults to `None`, i.e. is not used for query.
+            commit_sha: Commit SHA from which the check run is to be retrieved.
+                If set, returns latest check run for the commit.
+
+                Defaults to `None`, i.e. is not used for query.
+
+        Returns:
+            GithubCheckRun object or `None` if no check run is found.
+
+        Raises:
+            OperationNotSupported, in case there is no parameter for query set
+                or both are set.
+        &#34;&#34;&#34;
+        if check_run_id is not None and commit_sha:
+            raise OperationNotSupported(
+                &#34;Cannot retrieve check run by both ID and commit hash&#34;,
+            )
+
+        if not (check_run_id is not None or commit_sha):
+            raise OperationNotSupported(&#34;Cannot retrieve check run by no criteria&#34;)
+
+        if check_run_id is not None:
+            return GithubCheckRun(
+                project,
+                project.github_repo.get_check_run(check_run_id),
+            )
+
+        check_runs = project.github_repo.get_commit(commit_sha).get_check_runs()
+        if check_runs.totalCount == 0:
+            return None
+        return GithubCheckRun(project, check_runs[0])
+
+    @staticmethod
+    def create(
+        project: &#34;ogr_github.GithubProject&#34;,
+        name: str,
+        commit_sha: str,
+        url: Optional[str] = None,
+        external_id: Optional[str] = None,
+        status: GithubCheckRunStatus = GithubCheckRunStatus.queued,
+        started_at: Optional[datetime.datetime] = None,
+        conclusion: Optional[GithubCheckRunResult] = None,
+        completed_at: Optional[datetime.datetime] = None,
+        output: Optional[GithubCheckRunOutput] = None,
+        actions: Optional[list[dict[str, str]]] = None,
+    ) -&gt; &#34;GithubCheckRun&#34;:
+        &#34;&#34;&#34;
+        Creates new check run.
+
+        Args:
+            project: Project where the check run is to be created.
+            name: Name of the check run.
+            commit_sha: Hash of the commit that check run is related to.
+            url: URL with details of the run.
+
+                Defaults to `None`.
+            external_id: External ID that can be used internally by integrator.
+
+                Defaults to `None`.
+            status: Status of the check run.
+
+                Defaults to queued.
+            started_at: Timestamp of starting the check run.
+
+                Defaults to `None`.
+            conclusion: Conclusion of the check run. Should be set with status
+                completed.
+
+                Defaults to `None`.
+            completed_at: Timestamp of completion of the check run. If set, you
+                must provide conclusion.
+
+                Defaults to `None`.
+            output: Output of the check run.
+            actions: List of possible follow-up actions for the check run.
+
+        Returns:
+            Created check run object.
+
+        Raises:
+            OperationNotSupported, if given completed status or completion
+                timestamp and no conclusion.
+        &#34;&#34;&#34;
+
+        if (
+            completed_at or status == GithubCheckRunStatus.completed
+        ) and conclusion is None:
+            raise OperationNotSupported(
+                &#34;When provided completed_at or completed status, &#34;
+                &#34;you need to provide conclusion.&#34;,
+            )
+
+        created_check_run = project.github_repo.create_check_run(
+            name=name,
+            head_sha=commit_sha,
+            details_url=value_or_NotSet(url),
+            external_id=value_or_NotSet(external_id),
+            status=status.name,
+            started_at=value_or_NotSet(started_at),
+            conclusion=value_or_NotSet(conclusion.name if conclusion else None),
+            completed_at=value_or_NotSet(completed_at),
+            output=value_or_NotSet(output),
+            actions=value_or_NotSet(actions),
+        )
+
+        return GithubCheckRun(project, created_check_run)</code></pre>
+</details>
+<div class="desc"></div>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="ogr.abstract.OgrAbstractClass" href="../../abstract.html#ogr.abstract.OgrAbstractClass">OgrAbstractClass</a></li>
+</ul>
+<h3>Static methods</h3>
+<dl>
+<dt id="ogr.services.github.GithubCheckRun.create"><code class="name flex">
+<span>def <span class="ident">create</span></span>(<span>project: ogr_github.GithubProject,<br>name: str,<br>commit_sha: str,<br>url: str | None = None,<br>external_id: str | None = None,<br>status: <a title="ogr.services.github.check_run.GithubCheckRunStatus" href="check_run.html#ogr.services.github.check_run.GithubCheckRunStatus">GithubCheckRunStatus</a> = GithubCheckRunStatus.queued,<br>started_at: datetime.datetime | None = None,<br>conclusion: <a title="ogr.services.github.check_run.GithubCheckRunResult" href="check_run.html#ogr.services.github.check_run.GithubCheckRunResult">GithubCheckRunResult</a> | None = None,<br>completed_at: datetime.datetime | None = None,<br>output: dict[str, str | list[dict[str, str | int]]] | None = None,<br>actions: list[dict[str, str]] | None = None) ‑> <a title="ogr.services.github.check_run.GithubCheckRun" href="check_run.html#ogr.services.github.check_run.GithubCheckRun">GithubCheckRun</a></span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@staticmethod
+def create(
+    project: &#34;ogr_github.GithubProject&#34;,
+    name: str,
+    commit_sha: str,
+    url: Optional[str] = None,
+    external_id: Optional[str] = None,
+    status: GithubCheckRunStatus = GithubCheckRunStatus.queued,
+    started_at: Optional[datetime.datetime] = None,
+    conclusion: Optional[GithubCheckRunResult] = None,
+    completed_at: Optional[datetime.datetime] = None,
+    output: Optional[GithubCheckRunOutput] = None,
+    actions: Optional[list[dict[str, str]]] = None,
+) -&gt; &#34;GithubCheckRun&#34;:
+    &#34;&#34;&#34;
+    Creates new check run.
+
+    Args:
+        project: Project where the check run is to be created.
+        name: Name of the check run.
+        commit_sha: Hash of the commit that check run is related to.
+        url: URL with details of the run.
+
+            Defaults to `None`.
+        external_id: External ID that can be used internally by integrator.
+
+            Defaults to `None`.
+        status: Status of the check run.
+
+            Defaults to queued.
+        started_at: Timestamp of starting the check run.
+
+            Defaults to `None`.
+        conclusion: Conclusion of the check run. Should be set with status
+            completed.
+
+            Defaults to `None`.
+        completed_at: Timestamp of completion of the check run. If set, you
+            must provide conclusion.
+
+            Defaults to `None`.
+        output: Output of the check run.
+        actions: List of possible follow-up actions for the check run.
+
+    Returns:
+        Created check run object.
+
+    Raises:
+        OperationNotSupported, if given completed status or completion
+            timestamp and no conclusion.
+    &#34;&#34;&#34;
+
+    if (
+        completed_at or status == GithubCheckRunStatus.completed
+    ) and conclusion is None:
+        raise OperationNotSupported(
+            &#34;When provided completed_at or completed status, &#34;
+            &#34;you need to provide conclusion.&#34;,
+        )
+
+    created_check_run = project.github_repo.create_check_run(
+        name=name,
+        head_sha=commit_sha,
+        details_url=value_or_NotSet(url),
+        external_id=value_or_NotSet(external_id),
+        status=status.name,
+        started_at=value_or_NotSet(started_at),
+        conclusion=value_or_NotSet(conclusion.name if conclusion else None),
+        completed_at=value_or_NotSet(completed_at),
+        output=value_or_NotSet(output),
+        actions=value_or_NotSet(actions),
+    )
+
+    return GithubCheckRun(project, created_check_run)</code></pre>
+</details>
+<div class="desc"><p>Creates new check run.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>project</code></strong></dt>
+<dd>Project where the check run is to be created.</dd>
+<dt><strong><code>name</code></strong></dt>
+<dd>Name of the check run.</dd>
+<dt><strong><code>commit_sha</code></strong></dt>
+<dd>Hash of the commit that check run is related to.</dd>
+<dt><strong><code>url</code></strong></dt>
+<dd>
+<p>URL with details of the run.</p>
+<p>Defaults to <code>None</code>.</p>
+</dd>
+<dt><strong><code>external_id</code></strong></dt>
+<dd>
+<p>External ID that can be used internally by integrator.</p>
+<p>Defaults to <code>None</code>.</p>
+</dd>
+<dt><strong><code>status</code></strong></dt>
+<dd>
+<p>Status of the check run.</p>
+<p>Defaults to queued.</p>
+</dd>
+<dt><strong><code>started_at</code></strong></dt>
+<dd>
+<p>Timestamp of starting the check run.</p>
+<p>Defaults to <code>None</code>.</p>
+</dd>
+<dt><strong><code>conclusion</code></strong></dt>
+<dd>
+<p>Conclusion of the check run. Should be set with status
+completed.</p>
+<p>Defaults to <code>None</code>.</p>
+</dd>
+<dt><strong><code>completed_at</code></strong></dt>
+<dd>
+<p>Timestamp of completion of the check run. If set, you
+must provide conclusion.</p>
+<p>Defaults to <code>None</code>.</p>
+</dd>
+<dt><strong><code>output</code></strong></dt>
+<dd>Output of the check run.</dd>
+<dt><strong><code>actions</code></strong></dt>
+<dd>List of possible follow-up actions for the check run.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p>Created check run object.</p>
+<h2 id="raises">Raises</h2>
+<p>OperationNotSupported, if given completed status or completion
+timestamp and no conclusion.</p></div>
+</dd>
+<dt id="ogr.services.github.GithubCheckRun.get"><code class="name flex">
+<span>def <span class="ident">get</span></span>(<span>project: ogr_github.GithubProject,<br>check_run_id: int | None = None,<br>commit_sha: str | None = None) ‑> <a title="ogr.services.github.check_run.GithubCheckRun" href="check_run.html#ogr.services.github.check_run.GithubCheckRun">GithubCheckRun</a> | None</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@staticmethod
+def get(
+    project: &#34;ogr_github.GithubProject&#34;,
+    check_run_id: Optional[int] = None,
+    commit_sha: Optional[str] = None,
+) -&gt; Optional[&#34;GithubCheckRun&#34;]:
+    &#34;&#34;&#34;
+    Retrieves GitHub check run as ogr object.
+
+    Args:
+        project: Project from which the check run is retrieved.
+        check_run_id: Check run ID.
+
+            Defaults to `None`, i.e. is not used for query.
+        commit_sha: Commit SHA from which the check run is to be retrieved.
+            If set, returns latest check run for the commit.
+
+            Defaults to `None`, i.e. is not used for query.
+
+    Returns:
+        GithubCheckRun object or `None` if no check run is found.
+
+    Raises:
+        OperationNotSupported, in case there is no parameter for query set
+            or both are set.
+    &#34;&#34;&#34;
+    if check_run_id is not None and commit_sha:
+        raise OperationNotSupported(
+            &#34;Cannot retrieve check run by both ID and commit hash&#34;,
+        )
+
+    if not (check_run_id is not None or commit_sha):
+        raise OperationNotSupported(&#34;Cannot retrieve check run by no criteria&#34;)
+
+    if check_run_id is not None:
+        return GithubCheckRun(
+            project,
+            project.github_repo.get_check_run(check_run_id),
+        )
+
+    check_runs = project.github_repo.get_commit(commit_sha).get_check_runs()
+    if check_runs.totalCount == 0:
+        return None
+    return GithubCheckRun(project, check_runs[0])</code></pre>
+</details>
+<div class="desc"><p>Retrieves GitHub check run as ogr object.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>project</code></strong></dt>
+<dd>Project from which the check run is retrieved.</dd>
+<dt><strong><code>check_run_id</code></strong></dt>
+<dd>
+<p>Check run ID.</p>
+<p>Defaults to <code>None</code>, i.e. is not used for query.</p>
+</dd>
+<dt><strong><code>commit_sha</code></strong></dt>
+<dd>
+<p>Commit SHA from which the check run is to be retrieved.
+If set, returns latest check run for the commit.</p>
+<p>Defaults to <code>None</code>, i.e. is not used for query.</p>
+</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p>GithubCheckRun object or <code>None</code> if no check run is found.</p>
+<h2 id="raises">Raises</h2>
+<p>OperationNotSupported, in case there is no parameter for query set
+or both are set.</p></div>
+</dd>
+<dt id="ogr.services.github.GithubCheckRun.get_list"><code class="name flex">
+<span>def <span class="ident">get_list</span></span>(<span>project: ogr_github.GithubProject,<br>commit_sha: str,<br>name: str | None = None,<br>status: <a title="ogr.services.github.check_run.GithubCheckRunStatus" href="check_run.html#ogr.services.github.check_run.GithubCheckRunStatus">GithubCheckRunStatus</a> | None = None) ‑> list[<a title="ogr.services.github.check_run.GithubCheckRun" href="check_run.html#ogr.services.github.check_run.GithubCheckRun">GithubCheckRun</a>]</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@staticmethod
+def get_list(
+    project: &#34;ogr_github.GithubProject&#34;,
+    commit_sha: str,
+    name: Optional[str] = None,
+    status: Optional[GithubCheckRunStatus] = None,
+) -&gt; list[&#34;GithubCheckRun&#34;]:
+    &#34;&#34;&#34;
+    Returns list of GitHub check runs.
+
+    Args:
+        project: Project from which the check runs are retrieved.
+        commit_sha: Commit to which are the check runs related to.
+        name: Name of the check run for filtering.
+
+            Defaults to `None`, no filtering.
+        status: Status of the check runs to be returned.
+
+            Defaults to `None`, no filtering.
+
+    Returns:
+        List of the check runs.
+    &#34;&#34;&#34;
+    check_runs = project.github_repo.get_commit(commit_sha).get_check_runs(
+        check_name=value_or_NotSet(name),
+        status=value_or_NotSet(status.name if status else None),
+    )
+
+    return [GithubCheckRun(project, run) for run in check_runs]</code></pre>
+</details>
+<div class="desc"><p>Returns list of GitHub check runs.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>project</code></strong></dt>
+<dd>Project from which the check runs are retrieved.</dd>
+<dt><strong><code>commit_sha</code></strong></dt>
+<dd>Commit to which are the check runs related to.</dd>
+<dt><strong><code>name</code></strong></dt>
+<dd>
+<p>Name of the check run for filtering.</p>
+<p>Defaults to <code>None</code>, no filtering.</p>
+</dd>
+<dt><strong><code>status</code></strong></dt>
+<dd>
+<p>Status of the check runs to be returned.</p>
+<p>Defaults to <code>None</code>, no filtering.</p>
+</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p>List of the check runs.</p></div>
+</dd>
+</dl>
+<h3>Instance variables</h3>
+<dl>
+<dt id="ogr.services.github.GithubCheckRun.app"><code class="name">prop <span class="ident">app</span> : github.GithubApp.GithubApp</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def app(self) -&gt; GithubApp:
+    &#34;&#34;&#34;Github App of the check run.&#34;&#34;&#34;
+    return self.raw_check_run.app</code></pre>
+</details>
+<div class="desc"><p>Github App of the check run.</p></div>
+</dd>
+<dt id="ogr.services.github.GithubCheckRun.commit_sha"><code class="name">prop <span class="ident">commit_sha</span> : str</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def commit_sha(self) -&gt; str:
+    &#34;&#34;&#34;Commit SHA that check run is related to.&#34;&#34;&#34;
+    return self.raw_check_run.head_sha</code></pre>
+</details>
+<div class="desc"><p>Commit SHA that check run is related to.</p></div>
+</dd>
+<dt id="ogr.services.github.GithubCheckRun.completed_at"><code class="name">prop <span class="ident">completed_at</span> : datetime.datetime | None</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def completed_at(self) -&gt; Optional[datetime.datetime]:
+    &#34;&#34;&#34;Timestamp of completion of the check run.&#34;&#34;&#34;
+    return self.raw_check_run.completed_at</code></pre>
+</details>
+<div class="desc"><p>Timestamp of completion of the check run.</p></div>
+</dd>
+<dt id="ogr.services.github.GithubCheckRun.conclusion"><code class="name">prop <span class="ident">conclusion</span> : <a title="ogr.services.github.check_run.GithubCheckRunResult" href="check_run.html#ogr.services.github.check_run.GithubCheckRunResult">GithubCheckRunResult</a> | None</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def conclusion(self) -&gt; Optional[GithubCheckRunResult]:
+    &#34;&#34;&#34;Conclusion/result of the check run.&#34;&#34;&#34;
+    return (
+        GithubCheckRunResult(self.raw_check_run.conclusion)
+        if self.raw_check_run.conclusion
+        else None
+    )</code></pre>
+</details>
+<div class="desc"><p>Conclusion/result of the check run.</p></div>
+</dd>
+<dt id="ogr.services.github.GithubCheckRun.external_id"><code class="name">prop <span class="ident">external_id</span> : str | None</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def external_id(self) -&gt; Optional[str]:
+    &#34;&#34;&#34;External ID that can be used internally by the integrator.&#34;&#34;&#34;
+    return self.raw_check_run.external_id</code></pre>
+</details>
+<div class="desc"><p>External ID that can be used internally by the integrator.</p></div>
+</dd>
+<dt id="ogr.services.github.GithubCheckRun.name"><code class="name">prop <span class="ident">name</span> : str</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def name(self) -&gt; str:
+    &#34;&#34;&#34;Name of the check run.&#34;&#34;&#34;
+    return self.raw_check_run.name</code></pre>
+</details>
+<div class="desc"><p>Name of the check run.</p></div>
+</dd>
+<dt id="ogr.services.github.GithubCheckRun.output"><code class="name">prop <span class="ident">output</span> : github.CheckRunOutput.CheckRunOutput</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def output(self) -&gt; CheckRunOutput:
+    &#34;&#34;&#34;Output of the check run.&#34;&#34;&#34;
+    return self.raw_check_run.output</code></pre>
+</details>
+<div class="desc"><p>Output of the check run.</p></div>
+</dd>
+<dt id="ogr.services.github.GithubCheckRun.started_at"><code class="name">prop <span class="ident">started_at</span> : datetime.datetime | None</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def started_at(self) -&gt; Optional[datetime.datetime]:
+    &#34;&#34;&#34;Timestamp of start of the check run.&#34;&#34;&#34;
+    return self.raw_check_run.started_at</code></pre>
+</details>
+<div class="desc"><p>Timestamp of start of the check run.</p></div>
+</dd>
+<dt id="ogr.services.github.GithubCheckRun.status"><code class="name">prop <span class="ident">status</span> : <a title="ogr.services.github.check_run.GithubCheckRunStatus" href="check_run.html#ogr.services.github.check_run.GithubCheckRunStatus">GithubCheckRunStatus</a></code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def status(self) -&gt; GithubCheckRunStatus:
+    &#34;&#34;&#34;Current status of the check run.&#34;&#34;&#34;
+    return GithubCheckRunStatus(self.raw_check_run.status)</code></pre>
+</details>
+<div class="desc"><p>Current status of the check run.</p></div>
+</dd>
+<dt id="ogr.services.github.GithubCheckRun.url"><code class="name">prop <span class="ident">url</span> : str | None</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def url(self) -&gt; Optional[str]:
+    &#34;&#34;&#34;URL with additional details.&#34;&#34;&#34;
+    return self.raw_check_run.details_url</code></pre>
+</details>
+<div class="desc"><p>URL with additional details.</p></div>
+</dd>
+</dl>
+<h3>Methods</h3>
+<dl>
+<dt id="ogr.services.github.GithubCheckRun.change_status"><code class="name flex">
+<span>def <span class="ident">change_status</span></span>(<span>self,<br>status: <a title="ogr.services.github.check_run.GithubCheckRunStatus" href="check_run.html#ogr.services.github.check_run.GithubCheckRunStatus">GithubCheckRunStatus</a> | None = None,<br>completed_at: datetime.datetime | None = None,<br>conclusion: <a title="ogr.services.github.check_run.GithubCheckRunResult" href="check_run.html#ogr.services.github.check_run.GithubCheckRunResult">GithubCheckRunResult</a> | None = None) ‑> None</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def change_status(
+    self,
+    status: Optional[GithubCheckRunStatus] = None,
+    completed_at: Optional[datetime.datetime] = None,
+    conclusion: Optional[GithubCheckRunResult] = None,
+) -&gt; None:
+    &#34;&#34;&#34;
+    Changes the status of the check run and checks the validity of new state.
+
+    Args:
+        status: Status of the check run to be set. If set to completed, you
+            must provide conclusion.
+
+            Defaults to `None`.
+        completed_at: Timestamp of completion of the check run. If set, you
+            must provide conclusion.
+
+            Defaults to `None`.
+        conclusion: Conclusion/result of the check run. If only conclusion
+            is set, status is automatically set to completed.
+
+            Defaults to `None`.
+
+    Raises:
+        OperationNotSupported, if given completed or timestamp of completed
+            without conclusion.
+    &#34;&#34;&#34;
+    if not (status or completed_at or conclusion):
+        return
+
+    if (
+        status == GithubCheckRunStatus.completed or completed_at
+    ) and conclusion is None:
+        raise OperationNotSupported(
+            &#34;When provided completed status or completed at,&#34;
+            &#34; you need to provide conclusion.&#34;,
+        )
+
+    self.raw_check_run.edit(
+        status=value_or_NotSet(status.name if status else None),
+        conclusion=value_or_NotSet(conclusion.name if conclusion else None),
+        completed_at=value_or_NotSet(completed_at),
+    )</code></pre>
+</details>
+<div class="desc"><p>Changes the status of the check run and checks the validity of new state.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>status</code></strong></dt>
+<dd>
+<p>Status of the check run to be set. If set to completed, you
+must provide conclusion.</p>
+<p>Defaults to <code>None</code>.</p>
+</dd>
+<dt><strong><code>completed_at</code></strong></dt>
+<dd>
+<p>Timestamp of completion of the check run. If set, you
+must provide conclusion.</p>
+<p>Defaults to <code>None</code>.</p>
+</dd>
+<dt><strong><code>conclusion</code></strong></dt>
+<dd>
+<p>Conclusion/result of the check run. If only conclusion
+is set, status is automatically set to completed.</p>
+<p>Defaults to <code>None</code>.</p>
+</dd>
+</dl>
+<h2 id="raises">Raises</h2>
+<p>OperationNotSupported, if given completed or timestamp of completed
+without conclusion.</p></div>
+</dd>
+</dl>
+</dd>
+<dt id="ogr.services.github.GithubIssue"><code class="flex name class">
+<span>class <span class="ident">GithubIssue</span></span>
+<span>(</span><span>raw_issue: github.Issue.Issue, project: ogr_github.GithubProject)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class GithubIssue(BaseIssue):
+    raw_issue: _GithubIssue
+
+    def __init__(
+        self,
+        raw_issue: _GithubIssue,
+        project: &#34;ogr_github.GithubProject&#34;,
+    ) -&gt; None:
+        if raw_issue.pull_request:
+            raise GithubAPIException(
+                f&#34;Requested issue #{raw_issue.number} is a pull request&#34;,
+            )
+
+        super().__init__(raw_issue=raw_issue, project=project)
+
+    @property
+    def title(self) -&gt; str:
+        return self._raw_issue.title
+
+    @title.setter
+    def title(self, new_title: str) -&gt; None:
+        self._raw_issue.edit(title=new_title)
+
+    @property
+    def id(self) -&gt; int:
+        return self._raw_issue.number
+
+    @property
+    def status(self) -&gt; IssueStatus:
+        return IssueStatus[self._raw_issue.state]
+
+    @property
+    def url(self) -&gt; str:
+        return self._raw_issue.html_url
+
+    @property
+    def assignees(self) -&gt; list:
+        return self._raw_issue.assignees
+
+    @property
+    def description(self) -&gt; str:
+        return self._raw_issue.body
+
+    @description.setter
+    def description(self, new_description: str) -&gt; None:
+        self._raw_issue.edit(body=new_description)
+
+    @property
+    def author(self) -&gt; str:
+        return self._raw_issue.user.login
+
+    @property
+    def created(self) -&gt; datetime.datetime:
+        return self._raw_issue.created_at
+
+    @property
+    def labels(self) -&gt; list[IssueLabel]:
+        return [
+            GithubIssueLabel(raw_label, self)
+            for raw_label in self._raw_issue.get_labels()
+        ]
+
+    def __str__(self) -&gt; str:
+        return &#34;Github&#34; + super().__str__()
+
+    @staticmethod
+    def create(
+        project: &#34;ogr_github.GithubProject&#34;,
+        title: str,
+        body: str,
+        private: Optional[bool] = None,
+        labels: Optional[list[str]] = None,
+        assignees: Optional[list] = None,
+    ) -&gt; &#34;Issue&#34;:
+        if private:
+            raise OperationNotSupported(&#34;Private issues are not supported by Github&#34;)
+        if not project.has_issues:
+            raise IssueTrackerDisabled()
+
+        github_issue = project.github_repo.create_issue(
+            title=title,
+            body=body,
+            labels=labels or [],
+            assignees=assignees or [],
+        )
+        return GithubIssue(github_issue, project)
+
+    @staticmethod
+    def get(project: &#34;ogr_github.GithubProject&#34;, issue_id: int) -&gt; &#34;Issue&#34;:
+        if not project.has_issues:
+            raise IssueTrackerDisabled()
+
+        try:
+            issue = project.github_repo.get_issue(number=issue_id)
+        except github.UnknownObjectException as ex:
+            raise GithubAPIException(f&#34;No issue with id {issue_id} found&#34;) from ex
+        return GithubIssue(issue, project)
+
+    @staticmethod
+    def get_list(
+        project: &#34;ogr_github.GithubProject&#34;,
+        status: IssueStatus = IssueStatus.open,
+        author: Optional[str] = None,
+        assignee: Optional[str] = None,
+        labels: Optional[list[str]] = None,
+    ) -&gt; list[&#34;Issue&#34;]:
+        if not project.has_issues:
+            raise IssueTrackerDisabled()
+
+        parameters: dict[str, Union[str, list[str]]] = {
+            &#34;state&#34;: status.name,
+            &#34;sort&#34;: &#34;updated&#34;,
+            &#34;direction&#34;: &#34;desc&#34;,
+        }
+        if author:
+            parameters[&#34;creator&#34;] = author
+        if assignee:
+            parameters[&#34;assignee&#34;] = assignee
+        if labels:
+            parameters[&#34;labels&#34;] = [
+                project.github_repo.get_label(label) for label in labels
+            ]
+
+        issues = project.github_repo.get_issues(**parameters)
+        try:
+            return [
+                GithubIssue(issue, project)
+                for issue in issues
+                if not issue.pull_request
+            ]
+        except UnknownObjectException:
+            return []
+
+    def _get_all_comments(
+        self,
+        reverse: bool = False,
+    ) -&gt; Iterable[IssueComment]:
+        comments = self._raw_issue.get_comments()
+        if reverse:
+            comments = comments.reversed
+
+        return (
+            GithubIssueComment(parent=self, raw_comment=raw_comment)
+            for raw_comment in comments
+        )
+
+    def comment(self, body: str) -&gt; IssueComment:
+        comment = self._raw_issue.create_comment(body)
+        return GithubIssueComment(parent=self, raw_comment=comment)
+
+    def close(self) -&gt; &#34;Issue&#34;:
+        self._raw_issue.edit(state=&#34;closed&#34;)
+        return self
+
+    def add_label(self, *labels: str) -&gt; None:
+        for label in labels:
+            self._raw_issue.add_to_labels(label)
+
+    def add_assignee(self, *assignees: str) -&gt; None:
+        try:
+            self._raw_issue.edit(assignees=list(assignees))
+        except github.GithubException as ex:
+            raise GithubAPIException(&#34;Failed to assign issue, unknown user&#34;) from ex
+
+    def get_comment(self, comment_id: int) -&gt; IssueComment:
+        return GithubIssueComment(self._raw_issue.get_comment(comment_id))</code></pre>
+</details>
+<div class="desc"><h2 id="attributes">Attributes</h2>
+<dl>
+<dt><strong><code>project</code></strong> :&ensp;<code>GitProject</code></dt>
+<dd>Project of the issue.</dd>
+</dl></div>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="ogr.services.base.BaseIssue" href="../base.html#ogr.services.base.BaseIssue">BaseIssue</a></li>
+<li><a title="ogr.abstract.Issue" href="../../abstract.html#ogr.abstract.Issue">Issue</a></li>
+<li><a title="ogr.abstract.OgrAbstractClass" href="../../abstract.html#ogr.abstract.OgrAbstractClass">OgrAbstractClass</a></li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="ogr.services.github.GithubIssue.raw_issue"><code class="name">var <span class="ident">raw_issue</span> : github.Issue.Issue</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Instance variables</h3>
+<dl>
+<dt id="ogr.services.github.GithubIssue.assignees"><code class="name">prop <span class="ident">assignees</span> : list</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def assignees(self) -&gt; list:
+    return self._raw_issue.assignees</code></pre>
+</details>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="ogr.services.base.BaseIssue" href="../base.html#ogr.services.base.BaseIssue">BaseIssue</a></b></code>:
+<ul class="hlist">
+<li><code><a title="ogr.services.base.BaseIssue.add_assignee" href="../../abstract.html#ogr.abstract.Issue.add_assignee">add_assignee</a></code></li>
+<li><code><a title="ogr.services.base.BaseIssue.add_label" href="../../abstract.html#ogr.abstract.Issue.add_label">add_label</a></code></li>
+<li><code><a title="ogr.services.base.BaseIssue.author" href="../../abstract.html#ogr.abstract.Issue.author">author</a></code></li>
+<li><code><a title="ogr.services.base.BaseIssue.close" href="../../abstract.html#ogr.abstract.Issue.close">close</a></code></li>
+<li><code><a title="ogr.services.base.BaseIssue.comment" href="../../abstract.html#ogr.abstract.Issue.comment">comment</a></code></li>
+<li><code><a title="ogr.services.base.BaseIssue.create" href="../../abstract.html#ogr.abstract.Issue.create">create</a></code></li>
+<li><code><a title="ogr.services.base.BaseIssue.created" href="../../abstract.html#ogr.abstract.Issue.created">created</a></code></li>
+<li><code><a title="ogr.services.base.BaseIssue.description" href="../../abstract.html#ogr.abstract.Issue.description">description</a></code></li>
+<li><code><a title="ogr.services.base.BaseIssue.get" href="../../abstract.html#ogr.abstract.Issue.get">get</a></code></li>
+<li><code><a title="ogr.services.base.BaseIssue.get_comment" href="../../abstract.html#ogr.abstract.Issue.get_comment">get_comment</a></code></li>
+<li><code><a title="ogr.services.base.BaseIssue.get_list" href="../../abstract.html#ogr.abstract.Issue.get_list">get_list</a></code></li>
+<li><code><a title="ogr.services.base.BaseIssue.id" href="../../abstract.html#ogr.abstract.Issue.id">id</a></code></li>
+<li><code><a title="ogr.services.base.BaseIssue.labels" href="../../abstract.html#ogr.abstract.Issue.labels">labels</a></code></li>
+<li><code><a title="ogr.services.base.BaseIssue.private" href="../../abstract.html#ogr.abstract.Issue.private">private</a></code></li>
+<li><code><a title="ogr.services.base.BaseIssue.status" href="../../abstract.html#ogr.abstract.Issue.status">status</a></code></li>
+<li><code><a title="ogr.services.base.BaseIssue.title" href="../../abstract.html#ogr.abstract.Issue.title">title</a></code></li>
+<li><code><a title="ogr.services.base.BaseIssue.url" href="../../abstract.html#ogr.abstract.Issue.url">url</a></code></li>
+</ul>
+</li>
+<li><code><b><a title="ogr.abstract.Issue" href="../../abstract.html#ogr.abstract.Issue">Issue</a></b></code>:
+<ul class="hlist">
+<li><code><a title="ogr.abstract.Issue.can_close" href="../../abstract.html#ogr.abstract.Issue.can_close">can_close</a></code></li>
+<li><code><a title="ogr.abstract.Issue.get_comments" href="../../abstract.html#ogr.abstract.Issue.get_comments">get_comments</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+<dt id="ogr.services.github.GithubIssueComment"><code class="flex name class">
+<span>class <span class="ident">GithubIssueComment</span></span>
+<span>(</span><span>raw_comment: Any | None = None,<br>parent: Any | None = None,<br>body: str | None = None,<br>id_: int | None = None,<br>author: str | None = None,<br>created: datetime.datetime | None = None,<br>edited: datetime.datetime | None = None)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class GithubIssueComment(GithubComment, IssueComment):
+    def __str__(self) -&gt; str:
+        return &#34;Github&#34; + super().__str__()</code></pre>
+</details>
+<div class="desc"></div>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="ogr.services.github.comments.GithubComment" href="comments.html#ogr.services.github.comments.GithubComment">GithubComment</a></li>
+<li><a title="ogr.abstract.IssueComment" href="../../abstract.html#ogr.abstract.IssueComment">IssueComment</a></li>
+<li><a title="ogr.abstract.Comment" href="../../abstract.html#ogr.abstract.Comment">Comment</a></li>
+<li><a title="ogr.abstract.OgrAbstractClass" href="../../abstract.html#ogr.abstract.OgrAbstractClass">OgrAbstractClass</a></li>
+</ul>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="ogr.services.github.comments.GithubComment" href="comments.html#ogr.services.github.comments.GithubComment">GithubComment</a></b></code>:
+<ul class="hlist">
+<li><code><a title="ogr.services.github.comments.GithubComment.author" href="../../abstract.html#ogr.abstract.Comment.author">author</a></code></li>
+<li><code><a title="ogr.services.github.comments.GithubComment.body" href="../../abstract.html#ogr.abstract.Comment.body">body</a></code></li>
+<li><code><a title="ogr.services.github.comments.GithubComment.created" href="../../abstract.html#ogr.abstract.Comment.created">created</a></code></li>
+<li><code><a title="ogr.services.github.comments.GithubComment.edited" href="../../abstract.html#ogr.abstract.Comment.edited">edited</a></code></li>
+</ul>
+</li>
+<li><code><b><a title="ogr.abstract.IssueComment" href="../../abstract.html#ogr.abstract.IssueComment">IssueComment</a></b></code>:
+<ul class="hlist">
+<li><code><a title="ogr.abstract.IssueComment.add_reaction" href="../../abstract.html#ogr.abstract.Comment.add_reaction">add_reaction</a></code></li>
+<li><code><a title="ogr.abstract.IssueComment.get_reactions" href="../../abstract.html#ogr.abstract.Comment.get_reactions">get_reactions</a></code></li>
+<li><code><a title="ogr.abstract.IssueComment.issue" href="../../abstract.html#ogr.abstract.IssueComment.issue">issue</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+<dt id="ogr.services.github.GithubPRComment"><code class="flex name class">
+<span>class <span class="ident">GithubPRComment</span></span>
+<span>(</span><span>raw_comment: Any | None = None,<br>parent: Any | None = None,<br>body: str | None = None,<br>id_: int | None = None,<br>author: str | None = None,<br>created: datetime.datetime | None = None,<br>edited: datetime.datetime | None = None)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class GithubPRComment(GithubComment, PRComment):
+    def __str__(self) -&gt; str:
+        return &#34;Github&#34; + super().__str__()</code></pre>
+</details>
+<div class="desc"></div>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="ogr.services.github.comments.GithubComment" href="comments.html#ogr.services.github.comments.GithubComment">GithubComment</a></li>
+<li><a title="ogr.abstract.PRComment" href="../../abstract.html#ogr.abstract.PRComment">PRComment</a></li>
+<li><a title="ogr.abstract.Comment" href="../../abstract.html#ogr.abstract.Comment">Comment</a></li>
+<li><a title="ogr.abstract.OgrAbstractClass" href="../../abstract.html#ogr.abstract.OgrAbstractClass">OgrAbstractClass</a></li>
+</ul>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="ogr.services.github.comments.GithubComment" href="comments.html#ogr.services.github.comments.GithubComment">GithubComment</a></b></code>:
+<ul class="hlist">
+<li><code><a title="ogr.services.github.comments.GithubComment.author" href="../../abstract.html#ogr.abstract.Comment.author">author</a></code></li>
+<li><code><a title="ogr.services.github.comments.GithubComment.body" href="../../abstract.html#ogr.abstract.Comment.body">body</a></code></li>
+<li><code><a title="ogr.services.github.comments.GithubComment.created" href="../../abstract.html#ogr.abstract.Comment.created">created</a></code></li>
+<li><code><a title="ogr.services.github.comments.GithubComment.edited" href="../../abstract.html#ogr.abstract.Comment.edited">edited</a></code></li>
+</ul>
+</li>
+<li><code><b><a title="ogr.abstract.PRComment" href="../../abstract.html#ogr.abstract.PRComment">PRComment</a></b></code>:
+<ul class="hlist">
+<li><code><a title="ogr.abstract.PRComment.add_reaction" href="../../abstract.html#ogr.abstract.Comment.add_reaction">add_reaction</a></code></li>
+<li><code><a title="ogr.abstract.PRComment.get_reactions" href="../../abstract.html#ogr.abstract.Comment.get_reactions">get_reactions</a></code></li>
+<li><code><a title="ogr.abstract.PRComment.pull_request" href="../../abstract.html#ogr.abstract.PRComment.pull_request">pull_request</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+<dt id="ogr.services.github.GithubProject"><code class="flex name class">
+<span>class <span class="ident">GithubProject</span></span>
+<span>(</span><span>repo: str,<br>service: ogr_github.GithubService,<br>namespace: str,<br>github_repo: github.Repository.Repository = None,<br>read_only: bool = False,<br>**unprocess_kwargs)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class GithubProject(BaseGitProject):
+    service: &#34;ogr_github.GithubService&#34;
+    # Permission levels that can merge PRs
+    CAN_MERGE_PERMS: ClassVar[set[str]] = {&#34;admin&#34;, &#34;write&#34;}
+
+    def __init__(
+        self,
+        repo: str,
+        service: &#34;ogr_github.GithubService&#34;,
+        namespace: str,
+        github_repo: Repository = None,
+        read_only: bool = False,
+        **unprocess_kwargs,
+    ) -&gt; None:
+        if unprocess_kwargs:
+            logger.warning(
+                f&#34;GithubProject will not process these kwargs: {unprocess_kwargs}&#34;,
+            )
+        super().__init__(repo, service, namespace)
+        self._github_repo = github_repo
+        self.read_only = read_only
+
+        self._github_instance = None
+
+    @property
+    def github_instance(self):
+        if not self._github_instance:
+            self._github_instance = self.service.get_pygithub_instance(
+                self.namespace,
+                self.repo,
+            )
+
+        return self._github_instance
+
+    @property
+    def github_repo(self):
+        if not self._github_repo:
+            self._github_repo = self.github_instance.get_repo(
+                full_name_or_id=f&#34;{self.namespace}/{self.repo}&#34;,
+            )
+
+            # Handle possible 301
+            if (
+                self._github_repo.owner.login != self.namespace
+                or self._github_repo.name != self.repo
+            ):
+                (self.namespace, self.repo) = (
+                    self._github_repo.owner.login,
+                    self._github_repo.name,
+                )
+        return self._github_repo
+
+    def __str__(self) -&gt; str:
+        return f&#39;GithubProject(namespace=&#34;{self.namespace}&#34;, repo=&#34;{self.repo}&#34;)&#39;
+
+    def __eq__(self, o: object) -&gt; bool:
+        if not isinstance(o, GithubProject):
+            return False
+
+        return (
+            self.repo == o.repo
+            and self.namespace == o.namespace
+            and self.service == o.service
+            and self.read_only == o.read_only
+        )
+
+    @property
+    def description(self) -&gt; str:
+        return self.github_repo.description
+
+    @description.setter
+    def description(self, new_description: str) -&gt; None:
+        self.github_repo.edit(description=new_description)
+
+    @property
+    def has_issues(self) -&gt; bool:
+        return self.github_repo.has_issues
+
+    def _construct_fork_project(self) -&gt; Optional[&#34;GithubProject&#34;]:
+        gh_user = self.github_instance.get_user()
+        user_login = gh_user.login
+        try:
+            project = GithubProject(
+                self.repo,
+                self.service,
+                namespace=user_login,
+                read_only=self.read_only,
+            )
+            if not project.github_repo:
+                # The github_repo attribute is lazy.
+                return None
+            return project
+        except github.GithubException as ex:
+            logger.debug(f&#34;Project {user_login}/{self.repo} does not exist: {ex}&#34;)
+            return None
+
+    def exists(self) -&gt; bool:
+        try:
+            _ = self.github_repo
+            return True
+        except UnknownObjectException as ex:
+            if &#34;Not Found&#34; in str(ex):
+                return False
+            raise GithubAPIException from ex
+
+    def is_private(self) -&gt; bool:
+        return self.github_repo.private
+
+    def is_forked(self) -&gt; bool:
+        return bool(self._construct_fork_project())
+
+    @property
+    def is_fork(self) -&gt; bool:
+        return self.github_repo.fork
+
+    @property
+    def parent(self) -&gt; Optional[&#34;GithubProject&#34;]:
+        return (
+            self.service.get_project_from_github_repository(self.github_repo.parent)
+            if self.is_fork
+            else None
+        )
+
+    @property
+    def default_branch(self):
+        return self.github_repo.default_branch
+
+    def get_branches(self) -&gt; list[str]:
+        return [branch.name for branch in self.github_repo.get_branches()]
+
+    def get_commits(self, ref: Optional[str] = None) -&gt; list[str]:
+        ref = ref or self.github_repo.default_branch
+        return [commit.sha for commit in self.github_repo.get_commits(sha=ref)]
+
+    def get_description(self) -&gt; str:
+        return self.github_repo.description
+
+    def add_user(self, user: str, access_level: AccessLevel) -&gt; None:
+        access_dict = {
+            AccessLevel.pull: &#34;Pull&#34;,
+            AccessLevel.triage: &#34;Triage&#34;,
+            AccessLevel.push: &#34;Push&#34;,
+            AccessLevel.admin: &#34;Admin&#34;,
+            AccessLevel.maintain: &#34;Maintain&#34;,
+        }
+        try:
+            invitation = self.github_repo.add_to_collaborators(
+                user,
+                permission=access_dict[access_level],
+            )
+        except Exception as ex:
+            raise GithubAPIException(f&#34;User {user} not found&#34;) from ex
+
+        if invitation is None:
+            raise GithubAPIException(&#34;User already added&#34;)
+
+    def request_access(self):
+        raise OperationNotSupported(&#34;Not possible on GitHub&#34;)
+
+    def get_fork(self, create: bool = True) -&gt; Optional[&#34;GithubProject&#34;]:
+        # The cheapest check that assumes fork has the same repository name as
+        # the upstream
+        if fork := self._construct_fork_project():
+            return fork
+
+        # If not successful, the fork could still exist, but has a custom name
+        username = self.service.user.get_username()
+        for fork in self.get_forks():
+            if fork.github_repo.owner.login == username:
+                return fork
+
+        # We have not found any fork owned by the auth&#39;d user
+        if create:
+            return self.fork_create()
+
+        logger.info(
+            f&#34;Fork of {self.github_repo.full_name}&#34;
+            &#34; does not exist and we were asked not to create it.&#34;,
+        )
+        return None
+
+    def get_owners(self) -&gt; list[str]:
+        # in case of github, repository has only one owner
+        return [self.github_repo.owner.login]
+
+    def __get_collaborators(self) -&gt; set[str]:
+        collaborators = self._get_collaborators_with_permission()
+
+        usernames = []
+        for login, permission in collaborators.items():
+            if permission in self.CAN_MERGE_PERMS:
+                usernames.append(login)
+
+        return set(usernames)
+
+    def who_can_close_issue(self) -&gt; set[str]:
+        return self.__get_collaborators()
+
+    def who_can_merge_pr(self) -&gt; set[str]:
+        return self.__get_collaborators()
+
+    def can_merge_pr(self, username) -&gt; bool:
+        return (
+            self.github_repo.get_collaborator_permission(username)
+            in self.CAN_MERGE_PERMS
+        )
+
+    def _get_collaborators_with_permission(self) -&gt; dict:
+        &#34;&#34;&#34;
+        Get all project collaborators in dictionary with permission association.
+
+        Returns:
+            Dictionary with logins of collaborators and their permission level.
+        &#34;&#34;&#34;
+        collaborators = {}
+        users = self.github_repo.get_collaborators()
+        for user in users:
+            permission = self.github_repo.get_collaborator_permission(user)
+            collaborators[user.login] = permission
+        return collaborators
+
+    @indirect(GithubIssue.get_list)
+    def get_issue_list(
+        self,
+        status: IssueStatus = IssueStatus.open,
+        author: Optional[str] = None,
+        assignee: Optional[str] = None,
+        labels: Optional[list[str]] = None,
+    ) -&gt; list[Issue]:
+        pass
+
+    @indirect(GithubIssue.get)
+    def get_issue(self, issue_id: int) -&gt; Issue:
+        pass
+
+    @indirect(GithubIssue.create)
+    def create_issue(
+        self,
+        title: str,
+        body: str,
+        private: Optional[bool] = None,
+        labels: Optional[list[str]] = None,
+        assignees: Optional[list[str]] = None,
+    ) -&gt; Issue:
+        pass
+
+    def delete(self) -&gt; None:
+        self.github_repo.delete()
+
+    @indirect(GithubPullRequest.get_list)
+    def get_pr_list(self, status: PRStatus = PRStatus.open) -&gt; list[PullRequest]:
+        pass
+
+    @indirect(GithubPullRequest.get)
+    def get_pr(self, pr_id: int) -&gt; PullRequest:
+        pass
+
+    def get_sha_from_tag(self, tag_name: str) -&gt; str:
+        # TODO: This is ugly. Can we do it better?
+        all_tags = self.github_repo.get_tags()
+        for tag in all_tags:
+            if tag.name == tag_name:
+                return tag.commit.sha
+        raise GithubAPIException(f&#34;Tag {tag_name} was not found.&#34;)
+
+    def get_tag_from_tag_name(self, tag_name: str) -&gt; Optional[GitTag]:
+        &#34;&#34;&#34;
+        Get a tag based on a tag name.
+
+        Args:
+            tag_name: Name of the tag.
+
+        Returns:
+            GitTag associated with the given tag name or `None`.
+        &#34;&#34;&#34;
+        all_tags = self.github_repo.get_tags()
+        for tag in all_tags:
+            if tag.name == tag_name:
+                return GitTag(name=tag.name, commit_sha=tag.commit.sha)
+        return None
+
+    @if_readonly(return_function=GitProjectReadOnly.create_pr)
+    @indirect(GithubPullRequest.create)
+    def create_pr(
+        self,
+        title: str,
+        body: str,
+        target_branch: str,
+        source_branch: str,
+        fork_username: Optional[str] = None,
+    ) -&gt; PullRequest:
+        pass
+
+    @if_readonly(
+        return_function=GitProjectReadOnly.commit_comment,
+        log_message=&#34;Create Comment to commit&#34;,
+    )
+    def commit_comment(
+        self,
+        commit: str,
+        body: str,
+        filename: Optional[str] = None,
+        row: Optional[int] = None,
+    ) -&gt; CommitComment:
+        github_commit: Commit = self.github_repo.get_commit(commit)
+        if filename and row:
+            comment = github_commit.create_comment(
+                body=body,
+                position=row,
+                path=filename,
+            )
+        else:
+            comment = github_commit.create_comment(body=body)
+        return self._commit_comment_from_github_object(comment)
+
+    @staticmethod
+    def _commit_comment_from_github_object(
+        raw_commit_coment: _GithubCommitComment,
+    ) -&gt; CommitComment:
+        return GithubCommitComment(
+            raw_comment=raw_commit_coment,
+            sha=raw_commit_coment.commit_id,
+        )
+
+    def get_commit_comments(self, commit: str) -&gt; list[CommitComment]:
+        github_commit: Commit = self.github_repo.get_commit(commit)
+        return [
+            self._commit_comment_from_github_object(comment)
+            for comment in github_commit.get_comments()
+        ]
+
+    def get_commit_comment(self, commit_sha: str, comment_id: int) -&gt; CommitComment:
+        return self._commit_comment_from_github_object(
+            self.github_repo.get_comment(comment_id),
+        )
+
+    @if_readonly(
+        return_function=GitProjectReadOnly.set_commit_status,
+        log_message=&#34;Create a status on a commit&#34;,
+    )
+    @indirect(GithubCommitFlag.set)
+    def set_commit_status(
+        self,
+        commit: str,
+        state: Union[CommitStatus, str],
+        target_url: str,
+        description: str,
+        context: str,
+        trim: bool = False,
+    ):
+        pass
+
+    @indirect(GithubCommitFlag.get)
+    def get_commit_statuses(self, commit: str) -&gt; list[CommitFlag]:
+        pass
+
+    @indirect(GithubCheckRun.get)
+    def get_check_run(
+        self,
+        check_run_id: Optional[int] = None,
+        commit_sha: Optional[str] = None,
+    ) -&gt; Optional[&#34;GithubCheckRun&#34;]:
+        pass
+
+    @indirect(GithubCheckRun.create)
+    def create_check_run(
+        self,
+        name: str,
+        commit_sha: str,
+        url: Optional[str] = None,
+        external_id: Optional[str] = None,
+        status: GithubCheckRunStatus = GithubCheckRunStatus.queued,
+        started_at: Optional[datetime.datetime] = None,
+        conclusion: Optional[GithubCheckRunResult] = None,
+        completed_at: Optional[datetime.datetime] = None,
+        output: Optional[GithubCheckRunOutput] = None,
+        actions: Optional[list[dict[str, str]]] = None,
+    ) -&gt; &#34;GithubCheckRun&#34;:
+        pass
+
+    @indirect(GithubCheckRun.get_list)
+    def get_check_runs(
+        self,
+        commit_sha: str,
+        name: Optional[str] = None,
+        status: Optional[GithubCheckRunStatus] = None,
+    ) -&gt; list[&#34;GithubCheckRun&#34;]:
+        pass
+
+    def get_git_urls(self) -&gt; dict[str, str]:
+        return {&#34;git&#34;: self.github_repo.clone_url, &#34;ssh&#34;: self.github_repo.ssh_url}
+
+    @if_readonly(return_function=GitProjectReadOnly.fork_create)
+    def fork_create(self, namespace: Optional[str] = None) -&gt; &#34;GithubProject&#34;:
+        fork_repo = (
+            self.github_repo.create_fork(organization=namespace)
+            if namespace
+            else self.github_repo.create_fork()
+        )
+
+        fork = self.service.get_project_from_github_repository(fork_repo)
+        logger.debug(f&#34;Forked to {fork.namespace}/{fork.repo}&#34;)
+        return fork
+
+    def change_token(self, new_token: str):
+        raise OperationNotSupported
+
+    def get_file_content(self, path: str, ref=None) -&gt; str:
+        ref = ref or self.default_branch
+        try:
+            return self.github_repo.get_contents(
+                path=path,
+                ref=ref,
+            ).decoded_content.decode()
+        except (UnknownObjectException, GithubException) as ex:
+            if ex.status == 404:
+                raise FileNotFoundError(f&#34;File &#39;{path}&#39; on {ref} not found&#34;) from ex
+            raise GithubAPIException() from ex
+
+    def get_files(
+        self,
+        ref: Optional[str] = None,
+        filter_regex: Optional[str] = None,
+        recursive: bool = False,
+    ) -&gt; list[str]:
+        ref = ref or self.default_branch
+        paths = []
+        contents = self.github_repo.get_contents(path=&#34;&#34;, ref=ref)
+
+        if recursive:
+            while contents:
+                file_content = contents.pop(0)
+                if file_content.type == &#34;dir&#34;:
+                    contents.extend(
+                        self.github_repo.get_contents(path=file_content.path, ref=ref),
+                    )
+                else:
+                    paths.append(file_content.path)
+
+        else:
+            paths = [
+                file_content.path
+                for file_content in contents
+                if file_content.type != &#34;dir&#34;
+            ]
+
+        if filter_regex:
+            paths = list(filter_paths(paths, filter_regex))
+
+        return paths
+
+    def get_labels(self):
+        &#34;&#34;&#34;
+        Get list of labels in the repository.
+
+        Returns:
+            List of labels in the repository.
+        &#34;&#34;&#34;
+        return list(self.github_repo.get_labels())
+
+    def update_labels(self, labels):
+        &#34;&#34;&#34;
+        Update the labels of the repository. (No deletion, only add not existing ones.)
+
+        Args:
+            labels: List of labels to be added.
+
+        Returns:
+            Number of added labels.
+        &#34;&#34;&#34;
+        current_label_names = [la.name for la in list(self.github_repo.get_labels())]
+        changes = 0
+        for label in labels:
+            if label.name not in current_label_names:
+                color = self._normalize_label_color(color=label.color)
+                self.github_repo.create_label(
+                    name=label.name,
+                    color=color,
+                    description=label.description or &#34;&#34;,
+                )
+
+                changes += 1
+        return changes
+
+    @staticmethod
+    def _normalize_label_color(color):
+        if color.startswith(&#34;#&#34;):
+            return color[1:]
+        return color
+
+    @indirect(GithubRelease.get)
+    def get_release(self, identifier=None, name=None, tag_name=None) -&gt; GithubRelease:
+        pass
+
+    @indirect(GithubRelease.get_latest)
+    def get_latest_release(self) -&gt; Optional[GithubRelease]:
+        pass
+
+    @indirect(GithubRelease.get_list)
+    def get_releases(self) -&gt; list[Release]:
+        pass
+
+    @indirect(GithubRelease.create)
+    def create_release(self, tag: str, name: str, message: str) -&gt; GithubRelease:
+        pass
+
+    def get_forks(self) -&gt; list[&#34;GithubProject&#34;]:
+        return [
+            self.service.get_project_from_github_repository(fork)
+            for fork in self.github_repo.get_forks()
+            if fork.owner
+        ]
+
+    def get_web_url(self) -&gt; str:
+        return self.github_repo.html_url
+
+    def get_tags(self) -&gt; list[&#34;GitTag&#34;]:
+        return [GitTag(tag.name, tag.commit.sha) for tag in self.github_repo.get_tags()]
+
+    def get_sha_from_branch(self, branch: str) -&gt; Optional[str]:
+        try:
+            return self.github_repo.get_branch(branch).commit.sha
+        except GithubException as ex:
+            if ex.status == 404:
+                return None
+            raise GithubAPIException from ex
+
+    def get_contributors(self) -&gt; set[str]:
+        &#34;&#34;&#34;
+        Returns:
+            Logins of contributors to the project.
+        &#34;&#34;&#34;
+        return {c.login for c in self.github_repo.get_contributors()}
+
+    def users_with_write_access(self) -&gt; set[str]:
+        return self.__get_collaborators()</code></pre>
+</details>
+<div class="desc"><h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>repo</code></strong></dt>
+<dd>Name of the project.</dd>
+<dt><strong><code>service</code></strong></dt>
+<dd>GitService instance.</dd>
+<dt><strong><code>namespace</code></strong></dt>
+<dd>
+<p>Namespace of the project.</p>
+<ul>
+<li>GitHub: username or org name.</li>
+<li>GitLab: username or org name.</li>
+<li>Pagure: namespace (e.g. <code>"rpms"</code>).</li>
+</ul>
+<p>In case of forks: <code>"fork/{username}/{namespace}"</code>.</p>
+</dd>
+</dl></div>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="ogr.services.base.BaseGitProject" href="../base.html#ogr.services.base.BaseGitProject">BaseGitProject</a></li>
+<li><a title="ogr.abstract.GitProject" href="../../abstract.html#ogr.abstract.GitProject">GitProject</a></li>
+<li><a title="ogr.abstract.OgrAbstractClass" href="../../abstract.html#ogr.abstract.OgrAbstractClass">OgrAbstractClass</a></li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="ogr.services.github.GithubProject.CAN_MERGE_PERMS"><code class="name">var <span class="ident">CAN_MERGE_PERMS</span> : ClassVar[set[str]]</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="ogr.services.github.GithubProject.service"><code class="name">var <span class="ident">service</span> : <a title="ogr.services.github.service.GithubService" href="service.html#ogr.services.github.service.GithubService">GithubService</a></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Instance variables</h3>
+<dl>
+<dt id="ogr.services.github.GithubProject.github_instance"><code class="name">prop <span class="ident">github_instance</span></code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def github_instance(self):
+    if not self._github_instance:
+        self._github_instance = self.service.get_pygithub_instance(
+            self.namespace,
+            self.repo,
+        )
+
+    return self._github_instance</code></pre>
+</details>
+<div class="desc"></div>
+</dd>
+<dt id="ogr.services.github.GithubProject.github_repo"><code class="name">prop <span class="ident">github_repo</span></code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def github_repo(self):
+    if not self._github_repo:
+        self._github_repo = self.github_instance.get_repo(
+            full_name_or_id=f&#34;{self.namespace}/{self.repo}&#34;,
+        )
+
+        # Handle possible 301
+        if (
+            self._github_repo.owner.login != self.namespace
+            or self._github_repo.name != self.repo
+        ):
+            (self.namespace, self.repo) = (
+                self._github_repo.owner.login,
+                self._github_repo.name,
+            )
+    return self._github_repo</code></pre>
+</details>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Methods</h3>
+<dl>
+<dt id="ogr.services.github.GithubProject.create_check_run"><code class="name flex">
+<span>def <span class="ident">create_check_run</span></span>(<span>self,<br>name: str,<br>commit_sha: str,<br>url: str | None = None,<br>external_id: str | None = None,<br>status: <a title="ogr.services.github.check_run.GithubCheckRunStatus" href="check_run.html#ogr.services.github.check_run.GithubCheckRunStatus">GithubCheckRunStatus</a> = GithubCheckRunStatus.queued,<br>started_at: datetime.datetime | None = None,<br>conclusion: <a title="ogr.services.github.check_run.GithubCheckRunResult" href="check_run.html#ogr.services.github.check_run.GithubCheckRunResult">GithubCheckRunResult</a> | None = None,<br>completed_at: datetime.datetime | None = None,<br>output: dict[str, str | list[dict[str, str | int]]] | None = None,<br>actions: list[dict[str, str]] | None = None) ‑> <a title="ogr.services.github.check_run.GithubCheckRun" href="check_run.html#ogr.services.github.check_run.GithubCheckRun">GithubCheckRun</a></span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@indirect(GithubCheckRun.create)
+def create_check_run(
+    self,
+    name: str,
+    commit_sha: str,
+    url: Optional[str] = None,
+    external_id: Optional[str] = None,
+    status: GithubCheckRunStatus = GithubCheckRunStatus.queued,
+    started_at: Optional[datetime.datetime] = None,
+    conclusion: Optional[GithubCheckRunResult] = None,
+    completed_at: Optional[datetime.datetime] = None,
+    output: Optional[GithubCheckRunOutput] = None,
+    actions: Optional[list[dict[str, str]]] = None,
+) -&gt; &#34;GithubCheckRun&#34;:
+    pass</code></pre>
+</details>
+<div class="desc"></div>
+</dd>
+<dt id="ogr.services.github.GithubProject.get_check_run"><code class="name flex">
+<span>def <span class="ident">get_check_run</span></span>(<span>self, check_run_id: int | None = None, commit_sha: str | None = None) ‑> <a title="ogr.services.github.check_run.GithubCheckRun" href="check_run.html#ogr.services.github.check_run.GithubCheckRun">GithubCheckRun</a> | None</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@indirect(GithubCheckRun.get)
+def get_check_run(
+    self,
+    check_run_id: Optional[int] = None,
+    commit_sha: Optional[str] = None,
+) -&gt; Optional[&#34;GithubCheckRun&#34;]:
+    pass</code></pre>
+</details>
+<div class="desc"></div>
+</dd>
+<dt id="ogr.services.github.GithubProject.get_check_runs"><code class="name flex">
+<span>def <span class="ident">get_check_runs</span></span>(<span>self,<br>commit_sha: str,<br>name: str | None = None,<br>status: <a title="ogr.services.github.check_run.GithubCheckRunStatus" href="check_run.html#ogr.services.github.check_run.GithubCheckRunStatus">GithubCheckRunStatus</a> | None = None) ‑> list[<a title="ogr.services.github.check_run.GithubCheckRun" href="check_run.html#ogr.services.github.check_run.GithubCheckRun">GithubCheckRun</a>]</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@indirect(GithubCheckRun.get_list)
+def get_check_runs(
+    self,
+    commit_sha: str,
+    name: Optional[str] = None,
+    status: Optional[GithubCheckRunStatus] = None,
+) -&gt; list[&#34;GithubCheckRun&#34;]:
+    pass</code></pre>
+</details>
+<div class="desc"></div>
+</dd>
+<dt id="ogr.services.github.GithubProject.get_contributors"><code class="name flex">
+<span>def <span class="ident">get_contributors</span></span>(<span>self) ‑> set[str]</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_contributors(self) -&gt; set[str]:
+    &#34;&#34;&#34;
+    Returns:
+        Logins of contributors to the project.
+    &#34;&#34;&#34;
+    return {c.login for c in self.github_repo.get_contributors()}</code></pre>
+</details>
+<div class="desc"><h2 id="returns">Returns</h2>
+<p>Logins of contributors to the project.</p></div>
+</dd>
+<dt id="ogr.services.github.GithubProject.get_labels"><code class="name flex">
+<span>def <span class="ident">get_labels</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_labels(self):
+    &#34;&#34;&#34;
+    Get list of labels in the repository.
+
+    Returns:
+        List of labels in the repository.
+    &#34;&#34;&#34;
+    return list(self.github_repo.get_labels())</code></pre>
+</details>
+<div class="desc"><p>Get list of labels in the repository.</p>
+<h2 id="returns">Returns</h2>
+<p>List of labels in the repository.</p></div>
+</dd>
+<dt id="ogr.services.github.GithubProject.get_tag_from_tag_name"><code class="name flex">
+<span>def <span class="ident">get_tag_from_tag_name</span></span>(<span>self, tag_name: str) ‑> <a title="ogr.abstract.GitTag" href="../../abstract.html#ogr.abstract.GitTag">GitTag</a> | None</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_tag_from_tag_name(self, tag_name: str) -&gt; Optional[GitTag]:
+    &#34;&#34;&#34;
+    Get a tag based on a tag name.
+
+    Args:
+        tag_name: Name of the tag.
+
+    Returns:
+        GitTag associated with the given tag name or `None`.
+    &#34;&#34;&#34;
+    all_tags = self.github_repo.get_tags()
+    for tag in all_tags:
+        if tag.name == tag_name:
+            return GitTag(name=tag.name, commit_sha=tag.commit.sha)
+    return None</code></pre>
+</details>
+<div class="desc"><p>Get a tag based on a tag name.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>tag_name</code></strong></dt>
+<dd>Name of the tag.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p>GitTag associated with the given tag name or <code>None</code>.</p></div>
+</dd>
+<dt id="ogr.services.github.GithubProject.update_labels"><code class="name flex">
+<span>def <span class="ident">update_labels</span></span>(<span>self, labels)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def update_labels(self, labels):
+    &#34;&#34;&#34;
+    Update the labels of the repository. (No deletion, only add not existing ones.)
+
+    Args:
+        labels: List of labels to be added.
+
+    Returns:
+        Number of added labels.
+    &#34;&#34;&#34;
+    current_label_names = [la.name for la in list(self.github_repo.get_labels())]
+    changes = 0
+    for label in labels:
+        if label.name not in current_label_names:
+            color = self._normalize_label_color(color=label.color)
+            self.github_repo.create_label(
+                name=label.name,
+                color=color,
+                description=label.description or &#34;&#34;,
+            )
+
+            changes += 1
+    return changes</code></pre>
+</details>
+<div class="desc"><p>Update the labels of the repository. (No deletion, only add not existing ones.)</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>labels</code></strong></dt>
+<dd>List of labels to be added.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p>Number of added labels.</p></div>
+</dd>
+</dl>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="ogr.services.base.BaseGitProject" href="../base.html#ogr.services.base.BaseGitProject">BaseGitProject</a></b></code>:
+<ul class="hlist">
+<li><code><a title="ogr.services.base.BaseGitProject.add_group" href="../../abstract.html#ogr.abstract.GitProject.add_group">add_group</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitProject.add_user" href="../../abstract.html#ogr.abstract.GitProject.add_user">add_user</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitProject.can_merge_pr" href="../../abstract.html#ogr.abstract.GitProject.can_merge_pr">can_merge_pr</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitProject.change_token" href="../../abstract.html#ogr.abstract.GitProject.change_token">change_token</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitProject.commit_comment" href="../../abstract.html#ogr.abstract.GitProject.commit_comment">commit_comment</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitProject.create_issue" href="../../abstract.html#ogr.abstract.GitProject.create_issue">create_issue</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitProject.create_pr" href="../../abstract.html#ogr.abstract.GitProject.create_pr">create_pr</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitProject.create_release" href="../../abstract.html#ogr.abstract.GitProject.create_release">create_release</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitProject.default_branch" href="../../abstract.html#ogr.abstract.GitProject.default_branch">default_branch</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitProject.delete" href="../../abstract.html#ogr.abstract.GitProject.delete">delete</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitProject.description" href="../../abstract.html#ogr.abstract.GitProject.description">description</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitProject.exists" href="../../abstract.html#ogr.abstract.GitProject.exists">exists</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitProject.fork_create" href="../../abstract.html#ogr.abstract.GitProject.fork_create">fork_create</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitProject.full_repo_name" href="../../abstract.html#ogr.abstract.GitProject.full_repo_name">full_repo_name</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitProject.get_branches" href="../../abstract.html#ogr.abstract.GitProject.get_branches">get_branches</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitProject.get_commit_comment" href="../../abstract.html#ogr.abstract.GitProject.get_commit_comment">get_commit_comment</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitProject.get_commit_comments" href="../../abstract.html#ogr.abstract.GitProject.get_commit_comments">get_commit_comments</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitProject.get_commit_statuses" href="../../abstract.html#ogr.abstract.GitProject.get_commit_statuses">get_commit_statuses</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitProject.get_commits" href="../../abstract.html#ogr.abstract.GitProject.get_commits">get_commits</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitProject.get_description" href="../../abstract.html#ogr.abstract.GitProject.get_description">get_description</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitProject.get_file_content" href="../../abstract.html#ogr.abstract.GitProject.get_file_content">get_file_content</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitProject.get_files" href="../../abstract.html#ogr.abstract.GitProject.get_files">get_files</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitProject.get_fork" href="../../abstract.html#ogr.abstract.GitProject.get_fork">get_fork</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitProject.get_forks" href="../../abstract.html#ogr.abstract.GitProject.get_forks">get_forks</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitProject.get_git_urls" href="../../abstract.html#ogr.abstract.GitProject.get_git_urls">get_git_urls</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitProject.get_issue" href="../../abstract.html#ogr.abstract.GitProject.get_issue">get_issue</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitProject.get_issue_info" href="../../abstract.html#ogr.abstract.GitProject.get_issue_info">get_issue_info</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitProject.get_issue_list" href="../../abstract.html#ogr.abstract.GitProject.get_issue_list">get_issue_list</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitProject.get_latest_release" href="../../abstract.html#ogr.abstract.GitProject.get_latest_release">get_latest_release</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitProject.get_owners" href="../../abstract.html#ogr.abstract.GitProject.get_owners">get_owners</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitProject.get_pr" href="../../abstract.html#ogr.abstract.GitProject.get_pr">get_pr</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitProject.get_pr_files_diff" href="../../abstract.html#ogr.abstract.GitProject.get_pr_files_diff">get_pr_files_diff</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitProject.get_pr_list" href="../../abstract.html#ogr.abstract.GitProject.get_pr_list">get_pr_list</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitProject.get_release" href="../../abstract.html#ogr.abstract.GitProject.get_release">get_release</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitProject.get_releases" href="../../abstract.html#ogr.abstract.GitProject.get_releases">get_releases</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitProject.get_sha_from_branch" href="../../abstract.html#ogr.abstract.GitProject.get_sha_from_branch">get_sha_from_branch</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitProject.get_sha_from_tag" href="../../abstract.html#ogr.abstract.GitProject.get_sha_from_tag">get_sha_from_tag</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitProject.get_tags" href="../../abstract.html#ogr.abstract.GitProject.get_tags">get_tags</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitProject.get_users_with_given_access" href="../../abstract.html#ogr.abstract.GitProject.get_users_with_given_access">get_users_with_given_access</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitProject.get_web_url" href="../../abstract.html#ogr.abstract.GitProject.get_web_url">get_web_url</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitProject.has_issues" href="../../abstract.html#ogr.abstract.GitProject.has_issues">has_issues</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitProject.has_write_access" href="../../abstract.html#ogr.abstract.GitProject.has_write_access">has_write_access</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitProject.is_fork" href="../../abstract.html#ogr.abstract.GitProject.is_fork">is_fork</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitProject.is_forked" href="../../abstract.html#ogr.abstract.GitProject.is_forked">is_forked</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitProject.is_private" href="../../abstract.html#ogr.abstract.GitProject.is_private">is_private</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitProject.parent" href="../../abstract.html#ogr.abstract.GitProject.parent">parent</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitProject.remove_group" href="../../abstract.html#ogr.abstract.GitProject.remove_group">remove_group</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitProject.remove_user" href="../../abstract.html#ogr.abstract.GitProject.remove_user">remove_user</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitProject.request_access" href="../../abstract.html#ogr.abstract.GitProject.request_access">request_access</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitProject.set_commit_status" href="../../abstract.html#ogr.abstract.GitProject.set_commit_status">set_commit_status</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitProject.users_with_write_access" href="../../abstract.html#ogr.abstract.GitProject.users_with_write_access">users_with_write_access</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitProject.which_groups_can_merge_pr" href="../../abstract.html#ogr.abstract.GitProject.which_groups_can_merge_pr">which_groups_can_merge_pr</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitProject.who_can_close_issue" href="../../abstract.html#ogr.abstract.GitProject.who_can_close_issue">who_can_close_issue</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitProject.who_can_merge_pr" href="../../abstract.html#ogr.abstract.GitProject.who_can_merge_pr">who_can_merge_pr</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+<dt id="ogr.services.github.GithubPullRequest"><code class="flex name class">
+<span>class <span class="ident">GithubPullRequest</span></span>
+<span>(</span><span>raw_pr: Any, project: GitProject)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class GithubPullRequest(BasePullRequest):
+    _raw_pr: _GithubPullRequest
+    _target_project: &#34;ogr_github.GithubProject&#34;
+    _source_project: &#34;ogr_github.GithubProject&#34; = None
+
+    @property
+    def title(self) -&gt; str:
+        return self._raw_pr.title
+
+    @title.setter
+    def title(self, new_title: str) -&gt; None:
+        self._raw_pr.edit(title=new_title)
+
+    @property
+    def id(self) -&gt; int:
+        return self._raw_pr.number
+
+    @property
+    def status(self) -&gt; PRStatus:
+        return (
+            PRStatus.merged
+            if self._raw_pr.is_merged()
+            else PRStatus[self._raw_pr.state]
+        )
+
+    @property
+    def url(self) -&gt; str:
+        return self._raw_pr.html_url
+
+    @property
+    def description(self) -&gt; str:
+        return self._raw_pr.body
+
+    @description.setter
+    def description(self, new_description: str) -&gt; None:
+        self._raw_pr.edit(body=new_description)
+
+    @property
+    def author(self) -&gt; str:
+        return self._raw_pr.user.login
+
+    @property
+    def source_branch(self) -&gt; str:
+        return self._raw_pr.head.ref
+
+    @property
+    def target_branch(self) -&gt; str:
+        return self._raw_pr.base.ref
+
+    @property
+    def created(self) -&gt; datetime.datetime:
+        return self._raw_pr.created_at
+
+    @property
+    def labels(self) -&gt; list[PRLabel]:
+        return [
+            GithubPRLabel(raw_label, self) for raw_label in self._raw_pr.get_labels()
+        ]
+
+    @property
+    def diff_url(self) -&gt; str:
+        return f&#34;{self._raw_pr.html_url}/files&#34;
+
+    @property
+    def patch(self) -&gt; bytes:
+        response = requests.get(self._raw_pr.patch_url)
+
+        if not response.ok:
+            cls = OgrNetworkError if response.status_code &gt;= 500 else GithubAPIException
+            raise cls(
+                f&#34;Couldn&#39;t get patch from {self._raw_pr.patch_url} because {response.reason}.&#34;,
+            )
+
+        return response.content
+
+    @property
+    def commits_url(self) -&gt; str:
+        return f&#34;{self._raw_pr.html_url}/commits&#34;
+
+    @property
+    def head_commit(self) -&gt; str:
+        return self._raw_pr.head.sha
+
+    @property
+    def merge_commit_sha(self) -&gt; str:
+        return self._raw_pr.merge_commit_sha
+
+    @property
+    def merge_commit_status(self) -&gt; MergeCommitStatus:
+        if self._raw_pr.mergeable:
+            return MergeCommitStatus.can_be_merged
+
+        return MergeCommitStatus.cannot_be_merged
+
+    @property
+    def source_project(self) -&gt; &#34;ogr_github.GithubProject&#34;:
+        if self._source_project is None:
+            self._source_project = (
+                self._target_project.service.get_project_from_github_repository(
+                    self._raw_pr.head.repo,
+                )
+            )
+
+        return self._source_project
+
+    def __str__(self) -&gt; str:
+        return &#34;Github&#34; + super().__str__()
+
+    @staticmethod
+    def create(
+        project: &#34;ogr_github.GithubProject&#34;,
+        title: str,
+        body: str,
+        target_branch: str,
+        source_branch: str,
+        fork_username: Optional[str] = None,
+    ) -&gt; &#34;PullRequest&#34;:
+        &#34;&#34;&#34;
+        The default behavior is the pull request is made to the immediate parent repository
+        if the repository is a forked repository.
+        If you want to create a pull request to the forked repo, please pass
+        the `fork_username` parameter.
+        &#34;&#34;&#34;
+        github_repo = project.github_repo
+
+        target_project = project
+        if project.is_fork and fork_username is None:
+            logger.warning(f&#34;{project.full_repo_name} is fork, ignoring fork_repo.&#34;)
+            source_branch = f&#34;{project.namespace}:{source_branch}&#34;
+            github_repo = project.parent.github_repo
+            target_project = project.parent
+        elif fork_username:
+            source_branch = f&#34;{fork_username}:{source_branch}&#34;
+            if fork_username != project.namespace and project.parent is not None:
+                github_repo = GithubPullRequest.__get_fork(
+                    fork_username,
+                    project.parent.github_repo,
+                )
+
+        created_pr = github_repo.create_pull(
+            title=title,
+            body=body,
+            base=target_branch,
+            head=source_branch,
+        )
+        logger.info(f&#34;PR {created_pr.id} created: {target_branch}&lt;-{source_branch}&#34;)
+        return GithubPullRequest(created_pr, target_project)
+
+    @staticmethod
+    def __get_fork(fork_username: str, repo: _GithubRepository) -&gt; _GithubRepository:
+        forks = list(
+            filter(lambda fork: fork.owner.login == fork_username, repo.get_forks()),
+        )
+        if not forks:
+            raise GithubAPIException(&#34;Requested fork doesn&#39;t exist&#34;)
+        return forks[0]
+
+    @staticmethod
+    def get(project: &#34;ogr_github.GithubProject&#34;, pr_id: int) -&gt; &#34;PullRequest&#34;:
+        try:
+            pr = project.github_repo.get_pull(number=pr_id)
+        except github.UnknownObjectException as ex:
+            raise GithubAPIException(f&#34;No pull request with id {pr_id} found&#34;) from ex
+        return GithubPullRequest(pr, project)
+
+    @staticmethod
+    def get_list(
+        project: &#34;ogr_github.GithubProject&#34;,
+        status: PRStatus = PRStatus.open,
+    ) -&gt; list[&#34;PullRequest&#34;]:
+        prs = project.github_repo.get_pulls(
+            # Github API has no status &#39;merged&#39;, just &#39;closed&#39;/&#39;opened&#39;/&#39;all&#39;
+            state=status.name if status != PRStatus.merged else &#34;closed&#34;,
+            sort=&#34;updated&#34;,
+            direction=&#34;desc&#34;,
+        )
+
+        if status == PRStatus.merged:
+            prs = list(prs)  # Github PaginatedList into list()
+            for pr in prs:
+                if not pr.is_merged():  # parse merged PRs
+                    prs.remove(pr)
+        try:
+            return [GithubPullRequest(pr, project) for pr in prs]
+        except UnknownObjectException:
+            return []
+
+    def update_info(
+        self,
+        title: Optional[str] = None,
+        description: Optional[str] = None,
+    ) -&gt; &#34;PullRequest&#34;:
+        try:
+            self._raw_pr.edit(title=title, body=description)
+            logger.info(f&#34;PR updated: {self._raw_pr.url}&#34;)
+            return self
+        except Exception as ex:
+            raise GithubAPIException(&#34;there was an error while updating the PR&#34;) from ex
+
+    def _get_all_comments(
+        self,
+        reverse: bool = False,
+    ) -&gt; Iterable[PRComment]:
+        comments = self._raw_pr.get_issue_comments()
+        if reverse:
+            comments = comments.reversed
+
+        return (
+            GithubPRComment(parent=self, raw_comment=raw_comment)
+            for raw_comment in comments
+        )
+
+    def get_all_commits(self) -&gt; list[str]:
+        return [commit.sha for commit in self._raw_pr.get_commits()]
+
+    def comment(
+        self,
+        body: str,
+        commit: Optional[str] = None,
+        filename: Optional[str] = None,
+        row: Optional[int] = None,
+    ) -&gt; &#34;PRComment&#34;:
+        comment: Union[_GithubIssueComment, _GithubPullRequestComment] = None
+        if not any([commit, filename, row]):
+            comment = self._raw_pr.create_issue_comment(body)
+        else:
+            github_commit = self._target_project.github_repo.get_commit(commit)
+            comment = self._raw_pr.create_comment(body, github_commit, filename, row)
+        return GithubPRComment(parent=self, raw_comment=comment)
+
+    def close(self) -&gt; &#34;PullRequest&#34;:
+        self._raw_pr.edit(state=PRStatus.closed.name)
+        return self
+
+    def merge(self) -&gt; &#34;PullRequest&#34;:
+        self._raw_pr.merge()
+        return self
+
+    def add_label(self, *labels: str) -&gt; None:
+        for label in labels:
+            self._raw_pr.add_to_labels(label)
+
+    def get_comment(self, comment_id: int) -&gt; PRComment:
+        return GithubPRComment(self._raw_pr.get_issue_comment(comment_id))</code></pre>
+</details>
+<div class="desc"><h2 id="attributes">Attributes</h2>
+<dl>
+<dt><strong><code>project</code></strong> :&ensp;<code>GitProject</code></dt>
+<dd>Project of the pull request.</dd>
+</dl></div>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="ogr.services.base.BasePullRequest" href="../base.html#ogr.services.base.BasePullRequest">BasePullRequest</a></li>
+<li><a title="ogr.abstract.PullRequest" href="../../abstract.html#ogr.abstract.PullRequest">PullRequest</a></li>
+<li><a title="ogr.abstract.OgrAbstractClass" href="../../abstract.html#ogr.abstract.OgrAbstractClass">OgrAbstractClass</a></li>
+</ul>
+<h3>Static methods</h3>
+<dl>
+<dt id="ogr.services.github.GithubPullRequest.create"><code class="name flex">
+<span>def <span class="ident">create</span></span>(<span>project: ogr_github.GithubProject,<br>title: str,<br>body: str,<br>target_branch: str,<br>source_branch: str,<br>fork_username: str | None = None) ‑> <a title="ogr.abstract.PullRequest" href="../../abstract.html#ogr.abstract.PullRequest">PullRequest</a></span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@staticmethod
+def create(
+    project: &#34;ogr_github.GithubProject&#34;,
+    title: str,
+    body: str,
+    target_branch: str,
+    source_branch: str,
+    fork_username: Optional[str] = None,
+) -&gt; &#34;PullRequest&#34;:
+    &#34;&#34;&#34;
+    The default behavior is the pull request is made to the immediate parent repository
+    if the repository is a forked repository.
+    If you want to create a pull request to the forked repo, please pass
+    the `fork_username` parameter.
+    &#34;&#34;&#34;
+    github_repo = project.github_repo
+
+    target_project = project
+    if project.is_fork and fork_username is None:
+        logger.warning(f&#34;{project.full_repo_name} is fork, ignoring fork_repo.&#34;)
+        source_branch = f&#34;{project.namespace}:{source_branch}&#34;
+        github_repo = project.parent.github_repo
+        target_project = project.parent
+    elif fork_username:
+        source_branch = f&#34;{fork_username}:{source_branch}&#34;
+        if fork_username != project.namespace and project.parent is not None:
+            github_repo = GithubPullRequest.__get_fork(
+                fork_username,
+                project.parent.github_repo,
+            )
+
+    created_pr = github_repo.create_pull(
+        title=title,
+        body=body,
+        base=target_branch,
+        head=source_branch,
+    )
+    logger.info(f&#34;PR {created_pr.id} created: {target_branch}&lt;-{source_branch}&#34;)
+    return GithubPullRequest(created_pr, target_project)</code></pre>
+</details>
+<div class="desc"><p>The default behavior is the pull request is made to the immediate parent repository
+if the repository is a forked repository.
+If you want to create a pull request to the forked repo, please pass
+the <code>fork_username</code> parameter.</p></div>
+</dd>
+</dl>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="ogr.services.base.BasePullRequest" href="../base.html#ogr.services.base.BasePullRequest">BasePullRequest</a></b></code>:
+<ul class="hlist">
+<li><code><a title="ogr.services.base.BasePullRequest.add_label" href="../../abstract.html#ogr.abstract.PullRequest.add_label">add_label</a></code></li>
+<li><code><a title="ogr.services.base.BasePullRequest.author" href="../../abstract.html#ogr.abstract.PullRequest.author">author</a></code></li>
+<li><code><a title="ogr.services.base.BasePullRequest.close" href="../../abstract.html#ogr.abstract.PullRequest.close">close</a></code></li>
+<li><code><a title="ogr.services.base.BasePullRequest.closed_by" href="../../abstract.html#ogr.abstract.PullRequest.closed_by">closed_by</a></code></li>
+<li><code><a title="ogr.services.base.BasePullRequest.comment" href="../../abstract.html#ogr.abstract.PullRequest.comment">comment</a></code></li>
+<li><code><a title="ogr.services.base.BasePullRequest.commits_url" href="../../abstract.html#ogr.abstract.PullRequest.commits_url">commits_url</a></code></li>
+<li><code><a title="ogr.services.base.BasePullRequest.created" href="../../abstract.html#ogr.abstract.PullRequest.created">created</a></code></li>
+<li><code><a title="ogr.services.base.BasePullRequest.description" href="../../abstract.html#ogr.abstract.PullRequest.description">description</a></code></li>
+<li><code><a title="ogr.services.base.BasePullRequest.diff_url" href="../../abstract.html#ogr.abstract.PullRequest.diff_url">diff_url</a></code></li>
+<li><code><a title="ogr.services.base.BasePullRequest.get" href="../../abstract.html#ogr.abstract.PullRequest.get">get</a></code></li>
+<li><code><a title="ogr.services.base.BasePullRequest.get_all_commits" href="../../abstract.html#ogr.abstract.PullRequest.get_all_commits">get_all_commits</a></code></li>
+<li><code><a title="ogr.services.base.BasePullRequest.get_comment" href="../../abstract.html#ogr.abstract.PullRequest.get_comment">get_comment</a></code></li>
+<li><code><a title="ogr.services.base.BasePullRequest.get_list" href="../../abstract.html#ogr.abstract.PullRequest.get_list">get_list</a></code></li>
+<li><code><a title="ogr.services.base.BasePullRequest.head_commit" href="../../abstract.html#ogr.abstract.PullRequest.head_commit">head_commit</a></code></li>
+<li><code><a title="ogr.services.base.BasePullRequest.id" href="../../abstract.html#ogr.abstract.PullRequest.id">id</a></code></li>
+<li><code><a title="ogr.services.base.BasePullRequest.labels" href="../../abstract.html#ogr.abstract.PullRequest.labels">labels</a></code></li>
+<li><code><a title="ogr.services.base.BasePullRequest.merge" href="../../abstract.html#ogr.abstract.PullRequest.merge">merge</a></code></li>
+<li><code><a title="ogr.services.base.BasePullRequest.merge_commit_sha" href="../../abstract.html#ogr.abstract.PullRequest.merge_commit_sha">merge_commit_sha</a></code></li>
+<li><code><a title="ogr.services.base.BasePullRequest.merge_commit_status" href="../../abstract.html#ogr.abstract.PullRequest.merge_commit_status">merge_commit_status</a></code></li>
+<li><code><a title="ogr.services.base.BasePullRequest.patch" href="../../abstract.html#ogr.abstract.PullRequest.patch">patch</a></code></li>
+<li><code><a title="ogr.services.base.BasePullRequest.source_branch" href="../../abstract.html#ogr.abstract.PullRequest.source_branch">source_branch</a></code></li>
+<li><code><a title="ogr.services.base.BasePullRequest.source_project" href="../../abstract.html#ogr.abstract.PullRequest.source_project">source_project</a></code></li>
+<li><code><a title="ogr.services.base.BasePullRequest.status" href="../../abstract.html#ogr.abstract.PullRequest.status">status</a></code></li>
+<li><code><a title="ogr.services.base.BasePullRequest.target_branch" href="../../abstract.html#ogr.abstract.PullRequest.target_branch">target_branch</a></code></li>
+<li><code><a title="ogr.services.base.BasePullRequest.target_branch_head_commit" href="../../abstract.html#ogr.abstract.PullRequest.target_branch_head_commit">target_branch_head_commit</a></code></li>
+<li><code><a title="ogr.services.base.BasePullRequest.target_project" href="../../abstract.html#ogr.abstract.PullRequest.target_project">target_project</a></code></li>
+<li><code><a title="ogr.services.base.BasePullRequest.title" href="../../abstract.html#ogr.abstract.PullRequest.title">title</a></code></li>
+<li><code><a title="ogr.services.base.BasePullRequest.update_info" href="../../abstract.html#ogr.abstract.PullRequest.update_info">update_info</a></code></li>
+<li><code><a title="ogr.services.base.BasePullRequest.url" href="../../abstract.html#ogr.abstract.PullRequest.url">url</a></code></li>
+</ul>
+</li>
+<li><code><b><a title="ogr.abstract.PullRequest" href="../../abstract.html#ogr.abstract.PullRequest">PullRequest</a></b></code>:
+<ul class="hlist">
+<li><code><a title="ogr.abstract.PullRequest.get_comments" href="../../abstract.html#ogr.abstract.PullRequest.get_comments">get_comments</a></code></li>
+<li><code><a title="ogr.abstract.PullRequest.get_statuses" href="../../abstract.html#ogr.abstract.PullRequest.get_statuses">get_statuses</a></code></li>
+<li><code><a title="ogr.abstract.PullRequest.search" href="../../abstract.html#ogr.abstract.PullRequest.search">search</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+<dt id="ogr.services.github.GithubRelease"><code class="flex name class">
+<span>class <span class="ident">GithubRelease</span></span>
+<span>(</span><span>raw_release: Any, project: GitProject)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class GithubRelease(Release):
+    _raw_release: PyGithubRelease
+    project: &#34;ogr_github.GithubProject&#34;
+
+    @staticmethod
+    def _release_id_from_name(
+        project: &#34;ogr_github.GithubProject&#34;,
+        name: str,
+    ) -&gt; Optional[int]:
+        releases = project.github_repo.get_releases()
+        for release in releases:
+            if release.title == name:
+                return release.id
+        return None
+
+    @staticmethod
+    def _release_id_from_tag(
+        project: &#34;ogr_github.GithubProject&#34;,
+        tag: str,
+    ) -&gt; Optional[int]:
+        releases = project.github_repo.get_releases()
+        for release in releases:
+            if release.tag_name == tag:
+                return release.id
+        return None
+
+    @property
+    def title(self):
+        return self._raw_release.title
+
+    @property
+    def body(self):
+        return self._raw_release.body
+
+    @property
+    def git_tag(self) -&gt; GitTag:
+        return self.project.get_tag_from_tag_name(self.tag_name)
+
+    @property
+    def tag_name(self) -&gt; str:
+        return self._raw_release.tag_name
+
+    @property
+    def url(self) -&gt; Optional[str]:
+        return self._raw_release.html_url
+
+    @property
+    def created_at(self) -&gt; datetime.datetime:
+        return self._raw_release.created_at
+
+    @property
+    def tarball_url(self) -&gt; str:
+        return self._raw_release.tarball_url
+
+    def __str__(self) -&gt; str:
+        return &#34;Github&#34; + super().__str__()
+
+    @staticmethod
+    def get(
+        project: &#34;ogr_github.GithubProject&#34;,
+        identifier: Optional[int] = None,
+        name: Optional[str] = None,
+        tag_name: Optional[str] = None,
+    ) -&gt; &#34;Release&#34;:
+        if tag_name:
+            identifier = GithubRelease._release_id_from_tag(project, tag_name)
+        elif name:
+            identifier = GithubRelease._release_id_from_name(project, name)
+        if identifier is None:
+            raise GithubAPIException(&#34;Release was not found.&#34;)
+        release = project.github_repo.get_release(id=identifier)
+        return GithubRelease(release, project)
+
+    @staticmethod
+    def get_latest(project: &#34;ogr_github.GithubProject&#34;) -&gt; Optional[&#34;Release&#34;]:
+        try:
+            release = project.github_repo.get_latest_release()
+            return GithubRelease(release, project)
+        except GithubException as ex:
+            if ex.status == 404:
+                return None
+            raise GithubAPIException from ex
+
+    @staticmethod
+    def get_list(project: &#34;ogr_github.GithubProject&#34;) -&gt; list[&#34;Release&#34;]:
+        releases = project.github_repo.get_releases()
+        return [GithubRelease(release, project) for release in releases]
+
+    @staticmethod
+    def create(
+        project: &#34;ogr_github.GithubProject&#34;,
+        tag: str,
+        name: str,
+        message: str,
+        ref: Optional[str] = None,
+    ) -&gt; &#34;Release&#34;:
+        created_release = project.github_repo.create_git_release(
+            tag=tag,
+            name=name,
+            message=message,
+        )
+        return GithubRelease(created_release, project)
+
+    def edit_release(self, name: str, message: str) -&gt; None:
+        &#34;&#34;&#34;
+        Edit name and message of a release.
+
+        Args:
+            name: New name of the release.
+            message: New message for the release.
+        &#34;&#34;&#34;
+        self._raw_release = self._raw_release.update_release(name=name, message=message)</code></pre>
+</details>
+<div class="desc"><p>Object that represents release.</p>
+<h2 id="attributes">Attributes</h2>
+<dl>
+<dt><strong><code>project</code></strong> :&ensp;<code>GitProject</code></dt>
+<dd>Project on which the release is created.</dd>
+</dl></div>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="ogr.abstract.Release" href="../../abstract.html#ogr.abstract.Release">Release</a></li>
+<li><a title="ogr.abstract.OgrAbstractClass" href="../../abstract.html#ogr.abstract.OgrAbstractClass">OgrAbstractClass</a></li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="ogr.services.github.GithubRelease.project"><code class="name">var <span class="ident">project</span> : <a title="ogr.services.github.project.GithubProject" href="project.html#ogr.services.github.project.GithubProject">GithubProject</a></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Methods</h3>
+<dl>
+<dt id="ogr.services.github.GithubRelease.edit_release"><code class="name flex">
+<span>def <span class="ident">edit_release</span></span>(<span>self, name: str, message: str) ‑> None</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def edit_release(self, name: str, message: str) -&gt; None:
+    &#34;&#34;&#34;
+    Edit name and message of a release.
+
+    Args:
+        name: New name of the release.
+        message: New message for the release.
+    &#34;&#34;&#34;
+    self._raw_release = self._raw_release.update_release(name=name, message=message)</code></pre>
+</details>
+<div class="desc"><p>Edit name and message of a release.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>name</code></strong></dt>
+<dd>New name of the release.</dd>
+<dt><strong><code>message</code></strong></dt>
+<dd>New message for the release.</dd>
+</dl></div>
+</dd>
+</dl>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="ogr.abstract.Release" href="../../abstract.html#ogr.abstract.Release">Release</a></b></code>:
+<ul class="hlist">
+<li><code><a title="ogr.abstract.Release.body" href="../../abstract.html#ogr.abstract.Release.body">body</a></code></li>
+<li><code><a title="ogr.abstract.Release.create" href="../../abstract.html#ogr.abstract.Release.create">create</a></code></li>
+<li><code><a title="ogr.abstract.Release.created_at" href="../../abstract.html#ogr.abstract.Release.created_at">created_at</a></code></li>
+<li><code><a title="ogr.abstract.Release.get" href="../../abstract.html#ogr.abstract.Release.get">get</a></code></li>
+<li><code><a title="ogr.abstract.Release.get_latest" href="../../abstract.html#ogr.abstract.Release.get_latest">get_latest</a></code></li>
+<li><code><a title="ogr.abstract.Release.get_list" href="../../abstract.html#ogr.abstract.Release.get_list">get_list</a></code></li>
+<li><code><a title="ogr.abstract.Release.git_tag" href="../../abstract.html#ogr.abstract.Release.git_tag">git_tag</a></code></li>
+<li><code><a title="ogr.abstract.Release.save_archive" href="../../abstract.html#ogr.abstract.Release.save_archive">save_archive</a></code></li>
+<li><code><a title="ogr.abstract.Release.tag_name" href="../../abstract.html#ogr.abstract.Release.tag_name">tag_name</a></code></li>
+<li><code><a title="ogr.abstract.Release.tarball_url" href="../../abstract.html#ogr.abstract.Release.tarball_url">tarball_url</a></code></li>
+<li><code><a title="ogr.abstract.Release.title" href="../../abstract.html#ogr.abstract.Release.title">title</a></code></li>
+<li><code><a title="ogr.abstract.Release.url" href="../../abstract.html#ogr.abstract.Release.url">url</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+<dt id="ogr.services.github.GithubService"><code class="flex name class">
+<span>class <span class="ident">GithubService</span></span>
+<span>(</span><span>token=None,<br>read_only=False,<br>github_app_id: str | None = None,<br>github_app_private_key: str | None = None,<br>github_app_private_key_path: str | None = None,<br>tokman_instance_url: str | None = None,<br>github_authentication: <a title="ogr.services.github.auth_providers.abstract.GithubAuthentication" href="auth_providers/abstract.html#ogr.services.github.auth_providers.abstract.GithubAuthentication">GithubAuthentication</a> = None,<br>max_retries: int | urllib3.util.retry.Retry = 1,<br>**kwargs)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@use_for_service(&#34;github.com&#34;)
+class GithubService(BaseGitService):
+    # class parameter could be used to mock Github class api
+    github_class: type[github.Github]
+    instance_url = &#34;https://github.com&#34;
+
+    def __init__(
+        self,
+        token=None,
+        read_only=False,
+        github_app_id: Optional[str] = None,
+        github_app_private_key: Optional[str] = None,
+        github_app_private_key_path: Optional[str] = None,
+        tokman_instance_url: Optional[str] = None,
+        github_authentication: GithubAuthentication = None,
+        max_retries: Union[int, Retry] = 1,
+        **kwargs,
+    ):
+        &#34;&#34;&#34;
+        If multiple authentication methods are provided, they are prioritised:
+            1. Tokman
+            2. GithubApp
+            3. TokenAuthentication (which is also default one, that works without specified token)
+        &#34;&#34;&#34;
+        super().__init__()
+        self.read_only = read_only
+        self._default_auth_method = github_authentication
+        self._other_auth_method: GithubAuthentication = None
+        self._auth_methods: dict[AuthMethod, GithubAuthentication] = {}
+
+        if isinstance(max_retries, Retry):
+            self._max_retries = max_retries
+        else:
+            self._max_retries = Retry(
+                total=int(max_retries),
+                # Retry mechanism active for these HTTP methods:
+                allowed_methods=[&#34;DELETE&#34;, &#34;GET&#34;, &#34;PATCH&#34;, &#34;POST&#34;, &#34;PUT&#34;],
+                # Only retry on following HTTP status codes
+                status_forcelist=[500, 503, 403, 401],
+                raise_on_status=True,
+            )
+
+        if not self._default_auth_method:
+            self.__set_authentication(
+                token=token,
+                github_app_id=github_app_id,
+                github_app_private_key=github_app_private_key,
+                github_app_private_key_path=github_app_private_key_path,
+                tokman_instance_url=tokman_instance_url,
+                max_retries=self._max_retries,
+            )
+
+        if kwargs:
+            logger.warning(f&#34;Ignored keyword arguments: {kwargs}&#34;)
+
+    def __set_authentication(self, **kwargs):
+        auth_methods = [
+            (Tokman, AuthMethod.tokman),
+            (GithubApp, AuthMethod.github_app),
+            (TokenAuthentication, AuthMethod.token),
+        ]
+        for auth_class, auth_name in auth_methods:
+            auth_inst = auth_class.try_create(**kwargs)
+            self._auth_methods[auth_name] = auth_inst
+            if not self._default_auth_method:
+                self._default_auth_method = auth_inst
+
+        return None if self._default_auth_method else TokenAuthentication(None)
+
+    def set_auth_method(self, method: AuthMethod):
+        if self._auth_methods[method]:
+            logger.info(&#34;Forced Github auth method to %s&#34;, method)
+            self._other_auth_method = self._auth_methods[method]
+        else:
+            raise GithubAPIException(
+                f&#34;Choosen authentication method ({method}) is not available&#34;,
+            )
+
+    def reset_auth_method(self):
+        logger.info(&#34;Reset Github auth method to the default&#34;)
+        self._other_auth_method = None
+
+    @property
+    def authentication(self):
+        return self._other_auth_method or self._default_auth_method
+
+    @property
+    def github(self):
+        return self.authentication.pygithub_instance
+
+    def __str__(self) -&gt; str:
+        readonly_str = &#34;, read_only=True&#34; if self.read_only else &#34;&#34;
+        arguments = f&#34;, github_authentication={self.authentication!s}{readonly_str}&#34;
+
+        if arguments:
+            # remove the first &#39;- &#39;
+            arguments = arguments[2:]
+
+        return f&#34;GithubService({arguments})&#34;
+
+    def __eq__(self, o: object) -&gt; bool:
+        if not issubclass(o.__class__, GithubService):
+            return False
+
+        return (
+            self.read_only == o.read_only  # type: ignore
+            and self.authentication == o.authentication  # type: ignore
+        )
+
+    def __hash__(self) -&gt; int:
+        return hash(str(self))
+
+    def get_project(
+        self,
+        repo=None,
+        namespace=None,
+        is_fork=False,
+        **kwargs,
+    ) -&gt; &#34;GithubProject&#34;:
+        if is_fork:
+            namespace = self.user.get_username()
+        return GithubProject(
+            repo=repo,
+            namespace=namespace,
+            service=self,
+            read_only=self.read_only,
+            **kwargs,
+        )
+
+    def get_project_from_github_repository(
+        self,
+        github_repo: PyGithubRepository.Repository,
+    ) -&gt; &#34;GithubProject&#34;:
+        return GithubProject(
+            repo=github_repo.name,
+            namespace=github_repo.owner.login,
+            github_repo=github_repo,
+            service=self,
+            read_only=self.read_only,
+        )
+
+    @property
+    def user(self) -&gt; GitUser:
+        return GithubUser(service=self)
+
+    def change_token(self, new_token: str) -&gt; None:
+        self._default_auth_method = TokenAuthentication(new_token)
+
+    def project_create(
+        self,
+        repo: str,
+        namespace: Optional[str] = None,
+        description: Optional[str] = None,
+    ) -&gt; &#34;GithubProject&#34;:
+        if namespace:
+            try:
+                owner = self.github.get_organization(namespace)
+            except UnknownObjectException as ex:
+                raise GithubAPIException(f&#34;Group {namespace} not found.&#34;) from ex
+        else:
+            owner = self.github.get_user()
+
+        try:
+            new_repo = owner.create_repo(
+                name=repo,
+                description=description if description else github.GithubObject.NotSet,
+            )
+        except github.GithubException as ex:
+            raise GithubAPIException(&#34;Project creation failed&#34;) from ex
+        return GithubProject(
+            repo=repo,
+            namespace=namespace or owner.login,
+            service=self,
+            github_repo=new_repo,
+        )
+
+    def get_pygithub_instance(self, namespace: str, repo: str) -&gt; PyGithubInstance:
+        token = self.authentication.get_token(namespace, repo)
+        return PyGithubInstance(login_or_token=token, retry=self._max_retries)
+
+    def list_projects(
+        self,
+        namespace: Optional[str] = None,
+        user: Optional[str] = None,
+        search_pattern: Optional[str] = None,
+        language: Optional[str] = None,
+    ) -&gt; list[GitProject]:
+        search_query = &#34;&#34;
+
+        if user:
+            search_query += f&#34;user:{user}&#34;
+
+        if language:
+            search_query += f&#34; language:{language}&#34;
+
+        projects: list[GitProject]
+        projects = [
+            GithubProject(
+                repo=repo.name,
+                namespace=repo.owner.login,
+                github_repo=repo,
+                service=self,
+            )
+            for repo in self.github.search_repositories(search_query, order=&#34;asc&#34;)
+        ]
+
+        if search_pattern:
+            projects = [
+                project
+                for project in projects
+                if re.search(search_pattern, project.repo)
+            ]
+
+        return projects</code></pre>
+</details>
+<div class="desc"><h2 id="attributes">Attributes</h2>
+<dl>
+<dt><strong><code>instance_url</code></strong> :&ensp;<code>str</code></dt>
+<dd>URL of the git forge instance.</dd>
+</dl>
+<p>If multiple authentication methods are provided, they are prioritised:
+1. Tokman
+2. GithubApp
+3. TokenAuthentication (which is also default one, that works without specified token)</p></div>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="ogr.services.base.BaseGitService" href="../base.html#ogr.services.base.BaseGitService">BaseGitService</a></li>
+<li><a title="ogr.abstract.GitService" href="../../abstract.html#ogr.abstract.GitService">GitService</a></li>
+<li><a title="ogr.abstract.OgrAbstractClass" href="../../abstract.html#ogr.abstract.OgrAbstractClass">OgrAbstractClass</a></li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="ogr.services.github.GithubService.github_class"><code class="name">var <span class="ident">github_class</span> : type[github.MainClass.Github]</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="ogr.services.github.GithubService.instance_url"><code class="name">var <span class="ident">instance_url</span> : str | None</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Instance variables</h3>
+<dl>
+<dt id="ogr.services.github.GithubService.authentication"><code class="name">prop <span class="ident">authentication</span></code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def authentication(self):
+    return self._other_auth_method or self._default_auth_method</code></pre>
+</details>
+<div class="desc"></div>
+</dd>
+<dt id="ogr.services.github.GithubService.github"><code class="name">prop <span class="ident">github</span></code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def github(self):
+    return self.authentication.pygithub_instance</code></pre>
+</details>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Methods</h3>
+<dl>
+<dt id="ogr.services.github.GithubService.get_project_from_github_repository"><code class="name flex">
+<span>def <span class="ident">get_project_from_github_repository</span></span>(<span>self, github_repo: github.Repository.Repository) ‑> <a title="ogr.services.github.project.GithubProject" href="project.html#ogr.services.github.project.GithubProject">GithubProject</a></span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_project_from_github_repository(
+    self,
+    github_repo: PyGithubRepository.Repository,
+) -&gt; &#34;GithubProject&#34;:
+    return GithubProject(
+        repo=github_repo.name,
+        namespace=github_repo.owner.login,
+        github_repo=github_repo,
+        service=self,
+        read_only=self.read_only,
+    )</code></pre>
+</details>
+<div class="desc"></div>
+</dd>
+<dt id="ogr.services.github.GithubService.get_pygithub_instance"><code class="name flex">
+<span>def <span class="ident">get_pygithub_instance</span></span>(<span>self, namespace: str, repo: str) ‑> github.MainClass.Github</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_pygithub_instance(self, namespace: str, repo: str) -&gt; PyGithubInstance:
+    token = self.authentication.get_token(namespace, repo)
+    return PyGithubInstance(login_or_token=token, retry=self._max_retries)</code></pre>
+</details>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="ogr.services.base.BaseGitService" href="../base.html#ogr.services.base.BaseGitService">BaseGitService</a></b></code>:
+<ul class="hlist">
+<li><code><a title="ogr.services.base.BaseGitService.change_token" href="../../abstract.html#ogr.abstract.GitService.change_token">change_token</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitService.get_group" href="../../abstract.html#ogr.abstract.GitService.get_group">get_group</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitService.get_project" href="../../abstract.html#ogr.abstract.GitService.get_project">get_project</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitService.list_projects" href="../../abstract.html#ogr.abstract.GitService.list_projects">list_projects</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitService.project_create" href="../../abstract.html#ogr.abstract.GitService.project_create">project_create</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitService.reset_auth_method" href="../../abstract.html#ogr.abstract.GitService.reset_auth_method">reset_auth_method</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitService.set_auth_method" href="../../abstract.html#ogr.abstract.GitService.set_auth_method">set_auth_method</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitService.user" href="../../abstract.html#ogr.abstract.GitService.user">user</a></code></li>
+</ul>
+</li>
+<li><code><b><a title="ogr.abstract.GitService" href="../../abstract.html#ogr.abstract.GitService">GitService</a></b></code>:
+<ul class="hlist">
+<li><code><a title="ogr.abstract.GitService.get_project_from_url" href="../../abstract.html#ogr.abstract.GitService.get_project_from_url">get_project_from_url</a></code></li>
+<li><code><a title="ogr.abstract.GitService.hostname" href="../../abstract.html#ogr.abstract.GitService.hostname">hostname</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+<dt id="ogr.services.github.GithubUser"><code class="flex name class">
+<span>class <span class="ident">GithubUser</span></span>
+<span>(</span><span>service: ogr_github.GithubService)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class GithubUser(BaseGitUser):
+    service: &#34;ogr_github.GithubService&#34;
+
+    def __init__(self, service: &#34;ogr_github.GithubService&#34;) -&gt; None:
+        super().__init__(service=service)
+
+    def __str__(self) -&gt; str:
+        return f&#39;GithubUser(username=&#34;{self.get_username()}&#34;)&#39;
+
+    @property
+    def _github_user(self):
+        return self.service.github.get_user()
+
+    def get_username(self) -&gt; str:
+        return self.service.github.get_user().login
+
+    def get_email(self) -&gt; Optional[str]:
+        user_email_property = self.service.github.get_user().email
+        if user_email_property:
+            return user_email_property
+
+        user_emails = self.service.github.get_user().get_emails()
+
+        if not user_emails:
+            return None
+
+        # To work around the braking change introduced by pygithub==1.55
+        # https://pygithub.readthedocs.io/en/latest/changes.html#version-1-55-april-26-2021
+        if isinstance(user_emails[0], dict):
+            EmailData = namedtuple(&#34;EmailData&#34;, user_emails[0].keys())  # type: ignore
+        for email in user_emails:
+            if &#34;EmailData&#34; in locals():
+                email = EmailData(**email)  # type: ignore
+            if email.primary:
+                return email.email
+
+        # Return the first email we received
+        return user_emails[0][&#34;email&#34;]
+
+    def get_projects(self) -&gt; list[&#34;ogr_github.GithubProject&#34;]:
+        raw_repos = self._github_user.get_repos(affiliation=&#34;owner&#34;)
+        return [
+            GithubProject(
+                repo=repo.name,
+                namespace=repo.owner.login,
+                github_repo=repo,
+                service=self.service,
+            )
+            for repo in raw_repos
+        ]
+
+    def get_forks(self) -&gt; list[&#34;ogr_github.GithubProject&#34;]:
+        return [project for project in self.get_projects() if project.github_repo.fork]</code></pre>
+</details>
+<div class="desc"><p>Represents currently authenticated user through service.</p></div>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="ogr.services.base.BaseGitUser" href="../base.html#ogr.services.base.BaseGitUser">BaseGitUser</a></li>
+<li><a title="ogr.abstract.GitUser" href="../../abstract.html#ogr.abstract.GitUser">GitUser</a></li>
+<li><a title="ogr.abstract.OgrAbstractClass" href="../../abstract.html#ogr.abstract.OgrAbstractClass">OgrAbstractClass</a></li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="ogr.services.github.GithubUser.service"><code class="name">var <span class="ident">service</span> : <a title="ogr.services.github.service.GithubService" href="service.html#ogr.services.github.service.GithubService">GithubService</a></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="ogr.services.base.BaseGitUser" href="../base.html#ogr.services.base.BaseGitUser">BaseGitUser</a></b></code>:
+<ul class="hlist">
+<li><code><a title="ogr.services.base.BaseGitUser.get_email" href="../../abstract.html#ogr.abstract.GitUser.get_email">get_email</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitUser.get_forks" href="../../abstract.html#ogr.abstract.GitUser.get_forks">get_forks</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitUser.get_projects" href="../../abstract.html#ogr.abstract.GitUser.get_projects">get_projects</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitUser.get_username" href="../../abstract.html#ogr.abstract.GitUser.get_username">get_username</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="ogr.services" href="../index.html">ogr.services</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-submodules">Sub-modules</a></h3>
+<ul>
+<li><code><a title="ogr.services.github.auth_providers" href="auth_providers/index.html">ogr.services.github.auth_providers</a></code></li>
+<li><code><a title="ogr.services.github.check_run" href="check_run.html">ogr.services.github.check_run</a></code></li>
+<li><code><a title="ogr.services.github.comments" href="comments.html">ogr.services.github.comments</a></code></li>
+<li><code><a title="ogr.services.github.flag" href="flag.html">ogr.services.github.flag</a></code></li>
+<li><code><a title="ogr.services.github.issue" href="issue.html">ogr.services.github.issue</a></code></li>
+<li><code><a title="ogr.services.github.label" href="label.html">ogr.services.github.label</a></code></li>
+<li><code><a title="ogr.services.github.project" href="project.html">ogr.services.github.project</a></code></li>
+<li><code><a title="ogr.services.github.pull_request" href="pull_request.html">ogr.services.github.pull_request</a></code></li>
+<li><code><a title="ogr.services.github.release" href="release.html">ogr.services.github.release</a></code></li>
+<li><code><a title="ogr.services.github.service" href="service.html">ogr.services.github.service</a></code></li>
+<li><code><a title="ogr.services.github.user" href="user.html">ogr.services.github.user</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="ogr.services.github.GithubCheckRun" href="#ogr.services.github.GithubCheckRun">GithubCheckRun</a></code></h4>
+<ul class="two-column">
+<li><code><a title="ogr.services.github.GithubCheckRun.app" href="#ogr.services.github.GithubCheckRun.app">app</a></code></li>
+<li><code><a title="ogr.services.github.GithubCheckRun.change_status" href="#ogr.services.github.GithubCheckRun.change_status">change_status</a></code></li>
+<li><code><a title="ogr.services.github.GithubCheckRun.commit_sha" href="#ogr.services.github.GithubCheckRun.commit_sha">commit_sha</a></code></li>
+<li><code><a title="ogr.services.github.GithubCheckRun.completed_at" href="#ogr.services.github.GithubCheckRun.completed_at">completed_at</a></code></li>
+<li><code><a title="ogr.services.github.GithubCheckRun.conclusion" href="#ogr.services.github.GithubCheckRun.conclusion">conclusion</a></code></li>
+<li><code><a title="ogr.services.github.GithubCheckRun.create" href="#ogr.services.github.GithubCheckRun.create">create</a></code></li>
+<li><code><a title="ogr.services.github.GithubCheckRun.external_id" href="#ogr.services.github.GithubCheckRun.external_id">external_id</a></code></li>
+<li><code><a title="ogr.services.github.GithubCheckRun.get" href="#ogr.services.github.GithubCheckRun.get">get</a></code></li>
+<li><code><a title="ogr.services.github.GithubCheckRun.get_list" href="#ogr.services.github.GithubCheckRun.get_list">get_list</a></code></li>
+<li><code><a title="ogr.services.github.GithubCheckRun.name" href="#ogr.services.github.GithubCheckRun.name">name</a></code></li>
+<li><code><a title="ogr.services.github.GithubCheckRun.output" href="#ogr.services.github.GithubCheckRun.output">output</a></code></li>
+<li><code><a title="ogr.services.github.GithubCheckRun.started_at" href="#ogr.services.github.GithubCheckRun.started_at">started_at</a></code></li>
+<li><code><a title="ogr.services.github.GithubCheckRun.status" href="#ogr.services.github.GithubCheckRun.status">status</a></code></li>
+<li><code><a title="ogr.services.github.GithubCheckRun.url" href="#ogr.services.github.GithubCheckRun.url">url</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="ogr.services.github.GithubIssue" href="#ogr.services.github.GithubIssue">GithubIssue</a></code></h4>
+<ul class="">
+<li><code><a title="ogr.services.github.GithubIssue.assignees" href="#ogr.services.github.GithubIssue.assignees">assignees</a></code></li>
+<li><code><a title="ogr.services.github.GithubIssue.raw_issue" href="#ogr.services.github.GithubIssue.raw_issue">raw_issue</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="ogr.services.github.GithubIssueComment" href="#ogr.services.github.GithubIssueComment">GithubIssueComment</a></code></h4>
+</li>
+<li>
+<h4><code><a title="ogr.services.github.GithubPRComment" href="#ogr.services.github.GithubPRComment">GithubPRComment</a></code></h4>
+</li>
+<li>
+<h4><code><a title="ogr.services.github.GithubProject" href="#ogr.services.github.GithubProject">GithubProject</a></code></h4>
+<ul class="">
+<li><code><a title="ogr.services.github.GithubProject.CAN_MERGE_PERMS" href="#ogr.services.github.GithubProject.CAN_MERGE_PERMS">CAN_MERGE_PERMS</a></code></li>
+<li><code><a title="ogr.services.github.GithubProject.create_check_run" href="#ogr.services.github.GithubProject.create_check_run">create_check_run</a></code></li>
+<li><code><a title="ogr.services.github.GithubProject.get_check_run" href="#ogr.services.github.GithubProject.get_check_run">get_check_run</a></code></li>
+<li><code><a title="ogr.services.github.GithubProject.get_check_runs" href="#ogr.services.github.GithubProject.get_check_runs">get_check_runs</a></code></li>
+<li><code><a title="ogr.services.github.GithubProject.get_contributors" href="#ogr.services.github.GithubProject.get_contributors">get_contributors</a></code></li>
+<li><code><a title="ogr.services.github.GithubProject.get_labels" href="#ogr.services.github.GithubProject.get_labels">get_labels</a></code></li>
+<li><code><a title="ogr.services.github.GithubProject.get_tag_from_tag_name" href="#ogr.services.github.GithubProject.get_tag_from_tag_name">get_tag_from_tag_name</a></code></li>
+<li><code><a title="ogr.services.github.GithubProject.github_instance" href="#ogr.services.github.GithubProject.github_instance">github_instance</a></code></li>
+<li><code><a title="ogr.services.github.GithubProject.github_repo" href="#ogr.services.github.GithubProject.github_repo">github_repo</a></code></li>
+<li><code><a title="ogr.services.github.GithubProject.service" href="#ogr.services.github.GithubProject.service">service</a></code></li>
+<li><code><a title="ogr.services.github.GithubProject.update_labels" href="#ogr.services.github.GithubProject.update_labels">update_labels</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="ogr.services.github.GithubPullRequest" href="#ogr.services.github.GithubPullRequest">GithubPullRequest</a></code></h4>
+<ul class="">
+<li><code><a title="ogr.services.github.GithubPullRequest.create" href="#ogr.services.github.GithubPullRequest.create">create</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="ogr.services.github.GithubRelease" href="#ogr.services.github.GithubRelease">GithubRelease</a></code></h4>
+<ul class="">
+<li><code><a title="ogr.services.github.GithubRelease.edit_release" href="#ogr.services.github.GithubRelease.edit_release">edit_release</a></code></li>
+<li><code><a title="ogr.services.github.GithubRelease.project" href="#ogr.services.github.GithubRelease.project">project</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="ogr.services.github.GithubService" href="#ogr.services.github.GithubService">GithubService</a></code></h4>
+<ul class="">
+<li><code><a title="ogr.services.github.GithubService.authentication" href="#ogr.services.github.GithubService.authentication">authentication</a></code></li>
+<li><code><a title="ogr.services.github.GithubService.get_project_from_github_repository" href="#ogr.services.github.GithubService.get_project_from_github_repository">get_project_from_github_repository</a></code></li>
+<li><code><a title="ogr.services.github.GithubService.get_pygithub_instance" href="#ogr.services.github.GithubService.get_pygithub_instance">get_pygithub_instance</a></code></li>
+<li><code><a title="ogr.services.github.GithubService.github" href="#ogr.services.github.GithubService.github">github</a></code></li>
+<li><code><a title="ogr.services.github.GithubService.github_class" href="#ogr.services.github.GithubService.github_class">github_class</a></code></li>
+<li><code><a title="ogr.services.github.GithubService.instance_url" href="#ogr.services.github.GithubService.instance_url">instance_url</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="ogr.services.github.GithubUser" href="#ogr.services.github.GithubUser">GithubUser</a></code></h4>
+<ul class="">
+<li><code><a title="ogr.services.github.GithubUser.service" href="#ogr.services.github.GithubUser.service">service</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.11.6</a>.</p>
+</footer>
+</body>
+</html>

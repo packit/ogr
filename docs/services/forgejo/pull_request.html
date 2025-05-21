@@ -1,0 +1,493 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+<meta name="generator" content="pdoc3 0.11.6">
+<title>ogr.services.forgejo.pull_request API documentation</title>
+<meta name="description" content="">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/sanitize.min.css" integrity="sha512-y1dtMcuvtTMJc1yPgEqF0ZjQbhnc/bFhyvIyVNb9Zk5mIGtqVaAB1Ttl28su8AvFMOY0EwRbAe+HCLqj6W7/KA==" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/typography.min.css" integrity="sha512-Y1DYSb995BAfxobCkKepB1BqJJTPrOp3zPL74AWFugHHmmdcvO+C48WLrUOlhGMc0QG7AE3f7gmvvcrmX2fDoA==" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:1.5em;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:2em 0 .50em 0}h3{font-size:1.4em;margin:1.6em 0 .7em 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .2s ease-in-out}a:visited{color:#503}a:hover{color:#b62}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900;font-weight:bold}pre code{font-size:.8em;line-height:1.4em;padding:1em;display:block}code{background:#f3f3f3;font-family:"DejaVu Sans Mono",monospace;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source > summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible;min-width:max-content}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em 1em;margin:1em 0}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul ul{padding-left:1em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js" integrity="sha512-D9gUyxqja7hBtkWpPWGt9wfbfaMGVt9gnyCvYa+jojwwPHLCzUm5i8rpk7vD7wNee9bA35eYIjobYPaQuKS1MQ==" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => {
+hljs.configure({languages: ['bash', 'css', 'diff', 'graphql', 'ini', 'javascript', 'json', 'plaintext', 'python', 'python-repl', 'rust', 'shell', 'sql', 'typescript', 'xml', 'yaml']});
+hljs.highlightAll();
+/* Collapse source docstrings */
+setTimeout(() => {
+[...document.querySelectorAll('.hljs.language-python > .hljs-string')]
+.filter(el => el.innerHTML.length > 200 && ['"""', "'''"].includes(el.innerHTML.substring(0, 3)))
+.forEach(el => {
+let d = document.createElement('details');
+d.classList.add('hljs-string');
+d.innerHTML = '<summary>"""</summary>' + el.innerHTML.substring(3);
+el.replaceWith(d);
+});
+}, 100);
+})</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>ogr.services.forgejo.pull_request</code></h1>
+</header>
+<section id="section-intro">
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="ogr.services.forgejo.pull_request.ForgejoPullRequest"><code class="flex name class">
+<span>class <span class="ident">ForgejoPullRequest</span></span>
+<span>(</span><span>raw_pr: pyforgejo.types.pull_request.PullRequest,<br>project: forgejo.ForgejoProject)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class ForgejoPullRequest(BasePullRequest):
+    _target_project: &#34;forgejo.ForgejoProject&#34; = None
+    _source_project: &#34;forgejo.ForgejoProject&#34; = None
+    _labels: list[PRLabel] = None
+
+    def __init__(
+        self,
+        raw_pr: PyforgejoPullRequest,
+        project: &#34;forgejo.ForgejoProject&#34;,
+    ):
+        super().__init__(raw_pr, project)
+
+    def __str__(self) -&gt; str:
+        return &#34;Forgejo&#34; + super().__str__()
+
+    @property
+    def title(self) -&gt; str:
+        return self._raw_pr.title
+
+    @title.setter
+    def title(self, new_title: str) -&gt; None:
+        self.update_info(title=new_title)
+
+    @property
+    def id(self) -&gt; int:
+        return self._raw_pr.number
+
+    @property
+    def status(self) -&gt; PRStatus:
+        return PRStatus.merged if self._raw_pr.merged else PRStatus[self._raw_pr.state]
+
+    @property
+    def url(self) -&gt; str:
+        return self._raw_pr.url
+
+    @property
+    def description(self) -&gt; str:
+        return self._raw_pr.body
+
+    @description.setter
+    def description(self, new_description: str) -&gt; None:
+        self.update_info(description=new_description)
+
+    @property
+    def author(self) -&gt; str:
+        return self._raw_pr.user.login
+
+    @property
+    def source_branch(self) -&gt; str:
+        return self._raw_pr.head.ref
+
+    @property
+    def target_branch(self) -&gt; str:
+        return self._raw_pr.base.ref
+
+    @property
+    def created(self) -&gt; datetime.datetime:
+        return self._raw_pr.created_at
+
+    @property
+    def labels(self) -&gt; list[PRLabel]:
+        if not self._labels:
+            self._labels = (
+                [ForgejoPRLabel(raw_label, self) for raw_label in self._raw_pr.labels]
+                if self._raw_pr.labels
+                else []
+            )
+        return self._labels
+
+    @property
+    def diff_url(self) -&gt; str:
+        return self._raw_pr.diff_url
+
+    @property
+    def patch(self) -&gt; bytes:
+        patch_url = self._raw_pr.patch_url
+        response = requests.get(patch_url)
+
+        if not response.ok:
+            raise OgrNetworkError(
+                f&#34;Couldn&#39;t get patch from {patch_url}.patch because {response.reason}.&#34;,
+            )
+
+        return response.content
+
+    @property
+    def head_commit(self) -&gt; str:
+        return self._raw_pr.head.sha
+
+    @property
+    def merge_commit_sha(self) -&gt; Optional[str]:
+        # this is None for non-merged PRs
+        return self._raw_pr.merge_commit_sha
+
+    @property
+    def merge_commit_status(self) -&gt; MergeCommitStatus:
+        return (
+            MergeCommitStatus.can_be_merged
+            if self._raw_pr.mergeable
+            else MergeCommitStatus.cannot_be_merged
+        )
+
+    @cached_property
+    def source_project(self) -&gt; &#34;forgejo.ForgejoProject&#34;:
+        pyforgejo_repo = self._raw_pr.head.repo
+        return self._target_project.service.get_project(
+            repo=pyforgejo_repo.name,
+            namespace=pyforgejo_repo.owner.login,
+            forgejo_repo=pyforgejo_repo,
+        )
+
+    @property
+    def commits_url(self) -&gt; str:
+        return f&#34;{self.url}/commits&#34;
+
+    @property
+    def closed_by(self) -&gt; Optional[str]:
+        return self._raw_pr.merged_by.login if self._raw_pr.merged_by else None
+
+    @staticmethod
+    def create(
+        project: &#34;forgejo.ForgejoProject&#34;,
+        title: str,
+        body: str,
+        target_branch: str,
+        source_branch: str,
+        fork_username: Optional[str] = None,
+    ) -&gt; &#34;PullRequest&#34;:
+        target_project = project
+
+        if project.is_fork and fork_username is None:
+            # handles fork -&gt; upstream (called on fork)
+            source_branch = f&#34;{project.namespace}:{source_branch}&#34;
+            target_project = project.parent  # type: ignore
+        elif fork_username:
+            if fork_username != project.namespace and project.parent is not None:
+                # handles fork -&gt; other_fork
+                #   (username of other_fork owner specified by fork_username)
+                forks = list(
+                    filter(
+                        lambda fork: fork.namespace == fork_username,
+                        project.parent.get_forks(),
+                    ),
+                )
+                if not forks:
+                    raise ForgejoAPIException(&#34;Requested fork doesn&#39;t exist&#34;)
+                target_project = forks[0]  # type: ignore
+                source_branch = f&#34;{project.namespace}:{source_branch}&#34;
+            else:
+                # handles fork -&gt; upstream
+                #   (username of fork owner specified by fork_username)
+                source_branch = f&#34;{fork_username}:{source_branch}&#34;
+
+        logger.debug(f&#34;Creating PR {target_branch}&lt;-{source_branch}&#34;)
+
+        pr = target_project.api.repo_create_pull_request(
+            owner=target_project.namespace,
+            repo=target_project.repo,
+            base=target_branch,
+            body=body,
+            head=source_branch,
+            title=title,
+        )
+        logger.info(f&#34;PR {pr.id} created.&#34;)
+
+        return ForgejoPullRequest(pr, target_project)
+
+    @staticmethod
+    def get(project: &#34;forgejo.ForgejoProject&#34;, pr_id: int) -&gt; &#34;PullRequest&#34;:
+        try:
+            raw_pr = project.api.repo_get_pull_request(
+                owner=project.namespace,
+                repo=project.repo,
+                index=pr_id,
+            )
+        except NotFoundError as ex:
+            raise ForgejoAPIException(f&#34;No pull request with id {pr_id} found.&#34;) from ex
+        return ForgejoPullRequest(raw_pr, project)
+
+    @staticmethod
+    def get_list(
+        project: &#34;forgejo.ForgejoProject&#34;,
+        status: PRStatus = PRStatus.open,
+    ) -&gt; Iterable[&#34;PullRequest&#34;]:
+        prs = paginate(
+            partial(
+                project.api.repo_list_pull_requests,
+                owner=project.namespace,
+                repo=project.repo,
+                # Forgejo has just open/closed/all
+                state=status.name if status != PRStatus.merged else &#34;closed&#34;,
+            ),
+        )
+        return (ForgejoPullRequest(pr, project) for pr in prs)
+
+    def update_info(
+        self,
+        title: Optional[str] = None,
+        description: Optional[str] = None,
+    ) -&gt; &#34;PullRequest&#34;:
+        try:
+            data = {&#34;title&#34;: title if title else self.title}
+
+            if description is not None:
+                data[&#34;body&#34;] = description
+
+            updated_pr = self._target_project.api.repo_edit_pull_request(
+                owner=self.target_project.namespace,
+                repo=self.target_project.repo,
+                index=self.id,
+                **data,
+            )
+
+            self._raw_pr = updated_pr
+            return self
+        except Exception as ex:
+            raise ForgejoAPIException(
+                f&#34;There was an error while updating Forgejo PR: {ex}&#34;,
+            ) from ex
+
+    def close(self) -&gt; &#34;PullRequest&#34;:
+        self._raw_pr = self._target_project.api.repo_edit_pull_request(
+            owner=self.target_project.namespace,
+            repo=self.target_project.repo,
+            index=self.id,
+            state=&#34;closed&#34;,
+        )
+        return self
+
+    def merge(self) -&gt; &#34;PullRequest&#34;:
+        self._target_project.api.repo_merge_pull_request(
+            owner=self.target_project.namespace,
+            repo=self.target_project.repo,
+            index=self.id,
+            # options: merge, rebase, rebase-merge, squash, fast-forward-only, manually-merged
+            do=&#34;merge&#34;,
+        )
+        return self.get(self._target_project, self.id)
+
+    def add_label(self, *labels: str) -&gt; None:
+        issue_client = self._target_project.service.api.issue
+        new_labels = issue_client.add_label(
+            owner=self.target_project.namespace,
+            repo=self.target_project.repo,
+            index=self.id,
+            labels=list(labels),
+        )
+        self._labels = [ForgejoPRLabel(raw_label, self) for raw_label in new_labels]
+
+    def get_all_commits(self) -&gt; Iterable[str]:
+        return (
+            commit.sha
+            for commit in paginate(
+                partial(
+                    self._target_project.api.repo_get_pull_request_commits,
+                    owner=self.target_project.namespace,
+                    repo=self.target_project.repo,
+                    index=self.id,
+                ),
+            )
+        )
+
+    def get_comments(
+        self,
+        filter_regex: Optional[str] = None,
+        reverse: bool = False,
+        author: Optional[str] = None,
+    ) -&gt; Union[list[&#34;PRComment&#34;], Iterable[&#34;PRComment&#34;]]:
+        &#34;&#34;&#34;
+        Get list of pull request comments.
+
+        Args:
+            filter_regex: Filter the comments&#39; content with `re.search`.
+
+                Defaults to `None`, which means no filtering.
+            reverse: Whether the comments are to be returned in
+                reversed order.
+
+                Defaults to `False`.
+            author: Filter the comments by author.
+
+                Defaults to `None`, which means no filtering.
+
+        Returns:
+            List of pull request comments.
+        &#34;&#34;&#34;
+        raise NotImplementedError()
+
+    def comment(
+        self,
+        body: str,
+        commit: Optional[str] = None,
+        filename: Optional[str] = None,
+        row: Optional[int] = None,
+    ) -&gt; &#34;PRComment&#34;:
+        &#34;&#34;&#34;
+        Add new comment to the pull request.
+
+        Args:
+            body: Body of the comment.
+            commit: Commit hash to which comment is related.
+
+                Defaults to generic comment.
+            filename: Path to the file to which comment is related.
+
+                Defaults to no relation to the file.
+            row: Line number to which the comment is related.
+
+                Defaults to no relation to the line.
+
+        Returns:
+            Newly created comment.
+        &#34;&#34;&#34;
+        raise NotImplementedError()
+
+    def get_comment(self, comment_id: int) -&gt; PRComment:
+        &#34;&#34;&#34;
+        Returns a PR comment.
+
+        Args:
+            comment_id: id of comment
+
+        Returns:
+            Object representing a PR comment.
+        &#34;&#34;&#34;
+        raise NotImplementedError()
+
+    def get_statuses(self) -&gt; Union[list[CommitFlag], Iterable[CommitFlag]]:
+        &#34;&#34;&#34;
+        Returns statuses for latest commit on pull request.
+
+        Returns:
+            List of commit statuses of the latest commit.
+        &#34;&#34;&#34;
+        raise NotImplementedError()</code></pre>
+</details>
+<div class="desc"><h2 id="attributes">Attributes</h2>
+<dl>
+<dt><strong><code>project</code></strong> :&ensp;<code>GitProject</code></dt>
+<dd>Project of the pull request.</dd>
+</dl></div>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="ogr.services.base.BasePullRequest" href="../base.html#ogr.services.base.BasePullRequest">BasePullRequest</a></li>
+<li><a title="ogr.abstract.PullRequest" href="../../abstract.html#ogr.abstract.PullRequest">PullRequest</a></li>
+<li><a title="ogr.abstract.OgrAbstractClass" href="../../abstract.html#ogr.abstract.OgrAbstractClass">OgrAbstractClass</a></li>
+</ul>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="ogr.services.base.BasePullRequest" href="../base.html#ogr.services.base.BasePullRequest">BasePullRequest</a></b></code>:
+<ul class="hlist">
+<li><code><a title="ogr.services.base.BasePullRequest.add_label" href="../../abstract.html#ogr.abstract.PullRequest.add_label">add_label</a></code></li>
+<li><code><a title="ogr.services.base.BasePullRequest.author" href="../../abstract.html#ogr.abstract.PullRequest.author">author</a></code></li>
+<li><code><a title="ogr.services.base.BasePullRequest.close" href="../../abstract.html#ogr.abstract.PullRequest.close">close</a></code></li>
+<li><code><a title="ogr.services.base.BasePullRequest.closed_by" href="../../abstract.html#ogr.abstract.PullRequest.closed_by">closed_by</a></code></li>
+<li><code><a title="ogr.services.base.BasePullRequest.commits_url" href="../../abstract.html#ogr.abstract.PullRequest.commits_url">commits_url</a></code></li>
+<li><code><a title="ogr.services.base.BasePullRequest.create" href="../../abstract.html#ogr.abstract.PullRequest.create">create</a></code></li>
+<li><code><a title="ogr.services.base.BasePullRequest.created" href="../../abstract.html#ogr.abstract.PullRequest.created">created</a></code></li>
+<li><code><a title="ogr.services.base.BasePullRequest.description" href="../../abstract.html#ogr.abstract.PullRequest.description">description</a></code></li>
+<li><code><a title="ogr.services.base.BasePullRequest.diff_url" href="../../abstract.html#ogr.abstract.PullRequest.diff_url">diff_url</a></code></li>
+<li><code><a title="ogr.services.base.BasePullRequest.get" href="../../abstract.html#ogr.abstract.PullRequest.get">get</a></code></li>
+<li><code><a title="ogr.services.base.BasePullRequest.get_all_commits" href="../../abstract.html#ogr.abstract.PullRequest.get_all_commits">get_all_commits</a></code></li>
+<li><code><a title="ogr.services.base.BasePullRequest.get_list" href="../../abstract.html#ogr.abstract.PullRequest.get_list">get_list</a></code></li>
+<li><code><a title="ogr.services.base.BasePullRequest.head_commit" href="../../abstract.html#ogr.abstract.PullRequest.head_commit">head_commit</a></code></li>
+<li><code><a title="ogr.services.base.BasePullRequest.id" href="../../abstract.html#ogr.abstract.PullRequest.id">id</a></code></li>
+<li><code><a title="ogr.services.base.BasePullRequest.labels" href="../../abstract.html#ogr.abstract.PullRequest.labels">labels</a></code></li>
+<li><code><a title="ogr.services.base.BasePullRequest.merge" href="../../abstract.html#ogr.abstract.PullRequest.merge">merge</a></code></li>
+<li><code><a title="ogr.services.base.BasePullRequest.merge_commit_sha" href="../../abstract.html#ogr.abstract.PullRequest.merge_commit_sha">merge_commit_sha</a></code></li>
+<li><code><a title="ogr.services.base.BasePullRequest.merge_commit_status" href="../../abstract.html#ogr.abstract.PullRequest.merge_commit_status">merge_commit_status</a></code></li>
+<li><code><a title="ogr.services.base.BasePullRequest.patch" href="../../abstract.html#ogr.abstract.PullRequest.patch">patch</a></code></li>
+<li><code><a title="ogr.services.base.BasePullRequest.source_branch" href="../../abstract.html#ogr.abstract.PullRequest.source_branch">source_branch</a></code></li>
+<li><code><a title="ogr.services.base.BasePullRequest.source_project" href="../../abstract.html#ogr.abstract.PullRequest.source_project">source_project</a></code></li>
+<li><code><a title="ogr.services.base.BasePullRequest.status" href="../../abstract.html#ogr.abstract.PullRequest.status">status</a></code></li>
+<li><code><a title="ogr.services.base.BasePullRequest.target_branch" href="../../abstract.html#ogr.abstract.PullRequest.target_branch">target_branch</a></code></li>
+<li><code><a title="ogr.services.base.BasePullRequest.title" href="../../abstract.html#ogr.abstract.PullRequest.title">title</a></code></li>
+<li><code><a title="ogr.services.base.BasePullRequest.update_info" href="../../abstract.html#ogr.abstract.PullRequest.update_info">update_info</a></code></li>
+<li><code><a title="ogr.services.base.BasePullRequest.url" href="../../abstract.html#ogr.abstract.PullRequest.url">url</a></code></li>
+</ul>
+</li>
+<li><code><b><a title="ogr.services.base.BasePullRequest" href="../base.html#ogr.services.base.BasePullRequest">BasePullRequest</a></b></code>:
+<ul class="hlist">
+<li><code><a title="ogr.services.base.BasePullRequest.comment" href="../../abstract.html#ogr.abstract.PullRequest.comment">comment</a></code></li>
+<li><code><a title="ogr.services.base.BasePullRequest.get_comment" href="../../abstract.html#ogr.abstract.PullRequest.get_comment">get_comment</a></code></li>
+</ul>
+</li>
+<li><code><b><a title="ogr.services.base.BasePullRequest" href="../base.html#ogr.services.base.BasePullRequest">BasePullRequest</a></b></code>:
+<ul class="hlist">
+<li><code><a title="ogr.services.base.BasePullRequest.target_branch_head_commit" href="../../abstract.html#ogr.abstract.PullRequest.target_branch_head_commit">target_branch_head_commit</a></code></li>
+<li><code><a title="ogr.services.base.BasePullRequest.target_project" href="../../abstract.html#ogr.abstract.PullRequest.target_project">target_project</a></code></li>
+</ul>
+</li>
+<li><code><b><a title="ogr.abstract.PullRequest" href="../../abstract.html#ogr.abstract.PullRequest">PullRequest</a></b></code>:
+<ul class="hlist">
+<li><code><a title="ogr.abstract.PullRequest.get_comments" href="../../abstract.html#ogr.abstract.PullRequest.get_comments">get_comments</a></code></li>
+</ul>
+</li>
+<li><code><b><a title="ogr.abstract.PullRequest" href="../../abstract.html#ogr.abstract.PullRequest">PullRequest</a></b></code>:
+<ul class="hlist">
+<li><code><a title="ogr.abstract.PullRequest.get_statuses" href="../../abstract.html#ogr.abstract.PullRequest.get_statuses">get_statuses</a></code></li>
+</ul>
+</li>
+<li><code><b><a title="ogr.abstract.PullRequest" href="../../abstract.html#ogr.abstract.PullRequest">PullRequest</a></b></code>:
+<ul class="hlist">
+<li><code><a title="ogr.abstract.PullRequest.search" href="../../abstract.html#ogr.abstract.PullRequest.search">search</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="ogr.services.forgejo" href="index.html">ogr.services.forgejo</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="ogr.services.forgejo.pull_request.ForgejoPullRequest" href="#ogr.services.forgejo.pull_request.ForgejoPullRequest">ForgejoPullRequest</a></code></h4>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.11.6</a>.</p>
+</footer>
+</body>
+</html>
