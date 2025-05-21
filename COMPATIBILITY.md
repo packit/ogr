@@ -39,8 +39,8 @@ In case you find any error, please [create a new issue](https://github.com/packi
 
 |                   | GitHub | GitLab |          Pagure          | Forgejo |
 | ----------------- | :----: | :----: | :----------------------: | :-----: |
-| `edit_release`    |   ✔   |   ✘    |            ✘             |    ✘    |
-| `body` (only get) |   ✔   |   ✔   | ✘ (returns empty string) |    ✘    |
+| `edit_release`    |   ✔   |   ✘    |            ✘             |   ✔    |
+| `body` (only get) |   ✔   |   ✔   | ✘ (returns empty string) |   ✔    |
 
 ## Commit flag
 
