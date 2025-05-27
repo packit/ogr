@@ -16,6 +16,11 @@ require:
   - python3-requests
   - python3-urllib3
   - python3-requre
+adjust:
+  - when: "distro == rhel-10 or distro == centos-10 or distro == centos-stream-10"
+    because: "flexmock is not in EPEL 10: https://bugzilla.redhat.com/show_bug.cgi?id=2351835"
+    require-:
+      - python3-flexmock
 
 component:
   - ogr
