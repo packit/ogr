@@ -41,6 +41,7 @@ In case you find any error, please [create a new issue](https://github.com/packi
 |           | GitHub | GitLab | Pagure | Forgejo |
 | --------- | :----: | :----: | :----: | :-----: |
 | `changes` |   ✔    |   ✘    |   ✘    |    ✘    |
+| `get_prs` |   ✘    |   ✘    |   ✘    |    ✘    |
 
 ## Release
 
