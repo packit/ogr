@@ -22,3 +22,16 @@ class Commit(GithubTests):
         commit = self.hello_world_project.get_commit("f06fed9")
         changes = commit.changes
         assert list(changes.files) == ["LICENSE", "README.md"]
+
+    def test_get_prs(self):
+        # Commit with PR associated
+        commit_with_one_pr = self.hello_world_project.get_commit("0840e2d")
+        prs = list(commit_with_one_pr.get_prs())
+        assert prs
+        assert len(prs) == 1
+        assert prs[0].id == 556
+        # Commit with no PR
+        commit_without_pr = self.hello_world_project.get_commit("f2c98da")
+        prs = list(commit_without_pr.get_prs())
+        assert not prs
+        # No test data for commit with multiple PRs

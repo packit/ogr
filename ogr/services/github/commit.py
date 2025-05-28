@@ -10,6 +10,7 @@ from ogr.abstract.commit import CommitChanges
 from ogr.exceptions import GithubAPIException, OgrNetworkError
 from ogr.services import github as ogr_github
 from ogr.services.base import BaseGitCommit
+from ogr.services.github.pull_request import GithubPullRequest
 
 
 class GithubCommit(BaseGitCommit):
@@ -25,6 +26,10 @@ class GithubCommit(BaseGitCommit):
         if not self._changes:
             self._changes = GithubCommitChanges(self)
         return self._changes
+
+    def get_prs(self) -> Iterable[GithubPullRequest]:
+        for pr in self._raw_commit.get_pulls():
+            yield GithubPullRequest(pr, self.project)
 
     @staticmethod
     def get(project: "ogr_github.GithubProject", sha: str) -> "GithubCommit":
