@@ -36,6 +36,13 @@ In case you find any error, please [create a new issue](https://github.com/packi
 | `get_all_commits` |   ✔   |   ✔   |   ✘    |   ✔    |
 | `changes`         |   ✔   |   ✘    |   ✘    |    ✘    |
 
+## GitCommit
+
+|           | GitHub | GitLab | Pagure | Forgejo |
+| --------- | :----: | :----: | :----: | :-----: |
+| `changes` |   ✔   |   ✘    |   ✘    |    ✘    |
+| `get_prs` |   ✘    |   ✘    |   ✘    |    ✘    |
+
 ## Release
 
 |                   | GitHub | GitLab |          Pagure          | Forgejo |

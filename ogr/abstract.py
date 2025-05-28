@@ -1184,6 +1184,10 @@ class GitCommit(OgrAbstractClass):
         """Commit change information."""
         raise NotImplementedError()
 
+    def get_prs(self) -> Optional[list["PullRequest"]]:
+        """Get the associated pull requests"""
+        raise NotImplementedError()
+
 
 class GitTag(OgrAbstractClass):
     """
