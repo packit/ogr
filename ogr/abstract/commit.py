@@ -31,6 +31,10 @@ class GitCommit(OgrAbstractClass):
         """Commit change information."""
         raise NotImplementedError()
 
+    def get_prs(self) -> Iterable["_abstract.PullRequest"]:
+        """Get the associated pull requests"""
+        raise NotImplementedError()
+
 
 class CommitLikeChanges(OgrAbstractClass):
     """
