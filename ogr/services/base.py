@@ -9,6 +9,7 @@ from urllib.request import urlopen
 from ogr.abstract import (
     CommitFlag,
     CommitStatus,
+    GitCommit,
     GitProject,
     GitService,
     GitUser,
@@ -84,6 +85,10 @@ class BasePullRequest(PullRequest):
         # commit = self.get_all_commits()[-1]
         commit = self.head_commit
         return self.target_project.get_commit_statuses(commit)
+
+
+class BaseGitCommit(GitCommit):
+    pass
 
 
 class BaseGitUser(GitUser):

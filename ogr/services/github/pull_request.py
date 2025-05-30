@@ -18,6 +18,7 @@ from ogr.abstract import MergeCommitStatus, PRComment, PRLabel, PRStatus, PullRe
 from ogr.exceptions import GithubAPIException, OgrNetworkError
 from ogr.services import github as ogr_github
 from ogr.services.base import BasePullRequest
+from ogr.services.github.changes import GithubPullRequestChanges
 from ogr.services.github.comments import GithubPRComment
 from ogr.services.github.label import GithubPRLabel
 
@@ -28,6 +29,7 @@ class GithubPullRequest(BasePullRequest):
     _raw_pr: _GithubPullRequest
     _target_project: "ogr_github.GithubProject"
     _source_project: "ogr_github.GithubProject" = None
+    _changes: GithubPullRequestChanges = None
 
     @property
     def title(self) -> str:
@@ -82,6 +84,12 @@ class GithubPullRequest(BasePullRequest):
         return [
             GithubPRLabel(raw_label, self) for raw_label in self._raw_pr.get_labels()
         ]
+
+    @property
+    def changes(self) -> GithubPullRequestChanges:
+        if not self._changes:
+            self._changes = GithubPullRequestChanges(self)
+        return self._changes
 
     @property
     def diff_url(self) -> str:
