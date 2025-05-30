@@ -1,0 +1,503 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+<meta name="generator" content="pdoc3 0.11.6">
+<title>ogr.services.gitlab.pull_request API documentation</title>
+<meta name="description" content="">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/sanitize.min.css" integrity="sha512-y1dtMcuvtTMJc1yPgEqF0ZjQbhnc/bFhyvIyVNb9Zk5mIGtqVaAB1Ttl28su8AvFMOY0EwRbAe+HCLqj6W7/KA==" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/typography.min.css" integrity="sha512-Y1DYSb995BAfxobCkKepB1BqJJTPrOp3zPL74AWFugHHmmdcvO+C48WLrUOlhGMc0QG7AE3f7gmvvcrmX2fDoA==" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:1.5em;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:2em 0 .50em 0}h3{font-size:1.4em;margin:1.6em 0 .7em 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .2s ease-in-out}a:visited{color:#503}a:hover{color:#b62}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900;font-weight:bold}pre code{font-size:.8em;line-height:1.4em;padding:1em;display:block}code{background:#f3f3f3;font-family:"DejaVu Sans Mono",monospace;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source > summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible;min-width:max-content}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em 1em;margin:1em 0}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul ul{padding-left:1em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js" integrity="sha512-D9gUyxqja7hBtkWpPWGt9wfbfaMGVt9gnyCvYa+jojwwPHLCzUm5i8rpk7vD7wNee9bA35eYIjobYPaQuKS1MQ==" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => {
+hljs.configure({languages: ['bash', 'css', 'diff', 'graphql', 'ini', 'javascript', 'json', 'plaintext', 'python', 'python-repl', 'rust', 'shell', 'sql', 'typescript', 'xml', 'yaml']});
+hljs.highlightAll();
+/* Collapse source docstrings */
+setTimeout(() => {
+[...document.querySelectorAll('.hljs.language-python > .hljs-string')]
+.filter(el => el.innerHTML.length > 200 && ['"""', "'''"].includes(el.innerHTML.substring(0, 3)))
+.forEach(el => {
+let d = document.createElement('details');
+d.classList.add('hljs-string');
+d.innerHTML = '<summary>"""</summary>' + el.innerHTML.substring(3);
+el.replaceWith(d);
+});
+}, 100);
+})</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>ogr.services.gitlab.pull_request</code></h1>
+</header>
+<section id="section-intro">
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="ogr.services.gitlab.pull_request.GitlabPullRequest"><code class="flex name class">
+<span>class <span class="ident">GitlabPullRequest</span></span>
+<span>(</span><span>raw_pr: Any, project: GitProject)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class GitlabPullRequest(BasePullRequest):
+    _raw_pr: _GitlabMergeRequest
+    _target_project: &#34;ogr_gitlab.GitlabProject&#34;
+    _source_project: &#34;ogr_gitlab.GitlabProject&#34; = None
+    _merge_commit_status: ClassVar[dict[str, MergeCommitStatus]] = {
+        &#34;can_be_merged&#34;: MergeCommitStatus.can_be_merged,
+        &#34;cannot_be_merged&#34;: MergeCommitStatus.cannot_be_merged,
+        &#34;unchecked&#34;: MergeCommitStatus.unchecked,
+        &#34;checking&#34;: MergeCommitStatus.checking,
+        &#34;cannot_be_merged_recheck&#34;: MergeCommitStatus.cannot_be_merged_recheck,
+    }
+
+    @property
+    def title(self) -&gt; str:
+        return self._raw_pr.title
+
+    @title.setter
+    def title(self, new_title: str) -&gt; None:
+        self._raw_pr.title = new_title
+        self._raw_pr.save()
+
+    @property
+    def id(self) -&gt; int:
+        return self._raw_pr.iid
+
+    @property
+    def status(self) -&gt; PRStatus:
+        return (
+            PRStatus.open
+            if self._raw_pr.state == &#34;opened&#34;
+            else PRStatus[self._raw_pr.state]
+        )
+
+    @property
+    def url(self) -&gt; str:
+        return self._raw_pr.web_url
+
+    @property
+    def description(self) -&gt; str:
+        return self._raw_pr.description
+
+    @description.setter
+    def description(self, new_description: str) -&gt; None:
+        self._raw_pr.description = new_description
+        self._raw_pr.save()
+
+    @property
+    def author(self) -&gt; str:
+        return self._raw_pr.author[&#34;username&#34;]
+
+    @property
+    def source_branch(self) -&gt; str:
+        return self._raw_pr.source_branch
+
+    @property
+    def target_branch(self) -&gt; str:
+        return self._raw_pr.target_branch
+
+    @property
+    def created(self) -&gt; datetime.datetime:
+        return self._raw_pr.created_at
+
+    @property
+    def labels(self) -&gt; list[PRLabel]:
+        return [GitlabPRLabel(label, self) for label in self._raw_pr.labels]
+
+    @property
+    def diff_url(self) -&gt; str:
+        return f&#34;{self._raw_pr.web_url}/diffs&#34;
+
+    @property
+    def commits_url(self) -&gt; str:
+        return f&#34;{self._raw_pr.web_url}/commits&#34;
+
+    @property
+    def patch(self) -&gt; bytes:
+        response = requests.get(f&#34;{self.url}.patch&#34;)
+
+        if not response.ok:
+            cls = OgrNetworkError if response.status_code &gt;= 500 else GitlabAPIException
+            raise cls(
+                f&#34;Couldn&#39;t get patch from {self.url}.patch because {response.reason}.&#34;,
+            )
+
+        return response.content
+
+    @property
+    def head_commit(self) -&gt; str:
+        return self._raw_pr.sha
+
+    @property
+    def merge_commit_sha(self) -&gt; Optional[str]:
+        # when merged =&gt; return merge_commit_sha
+        # otherwise =&gt; return test merge if possible
+        if self.status == PRStatus.merged:
+            return self._raw_pr.merge_commit_sha
+
+        # works for test merge only with python-gitlab&gt;=2.10.0
+        try:
+            response = self._raw_pr.merge_ref()
+        except GitlabGetError as ex:
+            if ex.response_code == 400:
+                return None
+            raise
+        return response.get(&#34;commit_id&#34;)
+
+    @property
+    def merge_commit_status(self) -&gt; MergeCommitStatus:
+        status = self._raw_pr.merge_status
+        if status not in self._merge_commit_status:
+            raise GitlabAPIException(f&#34;Invalid merge_status {status}&#34;)
+
+        return self._merge_commit_status[status]
+
+    @property
+    def source_project(self) -&gt; &#34;ogr_gitlab.GitlabProject&#34;:
+        if self._source_project is None:
+            self._source_project = (
+                self._target_project.service.get_project_from_project_id(
+                    self._raw_pr.attributes[&#34;source_project_id&#34;],
+                )
+            )
+        return self._source_project
+
+    def __str__(self) -&gt; str:
+        return &#34;Gitlab&#34; + super().__str__()
+
+    @staticmethod
+    def create(
+        project: &#34;ogr_gitlab.GitlabProject&#34;,
+        title: str,
+        body: str,
+        target_branch: str,
+        source_branch: str,
+        fork_username: Optional[str] = None,
+    ) -&gt; &#34;PullRequest&#34;:
+        &#34;&#34;&#34;
+        How to create PR:
+        -  upstream -&gt; upstream - call on upstream, fork_username unset
+        -  fork -&gt; upstream - call on fork, fork_username unset
+           also can call on upstream with fork_username, not supported way of using
+        -  fork -&gt; fork - call on fork, fork_username set
+        -  fork -&gt; other_fork - call on fork, fork_username set to other_fork owner
+        &#34;&#34;&#34;
+        repo = project.gitlab_repo
+        parameters = {
+            &#34;source_branch&#34;: source_branch,
+            &#34;target_branch&#34;: target_branch,
+            &#34;title&#34;: title,
+            &#34;description&#34;: body,
+        }
+        target_id = None
+
+        target_project = project
+        if project.is_fork and fork_username is None:
+            # handles fork -&gt; upstream (called on fork)
+            target_id = project.parent.gitlab_repo.attributes[&#34;id&#34;]
+            target_project = project.parent
+        elif fork_username and fork_username != project.namespace:
+            # handles fork -&gt; upstream
+            #   (username of fork owner specified by fork_username)
+            # handles fork -&gt; other_fork
+            #   (username of other_fork owner specified by fork_username)
+
+            other_project = GitlabPullRequest.__get_fork(
+                fork_username,
+                project if project.parent is None else project.parent,
+            )
+
+            target_id = other_project.gitlab_repo.attributes[&#34;id&#34;]
+            if project.parent is None:
+                target_id = repo.attributes[&#34;id&#34;]
+                repo = other_project.gitlab_repo
+        # otherwise handles PR from the same project to same project
+
+        if target_id is not None:
+            parameters[&#34;target_project_id&#34;] = target_id
+
+        mr = repo.mergerequests.create(parameters)
+        return GitlabPullRequest(mr, target_project)
+
+    @staticmethod
+    def __get_fork(
+        fork_username: str,
+        project: &#34;ogr_gitlab.GitlabProject&#34;,
+    ) -&gt; &#34;ogr_gitlab.GitlabProject&#34;:
+        &#34;&#34;&#34;
+        Returns forked project of a requested user. Internal method, in case the fork
+        doesn&#39;t exist, raises GitlabAPIException.
+
+        Args:
+            fork_username: Username of a user that owns requested fork.
+            project: Project to search forks of.
+
+        Returns:
+            Requested fork.
+
+        Raises:
+            GitlabAPIException, in case the fork doesn&#39;t exist.
+        &#34;&#34;&#34;
+        forks = list(
+            filter(
+                lambda fork: fork.gitlab_repo.namespace[&#34;full_path&#34;] == fork_username,
+                project.get_forks(),
+            ),
+        )
+        if not forks:
+            raise GitlabAPIException(&#34;Requested fork doesn&#39;t exist&#34;)
+        return forks[0]
+
+    @staticmethod
+    def get(project: &#34;ogr_gitlab.GitlabProject&#34;, pr_id: int) -&gt; &#34;PullRequest&#34;:
+        try:
+            mr = project.gitlab_repo.mergerequests.get(pr_id)
+        except gitlab.GitlabGetError as ex:
+            raise GitlabAPIException(f&#34;No PR with id {pr_id} found&#34;) from ex
+        return GitlabPullRequest(mr, project)
+
+    @staticmethod
+    def get_list(
+        project: &#34;ogr_gitlab.GitlabProject&#34;,
+        status: PRStatus = PRStatus.open,
+    ) -&gt; list[&#34;PullRequest&#34;]:
+        # Gitlab API has status &#39;opened&#39;, not &#39;open&#39;
+        # f&#34;Calling a `list()` method without specifying `get_all=True` or &#34;
+        # f&#34;`iterator=True` will return a maximum of 20 items. &#34;
+        mrs = project.gitlab_repo.mergerequests.list(
+            state=status.name if status != PRStatus.open else &#34;opened&#34;,
+            order_by=&#34;updated_at&#34;,
+            sort=&#34;desc&#34;,
+            # gitlab 3.3 syntax was all=True
+            get_all=True,
+        )
+        return [GitlabPullRequest(mr, project) for mr in mrs]
+
+    def update_info(
+        self,
+        title: Optional[str] = None,
+        description: Optional[str] = None,
+    ) -&gt; &#34;PullRequest&#34;:
+        if title:
+            self._raw_pr.title = title
+        if description:
+            self._raw_pr.description = description
+
+        self._raw_pr.save()
+        return self
+
+    def _get_all_comments(self, reverse: bool = False) -&gt; Iterable[PRComment]:
+        ordering = &#34;desc&#34; if reverse else &#34;asc&#34;
+        return (
+            GitlabPRComment(parent=self, raw_comment=raw_comment)
+            for raw_comment in self._raw_pr.notes.list(sort=ordering, iterator=True)
+        )
+
+    def get_all_commits(self) -&gt; list[str]:
+        return [commit.id for commit in self._raw_pr.commits()]
+
+    def comment(
+        self,
+        body: str,
+        commit: Optional[str] = None,
+        filename: Optional[str] = None,
+        row: Optional[int] = None,
+    ) -&gt; &#34;PRComment&#34;:
+        comment = self._raw_pr.notes.create({&#34;body&#34;: body})
+        return GitlabPRComment(parent=self, raw_comment=comment)
+
+    def close(self) -&gt; &#34;PullRequest&#34;:
+        self._raw_pr.state_event = &#34;close&#34;
+        self._raw_pr.save()
+        return self
+
+    def merge(self) -&gt; &#34;PullRequest&#34;:
+        self._raw_pr.merge()
+        return self
+
+    def add_label(self, *labels: str) -&gt; None:
+        self._raw_pr.labels += labels
+        self._raw_pr.save()
+
+    def get_comment(self, comment_id: int) -&gt; PRComment:
+        return GitlabPRComment(self._raw_pr.notes.get(comment_id))</code></pre>
+</details>
+<div class="desc"><h2 id="attributes">Attributes</h2>
+<dl>
+<dt><strong><code>project</code></strong> :&ensp;<code>GitProject</code></dt>
+<dd>Project of the pull request.</dd>
+</dl></div>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="ogr.services.base.BasePullRequest" href="../base.html#ogr.services.base.BasePullRequest">BasePullRequest</a></li>
+<li><a title="ogr.abstract.PullRequest" href="../../abstract.html#ogr.abstract.PullRequest">PullRequest</a></li>
+<li><a title="ogr.abstract.OgrAbstractClass" href="../../abstract.html#ogr.abstract.OgrAbstractClass">OgrAbstractClass</a></li>
+</ul>
+<h3>Static methods</h3>
+<dl>
+<dt id="ogr.services.gitlab.pull_request.GitlabPullRequest.create"><code class="name flex">
+<span>def <span class="ident">create</span></span>(<span>project: ogr_gitlab.GitlabProject,<br>title: str,<br>body: str,<br>target_branch: str,<br>source_branch: str,<br>fork_username: str | None = None) ‑> <a title="ogr.abstract.PullRequest" href="../../abstract.html#ogr.abstract.PullRequest">PullRequest</a></span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@staticmethod
+def create(
+    project: &#34;ogr_gitlab.GitlabProject&#34;,
+    title: str,
+    body: str,
+    target_branch: str,
+    source_branch: str,
+    fork_username: Optional[str] = None,
+) -&gt; &#34;PullRequest&#34;:
+    &#34;&#34;&#34;
+    How to create PR:
+    -  upstream -&gt; upstream - call on upstream, fork_username unset
+    -  fork -&gt; upstream - call on fork, fork_username unset
+       also can call on upstream with fork_username, not supported way of using
+    -  fork -&gt; fork - call on fork, fork_username set
+    -  fork -&gt; other_fork - call on fork, fork_username set to other_fork owner
+    &#34;&#34;&#34;
+    repo = project.gitlab_repo
+    parameters = {
+        &#34;source_branch&#34;: source_branch,
+        &#34;target_branch&#34;: target_branch,
+        &#34;title&#34;: title,
+        &#34;description&#34;: body,
+    }
+    target_id = None
+
+    target_project = project
+    if project.is_fork and fork_username is None:
+        # handles fork -&gt; upstream (called on fork)
+        target_id = project.parent.gitlab_repo.attributes[&#34;id&#34;]
+        target_project = project.parent
+    elif fork_username and fork_username != project.namespace:
+        # handles fork -&gt; upstream
+        #   (username of fork owner specified by fork_username)
+        # handles fork -&gt; other_fork
+        #   (username of other_fork owner specified by fork_username)
+
+        other_project = GitlabPullRequest.__get_fork(
+            fork_username,
+            project if project.parent is None else project.parent,
+        )
+
+        target_id = other_project.gitlab_repo.attributes[&#34;id&#34;]
+        if project.parent is None:
+            target_id = repo.attributes[&#34;id&#34;]
+            repo = other_project.gitlab_repo
+    # otherwise handles PR from the same project to same project
+
+    if target_id is not None:
+        parameters[&#34;target_project_id&#34;] = target_id
+
+    mr = repo.mergerequests.create(parameters)
+    return GitlabPullRequest(mr, target_project)</code></pre>
+</details>
+<div class="desc"><p>How to create PR:
+-
+upstream -&gt; upstream - call on upstream, fork_username unset
+-
+fork -&gt; upstream - call on fork, fork_username unset
+also can call on upstream with fork_username, not supported way of using
+-
+fork -&gt; fork - call on fork, fork_username set
+-
+fork -&gt; other_fork - call on fork, fork_username set to other_fork owner</p></div>
+</dd>
+</dl>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="ogr.services.base.BasePullRequest" href="../base.html#ogr.services.base.BasePullRequest">BasePullRequest</a></b></code>:
+<ul class="hlist">
+<li><code><a title="ogr.services.base.BasePullRequest.add_label" href="../../abstract.html#ogr.abstract.PullRequest.add_label">add_label</a></code></li>
+<li><code><a title="ogr.services.base.BasePullRequest.author" href="../../abstract.html#ogr.abstract.PullRequest.author">author</a></code></li>
+<li><code><a title="ogr.services.base.BasePullRequest.close" href="../../abstract.html#ogr.abstract.PullRequest.close">close</a></code></li>
+<li><code><a title="ogr.services.base.BasePullRequest.closed_by" href="../../abstract.html#ogr.abstract.PullRequest.closed_by">closed_by</a></code></li>
+<li><code><a title="ogr.services.base.BasePullRequest.comment" href="../../abstract.html#ogr.abstract.PullRequest.comment">comment</a></code></li>
+<li><code><a title="ogr.services.base.BasePullRequest.commits_url" href="../../abstract.html#ogr.abstract.PullRequest.commits_url">commits_url</a></code></li>
+<li><code><a title="ogr.services.base.BasePullRequest.created" href="../../abstract.html#ogr.abstract.PullRequest.created">created</a></code></li>
+<li><code><a title="ogr.services.base.BasePullRequest.description" href="../../abstract.html#ogr.abstract.PullRequest.description">description</a></code></li>
+<li><code><a title="ogr.services.base.BasePullRequest.diff_url" href="../../abstract.html#ogr.abstract.PullRequest.diff_url">diff_url</a></code></li>
+<li><code><a title="ogr.services.base.BasePullRequest.get" href="../../abstract.html#ogr.abstract.PullRequest.get">get</a></code></li>
+<li><code><a title="ogr.services.base.BasePullRequest.get_all_commits" href="../../abstract.html#ogr.abstract.PullRequest.get_all_commits">get_all_commits</a></code></li>
+<li><code><a title="ogr.services.base.BasePullRequest.get_comment" href="../../abstract.html#ogr.abstract.PullRequest.get_comment">get_comment</a></code></li>
+<li><code><a title="ogr.services.base.BasePullRequest.get_list" href="../../abstract.html#ogr.abstract.PullRequest.get_list">get_list</a></code></li>
+<li><code><a title="ogr.services.base.BasePullRequest.head_commit" href="../../abstract.html#ogr.abstract.PullRequest.head_commit">head_commit</a></code></li>
+<li><code><a title="ogr.services.base.BasePullRequest.id" href="../../abstract.html#ogr.abstract.PullRequest.id">id</a></code></li>
+<li><code><a title="ogr.services.base.BasePullRequest.labels" href="../../abstract.html#ogr.abstract.PullRequest.labels">labels</a></code></li>
+<li><code><a title="ogr.services.base.BasePullRequest.merge" href="../../abstract.html#ogr.abstract.PullRequest.merge">merge</a></code></li>
+<li><code><a title="ogr.services.base.BasePullRequest.merge_commit_sha" href="../../abstract.html#ogr.abstract.PullRequest.merge_commit_sha">merge_commit_sha</a></code></li>
+<li><code><a title="ogr.services.base.BasePullRequest.merge_commit_status" href="../../abstract.html#ogr.abstract.PullRequest.merge_commit_status">merge_commit_status</a></code></li>
+<li><code><a title="ogr.services.base.BasePullRequest.patch" href="../../abstract.html#ogr.abstract.PullRequest.patch">patch</a></code></li>
+<li><code><a title="ogr.services.base.BasePullRequest.source_branch" href="../../abstract.html#ogr.abstract.PullRequest.source_branch">source_branch</a></code></li>
+<li><code><a title="ogr.services.base.BasePullRequest.source_project" href="../../abstract.html#ogr.abstract.PullRequest.source_project">source_project</a></code></li>
+<li><code><a title="ogr.services.base.BasePullRequest.status" href="../../abstract.html#ogr.abstract.PullRequest.status">status</a></code></li>
+<li><code><a title="ogr.services.base.BasePullRequest.target_branch" href="../../abstract.html#ogr.abstract.PullRequest.target_branch">target_branch</a></code></li>
+<li><code><a title="ogr.services.base.BasePullRequest.target_branch_head_commit" href="../../abstract.html#ogr.abstract.PullRequest.target_branch_head_commit">target_branch_head_commit</a></code></li>
+<li><code><a title="ogr.services.base.BasePullRequest.target_project" href="../../abstract.html#ogr.abstract.PullRequest.target_project">target_project</a></code></li>
+<li><code><a title="ogr.services.base.BasePullRequest.title" href="../../abstract.html#ogr.abstract.PullRequest.title">title</a></code></li>
+<li><code><a title="ogr.services.base.BasePullRequest.update_info" href="../../abstract.html#ogr.abstract.PullRequest.update_info">update_info</a></code></li>
+<li><code><a title="ogr.services.base.BasePullRequest.url" href="../../abstract.html#ogr.abstract.PullRequest.url">url</a></code></li>
+</ul>
+</li>
+<li><code><b><a title="ogr.abstract.PullRequest" href="../../abstract.html#ogr.abstract.PullRequest">PullRequest</a></b></code>:
+<ul class="hlist">
+<li><code><a title="ogr.abstract.PullRequest.get_comments" href="../../abstract.html#ogr.abstract.PullRequest.get_comments">get_comments</a></code></li>
+<li><code><a title="ogr.abstract.PullRequest.get_statuses" href="../../abstract.html#ogr.abstract.PullRequest.get_statuses">get_statuses</a></code></li>
+<li><code><a title="ogr.abstract.PullRequest.search" href="../../abstract.html#ogr.abstract.PullRequest.search">search</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="ogr.services.gitlab" href="index.html">ogr.services.gitlab</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="ogr.services.gitlab.pull_request.GitlabPullRequest" href="#ogr.services.gitlab.pull_request.GitlabPullRequest">GitlabPullRequest</a></code></h4>
+<ul class="">
+<li><code><a title="ogr.services.gitlab.pull_request.GitlabPullRequest.create" href="#ogr.services.gitlab.pull_request.GitlabPullRequest.create">create</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.11.6</a>.</p>
+</footer>
+</body>
+</html>

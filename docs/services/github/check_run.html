@@ -1,0 +1,1110 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+<meta name="generator" content="pdoc3 0.11.6">
+<title>ogr.services.github.check_run API documentation</title>
+<meta name="description" content="">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/sanitize.min.css" integrity="sha512-y1dtMcuvtTMJc1yPgEqF0ZjQbhnc/bFhyvIyVNb9Zk5mIGtqVaAB1Ttl28su8AvFMOY0EwRbAe+HCLqj6W7/KA==" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/typography.min.css" integrity="sha512-Y1DYSb995BAfxobCkKepB1BqJJTPrOp3zPL74AWFugHHmmdcvO+C48WLrUOlhGMc0QG7AE3f7gmvvcrmX2fDoA==" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:1.5em;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:2em 0 .50em 0}h3{font-size:1.4em;margin:1.6em 0 .7em 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .2s ease-in-out}a:visited{color:#503}a:hover{color:#b62}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900;font-weight:bold}pre code{font-size:.8em;line-height:1.4em;padding:1em;display:block}code{background:#f3f3f3;font-family:"DejaVu Sans Mono",monospace;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source > summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible;min-width:max-content}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em 1em;margin:1em 0}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul ul{padding-left:1em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js" integrity="sha512-D9gUyxqja7hBtkWpPWGt9wfbfaMGVt9gnyCvYa+jojwwPHLCzUm5i8rpk7vD7wNee9bA35eYIjobYPaQuKS1MQ==" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => {
+hljs.configure({languages: ['bash', 'css', 'diff', 'graphql', 'ini', 'javascript', 'json', 'plaintext', 'python', 'python-repl', 'rust', 'shell', 'sql', 'typescript', 'xml', 'yaml']});
+hljs.highlightAll();
+/* Collapse source docstrings */
+setTimeout(() => {
+[...document.querySelectorAll('.hljs.language-python > .hljs-string')]
+.filter(el => el.innerHTML.length > 200 && ['"""', "'''"].includes(el.innerHTML.substring(0, 3)))
+.forEach(el => {
+let d = document.createElement('details');
+d.classList.add('hljs-string');
+d.innerHTML = '<summary>"""</summary>' + el.innerHTML.substring(3);
+el.replaceWith(d);
+});
+}, 100);
+})</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>ogr.services.github.check_run</code></h1>
+</header>
+<section id="section-intro">
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-functions">Functions</h2>
+<dl>
+<dt id="ogr.services.github.check_run.create_github_check_run_output"><code class="name flex">
+<span>def <span class="ident">create_github_check_run_output</span></span>(<span>title: str,<br>summary: str,<br>text: str | None = None,<br>annotations: list[dict[str, str | int]] | None = None) ‑> dict[str, str | list[dict[str, str | int]]]</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def create_github_check_run_output(
+    title: str,
+    summary: str,
+    text: Optional[str] = None,
+    annotations: Optional[list[dict[str, Union[str, int]]]] = None,
+) -&gt; GithubCheckRunOutput:
+    &#34;&#34;&#34;
+    Helper function for constructing valid GitHub output for check run.
+
+    Args:
+        title: Title of the output.
+        summary: Summary of the output.
+        text: Optional text for the output. Can be markdown formatted.
+
+            Defaults to `None`.
+        annotations: Optional annotations that are tied to source code.
+
+    Returns:
+        Dictionary that represents valid output for check run.
+    &#34;&#34;&#34;
+    output: GithubCheckRunOutput = {
+        &#34;title&#34;: title,
+        &#34;summary&#34;: summary,
+    }
+
+    if text is not None:
+        output[&#34;text&#34;] = text
+
+    if annotations is not None:
+        output[&#34;annotations&#34;] = annotations
+
+    return output</code></pre>
+</details>
+<div class="desc"><p>Helper function for constructing valid GitHub output for check run.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>title</code></strong></dt>
+<dd>Title of the output.</dd>
+<dt><strong><code>summary</code></strong></dt>
+<dd>Summary of the output.</dd>
+<dt><strong><code>text</code></strong></dt>
+<dd>
+<p>Optional text for the output. Can be markdown formatted.</p>
+<p>Defaults to <code>None</code>.</p>
+</dd>
+<dt><strong><code>annotations</code></strong></dt>
+<dd>Optional annotations that are tied to source code.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p>Dictionary that represents valid output for check run.</p></div>
+</dd>
+<dt id="ogr.services.github.check_run.value_or_NotSet"><code class="name flex">
+<span>def <span class="ident">value_or_NotSet</span></span>(<span>value: Any | None) ‑> Any</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def value_or_NotSet(value: Optional[Any]) -&gt; Any:
+    &#34;&#34;&#34;
+    Wrapper for PyGithub, allows us to transform `None` into PyGithub&#39;s `NotSet`.
+
+    Args:
+        value: Value that can be None.
+
+    Returns:
+        If value is not None, value is returned; NotSet otherwise.
+    &#34;&#34;&#34;
+    return value if value is not None else NotSet</code></pre>
+</details>
+<div class="desc"><p>Wrapper for PyGithub, allows us to transform <code>None</code> into PyGithub's <code>NotSet</code>.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>value</code></strong></dt>
+<dd>Value that can be None.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p>If value is not None, value is returned; NotSet otherwise.</p></div>
+</dd>
+</dl>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="ogr.services.github.check_run.GithubCheckRun"><code class="flex name class">
+<span>class <span class="ident">GithubCheckRun</span></span>
+<span>(</span><span>project: ogr_github.GithubProject, raw_check_run: github.CheckRun.CheckRun)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class GithubCheckRun(OgrAbstractClass):
+    def __init__(
+        self,
+        project: &#34;ogr_github.GithubProject&#34;,
+        raw_check_run: CheckRun,
+    ) -&gt; None:
+        self.raw_check_run = raw_check_run
+        self.project = project
+
+    def __str__(self) -&gt; str:
+        return (
+            f&#34;GithubCheckRun(project={self.project}, name=&#39;{self.name}&#39;, &#34;
+            f&#34;commit_sha=&#39;{self.commit_sha}&#39;, &#34;
+            f&#34;url=&#39;{self.url}&#39;, &#34;
+            f&#34;external_id=&#39;{self.external_id}&#39;, &#34;
+            f&#34;status={self.status.name}, &#34;
+            f&#34;started_at={self.started_at}, &#34;
+            f&#34;conclusion={self.conclusion}, &#34;
+            f&#34;completed_at={self.completed_at}, &#34;
+            f&#34;output={self.output}, &#34;
+            f&#34;app={self.app})&#34;
+        )
+
+    @property
+    def name(self) -&gt; str:
+        &#34;&#34;&#34;Name of the check run.&#34;&#34;&#34;
+        return self.raw_check_run.name
+
+    @name.setter
+    def name(self, name: str) -&gt; None:
+        self.raw_check_run.edit(name=name)
+
+    @property
+    def commit_sha(self) -&gt; str:
+        &#34;&#34;&#34;Commit SHA that check run is related to.&#34;&#34;&#34;
+        return self.raw_check_run.head_sha
+
+    @property
+    def url(self) -&gt; Optional[str]:
+        &#34;&#34;&#34;URL with additional details.&#34;&#34;&#34;
+        return self.raw_check_run.details_url
+
+    @url.setter
+    def url(self, url: str) -&gt; None:
+        self.raw_check_run.edit(details_url=url)
+
+    @property
+    def external_id(self) -&gt; Optional[str]:
+        &#34;&#34;&#34;External ID that can be used internally by the integrator.&#34;&#34;&#34;
+        return self.raw_check_run.external_id
+
+    @external_id.setter
+    def external_id(self, external_id: str) -&gt; None:
+        self.raw_check_run.edit(external_id=external_id)
+
+    @property
+    def status(self) -&gt; GithubCheckRunStatus:
+        &#34;&#34;&#34;Current status of the check run.&#34;&#34;&#34;
+        return GithubCheckRunStatus(self.raw_check_run.status)
+
+    @property
+    def started_at(self) -&gt; Optional[datetime.datetime]:
+        &#34;&#34;&#34;Timestamp of start of the check run.&#34;&#34;&#34;
+        return self.raw_check_run.started_at
+
+    @started_at.setter
+    def started_at(self, started_at: datetime.datetime) -&gt; None:
+        self.raw_check_run.edit(started_at=started_at)
+
+    @property
+    def conclusion(self) -&gt; Optional[GithubCheckRunResult]:
+        &#34;&#34;&#34;Conclusion/result of the check run.&#34;&#34;&#34;
+        return (
+            GithubCheckRunResult(self.raw_check_run.conclusion)
+            if self.raw_check_run.conclusion
+            else None
+        )
+
+    @property
+    def completed_at(self) -&gt; Optional[datetime.datetime]:
+        &#34;&#34;&#34;Timestamp of completion of the check run.&#34;&#34;&#34;
+        return self.raw_check_run.completed_at
+
+    @property
+    def output(self) -&gt; CheckRunOutput:
+        &#34;&#34;&#34;Output of the check run.&#34;&#34;&#34;
+        return self.raw_check_run.output
+
+    @output.setter
+    def output(self, output: GithubCheckRunOutput) -&gt; None:
+        self.raw_check_run.edit(output=output)
+
+    @property
+    def app(self) -&gt; GithubApp:
+        &#34;&#34;&#34;Github App of the check run.&#34;&#34;&#34;
+        return self.raw_check_run.app
+
+    def change_status(
+        self,
+        status: Optional[GithubCheckRunStatus] = None,
+        completed_at: Optional[datetime.datetime] = None,
+        conclusion: Optional[GithubCheckRunResult] = None,
+    ) -&gt; None:
+        &#34;&#34;&#34;
+        Changes the status of the check run and checks the validity of new state.
+
+        Args:
+            status: Status of the check run to be set. If set to completed, you
+                must provide conclusion.
+
+                Defaults to `None`.
+            completed_at: Timestamp of completion of the check run. If set, you
+                must provide conclusion.
+
+                Defaults to `None`.
+            conclusion: Conclusion/result of the check run. If only conclusion
+                is set, status is automatically set to completed.
+
+                Defaults to `None`.
+
+        Raises:
+            OperationNotSupported, if given completed or timestamp of completed
+                without conclusion.
+        &#34;&#34;&#34;
+        if not (status or completed_at or conclusion):
+            return
+
+        if (
+            status == GithubCheckRunStatus.completed or completed_at
+        ) and conclusion is None:
+            raise OperationNotSupported(
+                &#34;When provided completed status or completed at,&#34;
+                &#34; you need to provide conclusion.&#34;,
+            )
+
+        self.raw_check_run.edit(
+            status=value_or_NotSet(status.name if status else None),
+            conclusion=value_or_NotSet(conclusion.name if conclusion else None),
+            completed_at=value_or_NotSet(completed_at),
+        )
+
+    @staticmethod
+    def get_list(
+        project: &#34;ogr_github.GithubProject&#34;,
+        commit_sha: str,
+        name: Optional[str] = None,
+        status: Optional[GithubCheckRunStatus] = None,
+    ) -&gt; list[&#34;GithubCheckRun&#34;]:
+        &#34;&#34;&#34;
+        Returns list of GitHub check runs.
+
+        Args:
+            project: Project from which the check runs are retrieved.
+            commit_sha: Commit to which are the check runs related to.
+            name: Name of the check run for filtering.
+
+                Defaults to `None`, no filtering.
+            status: Status of the check runs to be returned.
+
+                Defaults to `None`, no filtering.
+
+        Returns:
+            List of the check runs.
+        &#34;&#34;&#34;
+        check_runs = project.github_repo.get_commit(commit_sha).get_check_runs(
+            check_name=value_or_NotSet(name),
+            status=value_or_NotSet(status.name if status else None),
+        )
+
+        return [GithubCheckRun(project, run) for run in check_runs]
+
+    @staticmethod
+    def get(
+        project: &#34;ogr_github.GithubProject&#34;,
+        check_run_id: Optional[int] = None,
+        commit_sha: Optional[str] = None,
+    ) -&gt; Optional[&#34;GithubCheckRun&#34;]:
+        &#34;&#34;&#34;
+        Retrieves GitHub check run as ogr object.
+
+        Args:
+            project: Project from which the check run is retrieved.
+            check_run_id: Check run ID.
+
+                Defaults to `None`, i.e. is not used for query.
+            commit_sha: Commit SHA from which the check run is to be retrieved.
+                If set, returns latest check run for the commit.
+
+                Defaults to `None`, i.e. is not used for query.
+
+        Returns:
+            GithubCheckRun object or `None` if no check run is found.
+
+        Raises:
+            OperationNotSupported, in case there is no parameter for query set
+                or both are set.
+        &#34;&#34;&#34;
+        if check_run_id is not None and commit_sha:
+            raise OperationNotSupported(
+                &#34;Cannot retrieve check run by both ID and commit hash&#34;,
+            )
+
+        if not (check_run_id is not None or commit_sha):
+            raise OperationNotSupported(&#34;Cannot retrieve check run by no criteria&#34;)
+
+        if check_run_id is not None:
+            return GithubCheckRun(
+                project,
+                project.github_repo.get_check_run(check_run_id),
+            )
+
+        check_runs = project.github_repo.get_commit(commit_sha).get_check_runs()
+        if check_runs.totalCount == 0:
+            return None
+        return GithubCheckRun(project, check_runs[0])
+
+    @staticmethod
+    def create(
+        project: &#34;ogr_github.GithubProject&#34;,
+        name: str,
+        commit_sha: str,
+        url: Optional[str] = None,
+        external_id: Optional[str] = None,
+        status: GithubCheckRunStatus = GithubCheckRunStatus.queued,
+        started_at: Optional[datetime.datetime] = None,
+        conclusion: Optional[GithubCheckRunResult] = None,
+        completed_at: Optional[datetime.datetime] = None,
+        output: Optional[GithubCheckRunOutput] = None,
+        actions: Optional[list[dict[str, str]]] = None,
+    ) -&gt; &#34;GithubCheckRun&#34;:
+        &#34;&#34;&#34;
+        Creates new check run.
+
+        Args:
+            project: Project where the check run is to be created.
+            name: Name of the check run.
+            commit_sha: Hash of the commit that check run is related to.
+            url: URL with details of the run.
+
+                Defaults to `None`.
+            external_id: External ID that can be used internally by integrator.
+
+                Defaults to `None`.
+            status: Status of the check run.
+
+                Defaults to queued.
+            started_at: Timestamp of starting the check run.
+
+                Defaults to `None`.
+            conclusion: Conclusion of the check run. Should be set with status
+                completed.
+
+                Defaults to `None`.
+            completed_at: Timestamp of completion of the check run. If set, you
+                must provide conclusion.
+
+                Defaults to `None`.
+            output: Output of the check run.
+            actions: List of possible follow-up actions for the check run.
+
+        Returns:
+            Created check run object.
+
+        Raises:
+            OperationNotSupported, if given completed status or completion
+                timestamp and no conclusion.
+        &#34;&#34;&#34;
+
+        if (
+            completed_at or status == GithubCheckRunStatus.completed
+        ) and conclusion is None:
+            raise OperationNotSupported(
+                &#34;When provided completed_at or completed status, &#34;
+                &#34;you need to provide conclusion.&#34;,
+            )
+
+        created_check_run = project.github_repo.create_check_run(
+            name=name,
+            head_sha=commit_sha,
+            details_url=value_or_NotSet(url),
+            external_id=value_or_NotSet(external_id),
+            status=status.name,
+            started_at=value_or_NotSet(started_at),
+            conclusion=value_or_NotSet(conclusion.name if conclusion else None),
+            completed_at=value_or_NotSet(completed_at),
+            output=value_or_NotSet(output),
+            actions=value_or_NotSet(actions),
+        )
+
+        return GithubCheckRun(project, created_check_run)</code></pre>
+</details>
+<div class="desc"></div>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="ogr.abstract.OgrAbstractClass" href="../../abstract.html#ogr.abstract.OgrAbstractClass">OgrAbstractClass</a></li>
+</ul>
+<h3>Static methods</h3>
+<dl>
+<dt id="ogr.services.github.check_run.GithubCheckRun.create"><code class="name flex">
+<span>def <span class="ident">create</span></span>(<span>project: ogr_github.GithubProject,<br>name: str,<br>commit_sha: str,<br>url: str | None = None,<br>external_id: str | None = None,<br>status: <a title="ogr.services.github.check_run.GithubCheckRunStatus" href="#ogr.services.github.check_run.GithubCheckRunStatus">GithubCheckRunStatus</a> = GithubCheckRunStatus.queued,<br>started_at: datetime.datetime | None = None,<br>conclusion: <a title="ogr.services.github.check_run.GithubCheckRunResult" href="#ogr.services.github.check_run.GithubCheckRunResult">GithubCheckRunResult</a> | None = None,<br>completed_at: datetime.datetime | None = None,<br>output: dict[str, str | list[dict[str, str | int]]] | None = None,<br>actions: list[dict[str, str]] | None = None) ‑> <a title="ogr.services.github.check_run.GithubCheckRun" href="#ogr.services.github.check_run.GithubCheckRun">GithubCheckRun</a></span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@staticmethod
+def create(
+    project: &#34;ogr_github.GithubProject&#34;,
+    name: str,
+    commit_sha: str,
+    url: Optional[str] = None,
+    external_id: Optional[str] = None,
+    status: GithubCheckRunStatus = GithubCheckRunStatus.queued,
+    started_at: Optional[datetime.datetime] = None,
+    conclusion: Optional[GithubCheckRunResult] = None,
+    completed_at: Optional[datetime.datetime] = None,
+    output: Optional[GithubCheckRunOutput] = None,
+    actions: Optional[list[dict[str, str]]] = None,
+) -&gt; &#34;GithubCheckRun&#34;:
+    &#34;&#34;&#34;
+    Creates new check run.
+
+    Args:
+        project: Project where the check run is to be created.
+        name: Name of the check run.
+        commit_sha: Hash of the commit that check run is related to.
+        url: URL with details of the run.
+
+            Defaults to `None`.
+        external_id: External ID that can be used internally by integrator.
+
+            Defaults to `None`.
+        status: Status of the check run.
+
+            Defaults to queued.
+        started_at: Timestamp of starting the check run.
+
+            Defaults to `None`.
+        conclusion: Conclusion of the check run. Should be set with status
+            completed.
+
+            Defaults to `None`.
+        completed_at: Timestamp of completion of the check run. If set, you
+            must provide conclusion.
+
+            Defaults to `None`.
+        output: Output of the check run.
+        actions: List of possible follow-up actions for the check run.
+
+    Returns:
+        Created check run object.
+
+    Raises:
+        OperationNotSupported, if given completed status or completion
+            timestamp and no conclusion.
+    &#34;&#34;&#34;
+
+    if (
+        completed_at or status == GithubCheckRunStatus.completed
+    ) and conclusion is None:
+        raise OperationNotSupported(
+            &#34;When provided completed_at or completed status, &#34;
+            &#34;you need to provide conclusion.&#34;,
+        )
+
+    created_check_run = project.github_repo.create_check_run(
+        name=name,
+        head_sha=commit_sha,
+        details_url=value_or_NotSet(url),
+        external_id=value_or_NotSet(external_id),
+        status=status.name,
+        started_at=value_or_NotSet(started_at),
+        conclusion=value_or_NotSet(conclusion.name if conclusion else None),
+        completed_at=value_or_NotSet(completed_at),
+        output=value_or_NotSet(output),
+        actions=value_or_NotSet(actions),
+    )
+
+    return GithubCheckRun(project, created_check_run)</code></pre>
+</details>
+<div class="desc"><p>Creates new check run.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>project</code></strong></dt>
+<dd>Project where the check run is to be created.</dd>
+<dt><strong><code>name</code></strong></dt>
+<dd>Name of the check run.</dd>
+<dt><strong><code>commit_sha</code></strong></dt>
+<dd>Hash of the commit that check run is related to.</dd>
+<dt><strong><code>url</code></strong></dt>
+<dd>
+<p>URL with details of the run.</p>
+<p>Defaults to <code>None</code>.</p>
+</dd>
+<dt><strong><code>external_id</code></strong></dt>
+<dd>
+<p>External ID that can be used internally by integrator.</p>
+<p>Defaults to <code>None</code>.</p>
+</dd>
+<dt><strong><code>status</code></strong></dt>
+<dd>
+<p>Status of the check run.</p>
+<p>Defaults to queued.</p>
+</dd>
+<dt><strong><code>started_at</code></strong></dt>
+<dd>
+<p>Timestamp of starting the check run.</p>
+<p>Defaults to <code>None</code>.</p>
+</dd>
+<dt><strong><code>conclusion</code></strong></dt>
+<dd>
+<p>Conclusion of the check run. Should be set with status
+completed.</p>
+<p>Defaults to <code>None</code>.</p>
+</dd>
+<dt><strong><code>completed_at</code></strong></dt>
+<dd>
+<p>Timestamp of completion of the check run. If set, you
+must provide conclusion.</p>
+<p>Defaults to <code>None</code>.</p>
+</dd>
+<dt><strong><code>output</code></strong></dt>
+<dd>Output of the check run.</dd>
+<dt><strong><code>actions</code></strong></dt>
+<dd>List of possible follow-up actions for the check run.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p>Created check run object.</p>
+<h2 id="raises">Raises</h2>
+<p>OperationNotSupported, if given completed status or completion
+timestamp and no conclusion.</p></div>
+</dd>
+<dt id="ogr.services.github.check_run.GithubCheckRun.get"><code class="name flex">
+<span>def <span class="ident">get</span></span>(<span>project: ogr_github.GithubProject,<br>check_run_id: int | None = None,<br>commit_sha: str | None = None) ‑> <a title="ogr.services.github.check_run.GithubCheckRun" href="#ogr.services.github.check_run.GithubCheckRun">GithubCheckRun</a> | None</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@staticmethod
+def get(
+    project: &#34;ogr_github.GithubProject&#34;,
+    check_run_id: Optional[int] = None,
+    commit_sha: Optional[str] = None,
+) -&gt; Optional[&#34;GithubCheckRun&#34;]:
+    &#34;&#34;&#34;
+    Retrieves GitHub check run as ogr object.
+
+    Args:
+        project: Project from which the check run is retrieved.
+        check_run_id: Check run ID.
+
+            Defaults to `None`, i.e. is not used for query.
+        commit_sha: Commit SHA from which the check run is to be retrieved.
+            If set, returns latest check run for the commit.
+
+            Defaults to `None`, i.e. is not used for query.
+
+    Returns:
+        GithubCheckRun object or `None` if no check run is found.
+
+    Raises:
+        OperationNotSupported, in case there is no parameter for query set
+            or both are set.
+    &#34;&#34;&#34;
+    if check_run_id is not None and commit_sha:
+        raise OperationNotSupported(
+            &#34;Cannot retrieve check run by both ID and commit hash&#34;,
+        )
+
+    if not (check_run_id is not None or commit_sha):
+        raise OperationNotSupported(&#34;Cannot retrieve check run by no criteria&#34;)
+
+    if check_run_id is not None:
+        return GithubCheckRun(
+            project,
+            project.github_repo.get_check_run(check_run_id),
+        )
+
+    check_runs = project.github_repo.get_commit(commit_sha).get_check_runs()
+    if check_runs.totalCount == 0:
+        return None
+    return GithubCheckRun(project, check_runs[0])</code></pre>
+</details>
+<div class="desc"><p>Retrieves GitHub check run as ogr object.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>project</code></strong></dt>
+<dd>Project from which the check run is retrieved.</dd>
+<dt><strong><code>check_run_id</code></strong></dt>
+<dd>
+<p>Check run ID.</p>
+<p>Defaults to <code>None</code>, i.e. is not used for query.</p>
+</dd>
+<dt><strong><code>commit_sha</code></strong></dt>
+<dd>
+<p>Commit SHA from which the check run is to be retrieved.
+If set, returns latest check run for the commit.</p>
+<p>Defaults to <code>None</code>, i.e. is not used for query.</p>
+</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p>GithubCheckRun object or <code>None</code> if no check run is found.</p>
+<h2 id="raises">Raises</h2>
+<p>OperationNotSupported, in case there is no parameter for query set
+or both are set.</p></div>
+</dd>
+<dt id="ogr.services.github.check_run.GithubCheckRun.get_list"><code class="name flex">
+<span>def <span class="ident">get_list</span></span>(<span>project: ogr_github.GithubProject,<br>commit_sha: str,<br>name: str | None = None,<br>status: <a title="ogr.services.github.check_run.GithubCheckRunStatus" href="#ogr.services.github.check_run.GithubCheckRunStatus">GithubCheckRunStatus</a> | None = None) ‑> list[<a title="ogr.services.github.check_run.GithubCheckRun" href="#ogr.services.github.check_run.GithubCheckRun">GithubCheckRun</a>]</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@staticmethod
+def get_list(
+    project: &#34;ogr_github.GithubProject&#34;,
+    commit_sha: str,
+    name: Optional[str] = None,
+    status: Optional[GithubCheckRunStatus] = None,
+) -&gt; list[&#34;GithubCheckRun&#34;]:
+    &#34;&#34;&#34;
+    Returns list of GitHub check runs.
+
+    Args:
+        project: Project from which the check runs are retrieved.
+        commit_sha: Commit to which are the check runs related to.
+        name: Name of the check run for filtering.
+
+            Defaults to `None`, no filtering.
+        status: Status of the check runs to be returned.
+
+            Defaults to `None`, no filtering.
+
+    Returns:
+        List of the check runs.
+    &#34;&#34;&#34;
+    check_runs = project.github_repo.get_commit(commit_sha).get_check_runs(
+        check_name=value_or_NotSet(name),
+        status=value_or_NotSet(status.name if status else None),
+    )
+
+    return [GithubCheckRun(project, run) for run in check_runs]</code></pre>
+</details>
+<div class="desc"><p>Returns list of GitHub check runs.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>project</code></strong></dt>
+<dd>Project from which the check runs are retrieved.</dd>
+<dt><strong><code>commit_sha</code></strong></dt>
+<dd>Commit to which are the check runs related to.</dd>
+<dt><strong><code>name</code></strong></dt>
+<dd>
+<p>Name of the check run for filtering.</p>
+<p>Defaults to <code>None</code>, no filtering.</p>
+</dd>
+<dt><strong><code>status</code></strong></dt>
+<dd>
+<p>Status of the check runs to be returned.</p>
+<p>Defaults to <code>None</code>, no filtering.</p>
+</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p>List of the check runs.</p></div>
+</dd>
+</dl>
+<h3>Instance variables</h3>
+<dl>
+<dt id="ogr.services.github.check_run.GithubCheckRun.app"><code class="name">prop <span class="ident">app</span> : github.GithubApp.GithubApp</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def app(self) -&gt; GithubApp:
+    &#34;&#34;&#34;Github App of the check run.&#34;&#34;&#34;
+    return self.raw_check_run.app</code></pre>
+</details>
+<div class="desc"><p>Github App of the check run.</p></div>
+</dd>
+<dt id="ogr.services.github.check_run.GithubCheckRun.commit_sha"><code class="name">prop <span class="ident">commit_sha</span> : str</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def commit_sha(self) -&gt; str:
+    &#34;&#34;&#34;Commit SHA that check run is related to.&#34;&#34;&#34;
+    return self.raw_check_run.head_sha</code></pre>
+</details>
+<div class="desc"><p>Commit SHA that check run is related to.</p></div>
+</dd>
+<dt id="ogr.services.github.check_run.GithubCheckRun.completed_at"><code class="name">prop <span class="ident">completed_at</span> : datetime.datetime | None</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def completed_at(self) -&gt; Optional[datetime.datetime]:
+    &#34;&#34;&#34;Timestamp of completion of the check run.&#34;&#34;&#34;
+    return self.raw_check_run.completed_at</code></pre>
+</details>
+<div class="desc"><p>Timestamp of completion of the check run.</p></div>
+</dd>
+<dt id="ogr.services.github.check_run.GithubCheckRun.conclusion"><code class="name">prop <span class="ident">conclusion</span> : <a title="ogr.services.github.check_run.GithubCheckRunResult" href="#ogr.services.github.check_run.GithubCheckRunResult">GithubCheckRunResult</a> | None</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def conclusion(self) -&gt; Optional[GithubCheckRunResult]:
+    &#34;&#34;&#34;Conclusion/result of the check run.&#34;&#34;&#34;
+    return (
+        GithubCheckRunResult(self.raw_check_run.conclusion)
+        if self.raw_check_run.conclusion
+        else None
+    )</code></pre>
+</details>
+<div class="desc"><p>Conclusion/result of the check run.</p></div>
+</dd>
+<dt id="ogr.services.github.check_run.GithubCheckRun.external_id"><code class="name">prop <span class="ident">external_id</span> : str | None</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def external_id(self) -&gt; Optional[str]:
+    &#34;&#34;&#34;External ID that can be used internally by the integrator.&#34;&#34;&#34;
+    return self.raw_check_run.external_id</code></pre>
+</details>
+<div class="desc"><p>External ID that can be used internally by the integrator.</p></div>
+</dd>
+<dt id="ogr.services.github.check_run.GithubCheckRun.name"><code class="name">prop <span class="ident">name</span> : str</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def name(self) -&gt; str:
+    &#34;&#34;&#34;Name of the check run.&#34;&#34;&#34;
+    return self.raw_check_run.name</code></pre>
+</details>
+<div class="desc"><p>Name of the check run.</p></div>
+</dd>
+<dt id="ogr.services.github.check_run.GithubCheckRun.output"><code class="name">prop <span class="ident">output</span> : github.CheckRunOutput.CheckRunOutput</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def output(self) -&gt; CheckRunOutput:
+    &#34;&#34;&#34;Output of the check run.&#34;&#34;&#34;
+    return self.raw_check_run.output</code></pre>
+</details>
+<div class="desc"><p>Output of the check run.</p></div>
+</dd>
+<dt id="ogr.services.github.check_run.GithubCheckRun.started_at"><code class="name">prop <span class="ident">started_at</span> : datetime.datetime | None</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def started_at(self) -&gt; Optional[datetime.datetime]:
+    &#34;&#34;&#34;Timestamp of start of the check run.&#34;&#34;&#34;
+    return self.raw_check_run.started_at</code></pre>
+</details>
+<div class="desc"><p>Timestamp of start of the check run.</p></div>
+</dd>
+<dt id="ogr.services.github.check_run.GithubCheckRun.status"><code class="name">prop <span class="ident">status</span> : <a title="ogr.services.github.check_run.GithubCheckRunStatus" href="#ogr.services.github.check_run.GithubCheckRunStatus">GithubCheckRunStatus</a></code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def status(self) -&gt; GithubCheckRunStatus:
+    &#34;&#34;&#34;Current status of the check run.&#34;&#34;&#34;
+    return GithubCheckRunStatus(self.raw_check_run.status)</code></pre>
+</details>
+<div class="desc"><p>Current status of the check run.</p></div>
+</dd>
+<dt id="ogr.services.github.check_run.GithubCheckRun.url"><code class="name">prop <span class="ident">url</span> : str | None</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def url(self) -&gt; Optional[str]:
+    &#34;&#34;&#34;URL with additional details.&#34;&#34;&#34;
+    return self.raw_check_run.details_url</code></pre>
+</details>
+<div class="desc"><p>URL with additional details.</p></div>
+</dd>
+</dl>
+<h3>Methods</h3>
+<dl>
+<dt id="ogr.services.github.check_run.GithubCheckRun.change_status"><code class="name flex">
+<span>def <span class="ident">change_status</span></span>(<span>self,<br>status: <a title="ogr.services.github.check_run.GithubCheckRunStatus" href="#ogr.services.github.check_run.GithubCheckRunStatus">GithubCheckRunStatus</a> | None = None,<br>completed_at: datetime.datetime | None = None,<br>conclusion: <a title="ogr.services.github.check_run.GithubCheckRunResult" href="#ogr.services.github.check_run.GithubCheckRunResult">GithubCheckRunResult</a> | None = None) ‑> None</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def change_status(
+    self,
+    status: Optional[GithubCheckRunStatus] = None,
+    completed_at: Optional[datetime.datetime] = None,
+    conclusion: Optional[GithubCheckRunResult] = None,
+) -&gt; None:
+    &#34;&#34;&#34;
+    Changes the status of the check run and checks the validity of new state.
+
+    Args:
+        status: Status of the check run to be set. If set to completed, you
+            must provide conclusion.
+
+            Defaults to `None`.
+        completed_at: Timestamp of completion of the check run. If set, you
+            must provide conclusion.
+
+            Defaults to `None`.
+        conclusion: Conclusion/result of the check run. If only conclusion
+            is set, status is automatically set to completed.
+
+            Defaults to `None`.
+
+    Raises:
+        OperationNotSupported, if given completed or timestamp of completed
+            without conclusion.
+    &#34;&#34;&#34;
+    if not (status or completed_at or conclusion):
+        return
+
+    if (
+        status == GithubCheckRunStatus.completed or completed_at
+    ) and conclusion is None:
+        raise OperationNotSupported(
+            &#34;When provided completed status or completed at,&#34;
+            &#34; you need to provide conclusion.&#34;,
+        )
+
+    self.raw_check_run.edit(
+        status=value_or_NotSet(status.name if status else None),
+        conclusion=value_or_NotSet(conclusion.name if conclusion else None),
+        completed_at=value_or_NotSet(completed_at),
+    )</code></pre>
+</details>
+<div class="desc"><p>Changes the status of the check run and checks the validity of new state.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>status</code></strong></dt>
+<dd>
+<p>Status of the check run to be set. If set to completed, you
+must provide conclusion.</p>
+<p>Defaults to <code>None</code>.</p>
+</dd>
+<dt><strong><code>completed_at</code></strong></dt>
+<dd>
+<p>Timestamp of completion of the check run. If set, you
+must provide conclusion.</p>
+<p>Defaults to <code>None</code>.</p>
+</dd>
+<dt><strong><code>conclusion</code></strong></dt>
+<dd>
+<p>Conclusion/result of the check run. If only conclusion
+is set, status is automatically set to completed.</p>
+<p>Defaults to <code>None</code>.</p>
+</dd>
+</dl>
+<h2 id="raises">Raises</h2>
+<p>OperationNotSupported, if given completed or timestamp of completed
+without conclusion.</p></div>
+</dd>
+</dl>
+</dd>
+<dt id="ogr.services.github.check_run.GithubCheckRunResult"><code class="flex name class">
+<span>class <span class="ident">GithubCheckRunResult</span></span>
+<span>(</span><span>*args, **kwds)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class GithubCheckRunResult(Enum):
+    &#34;&#34;&#34;
+    Represents conclusion/result of the GitHub check run.
+    &#34;&#34;&#34;
+
+    action_required = &#34;action_required&#34;
+    cancelled = &#34;cancelled&#34;
+    failure = &#34;failure&#34;
+    neutral = &#34;neutral&#34;
+    success = &#34;success&#34;
+    skipped = &#34;skipped&#34;
+    stale = &#34;stale&#34;
+    timed_out = &#34;timed_out&#34;</code></pre>
+</details>
+<div class="desc"><p>Represents conclusion/result of the GitHub check run.</p></div>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li>enum.Enum</li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="ogr.services.github.check_run.GithubCheckRunResult.action_required"><code class="name">var <span class="ident">action_required</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="ogr.services.github.check_run.GithubCheckRunResult.cancelled"><code class="name">var <span class="ident">cancelled</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="ogr.services.github.check_run.GithubCheckRunResult.failure"><code class="name">var <span class="ident">failure</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="ogr.services.github.check_run.GithubCheckRunResult.neutral"><code class="name">var <span class="ident">neutral</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="ogr.services.github.check_run.GithubCheckRunResult.skipped"><code class="name">var <span class="ident">skipped</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="ogr.services.github.check_run.GithubCheckRunResult.stale"><code class="name">var <span class="ident">stale</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="ogr.services.github.check_run.GithubCheckRunResult.success"><code class="name">var <span class="ident">success</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="ogr.services.github.check_run.GithubCheckRunResult.timed_out"><code class="name">var <span class="ident">timed_out</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+</dd>
+<dt id="ogr.services.github.check_run.GithubCheckRunStatus"><code class="flex name class">
+<span>class <span class="ident">GithubCheckRunStatus</span></span>
+<span>(</span><span>*args, **kwds)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class GithubCheckRunStatus(Enum):
+    &#34;&#34;&#34;
+    Represents statuses GitHub check run can have.
+    &#34;&#34;&#34;
+
+    queued = &#34;queued&#34;
+    in_progress = &#34;in_progress&#34;
+    completed = &#34;completed&#34;</code></pre>
+</details>
+<div class="desc"><p>Represents statuses GitHub check run can have.</p></div>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li>enum.Enum</li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="ogr.services.github.check_run.GithubCheckRunStatus.completed"><code class="name">var <span class="ident">completed</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="ogr.services.github.check_run.GithubCheckRunStatus.in_progress"><code class="name">var <span class="ident">in_progress</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="ogr.services.github.check_run.GithubCheckRunStatus.queued"><code class="name">var <span class="ident">queued</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="ogr.services.github" href="index.html">ogr.services.github</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-functions">Functions</a></h3>
+<ul class="">
+<li><code><a title="ogr.services.github.check_run.create_github_check_run_output" href="#ogr.services.github.check_run.create_github_check_run_output">create_github_check_run_output</a></code></li>
+<li><code><a title="ogr.services.github.check_run.value_or_NotSet" href="#ogr.services.github.check_run.value_or_NotSet">value_or_NotSet</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="ogr.services.github.check_run.GithubCheckRun" href="#ogr.services.github.check_run.GithubCheckRun">GithubCheckRun</a></code></h4>
+<ul class="two-column">
+<li><code><a title="ogr.services.github.check_run.GithubCheckRun.app" href="#ogr.services.github.check_run.GithubCheckRun.app">app</a></code></li>
+<li><code><a title="ogr.services.github.check_run.GithubCheckRun.change_status" href="#ogr.services.github.check_run.GithubCheckRun.change_status">change_status</a></code></li>
+<li><code><a title="ogr.services.github.check_run.GithubCheckRun.commit_sha" href="#ogr.services.github.check_run.GithubCheckRun.commit_sha">commit_sha</a></code></li>
+<li><code><a title="ogr.services.github.check_run.GithubCheckRun.completed_at" href="#ogr.services.github.check_run.GithubCheckRun.completed_at">completed_at</a></code></li>
+<li><code><a title="ogr.services.github.check_run.GithubCheckRun.conclusion" href="#ogr.services.github.check_run.GithubCheckRun.conclusion">conclusion</a></code></li>
+<li><code><a title="ogr.services.github.check_run.GithubCheckRun.create" href="#ogr.services.github.check_run.GithubCheckRun.create">create</a></code></li>
+<li><code><a title="ogr.services.github.check_run.GithubCheckRun.external_id" href="#ogr.services.github.check_run.GithubCheckRun.external_id">external_id</a></code></li>
+<li><code><a title="ogr.services.github.check_run.GithubCheckRun.get" href="#ogr.services.github.check_run.GithubCheckRun.get">get</a></code></li>
+<li><code><a title="ogr.services.github.check_run.GithubCheckRun.get_list" href="#ogr.services.github.check_run.GithubCheckRun.get_list">get_list</a></code></li>
+<li><code><a title="ogr.services.github.check_run.GithubCheckRun.name" href="#ogr.services.github.check_run.GithubCheckRun.name">name</a></code></li>
+<li><code><a title="ogr.services.github.check_run.GithubCheckRun.output" href="#ogr.services.github.check_run.GithubCheckRun.output">output</a></code></li>
+<li><code><a title="ogr.services.github.check_run.GithubCheckRun.started_at" href="#ogr.services.github.check_run.GithubCheckRun.started_at">started_at</a></code></li>
+<li><code><a title="ogr.services.github.check_run.GithubCheckRun.status" href="#ogr.services.github.check_run.GithubCheckRun.status">status</a></code></li>
+<li><code><a title="ogr.services.github.check_run.GithubCheckRun.url" href="#ogr.services.github.check_run.GithubCheckRun.url">url</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="ogr.services.github.check_run.GithubCheckRunResult" href="#ogr.services.github.check_run.GithubCheckRunResult">GithubCheckRunResult</a></code></h4>
+<ul class="two-column">
+<li><code><a title="ogr.services.github.check_run.GithubCheckRunResult.action_required" href="#ogr.services.github.check_run.GithubCheckRunResult.action_required">action_required</a></code></li>
+<li><code><a title="ogr.services.github.check_run.GithubCheckRunResult.cancelled" href="#ogr.services.github.check_run.GithubCheckRunResult.cancelled">cancelled</a></code></li>
+<li><code><a title="ogr.services.github.check_run.GithubCheckRunResult.failure" href="#ogr.services.github.check_run.GithubCheckRunResult.failure">failure</a></code></li>
+<li><code><a title="ogr.services.github.check_run.GithubCheckRunResult.neutral" href="#ogr.services.github.check_run.GithubCheckRunResult.neutral">neutral</a></code></li>
+<li><code><a title="ogr.services.github.check_run.GithubCheckRunResult.skipped" href="#ogr.services.github.check_run.GithubCheckRunResult.skipped">skipped</a></code></li>
+<li><code><a title="ogr.services.github.check_run.GithubCheckRunResult.stale" href="#ogr.services.github.check_run.GithubCheckRunResult.stale">stale</a></code></li>
+<li><code><a title="ogr.services.github.check_run.GithubCheckRunResult.success" href="#ogr.services.github.check_run.GithubCheckRunResult.success">success</a></code></li>
+<li><code><a title="ogr.services.github.check_run.GithubCheckRunResult.timed_out" href="#ogr.services.github.check_run.GithubCheckRunResult.timed_out">timed_out</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="ogr.services.github.check_run.GithubCheckRunStatus" href="#ogr.services.github.check_run.GithubCheckRunStatus">GithubCheckRunStatus</a></code></h4>
+<ul class="">
+<li><code><a title="ogr.services.github.check_run.GithubCheckRunStatus.completed" href="#ogr.services.github.check_run.GithubCheckRunStatus.completed">completed</a></code></li>
+<li><code><a title="ogr.services.github.check_run.GithubCheckRunStatus.in_progress" href="#ogr.services.github.check_run.GithubCheckRunStatus.in_progress">in_progress</a></code></li>
+<li><code><a title="ogr.services.github.check_run.GithubCheckRunStatus.queued" href="#ogr.services.github.check_run.GithubCheckRunStatus.queued">queued</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.11.6</a>.</p>
+</footer>
+</body>
+</html>

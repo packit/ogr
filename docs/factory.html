@@ -1,0 +1,458 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+<meta name="generator" content="pdoc3 0.11.6">
+<title>ogr.factory API documentation</title>
+<meta name="description" content="">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/sanitize.min.css" integrity="sha512-y1dtMcuvtTMJc1yPgEqF0ZjQbhnc/bFhyvIyVNb9Zk5mIGtqVaAB1Ttl28su8AvFMOY0EwRbAe+HCLqj6W7/KA==" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/typography.min.css" integrity="sha512-Y1DYSb995BAfxobCkKepB1BqJJTPrOp3zPL74AWFugHHmmdcvO+C48WLrUOlhGMc0QG7AE3f7gmvvcrmX2fDoA==" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:1.5em;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:2em 0 .50em 0}h3{font-size:1.4em;margin:1.6em 0 .7em 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .2s ease-in-out}a:visited{color:#503}a:hover{color:#b62}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900;font-weight:bold}pre code{font-size:.8em;line-height:1.4em;padding:1em;display:block}code{background:#f3f3f3;font-family:"DejaVu Sans Mono",monospace;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source > summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible;min-width:max-content}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em 1em;margin:1em 0}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul ul{padding-left:1em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js" integrity="sha512-D9gUyxqja7hBtkWpPWGt9wfbfaMGVt9gnyCvYa+jojwwPHLCzUm5i8rpk7vD7wNee9bA35eYIjobYPaQuKS1MQ==" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => {
+hljs.configure({languages: ['bash', 'css', 'diff', 'graphql', 'ini', 'javascript', 'json', 'plaintext', 'python', 'python-repl', 'rust', 'shell', 'sql', 'typescript', 'xml', 'yaml']});
+hljs.highlightAll();
+/* Collapse source docstrings */
+setTimeout(() => {
+[...document.querySelectorAll('.hljs.language-python > .hljs-string')]
+.filter(el => el.innerHTML.length > 200 && ['"""', "'''"].includes(el.innerHTML.substring(0, 3)))
+.forEach(el => {
+let d = document.createElement('details');
+d.classList.add('hljs-string');
+d.innerHTML = '<summary>"""</summary>' + el.innerHTML.substring(3);
+el.replaceWith(d);
+});
+}, 100);
+})</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>ogr.factory</code></h1>
+</header>
+<section id="section-intro">
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-functions">Functions</h2>
+<dl>
+<dt id="ogr.factory.get_instances_from_dict"><code class="name flex">
+<span>def <span class="ident">get_instances_from_dict</span></span>(<span>instances: dict) ‑> set[<a title="ogr.abstract.GitService" href="abstract.html#ogr.abstract.GitService">GitService</a>]</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_instances_from_dict(instances: dict) -&gt; set[GitService]:
+    &#34;&#34;&#34;
+    Load the service instances from the dictionary in the following form:
+
+    - `key`   : hostname, url or name that can be mapped to the service-type
+    - `value` : dictionary with arguments used when creating a new instance of the
+    service (passed to the `__init__` method)
+
+    e.g.:
+    ```py
+    get_instances_from_dict({
+        &#34;github.com&#34;: {&#34;token&#34;: &#34;abcd&#34;},
+        &#34;pagure&#34;: {
+            &#34;token&#34;: &#34;abcd&#34;,
+            &#34;instance_url&#34;: &#34;https://src.fedoraproject.org&#34;,
+        },
+    }) == {
+        GithubService(token=&#34;abcd&#34;),
+        PagureService(token=&#34;abcd&#34;, instance_url=&#34;https://src.fedoraproject.org&#34;)
+    }
+    ```
+
+    When the mapping `key-&gt;service-type` is not recognised, you can add a `type`
+    key to the dictionary and specify the type of the instance.
+    (It can be either name, hostname or url. The used mapping is same as for
+    key-&gt;service-type.)
+
+    The provided `key` is used as an `instance_url` and passed to the `__init__`
+    method as well.
+
+    e.g.:
+    ```py
+    get_instances_from_dict({
+        &#34;https://my.gtlb&#34;: {&#34;token&#34;: &#34;abcd&#34;, &#34;type&#34;: &#34;gitlab&#34;},
+    }) == {GitlabService(token=&#34;abcd&#34;, instance_url=&#34;https://my.gtlb&#34;)}
+    ```
+
+    Args:
+        instances: Mapping from service name/url/hostname to attributes for the
+            service creation.
+
+    Returns:
+        Set of the service instances.
+    &#34;&#34;&#34;
+    services = set()
+    for key, value in instances.items():
+        service_kls = get_service_class_or_none(url=key)
+        if not service_kls:
+            if &#34;type&#34; not in value:
+                raise OgrException(
+                    f&#34;No matching service was found for url &#39;{key}&#39;. &#34;
+                    f&#34;Add the service name as a `type` attribute.&#34;,
+                )
+            service_type = value[&#34;type&#34;]
+            if service_type not in _SERVICE_MAPPING:
+                raise OgrException(
+                    f&#34;No matching service was found for type &#39;{service_type}&#39;.&#34;,
+                )
+
+            service_kls = _SERVICE_MAPPING[service_type]
+            value.setdefault(&#34;instance_url&#34;, key)
+            del value[&#34;type&#34;]
+
+        service_instance = service_kls(**value)
+        services.add(service_instance)
+
+    return services</code></pre>
+</details>
+<div class="desc"><p>Load the service instances from the dictionary in the following form:</p>
+<ul>
+<li><code>key</code>
+: hostname, url or name that can be mapped to the service-type</li>
+<li><code>value</code> : dictionary with arguments used when creating a new instance of the
+service (passed to the <code>__init__</code> method)</li>
+</ul>
+<p>e.g.:</p>
+<pre><code class="language-py">get_instances_from_dict({
+    &quot;github.com&quot;: {&quot;token&quot;: &quot;abcd&quot;},
+    &quot;pagure&quot;: {
+        &quot;token&quot;: &quot;abcd&quot;,
+        &quot;instance_url&quot;: &quot;https://src.fedoraproject.org&quot;,
+    },
+}) == {
+    GithubService(token=&quot;abcd&quot;),
+    PagureService(token=&quot;abcd&quot;, instance_url=&quot;https://src.fedoraproject.org&quot;)
+}
+</code></pre>
+<p>When the mapping <code>key-&gt;service-type</code> is not recognised, you can add a <code>type</code>
+key to the dictionary and specify the type of the instance.
+(It can be either name, hostname or url. The used mapping is same as for
+key-&gt;service-type.)</p>
+<p>The provided <code>key</code> is used as an <code>instance_url</code> and passed to the <code>__init__</code>
+method as well.</p>
+<p>e.g.:</p>
+<pre><code class="language-py">get_instances_from_dict({
+    &quot;https://my.gtlb&quot;: {&quot;token&quot;: &quot;abcd&quot;, &quot;type&quot;: &quot;gitlab&quot;},
+}) == {GitlabService(token=&quot;abcd&quot;, instance_url=&quot;https://my.gtlb&quot;)}
+</code></pre>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>instances</code></strong></dt>
+<dd>Mapping from service name/url/hostname to attributes for the
+service creation.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p>Set of the service instances.</p></div>
+</dd>
+<dt id="ogr.factory.get_project"><code class="name flex">
+<span>def <span class="ident">get_project</span></span>(<span>url,<br>service_mapping_update: dict[str, type[<a title="ogr.abstract.GitService" href="abstract.html#ogr.abstract.GitService">GitService</a>]] | None = None,<br>custom_instances: Iterable[<a title="ogr.abstract.GitService" href="abstract.html#ogr.abstract.GitService">GitService</a>] | None = None,<br>force_custom_instance: bool = True,<br>**kwargs) ‑> <a title="ogr.abstract.GitProject" href="abstract.html#ogr.abstract.GitProject">GitProject</a></span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_project(
+    url,
+    service_mapping_update: Optional[dict[str, type[GitService]]] = None,
+    custom_instances: Optional[Iterable[GitService]] = None,
+    force_custom_instance: bool = True,
+    **kwargs,
+) -&gt; GitProject:
+    &#34;&#34;&#34;
+    Return the project for the given URL.
+
+    Args:
+        url: URL of the project, e.g. `&#34;https://github.com/packit/ogr&#34;`.
+        service_mapping_update: Custom mapping from
+            service url/hostname (`str`) to service class.
+
+            Defaults to no mapping.
+        custom_instances: List of instances that will be
+            used when creating a project instance.
+
+            Defaults to `None`.
+        force_custom_instance: Force picking a Git service from the
+            `custom_instances` list, if there is any provided, raise an error if
+            that is not possible.
+
+            Defaults to `True`.
+        **kwargs: Arguments forwarded to __init__ of the matching service.
+
+    Returns:
+        `GitProject` using the matching implementation.
+    &#34;&#34;&#34;
+    mapping = service_mapping_update.copy() if service_mapping_update else {}
+    custom_instances = custom_instances or []
+    for instance in custom_instances:
+        mapping[instance.hostname] = instance.__class__
+
+    kls = get_service_class(url=url, service_mapping_update=mapping)
+    parsed_repo_url = parse_git_repo(url)
+
+    service = None
+    if custom_instances:
+        for service_inst in custom_instances:
+            if (
+                isinstance(service_inst, kls)
+                and service_inst.hostname == parsed_repo_url.hostname
+            ):
+                service = service_inst
+                break
+        else:
+            if force_custom_instance:
+                raise OgrException(
+                    f&#34;Instance of type {kls.__name__} &#34;
+                    f&#34;matching instance url &#39;{url}&#39; was not provided.&#34;,
+                )
+    if not service:
+        service = kls(instance_url=parsed_repo_url.get_instance_url(), **kwargs)
+    return service.get_project_from_url(url=url)</code></pre>
+</details>
+<div class="desc"><p>Return the project for the given URL.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>url</code></strong></dt>
+<dd>URL of the project, e.g. <code>"https://github.com/packit/ogr"</code>.</dd>
+<dt><strong><code>service_mapping_update</code></strong></dt>
+<dd>
+<p>Custom mapping from
+service url/hostname (<code>str</code>) to service class.</p>
+<p>Defaults to no mapping.</p>
+</dd>
+<dt><strong><code>custom_instances</code></strong></dt>
+<dd>
+<p>List of instances that will be
+used when creating a project instance.</p>
+<p>Defaults to <code>None</code>.</p>
+</dd>
+<dt><strong><code>force_custom_instance</code></strong></dt>
+<dd>
+<p>Force picking a Git service from the
+<code>custom_instances</code> list, if there is any provided, raise an error if
+that is not possible.</p>
+<p>Defaults to <code>True</code>.</p>
+</dd>
+<dt><strong><code>**kwargs</code></strong></dt>
+<dd>Arguments forwarded to <strong>init</strong> of the matching service.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p><code>GitProject</code> using the matching implementation.</p></div>
+</dd>
+<dt id="ogr.factory.get_service_class"><code class="name flex">
+<span>def <span class="ident">get_service_class</span></span>(<span>url: str,<br>service_mapping_update: dict[str, type[<a title="ogr.abstract.GitService" href="abstract.html#ogr.abstract.GitService">GitService</a>]] | None = None) ‑> type[<a title="ogr.abstract.GitService" href="abstract.html#ogr.abstract.GitService">GitService</a>]</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_service_class(
+    url: str,
+    service_mapping_update: Optional[dict[str, type[GitService]]] = None,
+) -&gt; type[GitService]:
+    &#34;&#34;&#34;
+    Get the matching service class from the URL.
+
+    Args:
+        url: URL of the project, e.g. `&#34;https://github.com/packit/ogr&#34;`.
+        service_mapping_update: Custom mapping from service url/hostname (str) to service
+            class.
+
+            Defaults to `None`.
+
+    Returns:
+        Matched class (subclass of `GitService`).
+    &#34;&#34;&#34;
+    service_kls = get_service_class_or_none(
+        url=url,
+        service_mapping_update=service_mapping_update,
+    )
+    if service_kls:
+        return service_kls
+    raise OgrException(&#34;No matching service was found.&#34;)</code></pre>
+</details>
+<div class="desc"><p>Get the matching service class from the URL.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>url</code></strong></dt>
+<dd>URL of the project, e.g. <code>"https://github.com/packit/ogr"</code>.</dd>
+<dt><strong><code>service_mapping_update</code></strong></dt>
+<dd>
+<p>Custom mapping from service url/hostname (str) to service
+class.</p>
+<p>Defaults to <code>None</code>.</p>
+</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p>Matched class (subclass of <code>GitService</code>).</p></div>
+</dd>
+<dt id="ogr.factory.get_service_class_or_none"><code class="name flex">
+<span>def <span class="ident">get_service_class_or_none</span></span>(<span>url: str,<br>service_mapping_update: dict[str, type[<a title="ogr.abstract.GitService" href="abstract.html#ogr.abstract.GitService">GitService</a>]] | None = None) ‑> type[<a title="ogr.abstract.GitService" href="abstract.html#ogr.abstract.GitService">GitService</a>] | None</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_service_class_or_none(
+    url: str,
+    service_mapping_update: Optional[dict[str, type[GitService]]] = None,
+) -&gt; Optional[type[GitService]]:
+    &#34;&#34;&#34;
+    Get the matching service class from the URL.
+
+    Args:
+        url: URL of the project, e.g. `&#34;https://github.com/packit/ogr&#34;`.
+        service_mapping_update: Custom mapping from service url/hostname (`str`) to service
+            class.
+
+            Defaults to `None`.
+
+    Returns:
+        Matched class (subclass of `GitService`) or `None`.
+    &#34;&#34;&#34;
+    mapping = {}
+    mapping.update(_SERVICE_MAPPING)
+    if service_mapping_update:
+        mapping.update(service_mapping_update)
+
+    parsed_url = parse_git_repo(url)
+    for service, service_kls in mapping.items():
+        if parse_git_repo(service).hostname in parsed_url.hostname:
+            return service_kls
+
+    return None</code></pre>
+</details>
+<div class="desc"><p>Get the matching service class from the URL.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>url</code></strong></dt>
+<dd>URL of the project, e.g. <code>"https://github.com/packit/ogr"</code>.</dd>
+<dt><strong><code>service_mapping_update</code></strong></dt>
+<dd>
+<p>Custom mapping from service url/hostname (<code>str</code>) to service
+class.</p>
+<p>Defaults to <code>None</code>.</p>
+</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p>Matched class (subclass of <code>GitService</code>) or <code>None</code>.</p></div>
+</dd>
+<dt id="ogr.factory.use_for_service"><code class="name flex">
+<span>def <span class="ident">use_for_service</span></span>(<span>service: str)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def use_for_service(service: str, _func=None):
+    &#34;&#34;&#34;
+    Class decorator that adds the class to the service mapping.
+
+    When the project url contains the `service` as a substring,
+    this implementation will be used to initialize the project.
+
+    When using this decorator, be sure that your class is initialized.
+    (Add the import to `ogr/__init__.py`)
+
+    Usage:
+    ```py
+    @use_for_service(&#34;github.com&#34;)
+    class GithubService(BaseGitService):
+        pass
+
+    @use_for_service(&#34;pagure.io&#34;)
+    @use_for_service(&#34;src.fedoraproject.org&#34;)
+    class PagureService(BaseGitService):
+        pass
+    ```
+
+    Args:
+        service: URL of the service.
+
+    Returns:
+        Decorator.
+    &#34;&#34;&#34;
+
+    def decorator_cover(func):
+        @functools.wraps(func)
+        def covered_func(kls: type[GitService]):
+            _SERVICE_MAPPING[service] = kls
+            return kls
+
+        return covered_func
+
+    return decorator_cover(_func)</code></pre>
+</details>
+<div class="desc"><p>Class decorator that adds the class to the service mapping.</p>
+<p>When the project url contains the <code>service</code> as a substring,
+this implementation will be used to initialize the project.</p>
+<p>When using this decorator, be sure that your class is initialized.
+(Add the import to <code>ogr/__init__.py</code>)</p>
+<p>Usage:</p>
+<pre><code class="language-py">@use_for_service(&quot;github.com&quot;)
+class GithubService(BaseGitService):
+    pass
+
+@use_for_service(&quot;pagure.io&quot;)
+@use_for_service(&quot;src.fedoraproject.org&quot;)
+class PagureService(BaseGitService):
+    pass
+</code></pre>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>service</code></strong></dt>
+<dd>URL of the service.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p>Decorator.</p></div>
+</dd>
+</dl>
+</section>
+<section>
+</section>
+</article>
+<nav id="sidebar">
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="ogr" href="index.html">ogr</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-functions">Functions</a></h3>
+<ul class="">
+<li><code><a title="ogr.factory.get_instances_from_dict" href="#ogr.factory.get_instances_from_dict">get_instances_from_dict</a></code></li>
+<li><code><a title="ogr.factory.get_project" href="#ogr.factory.get_project">get_project</a></code></li>
+<li><code><a title="ogr.factory.get_service_class" href="#ogr.factory.get_service_class">get_service_class</a></code></li>
+<li><code><a title="ogr.factory.get_service_class_or_none" href="#ogr.factory.get_service_class_or_none">get_service_class_or_none</a></code></li>
+<li><code><a title="ogr.factory.use_for_service" href="#ogr.factory.use_for_service">use_for_service</a></code></li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.11.6</a>.</p>
+</footer>
+</body>
+</html>
