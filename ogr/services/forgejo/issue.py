@@ -159,13 +159,15 @@ class ForgejoIssue(BaseIssue):
         if labels:
             parameters["labels"] = labels
         try:
-            issues_paginator = paginate(
-                project.service.api.issue.list_issues,
-                owner=project.namespace,
-                repo=project.repo,
-                **parameters,
+            return (
+                ForgejoIssue(issue, project)
+                for issue in paginate(
+                    project.service.api.issue.list_issues,
+                    owner=project.namespace,
+                    repo=project.repo,
+                    **parameters,
+                )
             )
-            return [ForgejoIssue(issue, project) for issue in issues_paginator]
         except NotFoundError as ex:
             if "user does not exist" in str(ex):
                 return []
