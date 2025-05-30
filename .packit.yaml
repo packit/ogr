@@ -32,19 +32,24 @@ jobs:
   - job: propose_downstream
     trigger: release
     dist_git_branches:
-      - fedora-all
+      fedora-all: {}
+      epel-10:
+        fast_forward_merge_into:
+          - epel-10-branched
 
   - job: copr_build
     trigger: pull_request
     targets:
       - fedora-all
       - fedora-all-aarch64
+      - epel-10-all
     additional_repos:
       - "copr://packit/packit-dev"
   - job: tests
     trigger: pull_request
     targets:
       - fedora-all
+      - epel-10-all
     tf_extra_params:
       environments:
         - artifacts:
@@ -56,6 +61,7 @@ jobs:
     scratch: True
     targets:
       - fedora-development
+      - epel-10
 
   - job: copr_build
     trigger: commit
@@ -63,6 +69,7 @@ jobs:
     targets:
       - fedora-all
       - fedora-all-aarch64
+      - epel-10-all
     project: packit-dev
     list_on_homepage: True
     preserve_project: True
@@ -71,8 +78,8 @@ jobs:
     trigger: commit
     branch: stable
     targets:
-      - fedora-latest-stable
-      - fedora-latest-stable-aarch64
+      - fedora-stable
+      - fedora-stable-aarch64
     project: packit-stable
     list_on_homepage: True
     preserve_project: True
@@ -82,6 +89,7 @@ jobs:
     targets:
       - fedora-all
       - fedora-all-aarch64
+      - epel-10-all
     project: packit-releases
     list_on_homepage: True
     preserve_project: True
@@ -89,7 +97,10 @@ jobs:
   - job: pull_from_upstream
     trigger: release
     dist_git_branches:
-      - fedora-all
+      fedora-all: {}
+      epel-10:
+        fast_forward_merge_into:
+          - epel-10-branched
 
   # downstream automation:
   - job: koji_build
@@ -101,3 +112,4 @@ jobs:
       - packit
     dist_git_branches:
       - fedora-all
+      - epel-10-all
