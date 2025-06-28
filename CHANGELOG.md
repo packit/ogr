@@ -1,3 +1,7 @@
+# 0.55.0
+
+- We have added support for Forgejo releases. (#927)
+
 # 0.54.0
 
 - Support for Forgejo pull requests has been added. (#925)
