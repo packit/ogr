@@ -6,16 +6,17 @@ from collections.abc import Iterable
 from typing import (
     Any,
     Optional,
-    Union,
+    Union
 )
 
 from ogr.abstract.abstract_class import OgrAbstractClass
-from ogr.abstract.git_tag import GitTag
+
 
 import typing
 
 if typing.TYPE_CHECKING:
     from .git_project import GitProject
+    from ogr.abstract.git_tag import GitTag
 
 
 class Release(OgrAbstractClass):

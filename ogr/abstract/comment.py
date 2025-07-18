@@ -7,13 +7,18 @@ from typing import (
     Any,
     Optional,
     TypeVar,
-    Union,
+    Union
 )
 
 from ogr.abstract.abstract_class import OgrAbstractClass
-from ogr.abstract.issue import Issue
-from ogr.abstract.git_project import PullRequest
 from ogr.deprecation import deprecate_and_set_removal
+
+import typing
+
+if typing.TYPE_CHECKING:
+    from .pull_request import PullRequest
+    from .issue import Issue
+
 
 AnyComment = TypeVar("AnyComment", bound="Comment")
 

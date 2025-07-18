@@ -5,7 +5,7 @@ import functools
 from typing import (
     Any,
     Callable,
-    Union,
+    Union
 )
 
 import github

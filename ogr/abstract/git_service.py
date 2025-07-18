@@ -6,7 +6,7 @@ from collections.abc import Iterable
 from typing import (
     Any,
     Optional,
-    Union,
+    Union
 )
 
 from ogr.abstract.abstract_class import OgrAbstractClass

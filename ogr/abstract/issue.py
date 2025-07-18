@@ -6,14 +6,11 @@ from collections.abc import Iterable
 from typing import (
     Any,
     Optional,
-    Union,
+    Union
 )
 
 from ogr.abstract.abstract_class import OgrAbstractClass
-from ogr.abstract.comment import (
-    Comment,
-    IssueComment
-)
+from ogr.abstract.comment import IssueComment
 from ogr.abstract.status import IssueStatus
 from ogr.abstract.label import IssueLabel
 

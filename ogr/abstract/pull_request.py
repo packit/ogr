@@ -7,16 +7,13 @@ from re import Match
 from typing import (
     Any,
     Optional,
-    Union,
+    Union
 )
 
 from ogr.abstract.abstract_class import OgrAbstractClass
-from ogr.abstract.comment import PRComment
 
-from ogr.abstract.status import (
-    PRStatus,
-    MergeCommitStatus
-)
+
+
 
 import typing
 
@@ -24,6 +21,11 @@ if typing.TYPE_CHECKING:
     from .git_project import GitProject
     from .label import PRLabel
     from .commit_flag import CommitFlag
+    from ogr.abstract.comment import PRComment
+    from ogr.abstract.status import (
+        PRStatus,
+        MergeCommitStatus
+    )
 
 
 class PullRequest(OgrAbstractClass):

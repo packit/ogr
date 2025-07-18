@@ -7,7 +7,7 @@ from typing import (
     Any,
     ClassVar,
     Optional,
-    Union,
+    Union
 )
 
 from ogr.abstract.abstract_class import OgrAbstractClass

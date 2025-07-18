@@ -2,9 +2,7 @@
 # SPDX-License-Identifier: MIT
 
 from collections.abc import Iterable, Sequence
-from typing import (
-    Union
-)
+from typing import Union
 
 from ogr.abstract.abstract_class import OgrAbstractClass
 
