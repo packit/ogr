@@ -21,6 +21,7 @@ from ogr.abstract import (
 from ogr.exceptions import ForgejoAPIException, OgrNetworkError
 from ogr.services import forgejo
 from ogr.services.base import BasePullRequest
+from ogr.services.forgejo.comments import ForgejoPRComment
 from ogr.services.forgejo.label import ForgejoPRLabel
 from ogr.services.forgejo.utils import paginate
 
@@ -38,9 +39,15 @@ class ForgejoPullRequest(BasePullRequest):
         project: "forgejo.ForgejoProject",
     ):
         super().__init__(raw_pr, project)
+        self.project = project
 
     def __str__(self) -> str:
         return "Forgejo" + super().__str__()
+
+    @property
+    def api(self):
+        """Returns the issue API client from pyforgejo."""
+        return self.project.service.api.issue
 
     @property
     def title(self) -> str:
@@ -313,7 +320,23 @@ class ForgejoPullRequest(BasePullRequest):
         Returns:
             List of pull request comments.
         """
-        raise NotImplementedError()
+        if filter_regex:
+            raise NotImplementedError
+        if reverse:
+            raise NotImplementedError
+        if author:
+            raise NotImplementedError
+        try:
+            return (
+                ForgejoPRComment(raw_comment=comment, parent=self)
+                for comment in self.api.get_comments(
+                owner=self.project.namespace,
+                    repo=self.project.repo,
+                    index=self.id,
+                )
+            )
+        except NotFoundError as ex:
+            raise NotFoundError(f"{ex}") from ex
 
     def comment(
         self,
@@ -340,7 +363,14 @@ class ForgejoPullRequest(BasePullRequest):
         Returns:
             Newly created comment.
         """
-        raise NotImplementedError()
+        if commit:
+            raise NotImplementedError
+
+        if filename:
+            raise NotImplementedError
+
+        if row:
+            raise NotImplementedError
 
     def get_comment(self, comment_id: int) -> PRComment:
         """
@@ -352,7 +382,12 @@ class ForgejoPullRequest(BasePullRequest):
         Returns:
             Object representing a PR comment.
         """
-        raise NotImplementedError()
+        comment = self.project.service.api.issue.get_comment(
+            owner=self.project.namespace,
+            repo=self.project.repo,
+            id=comment_id,
+        )
+        return ForgejoPRComment(parent=self,raw_comment=comment)
 
     def get_statuses(self) -> Union[list[CommitFlag], Iterable[CommitFlag]]:
         """
