@@ -11,6 +11,7 @@ from ogr.abstract import Issue, IssueStatus
 from ogr.exceptions import IssueTrackerDisabled, OperationNotSupported
 from ogr.services import forgejo
 from ogr.services.base import BaseIssue
+from ogr.services.forgejo.comments import ForgejoIssueComment
 from ogr.services.forgejo.utils import paginate
 
 
@@ -33,6 +34,7 @@ class ForgejoIssue(BaseIssue):
     def partial_api(self, method, /, *args, **kwargs):
         """Returns a partial API call for ForgejoIssue.
 
+
         Injects owner, repo, and index parameters for the calls to issue API endpoints.
 
         Args:
@@ -51,10 +53,6 @@ class ForgejoIssue(BaseIssue):
 
         return partial(method, *args, **kwargs, **params)
 
-    def __update_info(self) -> None:
-        """Refresh the local issue object with the latest data from the server."""
-        self._raw_issue = self.partial_api(self.api.get_issue)()
-
     @property
     def title(self) -> str:
         return self._raw_issue.title
@@ -62,6 +60,7 @@ class ForgejoIssue(BaseIssue):
     @title.setter
     def title(self, new_title: str) -> None:
         self.partial_api(self.api.edit_issue)(title=new_title)
+
         self.__update_info()
 
     @property
@@ -106,7 +105,6 @@ class ForgejoIssue(BaseIssue):
         labels: Optional[list[str]] = None,
         assignees: Optional[list[str]] = None,
     ) -> "Issue":
-
         if private:
             raise NotImplementedError()
         if not project.has_issues:
@@ -133,6 +131,7 @@ class ForgejoIssue(BaseIssue):
                 repo=project.repo,
                 index=issue_id,
             )
+
         except Exception as ex:
             raise OperationNotSupported(f"Issue {issue_id} not found") from ex
         return ForgejoIssue(issue, project)
@@ -156,6 +155,7 @@ class ForgejoIssue(BaseIssue):
             parameters["created_by"] = author
         if assignee:
             parameters["assigned_by"] = assignee
+
         if labels:
             parameters["labels"] = labels
         try:
@@ -175,8 +175,27 @@ class ForgejoIssue(BaseIssue):
 
     def close(self) -> "Issue":
         self.partial_api(self.api.edit_issue)(state="closed")
-        self.__update_info()
+
         return self
+
+    def get_comments(self):
+        return [
+            ForgejoIssueComment(comment, parent=self)
+            for comment in self.api.get_comments(
+                owner=self.project.namespace,
+                repo=self.project.repo,
+                index=self._index,
+            )
+        ] or []
+
+    def get_comment(self, comment_id: int):
+        return ForgejoIssueComment(
+            self.api.get_comment(
+                owner=self.project.namespace,
+                repo=self.project.repo,
+                id=comment_id,
+            ), parent=self
+        )
 
     def add_assignee(self, *assignees: str) -> None:
         current_assignees = [
@@ -185,8 +204,6 @@ class ForgejoIssue(BaseIssue):
         ]
         updated_assignees = list(set(current_assignees + list(assignees)))
         self.partial_api(self.api.edit_issue)(assignees=updated_assignees)
-        self.__update_info()
 
     def add_label(self, *labels: str) -> None:
         self.partial_api(self.api.add_label)(labels=labels, index=self._index)
-        self.__update_info()
