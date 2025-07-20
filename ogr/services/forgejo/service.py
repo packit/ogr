@@ -23,12 +23,12 @@ class ForgejoService(BaseGitService):
     def __init__(
         self,
         instance_url: str = "https://codeberg.org",
-        api_key: Optional[str] = None,
+        token: Optional[str] = None,
         **kwargs,
     ):
         super().__init__()
         self.instance_url = instance_url + self.version
-        self._token = f"token {api_key}"
+        self._token = f"token {token}"
         self._api = None
 
     @cached_property
