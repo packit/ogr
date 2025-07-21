@@ -1,31 +1,29 @@
 # Copyright Contributors to the Packit project.
 # SPDX-License-Identifier: MIT
 
+from __future__ import annotations
+
 import datetime
 from collections.abc import Iterable
 from re import Match
 from typing import (
     Any,
     Optional,
-    Union
+    Union,
+    TYPE_CHECKING
 )
 
 from ogr.abstract.abstract_class import OgrAbstractClass
-
-
-
-
-import typing
-
-if typing.TYPE_CHECKING:
-    from .git_project import GitProject
-    from .label import PRLabel
-    from .commit_flag import CommitFlag
-    from ogr.abstract.comment import PRComment
-    from ogr.abstract.status import (
+from ogr.abstract.comment import PRComment
+from ogr.abstract.status import (
         PRStatus,
         MergeCommitStatus
     )
+
+if TYPE_CHECKING:
+    from ogr.abstract.git_project import GitProject
+    from ogr.abstract.label import PRLabel
+    from ogr.abstract.commit_flag import CommitFlag
 
 
 class PullRequest(OgrAbstractClass):

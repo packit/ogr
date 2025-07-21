@@ -1,18 +1,20 @@
 # Copyright Contributors to the Packit project.
 # SPDX-License-Identifier: MIT
 
+from __future__ import annotations
+
 import functools
 from collections.abc import Iterable
 from typing import (
     Any,
     Optional,
-    Union
+    Union,
+    TYPE_CHECKING
 )
 
 from ogr.abstract.abstract_class import OgrAbstractClass
 from ogr.abstract.auth_method import AuthMethod
 from ogr.abstract.git_user import GitUser
-
 from ogr.exceptions import OgrException
 from ogr.parsing import parse_git_repo
 
@@ -23,11 +25,9 @@ except ImportError:
 
     def _cached_property(func):  # type: ignore
         return property(lru_cache()(func))
-    
-import typing
 
-if typing.TYPE_CHECKING:
-    from .git_project import GitProject
+if TYPE_CHECKING:
+    from ogr.abstract.git_project import GitProject
 
 
 class GitService(OgrAbstractClass):

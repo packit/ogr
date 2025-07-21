@@ -2,14 +2,14 @@
 # Copyright Contributors to the Packit project.
 # SPDX-License-Identifier: MIT
 
-from typing import Any
+from __future__ import annotations
+
+from typing import Any, TYPE_CHECKING
 from ogr.abstract.abstract_class import OgrAbstractClass
 
-import typing
-
-if typing.TYPE_CHECKING:
-    from .pull_request import PullRequest
-    from .issue import Issue
+if TYPE_CHECKING:
+    from ogr.abstract.issue import Issue
+    from ogr.abstract.pull_request import PullRequest
 
 
 class Label(OgrAbstractClass):

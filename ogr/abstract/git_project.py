@@ -1,10 +1,12 @@
 # Copyright Contributors to the Packit project.
 # SPDX-License-Identifier: MIT
 
+from __future__ import annotations
+
 from collections.abc import Iterable, Sequence
 from typing import (
     Optional,
-    Union,
+    Union
 )
 
 from ogr.abstract.abstract_class import OgrAbstractClass
@@ -12,16 +14,15 @@ from ogr.abstract.access_level import AccessLevel
 from ogr.abstract.comment import CommitComment
 from ogr.abstract.commit_flag import CommitFlag
 from ogr.abstract.git_tag import GitTag
-from ogr.abstract.issue import Issue
 from ogr.abstract.git_service import GitService
+from ogr.abstract.issue import Issue
+from ogr.abstract.pull_request import PullRequest
 from ogr.abstract.release import Release
 from ogr.abstract.status import (
-    IssueStatus,
-    PRStatus,
-    CommitStatus
-)
-
-from ogr.abstract.pull_request import PullRequest
+        IssueStatus,
+        PRStatus,
+        CommitStatus
+    )
 
 
 class GitProject(OgrAbstractClass):

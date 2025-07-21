@@ -1,23 +1,25 @@
 # Copyright Contributors to the Packit project.
 # SPDX-License-Identifier: MIT
 
+from __future__ import annotations
+
+import typing
 import datetime
 from collections.abc import Iterable
 from typing import (
     Any,
     ClassVar,
     Optional,
-    Union
+    Union,
+    TYPE_CHECKING
 )
 
 from ogr.abstract.abstract_class import OgrAbstractClass
 from ogr.abstract.status import CommitStatus
 
-import typing
-
-if typing.TYPE_CHECKING:
-    from .git_project import GitProject
-
+if TYPE_CHECKING:
+    from ogr.abstract.git_project import GitProject
+    
 
 class CommitFlag(OgrAbstractClass):
     _states: ClassVar[dict[str, CommitStatus]] = {}

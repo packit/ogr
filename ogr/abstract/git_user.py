@@ -1,16 +1,16 @@
 # Copyright Contributors to the Packit project.
 # SPDX-License-Identifier: MIT
 
+from __future__ import annotations
+
 from collections.abc import Iterable, Sequence
-from typing import Union
+from typing import Union, TYPE_CHECKING
 
 from ogr.abstract.abstract_class import OgrAbstractClass
 
-import typing
-
-if typing.TYPE_CHECKING:
-    from .git_project import GitProject
-    from .git_service import GitService
+if TYPE_CHECKING:
+    from ogr.abstract.git_project import GitProject
+    from ogr.abstract.git_service import GitService
 
 
 class GitUser(OgrAbstractClass):
