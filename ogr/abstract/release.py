@@ -5,12 +5,7 @@ from __future__ import annotations
 
 import datetime
 from collections.abc import Iterable
-from typing import (
-    Any,
-    Optional,
-    Union,
-    TYPE_CHECKING
-)
+from typing import TYPE_CHECKING, Any, Optional, Union
 
 from ogr.abstract.abstract_class import OgrAbstractClass
 from ogr.abstract.git_tag import GitTag
@@ -30,7 +25,7 @@ class Release(OgrAbstractClass):
     def __init__(
         self,
         raw_release: Any,
-        project: "GitProject",
+        project: GitProject,
     ) -> None:
         self._raw_release = raw_release
         self.project = project
@@ -88,7 +83,7 @@ class Release(OgrAbstractClass):
         identifier: Optional[int] = None,
         name: Optional[str] = None,
         tag_name: Optional[str] = None,
-    ) -> "Release":
+    ) -> Release:
         """
         Get a single release.
 
@@ -109,7 +104,7 @@ class Release(OgrAbstractClass):
         raise NotImplementedError()
 
     @staticmethod
-    def get_latest(project: Any) -> Optional["Release"]:
+    def get_latest(project: Any) -> Optional[Release]:
         """
         Returns:
             Object that represents the latest release.
@@ -117,7 +112,7 @@ class Release(OgrAbstractClass):
         raise NotImplementedError()
 
     @staticmethod
-    def get_list(project: Any) -> Union[list["Release"], Iterable["Release"]]:
+    def get_list(project: Any) -> Union[list[Release], Iterable[Release]]:
         """
         Returns:
             List of the objects that represent releases.
@@ -131,7 +126,7 @@ class Release(OgrAbstractClass):
         name: str,
         message: str,
         ref: Optional[str] = None,
-    ) -> "Release":
+    ) -> Release:
         """
         Create new release.
 

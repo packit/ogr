@@ -4,7 +4,7 @@
 from __future__ import annotations
 
 from collections.abc import Iterable, Sequence
-from typing import Union, TYPE_CHECKING
+from typing import TYPE_CHECKING, Union
 
 from ogr.abstract.abstract_class import OgrAbstractClass
 
@@ -35,14 +35,14 @@ class GitUser(OgrAbstractClass):
         """
         raise NotImplementedError()
 
-    def get_projects(self) -> Union[Sequence["GitProject"], Iterable["GitProject"]]:
+    def get_projects(self) -> Union[Sequence[GitProject], Iterable[GitProject]]:
         """
         Returns:
             Sequence of projects in user's namespace.
         """
         raise NotImplementedError()
 
-    def get_forks(self) -> Union[Sequence["GitProject"], Iterable["GitProject"]]:
+    def get_forks(self) -> Union[Sequence[GitProject], Iterable[GitProject]]:
         """
         Returns:
             Sequence of forks in user's namespace.

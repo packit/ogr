@@ -5,12 +5,7 @@ from __future__ import annotations
 
 import datetime
 from collections.abc import Iterable
-from typing import (
-    Any,
-    Optional,
-    Union,
-    TYPE_CHECKING
-)
+from typing import TYPE_CHECKING, Any, Optional, Union
 
 from ogr.abstract.abstract_class import OgrAbstractClass
 from ogr.abstract.comment import IssueComment
@@ -19,7 +14,7 @@ from ogr.abstract.status import IssueStatus
 
 if TYPE_CHECKING:
     from ogr.abstract.git_project import GitProject
-    
+
 
 class Issue(OgrAbstractClass):
     """
@@ -27,7 +22,7 @@ class Issue(OgrAbstractClass):
         project (GitProject): Project of the issue.
     """
 
-    def __init__(self, raw_issue: Any, project: "GitProject") -> None:
+    def __init__(self, raw_issue: Any, project: GitProject) -> None:
         self._raw_issue = raw_issue
         self.project = project
 
@@ -72,7 +67,7 @@ class Issue(OgrAbstractClass):
         raise NotImplementedError()
 
     @property
-    def labels(self) -> Union[list["IssueLabel"], Iterable["IssueLabel"]]:
+    def labels(self) -> Union[list[IssueLabel], Iterable[IssueLabel]]:
         """Labels of the issue."""
         raise NotImplementedError()
 
@@ -99,7 +94,7 @@ class Issue(OgrAbstractClass):
         private: Optional[bool] = None,
         labels: Optional[list[str]] = None,
         assignees: Optional[list[str]] = None,
-    ) -> "Issue":
+    ) -> Issue:
         """
         Open new issue.
 
@@ -126,7 +121,7 @@ class Issue(OgrAbstractClass):
         raise NotImplementedError()
 
     @staticmethod
-    def get(project: Any, id: int) -> "Issue":
+    def get(project: Any, id: int) -> Issue:
         """
         Get issue.
 
@@ -146,7 +141,7 @@ class Issue(OgrAbstractClass):
         author: Optional[str] = None,
         assignee: Optional[str] = None,
         labels: Optional[list[str]] = None,
-    ) -> Union[list["Issue"], Iterable["Issue"]]:
+    ) -> Union[list[Issue], Iterable[Issue]]:
         """
         List of issues.
 
@@ -239,7 +234,7 @@ class Issue(OgrAbstractClass):
         """
         raise NotImplementedError()
 
-    def close(self) -> "Issue":
+    def close(self) -> Issue:
         """
         Close an issue.
 

@@ -3,14 +3,8 @@
 
 from __future__ import annotations
 
-import functools
 from collections.abc import Iterable
-from typing import (
-    Any,
-    Optional,
-    Union,
-    TYPE_CHECKING
-)
+from typing import TYPE_CHECKING, Any, Optional, Union
 
 from ogr.abstract.abstract_class import OgrAbstractClass
 from ogr.abstract.auth_method import AuthMethod
@@ -19,12 +13,13 @@ from ogr.exceptions import OgrException
 from ogr.parsing import parse_git_repo
 
 try:
-    from functools import cached_property as _cached_property # type: ignore
+    from functools import cached_property as _cached_property  # type: ignore
 except ImportError:
     from functools import lru_cache
 
     def _cached_property(func):  # type: ignore
         return property(lru_cache()(func))
+
 
 if TYPE_CHECKING:
     from ogr.abstract.git_project import GitProject
@@ -44,7 +39,7 @@ class GitService(OgrAbstractClass):
     def __str__(self) -> str:
         return f"GitService(instance_url={self.instance_url})"
 
-    def get_project(self, **kwargs: Any) -> "GitProject":
+    def get_project(self, **kwargs: Any) -> GitProject:
         """
         Get the requested project.
 
@@ -58,7 +53,7 @@ class GitService(OgrAbstractClass):
         """
         raise NotImplementedError
 
-    def get_project_from_url(self, url: str) -> "GitProject":
+    def get_project_from_url(self, url: str) -> GitProject:
         """
         Args:
             url: URL of the git repository.
@@ -77,7 +72,7 @@ class GitService(OgrAbstractClass):
         raise NotImplementedError
 
     @property
-    def user(self) -> "GitUser":
+    def user(self) -> GitUser:
         """User authenticated through the service."""
         raise NotImplementedError
 
@@ -111,7 +106,7 @@ class GitService(OgrAbstractClass):
         repo: str,
         namespace: Optional[str] = None,
         description: Optional[str] = None,
-    ) -> "GitProject":
+    ) -> GitProject:
         """
         Create new project.
 
@@ -133,7 +128,7 @@ class GitService(OgrAbstractClass):
         user: Optional[str] = None,
         search_pattern: Optional[str] = None,
         language: Optional[str] = None,
-    ) -> Union[list["GitProject"], Iterable["GitProject"]]:
+    ) -> Union[list[GitProject], Iterable[GitProject]]:
         """
         List projects for given criteria.
 

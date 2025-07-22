@@ -4,25 +4,18 @@
 from __future__ import annotations
 
 from collections.abc import Iterable, Sequence
-from typing import (
-    Optional,
-    Union
-)
+from typing import Optional, Union
 
 from ogr.abstract.abstract_class import OgrAbstractClass
 from ogr.abstract.access_level import AccessLevel
 from ogr.abstract.comment import CommitComment
 from ogr.abstract.commit_flag import CommitFlag
-from ogr.abstract.git_tag import GitTag
 from ogr.abstract.git_service import GitService
+from ogr.abstract.git_tag import GitTag
 from ogr.abstract.issue import Issue
 from ogr.abstract.pull_request import PullRequest
 from ogr.abstract.release import Release
-from ogr.abstract.status import (
-        IssueStatus,
-        PRStatus,
-        CommitStatus
-    )
+from ogr.abstract.status import CommitStatus, IssueStatus, PRStatus
 
 
 class GitProject(OgrAbstractClass):
@@ -104,7 +97,7 @@ class GitProject(OgrAbstractClass):
         raise NotImplementedError()
 
     @property
-    def parent(self) -> Optional["GitProject"]:
+    def parent(self) -> Optional[GitProject]:
         """Parent project if the project is a fork, otherwise `None`."""
         raise NotImplementedError()
 
@@ -144,7 +137,7 @@ class GitProject(OgrAbstractClass):
         """
         raise NotImplementedError()
 
-    def get_fork(self, create: bool = True) -> Optional["GitProject"]:
+    def get_fork(self, create: bool = True) -> Optional[GitProject]:
         """
         Provide GitProject instance of a fork of this project.
 
@@ -256,7 +249,7 @@ class GitProject(OgrAbstractClass):
         author: Optional[str] = None,
         assignee: Optional[str] = None,
         labels: Optional[list[str]] = None,
-    ) -> Union[list["Issue"], Iterable["Issue"]]:
+    ) -> Union[list[Issue], Iterable[Issue]]:
         """
         List of issues.
 
@@ -280,7 +273,7 @@ class GitProject(OgrAbstractClass):
         """
         raise NotImplementedError()
 
-    def get_issue(self, issue_id: int) -> "Issue":
+    def get_issue(self, issue_id: int) -> Issue:
         """
         Get issue.
 
@@ -292,7 +285,7 @@ class GitProject(OgrAbstractClass):
         """
         raise NotImplementedError()
 
-    def get_issue_info(self, issue_id: int) -> "Issue":
+    def get_issue_info(self, issue_id: int) -> Issue:
         """
         Get issue info.
 
@@ -342,7 +335,7 @@ class GitProject(OgrAbstractClass):
     def get_pr_list(
         self,
         status: PRStatus = PRStatus.open,
-    ) -> Union[list["PullRequest"], Iterable["PullRequest"]]:
+    ) -> Union[list[PullRequest], Iterable[PullRequest]]:
         """
         List of pull requests.
 
@@ -356,7 +349,7 @@ class GitProject(OgrAbstractClass):
         """
         raise NotImplementedError()
 
-    def get_pr(self, pr_id: int) -> "PullRequest":
+    def get_pr(self, pr_id: int) -> PullRequest:
         """
         Get pull request.
 
@@ -385,7 +378,7 @@ class GitProject(OgrAbstractClass):
         """
         raise NotImplementedError()
 
-    def get_tags(self) -> Union[list["GitTag"], Iterable["GitTag"]]:
+    def get_tags(self) -> Union[list[GitTag], Iterable[GitTag]]:
         """
         Returns:
             List of objects that represent tags.
@@ -472,7 +465,7 @@ class GitProject(OgrAbstractClass):
         target_branch: str,
         source_branch: str,
         fork_username: Optional[str] = None,
-    ) -> "PullRequest":
+    ) -> PullRequest:
         """
         Create new pull request.
 
@@ -496,7 +489,7 @@ class GitProject(OgrAbstractClass):
         body: str,
         filename: Optional[str] = None,
         row: Optional[int] = None,
-    ) -> "CommitComment":
+    ) -> CommitComment:
         """
         Add new comment to a commit.
 
@@ -551,7 +544,7 @@ class GitProject(OgrAbstractClass):
         description: str,
         context: str,
         trim: bool = False,
-    ) -> "CommitFlag":
+    ) -> CommitFlag:
         """
         Create a status on a commit.
 
@@ -594,7 +587,7 @@ class GitProject(OgrAbstractClass):
         """
         raise NotImplementedError()
 
-    def fork_create(self, namespace: Optional[str] = None) -> "GitProject":
+    def fork_create(self, namespace: Optional[str] = None) -> GitProject:
         """
         Fork this project using the authenticated user.
 
@@ -665,7 +658,7 @@ class GitProject(OgrAbstractClass):
         """
         raise NotImplementedError
 
-    def get_forks(self) -> Union[Sequence["GitProject"], Iterable["GitProject"]]:
+    def get_forks(self) -> Union[Sequence[GitProject], Iterable[GitProject]]:
         """
         Returns:
             All forks of the project.
