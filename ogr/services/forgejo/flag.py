@@ -106,15 +106,11 @@ class ForgejoCommitFlag(BaseCommitFlag):
                 request_options=None,
             )
 
-            return ForgejoCommitFlag(
-                project=project,
-                raw_commit_flag=status,
-                commit=commit,
-            )
-
         except pyforgejo.NotFoundError as ex:  # 404 error
             logger.error(f"Commit {commit} was not found.")
             raise ForgejoAPIException(f"Commit {commit} was not found.") from ex
+
+        return ForgejoCommitFlag(project=project, raw_commit_flag=status, commit=commit)
 
     @property
     def created(self) -> datetime.datetime:
