@@ -58,7 +58,15 @@ class ForgejoCommitFlag(BaseCommitFlag):
     ) -> Iterable["ForgejoCommitFlag"]:
 
         try:
-            statuses = project.get_commit_statuses(commit)
+            owner = project.namespace
+            forgejo_repo = project.forgejo_repo
+
+            statuses = project.api.repo_list_statuses(
+                owner=owner,
+                repo=forgejo_repo.name,
+                sha=commit,
+            )
+
         except pyforgejo.NotFoundError as ex:  # 404 error
             logger.error(f"Commit {commit} was not found.")
             raise ForgejoAPIException(f"Commit {commit} was not found.") from ex
@@ -84,14 +92,14 @@ class ForgejoCommitFlag(BaseCommitFlag):
     ) -> "ForgejoCommitFlag":
 
         if isinstance(state, str):
-            state = super(ForgejoCommitFlag, ForgejoCommitFlag)._state_from_str(state)
+            state = ForgejoCommitFlag._state_from_str(state)
 
         state = ForgejoCommitFlag._validate_state(state)
 
         if trim:
             description = description[:140]
 
-        owner = project.forgejo_repo.owner.full_name
+        owner = project.namespace
         forgejo_repo = project.forgejo_repo
 
         try:
@@ -101,7 +109,7 @@ class ForgejoCommitFlag(BaseCommitFlag):
                 sha=commit,
                 context=context,
                 description=description,
-                state=state.name,
+                state=ForgejoCommitFlag._state_from_enum(state),
                 target_url=target_url,
                 request_options=None,
             )
