@@ -46,6 +46,7 @@ class ForgejoCommitFlag(BaseCommitFlag):
     def _from_raw_commit_flag(self):
         self.commit = self._raw_commit_flag.sha
         self.state = self._state_from_str(self._raw_commit_flag.state)
+        self.context = self._raw_commit_flag.context
         self.comment = self._raw_commit_flag.description
         self.uid = self._raw_commit_flag.id
         self.url = self._raw_commit_flag.target_url
@@ -96,7 +97,7 @@ class ForgejoCommitFlag(BaseCommitFlag):
         try:
             status = project.api.repo_create_status(
                 owner=owner,
-                repo=forgejo_repo,
+                repo=forgejo_repo.name,
                 sha=commit,
                 context=context,
                 description=description,
