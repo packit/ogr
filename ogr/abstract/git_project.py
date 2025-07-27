@@ -1,32 +1,23 @@
 # Copyright Contributors to the Packit project.
 # SPDX-License-Identifier: MIT
 
-from __future__ import annotations
-
 from collections.abc import Iterable, Sequence
-from typing import (
-    Optional,
-    Union
-)
+from typing import Optional, Union
 
+from ogr import abstract as _abstract
 from ogr.abstract.abstract_class import OgrAbstractClass
 from ogr.abstract.access_level import AccessLevel
-from ogr.abstract.comment import CommitComment
-from ogr.abstract.commit_flag import CommitFlag
 from ogr.abstract.git_tag import GitTag
-from ogr.abstract.git_service import GitService
-from ogr.abstract.issue import Issue
-from ogr.abstract.pull_request import PullRequest
-from ogr.abstract.release import Release
-from ogr.abstract.status import (
-        IssueStatus,
-        PRStatus,
-        CommitStatus
-    )
+from ogr.abstract.status import CommitStatus, IssueStatus, PRStatus
 
 
 class GitProject(OgrAbstractClass):
-    def __init__(self, repo: str, service: GitService, namespace: str) -> None:
+    def __init__(
+        self,
+        repo: str,
+        service: "_abstract.GitService",
+        namespace: str,
+    ) -> None:
         """
         Args:
             repo: Name of the project.
@@ -256,7 +247,7 @@ class GitProject(OgrAbstractClass):
         author: Optional[str] = None,
         assignee: Optional[str] = None,
         labels: Optional[list[str]] = None,
-    ) -> Union[list["Issue"], Iterable["Issue"]]:
+    ) -> Union[list["_abstract.Issue"], Iterable["_abstract.Issue"]]:
         """
         List of issues.
 
@@ -280,7 +271,7 @@ class GitProject(OgrAbstractClass):
         """
         raise NotImplementedError()
 
-    def get_issue(self, issue_id: int) -> "Issue":
+    def get_issue(self, issue_id: int) -> "_abstract.Issue":
         """
         Get issue.
 
@@ -292,7 +283,7 @@ class GitProject(OgrAbstractClass):
         """
         raise NotImplementedError()
 
-    def get_issue_info(self, issue_id: int) -> "Issue":
+    def get_issue_info(self, issue_id: int) -> "_abstract.Issue":
         """
         Get issue info.
 
@@ -311,7 +302,7 @@ class GitProject(OgrAbstractClass):
         private: Optional[bool] = None,
         labels: Optional[list[str]] = None,
         assignees: Optional[list[str]] = None,
-    ) -> Issue:
+    ) -> "_abstract.Issue":
         """
         Open new issue.
 
@@ -342,7 +333,7 @@ class GitProject(OgrAbstractClass):
     def get_pr_list(
         self,
         status: PRStatus = PRStatus.open,
-    ) -> Union[list["PullRequest"], Iterable["PullRequest"]]:
+    ) -> Union[list["_abstract.PullRequest"], Iterable["_abstract.PullRequest"]]:
         """
         List of pull requests.
 
@@ -356,7 +347,7 @@ class GitProject(OgrAbstractClass):
         """
         raise NotImplementedError()
 
-    def get_pr(self, pr_id: int) -> "PullRequest":
+    def get_pr(self, pr_id: int) -> "_abstract.PullRequest":
         """
         Get pull request.
 
@@ -407,7 +398,7 @@ class GitProject(OgrAbstractClass):
         identifier: Optional[int] = None,
         name: Optional[str] = None,
         tag_name: Optional[str] = None,
-    ) -> Release:
+    ) -> "_abstract.Release":
         """
         Get a single release.
 
@@ -427,14 +418,16 @@ class GitProject(OgrAbstractClass):
         """
         raise NotImplementedError()
 
-    def get_latest_release(self) -> Optional[Release]:
+    def get_latest_release(self) -> Optional["_abstract.Release"]:
         """
         Returns:
             Object that represents the latest release.
         """
         raise NotImplementedError()
 
-    def get_releases(self) -> Union[list[Release], Iterable[Release]]:
+    def get_releases(
+        self,
+    ) -> Union[list["_abstract.Release"], Iterable["_abstract.Release"]]:
         """
         Returns:
             List of the objects that represent releases.
@@ -447,7 +440,7 @@ class GitProject(OgrAbstractClass):
         name: str,
         message: str,
         ref: Optional[str] = None,
-    ) -> Release:
+    ) -> "_abstract.Release":
         """
         Create new release.
 
@@ -472,7 +465,7 @@ class GitProject(OgrAbstractClass):
         target_branch: str,
         source_branch: str,
         fork_username: Optional[str] = None,
-    ) -> "PullRequest":
+    ) -> "_abstract.PullRequest":
         """
         Create new pull request.
 
@@ -496,7 +489,7 @@ class GitProject(OgrAbstractClass):
         body: str,
         filename: Optional[str] = None,
         row: Optional[int] = None,
-    ) -> "CommitComment":
+    ) -> "_abstract.CommitComment":
         """
         Add new comment to a commit.
 
@@ -518,7 +511,7 @@ class GitProject(OgrAbstractClass):
     def get_commit_comments(
         self,
         commit: str,
-    ) -> Union[list[CommitComment], Iterable[CommitComment]]:
+    ) -> Union[list["_abstract.CommitComment"], Iterable["_abstract.CommitComment"]]:
         """
         Get comments for a commit.
 
@@ -530,7 +523,11 @@ class GitProject(OgrAbstractClass):
         """
         raise NotImplementedError()
 
-    def get_commit_comment(self, commit_sha: str, comment_id: int) -> CommitComment:
+    def get_commit_comment(
+        self,
+        commit_sha: str,
+        comment_id: int,
+    ) -> "_abstract.CommitComment":
         """
         Get commit comment.
 
@@ -551,7 +548,7 @@ class GitProject(OgrAbstractClass):
         description: str,
         context: str,
         trim: bool = False,
-    ) -> "CommitFlag":
+    ) -> "_abstract.CommitFlag":
         """
         Create a status on a commit.
 
@@ -573,7 +570,7 @@ class GitProject(OgrAbstractClass):
     def get_commit_statuses(
         self,
         commit: str,
-    ) -> Union[list[CommitFlag], Iterable[CommitFlag]]:
+    ) -> Union[list["_abstract.CommitFlag"], Iterable["_abstract.CommitFlag"]]:
         """
         Get statuses of the commit.
 

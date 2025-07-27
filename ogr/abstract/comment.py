@@ -3,20 +3,12 @@
 
 import datetime
 from collections.abc import Iterable
-from typing import (
-    Any,
-    Optional,
-    TypeVar,
-    Union,
-    TYPE_CHECKING
-)
+from typing import Any, Optional, TypeVar, Union
 
 from ogr.abstract.abstract_class import OgrAbstractClass
+from ogr.abstract.issue import Issue
+from ogr.abstract.pull_request import PullRequest
 from ogr.deprecation import deprecate_and_set_removal
-
-if TYPE_CHECKING:
-    from ogr.abstract.issue import Issue
-    from ogr.abstract.pull_request import PullRequest
 
 AnyComment = TypeVar("AnyComment", bound="Comment")
 
@@ -126,7 +118,7 @@ class IssueComment(Comment):
 
     def __str__(self) -> str:
         return "Issue" + super().__str__()
-    
+
 
 class CommitComment(Comment):
     """

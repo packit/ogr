@@ -1,25 +1,14 @@
 # Copyright Contributors to the Packit project.
 # SPDX-License-Identifier: MIT
 
-from __future__ import annotations
-
 import datetime
 from collections.abc import Iterable
-from typing import (
-    Any,
-    Optional,
-    Union,
-    TYPE_CHECKING
-)
+from typing import Any, Optional, Union
 
+from ogr import abstract as _abstract
 from ogr.abstract.abstract_class import OgrAbstractClass
-from ogr.abstract.comment import IssueComment
-from ogr.abstract.label import IssueLabel
 from ogr.abstract.status import IssueStatus
 
-if TYPE_CHECKING:
-    from ogr.abstract.git_project import GitProject
-    
 
 class Issue(OgrAbstractClass):
     """
@@ -27,7 +16,7 @@ class Issue(OgrAbstractClass):
         project (GitProject): Project of the issue.
     """
 
-    def __init__(self, raw_issue: Any, project: "GitProject") -> None:
+    def __init__(self, raw_issue: Any, project: "_abstract.GitProject") -> None:
         self._raw_issue = raw_issue
         self.project = project
 
@@ -72,7 +61,9 @@ class Issue(OgrAbstractClass):
         raise NotImplementedError()
 
     @property
-    def labels(self) -> Union[list["IssueLabel"], Iterable["IssueLabel"]]:
+    def labels(
+        self,
+    ) -> Union[list["_abstract.IssueLabel"], Iterable["_abstract.IssueLabel"]]:
         """Labels of the issue."""
         raise NotImplementedError()
 
@@ -174,7 +165,7 @@ class Issue(OgrAbstractClass):
     def _get_all_comments(
         self,
         reverse: bool = False,
-    ) -> Union[list[IssueComment], Iterable[IssueComment]]:
+    ) -> Union[list["_abstract.IssueComment"], Iterable["_abstract.IssueComment"]]:
         """
         Get list of all issue comments.
 
@@ -194,7 +185,7 @@ class Issue(OgrAbstractClass):
         filter_regex: Optional[str] = None,
         reverse: bool = False,
         author: Optional[str] = None,
-    ) -> Union[list[IssueComment], Iterable[IssueComment]]:
+    ) -> Union[list["_abstract.IssueComment"], Iterable["_abstract.IssueComment"]]:
         """
         Get list of issue comments.
 
@@ -227,7 +218,7 @@ class Issue(OgrAbstractClass):
         """
         raise NotImplementedError()
 
-    def comment(self, body: str) -> IssueComment:
+    def comment(self, body: str) -> "_abstract.IssueComment":
         """
         Add new comment to the issue.
 
@@ -266,7 +257,7 @@ class Issue(OgrAbstractClass):
         """
         raise NotImplementedError()
 
-    def get_comment(self, comment_id: int) -> IssueComment:
+    def get_comment(self, comment_id: int) -> "_abstract.IssueComment":
         """
         Returns an issue comment.
 

@@ -1,33 +1,23 @@
 # Copyright Contributors to the Packit project.
 # SPDX-License-Identifier: MIT
 
-from __future__ import annotations
-
-import functools
 from collections.abc import Iterable
-from typing import (
-    Any,
-    Optional,
-    Union,
-    TYPE_CHECKING
-)
+from typing import Any, Optional, Union
 
+from ogr import abstract as _abstract
 from ogr.abstract.abstract_class import OgrAbstractClass
 from ogr.abstract.auth_method import AuthMethod
-from ogr.abstract.git_user import GitUser
+from ogr.abstract.git_project import GitProject
 from ogr.exceptions import OgrException
 from ogr.parsing import parse_git_repo
 
 try:
-    from functools import cached_property as _cached_property # type: ignore
+    from functools import cached_property as _cached_property  # type: ignore
 except ImportError:
     from functools import lru_cache
 
     def _cached_property(func):  # type: ignore
         return property(lru_cache()(func))
-
-if TYPE_CHECKING:
-    from ogr.abstract.git_project import GitProject
 
 
 class GitService(OgrAbstractClass):
@@ -77,7 +67,7 @@ class GitService(OgrAbstractClass):
         raise NotImplementedError
 
     @property
-    def user(self) -> "GitUser":
+    def user(self) -> "_abstract.GitUser":
         """User authenticated through the service."""
         raise NotImplementedError
 

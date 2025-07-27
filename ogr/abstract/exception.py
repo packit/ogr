@@ -2,11 +2,7 @@
 # SPDX-License-Identifier: MIT
 
 import functools
-from typing import (
-    Any,
-    Callable,
-    Union
-)
+from typing import Any, Callable, Union
 
 import github
 import gitlab
@@ -43,7 +39,7 @@ def __wrap_exception(
     ex: Union[
         github.GithubException,
         gitlab.GitlabError,
-        pyforgejo.core.api_error.ApiError, # type: ignore
+        pyforgejo.core.api_error.ApiError,  # type: ignore
     ],
 ) -> APIException:
     """
@@ -61,7 +57,7 @@ def __wrap_exception(
     MAPPING = {
         github.GithubException: GithubAPIException,
         gitlab.GitlabError: GitlabAPIException,
-        pyforgejo.core.api_error.ApiError: ForgejoAPIException, # type: ignore
+        pyforgejo.core.api_error.ApiError: ForgejoAPIException,  # type: ignore
     }
 
     for caught_exception, ogr_exception in MAPPING.items():
@@ -103,7 +99,7 @@ def catch_common_exceptions(function: Callable) -> Any:
         except (
             github.GithubException,
             gitlab.GitlabError,
-            pyforgejo.core.api_error.ApiError, # type: ignore
+            pyforgejo.core.api_error.ApiError,  # type: ignore
         ) as ex:
             __check_for_internal_failure(__wrap_exception(ex))
 

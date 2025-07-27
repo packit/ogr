@@ -1,29 +1,16 @@
 # Copyright Contributors to the Packit project.
 # SPDX-License-Identifier: MIT
 
-from __future__ import annotations
-
 import datetime
 from collections.abc import Iterable
 from re import Match
-from typing import (
-    Any,
-    Optional,
-    Union,
-    TYPE_CHECKING
-)
+from typing import Any, Optional, Union
 
+from ogr import abstract as _abstract
 from ogr.abstract.abstract_class import OgrAbstractClass
-from ogr.abstract.comment import PRComment
-from ogr.abstract.status import (
-        PRStatus,
-        MergeCommitStatus
-    )
-
-if TYPE_CHECKING:
-    from ogr.abstract.git_project import GitProject
-    from ogr.abstract.label import PRLabel
-    from ogr.abstract.commit_flag import CommitFlag
+from ogr.abstract.commit_flag import CommitFlag
+from ogr.abstract.git_project import GitProject
+from ogr.abstract.status import MergeCommitStatus, PRStatus
 
 
 class PullRequest(OgrAbstractClass):
@@ -90,7 +77,7 @@ class PullRequest(OgrAbstractClass):
         raise NotImplementedError()
 
     @property
-    def labels(self) -> Union[list["PRLabel"], Iterable["PRLabel"]]:
+    def labels(self) -> Union[list["_abstract.PRLabel"], Iterable["_abstract.PRLabel"]]:
         """Labels of the pull request."""
         raise NotImplementedError()
 
@@ -249,7 +236,7 @@ class PullRequest(OgrAbstractClass):
     def _get_all_comments(
         self,
         reverse: bool = False,
-    ) -> Union[list[PRComment], Iterable[PRComment]]:
+    ) -> Union[list["_abstract.PRComment"], Iterable["_abstract.PRComment"]]:
         """
         Get list of all pull request comments.
 
@@ -269,7 +256,7 @@ class PullRequest(OgrAbstractClass):
         filter_regex: Optional[str] = None,
         reverse: bool = False,
         author: Optional[str] = None,
-    ) -> Union[list["PRComment"], Iterable["PRComment"]]:
+    ) -> Union[list["_abstract.PRComment"], Iterable["_abstract.PRComment"]]:
         """
         Get list of pull request comments.
 
@@ -326,7 +313,7 @@ class PullRequest(OgrAbstractClass):
         commit: Optional[str] = None,
         filename: Optional[str] = None,
         row: Optional[int] = None,
-    ) -> "PRComment":
+    ) -> "_abstract.PRComment":
         """
         Add new comment to the pull request.
 
@@ -383,7 +370,7 @@ class PullRequest(OgrAbstractClass):
         """
         raise NotImplementedError()
 
-    def get_comment(self, comment_id: int) -> PRComment:
+    def get_comment(self, comment_id: int) -> "_abstract.PRComment":
         """
         Returns a PR comment.
 
