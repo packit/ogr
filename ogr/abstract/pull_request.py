@@ -6,16 +6,24 @@ from __future__ import annotations
 import datetime
 from collections.abc import Iterable
 from re import Match
-from typing import TYPE_CHECKING, Any, Optional, Union
+from typing import (
+    Any,
+    Optional,
+    Union,
+    TYPE_CHECKING
+)
 
 from ogr.abstract.abstract_class import OgrAbstractClass
 from ogr.abstract.comment import PRComment
-from ogr.abstract.label import PRLabel
-from ogr.abstract.status import MergeCommitStatus, PRStatus
+from ogr.abstract.status import (
+        PRStatus,
+        MergeCommitStatus
+    )
 
 if TYPE_CHECKING:
-    from ogr.abstract.commit_flag import CommitFlag
     from ogr.abstract.git_project import GitProject
+    from ogr.abstract.label import PRLabel
+    from ogr.abstract.commit_flag import CommitFlag
 
 
 class PullRequest(OgrAbstractClass):
@@ -24,7 +32,7 @@ class PullRequest(OgrAbstractClass):
         project (GitProject): Project of the pull request.
     """
 
-    def __init__(self, raw_pr: Any, project: GitProject) -> None:
+    def __init__(self, raw_pr: Any, project: "GitProject") -> None:
         self._raw_pr = raw_pr
         self._target_project = project
 
@@ -82,7 +90,7 @@ class PullRequest(OgrAbstractClass):
         raise NotImplementedError()
 
     @property
-    def labels(self) -> Union[list[PRLabel], Iterable[PRLabel]]:
+    def labels(self) -> Union[list["PRLabel"], Iterable["PRLabel"]]:
         """Labels of the pull request."""
         raise NotImplementedError()
 
@@ -121,12 +129,12 @@ class PullRequest(OgrAbstractClass):
         raise NotImplementedError()
 
     @property
-    def source_project(self) -> GitProject:
+    def source_project(self) -> "GitProject":
         """Object that represents source project (from which the changes are pulled)."""
         raise NotImplementedError()
 
     @property
-    def target_project(self) -> GitProject:
+    def target_project(self) -> "GitProject":
         """Object that represents target project (where changes are merged)."""
         return self._target_project
 
@@ -166,7 +174,7 @@ class PullRequest(OgrAbstractClass):
         target_branch: str,
         source_branch: str,
         fork_username: Optional[str] = None,
-    ) -> PullRequest:
+    ) -> "PullRequest":
         """
         Create new pull request.
 
@@ -185,7 +193,7 @@ class PullRequest(OgrAbstractClass):
         raise NotImplementedError()
 
     @staticmethod
-    def get(project: Any, id: int) -> PullRequest:
+    def get(project: Any, id: int) -> "PullRequest":
         """
         Get pull request.
 
@@ -202,7 +210,7 @@ class PullRequest(OgrAbstractClass):
     def get_list(
         project: Any,
         status: PRStatus = PRStatus.open,
-    ) -> Union[list[PullRequest], Iterable[PullRequest]]:
+    ) -> Union[list["PullRequest"], Iterable["PullRequest"]]:
         """
         List of pull requests.
 
@@ -221,7 +229,7 @@ class PullRequest(OgrAbstractClass):
         self,
         title: Optional[str] = None,
         description: Optional[str] = None,
-    ) -> PullRequest:
+    ) -> "PullRequest":
         """
         Update pull request information.
 
@@ -261,7 +269,7 @@ class PullRequest(OgrAbstractClass):
         filter_regex: Optional[str] = None,
         reverse: bool = False,
         author: Optional[str] = None,
-    ) -> Union[list[PRComment], Iterable[PRComment]]:
+    ) -> Union[list["PRComment"], Iterable["PRComment"]]:
         """
         Get list of pull request comments.
 
@@ -318,7 +326,7 @@ class PullRequest(OgrAbstractClass):
         commit: Optional[str] = None,
         filename: Optional[str] = None,
         row: Optional[int] = None,
-    ) -> PRComment:
+    ) -> "PRComment":
         """
         Add new comment to the pull request.
 
@@ -339,7 +347,7 @@ class PullRequest(OgrAbstractClass):
         """
         raise NotImplementedError()
 
-    def close(self) -> PullRequest:
+    def close(self) -> "PullRequest":
         """
         Close the pull request.
 
@@ -348,7 +356,7 @@ class PullRequest(OgrAbstractClass):
         """
         raise NotImplementedError()
 
-    def merge(self) -> PullRequest:
+    def merge(self) -> "PullRequest":
         """
         Merge the pull request.
 
@@ -366,7 +374,7 @@ class PullRequest(OgrAbstractClass):
         """
         raise NotImplementedError()
 
-    def get_statuses(self) -> Union[list[CommitFlag], Iterable[CommitFlag]]:
+    def get_statuses(self) -> Union[list["CommitFlag"], Iterable["CommitFlag"]]:
         """
         Returns statuses for latest commit on pull request.
 

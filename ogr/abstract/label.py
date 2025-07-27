@@ -1,10 +1,10 @@
+
 # Copyright Contributors to the Packit project.
 # SPDX-License-Identifier: MIT
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Any
-
+from typing import Any, TYPE_CHECKING
 from ogr.abstract.abstract_class import OgrAbstractClass
 
 if TYPE_CHECKING:
@@ -25,10 +25,10 @@ class Label(OgrAbstractClass):
         """Name of the label."""
         raise NotImplementedError()
 
-
+    
 class IssueLabel(Label):
     @property
-    def issue(self) -> Issue:
+    def issue(self) -> "Issue":
         """Issue of issue label."""
         return self._parent
 
@@ -38,9 +38,10 @@ class IssueLabel(Label):
 
 class PRLabel(Label):
     @property
-    def pull_request(self) -> PullRequest:
+    def pull_request(self) -> "PullRequest":
         """Pull request of pull request label."""
         return self._parent
 
     def __str__(self) -> str:
         return "PR" + super().__str__()
+    

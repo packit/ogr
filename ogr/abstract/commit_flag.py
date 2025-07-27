@@ -3,16 +3,23 @@
 
 from __future__ import annotations
 
+import typing
 import datetime
 from collections.abc import Iterable
-from typing import TYPE_CHECKING, Any, ClassVar, Optional, Union
+from typing import (
+    Any,
+    ClassVar,
+    Optional,
+    Union,
+    TYPE_CHECKING
+)
 
 from ogr.abstract.abstract_class import OgrAbstractClass
 from ogr.abstract.status import CommitStatus
 
 if TYPE_CHECKING:
     from ogr.abstract.git_project import GitProject
-
+    
 
 class CommitFlag(OgrAbstractClass):
     _states: ClassVar[dict[str, CommitStatus]] = {}
@@ -20,7 +27,7 @@ class CommitFlag(OgrAbstractClass):
     def __init__(
         self,
         raw_commit_flag: Optional[Any] = None,
-        project: Optional[GitProject] = None,
+        project: Optional["GitProject"] = None,
         commit: Optional[str] = None,
         state: Optional[CommitStatus] = None,
         context: Optional[str] = None,
@@ -84,7 +91,7 @@ class CommitFlag(OgrAbstractClass):
     def get(
         project: Any,
         commit: str,
-    ) -> Union[list[CommitFlag], Iterable[CommitFlag]]:
+    ) -> Union[list["CommitFlag"], Iterable["CommitFlag"]]:
         """
         Acquire commit statuses for given commit in the project.
 
@@ -105,7 +112,7 @@ class CommitFlag(OgrAbstractClass):
         target_url: str,
         description: str,
         context: str,
-    ) -> CommitFlag:
+    ) -> "CommitFlag":
         """
         Set a new commit status.
 

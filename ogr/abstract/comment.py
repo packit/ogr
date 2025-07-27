@@ -1,11 +1,15 @@
 # Copyright Contributors to the Packit project.
 # SPDX-License-Identifier: MIT
 
-from __future__ import annotations
-
 import datetime
 from collections.abc import Iterable
-from typing import TYPE_CHECKING, Any, Optional, TypeVar, Union
+from typing import (
+    Any,
+    Optional,
+    TypeVar,
+    Union,
+    TYPE_CHECKING
+)
 
 from ogr.abstract.abstract_class import OgrAbstractClass
 from ogr.deprecation import deprecate_and_set_removal
@@ -122,7 +126,7 @@ class IssueComment(Comment):
 
     def __str__(self) -> str:
         return "Issue" + super().__str__()
-
+    
 
 class CommitComment(Comment):
     """
