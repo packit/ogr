@@ -4,6 +4,7 @@
 import datetime
 import logging
 from collections.abc import Iterable
+from functools import partial
 from typing import ClassVar, Union
 
 import pyforgejo
@@ -22,14 +23,14 @@ class ForgejoCommitFlag(BaseCommitFlag):
     _states: ClassVar[dict[str, CommitStatus]] = {
         "pending": CommitStatus.pending,
         "success": CommitStatus.success,
-        "failed": CommitStatus.failure,
+        "failure": CommitStatus.failure,
         "canceled": CommitStatus.error,
         "warning": CommitStatus.warning,
     }
 
     @staticmethod
     def _state_from_enum(state: CommitStatus) -> str:
-        return "failed" if state == CommitStatus.failure else state.name
+        return "failure" if state == CommitStatus.failure else state.name
 
     def __str__(self) -> str:
         return (
@@ -58,27 +59,24 @@ class ForgejoCommitFlag(BaseCommitFlag):
     ) -> Iterable["ForgejoCommitFlag"]:
 
         try:
-            owner = project.namespace
-            forgejo_repo = project.forgejo_repo
-
-            statuses = project.api.repo_list_statuses(
-                owner=owner,
-                repo=forgejo_repo.name,
-                sha=commit,
+            return (
+                ForgejoCommitFlag(
+                    raw_commit_flag=status,
+                    project=project,
+                    commit=commit,
+                )
+                for status in paginate(
+                    partial(
+                        project.api.repo_list_statuses,
+                        owner=project.namespace,
+                        repo=project.repo,
+                        sha=commit,
+                    ),
+                )
             )
-
         except pyforgejo.NotFoundError as ex:  # 404 error
             logger.error(f"Commit {commit} was not found.")
             raise ForgejoAPIException(f"Commit {commit} was not found.") from ex
-
-        return (
-            ForgejoCommitFlag(
-                raw_commit_flag=status,
-                project=project,
-                commit=commit,
-            )
-            for status in paginate(statuses)
-        )
 
     @staticmethod
     def set(
@@ -99,7 +97,7 @@ class ForgejoCommitFlag(BaseCommitFlag):
         if trim:
             description = description[:140]
 
-        owner = project.namespace
+        owner = project.forgejo_repo.owner.login
         forgejo_repo = project.forgejo_repo
 
         try:
