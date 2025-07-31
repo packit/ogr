@@ -1,7 +1,6 @@
 # Copyright Contributors to the Packit project.
 # SPDX-License-Identifier: MIT
 
-import os
 from functools import cached_property
 from typing import Optional
 from urllib.parse import urlparse
