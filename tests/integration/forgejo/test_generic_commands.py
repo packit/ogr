@@ -38,9 +38,9 @@ def test_get_commit_statuses(project):
 
 @record_httpx()
 def test_set_commit_status(project):
-    # old_statuses = project.get_commit_statuses(
-    #     commit="11b37d913374b14f8519d16c2a2cca3ebc14ac64",
-    # )
+    old_statuses = project.get_commit_statuses(
+        commit="11b37d913374b14f8519d16c2a2cca3ebc14ac64",
+    )
 
     status = project.set_commit_status(
         commit="11b37d913374b14f8519d16c2a2cca3ebc14ac64",
@@ -51,9 +51,11 @@ def test_set_commit_status(project):
     )
 
     assert status
-    # new_statuses = project.get_commit_statuses(
-    #     commit="11b37d913374b14f8519d16c2a2cca3ebc14ac64",
-    # )
+    new_statuses = project.get_commit_statuses(
+        commit="11b37d913374b14f8519d16c2a2cca3ebc14ac64",
+    )
 
-    # todo compare length of iterables....
-    # assert len(old_statuses) == len(new_statuses)
+    old_count = sum(1 for _ in iter(old_statuses))
+    new_count = sum(1 for _ in iter(new_statuses))
+
+    assert old_count == new_count
