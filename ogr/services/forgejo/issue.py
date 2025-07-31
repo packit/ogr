@@ -61,8 +61,6 @@ class ForgejoIssue(BaseIssue):
     def title(self, new_title: str) -> None:
         self.partial_api(self.api.edit_issue)(title=new_title)
 
-        self.__update_info()
-
     @property
     def id(self) -> int:
         return self._raw_issue.number
@@ -78,7 +76,6 @@ class ForgejoIssue(BaseIssue):
     @description.setter
     def description(self, text: str):
         self.partial_api(self.api.edit_issue)(body=text)
-        self.__update_info()
 
     @property
     def author(self) -> str:
@@ -159,7 +156,7 @@ class ForgejoIssue(BaseIssue):
         if labels:
             parameters["labels"] = labels
         try:
-            return (
+            return [
                 ForgejoIssue(issue, project)
                 for issue in paginate(
                     project.service.api.issue.list_issues,
@@ -167,7 +164,7 @@ class ForgejoIssue(BaseIssue):
                     repo=project.repo,
                     **parameters,
                 )
-            )
+            ]
         except NotFoundError as ex:
             if "user does not exist" in str(ex):
                 return []
@@ -194,7 +191,8 @@ class ForgejoIssue(BaseIssue):
                 owner=self.project.namespace,
                 repo=self.project.repo,
                 id=comment_id,
-            ), parent=self
+            ),
+            parent=self,
         )
 
     def add_assignee(self, *assignees: str) -> None:

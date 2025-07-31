@@ -330,7 +330,7 @@ class ForgejoPullRequest(BasePullRequest):
             return (
                 ForgejoPRComment(raw_comment=comment, parent=self)
                 for comment in self.api.get_comments(
-                owner=self.project.namespace,
+                    owner=self.project.namespace,
                     repo=self.project.repo,
                     index=self.id,
                 )
@@ -344,7 +344,7 @@ class ForgejoPullRequest(BasePullRequest):
         commit: Optional[str] = None,
         filename: Optional[str] = None,
         row: Optional[int] = None,
-    ) -> "PRComment":
+    ):
         """
         Add new comment to the pull request.
 
@@ -387,7 +387,7 @@ class ForgejoPullRequest(BasePullRequest):
             repo=self.project.repo,
             id=comment_id,
         )
-        return ForgejoPRComment(parent=self,raw_comment=comment)
+        return ForgejoPRComment(parent=self, raw_comment=comment)
 
     def get_statuses(self) -> Union[list[CommitFlag], Iterable[CommitFlag]]:
         """

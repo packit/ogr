@@ -5,7 +5,6 @@ import datetime
 import logging
 from urllib.parse import urlparse
 
-import pyforgejo
 from pyforgejo.types import Comment as _ForgejoComment
 from pyforgejo.types.reaction import Reaction as _ForgejoReaction
 
@@ -57,15 +56,21 @@ class ForgejoComment(Comment):
 
     def get_reactions(self) -> list[Reaction]:
         client = self._client
-        reactions = client.issue.get_comment_reactions(owner=self._parent.project.namespace, repo=self._parent.project.repo, id=self._id)
-        return (
-            ForgejoReaction(raw_reaction=reaction)
-            for reaction in reactions
+        reactions = client.issue.get_comment_reactions(
+            owner=self._parent.project.namespace,
+            repo=self._parent.project.repo,
+            id=self._id,
         )
+        return [ForgejoReaction(raw_reaction=reaction) for reaction in reactions]
 
     def add_reaction(self, reaction: str) -> Reaction:
         client = self._client
-        client.issue.post_comment_reaction(owner=self._parent.project.namespace, repo=self._parent.project.repo, id=self._id, content=reaction)
+        client.issue.post_comment_reaction(
+            owner=self._parent.project.namespace,
+            repo=self._parent.project.repo,
+            id=self._id,
+            content=reaction,
+        )
         return ForgejoReaction(raw_reaction=reaction)
 
 
