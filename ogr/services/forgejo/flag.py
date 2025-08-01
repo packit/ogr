@@ -35,7 +35,6 @@ class ForgejoCommitFlag(BaseCommitFlag):
     def __str__(self) -> str:
         return (
             f"ForgejoCommitFlag("
-            f"commit='{self.commit}', "
             f"state='{self.state.name}', "
             f"context='{self.context}', "
             f"uid='{self.uid}', "
@@ -45,8 +44,7 @@ class ForgejoCommitFlag(BaseCommitFlag):
         )
 
     def _from_raw_commit_flag(self):
-        self.commit = self._raw_commit_flag.sha
-        self.state = self._state_from_str(self._raw_commit_flag.state)
+        self.state = self._state_from_str(self._raw_commit_flag.status)
         self.context = self._raw_commit_flag.context
         self.comment = self._raw_commit_flag.description
         self.uid = self._raw_commit_flag.id
