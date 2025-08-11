@@ -89,9 +89,9 @@ Explanation of the `tmt` command:
 > file.
 
 Afterwards the generated responses can be found in the test directory
-(`???` varies):
+(`<ID>` varies):
 
-    /var/tmp/tmt/run-???/plans/full/discover/default-0/tests/
+    /var/tmp/tmt/<ID>/plans/full/discover/default-0/tests/
 
 > [!WARNING]
 >
@@ -99,7 +99,7 @@ Afterwards the generated responses can be found in the test directory
 > the `tmt clean` command. You can either:
 >
 > - clean the last run with `tmt clean -l`, or
-> - specify a concrete ID of the run with `tmt clean --id ID`.
+> - specify a concrete ID of the run with `tmt clean --id <ID>`.
 
 ## Additional resources
 
