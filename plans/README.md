@@ -63,6 +63,31 @@ Explanation of the `tmt` command:
 - _Provision_ a container for running the tests
 - Limit the test execution only to the `full` tmt plan (skip rev-dep tests)
 
+> [!TIP]
+>
+> It might be more user-friendly for you to pass the tokens via a dotenv file
+> with environment variables.
+>
+> 1. Create a file with environment variables:
+>
+>    ```
+>    cp .env.template .env
+>    ```
+>
+> 2. Populate `.env` with tokens
+> 3. Adjust the tmt command:
+>
+>    ```
+>    tmt -vv \
+>      run -a -k -e @.env \
+>        provision -h container \
+>        plan -n full \
+>        report -h display
+>    ```
+>
+> You can still override variables, if needed, after specifying the environment
+> file.
+
 Afterwards the generated responses can be found in the test directory
 (`???` varies):
 
