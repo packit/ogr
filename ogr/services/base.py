@@ -49,6 +49,12 @@ class BaseGitProject(GitProject):
     def full_repo_name(self) -> str:
         return f"{self.namespace}/{self.repo}"
 
+    def can_close_issue(self, username: str) -> bool:
+        return username in self.who_can_close_issue()
+
+    def can_merge_pr(self, username: str) -> bool:
+        return username in self.who_can_merge_pr()
+
 
 class BasePullRequest(PullRequest):
     @property
@@ -85,6 +91,12 @@ class BasePullRequest(PullRequest):
         commit = self.head_commit
         return self.target_project.get_commit_statuses(commit)
 
+    def can_close(self, username):
+        return self.status == "open" and username in self.who_can_close()
+
+    def can_merge(self, username) -> bool:
+        return self.status == "open" and username in self.who_can_merge()
+
 
 class BaseGitUser(GitUser):
     pass
@@ -101,7 +113,7 @@ class BaseIssue(Issue):
         return filter_comments(all_comments, filter_regex, author)
 
     def can_close(self, username: str) -> bool:
-        return username == self.author or username in self.project.who_can_close_issue()
+        return username == self.author or username in self.who_can_close()
 
 
 class BaseCommitFlag(CommitFlag):
