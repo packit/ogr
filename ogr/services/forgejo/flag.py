@@ -30,7 +30,7 @@ class ForgejoCommitFlag(BaseCommitFlag):
 
     @staticmethod
     def _state_from_enum(state: CommitStatus) -> str:
-        return "failure" if state == CommitStatus.failure else state.name
+        return state.name
 
     def __str__(self) -> str:
         return (
