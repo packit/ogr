@@ -30,6 +30,7 @@ class CommitStatus(Enum):
     error = 4
     canceled = 5
     running = 6
+    warning = 7
 
 
 class MergeCommitStatus(Enum):
