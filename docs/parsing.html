@@ -1,0 +1,503 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+<meta name="generator" content="pdoc3 0.11.6">
+<title>ogr.parsing API documentation</title>
+<meta name="description" content="">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/sanitize.min.css" integrity="sha512-y1dtMcuvtTMJc1yPgEqF0ZjQbhnc/bFhyvIyVNb9Zk5mIGtqVaAB1Ttl28su8AvFMOY0EwRbAe+HCLqj6W7/KA==" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/typography.min.css" integrity="sha512-Y1DYSb995BAfxobCkKepB1BqJJTPrOp3zPL74AWFugHHmmdcvO+C48WLrUOlhGMc0QG7AE3f7gmvvcrmX2fDoA==" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:1.5em;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:2em 0 .50em 0}h3{font-size:1.4em;margin:1.6em 0 .7em 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .2s ease-in-out}a:visited{color:#503}a:hover{color:#b62}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900;font-weight:bold}pre code{font-size:.8em;line-height:1.4em;padding:1em;display:block}code{background:#f3f3f3;font-family:"DejaVu Sans Mono",monospace;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source > summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible;min-width:max-content}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em 1em;margin:1em 0}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul ul{padding-left:1em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js" integrity="sha512-D9gUyxqja7hBtkWpPWGt9wfbfaMGVt9gnyCvYa+jojwwPHLCzUm5i8rpk7vD7wNee9bA35eYIjobYPaQuKS1MQ==" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => {
+hljs.configure({languages: ['bash', 'css', 'diff', 'graphql', 'ini', 'javascript', 'json', 'plaintext', 'python', 'python-repl', 'rust', 'shell', 'sql', 'typescript', 'xml', 'yaml']});
+hljs.highlightAll();
+/* Collapse source docstrings */
+setTimeout(() => {
+[...document.querySelectorAll('.hljs.language-python > .hljs-string')]
+.filter(el => el.innerHTML.length > 200 && ['"""', "'''"].includes(el.innerHTML.substring(0, 3)))
+.forEach(el => {
+let d = document.createElement('details');
+d.classList.add('hljs-string');
+d.innerHTML = '<summary>"""</summary>' + el.innerHTML.substring(3);
+el.replaceWith(d);
+});
+}, 100);
+})</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>ogr.parsing</code></h1>
+</header>
+<section id="section-intro">
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-functions">Functions</h2>
+<dl>
+<dt id="ogr.parsing.get_reponame_from_git_url"><code class="name flex">
+<span>def <span class="ident">get_reponame_from_git_url</span></span>(<span>url: str) ‑> str | None</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_reponame_from_git_url(url: str) -&gt; Optional[str]:
+    &#34;&#34;&#34;
+    Returns repository name from the git URL.
+
+    Args:
+        url: URL of the git repository.
+
+    Returns:
+        Repository name if can be parsed, `None` otherwise.
+    &#34;&#34;&#34;
+    repo_url = parse_git_repo(url)
+    if repo_url:
+        return repo_url.repo
+    return None</code></pre>
+</details>
+<div class="desc"><p>Returns repository name from the git URL.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>url</code></strong></dt>
+<dd>URL of the git repository.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p>Repository name if can be parsed, <code>None</code> otherwise.</p></div>
+</dd>
+<dt id="ogr.parsing.get_username_from_git_url"><code class="name flex">
+<span>def <span class="ident">get_username_from_git_url</span></span>(<span>url: str) ‑> str | None</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_username_from_git_url(url: str) -&gt; Optional[str]:
+    &#34;&#34;&#34;
+    Returns username from the git URL.
+
+    Args:
+        url: URL of the git repository.
+
+    Returns:
+        Username if can be parsed, `None` otherwise.
+    &#34;&#34;&#34;
+    repo_url = parse_git_repo(url)
+    if repo_url:
+        return repo_url.username
+    return None</code></pre>
+</details>
+<div class="desc"><p>Returns username from the git URL.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>url</code></strong></dt>
+<dd>URL of the git repository.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p>Username if can be parsed, <code>None</code> otherwise.</p></div>
+</dd>
+<dt id="ogr.parsing.parse_git_repo"><code class="name flex">
+<span>def <span class="ident">parse_git_repo</span></span>(<span>potential_url: str) ‑> <a title="ogr.parsing.RepoUrl" href="#ogr.parsing.RepoUrl">RepoUrl</a> | None</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def parse_git_repo(potential_url: str) -&gt; Optional[RepoUrl]:
+    &#34;&#34;&#34;
+    Parses given URL of a git repository.
+
+    ### Covered scenarios
+
+    1. URL in form: `www.domain.com/foo/bar`
+        - with trailing `.git`
+        - without `www.`
+        - starting with `http://`, `https://`, `git://` or `git+https://`
+    2. URL in form: `git@domain.com:foo/bar`
+        - with trailing `.git`
+        - with `ssh://` at the start or with `git+ssh` instead of `git`
+    8. Pagure format of forks, e.g.
+       `domain.com/fork/username/namespace/project`
+    9. Nested groups on GitLab or Pagure (empty namespace is supported as well)
+
+    Args:
+        potential_url: URL of a git repository.
+
+    Returns:
+        Object of RepoUrl class if can be parsed, `None` otherwise.
+    &#34;&#34;&#34;
+    return RepoUrl.parse(potential_url)</code></pre>
+</details>
+<div class="desc"><p>Parses given URL of a git repository.</p>
+<h3 id="covered-scenarios">Covered scenarios</h3>
+<ol>
+<li>URL in form: <code>www.domain.com/foo/bar</code><ul>
+<li>with trailing <code>.git</code></li>
+<li>without <code>www.</code></li>
+<li>starting with <code>http://</code>, <code>https://</code>, <code>git://</code> or <code>git+https://</code></li>
+</ul>
+</li>
+<li>URL in form: <code>git@domain.com:foo/bar</code><ul>
+<li>with trailing <code>.git</code></li>
+<li>with <code>ssh://</code> at the start or with <code>git+ssh</code> instead of <code>git</code></li>
+</ul>
+</li>
+<li>Pagure format of forks, e.g.
+<code>domain.com/fork/username/namespace/project</code></li>
+<li>Nested groups on GitLab or Pagure (empty namespace is supported as well)</li>
+</ol>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>potential_url</code></strong></dt>
+<dd>URL of a git repository.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p>Object of RepoUrl class if can be parsed, <code>None</code> otherwise.</p></div>
+</dd>
+<dt id="ogr.parsing.strip_dot_git"><code class="name flex">
+<span>def <span class="ident">strip_dot_git</span></span>(<span>url: str) ‑> str</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def strip_dot_git(url: str) -&gt; str:
+    &#34;&#34;&#34;
+    Strips `.git` from the given URL of a git repository.
+
+    Args:
+        url: URL of the git repository.
+
+    Returns:
+        URL without trailing `.git`.
+    &#34;&#34;&#34;
+    &#34;&#34;&#34;Strip trailing .git&#34;&#34;&#34;
+    return url[: -len(&#34;.git&#34;)] if url.endswith(&#34;.git&#34;) else url</code></pre>
+</details>
+<div class="desc"><p>Strips <code>.git</code> from the given URL of a git repository.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>url</code></strong></dt>
+<dd>URL of the git repository.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p>URL without trailing <code>.git</code>.</p></div>
+</dd>
+</dl>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="ogr.parsing.RepoUrl"><code class="flex name class">
+<span>class <span class="ident">RepoUrl</span></span>
+<span>(</span><span>repo: str,<br>namespace: str | None = None,<br>username: str | None = None,<br>is_fork: bool = False,<br>hostname: str | None = None,<br>scheme: str | None = None)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class RepoUrl:
+    &#34;&#34;&#34;
+    Class that represents repo URL.
+
+    Attributes:
+        repo (str): Name of the repository.
+        namespace (Optional[str]): Namespace of the repository, if has any.
+        username (Optional[str]): Username of the repository owner, if can be
+            specified.
+        is_fork (bool): Flag denoting if repository is a fork, if can be
+            specified (Pagure).
+        hostname (Optional[str]): Hostname of host of the repository.
+        scheme (Optional[str]): Protocol used to access repository.
+    &#34;&#34;&#34;
+
+    def __init__(
+        self,
+        repo: str,
+        namespace: Optional[str] = None,
+        username: Optional[str] = None,
+        is_fork: bool = False,
+        hostname: Optional[str] = None,
+        scheme: Optional[str] = None,
+    ) -&gt; None:
+        self.repo = repo
+        self.namespace = namespace
+        self.username = username
+        self.is_fork = is_fork
+        self.hostname = hostname
+        self.scheme = scheme
+
+    def get_instance_url(self) -&gt; str:
+        &#34;&#34;&#34;
+        Returns:
+            Instance URL of host of the repository.
+        &#34;&#34;&#34;
+        scheme = self.scheme or &#34;http&#34;
+        return f&#34;{scheme}://{self.hostname}&#34;
+
+    def __eq__(self, o: object) -&gt; bool:
+        if not isinstance(o, RepoUrl):
+            return False
+
+        return (
+            self.repo == o.repo
+            and self.namespace == o.namespace
+            and self.username == o.username
+            and self.is_fork == o.is_fork
+            and self.hostname == o.hostname
+            and self.scheme == o.scheme
+        )
+
+    def __str__(self) -&gt; str:
+        repo_url_str = (
+            f&#34;RepoUrl(repo=&#39;{self.repo}&#39;, &#34;
+            f&#34;namespace=&#39;{self.namespace}&#39;, &#34;
+            f&#34;is_fork={self.is_fork}, &#34;
+            f&#34;hostname=&#39;{self.hostname}&#39;, &#34;
+            f&#34;scheme=&#39;{self.scheme}&#39;&#34;
+        )
+        if self.username:
+            repo_url_str += f&#34;, username=&#39;{self.username}&#39;&#34;
+        repo_url_str += &#34;)&#34;
+        return repo_url_str
+
+    def __repr__(self) -&gt; str:
+        return str(self)
+
+    @staticmethod
+    def _prepare_url(potential_url: str) -&gt; Optional[ParseResult]:
+        # Remove trailing &#39;/&#39; to ensure parsing works as expected.
+        potential_url = potential_url.rstrip(&#34;/&#34;)
+
+        # transform SSH URL
+        if &#34;@&#34; in potential_url:
+            split = potential_url.split(&#34;@&#34;)
+            if len(split) == 2:
+                potential_url = &#34;https://&#34; + split[1]
+            else:
+                # more @s ?
+                return None
+
+        # make it parsable by urlparse if it doesn&#39;t contain scheme
+        if not potential_url.startswith(
+            (&#34;http://&#34;, &#34;https://&#34;, &#34;git://&#34;, &#34;git+https://&#34;),
+        ):
+            potential_url = &#34;https://&#34; + potential_url
+
+        return urlparse(potential_url)
+
+    def _set_hostname_and_scheme(self, parsed_url: ParseResult):
+        self.hostname = parsed_url.hostname
+        self.scheme = parsed_url.scheme
+
+    def _parse_username(self, parsed: ParseResult) -&gt; bool:
+        if &#34;:&#34; not in parsed.netloc:
+            return True
+
+        split = parsed.netloc.split(&#34;:&#34;)
+        if len(split) &gt; 2:
+            # in case there is port:namespace
+            return False
+
+        if not split[1]:
+            return True
+
+        if split[1] == &#34;forks&#34;:
+            self.is_fork = True
+        elif not split[1].isnumeric():
+            # e.g. domain.com:foo or domain.com:1234,
+            # where foo is username, but 1234 is port number
+            self.username = split[1]
+
+        return True
+
+    @staticmethod
+    def _prepare_path(parsed: ParseResult) -&gt; tuple[str, list[str]]:
+        # path starts with &#39;/&#39;, strip it away
+        path = parsed.path.lstrip(&#34;/&#34;)
+
+        # strip trailing &#39;.git&#39;
+        if path.endswith(&#34;.git&#34;):
+            path = path[:-4]
+
+        return path, path.split(&#34;/&#34;)
+
+    def _check_fork(self, splits: list[str]) -&gt; list[str]:
+        if self.is_fork:
+            # we got pagure fork but SSH url
+            self.username = splits[0]
+            return splits[1:-1]
+
+        # path contains username/reponame
+        # or some/namespace/reponame
+        # or fork/username/some/namespace/reponame
+        self.is_fork = (
+            splits[0] in (&#34;fork&#34;, &#34;forks&#34;) and len(splits) &gt;= 3
+        )  # pagure fork
+        if self.is_fork:
+            # fork/username/namespace/repo format
+            self.username = splits[1]
+            return splits[2:-1]
+
+        if self.username:
+            return [self.username] + splits[:-1]
+
+        self.username = splits[0]
+        return splits[:-1]
+
+    def _parsed_path(self, path: str, splits: list[str]) -&gt; Optional[&#34;RepoUrl&#34;]:
+        if len(splits) == 1:
+            self.namespace = self.username
+            self.repo = path
+
+            return self
+
+        if len(splits) &lt; 2:
+            # invalid cases
+            return None
+
+        namespace_parts = self._check_fork(splits)
+
+        self.namespace = &#34;/&#34;.join(namespace_parts)
+        self.repo = splits[-1]
+
+        return self
+
+    @classmethod
+    def parse(cls, potential_url: str) -&gt; Optional[&#34;RepoUrl&#34;]:
+        &#34;&#34;&#34;
+        Details in `parse_git_repo` function.
+
+        Args:
+            potential_url: URL of a git repository.
+
+        Returns:
+            RepoUrl instance if can be parsed, `None` otherwise.
+        &#34;&#34;&#34;
+        if not potential_url:
+            return None
+
+        repo = RepoUrl(None)
+        parsed_url = cls._prepare_url(potential_url)
+        if not parsed_url:
+            return None
+
+        repo._set_hostname_and_scheme(parsed_url)
+        if not repo._parse_username(parsed_url):
+            # failed parsing username
+            return None
+
+        return repo if repo._parsed_path(*cls._prepare_path(parsed_url)) else None</code></pre>
+</details>
+<div class="desc"><p>Class that represents repo URL.</p>
+<h2 id="attributes">Attributes</h2>
+<dl>
+<dt><strong><code>repo</code></strong> :&ensp;<code>str</code></dt>
+<dd>Name of the repository.</dd>
+<dt><strong><code>namespace</code></strong> :&ensp;<code>Optional[str]</code></dt>
+<dd>Namespace of the repository, if has any.</dd>
+<dt><strong><code>username</code></strong> :&ensp;<code>Optional[str]</code></dt>
+<dd>Username of the repository owner, if can be
+specified.</dd>
+<dt><strong><code>is_fork</code></strong> :&ensp;<code>bool</code></dt>
+<dd>Flag denoting if repository is a fork, if can be
+specified (Pagure).</dd>
+<dt><strong><code>hostname</code></strong> :&ensp;<code>Optional[str]</code></dt>
+<dd>Hostname of host of the repository.</dd>
+<dt><strong><code>scheme</code></strong> :&ensp;<code>Optional[str]</code></dt>
+<dd>Protocol used to access repository.</dd>
+</dl></div>
+<h3>Static methods</h3>
+<dl>
+<dt id="ogr.parsing.RepoUrl.parse"><code class="name flex">
+<span>def <span class="ident">parse</span></span>(<span>potential_url: str) ‑> <a title="ogr.parsing.RepoUrl" href="#ogr.parsing.RepoUrl">RepoUrl</a> | None</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Details in <code><a title="ogr.parsing.parse_git_repo" href="#ogr.parsing.parse_git_repo">parse_git_repo()</a></code> function.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>potential_url</code></strong></dt>
+<dd>URL of a git repository.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p>RepoUrl instance if can be parsed, <code>None</code> otherwise.</p></div>
+</dd>
+</dl>
+<h3>Methods</h3>
+<dl>
+<dt id="ogr.parsing.RepoUrl.get_instance_url"><code class="name flex">
+<span>def <span class="ident">get_instance_url</span></span>(<span>self) ‑> str</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_instance_url(self) -&gt; str:
+    &#34;&#34;&#34;
+    Returns:
+        Instance URL of host of the repository.
+    &#34;&#34;&#34;
+    scheme = self.scheme or &#34;http&#34;
+    return f&#34;{scheme}://{self.hostname}&#34;</code></pre>
+</details>
+<div class="desc"><h2 id="returns">Returns</h2>
+<p>Instance URL of host of the repository.</p></div>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="ogr" href="index.html">ogr</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-functions">Functions</a></h3>
+<ul class="">
+<li><code><a title="ogr.parsing.get_reponame_from_git_url" href="#ogr.parsing.get_reponame_from_git_url">get_reponame_from_git_url</a></code></li>
+<li><code><a title="ogr.parsing.get_username_from_git_url" href="#ogr.parsing.get_username_from_git_url">get_username_from_git_url</a></code></li>
+<li><code><a title="ogr.parsing.parse_git_repo" href="#ogr.parsing.parse_git_repo">parse_git_repo</a></code></li>
+<li><code><a title="ogr.parsing.strip_dot_git" href="#ogr.parsing.strip_dot_git">strip_dot_git</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="ogr.parsing.RepoUrl" href="#ogr.parsing.RepoUrl">RepoUrl</a></code></h4>
+<ul class="">
+<li><code><a title="ogr.parsing.RepoUrl.get_instance_url" href="#ogr.parsing.RepoUrl.get_instance_url">get_instance_url</a></code></li>
+<li><code><a title="ogr.parsing.RepoUrl.parse" href="#ogr.parsing.RepoUrl.parse">parse</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.11.6</a>.</p>
+</footer>
+</body>
+</html>
