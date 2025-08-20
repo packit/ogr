@@ -1,3 +1,9 @@
+# 0.56.0
+
+- Tmt documentation has been extended. (#937)
+- Support for forgejo commit statuses has been added. (#936)
+- The package ogr/abstract has been split into multiple files. (#935)
+
 # 0.55.0
 
 - We have added support for Forgejo releases. (#927)
