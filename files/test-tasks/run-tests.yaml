@@ -1,0 +1,6 @@
+---
+- name: Run tests
+  ansible.builtin.command: tox
+  args:
+    chdir: "{{ project_dir }}"
+  when: with_testing

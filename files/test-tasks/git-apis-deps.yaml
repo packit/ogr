@@ -1,0 +1,9 @@
+---
+- name: Install dependencies for git APIs
+  ansible.builtin.dnf:
+    name:
+      - python3-requests
+      - python3-pygithub
+      - python3-gitlab
+    state: present
+  become: true

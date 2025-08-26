@@ -1,12 +1,20 @@
-BASE_IMAGE := fedora:latest
+TEST_IMAGE=ogr-tests
+
+CONTAINER_ENGINE ?= $(shell command -v podman 2> /dev/null || echo docker)
 TEST_TARGET ?= ./tests/
 PY_PACKAGE := ogr
 OGR_IMAGE := ogr
 COLOR ?= yes
 COV_REPORT ?= --cov=ogr --cov-report=term-missing
+SECURITY_OPT=--security-opt label=disable
+CONTAINER_RUN_WITH_OPTS=$(CONTAINER_ENGINE) run --rm -ti -v $(CURDIR):/src:Z
+CONTAINER_TEST_COMMAND=bash -c "pip3 install .; make -e GITHUB_TOKEN=$(GITHUB_TOKEN) GITLAB_TOKEN=$(GITLAB_TOKEN) FORGEJO_TOKEN=$(FORGEJO_TOKEN) check"
 
-build-test-image: recipe.yaml
-	ansible-bender build --build-volumes $(CURDIR):/src:Z -- ./recipe.yaml $(BASE_IMAGE) $(OGR_IMAGE)
+build-test-image:
+	$(CONTAINER_ENGINE) build --volume $(CURDIR):/src:Z --rm --tag $(TEST_IMAGE) -f Containerfile.tests .
+
+remove-test-image:
+	$(CONTAINER_ENGINE) rmi $(TEST_IMAGE)
 
 check:
 	@#`python3 -m pytest` doesn't work here b/c the way requre overrides import system:
@@ -14,22 +22,20 @@ check:
 	PYTHONPATH=$(CURDIR) PYTHONDONTWRITEBYTECODE=1 python3 /usr/bin/pytest --color=$(COLOR) --verbose --showlocals $(COV_REPORT) $(TEST_TARGET)
 
 check-in-container:
-	podman run --rm -it \
-		-v $(CURDIR):/src:Z -w /src \
+	$(CONTAINER_RUN_WITH_OPTS) $(SECURITY_OPT) \
 		--env TEST_TARGET \
-		--env COLOR \
 		--env COV_REPORT \
-		$(OGR_IMAGE) \
-		make -e GITHUB_TOKEN=$(GITHUB_TOKEN) GITLAB_TOKEN=$(GITLAB_TOKEN) FORGEJO_TOKEN=$(FORGEJO_TOKEN) check
+		--env COLOR \
+		$(TEST_IMAGE) $(CONTAINER_TEST_COMMAND)
 
 shell:
-	podman run --rm -ti -v $(CURDIR):/src:Z -w /src $(OGR_IMAGE) bash
+	$(CONTAINER_RUN_WITH_OPTS) -w /src $(TEST_IMAGE) bash
 
 check-pypi-packaging:
-	podman run --rm -ti -v $(CURDIR):/src:Z -w /src $(OGR_IMAGE) bash -c '\
+	$(CONTAINER_RUN_WITH_OPTS) -w /src $(TEST_IMAGE) bash -c '\
 		set -x \
 		&& rm -f dist/* \
-		&& python3 ./setup.py sdist bdist_wheel \
+		&& python3 -m build --sdist --wheel \
 		&& pip3 install dist/*.tar.gz \
 		&& pip3 show $(PY_PACKAGE) \
 		&& twine check ./dist/* \
