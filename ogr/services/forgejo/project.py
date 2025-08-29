@@ -453,7 +453,7 @@ class ForgejoProject(BaseGitProject):
         pass
 
     @indirect(ForgejoCommitFlag.get)
-    def get_commit_statuses(self, commit: str) -> list[CommitFlag]:
+    def get_commit_statuses(self, commit: str) -> Iterable["CommitFlag"]:
         pass
 
     def get_git_urls(self) -> dict[str, str]:
