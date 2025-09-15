@@ -3,7 +3,7 @@
 
 FROM quay.io/packit/base:fedora
 
-COPY files/test-tasks/*.yaml /files/test-tasks/
+COPY files/tasks/*.yaml /files/tasks/
 COPY files/*.yaml /files/
 
 RUN ansible-playbook -v -c local -i localhost, /files/local-tests-requirements.yaml
