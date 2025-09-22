@@ -7,13 +7,13 @@ httpx._client:
     GET:
       https://v10.next.forgejo.org/api/v1/repos/packit-validator/ogr-tests/pulls/119:
       - metadata:
-          latency: 0.31646180152893066
+          latency: 0.45102548599243164
           module_call_list:
           - requre.record_and_replace
           - tests.integration.forgejo.test_pull_request
-          - ogr.abstract
+          - ogr.abstract.exception
           - ogr.utils
-          - ogr.abstract
+          - ogr.abstract.exception
           - ogr.services.forgejo.pull_request
           - pyforgejo.repository.client
           - pyforgejo.core.http_client
@@ -49,10 +49,10 @@ httpx._client:
                 default_delete_branch_after_merge: false
                 default_merge_style: merge
                 default_update_style: merge
-                description: Testing repository for python-ogr package.  |  https://github.com/packit-service/ogr
+                description: Different description
                 empty: false
                 fork: false
-                forks_count: 1
+                forks_count: 2
                 full_name: packit-validator/ogr-tests
                 globally_editable_wiki: false
                 has_actions: true
@@ -79,7 +79,7 @@ httpx._client:
                 name: ogr-tests
                 object_format_name: sha1
                 open_issues_count: 92
-                open_pr_counter: 7
+                open_pr_counter: 10
                 original_url: https://gitlab.com/packit-service/ogr-tests.git
                 owner:
                   active: false
@@ -112,14 +112,14 @@ httpx._client:
                   pull: true
                   push: true
                 private: false
-                release_counter: 12
+                release_counter: 18
                 repo_transfer: null
-                size: 65
+                size: 71
                 ssh_url: ssh://git@v10.next.forgejo.org:2100/packit-validator/ogr-tests.git
                 stars_count: 0
                 template: false
                 topics: null
-                updated_at: '2025-03-21T10:30:54Z'
+                updated_at: '2025-08-01T08:11:38Z'
                 url: https://v10.next.forgejo.org/api/v1/repos/packit-validator/ogr-tests
                 watchers_count: 1
                 website: ''
@@ -155,10 +155,10 @@ httpx._client:
                 default_delete_branch_after_merge: false
                 default_merge_style: merge
                 default_update_style: merge
-                description: Testing repository for python-ogr package.  |  https://github.com/packit-service/ogr
+                description: Different description
                 empty: false
                 fork: false
-                forks_count: 1
+                forks_count: 2
                 full_name: packit-validator/ogr-tests
                 globally_editable_wiki: false
                 has_actions: true
@@ -185,7 +185,7 @@ httpx._client:
                 name: ogr-tests
                 object_format_name: sha1
                 open_issues_count: 92
-                open_pr_counter: 7
+                open_pr_counter: 10
                 original_url: https://gitlab.com/packit-service/ogr-tests.git
                 owner:
                   active: false
@@ -218,14 +218,14 @@ httpx._client:
                   pull: true
                   push: true
                 private: false
-                release_counter: 12
+                release_counter: 18
                 repo_transfer: null
-                size: 65
+                size: 71
                 ssh_url: ssh://git@v10.next.forgejo.org:2100/packit-validator/ogr-tests.git
                 stars_count: 0
                 template: false
                 topics: null
-                updated_at: '2025-03-21T10:30:54Z'
+                updated_at: '2025-08-01T08:11:38Z'
                 url: https://v10.next.forgejo.org/api/v1/repos/packit-validator/ogr-tests
                 watchers_count: 1
                 website: ''
@@ -288,8 +288,8 @@ httpx._client:
             requested_reviewers_teams: null
             review_comments: 0
             state: closed
-            title: change
-            updated_at: '2019-09-10T14:03:24Z'
+            title: test title
+            updated_at: '2025-08-01T08:12:30Z'
             url: https://v10.next.forgejo.org/packit-validator/ogr-tests/pulls/119
             user:
               active: false
@@ -316,15 +316,58 @@ httpx._client:
               username: Ghost
               visibility: public
               website: ''
-          _elapsed: 0.316304
+          _elapsed: 0.450705
           encoding: utf-8
           headers:
             cache-control: max-age=0, private, must-revalidate, no-transform
             content-type: application/json;charset=utf-8
-            date: Tue, 22 Apr 2025 12:46:10 GMT
+            date: Mon, 22 Sep 2025 09:50:30 GMT
             transfer-encoding: chunked
             vary: Origin
             x-content-type-options: nosniff
+            x-frame-options: SAMEORIGIN
+          next_request: null
+          status_code: 200
+      https://v10.next.forgejo.org/packit-validator/ogr-tests/pulls/119.patch:
+      - metadata:
+          latency: 0.257688045501709
+          module_call_list:
+          - requre.record_and_replace
+          - tests.integration.forgejo.test_pull_request
+          - ogr.services.forgejo.pull_request
+          - httpx._api
+          - httpx._client
+          - requre.objects
+          - requre.cassette
+          - httpx._client
+          - send
+        output:
+          __store_indicator: 1
+          _content: "From 3c1fb11dd358254cc3f1588f173e54e98c1d4c09 Mon Sep 17 00:00:00\
+            \ 2001\nFrom: Laura Barcziova <lbarczio@redhat.com>\nDate: Tue, 10 Sep\
+            \ 2019 15:54:50 +0200\nSubject: [PATCH 1/2] change\n\n---\n README.md\
+            \ | 3 ++-\n 1 file changed, 2 insertions(+), 1 deletion(-)\n\ndiff --git\
+            \ a/README.md b/README.md\nindex e41f9ee..90550c6 100644\n--- a/README.md\n\
+            +++ b/README.md\n@@ -1,3 +1,4 @@\n # ogr-tests\n \n-Testing repository\
+            \ for python-ogr package.  |  https://github.com/packit-service/ogr\n\\\
+            \ No newline at end of file\n+Testing repository for python-ogr package.\n\
+            +https://github.com/packit-service/ogr\n\\ No newline at end of file\n\
+            -- \n2.45.3\n\n\nFrom d490ec67dd98f69dfdc1732b98bb3189f0e0aace Mon Sep\
+            \ 17 00:00:00 2001\nFrom: Laura Barcziova <lbarczio@redhat.com>\nDate:\
+            \ Tue, 10 Sep 2019 16:05:10 +0200\nSubject: [PATCH 2/2] another change\n\
+            \n---\n README.md | 1 +\n 1 file changed, 1 insertion(+)\n\ndiff --git\
+            \ a/README.md b/README.md\nindex 90550c6..48aab9e 100644\n--- a/README.md\n\
+            +++ b/README.md\n@@ -1,4 +1,5 @@\n # ogr-tests\n \n Testing repository\
+            \ for python-ogr package.\n+\n https://github.com/packit-service/ogr\n\
+            \\ No newline at end of file\n-- \n2.45.3\n\n"
+          _elapsed: 0.257493
+          encoding: utf-8
+          headers:
+            cache-control: max-age=0, private, must-revalidate, no-transform
+            content-length: '1117'
+            content-type: text/plain; charset=utf-8
+            date: Mon, 22 Sep 2025 09:50:30 GMT
+            set-cookie: a 'b';
             x-frame-options: SAMEORIGIN
           next_request: null
           status_code: 200

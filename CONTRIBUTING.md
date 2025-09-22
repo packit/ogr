@@ -29,6 +29,21 @@ Here are some links to the documentation that could be helpful when contributing
   - [pagure.io](https://pagure.io/api/0/)
   - [git.stg.centos.org](https://git.stg.centos.org/api/0/)
 
+## Making raw HTTP requests
+
+Before adding support for Forgejo all of our dependencies (`PyGithub`,
+`python-gitlab` and our own implementation for Pagure API) used `requests`
+library. However with the addition of the Forgejo (`pyforgejo` uses `httpx`), we
+have one more library for making HTTP requests, `httpx`.
+
+Please try to follow to conventions of using the same requests library, i.e.,
+
+- GitHub, GitLab, and Pagure implementations use `requests`
+- Forgejo implementation uses `httpx`
+
+This makes the handling of tests easier, since there's no need to record
+requests from different libraries.
+
 ## Testing
 
 Tests are stored in the [tests](/tests) directory.

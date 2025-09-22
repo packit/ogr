@@ -6,7 +6,7 @@ from collections.abc import Iterable
 from functools import cached_property, partial
 from typing import Optional, Union
 
-import requests
+import httpx
 from pyforgejo import NotFoundError
 from pyforgejo.types import PullRequest as PyforgejoPullRequest
 
@@ -103,9 +103,9 @@ class ForgejoPullRequest(BasePullRequest):
     @property
     def patch(self) -> bytes:
         patch_url = self._raw_pr.patch_url
-        response = requests.get(patch_url)
+        response = httpx.get(patch_url)
 
-        if not response.ok:
+        if not response.is_success:
             raise OgrNetworkError(
                 f"Couldn't get patch from {patch_url}.patch because {response.reason}.",
             )
