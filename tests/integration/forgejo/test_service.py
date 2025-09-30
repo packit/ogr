@@ -31,7 +31,7 @@ def test_project_create(service, kwargs_):
 
     # Check that project doesn't exist
     project = service.get_project(**kwargs_fetch)
-    with pytest.raises(pyforgejo.core.api_error.ApiError):
+    with pytest.raises(pyforgejo.ApiError):
         _ = project.forgejo_repo
 
     # Create new project
