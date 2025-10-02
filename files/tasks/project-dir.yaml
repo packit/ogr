@@ -1,10 +1,16 @@
 ---
 - ansible.builtin.set_fact:
     project_dir: "{{ playbook_dir }}/.."
-  when: zuul is not defined
+  when:
+    - project_dir is not defined
+    - zuul is not defined
+
 - ansible.builtin.set_fact:
     project_dir: "{{ ansible_user_dir }}/{{ zuul.project.src_dir }}"
-  when: zuul is defined
+  when:
+    - project_dir is not defined
+    - zuul is defined
+
 - name: stat {{ project_dir }}
   ansible.builtin.stat:
     path: "{{ project_dir }}"

@@ -11,6 +11,7 @@
       - python3-tox
     state: present
   become: true
+
 # flexmock is not in EPEL 9, install it from PyPI
 - name: Install flexmock from PyPI
   pip:
@@ -18,9 +19,5 @@
       - flexmock
     state: latest
   become: true
-- name: Install requre from git
-  pip:
-    name:
-      - git+https://github.com/packit/requre.git
-    state: latest
-  become: true
+
+- ansible.builtin.include_tasks: install-requre.yaml

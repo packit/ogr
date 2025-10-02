@@ -1,0 +1,11 @@
+---
+- name: Install dependencies for packit tests
+  hosts: all
+  vars:
+    project_dir: /src
+    with_testing: false
+  tasks:
+    - ansible.builtin.include_tasks: tasks/project-dir.yaml
+    - ansible.builtin.include_tasks: tasks/generic-dnf-requirements.yaml
+    - ansible.builtin.include_tasks: tasks/rpm-test-deps.yaml
+    - ansible.builtin.include_tasks: tasks/install-ogr.yaml

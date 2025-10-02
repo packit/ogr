@@ -149,7 +149,7 @@ class RepoUrl:
             return splits[2:-1]
 
         if self.username:
-            return [self.username] + splits[:-1]
+            return [self.username, *splits[:-1]]
 
         self.username = splits[0]
         return splits[:-1]
