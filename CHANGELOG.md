@@ -1,3 +1,7 @@
+# 0.56.1
+
+- We now use httpx when making requests from our Forgejo implementation. (#941)
+
 # 0.56.0
 
 - Tmt documentation has been extended. (#937)
