@@ -39,7 +39,7 @@ def __wrap_exception(
     ex: Union[
         github.GithubException,
         gitlab.GitlabError,
-        pyforgejo.core.api_error.ApiError,  # type: ignore
+        pyforgejo.ApiError,  # type: ignore
     ],
 ) -> APIException:
     """
@@ -57,7 +57,7 @@ def __wrap_exception(
     MAPPING = {
         github.GithubException: GithubAPIException,
         gitlab.GitlabError: GitlabAPIException,
-        pyforgejo.core.api_error.ApiError: ForgejoAPIException,  # type: ignore
+        pyforgejo.ApiError: ForgejoAPIException,  # type: ignore
     }
 
     for caught_exception, ogr_exception in MAPPING.items():
@@ -99,7 +99,7 @@ def catch_common_exceptions(function: Callable) -> Any:
         except (
             github.GithubException,
             gitlab.GitlabError,
-            pyforgejo.core.api_error.ApiError,  # type: ignore
+            pyforgejo.ApiError,  # type: ignore
         ) as ex:
             __check_for_internal_failure(__wrap_exception(ex))
 
