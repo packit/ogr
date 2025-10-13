@@ -3,6 +3,7 @@
 
 import logging
 from collections.abc import Iterable
+from http import HTTPStatus
 from typing import ClassVar, Optional
 from urllib.parse import urlparse
 
@@ -471,9 +472,9 @@ class PagureProject(BaseGitProject):
             add_api_endpoint_part=False,
         )
 
-        if not result or result.reason == "NOT FOUND":
+        if not result or result.status_code == HTTPStatus.NOT_FOUND:
             raise FileNotFoundError(f"File '{path}' on {ref} not found")
-        if result.reason != "OK":
+        if not result.ok:
             raise PagureAPIException(
                 f"File '{path}' on {ref} not found due to {result.reason}",
             )
