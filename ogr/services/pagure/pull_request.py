@@ -106,7 +106,7 @@ class PagurePullRequest(BasePullRequest):
             f"{self.id}.patch",
             add_api_endpoint_part=False,
         )
-        if request_response.status_code != 200:
+        if not request_response.ok:
             raise PagureAPIException(
                 f"Cannot get patch from {self.url}.patch because {request_response.reason}.",
                 response_code=request_response.status_code,
