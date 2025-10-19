@@ -74,7 +74,7 @@ class ForgejoAPIException(APIException):
     def response_code(self):
         if self.__cause__ is None or not isinstance(
             self.__cause__,
-            pyforgejo.core.api_error.ApiError,
+            pyforgejo.ApiError,
         ):
             return None
         return self.__cause__.status_code
