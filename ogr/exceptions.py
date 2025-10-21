@@ -5,7 +5,7 @@ from typing import Any, Optional
 
 import github
 import gitlab
-import pyforgejo
+import pyforgejo.core.api_error
 
 
 class OgrException(Exception):

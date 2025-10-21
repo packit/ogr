@@ -1,7 +1,7 @@
 # Copyright Contributors to the Packit project.
 # SPDX-License-Identifier: MIT
 
-import pyforgejo
+import pyforgejo.core.api_error
 import pytest
 from requre.helpers import record_httpx
 
