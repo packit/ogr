@@ -6,7 +6,7 @@ from typing import Any, Callable, Union
 
 import github
 import gitlab
-import pyforgejo
+import pyforgejo.core.api_error
 import requests
 
 from ogr.exceptions import (
