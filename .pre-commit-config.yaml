@@ -3,7 +3,7 @@
 # pre-commit install -t pre-commit -t pre-push
 
 repos:
-  - repo: https://github.com/psf/black
+  - repo: https://github.com/psf/black-pre-commit-mirror
     rev: 25.9.0
     hooks:
       - id: black
@@ -33,7 +33,7 @@ repos:
         additional_dependencies:
           [types-setuptools, types-requests, types-Deprecated]
   - repo: https://github.com/teemtee/tmt.git
-    rev: 1.57.0
+    rev: 1.60.0
     hooks:
       - id: tmt-lint
         # Do not run in pre-commit.ci as it requires an internet access
@@ -56,12 +56,12 @@ repos:
         stages: [manual, pre-push]
   - repo: https://github.com/astral-sh/ruff-pre-commit
     # Ruff version.
-    rev: v0.13.1
+    rev: v0.14.2
     hooks:
       - id: ruff
         args: [--fix, --exit-non-zero-on-fix]
   - repo: https://github.com/python-jsonschema/check-jsonschema
-    rev: 0.34.0
+    rev: 0.34.1
     hooks:
       - id: check-github-workflows
         args: ["--verbose"]
