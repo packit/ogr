@@ -1,3 +1,7 @@
+# 0.57.0
+
+- We have fixed an issue with the new Forgejo version preventing ogr from working. (#949)
+
 # 0.56.1
 
 - We now use httpx when making requests from our Forgejo implementation. (#941)
