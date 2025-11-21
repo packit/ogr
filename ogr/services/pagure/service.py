@@ -40,6 +40,7 @@ class PagureService(BaseGitService):
         read_only: bool = False,
         insecure: bool = False,
         max_retries: Union[int, urllib3.util.Retry] = 5,
+        user_agent: Optional[str] = None,
         **kwargs,
     ) -> None:
         super().__init__()
@@ -58,6 +59,9 @@ class PagureService(BaseGitService):
             self.session.mount("https://", adapter)
 
         self.header = {"Authorization": "token " + self._token} if self._token else {}
+
+        if user_agent:
+            self.header |= {"User-Agent": user_agent}
 
         if kwargs:
             logger.warning(f"Ignored keyword arguments: {kwargs}")
@@ -321,7 +325,7 @@ class PagureService(BaseGitService):
 
     def change_token(self, token: str):
         self._token = token
-        self.header = {"Authorization": "token " + self._token}
+        self.header |= {"Authorization": "token " + self._token}
 
     def __handle_project_create_fail(
         self,
