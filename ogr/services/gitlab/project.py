@@ -405,7 +405,12 @@ class GitlabProject(BaseGitProject):
             for commit in self.gitlab_repo.commits.list(ref_name=ref, all=True)
         ]
 
-    def get_file_content(self, path, ref=None) -> str:
+    def get_file_content(
+        self,
+        path: str,
+        ref: Optional[str] = None,
+        headers: Optional[dict[str, str]] = None,
+    ) -> str:
         ref = ref or self.default_branch
         # GitLab cannot resolve './'
         path = os.path.normpath(path)

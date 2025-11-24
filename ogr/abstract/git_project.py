@@ -618,7 +618,12 @@ class GitProject(OgrAbstractClass):
         """
         raise NotImplementedError
 
-    def get_file_content(self, path: str, ref: Optional[str] = None) -> str:
+    def get_file_content(
+        self,
+        path: str,
+        ref: Optional[str] = None,
+        headers: Optional[dict[str, str]] = None,
+    ) -> str:
         """
         Get a content of the file in the repo.
 
@@ -627,6 +632,9 @@ class GitProject(OgrAbstractClass):
             ref: Branch or commit.
 
                 Defaults to repo's default branch.
+            headers: Additional headers to be sent with the request.
+
+                Defaults to `None`, which means no headers.
 
         Returns:
             Contents of the file as string.

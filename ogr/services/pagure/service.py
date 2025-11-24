@@ -59,9 +59,17 @@ class PagureService(BaseGitService):
             self.session.mount("https://", adapter)
 
         self.header = {"Authorization": "token " + self._token} if self._token else {}
+        # By default ogr deals with Pagure API -> json
+        self.header["Accept"] = "application/json"
 
         if user_agent:
             self.header |= {"User-Agent": user_agent}
+        else:
+            try:
+                from ogr import __version__ as ogr_version
+            except ImportError:
+                ogr_version = "dev"
+            self.header |= {"User-Agent": f"ogr/{ogr_version} (hello@packit.dev)"}
 
         if kwargs:
             logger.warning(f"Ignored keyword arguments: {kwargs}")
@@ -193,6 +201,7 @@ class PagureService(BaseGitService):
         url: str,
         method: Optional[str] = None,
         params: Optional[dict] = None,
+        header: Optional[dict] = None,
         data=None,
     ):
         """
@@ -202,6 +211,7 @@ class PagureService(BaseGitService):
             url: URL to be called.
             method: Method of the HTTP request, e.g. `"GET"`, `"POST"`, etc.
             params: HTTP(S) query parameters in form of a dictionary.
+            header: HTTP request header, dict that will update default headers
             data: Data to be sent in form of a dictionary.
 
         Returns:
@@ -216,6 +226,7 @@ class PagureService(BaseGitService):
                 url=url,
                 params=params,
                 data=data,
+                header=header,
             )
 
         except requests.exceptions.ConnectionError as er:
@@ -257,13 +268,18 @@ class PagureService(BaseGitService):
             ValueError, if JSON cannot be retrieved.
         """
 
+        headers = self.header | (header or {})
+
         response = self.session.request(
             method=method,
             url=url,
             params=params,
-            headers=header or self.header,
+            headers=headers,
             data=data,
             verify=not self.insecure,
+        )
+        logger.debug(
+            f"Ogr sent request with following headers: {headers | {'Authorization': '<redacted>'}}",
         )
 
         json_output = None

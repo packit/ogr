@@ -137,6 +137,7 @@ class PagureProject(BaseGitProject):
         method: Optional[str] = None,
         params: Optional[dict] = None,
         data: Optional[dict] = None,
+        header: Optional[dict] = None,
     ) -> RequestResponse:
         """
         Call project API endpoint.
@@ -152,6 +153,7 @@ class PagureProject(BaseGitProject):
             method: Method of the HTTP request, e.g. `"GET"`, `"POST"`, etc.
             params: HTTP(S) query parameters in form of a dictionary.
             data: Data to be sent in form of a dictionary.
+            header: HTTP request header, dict that will update default headers
 
         Returns:
             `RequestResponse` object containing response.
@@ -167,6 +169,7 @@ class PagureProject(BaseGitProject):
             method=method,
             params=params,
             data=data,
+            header=header,
         )
 
     def _get_project_url(self, *args, add_fork_part=True, add_api_endpoint_part=True):
@@ -462,14 +465,21 @@ class PagureProject(BaseGitProject):
     def change_token(self, new_token: str) -> None:
         self.service.change_token(new_token)
 
-    def get_file_content(self, path: str, ref=None) -> str:
+    def get_file_content(
+        self,
+        path: str,
+        ref: Optional[str] = None,
+        headers: Optional[dict[str, str]] = None,
+    ) -> str:
         ref = ref or self.default_branch
+        headers = {"Accept": "text/plain", **(headers or {})}
         result = self._call_project_api_raw(
             "raw",
             ref,
             "f",
             path,
             add_api_endpoint_part=False,
+            header=headers,
         )
 
         if not result or result.status_code == HTTPStatus.NOT_FOUND:
