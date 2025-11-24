@@ -64,6 +64,12 @@ class PagureService(BaseGitService):
 
         if user_agent:
             self.header |= {"User-Agent": user_agent}
+        else:
+            try:
+                from ogr import __version__ as ogr_version
+            except ImportError:
+                ogr_version = "dev"
+            self.header |= {"User-Agent": f"ogr/{ogr_version} (hello@packit.dev)"}
 
         if kwargs:
             logger.warning(f"Ignored keyword arguments: {kwargs}")
