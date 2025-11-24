@@ -493,7 +493,12 @@ class ForgejoProject(BaseGitProject):
             "Not possible; requires recreation of the httpx client",
         )
 
-    def get_file_content(self, path: str, ref: Optional[str] = None) -> str:
+    def get_file_content(
+        self,
+        path: str,
+        ref: Optional[str] = None,
+        headers: Optional[dict[str, str]] = None,
+    ) -> str:
         try:
             remote_file: types.ContentsResponse = self.partial_api(
                 self.api.repo_get_contents,

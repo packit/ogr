@@ -451,7 +451,12 @@ class GithubProject(BaseGitProject):
     def change_token(self, new_token: str):
         raise OperationNotSupported
 
-    def get_file_content(self, path: str, ref=None) -> str:
+    def get_file_content(
+        self,
+        path: str,
+        ref: Optional[str] = None,
+        headers: Optional[dict[str, str]] = None,
+    ) -> str:
         ref = ref or self.default_branch
         try:
             return self.github_repo.get_contents(
