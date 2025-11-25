@@ -278,7 +278,7 @@ class PagureService(BaseGitService):
             data=data,
             verify=not self.insecure,
         )
-        logger.debug(
+        logger.info(
             f"Ogr sent request with following headers: {headers | {'Authorization': '<redacted>'}}",
         )
 
