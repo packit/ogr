@@ -9,77 +9,77 @@ In case you find any error, please [create a new issue](https://github.com/packi
 
 |                  | GitHub | GitLab | Pagure | Forgejo |
 | ---------------- | :----: | :----: | :----: | :-----: |
-| `body` (get/set) | ✔/✔  | ✔/✔  |  ✔/✘  |   ✘/✘   |
-| `add_reaction`   |   ✔   |   ✔   |   ✘    |    ✘    |
-| `get_reactions`  |   ✔   |   ✔   |   ✘    |    ✘    |
+| `body` (get/set) |  ✔/✔   |  ✔/✔   |  ✔/✘   |   ✘/✘   |
+| `add_reaction`   |   ✔    |   ✔    |   ✘    |    ✘    |
+| `get_reactions`  |   ✔    |   ✔    |   ✘    |    ✘    |
 
 ### `PRComment`
 
 |                  | GitHub | GitLab | Pagure | Forgejo |
 | ---------------- | :----: | :----: | :----: | :-----: |
-| `body` (get/set) | ✔/✔  | ✔/✔  |  ✔/✘  |    ✘    |
-| `add_reaction`   |   ✔   |   ✔   |   ✘    |    ✘    |
-| `get_reactions`  |   ✔   |   ✔   |   ✘    |    ✘    |
-| `closed_by`      |   ✘    |   ✘    |   ✔   |    ✘    |
+| `body` (get/set) |  ✔/✔   |  ✔/✔   |  ✔/✘   |    ✘    |
+| `add_reaction`   |   ✔    |   ✔    |   ✘    |    ✘    |
+| `get_reactions`  |   ✔    |   ✔    |   ✘    |    ✘    |
+| `closed_by`      |   ✘    |   ✘    |   ✔    |    ✘    |
 
 ## Issue
 
 |             | GitHub | GitLab | Pagure | Forgejo |
 | ----------- | :----: | :----: | :----: | :-----: |
-| `add_label` |   ✔   |   ✔   |   ✘    |    ✘    |
+| `add_label` |   ✔    |   ✔    |   ✘    |    ✘    |
 
 ## Pull request
 
 |                   | GitHub | GitLab | Pagure | Forgejo |
 | ----------------- | :----: | :----: | :----: | :-----: |
-| `add_label`       |   ✔   |   ✔   |   ✘    |   ✔    |
-| `get_all_commits` |   ✔   |   ✔   |   ✘    |   ✔    |
+| `add_label`       |   ✔    |   ✔    |   ✘    |    ✔    |
+| `get_all_commits` |   ✔    |   ✔    |   ✘    |    ✔    |
 
 ## Release
 
 |                   | GitHub | GitLab |          Pagure          | Forgejo |
 | ----------------- | :----: | :----: | :----------------------: | :-----: |
-| `edit_release`    |   ✔   |   ✘    |            ✘             |   ✔    |
-| `body` (only get) |   ✔   |   ✔   | ✘ (returns empty string) |   ✔    |
+| `edit_release`    |   ✔    |   ✘    |            ✘             |    ✔    |
+| `body` (only get) |   ✔    |   ✔    | ✘ (returns empty string) |    ✔    |
 
 ## Commit flag
 
 |          | GitHub | GitLab | Pagure | Forgejo |
 | -------- | :----: | :----: | :----: | :-----: |
-| `edited` |   ✔   |   ✘    |   ✔   |    ✘    |
+| `edited` |   ✔    |   ✘    |   ✔    |    ✘    |
 
 ## Project
 
 |                               | GitHub | GitLab |         Pagure          | Forgejo |
 | ----------------------------- | :----: | :----: | :---------------------: | :-----: |
-| `change_token`                |   ✘    |   ✔   |           ✔            |    ✘    |
-| `get_release`                 |   ✔   |   ✔   |            ✘            |    ✘    |
-| `get_commits`                 |   ✔   |   ✔   |            ✘            |   ✔    |
-| `get_latest_release`          |   ✔   |   ✔   |            ✘            |    ✘    |
-| `is_private`                  |   ✔   |   ✔   | ✘ (may not be accurate) |   ✔    |
-| `remove_user`                 |   ✘    |   ✘    |           ✔            |   ✔    |
-| `add_group`                   |   ✘    |   ✘    |           ✔            |    ✘    |
-| `remove_group`                |   ✘    |   ✘    |           ✔            |    ✘    |
-| `which_groups_can_merge_pr`   |   ✘    |   ✘    |           ✔            |    ✘    |
-| `get_pr_files_diff`           |   ✘    |   ✘    |           ✔            |    ✘    |
-| `get_users_with_given_access` |   ✘    |   ✘    |           ✔            |   ✔    |
+| `change_token`                |   ✘    |   ✔    |            ✔            |    ✘    |
+| `get_release`                 |   ✔    |   ✔    |            ✘            |    ✘    |
+| `get_commits`                 |   ✔    |   ✔    |            ✘            |    ✔    |
+| `get_latest_release`          |   ✔    |   ✔    |            ✘            |    ✘    |
+| `is_private`                  |   ✔    |   ✔    | ✘ (may not be accurate) |    ✔    |
+| `remove_user`                 |   ✘    |   ✘    |            ✔            |    ✔    |
+| `add_group`                   |   ✘    |   ✘    |            ✔            |    ✘    |
+| `remove_group`                |   ✘    |   ✘    |            ✔            |    ✘    |
+| `which_groups_can_merge_pr`   |   ✘    |   ✘    |            ✔            |    ✘    |
+| `get_pr_files_diff`           |   ✘    |   ✘    |            ✔            |    ✘    |
+| `get_users_with_given_access` |   ✘    |   ✘    |            ✔            |    ✔    |
 
 ## User
 
 |                | GitHub | GitLab | Pagure | Forgejo |
 | -------------- | :----: | :----: | :----: | :-----: |
-| `get_projects` |   ✔   |   ✘    |   ✔   |   ✔    |
-| `get_forks`    |   ✔   |   ✘    |   ✔   |   ✔    |
-| `get_email`    |   ✔   |   ✔   |   ✘    |   ✔    |
+| `get_projects` |   ✔    |   ✘    |   ✔    |    ✔    |
+| `get_forks`    |   ✔    |   ✘    |   ✔    |    ✔    |
+| `get_email`    |   ✔    |   ✔    |   ✘    |    ✔    |
 
 ## Reaction
 
 |          | GitHub | GitLab | Pagure | Forgejo |
 | -------- | :----: | :----: | :----: | :-----: |
-| `delete` |   ✔   |   ✔   |   ✘    |    ✘    |
+| `delete` |   ✔    |   ✔    |   ✘    |    ✘    |
 
 ## Service
 
 |             | GitHub | GitLab | Pagure | Forgejo |
 | ----------- | :----: | :----: | :----: | :-----: |
-| `get_group` |   ✘    |   ✘    |   ✔   |    ✘    |
+| `get_group` |   ✘    |   ✘    |   ✔    |    ✘    |

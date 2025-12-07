@@ -1,6 +1,5 @@
 # 0.58.0
 
-
 # 0.57.0
 
 - We have fixed an issue with the new Forgejo version preventing ogr from working. (#949)
