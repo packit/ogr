@@ -1,3 +1,8 @@
+# 0.58.0
+
+- `PagureService` now accepts an optional `user_agent` argument to set a custom User-Agent header. (#953)
+- It is now possible to pass a `headers` argument in `PagureProject.get_file_content`. The default header is set to `Accept: text/plain`. (#954)
+
 # 0.57.0
 
 - We have fixed an issue with the new Forgejo version preventing ogr from working. (#949)
