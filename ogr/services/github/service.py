@@ -30,6 +30,7 @@ from ogr.services.github.auth_providers import (
 )
 from ogr.services.github.project import GithubProject
 from ogr.services.github.user import GithubUser
+from ogr.utils import create_retry_config
 
 logger = logging.getLogger(__name__)
 
@@ -49,7 +50,7 @@ class GithubService(BaseGitService):
         github_app_private_key_path: Optional[str] = None,
         tokman_instance_url: Optional[str] = None,
         github_authentication: GithubAuthentication = None,
-        max_retries: Union[int, Retry] = 1,
+        max_retries: Union[int, Retry] = 3,
         **kwargs,
     ):
         """
@@ -64,17 +65,7 @@ class GithubService(BaseGitService):
         self._other_auth_method: GithubAuthentication = None
         self._auth_methods: dict[AuthMethod, GithubAuthentication] = {}
 
-        if isinstance(max_retries, Retry):
-            self._max_retries = max_retries
-        else:
-            self._max_retries = Retry(
-                total=int(max_retries),
-                # Retry mechanism active for these HTTP methods:
-                allowed_methods=["DELETE", "GET", "PATCH", "POST", "PUT"],
-                # Only retry on following HTTP status codes
-                status_forcelist=[500, 503, 403, 401],
-                raise_on_status=True,
-            )
+        self._max_retries = create_retry_config(max_retries)
 
         if not self._default_auth_method:
             self.__set_authentication(

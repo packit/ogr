@@ -2,9 +2,11 @@
 # SPDX-License-Identifier: MIT
 
 import logging
-from typing import Optional
+from typing import Optional, Union
 
 import gitlab
+import requests
+from urllib3.util import Retry
 
 from ogr.abstract import GitUser
 from ogr.exceptions import GitlabAPIException, OperationNotSupported
@@ -12,6 +14,7 @@ from ogr.factory import use_for_service
 from ogr.services.base import BaseGitService, GitProject
 from ogr.services.gitlab.project import GitlabProject
 from ogr.services.gitlab.user import GitlabUser
+from ogr.utils import create_retry_config
 
 logger = logging.getLogger(__name__)
 
@@ -33,12 +36,27 @@ logger = logging.getLogger(__name__)
 class GitlabService(BaseGitService):
     name = "gitlab"
 
-    def __init__(self, token=None, instance_url=None, ssl_verify=True, **kwargs):
+    def __init__(
+        self,
+        token=None,
+        instance_url=None,
+        ssl_verify=True,
+        max_retries: Union[int, Retry] = 3,
+        **kwargs,
+    ):
         super().__init__(token=token)
         self.instance_url = instance_url or "https://gitlab.com"
         self.token = token
         self.ssl_verify = ssl_verify
         self._gitlab_instance = None
+
+        retry_config = create_retry_config(max_retries)
+
+        # Create a session with retry configuration for gitlab library
+        self._session = requests.Session()
+        adapter = requests.adapters.HTTPAdapter(max_retries=retry_config)
+        self._session.mount("https://", adapter)
+        self._session.mount("http://", adapter)
 
         if kwargs:
             logger.warning(f"Ignored keyword arguments: {kwargs}")
@@ -46,13 +64,15 @@ class GitlabService(BaseGitService):
     @property
     def gitlab_instance(self) -> gitlab.Gitlab:
         if not self._gitlab_instance:
-            self._gitlab_instance = gitlab.Gitlab(
+            gitlab_inst = gitlab.Gitlab(
                 url=self.instance_url,
                 private_token=self.token,
                 ssl_verify=self.ssl_verify,
+                session=self._session,
             )
             if self.token:
-                self._gitlab_instance.auth()
+                gitlab_inst.auth()
+            self._gitlab_instance = gitlab_inst
         return self._gitlab_instance
 
     @property
@@ -106,6 +126,7 @@ class GitlabService(BaseGitService):
     def change_token(self, new_token: str) -> None:
         self.token = new_token
         self._gitlab_instance = None
+        # Session will be reused, but gitlab instance will be recreated with new token
 
     def project_create(
         self,
