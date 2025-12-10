@@ -8,7 +8,20 @@ from collections.abc import Iterable
 from re import Match
 from typing import Any, Callable, Optional, Union
 
+from urllib3.util import Retry
+
 from ogr.abstract import AnyComment, Comment
+
+
+class CustomRetry(Retry):
+    """
+    Custom Retry class that includes 403 in RETRY_AFTER_STATUS_CODES
+    so that Retry-After headers are respected for 403 errors.
+    """
+
+    # Include 403 in the list of status codes that respect Retry-After header
+    RETRY_AFTER_STATUS_CODES = frozenset([413, 429, 503, 403])
+
 
 logger = logging.getLogger(__name__)
 
@@ -197,3 +210,34 @@ def indirect(specialized_function: Callable) -> Any:
         return indirectly_called
 
     return indirect_caller
+
+
+def create_retry_config(max_retries: Union[int, Retry]) -> Retry:
+    """
+    Create a retry configuration for the given max retries.
+    Apply suggestions from https://docs.github.com/en/rest/using-the-rest-api/troubleshooting-the-rest-api?apiVersion=2022-11-28
+
+    Args:
+        max_retries: Maximum number of retries.
+
+    Returns:
+        Retry configuration.
+    """
+
+    if isinstance(max_retries, Retry):
+        return max_retries
+    return CustomRetry(
+        total=int(max_retries),
+        # Retry mechanism active for these HTTP methods:
+        allowed_methods=["DELETE", "GET", "PATCH", "POST", "PUT"],
+        # Only retry on following HTTP status codes
+        status_forcelist=[500, 503, 403, 401, 429],
+        # This helps when hitting rate limits or temporary server issues
+        # Exponential backoff: wait 30s, 60s, 120s between retries
+        backoff_factor=30,
+        # Respect Retry-After header for status codes in RETRY_AFTER_STATUS_CODES
+        # (413, 429, 503, 403). CustomRetry includes 403 so Retry-After will be
+        # respected for 403 errors when present.
+        respect_retry_after_header=True,
+        raise_on_status=True,
+    )

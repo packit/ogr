@@ -463,9 +463,18 @@ def test_get_instances_from_dict_multiple_auth(instances_in_dict, result_instanc
             {
                 "github.com": {
                     "token": "abcd",
+                    "max_retries": "1",
                 },
             },
             1,
+        ),
+        (
+            {
+                "github.com": {
+                    "token": "abcd",
+                },
+            },
+            3,
         ),
         (
             {

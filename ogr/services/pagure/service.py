@@ -20,7 +20,7 @@ from ogr.services.base import BaseGitService, GitProject
 from ogr.services.pagure.group import PagureGroup
 from ogr.services.pagure.project import PagureProject
 from ogr.services.pagure.user import PagureUser
-from ogr.utils import RequestResponse
+from ogr.utils import RequestResponse, create_retry_config
 
 logger = logging.getLogger(__name__)
 
@@ -39,7 +39,7 @@ class PagureService(BaseGitService):
         instance_url: str = "https://src.fedoraproject.org",
         read_only: bool = False,
         insecure: bool = False,
-        max_retries: Union[int, urllib3.util.Retry] = 5,
+        max_retries: Union[int, urllib3.util.Retry] = 3,
         user_agent: Optional[str] = None,
         **kwargs,
     ) -> None:
@@ -50,7 +50,9 @@ class PagureService(BaseGitService):
 
         self.session = requests.session()
 
-        adapter = requests.adapters.HTTPAdapter(max_retries=max_retries)
+        retry_config = create_retry_config(max_retries)
+
+        adapter = requests.adapters.HTTPAdapter(max_retries=retry_config)
 
         self.insecure = insecure
         if self.insecure:
