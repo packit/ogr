@@ -78,7 +78,9 @@ class PullRequest(OgrAbstractClass):
 
     @property
     def labels(self) -> Union[list["_abstract.PRLabel"], Iterable["_abstract.PRLabel"]]:
-        """Labels of the pull request."""
+        """
+        Labels of the pull request. Cached, may be outdated if modified externally.
+        """
         raise NotImplementedError()
 
     @property

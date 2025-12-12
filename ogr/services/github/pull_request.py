@@ -28,6 +28,7 @@ class GithubPullRequest(BasePullRequest):
     _raw_pr: _GithubPullRequest
     _target_project: "ogr_github.GithubProject"
     _source_project: "ogr_github.GithubProject" = None
+    _labels: list[PRLabel] = None
 
     @property
     def title(self) -> str:
@@ -79,9 +80,12 @@ class GithubPullRequest(BasePullRequest):
 
     @property
     def labels(self) -> list[PRLabel]:
-        return [
-            GithubPRLabel(raw_label, self) for raw_label in self._raw_pr.get_labels()
-        ]
+        if not self._labels:
+            self._labels = [
+                GithubPRLabel(raw_label, self)
+                for raw_label in self._raw_pr.get_labels()
+            ]
+        return self._labels
 
     @property
     def diff_url(self) -> str:
@@ -265,6 +269,9 @@ class GithubPullRequest(BasePullRequest):
     def add_label(self, *labels: str) -> None:
         for label in labels:
             self._raw_pr.add_to_labels(label)
+        self._labels = [
+            GithubPRLabel(raw_label, self) for raw_label in self._raw_pr.get_labels()
+        ]
 
     def get_comment(self, comment_id: int) -> PRComment:
         return GithubPRComment(self._raw_pr.get_issue_comment(comment_id))
