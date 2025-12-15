@@ -88,7 +88,7 @@ class ForgejoPullRequest(BasePullRequest):
 
     @property
     def labels(self) -> list[PRLabel]:
-        if not self._labels:
+        if self._labels is None:
             self._labels = (
                 [ForgejoPRLabel(raw_label, self) for raw_label in self._raw_pr.labels]
                 if self._raw_pr.labels

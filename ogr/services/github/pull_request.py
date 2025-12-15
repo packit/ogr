@@ -80,7 +80,7 @@ class GithubPullRequest(BasePullRequest):
 
     @property
     def labels(self) -> list[PRLabel]:
-        if not self._labels:
+        if self._labels is None:
             self._labels = [
                 GithubPRLabel(raw_label, self)
                 for raw_label in self._raw_pr.get_labels()
