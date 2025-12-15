@@ -1,3 +1,8 @@
+# 0.59.0
+
+- Improved handling of retries after errors to avoid hitting rate limits if possible. (#958)
+- `GithubPullRequest.labels` property is now cached for better performance and to be consistent with other services. (#960, #961)
+
 # 0.58.0
 
 - `PagureService` now accepts an optional `user_agent` argument to set a custom User-Agent header. (#953)
