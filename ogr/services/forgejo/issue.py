@@ -1,17 +1,26 @@
 # Copyright Contributors to the Packit project.
 # SPDX-License-Identifier: MIT
+import itertools
+from collections.abc import Iterable
 from datetime import datetime
 from functools import partial
 from typing import Optional, Union
 
-import pyforgejo.types.issue as _issue
 from pyforgejo import NotFoundError
+from pyforgejo.core.api_error import ApiError
+from pyforgejo.types import User as PyforgejoUser
+from pyforgejo.types.issue import Issue as _issue
 
-from ogr.abstract import Issue, IssueStatus
-from ogr.exceptions import IssueTrackerDisabled, OperationNotSupported
+from ogr.abstract import Issue, IssueComment, IssueLabel, IssueStatus
+from ogr.exceptions import (
+    ForgejoAPIException,
+    IssueTrackerDisabled,
+    OperationNotSupported,
+)
 from ogr.services import forgejo
 from ogr.services.base import BaseIssue
 from ogr.services.forgejo.comments import ForgejoIssueComment
+from ogr.services.forgejo.label import ForgejoIssueLabel
 from ogr.services.forgejo.utils import paginate
 
 
@@ -19,12 +28,12 @@ class ForgejoIssue(BaseIssue):
     project: "forgejo.ForgejoProject"
 
     def __init__(self, raw_issue: _issue, project: "forgejo.ForgejoProject"):
-        super().__init__(raw_issue, project)
-        self._raw_issue = raw_issue
+        if raw_issue.pull_request:
+            raise ForgejoAPIException(
+                f"Requested issue #{raw_issue.number} is a pull request",
+            )
 
-    @property
-    def _index(self):
-        return self._raw_issue.number
+        super().__init__(raw_issue, project)
 
     @property
     def api(self):
@@ -35,7 +44,7 @@ class ForgejoIssue(BaseIssue):
         """Returns a partial API call for ForgejoIssue.
 
 
-        Injects owner, repo, and index parameters for the calls to issue API endpoints.
+        Injects owner and repo parameters for the calls to issue API endpoints.
 
         Args:
             method: Specific method on the Pyforgejo API that is to be wrapped.
@@ -46,12 +55,11 @@ class ForgejoIssue(BaseIssue):
             Callable with pre-injected parameters.
         """
         params = {"owner": self.project.namespace, "repo": self.project.repo}
-
-        # Include the issue index only for methods that need it
-        if "get_issue" in str(method) or "edit_issue" in str(method):
-            params["index"] = self._index
-
         return partial(method, *args, **kwargs, **params)
+
+    def __update_info(self) -> None:
+        """Refresh the local issue object with the latest data from the server."""
+        self._raw_issue = self.partial_api(self.api.get_issue)(index=self.id)
 
     @property
     def title(self) -> str:
@@ -59,7 +67,10 @@ class ForgejoIssue(BaseIssue):
 
     @title.setter
     def title(self, new_title: str) -> None:
-        self.partial_api(self.api.edit_issue)(title=new_title)
+        self._raw_issue = self.partial_api(self.api.edit_issue)(
+            title=new_title,
+            index=self.id,
+        )
 
     @property
     def id(self) -> int:
@@ -74,8 +85,11 @@ class ForgejoIssue(BaseIssue):
         return self._raw_issue.body
 
     @description.setter
-    def description(self, text: str):
-        self.partial_api(self.api.edit_issue)(body=text)
+    def description(self, new_description: str):
+        self._raw_issue = self.partial_api(self.api.edit_issue)(
+            body=new_description,
+            index=self.id,
+        )
 
     @property
     def author(self) -> str:
@@ -90,8 +104,17 @@ class ForgejoIssue(BaseIssue):
         return IssueStatus[self._raw_issue.state]
 
     @property
-    def assignees(self) -> list:
-        return getattr(self._raw_issue, "assignees", []) or []
+    def assignees(self) -> list[PyforgejoUser]:
+        return self._raw_issue.assignees or []
+
+    @property
+    def labels(self) -> list[IssueLabel]:
+        return [
+            ForgejoIssueLabel(raw_label, self) for raw_label in self._raw_issue.labels
+        ]
+
+    def __str__(self) -> str:
+        return "Forgejo" + super().__str__()
 
     @staticmethod
     def create(
@@ -103,19 +126,32 @@ class ForgejoIssue(BaseIssue):
         assignees: Optional[list[str]] = None,
     ) -> "Issue":
         if private:
-            raise NotImplementedError()
+            raise OperationNotSupported("Private issues are not supported by Forgejo")
         if not project.has_issues:
             raise IssueTrackerDisabled()
 
+        # The API requires ids of labels in the create_issue method
+        # which would lead to having to retrieve existing labels and
+        # needing to find the ids of those we need to add to the issue;
+        # A separate API call would also need to be made to create each
+        # label that does not yet exist, potentially leading to many
+        # API calls and unclear code, so labels are instead added seprately
+        # below after creating a new issue without labels
         issue = project.service.api.issue.create_issue(
             owner=project.namespace,
             repo=project.repo,
             title=title,
             body=body,
-            labels=labels,
+            labels=[],
             assignees=assignees,
         )
-        return ForgejoIssue(issue, project)
+
+        forgejo_issue = ForgejoIssue(issue, project)
+
+        if labels:
+            forgejo_issue.add_label(*labels)
+
+        return forgejo_issue
 
     @staticmethod
     def get(project: "forgejo.ForgejoProject", issue_id: int) -> "Issue":
@@ -129,8 +165,8 @@ class ForgejoIssue(BaseIssue):
                 index=issue_id,
             )
 
-        except Exception as ex:
-            raise OperationNotSupported(f"Issue {issue_id} not found") from ex
+        except NotFoundError as ex:
+            raise ForgejoAPIException(f"Issue {issue_id} not found") from ex
         return ForgejoIssue(issue, project)
 
     @staticmethod
@@ -152,9 +188,9 @@ class ForgejoIssue(BaseIssue):
             parameters["created_by"] = author
         if assignee:
             parameters["assigned_by"] = assignee
-
         if labels:
             parameters["labels"] = labels
+
         try:
             return [
                 ForgejoIssue(issue, project)
@@ -166,42 +202,56 @@ class ForgejoIssue(BaseIssue):
                 )
             ]
         except NotFoundError as ex:
-            if "user does not exist" in str(ex):
-                return []
-            raise OperationNotSupported(f"Failed to list issues {ex}") from ex
+            raise ForgejoAPIException("Failed to list issues") from ex
+
+    def comment(self, body: str) -> IssueComment:
+        comment = self.partial_api(self.api.create_comment)(
+            body=body,
+            index=self.id,
+        )
+        return ForgejoIssueComment(parent=self, raw_comment=comment)
 
     def close(self) -> "Issue":
-        self.partial_api(self.api.edit_issue)(state="closed")
+        self._raw_issue = self.partial_api(self.api.edit_issue)(
+            state="closed",
+            index=self.id,
+        )
 
         return self
 
-    def get_comments(self):
-        return [
-            ForgejoIssueComment(comment, parent=self)
-            for comment in self.api.get_comments(
-                owner=self.project.namespace,
-                repo=self.project.repo,
-                index=self._index,
-            )
-        ] or []
+    def _get_all_comments(self, reverse: bool = False) -> Iterable[IssueComment]:
+        comments = self.partial_api(self.api.get_comments)(
+            index=self.id,
+        )
 
-    def get_comment(self, comment_id: int):
+        if reverse:
+            comments = list(reversed(comments))
+
+        return (
+            ForgejoIssueComment(parent=self, raw_comment=raw_comment)
+            for raw_comment in comments
+        )
+
+    def get_comment(self, comment_id: int) -> ForgejoIssueComment:
         return ForgejoIssueComment(
-            self.api.get_comment(
-                owner=self.project.namespace,
-                repo=self.project.repo,
-                id=comment_id,
-            ),
+            self.partial_api(self.api.get_comment)(id=comment_id),
             parent=self,
         )
 
     def add_assignee(self, *assignees: str) -> None:
-        current_assignees = [
-            assignee.login if hasattr(assignee, "login") else assignee
-            for assignee in self.assignees
-        ]
-        updated_assignees = list(set(current_assignees + list(assignees)))
-        self.partial_api(self.api.edit_issue)(assignees=updated_assignees)
+        current_assignees = [assignee.login for assignee in self.assignees]
+        updated_assignees = set(itertools.chain(current_assignees, assignees))
+
+        try:
+            self._raw_issue = self.partial_api(self.api.edit_issue)(
+                assignees=updated_assignees,
+                index=self.id,
+            )
+        except ApiError as ex:
+            raise ForgejoAPIException(
+                "Failed to assign issue, unknown user",
+            ) from ex
 
     def add_label(self, *labels: str) -> None:
-        self.partial_api(self.api.add_label)(labels=labels, index=self._index)
+        self.partial_api(self.api.add_label)(labels=labels, index=self.id)
+        self.__update_info()

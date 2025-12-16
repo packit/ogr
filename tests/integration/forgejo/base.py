@@ -13,15 +13,15 @@ from ogr import ForgejoService
 class ForgejoTests(unittest.TestCase):
     def setUp(self):
         super().setUp()
-        self.api_key = os.environ.get("FORGEJO_TOKEN")
+        self.token = os.environ.get("FORGEJO_TOKEN")
 
-        if not Path(get_datafile_filename(obj=self)).exists() and not self.api_key:
+        if not Path(get_datafile_filename(obj=self)).exists() and not self.token:
             raise OSError(
                 "You are in Requre write mode, please set FORGEJO_TOKEN env variables",
             )
 
-        if not self.api_key:
-            self.api_key = "some_token"
+        if not self.token:
+            self.token = "some_token"
 
         self._service = None
         self._project = None
@@ -30,7 +30,7 @@ class ForgejoTests(unittest.TestCase):
     def service(self):
         if not self._service:
             self._service = ForgejoService(
-                api_key=self.api_key,
+                token=self.token,
                 instance_url="https://v10.next.forgejo.org",
             )
         return self._service
@@ -40,6 +40,6 @@ class ForgejoTests(unittest.TestCase):
         if not self._project:
             self._project = self.service.get_project(
                 repo="ogr-tests",
-                namespace="manky201",
+                namespace="packit-validator",
             )
         return self._project
