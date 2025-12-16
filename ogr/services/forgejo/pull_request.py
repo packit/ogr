@@ -296,47 +296,25 @@ class ForgejoPullRequest(BasePullRequest):
             )
         )
 
-    def get_comments(
-        self,
-        filter_regex: Optional[str] = None,
-        reverse: bool = False,
-        author: Optional[str] = None,
-    ) -> Union[list["PRComment"], Iterable["PRComment"]]:
-        """
-        Get list of pull request comments.
-
-        Args:
-            filter_regex: Filter the comments' content with `re.search`.
-
-                Defaults to `None`, which means no filtering.
-            reverse: Whether the comments are to be returned in
-                reversed order.
-
-                Defaults to `False`.
-            author: Filter the comments by author.
-
-                Defaults to `None`, which means no filtering.
-
-        Returns:
-            List of pull request comments.
-        """
-        if filter_regex:
-            raise NotImplementedError
-        if reverse:
-            raise NotImplementedError
-        if author:
-            raise NotImplementedError
+    def _get_all_comments(self, reverse: bool = False) -> Iterable[PRComment]:
         try:
-            return (
-                ForgejoPRComment(raw_comment=comment, parent=self)
-                for comment in self.api.get_comments(
-                    owner=self.project.namespace,
-                    repo=self.project.repo,
-                    index=self.id,
-                )
+            comments = self.api.get_comments(
+                owner=self.project.namespace,
+                repo=self.project.repo,
+                index=self.id,
             )
+
         except NotFoundError as ex:
-            raise NotFoundError(f"{ex}") from ex
+            raise ForgejoAPIException(
+                "There was an error when retrieving PR comments.",
+            ) from ex
+
+        if reverse:
+            comments = list(reversed(comments))
+
+        return (
+            ForgejoPRComment(raw_comment=comment, parent=self) for comment in comments
+        )
 
     def comment(
         self,
@@ -344,7 +322,7 @@ class ForgejoPullRequest(BasePullRequest):
         commit: Optional[str] = None,
         filename: Optional[str] = None,
         row: Optional[int] = None,
-    ):
+    ) -> PRComment:
         """
         Add new comment to the pull request.
 
@@ -363,14 +341,17 @@ class ForgejoPullRequest(BasePullRequest):
         Returns:
             Newly created comment.
         """
-        if commit:
+        if commit or filename or row:
             raise NotImplementedError
 
-        if filename:
-            raise NotImplementedError
+        comment = self.api.create_comment(
+            owner=self.project.namespace,
+            repo=self.project.repo,
+            index=self.id,
+            body=body,
+        )
 
-        if row:
-            raise NotImplementedError
+        return ForgejoPRComment(raw_comment=comment, parent=self)
 
     def get_comment(self, comment_id: int) -> PRComment:
         """
