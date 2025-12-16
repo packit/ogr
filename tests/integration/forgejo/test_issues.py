@@ -1,11 +1,14 @@
 # Copyright Contributors to the Packit project.
 # SPDX-License-Identifier: MIT
+
+from requre.helpers import record_httpx
 from requre.online_replacing import record_requests_for_all_methods
 
 from ogr.abstract import IssueStatus
 from tests.integration.forgejo.base import ForgejoTests
 
 
+@record_httpx()
 @record_requests_for_all_methods()
 class Issues(ForgejoTests):
 
