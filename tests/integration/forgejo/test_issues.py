@@ -21,7 +21,7 @@ class Issues(ForgejoTests):
     def test_get_issue_list_author(self):
         issue_list = self.project.get_issue_list(
             status=IssueStatus.all,
-            author="manky201",
+            author="packit-validator",
         )
         assert issue_list
         assert len(issue_list) >= 3
@@ -36,10 +36,10 @@ class Issues(ForgejoTests):
     def test_get_issue_list_assignee(self):
         issue_list = self.project.get_issue_list(
             status=IssueStatus.all,
-            assignee="manky201",
+            assignee="packit-validator",
         )
         assert issue_list
-        assert len(issue_list) >= 2
+        assert len(issue_list) >= 1
 
     def test_issue_info(self):
         title = "test Title ABC"
@@ -51,7 +51,7 @@ class Issues(ForgejoTests):
     def test_create_issue_with_assignee(self):
         issue_title = "This is a example issue"
         issue_desc = "Description for issue"
-        assign = ["manky201"]
+        assign = ["packit-validator"]
         project = self.project
         issue = project.create_issue(
             title=issue_title,
@@ -75,8 +75,6 @@ class Issues(ForgejoTests):
 
     def test_issue_assignees(self):
         project = self.project
-        issue = project.get_issue(1)
-        assignees = issue.assignees
-        assignees = project.get_issue(1).assignees
+        assignees = project.get_issue(223).assignees
         assert len(assignees) == 1
-        assert assignees[0].login == "manky201"
+        assert assignees[0].login == "packit-validator"
