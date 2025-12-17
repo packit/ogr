@@ -4,26 +4,108 @@
 import functools
 import logging
 import re
+import time
 from collections.abc import Iterable
 from re import Match
 from typing import Any, Callable, Optional, Union
 
 from urllib3.util import Retry
 
+try:
+    # If urllib3~=2.0 is installed
+    from urllib3 import BaseHTTPResponse
+except ImportError:
+    # If urllib3~=1.0 is installed
+    from urllib3 import HTTPResponse as BaseHTTPResponse
+
+
 from ogr.abstract import AnyComment, Comment
+
+logger = logging.getLogger(__name__)
 
 
 class CustomRetry(Retry):
     """
     Custom Retry class that includes 403 in RETRY_AFTER_STATUS_CODES
     so that Retry-After headers are respected for 403 errors.
+
+    Also handles GitHub rate limit headers (X-RateLimit-Reset) when
+    Retry-After is not present.
     """
 
     # Include 403 in the list of status codes that respect Retry-After header
     RETRY_AFTER_STATUS_CODES = frozenset([413, 429, 503, 403])
 
+    def get_ratelimit_reset(self, response: BaseHTTPResponse) -> Optional[float]:
+        """
+        Get retry wait time from X-RateLimit-Reset header.
 
-logger = logging.getLogger(__name__)
+        Rate limit reset header (Unix timestamp) which is converted
+        to seconds to wait, compatible with Retry-After format.
+
+        Args:
+            response: HTTP response object that may contain X-RateLimit-Reset header.
+
+        Returns:
+            Number of seconds to wait before retrying, or None if header is not present
+            or cannot be parsed.
+        """
+        # Only check X-RateLimit-Reset for rate limit responses
+        if (  # noqa: SIM102 This is more readable than a single if statement
+            response.status
+            in (
+                403,
+                429,
+            )
+        ):
+            # urllib3 HTTPHeaderDict does a case-insensitive lookup
+            # https://github.com/urllib3/urllib3/blob/83f8643ffb5b7f197457379148e2fa118ab0fcdc/src/urllib3/_collections.py#L215-L217
+            if rate_limit_reset := response.headers.get(
+                "X-RateLimit-Reset",
+            ):
+                try:
+                    reset_timestamp = float(rate_limit_reset)
+                except ValueError:
+                    logger.error(
+                        f"Could not parse X-RateLimit-Reset header '{rate_limit_reset}'",
+                    )
+                    return None
+                else:
+                    return max(0.0, reset_timestamp - time.time())
+        return None
+
+    def sleep_for_retry(self, response: BaseHTTPResponse) -> bool:
+        """
+        Override to handle X-RateLimit-Reset header in addition to Retry-After.
+
+        Choose between Retry-After and X-RateLimit-Reset header.
+        If both are present, choose the longer wait time.
+
+        Args:
+            response: HTTP response object that may contain Retry-After or X-RateLimit-Reset header.
+
+        Returns:
+            True if the wait time is greater than 0, False otherwise.
+        """
+        retry_after = self.get_retry_after(response)
+        rate_limit_reset = self.get_ratelimit_reset(response)
+
+        if not retry_after and not rate_limit_reset:
+            return False
+
+        wait_time, header = max(
+            (
+                (retry_after or 0, "Retry-After"),
+                (rate_limit_reset or 0, "X-RateLimit-Reset"),
+            ),
+            key=lambda x: x[0],
+        )
+        logger.error(
+            f"Rate limit hit (status {response.status}). "
+            f"Waiting {wait_time}s until reset ({header} header)",
+        )
+        time.sleep(wait_time)
+        return True
 
 
 def filter_comments(
