@@ -88,3 +88,17 @@ class Issues(ForgejoTests):
         issue.comment("test comment")
         new_comments = list(issue.get_comments())
         assert len(new_comments) > len(old_comments)
+
+    def test_issue_labels(self):
+        """
+        Remove the labels from this issue before regenerating the response files:
+        https://v10.next.forgejo.org/packit-validator/ogr-tests/issues/224
+        """
+        issue = self.project.get_issue(224)
+        labels = issue.labels
+
+        assert not labels
+        issue.add_label("test_lb1", "test_lb2")
+        labels = self.project.get_issue(224).labels
+        assert labels
+        assert next(iter(labels)).name == "test_lb1"

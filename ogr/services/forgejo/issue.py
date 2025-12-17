@@ -8,11 +8,12 @@ from typing import Optional, Union
 from pyforgejo import NotFoundError
 from pyforgejo.types.issue import Issue as _issue
 
-from ogr.abstract import Issue, IssueComment, IssueStatus
+from ogr.abstract import Issue, IssueComment, IssueLabel, IssueStatus
 from ogr.exceptions import IssueTrackerDisabled, OperationNotSupported
 from ogr.services import forgejo
 from ogr.services.base import BaseIssue
 from ogr.services.forgejo.comments import ForgejoIssueComment
+from ogr.services.forgejo.label import ForgejoIssueLabel
 from ogr.services.forgejo.utils import paginate
 
 
@@ -93,6 +94,17 @@ class ForgejoIssue(BaseIssue):
     @property
     def assignees(self) -> list:
         return getattr(self._raw_issue, "assignees", []) or []
+
+    @property
+    def labels(self) -> list[IssueLabel]:
+        return [
+            ForgejoIssueLabel(raw_label, self)
+            for raw_label in self.api.get_labels(
+                owner=self.project.namespace,
+                repo=self.project.repo,
+                index=self._index,
+            )
+        ]
 
     @staticmethod
     def create(
