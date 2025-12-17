@@ -98,10 +98,7 @@ class ForgejoIssue(BaseIssue):
     @property
     def labels(self) -> list[IssueLabel]:
         return [
-            ForgejoIssueLabel(raw_label, self)
-            for raw_label in self.partial_api(self.api.get_labels)(
-                index=self._index,
-            )
+            ForgejoIssueLabel(raw_label, self) for raw_label in self._raw_issue.labels
         ]
 
     @staticmethod
