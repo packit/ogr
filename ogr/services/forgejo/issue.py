@@ -99,9 +99,7 @@ class ForgejoIssue(BaseIssue):
     def labels(self) -> list[IssueLabel]:
         return [
             ForgejoIssueLabel(raw_label, self)
-            for raw_label in self.api.get_labels(
-                owner=self.project.namespace,
-                repo=self.project.repo,
+            for raw_label in self.partial_api(self.api.get_labels)(
                 index=self._index,
             )
         ]
@@ -201,20 +199,14 @@ class ForgejoIssue(BaseIssue):
 
         return (
             ForgejoIssueComment(parent=self, raw_comment=raw_comment)
-            for raw_comment in self.api.get_comments(
-                owner=self.project.namespace,
-                repo=self.project.repo,
+            for raw_comment in self.partial_api(self.api.get_comments)(
                 index=self._index,
             )
         )
 
     def get_comment(self, comment_id: int):
         return ForgejoIssueComment(
-            self.api.get_comment(
-                owner=self.project.namespace,
-                repo=self.project.repo,
-                id=comment_id,
-            ),
+            self.partial_api(self.api.get_comment)(id=comment_id),
             parent=self,
         )
 
