@@ -1,13 +1,14 @@
 # Copyright Contributors to the Packit project.
 # SPDX-License-Identifier: MIT
+from collections.abc import Iterable
 from datetime import datetime
 from functools import partial
 from typing import Optional, Union
 
-import pyforgejo.types.issue as _issue
 from pyforgejo import NotFoundError
+from pyforgejo.types.issue import Issue as _issue
 
-from ogr.abstract import Issue, IssueStatus
+from ogr.abstract import Issue, IssueComment, IssueStatus
 from ogr.exceptions import IssueTrackerDisabled, OperationNotSupported
 from ogr.services import forgejo
 from ogr.services.base import BaseIssue
@@ -170,20 +171,30 @@ class ForgejoIssue(BaseIssue):
                 return []
             raise OperationNotSupported(f"Failed to list issues {ex}") from ex
 
+    def comment(self, body: str) -> IssueComment:
+        comment = self.partial_api(self.api.create_comment)(
+            body=body,
+            index=self._index,
+        )
+        return ForgejoIssueComment(parent=self, raw_comment=comment)
+
     def close(self) -> "Issue":
         self.partial_api(self.api.edit_issue)(state="closed")
 
         return self
 
-    def get_comments(self):
-        return [
-            ForgejoIssueComment(comment, parent=self)
-            for comment in self.api.get_comments(
+    def _get_all_comments(self, reverse: bool = False) -> Iterable[IssueComment]:
+        # TODO API doesnt suppport ordering
+        # ordering = "desc" if reverse else "asc"
+
+        return (
+            ForgejoIssueComment(parent=self, raw_comment=raw_comment)
+            for raw_comment in self.api.get_comments(
                 owner=self.project.namespace,
                 repo=self.project.repo,
                 index=self._index,
             )
-        ] or []
+        )
 
     def get_comment(self, comment_id: int):
         return ForgejoIssueComment(

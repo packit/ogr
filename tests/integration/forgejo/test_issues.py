@@ -81,3 +81,10 @@ class Issues(ForgejoTests):
         assignees = project.get_issue(223).assignees
         assert len(assignees) == 1
         assert assignees[0].login == "packit-validator"
+
+    def test_issue_updates(self):
+        issue = self.project.get_issue(issue_id=224)
+        old_comments = list(issue.get_comments())
+        issue.comment("test comment")
+        new_comments = list(issue.get_comments())
+        assert len(new_comments) > len(old_comments)
