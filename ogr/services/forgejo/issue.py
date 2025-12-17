@@ -101,6 +101,9 @@ class ForgejoIssue(BaseIssue):
             ForgejoIssueLabel(raw_label, self) for raw_label in self._raw_issue.labels
         ]
 
+    def __str__(self) -> str:
+        return "Forgejo" + super().__str__()
+
     @staticmethod
     def create(
         project: "forgejo.ForgejoProject",
