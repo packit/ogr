@@ -178,8 +178,8 @@ class ForgejoIssue(BaseIssue):
         )
         return ForgejoIssueComment(parent=self, raw_comment=comment)
 
-    def close(self) -> "Issue":
-        self.partial_api(self.api.edit_issue)(state="closed")
+    def close(self) -> Issue:
+        self._raw_issue = self.partial_api(self.api.edit_issue)(state="closed")
 
         return self
 
