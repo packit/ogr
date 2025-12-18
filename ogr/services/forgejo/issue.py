@@ -9,7 +9,7 @@ from pyforgejo import NotFoundError
 from pyforgejo.types.issue import Issue as _issue
 
 from ogr.abstract import Issue, IssueComment, IssueLabel, IssueStatus
-from ogr.exceptions import IssueTrackerDisabled, OperationNotSupported
+from ogr.exceptions import ForgejoAPIException, IssueTrackerDisabled
 from ogr.services import forgejo
 from ogr.services.base import BaseIssue
 from ogr.services.forgejo.comments import ForgejoIssueComment
@@ -140,8 +140,8 @@ class ForgejoIssue(BaseIssue):
                 index=issue_id,
             )
 
-        except Exception as ex:
-            raise OperationNotSupported(f"Issue {issue_id} not found") from ex
+        except NotFoundError as ex:
+            raise ForgejoAPIException(f"Issue {issue_id} not found") from ex
         return ForgejoIssue(issue, project)
 
     @staticmethod
@@ -179,7 +179,7 @@ class ForgejoIssue(BaseIssue):
         except NotFoundError as ex:
             if "user does not exist" in str(ex):
                 return []
-            raise OperationNotSupported(f"Failed to list issues {ex}") from ex
+            raise ForgejoAPIException(f"Failed to list issues {ex}") from ex
 
     def comment(self, body: str) -> IssueComment:
         comment = self.partial_api(self.api.create_comment)(
