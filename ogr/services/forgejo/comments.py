@@ -28,7 +28,7 @@ class ForgejoComment(Comment):
     def _from_raw_comment(self, raw_comment: _ForgejoComment) -> None:
         self._raw_comment = raw_comment
         self._id = raw_comment.id
-        self._author = raw_comment.original_author
+        self._author = raw_comment.user.login
         self._created = raw_comment.created_at
         self._edited = raw_comment.updated_at
 
