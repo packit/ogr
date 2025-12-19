@@ -7,7 +7,7 @@ httpx._client:
     GET:
       https://v10.next.forgejo.org/api/v1/repos/packit-validator/ogr-tests:
       - metadata:
-          latency: 0.4129958152770996
+          latency: 0.46506667137145996
           module_call_list:
           - unittest.case
           - requre.record_and_replace
@@ -121,12 +121,12 @@ httpx._client:
             watchers_count: 1
             website: ''
             wiki_branch: master
-          _elapsed: 0.412772
+          _elapsed: 0.464709
           encoding: utf-8
           headers:
             cache-control: max-age=0, private, must-revalidate, no-transform
             content-type: application/json;charset=utf-8
-            date: Fri, 19 Dec 2025 09:09:54 GMT
+            date: Fri, 19 Dec 2025 10:06:01 GMT
             transfer-encoding: chunked
             vary: Origin
             x-content-type-options: nosniff
@@ -135,7 +135,7 @@ httpx._client:
           status_code: 200
       https://v10.next.forgejo.org/api/v1/repos/packit-validator/ogr-tests/issues/244:
       - metadata:
-          latency: 0.2186586856842041
+          latency: 0.3891327381134033
           module_call_list:
           - unittest.case
           - requre.record_and_replace
@@ -208,13 +208,13 @@ httpx._client:
               username: packit-validator
               visibility: public
               website: ''
-          _elapsed: 0.218467
+          _elapsed: 0.388892
           encoding: utf-8
           headers:
             cache-control: max-age=0, private, must-revalidate, no-transform
             content-length: '1304'
             content-type: application/json;charset=utf-8
-            date: Fri, 19 Dec 2025 09:09:55 GMT
+            date: Fri, 19 Dec 2025 10:06:01 GMT
             vary: Origin
             x-content-type-options: nosniff
             x-frame-options: SAMEORIGIN
@@ -222,7 +222,7 @@ httpx._client:
           status_code: 200
       https://v10.next.forgejo.org/api/v1/repos/packit-validator/ogr-tests/issues/244/comments:
       - metadata:
-          latency: 0.27525877952575684
+          latency: 0.7042844295501709
           module_call_list:
           - unittest.case
           - requre.record_and_replace
@@ -251,7 +251,7 @@ httpx._client:
             original_author: ''
             original_author_id: 0
             pull_request_url: ''
-            updated_at: '2025-12-19T08:48:22Z'
+            updated_at: '2025-12-19T10:04:38Z'
             user:
               active: false
               avatar_url: https://v10.next.forgejo.org/avatars/9c4cb263b7809b180c92b4970f7d0847
@@ -347,17 +347,149 @@ httpx._client:
               username: packit-validator
               visibility: public
               website: ''
-          _elapsed: 0.275061
+          _elapsed: 0.704054
           encoding: utf-8
           headers:
             access-control-expose-headers: X-Total-Count
             cache-control: max-age=0, private, must-revalidate, no-transform
             content-type: application/json;charset=utf-8
-            date: Fri, 19 Dec 2025 09:09:55 GMT
+            date: Fri, 19 Dec 2025 10:06:02 GMT
             transfer-encoding: chunked
             vary: Origin
             x-content-type-options: nosniff
             x-frame-options: SAMEORIGIN
             x-total-count: '3'
+          next_request: null
+          status_code: 200
+    PATCH:
+      https://v10.next.forgejo.org/api/v1/repos/packit-validator/ogr-tests/issues/comments/3174:
+      - metadata:
+          latency: 0.8062975406646729
+          module_call_list:
+          - unittest.case
+          - requre.record_and_replace
+          - tests.integration.forgejo.test_comments
+          - ogr.services.forgejo.comments
+          - pyforgejo.issue.client
+          - pyforgejo.issue.raw_client
+          - pyforgejo.core.http_client
+          - httpx._client
+          - requre.objects
+          - requre.cassette
+          - httpx._client
+          - send
+        output:
+          __store_indicator: 2
+          _content:
+            assets: []
+            body: here comes the update
+            created_at: '2025-12-19T08:48:22Z'
+            html_url: https://v10.next.forgejo.org/packit-validator/ogr-tests/issues/244#issuecomment-3174
+            id: 3174
+            issue_url: https://v10.next.forgejo.org/packit-validator/ogr-tests/issues/244
+            original_author: ''
+            original_author_id: 0
+            pull_request_url: ''
+            updated_at: '2025-12-19T10:06:02Z'
+            user:
+              active: false
+              avatar_url: https://v10.next.forgejo.org/avatars/9c4cb263b7809b180c92b4970f7d0847
+              created: '2025-02-14T09:34:00Z'
+              description: ''
+              email: packit-validator@noreply.v10.next.forgejo.org
+              followers_count: 0
+              following_count: 0
+              full_name: ''
+              html_url: https://v10.next.forgejo.org/packit-validator
+              id: 618
+              is_admin: false
+              language: ''
+              last_login: '0001-01-01T00:00:00Z'
+              location: ''
+              login: packit-validator
+              login_name: ''
+              prohibit_login: false
+              pronouns: ''
+              restricted: false
+              source_id: 0
+              starred_repos_count: 0
+              username: packit-validator
+              visibility: public
+              website: ''
+          _elapsed: 0.806066
+          encoding: utf-8
+          headers:
+            cache-control: max-age=0, private, must-revalidate, no-transform
+            content-length: '993'
+            content-type: application/json;charset=utf-8
+            date: Fri, 19 Dec 2025 10:06:03 GMT
+            vary: Origin
+            x-content-type-options: nosniff
+            x-frame-options: SAMEORIGIN
+          next_request: null
+          status_code: 200
+      - metadata:
+          latency: 0.7090544700622559
+          module_call_list:
+          - unittest.case
+          - requre.record_and_replace
+          - tests.integration.forgejo.test_comments
+          - ogr.services.forgejo.comments
+          - pyforgejo.issue.client
+          - pyforgejo.issue.raw_client
+          - pyforgejo.core.http_client
+          - httpx._client
+          - requre.objects
+          - requre.cassette
+          - httpx._client
+          - send
+        output:
+          __store_indicator: 2
+          _content:
+            assets: []
+            body: /packit test-comment
+            created_at: '2025-12-19T08:48:22Z'
+            html_url: https://v10.next.forgejo.org/packit-validator/ogr-tests/issues/244#issuecomment-3174
+            id: 3174
+            issue_url: https://v10.next.forgejo.org/packit-validator/ogr-tests/issues/244
+            original_author: ''
+            original_author_id: 0
+            pull_request_url: ''
+            updated_at: '2025-12-19T10:06:03Z'
+            user:
+              active: false
+              avatar_url: https://v10.next.forgejo.org/avatars/9c4cb263b7809b180c92b4970f7d0847
+              created: '2025-02-14T09:34:00Z'
+              description: ''
+              email: packit-validator@noreply.v10.next.forgejo.org
+              followers_count: 0
+              following_count: 0
+              full_name: ''
+              html_url: https://v10.next.forgejo.org/packit-validator
+              id: 618
+              is_admin: false
+              language: ''
+              last_login: '0001-01-01T00:00:00Z'
+              location: ''
+              login: packit-validator
+              login_name: ''
+              prohibit_login: false
+              pronouns: ''
+              restricted: false
+              source_id: 0
+              starred_repos_count: 0
+              username: packit-validator
+              visibility: public
+              website: ''
+          _elapsed: 0.708846
+          encoding: utf-8
+          headers:
+            cache-control: max-age=0, private, must-revalidate, no-transform
+            content-length: '992'
+            content-type: application/json;charset=utf-8
+            date: Fri, 19 Dec 2025 10:06:03 GMT
+            vary: Origin
+            x-content-type-options: nosniff
+            x-frame-options: SAMEORIGIN
           next_request: null
           status_code: 200

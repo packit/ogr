@@ -121,3 +121,41 @@ class Comments(ForgejoTests):
         assert len(comments) == 3
         assert comments[0].body.startswith("/packit")
         assert comments[2].body.endswith("indeed")
+
+    def test_issue_comments_updates(self):
+        comments = list(
+            self.project.get_issue(244).get_comments(
+                filter_regex="test-comment",
+            ),
+        )
+        assert len(comments) == 1
+        before_comment = comments[0].body
+        before_edited = comments[0].edited
+
+        comments[0].body = "here comes the update"
+        assert comments[0].body == "here comes the update"
+
+        # using >= because the time difference is so small that the datetime values are the same
+        assert comments[0].edited >= before_edited
+
+        comments[0].body = before_comment
+        assert comments[0].body == before_comment
+
+    def test_pr_comments_updates(self):
+        comments = list(
+            self.project.get_pr(209).get_comments(
+                filter_regex="nd comment",
+            ),
+        )
+        assert len(comments) == 1
+        before_comment = comments[0].body
+        before_edited = comments[0].edited
+
+        comments[0].body = "this wont hurt a bit"
+        assert comments[0].body == "this wont hurt a bit"
+
+        # using >= because the time difference is so small that the datetime values are the same
+        assert comments[0].edited >= before_edited
+
+        comments[0].body = before_comment
+        assert comments[0].body == before_comment

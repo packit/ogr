@@ -9,7 +9,6 @@ from pyforgejo.types import Comment as _ForgejoComment
 from pyforgejo.types.reaction import Reaction as _ForgejoReaction
 
 from ogr.abstract import Comment, IssueComment, PRComment, Reaction
-from ogr.exceptions import OperationNotSupported
 
 logger = logging.getLogger(__name__)
 
@@ -38,7 +37,12 @@ class ForgejoComment(Comment):
 
     @body.setter
     def body(self, new_body: str) -> None:
-        raise OperationNotSupported
+        self._raw_comment = self._client.issue.edit_comment(
+            owner=self._parent.project.namespace,
+            repo=self._parent.project.repo,
+            id=self._id,
+            body=new_body,
+        )
 
     def _get_owner_and_repo(self):
         issue_url = self._raw_comment.issue_url
