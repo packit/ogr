@@ -5,22 +5,34 @@ import datetime
 import logging
 from urllib.parse import urlparse
 
+from pyforgejo.core.api_error import ApiError
 from pyforgejo.types import Comment as _ForgejoComment
 from pyforgejo.types.reaction import Reaction as _ForgejoReaction
 
 from ogr.abstract import Comment, IssueComment, PRComment, Reaction
+from ogr.services import forgejo
 
 logger = logging.getLogger(__name__)
 
 
 class ForgejoReaction(Reaction):
-    _raw_reaction: _ForgejoReaction
+    def __init__(
+        self,
+        raw_reaction: _ForgejoReaction,
+        parent: "forgejo.ForgejoComment",
+    ) -> None:
+        super().__init__(raw_reaction)
+        self._parent = parent
 
     def __str__(self):
         return "Forgejo" + super().__str__()
 
     def delete(self):
-        self._raw_reaction.delete()
+        self._parent._client.issue.delete_comment_reaction(
+            owner=self._parent._parent.project.namespace,
+            repo=self._parent._parent.project.repo,
+            id=self._parent._id,
+        )
 
 
 class ForgejoComment(Comment):
@@ -60,22 +72,31 @@ class ForgejoComment(Comment):
 
     def get_reactions(self) -> list[Reaction]:
         client = self._client
-        reactions = client.issue.get_comment_reactions(
-            owner=self._parent.project.namespace,
-            repo=self._parent.project.repo,
-            id=self._id,
-        )
-        return [ForgejoReaction(raw_reaction=reaction) for reaction in reactions]
+        try:
+            reactions = client.issue.get_comment_reactions(
+                owner=self._parent.project.namespace,
+                repo=self._parent.project.repo,
+                id=self._id,
+            )
+
+        # pyforgejo raises ApiError when no reactions are found
+        except ApiError:
+            return []
+
+        return [
+            ForgejoReaction(raw_reaction=reaction, parent=self)
+            for reaction in reactions
+        ]
 
     def add_reaction(self, reaction: str) -> Reaction:
         client = self._client
-        client.issue.post_comment_reaction(
+        raw_reaction = client.issue.post_comment_reaction(
             owner=self._parent.project.namespace,
             repo=self._parent.project.repo,
             id=self._id,
             content=reaction,
         )
-        return ForgejoReaction(raw_reaction=reaction)
+        return ForgejoReaction(raw_reaction=raw_reaction, parent=self)
 
 
 class ForgejoIssueComment(ForgejoComment, IssueComment):

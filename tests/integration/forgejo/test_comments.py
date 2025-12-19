@@ -159,3 +159,55 @@ class Comments(ForgejoTests):
 
         comments[0].body = before_comment
         assert comments[0].body == before_comment
+
+    def test_pr_react_to_comment_and_delete(self):
+        pr = self.project.get_pr(209)
+        pr_comment = pr.comment("React to this comment")
+
+        reaction = pr_comment.add_reaction("+1")
+        assert len(pr_comment.get_reactions()) == 1
+
+        reaction.delete()
+
+        # re-recording causes test to fail with ValidationError by pydantic
+        # validation error for list[Reaction]
+        # when re-running, the test passes
+        # could be somehow related to pyforgejo raising ApiError when no reactions
+        # are found ??
+        # TODO: check
+        assert len(pr_comment.get_reactions()) == 0
+
+    def test_issue_react_to_comment_and_delete(self):
+        issue = self.project.get_issue(244)
+        issue_comment = issue.comment("This is a nice comment to react to")
+
+        reaction = issue_comment.add_reaction("confused")
+        assert len(issue_comment.get_reactions()) == 1
+
+        reaction.delete()
+
+        # re-recording causes test to fail with ValidationError by pydantic
+        # validation error for list[Reaction]
+        # when re-running, the test passes
+        # could be somehow related to pyforgejo raising ApiError when no reactions
+        # are found ??
+        # TODO: check
+        assert len(issue_comment.get_reactions()) == 0
+
+    def test_pr_get_reactions(self):
+        pr = self.project.get_pr(209)
+        pr_comment = pr.comment("Such nice weather")
+
+        pr_comment.add_reaction("+1")
+        pr_comment.add_reaction("-1")
+        pr_comment.add_reaction("confused")
+        assert len(pr_comment.get_reactions()) == 3
+
+    def test_issue_get_reactions(self):
+        issue = self.project.get_issue(244)
+        issue_comment = issue.comment("Nice weather indeed")
+
+        issue_comment.add_reaction("+1")
+        issue_comment.add_reaction("-1")
+        issue_comment.add_reaction("confused")
+        assert len(issue_comment.get_reactions()) == 3
