@@ -194,14 +194,16 @@ class ForgejoIssue(BaseIssue):
         return self
 
     def _get_all_comments(self, reverse: bool = False) -> Iterable[IssueComment]:
-        # TODO API doesnt suppport ordering
-        # ordering = "desc" if reverse else "asc"
+        comments = self.partial_api(self.api.get_comments)(
+            index=self._index,
+        )
+
+        if reverse:
+            comments = list(reversed(comments))
 
         return (
             ForgejoIssueComment(parent=self, raw_comment=raw_comment)
-            for raw_comment in self.partial_api(self.api.get_comments)(
-                index=self._index,
-            )
+            for raw_comment in comments
         )
 
     def get_comment(self, comment_id: int):
