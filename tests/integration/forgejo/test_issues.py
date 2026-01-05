@@ -70,6 +70,46 @@ class Issues(ForgejoTests):
         assert issue.assignees[0].login == assign[0]
         assert issue.description == issue_desc
 
+    def test_create_issue_with_labels(self):
+        issue_title = "A super duper issue"
+        issue_desc = "Description for issue"
+
+        # labels need to be sorted alphabetically as that is the order
+        # in which they are returned by the API
+        labels = ["b", "label2"]
+
+        issue = self.project.create_issue(
+            title=issue_title,
+            body=issue_desc,
+            labels=labels,
+        )
+        assert issue.title == issue_title
+        assert issue.description == issue_desc
+        assert issue.labels
+
+        for issue_label, label in zip(issue.labels, labels):
+            assert issue_label.name == label
+
+    def test_create_issue_with_new_labels(self):
+        issue_title = "A super duper issue no one has ever seen before"
+        issue_desc = "Description for issue"
+
+        # labels need to be sorted alphabetically as that is the order
+        # in which they are returned by the API
+        labels = ["a new label", "b", "the fastest label in the wild west"]
+
+        issue = self.project.create_issue(
+            title=issue_title,
+            body=issue_desc,
+            labels=labels,
+        )
+        assert issue.title == issue_title
+        assert issue.description == issue_desc
+        assert issue.labels
+
+        for issue_label, label in zip(issue.labels, labels):
+            assert issue_label.name == label
+
     def test_close_issue(self):
         issue = self.project.create_issue(
             title=f"Close issue {self.random_str}",

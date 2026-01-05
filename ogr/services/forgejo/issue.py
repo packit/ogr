@@ -119,12 +119,39 @@ class ForgejoIssue(BaseIssue):
         if not project.has_issues:
             raise IssueTrackerDisabled()
 
+        label_ids = []
+
+        if labels:
+            available_labels = project.service.api.issue.list_labels(
+                owner=project.namespace,
+                repo=project.repo,
+            )
+
+            for label in labels:
+                # get id in case label already exists
+                if matches := [
+                    old_label
+                    for old_label in available_labels
+                    if old_label.name == label
+                ]:
+                    label_ids.append(matches[0].id)
+
+                # create new label in case it doesn't exist
+                else:
+                    new_label = project.service.api.issue.create_label(
+                        owner=project.namespace,
+                        repo=project.repo,
+                        color="428bca",  # default label color
+                        name=label,
+                    )
+                    label_ids.append(new_label.id)
+
         issue = project.service.api.issue.create_issue(
             owner=project.namespace,
             repo=project.repo,
             title=title,
             body=body,
-            labels=labels,
+            labels=label_ids,
             assignees=assignees,
         )
         return ForgejoIssue(issue, project)
