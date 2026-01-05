@@ -1,10 +1,15 @@
 # Copyright Contributors to the Packit project.
 # SPDX-License-Identifier: MIT
 
+import pytest
 from requre.helpers import record_httpx
 from requre.online_replacing import record_requests_for_all_methods
 
 from ogr.abstract import IssueStatus
+from ogr.exceptions import (
+    ForgejoAPIException,
+    GitForgeInternalError,
+)
 from tests.integration.forgejo.base import ForgejoTests
 
 
@@ -102,3 +107,72 @@ class Issues(ForgejoTests):
         labels = self.project.get_issue(224).labels
         assert labels
         assert next(iter(labels)).name == "test_lb1"
+
+    def test_issue_add_assignee(self):
+        """
+        Remove the assignees from this issue before regenerating the response files:
+        https://v10.next.forgejo.org/packit-validator/ogr-tests/issues/224
+        """
+        issue = self.project.get_issue(245)
+        print(self.service.user.get_username())
+        assignees = issue.assignees
+
+        assert not assignees
+        issue.add_assignee("packit-validator")
+        assignees = self.project.get_issue(245).assignees
+        assert len(assignees) == 1
+        assert assignees[0].login == "packit-validator"
+
+    def test_issue_no_such_assignee(self):
+        issue = self.project.get_issue(245)
+
+        # __check_for_internal_failure replaces ForgejoAPIException with GitForgeInternalError
+        with pytest.raises(GitForgeInternalError):
+            issue.add_assignee("nonexistentuser")
+
+    def test_list_contains_only_issues(self):
+        issue_list_all = self.project.get_issue_list(status=IssueStatus.all)
+        issue_ids = [issue.id for issue in issue_list_all]
+
+        pr_ids = [143, 170, 194, 195, 198, 199, 204, 209, 220, 221]
+        for id in pr_ids:
+            assert id not in issue_ids
+
+    def test_issue_doesnt_exist(self):
+        with pytest.raises(ForgejoAPIException):
+            self.project.get_issue(10**20)
+
+    def test_functions_fail_for_pr(self):
+        with pytest.raises(ForgejoAPIException):
+            self.project.get_issue(221)
+        with pytest.raises(ForgejoAPIException):
+            self.project.get_issue(221).comment(body="should fail")
+        with pytest.raises(ForgejoAPIException):
+            self.project.get_issue(221).close()
+        with pytest.raises(ForgejoAPIException):
+            _ = self.project.get_issue(221).labels
+        with pytest.raises(ForgejoAPIException):
+            self.project.get_issue(221).add_label("should fail")
+
+    def test_setters(self):
+        issue = self.project.get_issue(issue_id=245)
+
+        old_title = issue.title
+        issue.title = "test title"
+        assert issue.title != old_title
+        assert issue.title == "test title"
+
+        issue.title = old_title
+        assert issue.title == old_title
+
+        old_description = issue.description
+        issue.description = "test description"
+        assert issue.description != old_description
+        assert issue.description == "test description"
+
+        issue.description = old_description
+        assert issue.description == old_description
+
+    def test_get_comment(self):
+        comment = self.project.get_issue(244).get_comment(3174)
+        assert comment.body == "/packit test-comment"
