@@ -140,6 +140,11 @@ class ForgejoIssue(BaseIssue):
                 index=issue_id,
             )
 
+            # Forgejo API returns pull requests as well (not just issues)
+            # in case of issues, the pull_request field should be null
+            if issue.pull_request:
+                raise NotFoundError("")
+
         except NotFoundError as ex:
             raise ForgejoAPIException(f"Issue {issue_id} not found") from ex
         return ForgejoIssue(issue, project)
