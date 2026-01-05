@@ -6,6 +6,7 @@ from functools import partial
 from typing import Optional, Union
 
 from pyforgejo import NotFoundError
+from pyforgejo.core.api_error import ApiError
 from pyforgejo.types.issue import Issue as _issue
 
 from ogr.abstract import Issue, IssueComment, IssueLabel, IssueStatus
@@ -223,7 +224,11 @@ class ForgejoIssue(BaseIssue):
             for assignee in self.assignees
         ]
         updated_assignees = list(set(current_assignees + list(assignees)))
-        self.partial_api(self.api.edit_issue)(assignees=updated_assignees)
+
+        try:
+            self.partial_api(self.api.edit_issue)(assignees=updated_assignees)
+        except ApiError as ex:
+            raise ForgejoAPIException("Failed to assign issue, unknown user") from ex
 
     def add_label(self, *labels: str) -> None:
         self.partial_api(self.api.add_label)(labels=labels, index=self._index)
