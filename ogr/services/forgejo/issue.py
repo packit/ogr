@@ -61,7 +61,7 @@ class ForgejoIssue(BaseIssue):
 
     @title.setter
     def title(self, new_title: str) -> None:
-        self.partial_api(self.api.edit_issue)(title=new_title)
+        self._raw_issue = self.partial_api(self.api.edit_issue)(title=new_title)
 
     @property
     def id(self) -> int:
@@ -77,7 +77,7 @@ class ForgejoIssue(BaseIssue):
 
     @description.setter
     def description(self, text: str):
-        self.partial_api(self.api.edit_issue)(body=text)
+        self._raw_issue = self.partial_api(self.api.edit_issue)(body=text)
 
     @property
     def author(self) -> str:
