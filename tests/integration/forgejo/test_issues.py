@@ -164,6 +164,21 @@ class Issues(ForgejoTests):
         assert len(assignees) == 1
         assert assignees[0].login == "packit-validator"
 
+    def test_issue_add_assignee_without_redundant_api_call(self):
+        """
+        Remove the assignees from this issue before regenerating the response files:
+        https://v10.next.forgejo.org/packit-validator/ogr-tests/issues/224
+        """
+        issue = self.project.get_issue(245)
+        print(self.service.user.get_username())
+        assignees = issue.assignees
+
+        assert not assignees
+        issue.add_assignee("packit-validator")
+        assignees = issue.assignees
+        assert len(assignees) == 1
+        assert assignees[0].login == "packit-validator"
+
     def test_issue_no_such_assignee(self):
         issue = self.project.get_issue(245)
 

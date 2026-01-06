@@ -253,7 +253,7 @@ class ForgejoIssue(BaseIssue):
         updated_assignees = list(set(current_assignees + list(assignees)))
 
         try:
-            self.partial_api(self.api.edit_issue)(
+            self._raw_issue = self.partial_api(self.api.edit_issue)(
                 assignees=updated_assignees,
                 index=self._index,
             )
