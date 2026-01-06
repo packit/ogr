@@ -23,10 +23,10 @@ class ForgejoReaction(Reaction):
         super().__init__(raw_reaction)
         self._parent = parent
 
-    def __str__(self):
+    def __str__(self) -> str:
         return "Forgejo" + super().__str__()
 
-    def delete(self):
+    def delete(self) -> None:
         self._parent._client.issue.delete_comment_reaction(
             owner=self._parent._parent.project.namespace,
             repo=self._parent._parent.project.repo,

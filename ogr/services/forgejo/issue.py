@@ -7,6 +7,7 @@ from typing import Optional, Union
 
 from pyforgejo import NotFoundError
 from pyforgejo.core.api_error import ApiError
+from pyforgejo.types import User as PyforgejoUser
 from pyforgejo.types.issue import Issue as _issue
 
 from ogr.abstract import Issue, IssueComment, IssueLabel, IssueStatus
@@ -94,7 +95,7 @@ class ForgejoIssue(BaseIssue):
         return IssueStatus[self._raw_issue.state]
 
     @property
-    def assignees(self) -> list:
+    def assignees(self) -> list[PyforgejoUser]:
         return self._raw_issue.assignees or []
 
     @property
@@ -220,7 +221,7 @@ class ForgejoIssue(BaseIssue):
         )
         return ForgejoIssueComment(parent=self, raw_comment=comment)
 
-    def close(self) -> Issue:
+    def close(self) -> "Issue":
         self._raw_issue = self.partial_api(self.api.edit_issue)(
             state="closed",
             index=self._index,
@@ -241,7 +242,7 @@ class ForgejoIssue(BaseIssue):
             for raw_comment in comments
         )
 
-    def get_comment(self, comment_id: int):
+    def get_comment(self, comment_id: int) -> ForgejoIssueComment:
         return ForgejoIssueComment(
             self.partial_api(self.api.get_comment)(id=comment_id),
             parent=self,
