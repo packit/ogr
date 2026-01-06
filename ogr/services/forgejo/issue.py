@@ -248,10 +248,7 @@ class ForgejoIssue(BaseIssue):
         )
 
     def add_assignee(self, *assignees: str) -> None:
-        current_assignees = [
-            assignee.login if hasattr(assignee, "login") else assignee
-            for assignee in self.assignees
-        ]
+        current_assignees = [assignee.login for assignee in self.assignees]
         updated_assignees = list(set(current_assignees + list(assignees)))
 
         try:
