@@ -36,11 +36,11 @@ class Issues(ForgejoTests):
         assert len(issue_list) >= 3
 
     def test_get_issue_list_nonexisting_author(self):
-        issue_list = self.project.get_issue_list(
-            status=IssueStatus.all,
-            author="xyzidontexist",
-        )
-        assert len(issue_list) == 0
+        with pytest.raises(ForgejoAPIException):
+            self.project.get_issue_list(
+                status=IssueStatus.all,
+                author="xyzidontexist",
+            )
 
     def test_get_issue_list_assignee(self):
         issue_list = self.project.get_issue_list(

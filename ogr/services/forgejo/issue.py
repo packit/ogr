@@ -211,9 +211,7 @@ class ForgejoIssue(BaseIssue):
                 )
             ]
         except NotFoundError as ex:
-            if "user does not exist" in str(ex):
-                return []
-            raise ForgejoAPIException(f"Failed to list issues {ex}") from ex
+            raise ForgejoAPIException(f"Failed to list issues: {ex}") from ex
 
     def comment(self, body: str) -> IssueComment:
         comment = self.partial_api(self.api.create_comment)(
