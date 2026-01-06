@@ -3,7 +3,6 @@
 
 import datetime
 import logging
-from urllib.parse import urlparse
 
 from pyforgejo.core.api_error import ApiError
 from pyforgejo.types import Comment as _ForgejoComment
@@ -55,12 +54,6 @@ class ForgejoComment(Comment):
             id=self._id,
             body=new_body,
         )
-
-    def _get_owner_and_repo(self):
-        issue_url = self._raw_comment.issue_url
-        parts = urlparse(issue_url).path.strip("/").split("/")
-        namespace, repo = parts[0], parts[1]
-        return (namespace, repo)
 
     @property
     def edited(self) -> datetime.datetime:
