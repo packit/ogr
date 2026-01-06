@@ -305,7 +305,9 @@ class ForgejoPullRequest(BasePullRequest):
             )
 
         except NotFoundError as ex:
-            raise NotFoundError(f"{ex}") from ex
+            raise ForgejoAPIException(
+                "There was an error when retrieving PR comments.",
+            ) from ex
 
         if reverse:
             comments = list(reversed(comments))
