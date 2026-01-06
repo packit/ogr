@@ -9,6 +9,7 @@ from ogr.abstract import IssueStatus
 from ogr.exceptions import (
     ForgejoAPIException,
     GitForgeInternalError,
+    IssueTrackerDisabled,
 )
 from tests.integration.forgejo.base import ForgejoTests
 
@@ -216,3 +217,11 @@ class Issues(ForgejoTests):
     def test_get_comment(self):
         comment = self.project.get_issue(244).get_comment(3174)
         assert comment.body == "/packit test-comment"
+
+    def test_get_with_disabled_issues(self):
+        forks = self.project.get_forks()
+        fork = next(iter(forks))
+        assert fork.namespace == "mfocko"
+
+        with pytest.raises(IssueTrackerDisabled):
+            fork.get_issue(issue_id=245)
