@@ -152,7 +152,7 @@ class Issues(ForgejoTests):
     def test_issue_add_assignee(self):
         """
         Remove the assignees from this issue before regenerating the response files:
-        https://v10.next.forgejo.org/packit-validator/ogr-tests/issues/224
+        https://v10.next.forgejo.org/packit-validator/ogr-tests/issues/245
         """
         issue = self.project.get_issue(245)
         print(self.service.user.get_username())
@@ -167,7 +167,7 @@ class Issues(ForgejoTests):
     def test_issue_add_assignee_without_redundant_api_call(self):
         """
         Remove the assignees from this issue before regenerating the response files:
-        https://v10.next.forgejo.org/packit-validator/ogr-tests/issues/224
+        https://v10.next.forgejo.org/packit-validator/ogr-tests/issues/245
         """
         issue = self.project.get_issue(245)
         print(self.service.user.get_username())
