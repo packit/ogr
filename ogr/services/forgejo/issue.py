@@ -11,7 +11,11 @@ from pyforgejo.types import User as PyforgejoUser
 from pyforgejo.types.issue import Issue as _issue
 
 from ogr.abstract import Issue, IssueComment, IssueLabel, IssueStatus
-from ogr.exceptions import ForgejoAPIException, IssueTrackerDisabled
+from ogr.exceptions import (
+    ForgejoAPIException,
+    IssueTrackerDisabled,
+    OperationNotSupported,
+)
 from ogr.services import forgejo
 from ogr.services.base import BaseIssue
 from ogr.services.forgejo.comments import ForgejoIssueComment
@@ -116,7 +120,7 @@ class ForgejoIssue(BaseIssue):
         assignees: Optional[list[str]] = None,
     ) -> "Issue":
         if private:
-            raise NotImplementedError()
+            raise OperationNotSupported("Private issues are not supported by Forgejo")
         if not project.has_issues:
             raise IssueTrackerDisabled()
 
