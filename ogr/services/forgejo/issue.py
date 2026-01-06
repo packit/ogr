@@ -176,7 +176,7 @@ class ForgejoIssue(BaseIssue):
                 raise NotFoundError("")
 
         except NotFoundError as ex:
-            raise ForgejoAPIException(f"Issue {issue_id} not found") from ex
+            raise ForgejoAPIException(f"Issue {issue_id} not found: {ex}") from ex
         return ForgejoIssue(issue, project)
 
     @staticmethod
@@ -258,7 +258,9 @@ class ForgejoIssue(BaseIssue):
                 index=self._index,
             )
         except ApiError as ex:
-            raise ForgejoAPIException("Failed to assign issue, unknown user") from ex
+            raise ForgejoAPIException(
+                "Failed to assign issue, unknown user: {ex}",
+            ) from ex
 
     def add_label(self, *labels: str) -> None:
         self.partial_api(self.api.add_label)(labels=labels, index=self._index)
