@@ -24,7 +24,6 @@ class ForgejoIssue(BaseIssue):
 
     def __init__(self, raw_issue: _issue, project: "forgejo.ForgejoProject"):
         super().__init__(raw_issue, project)
-        self._raw_issue = raw_issue
 
     @property
     def _index(self):
