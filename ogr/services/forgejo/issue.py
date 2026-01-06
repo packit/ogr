@@ -95,7 +95,7 @@ class ForgejoIssue(BaseIssue):
 
     @property
     def assignees(self) -> list:
-        return getattr(self._raw_issue, "assignees", []) or []
+        return self._raw_issue.assignees or []
 
     @property
     def labels(self) -> list[IssueLabel]:
