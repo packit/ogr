@@ -49,11 +49,6 @@ class ForgejoIssue(BaseIssue):
             Callable with pre-injected parameters.
         """
         params = {"owner": self.project.namespace, "repo": self.project.repo}
-
-        # Include the issue index only for methods that need it
-        if "get_issue" in str(method) or "edit_issue" in str(method):
-            params["index"] = self._index
-
         return partial(method, *args, **kwargs, **params)
 
     @property
@@ -62,7 +57,10 @@ class ForgejoIssue(BaseIssue):
 
     @title.setter
     def title(self, new_title: str) -> None:
-        self._raw_issue = self.partial_api(self.api.edit_issue)(title=new_title)
+        self._raw_issue = self.partial_api(self.api.edit_issue)(
+            title=new_title,
+            index=self._index,
+        )
 
     @property
     def id(self) -> int:
@@ -78,7 +76,10 @@ class ForgejoIssue(BaseIssue):
 
     @description.setter
     def description(self, text: str):
-        self._raw_issue = self.partial_api(self.api.edit_issue)(body=text)
+        self._raw_issue = self.partial_api(self.api.edit_issue)(
+            body=text,
+            index=self._index,
+        )
 
     @property
     def author(self) -> str:
@@ -222,7 +223,10 @@ class ForgejoIssue(BaseIssue):
         return ForgejoIssueComment(parent=self, raw_comment=comment)
 
     def close(self) -> Issue:
-        self._raw_issue = self.partial_api(self.api.edit_issue)(state="closed")
+        self._raw_issue = self.partial_api(self.api.edit_issue)(
+            state="closed",
+            index=self._index,
+        )
 
         return self
 
@@ -253,7 +257,10 @@ class ForgejoIssue(BaseIssue):
         updated_assignees = list(set(current_assignees + list(assignees)))
 
         try:
-            self.partial_api(self.api.edit_issue)(assignees=updated_assignees)
+            self.partial_api(self.api.edit_issue)(
+                assignees=updated_assignees,
+                index=self._index,
+            )
         except ApiError as ex:
             raise ForgejoAPIException("Failed to assign issue, unknown user") from ex
 
