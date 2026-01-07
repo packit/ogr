@@ -129,42 +129,28 @@ class ForgejoIssue(BaseIssue):
         if not project.has_issues:
             raise IssueTrackerDisabled()
 
-        label_ids = []
-
-        if labels:
-            available_labels = project.service.api.issue.list_labels(
-                owner=project.namespace,
-                repo=project.repo,
-            )
-
-            for label in labels:
-                # get id in case label already exists
-                if matches := [
-                    old_label
-                    for old_label in available_labels
-                    if old_label.name == label
-                ]:
-                    label_ids.append(matches[0].id)
-
-                # create new label in case it doesn't exist
-                else:
-                    new_label = project.service.api.issue.create_label(
-                        owner=project.namespace,
-                        repo=project.repo,
-                        color="428bca",  # default label color
-                        name=label,
-                    )
-                    label_ids.append(new_label.id)
-
+        # The API requires ids of labels in the create_issue method
+        # which would lead to having to retrieve existing labels and
+        # needing to find the ids of those we need to add to the issue;
+        # A separate API call would also need to be made to create each
+        # label that does not yet exist, potentially leading to many
+        # API calls and unclear code, so labels are instead added seprately
+        # below after creating a new issue without labels
         issue = project.service.api.issue.create_issue(
             owner=project.namespace,
             repo=project.repo,
             title=title,
             body=body,
-            labels=label_ids,
+            labels=[],
             assignees=assignees,
         )
-        return ForgejoIssue(issue, project)
+
+        forgejo_issue = ForgejoIssue(issue, project)
+
+        if labels:
+            forgejo_issue.add_label(*labels)
+
+        return forgejo_issue
 
     @staticmethod
     def get(project: "forgejo.ForgejoProject", issue_id: int) -> "Issue":
