@@ -171,7 +171,7 @@ class Comments(GithubTests):
         reaction.delete()
         assert len(issue_comment.get_reactions()) == 0
 
-    def test_get_reactions(self):
+    def test_get_pr_reactions(self):
         pr = self.service.get_project(repo="playground", namespace="nikromen").get_pr(4)
         pr_comment = pr.comment(datetime.now().strftime("%m/%d/%Y"))
 
@@ -180,6 +180,7 @@ class Comments(GithubTests):
         pr_comment.add_reaction("confused")
         assert len(pr_comment.get_reactions()) == 3
 
+    def test_get_issue_reactions(self):
         issue = self.service.get_project(
             repo="playground",
             namespace="nikromen",
@@ -189,4 +190,5 @@ class Comments(GithubTests):
         issue_comment.add_reaction("+1")
         issue_comment.add_reaction("-1")
         issue_comment.add_reaction("confused")
-        assert len(pr_comment.get_reactions()) == 3
+        issue_comment.add_reaction("heart")
+        assert len(issue_comment.get_reactions()) == 4
