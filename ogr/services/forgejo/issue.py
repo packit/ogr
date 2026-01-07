@@ -56,6 +56,10 @@ class ForgejoIssue(BaseIssue):
         params = {"owner": self.project.namespace, "repo": self.project.repo}
         return partial(method, *args, **kwargs, **params)
 
+    def __update_info(self) -> None:
+        """Refresh the local issue object with the latest data from the server."""
+        self._raw_issue = self.partial_api(self.api.get_issue)(index=self._index)
+
     @property
     def title(self) -> str:
         return self._raw_issue.title
@@ -268,3 +272,4 @@ class ForgejoIssue(BaseIssue):
 
     def add_label(self, *labels: str) -> None:
         self.partial_api(self.api.add_label)(labels=labels, index=self._index)
+        self.__update_info()
