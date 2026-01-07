@@ -1,5 +1,6 @@
 # Copyright Contributors to the Packit project.
 # SPDX-License-Identifier: MIT
+import itertools
 from collections.abc import Iterable
 from datetime import datetime
 from functools import partial
@@ -253,7 +254,7 @@ class ForgejoIssue(BaseIssue):
 
     def add_assignee(self, *assignees: str) -> None:
         current_assignees = [assignee.login for assignee in self.assignees]
-        updated_assignees = list(set(current_assignees + list(assignees)))
+        updated_assignees = set(itertools.chain(current_assignees, assignees))
 
         try:
             self._raw_issue = self.partial_api(self.api.edit_issue)(
