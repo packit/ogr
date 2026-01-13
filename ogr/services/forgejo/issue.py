@@ -28,6 +28,11 @@ class ForgejoIssue(BaseIssue):
     project: "forgejo.ForgejoProject"
 
     def __init__(self, raw_issue: _issue, project: "forgejo.ForgejoProject"):
+        if raw_issue.pull_request:
+            raise ForgejoAPIException(
+                f"Requested issue #{raw_issue.number} is a pull request",
+            )
+
         super().__init__(raw_issue, project)
 
     @property
@@ -159,13 +164,6 @@ class ForgejoIssue(BaseIssue):
                 repo=project.repo,
                 index=issue_id,
             )
-
-            # Forgejo API returns pull requests as well (not just issues)
-            # in case of issues, the pull_request field should be None
-            if issue.pull_request:
-                raise NotFoundError(
-                    "An issue was requested, but the id provided coinsides with a PR instead.",
-                )
 
         except NotFoundError as ex:
             raise ForgejoAPIException(f"Issue {issue_id} not found: {ex}") from ex

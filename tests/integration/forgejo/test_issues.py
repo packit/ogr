@@ -240,3 +240,11 @@ class Issues(ForgejoTests):
 
         with pytest.raises(IssueTrackerDisabled):
             fork.get_issue(issue_id=245)
+
+    def test_get_with_id_of_pr(self):
+        pr_id = 221
+
+        # should raise an error when retrieving
+        # an issue, but providing the id of a PR instead
+        with pytest.raises(ForgejoAPIException):
+            self.project.get_issue(pr_id)
