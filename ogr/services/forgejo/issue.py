@@ -43,7 +43,7 @@ class ForgejoIssue(BaseIssue):
         """Returns a partial API call for ForgejoIssue.
 
 
-        Injects owner, repo, and index parameters for the calls to issue API endpoints.
+        Injects owner and repo parameters for the calls to issue API endpoints.
 
         Args:
             method: Specific method on the Pyforgejo API that is to be wrapped.
