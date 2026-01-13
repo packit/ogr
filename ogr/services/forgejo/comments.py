@@ -4,6 +4,7 @@
 import datetime
 import logging
 
+from pydantic import ValidationError
 from pyforgejo.core.api_error import ApiError
 from pyforgejo.types import Comment as _ForgejoComment
 from pyforgejo.types.reaction import Reaction as _ForgejoReaction
@@ -72,8 +73,11 @@ class ForgejoComment(Comment):
                 id=self._id,
             )
 
-        # pyforgejo raises ApiError when no reactions are found
-        except ApiError:
+        # in case no reactions exist:
+        # re-recording causes pyforgejo to raise pydantic's ValidationError
+        # re-running tests causes pyforgejo's ApiError to be raised instead
+        # both need to be caught
+        except (ValidationError, ApiError):
             return []
 
         return [
