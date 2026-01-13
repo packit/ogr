@@ -91,6 +91,7 @@ class Comments(ForgejoTests):
             ),
         )
         assert len(comments) == 1
+        assert comments[0].author == "packit-validator"
         assert "nicely" in comments[0].body
 
     def test_pr_comments_author(self):
@@ -98,6 +99,7 @@ class Comments(ForgejoTests):
             self.project.get_pr(209).get_comments(author="packit-validator"),
         )
         assert len(comments) == 3
+        assert comments[0].author == "packit-validator"
         assert comments[0].body.endswith("TM")
 
     def test_issue_comments_author_regex(self):
@@ -108,6 +110,7 @@ class Comments(ForgejoTests):
             ),
         )
         assert len(comments) == 1
+        assert comments[0].author == "packit-validator"
         assert comments[0].body.startswith("/packit")
 
     def test_issue_comments_author(self):
@@ -119,6 +122,7 @@ class Comments(ForgejoTests):
         assert new_comments[0].author == "packit-validator"
 
         assert len(comments) == 3
+        assert comments[0].author == "packit-validator"
         assert comments[0].body.startswith("/packit")
         assert comments[2].body.endswith("indeed")
 
