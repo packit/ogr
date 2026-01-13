@@ -161,7 +161,7 @@ class Comments(ForgejoTests):
         assert comments[0].body == before_comment
 
     def test_pr_react_to_comment_and_delete(self):
-        pr = self.project.get_pr(209)
+        pr = self.project.get_pr(199)
         pr_comment = pr.comment("React to this comment")
 
         reaction = pr_comment.add_reaction("+1")
@@ -171,7 +171,7 @@ class Comments(ForgejoTests):
         assert len(pr_comment.get_reactions()) == 0
 
     def test_issue_react_to_comment_and_delete(self):
-        issue = self.project.get_issue(244)
+        issue = self.project.get_issue(245)
         issue_comment = issue.comment("This is a nice comment to react to")
 
         reaction = issue_comment.add_reaction("confused")
@@ -181,7 +181,7 @@ class Comments(ForgejoTests):
         assert len(issue_comment.get_reactions()) == 0
 
     def test_pr_get_reactions(self):
-        pr = self.project.get_pr(209)
+        pr = self.project.get_pr(199)
         pr_comment = pr.comment("Such nice weather")
 
         pr_comment.add_reaction("+1")
@@ -190,7 +190,7 @@ class Comments(ForgejoTests):
         assert len(pr_comment.get_reactions()) == 3
 
     def test_issue_get_reactions(self):
-        issue = self.project.get_issue(244)
+        issue = self.project.get_issue(245)
         issue_comment = issue.comment("Nice weather indeed")
 
         issue_comment.add_reaction("+1")
