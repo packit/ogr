@@ -66,9 +66,8 @@ class ForgejoComment(Comment):
         return self._parent.project.service.api
 
     def get_reactions(self) -> list[Reaction]:
-        client = self._client
         try:
-            reactions = client.issue.get_comment_reactions(
+            reactions = self._client.issue.get_comment_reactions(
                 owner=self._parent.project.namespace,
                 repo=self._parent.project.repo,
                 id=self._id,
@@ -87,8 +86,7 @@ class ForgejoComment(Comment):
         ]
 
     def add_reaction(self, reaction: str) -> Reaction:
-        client = self._client
-        raw_reaction = client.issue.post_comment_reaction(
+        raw_reaction = self._client.issue.post_comment_reaction(
             owner=self._parent.project.namespace,
             repo=self._parent.project.repo,
             id=self._id,
