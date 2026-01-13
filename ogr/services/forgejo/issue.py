@@ -165,9 +165,11 @@ class ForgejoIssue(BaseIssue):
             )
 
             # Forgejo API returns pull requests as well (not just issues)
-            # in case of issues, the pull_request field should be null
+            # in case of issues, the pull_request field should be None
             if issue.pull_request:
-                raise NotFoundError("")
+                raise NotFoundError(
+                    "An issue was requested, but the id provided coinsides with a PR instead.",
+                )
 
         except NotFoundError as ex:
             raise ForgejoAPIException(f"Issue {issue_id} not found: {ex}") from ex
