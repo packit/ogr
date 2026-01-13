@@ -80,9 +80,9 @@ class ForgejoIssue(BaseIssue):
         return self._raw_issue.body
 
     @description.setter
-    def description(self, text: str):
+    def description(self, new_description: str):
         self._raw_issue = self.partial_api(self.api.edit_issue)(
-            body=text,
+            body=new_description,
             index=self.id,
         )
 
