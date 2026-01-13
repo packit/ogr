@@ -168,6 +168,7 @@ class Comments(ForgejoTests):
         assert len(pr_comment.get_reactions()) == 1
 
         reaction.delete()
+        assert not reaction._raw_reaction
         assert len(pr_comment.get_reactions()) == 0
 
     def test_issue_react_to_comment_and_delete(self):
@@ -178,6 +179,7 @@ class Comments(ForgejoTests):
         assert len(issue_comment.get_reactions()) == 1
 
         reaction.delete()
+        assert not reaction._raw_reaction
         assert len(issue_comment.get_reactions()) == 0
 
     def test_pr_get_reactions(self):

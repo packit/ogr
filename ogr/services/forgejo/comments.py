@@ -28,7 +28,8 @@ class ForgejoReaction(Reaction):
         return "Forgejo" + super().__str__()
 
     def delete(self) -> None:
-        self._parent._client.issue.delete_comment_reaction(
+        # self._raw_reaction is set to None after deleting
+        self._raw_reaction = self._parent._client.issue.delete_comment_reaction(
             owner=self._parent._parent.project.namespace,
             repo=self._parent._parent.project.repo,
             id=self._parent._id,
