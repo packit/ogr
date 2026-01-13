@@ -31,10 +31,6 @@ class ForgejoIssue(BaseIssue):
         super().__init__(raw_issue, project)
 
     @property
-    def _index(self):
-        return self._raw_issue.number
-
-    @property
     def api(self):
         """Returns the issue API client from pyforgejo."""
         return self.project.service.api.issue
@@ -58,7 +54,7 @@ class ForgejoIssue(BaseIssue):
 
     def __update_info(self) -> None:
         """Refresh the local issue object with the latest data from the server."""
-        self._raw_issue = self.partial_api(self.api.get_issue)(index=self._index)
+        self._raw_issue = self.partial_api(self.api.get_issue)(index=self.id)
 
     @property
     def title(self) -> str:
@@ -68,7 +64,7 @@ class ForgejoIssue(BaseIssue):
     def title(self, new_title: str) -> None:
         self._raw_issue = self.partial_api(self.api.edit_issue)(
             title=new_title,
-            index=self._index,
+            index=self.id,
         )
 
     @property
@@ -87,7 +83,7 @@ class ForgejoIssue(BaseIssue):
     def description(self, text: str):
         self._raw_issue = self.partial_api(self.api.edit_issue)(
             body=text,
-            index=self._index,
+            index=self.id,
         )
 
     @property
@@ -213,21 +209,21 @@ class ForgejoIssue(BaseIssue):
     def comment(self, body: str) -> IssueComment:
         comment = self.partial_api(self.api.create_comment)(
             body=body,
-            index=self._index,
+            index=self.id,
         )
         return ForgejoIssueComment(parent=self, raw_comment=comment)
 
     def close(self) -> "Issue":
         self._raw_issue = self.partial_api(self.api.edit_issue)(
             state="closed",
-            index=self._index,
+            index=self.id,
         )
 
         return self
 
     def _get_all_comments(self, reverse: bool = False) -> Iterable[IssueComment]:
         comments = self.partial_api(self.api.get_comments)(
-            index=self._index,
+            index=self.id,
         )
 
         if reverse:
@@ -251,7 +247,7 @@ class ForgejoIssue(BaseIssue):
         try:
             self._raw_issue = self.partial_api(self.api.edit_issue)(
                 assignees=updated_assignees,
-                index=self._index,
+                index=self.id,
             )
         except ApiError as ex:
             raise ForgejoAPIException(
@@ -259,5 +255,5 @@ class ForgejoIssue(BaseIssue):
             ) from ex
 
     def add_label(self, *labels: str) -> None:
-        self.partial_api(self.api.add_label)(labels=labels, index=self._index)
+        self.partial_api(self.api.add_label)(labels=labels, index=self.id)
         self.__update_info()
