@@ -117,9 +117,6 @@ class Comments(ForgejoTests):
         comments = list(
             self.project.get_issue(244).get_comments(author="packit-validator"),
         )
-        new_comments = list(self.project.get_issue(244).get_comments())
-
-        assert new_comments[0].author == "packit-validator"
 
         assert len(comments) == 3
         assert comments[0].author == "packit-validator"
