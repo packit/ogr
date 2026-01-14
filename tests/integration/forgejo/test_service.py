@@ -42,3 +42,8 @@ def test_project_create(service, kwargs_):
     # Try to fetch newly created project
     project = service.get_project(**kwargs_fetch)
     assert project.forgejo_repo
+
+
+def test_get_rate_limit_remaining(service):
+    remaining = service.get_rate_limit_remaining()
+    assert remaining is None

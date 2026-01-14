@@ -141,3 +141,13 @@ class GitService(OgrAbstractClass):
         Get a group by name.
         """
         raise NotImplementedError
+
+    def get_rate_limit_remaining(self) -> Optional[int]:
+        """
+        Get the remaining rate limit.
+
+        Returns:
+            Number of remaining API requests, or None if rate limit information
+            is not available.
+        """
+        raise NotImplementedError

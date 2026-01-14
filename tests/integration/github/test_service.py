@@ -131,3 +131,7 @@ class Service(GithubTests):
         # Verify that the exception handler is applied to static methods
         with pytest.raises(GithubAPIException):
             GithubPullRequest.get(self.ogr_project, 1)
+
+    def test_get_rate_limit_remaining(self):
+        remaining = self.service.get_rate_limit_remaining()
+        assert remaining >= 100
