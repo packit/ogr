@@ -188,9 +188,9 @@ class ForgejoIssue(BaseIssue):
             parameters["created_by"] = author
         if assignee:
             parameters["assigned_by"] = assignee
-
         if labels:
             parameters["labels"] = labels
+
         try:
             return [
                 ForgejoIssue(issue, project)
