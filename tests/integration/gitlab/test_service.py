@@ -143,3 +143,7 @@ class Service(GitlabTests):
         # Verify that the exception handler is applied to static methods
         with pytest.raises(GitlabAPIException):
             GitlabPullRequest.get(self.project, 1)
+
+    def test_get_rate_limit_remaining(self):
+        remaining = self.service.get_rate_limit_remaining()
+        assert remaining >= 100

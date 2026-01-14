@@ -94,3 +94,7 @@ class Service(PagureTests):
         assert members
         assert len(members) > 1
         assert "lbarczio" in members
+
+    def test_get_rate_limit_remaining(self):
+        remaining = self.service.get_rate_limit_remaining()
+        assert remaining is None

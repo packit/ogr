@@ -172,3 +172,29 @@ class GitlabService(BaseGitService):
             )
             for project in projects_to_convert
         ]
+
+    def get_rate_limit_remaining(self) -> Optional[int]:
+        # python-gitlab doesn't have get_rate_limit(), so we make a lightweight
+        # HEAD request to get rate limit headers from GitLab API
+        # GitLab returns rate limit in headers: ratelimit-remaining
+        # Use obey_rate_limit=False to prevent blocking if we've already hit the limit
+        try:
+            headers = self.gitlab_instance.http_head("/user", obey_rate_limit=False)
+            remaining = headers.get("ratelimit-remaining")
+            if remaining:
+                return int(remaining)
+        except gitlab.GitlabHttpError as e:
+            # If we get a 429, we've hit the rate limit
+            if e.response_code == 429:
+                logger.error(
+                    f"Rate limit has been exceeded: {e}",
+                )
+                return 0
+            logger.error(
+                f"Could not get rate limit from GitLab: {e}",
+            )
+        except Exception as e:
+            logger.error(
+                f"Could not get rate limit from GitLab: {e}",
+            )
+        return None

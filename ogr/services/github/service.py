@@ -239,3 +239,15 @@ class GithubService(BaseGitService):
             ]
 
         return projects
+
+    def get_rate_limit_remaining(self) -> Optional[int]:
+        rate_limit = self.github.get_rate_limit()
+        # Handle both old and new PyGithub API versions
+        # Old API in f42 and f43: rate_limit.resources.core.remaining
+        # New API in rawhide (f44): rate_limit.core.remaining (or rate_limit.remaining)
+        try:
+            # since PyGithub 2.7.0
+            return rate_limit.resources.core.remaining
+        except AttributeError:
+            return rate_limit.core.remaining
+        return None
