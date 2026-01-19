@@ -1,3 +1,7 @@
+# 0.60.0
+
+- A new method `get_rate_limit_remaining()` to check rate limit thresholds has been added to the service API. (#970)
+
 # 0.59.0
 
 - Improved handling of retries after errors to avoid hitting rate limits if possible. (#958)
