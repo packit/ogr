@@ -173,7 +173,11 @@ class GitlabService(BaseGitService):
             for project in projects_to_convert
         ]
 
-    def get_rate_limit_remaining(self) -> Optional[int]:
+    def get_rate_limit_remaining(
+        self,
+        namespace: Optional[str] = None,
+        repo: Optional[str] = None,
+    ) -> Optional[int]:
         # python-gitlab doesn't have get_rate_limit(), so we make a lightweight
         # HEAD request to get rate limit headers from GitLab API
         # GitLab returns rate limit in headers: ratelimit-remaining
@@ -191,10 +195,10 @@ class GitlabService(BaseGitService):
                 )
                 return 0
             logger.error(
-                f"Could not get rate limit from GitLab: {e}",
+                f"Could not get rate limit from GitLab instance {self.gitlab_instance.url}: {e}",
             )
         except Exception as e:
             logger.error(
-                f"Could not get rate limit from GitLab: {e}",
+                f"Could not get rate limit from GitLab instance {self.gitlab_instance.url}: {e}",
             )
         return None
