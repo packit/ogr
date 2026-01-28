@@ -191,10 +191,10 @@ class GitlabService(BaseGitService):
                 )
                 return 0
             logger.error(
-                f"Could not get rate limit from GitLab: {e}",
+                f"Could not get rate limit from GitLab instance {self.gitlab_instance.url}: {e}",
             )
         except Exception as e:
             logger.error(
-                f"Could not get rate limit from GitLab: {e}",
+                f"Could not get rate limit from GitLab instance {self.gitlab_instance.url}: {e}",
             )
         return None

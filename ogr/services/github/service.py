@@ -240,14 +240,44 @@ class GithubService(BaseGitService):
 
         return projects
 
-    def get_rate_limit_remaining(self) -> Optional[int]:
-        rate_limit = self.github.get_rate_limit()
+    def _get_rate_limit_value(self, rate_limit) -> int:
         # Handle both old and new PyGithub API versions
         # Old API in f42 and f43: rate_limit.resources.core.remaining
         # New API in rawhide (f44): rate_limit.core.remaining (or rate_limit.remaining)
         try:
-            # since PyGithub 2.7.0
             return rate_limit.resources.core.remaining
         except AttributeError:
             return rate_limit.core.remaining
-        return None
+
+    def get_rate_limit_remaining(
+        self,
+        namespace: Optional[str] = None,
+        repo: Optional[str] = None,
+    ) -> Optional[int]:
+        # If namespace and repo are provided, use repository-specific instance
+        # (needed for GithubApp/Tokman auth where service.github is None)
+        if namespace and repo:
+            try:
+                github_instance = self.get_pygithub_instance(namespace, repo)
+                rate_limit = github_instance.get_rate_limit()
+                return self._get_rate_limit_value(rate_limit)
+            except Exception as ex:
+                logger.error(
+                    f"Failed to get rate limit from repository-specific instance "
+                    f"for {namespace}/{repo}: {ex}",
+                )
+                return None
+
+        # Try using generic github instance
+        if not self.github:
+            auth_type = (
+                type(self.authentication).__name__ if self.authentication else "unknown"
+            )
+            raise GithubAPIException(
+                f"Github instance is not available for rate limit check. "
+                f"This typically occurs when using {auth_type} authentication, "
+                f"which requires repository-specific instances. ",
+            )
+
+        rate_limit = self.github.get_rate_limit()
+        return self._get_rate_limit_value(rate_limit)
