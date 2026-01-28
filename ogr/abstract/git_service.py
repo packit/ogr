@@ -142,9 +142,18 @@ class GitService(OgrAbstractClass):
         """
         raise NotImplementedError
 
-    def get_rate_limit_remaining(self) -> Optional[int]:
+    def get_rate_limit_remaining(
+        self,
+        namespace: Optional[str] = None,
+        repo: Optional[str] = None,
+    ) -> Optional[int]:
         """
-        Get the remaining rate limit.
+        Get the remaining rate limit. If namespace and repo are set,
+        returns repository-specific rate limit.
+
+        Args:
+            namespace: Namespace of the project.
+            repo: Repository name.
 
         Returns:
             Number of remaining API requests, or None if rate limit information
