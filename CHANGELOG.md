@@ -1,3 +1,7 @@
+# 0.60.1
+
+- The method `get_rate_limit_remaining()` now also supports repository-specific checks for GitHub. (#972)
+
 # 0.60.0
 
 - A new method `get_rate_limit_remaining()` to check rate limit thresholds has been added to the service API. (#970)
