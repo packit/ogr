@@ -404,7 +404,11 @@ class PagureService(BaseGitService):
         url = self.get_api_url("group", group_name)
         return PagureGroup(group_name, self.call_api(url))
 
-    def get_rate_limit_remaining(self) -> Optional[int]:
+    def get_rate_limit_remaining(
+        self,
+        namespace: Optional[str] = None,
+        repo: Optional[str] = None,
+    ) -> Optional[int]:
         """
         There is no way to check rate limit status from Pagure API.
         """

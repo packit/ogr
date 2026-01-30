@@ -88,7 +88,11 @@ class ForgejoService(BaseGitService):
 
         return self.get_project(repo=repo, namespace=namespace)
 
-    def get_rate_limit_remaining(self) -> Optional[int]:
+    def get_rate_limit_remaining(
+        self,
+        namespace: Optional[str] = None,
+        repo: Optional[str] = None,
+    ) -> Optional[int]:
         """
         There is no way to check rate limit status from Forgejo API.
         """
