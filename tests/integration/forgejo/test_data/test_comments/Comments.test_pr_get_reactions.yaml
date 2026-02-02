@@ -1,0 +1,650 @@
+_requre:
+  DataTypes: 1
+  key_strategy: StorageKeysInspectSimple
+  version_storage_file: 3
+httpx._client:
+  send:
+    GET:
+      https://v10.next.forgejo.org/api/v1/repos/packit-validator/ogr-tests/issues/comments/3243/reactions:
+      - metadata:
+          latency: 0.2654452323913574
+          module_call_list:
+          - unittest.case
+          - requre.record_and_replace
+          - tests.integration.forgejo.test_comments
+          - ogr.abstract.exception
+          - ogr.services.forgejo.comments
+          - pyforgejo.issue.client
+          - pyforgejo.issue.raw_client
+          - pyforgejo.core.http_client
+          - httpx._client
+          - requre.objects
+          - requre.cassette
+          - httpx._client
+          - send
+        output:
+          __store_indicator: 2
+          _content:
+          - content: '+1'
+            created_at: '2026-01-13T09:53:14Z'
+            user:
+              active: true
+              avatar_url: https://v10.next.forgejo.org/avatars/9c4cb263b7809b180c92b4970f7d0847
+              created: '2025-02-14T09:34:00Z'
+              description: ''
+              email: public-repos-bot@packit.dev
+              followers_count: 0
+              following_count: 0
+              full_name: ''
+              html_url: https://v10.next.forgejo.org/packit-validator
+              id: 618
+              is_admin: false
+              language: en-US
+              last_login: '2026-01-13T09:49:54Z'
+              location: ''
+              login: packit-validator
+              login_name: ''
+              prohibit_login: false
+              pronouns: ''
+              restricted: false
+              source_id: 0
+              starred_repos_count: 0
+              username: packit-validator
+              visibility: public
+              website: ''
+          - content: '-1'
+            created_at: '2026-01-13T09:53:15Z'
+            user:
+              active: true
+              avatar_url: https://v10.next.forgejo.org/avatars/9c4cb263b7809b180c92b4970f7d0847
+              created: '2025-02-14T09:34:00Z'
+              description: ''
+              email: public-repos-bot@packit.dev
+              followers_count: 0
+              following_count: 0
+              full_name: ''
+              html_url: https://v10.next.forgejo.org/packit-validator
+              id: 618
+              is_admin: false
+              language: en-US
+              last_login: '2026-01-13T09:49:54Z'
+              location: ''
+              login: packit-validator
+              login_name: ''
+              prohibit_login: false
+              pronouns: ''
+              restricted: false
+              source_id: 0
+              starred_repos_count: 0
+              username: packit-validator
+              visibility: public
+              website: ''
+          - content: confused
+            created_at: '2026-01-13T09:53:15Z'
+            user:
+              active: true
+              avatar_url: https://v10.next.forgejo.org/avatars/9c4cb263b7809b180c92b4970f7d0847
+              created: '2025-02-14T09:34:00Z'
+              description: ''
+              email: public-repos-bot@packit.dev
+              followers_count: 0
+              following_count: 0
+              full_name: ''
+              html_url: https://v10.next.forgejo.org/packit-validator
+              id: 618
+              is_admin: false
+              language: en-US
+              last_login: '2026-01-13T09:49:54Z'
+              location: ''
+              login: packit-validator
+              login_name: ''
+              prohibit_login: false
+              pronouns: ''
+              restricted: false
+              source_id: 0
+              starred_repos_count: 0
+              username: packit-validator
+              visibility: public
+              website: ''
+          _elapsed: 0.265212
+          encoding: utf-8
+          headers:
+            cache-control: max-age=0, private, must-revalidate, no-transform
+            content-length: '1988'
+            content-type: application/json;charset=utf-8
+            date: Tue, 13 Jan 2026 09:53:16 GMT
+            vary: Origin
+            x-content-type-options: nosniff
+            x-frame-options: SAMEORIGIN
+          next_request: null
+          status_code: 200
+      https://v10.next.forgejo.org/api/v1/repos/packit-validator/ogr-tests/pulls/199:
+      - metadata:
+          latency: 0.705533504486084
+          module_call_list:
+          - unittest.case
+          - requre.record_and_replace
+          - tests.integration.forgejo.test_comments
+          - ogr.abstract.exception
+          - ogr.utils
+          - ogr.abstract.exception
+          - ogr.services.forgejo.pull_request
+          - pyforgejo.repository.client
+          - pyforgejo.repository.raw_client
+          - pyforgejo.core.http_client
+          - httpx._client
+          - requre.objects
+          - requre.cassette
+          - httpx._client
+          - send
+        output:
+          __store_indicator: 2
+          _content:
+            additions: 1
+            allow_maintainer_edit: false
+            assignee: null
+            assignees: null
+            base:
+              label: master
+              ref: master
+              repo:
+                allow_fast_forward_only_merge: true
+                allow_merge_commits: true
+                allow_rebase: true
+                allow_rebase_explicit: true
+                allow_rebase_update: true
+                allow_squash_merge: true
+                archived: false
+                archived_at: '1970-01-01T00:00:00Z'
+                avatar_url: ''
+                clone_url: https://v10.next.forgejo.org/packit-validator/ogr-tests.git
+                created_at: '2025-03-20T21:40:15Z'
+                default_allow_maintainer_edit: false
+                default_branch: master
+                default_delete_branch_after_merge: false
+                default_merge_style: merge
+                default_update_style: merge
+                description: Different description
+                empty: false
+                fork: false
+                forks_count: 2
+                full_name: packit-validator/ogr-tests
+                globally_editable_wiki: false
+                has_actions: true
+                has_issues: true
+                has_packages: true
+                has_projects: true
+                has_pull_requests: true
+                has_releases: true
+                has_wiki: true
+                html_url: https://v10.next.forgejo.org/packit-validator/ogr-tests
+                id: 531
+                ignore_whitespace_conflicts: false
+                internal: false
+                internal_tracker:
+                  allow_only_contributors_to_track_time: true
+                  enable_issue_dependencies: true
+                  enable_time_tracker: true
+                language: ''
+                languages_url: https://v10.next.forgejo.org/api/v1/repos/packit-validator/ogr-tests/languages
+                link: ''
+                mirror: false
+                mirror_interval: ''
+                mirror_updated: '0001-01-01T00:00:00Z'
+                name: ogr-tests
+                object_format_name: sha1
+                open_issues_count: 119
+                open_pr_counter: 10
+                original_url: https://gitlab.com/packit-service/ogr-tests.git
+                owner:
+                  active: false
+                  avatar_url: https://v10.next.forgejo.org/avatars/9c4cb263b7809b180c92b4970f7d0847
+                  created: '2025-02-14T09:34:00Z'
+                  description: ''
+                  email: packit-validator@noreply.v10.next.forgejo.org
+                  followers_count: 0
+                  following_count: 0
+                  full_name: ''
+                  html_url: https://v10.next.forgejo.org/packit-validator
+                  id: 618
+                  is_admin: false
+                  language: ''
+                  last_login: '0001-01-01T00:00:00Z'
+                  location: ''
+                  login: packit-validator
+                  login_name: ''
+                  prohibit_login: false
+                  pronouns: ''
+                  restricted: false
+                  source_id: 0
+                  starred_repos_count: 0
+                  username: packit-validator
+                  visibility: public
+                  website: ''
+                parent: null
+                permissions:
+                  admin: true
+                  pull: true
+                  push: true
+                private: false
+                release_counter: 18
+                repo_transfer: null
+                size: 71
+                ssh_url: ssh://git@v10.next.forgejo.org:2100/packit-validator/ogr-tests.git
+                stars_count: 0
+                template: false
+                topics: null
+                updated_at: '2025-08-01T08:11:38Z'
+                url: https://v10.next.forgejo.org/api/v1/repos/packit-validator/ogr-tests
+                watchers_count: 1
+                website: ''
+                wiki_branch: master
+              repo_id: 531
+              sha: dd9b6c54c0788301c86bdf058a8e91e3594a0a17
+            body: 'Signed-off-by: Matej Focko <mfocko@redhat.com>'
+            changed_files: 1
+            closed_at: null
+            comments: 0
+            created_at: '2021-08-19T12:17:22Z'
+            deletions: 0
+            diff_url: https://v10.next.forgejo.org/packit-validator/ogr-tests/pulls/199.diff
+            draft: false
+            due_date: null
+            head:
+              label: pr-test1
+              ref: pr-test1
+              repo:
+                allow_fast_forward_only_merge: true
+                allow_merge_commits: true
+                allow_rebase: true
+                allow_rebase_explicit: true
+                allow_rebase_update: true
+                allow_squash_merge: true
+                archived: false
+                archived_at: '1970-01-01T00:00:00Z'
+                avatar_url: ''
+                clone_url: https://v10.next.forgejo.org/packit-validator/ogr-tests.git
+                created_at: '2025-03-20T21:40:15Z'
+                default_allow_maintainer_edit: false
+                default_branch: master
+                default_delete_branch_after_merge: false
+                default_merge_style: merge
+                default_update_style: merge
+                description: Different description
+                empty: false
+                fork: false
+                forks_count: 2
+                full_name: packit-validator/ogr-tests
+                globally_editable_wiki: false
+                has_actions: true
+                has_issues: true
+                has_packages: true
+                has_projects: true
+                has_pull_requests: true
+                has_releases: true
+                has_wiki: true
+                html_url: https://v10.next.forgejo.org/packit-validator/ogr-tests
+                id: 531
+                ignore_whitespace_conflicts: false
+                internal: false
+                internal_tracker:
+                  allow_only_contributors_to_track_time: true
+                  enable_issue_dependencies: true
+                  enable_time_tracker: true
+                language: ''
+                languages_url: https://v10.next.forgejo.org/api/v1/repos/packit-validator/ogr-tests/languages
+                link: ''
+                mirror: false
+                mirror_interval: ''
+                mirror_updated: '0001-01-01T00:00:00Z'
+                name: ogr-tests
+                object_format_name: sha1
+                open_issues_count: 119
+                open_pr_counter: 10
+                original_url: https://gitlab.com/packit-service/ogr-tests.git
+                owner:
+                  active: false
+                  avatar_url: https://v10.next.forgejo.org/avatars/9c4cb263b7809b180c92b4970f7d0847
+                  created: '2025-02-14T09:34:00Z'
+                  description: ''
+                  email: packit-validator@noreply.v10.next.forgejo.org
+                  followers_count: 0
+                  following_count: 0
+                  full_name: ''
+                  html_url: https://v10.next.forgejo.org/packit-validator
+                  id: 618
+                  is_admin: false
+                  language: ''
+                  last_login: '0001-01-01T00:00:00Z'
+                  location: ''
+                  login: packit-validator
+                  login_name: ''
+                  prohibit_login: false
+                  pronouns: ''
+                  restricted: false
+                  source_id: 0
+                  starred_repos_count: 0
+                  username: packit-validator
+                  visibility: public
+                  website: ''
+                parent: null
+                permissions:
+                  admin: true
+                  pull: true
+                  push: true
+                private: false
+                release_counter: 18
+                repo_transfer: null
+                size: 71
+                ssh_url: ssh://git@v10.next.forgejo.org:2100/packit-validator/ogr-tests.git
+                stars_count: 0
+                template: false
+                topics: null
+                updated_at: '2025-08-01T08:11:38Z'
+                url: https://v10.next.forgejo.org/api/v1/repos/packit-validator/ogr-tests
+                watchers_count: 1
+                website: ''
+                wiki_branch: master
+              repo_id: 531
+              sha: 6a9b824f6fa26eb6a3c0d8f164a5bbe95118d2c9
+            html_url: https://v10.next.forgejo.org/packit-validator/ogr-tests/pulls/199
+            id: 391
+            is_locked: false
+            labels: []
+            merge_base: 59b1a9bab5b5198c619270646410867788685c16
+            merge_commit_sha: null
+            mergeable: true
+            merged: false
+            merged_at: null
+            merged_by: null
+            milestone: null
+            number: 199
+            patch_url: https://v10.next.forgejo.org/packit-validator/ogr-tests/pulls/199.patch
+            pin_order: 0
+            requested_reviewers: null
+            requested_reviewers_teams: null
+            review_comments: 0
+            state: open
+            title: Create new file for test
+            updated_at: '2021-08-19T12:17:22Z'
+            url: https://v10.next.forgejo.org/packit-validator/ogr-tests/pulls/199
+            user:
+              active: false
+              avatar_url: https://v10.next.forgejo.org/assets/img/avatar_default.png
+              created: '1970-01-01T00:00:00Z'
+              description: ''
+              email: ''
+              followers_count: 0
+              following_count: 0
+              full_name: ''
+              html_url: https://v10.next.forgejo.org/Ghost
+              id: -1
+              is_admin: false
+              language: ''
+              last_login: '0001-01-01T00:00:00Z'
+              location: ''
+              login: Ghost
+              login_name: ''
+              prohibit_login: false
+              pronouns: ''
+              restricted: false
+              source_id: 0
+              starred_repos_count: 0
+              username: Ghost
+              visibility: public
+              website: ''
+          _elapsed: 0.705419
+          encoding: utf-8
+          headers:
+            cache-control: max-age=0, private, must-revalidate, no-transform
+            content-type: application/json;charset=utf-8
+            date: Tue, 13 Jan 2026 09:53:13 GMT
+            transfer-encoding: chunked
+            vary: Origin
+            x-content-type-options: nosniff
+            x-frame-options: SAMEORIGIN
+          next_request: null
+          status_code: 200
+    POST:
+      https://v10.next.forgejo.org/api/v1/repos/packit-validator/ogr-tests/issues/199/comments:
+      - metadata:
+          latency: 0.8071198463439941
+          module_call_list:
+          - unittest.case
+          - requre.record_and_replace
+          - tests.integration.forgejo.test_comments
+          - ogr.abstract.exception
+          - ogr.services.forgejo.pull_request
+          - pyforgejo.issue.client
+          - pyforgejo.issue.raw_client
+          - pyforgejo.core.http_client
+          - httpx._client
+          - requre.objects
+          - requre.cassette
+          - httpx._client
+          - send
+        output:
+          __store_indicator: 2
+          _content:
+            assets: []
+            body: Such nice weather
+            created_at: '2026-01-13T09:53:13Z'
+            html_url: https://v10.next.forgejo.org/packit-validator/ogr-tests/pulls/199#issuecomment-3243
+            id: 3243
+            issue_url: ''
+            original_author: ''
+            original_author_id: 0
+            pull_request_url: https://v10.next.forgejo.org/packit-validator/ogr-tests/pulls/199
+            updated_at: '2026-01-13T09:53:13Z'
+            user:
+              active: false
+              avatar_url: https://v10.next.forgejo.org/avatars/9c4cb263b7809b180c92b4970f7d0847
+              created: '2025-02-14T09:34:00Z'
+              description: ''
+              email: packit-validator@noreply.v10.next.forgejo.org
+              followers_count: 0
+              following_count: 0
+              full_name: ''
+              html_url: https://v10.next.forgejo.org/packit-validator
+              id: 618
+              is_admin: false
+              language: ''
+              last_login: '0001-01-01T00:00:00Z'
+              location: ''
+              login: packit-validator
+              login_name: ''
+              prohibit_login: false
+              pronouns: ''
+              restricted: false
+              source_id: 0
+              starred_repos_count: 0
+              username: packit-validator
+              visibility: public
+              website: ''
+          _elapsed: 0.806893
+          encoding: utf-8
+          headers:
+            cache-control: max-age=0, private, must-revalidate, no-transform
+            content-length: '987'
+            content-type: application/json;charset=utf-8
+            date: Tue, 13 Jan 2026 09:53:14 GMT
+            vary: Origin
+            x-content-type-options: nosniff
+            x-frame-options: SAMEORIGIN
+          next_request: null
+          status_code: 201
+      https://v10.next.forgejo.org/api/v1/repos/packit-validator/ogr-tests/issues/comments/3243/reactions:
+      - metadata:
+          latency: 0.5016252994537354
+          module_call_list:
+          - unittest.case
+          - requre.record_and_replace
+          - tests.integration.forgejo.test_comments
+          - ogr.abstract.exception
+          - ogr.services.forgejo.comments
+          - pyforgejo.issue.client
+          - pyforgejo.issue.raw_client
+          - pyforgejo.core.http_client
+          - httpx._client
+          - requre.objects
+          - requre.cassette
+          - httpx._client
+          - send
+        output:
+          __store_indicator: 2
+          _content:
+            content: '+1'
+            created_at: '2026-01-13T09:53:14Z'
+            user:
+              active: true
+              avatar_url: https://v10.next.forgejo.org/avatars/9c4cb263b7809b180c92b4970f7d0847
+              created: '2025-02-14T09:34:00Z'
+              description: ''
+              email: public-repos-bot@packit.dev
+              followers_count: 0
+              following_count: 0
+              full_name: ''
+              html_url: https://v10.next.forgejo.org/packit-validator
+              id: 618
+              is_admin: false
+              language: en-US
+              last_login: '2026-01-13T09:49:54Z'
+              location: ''
+              login: packit-validator
+              login_name: ''
+              prohibit_login: false
+              pronouns: ''
+              restricted: false
+              source_id: 0
+              starred_repos_count: 0
+              username: packit-validator
+              visibility: public
+              website: ''
+          _elapsed: 0.501381
+          encoding: utf-8
+          headers:
+            cache-control: max-age=0, private, must-revalidate, no-transform
+            content-length: '660'
+            content-type: application/json;charset=utf-8
+            date: Tue, 13 Jan 2026 09:53:14 GMT
+            vary: Origin
+            x-content-type-options: nosniff
+            x-frame-options: SAMEORIGIN
+          next_request: null
+          status_code: 201
+      - metadata:
+          latency: 0.6066713333129883
+          module_call_list:
+          - unittest.case
+          - requre.record_and_replace
+          - tests.integration.forgejo.test_comments
+          - ogr.abstract.exception
+          - ogr.services.forgejo.comments
+          - pyforgejo.issue.client
+          - pyforgejo.issue.raw_client
+          - pyforgejo.core.http_client
+          - httpx._client
+          - requre.objects
+          - requre.cassette
+          - httpx._client
+          - send
+        output:
+          __store_indicator: 2
+          _content:
+            content: '-1'
+            created_at: '2026-01-13T09:53:15Z'
+            user:
+              active: true
+              avatar_url: https://v10.next.forgejo.org/avatars/9c4cb263b7809b180c92b4970f7d0847
+              created: '2025-02-14T09:34:00Z'
+              description: ''
+              email: public-repos-bot@packit.dev
+              followers_count: 0
+              following_count: 0
+              full_name: ''
+              html_url: https://v10.next.forgejo.org/packit-validator
+              id: 618
+              is_admin: false
+              language: en-US
+              last_login: '2026-01-13T09:49:54Z'
+              location: ''
+              login: packit-validator
+              login_name: ''
+              prohibit_login: false
+              pronouns: ''
+              restricted: false
+              source_id: 0
+              starred_repos_count: 0
+              username: packit-validator
+              visibility: public
+              website: ''
+          _elapsed: 0.606445
+          encoding: utf-8
+          headers:
+            cache-control: max-age=0, private, must-revalidate, no-transform
+            content-length: '660'
+            content-type: application/json;charset=utf-8
+            date: Tue, 13 Jan 2026 09:53:15 GMT
+            vary: Origin
+            x-content-type-options: nosniff
+            x-frame-options: SAMEORIGIN
+          next_request: null
+          status_code: 201
+      - metadata:
+          latency: 0.4326646327972412
+          module_call_list:
+          - unittest.case
+          - requre.record_and_replace
+          - tests.integration.forgejo.test_comments
+          - ogr.abstract.exception
+          - ogr.services.forgejo.comments
+          - pyforgejo.issue.client
+          - pyforgejo.issue.raw_client
+          - pyforgejo.core.http_client
+          - httpx._client
+          - requre.objects
+          - requre.cassette
+          - httpx._client
+          - send
+        output:
+          __store_indicator: 2
+          _content:
+            content: confused
+            created_at: '2026-01-13T09:53:15Z'
+            user:
+              active: true
+              avatar_url: https://v10.next.forgejo.org/avatars/9c4cb263b7809b180c92b4970f7d0847
+              created: '2025-02-14T09:34:00Z'
+              description: ''
+              email: public-repos-bot@packit.dev
+              followers_count: 0
+              following_count: 0
+              full_name: ''
+              html_url: https://v10.next.forgejo.org/packit-validator
+              id: 618
+              is_admin: false
+              language: en-US
+              last_login: '2026-01-13T09:49:54Z'
+              location: ''
+              login: packit-validator
+              login_name: ''
+              prohibit_login: false
+              pronouns: ''
+              restricted: false
+              source_id: 0
+              starred_repos_count: 0
+              username: packit-validator
+              visibility: public
+              website: ''
+          _elapsed: 0.432415
+          encoding: utf-8
+          headers:
+            cache-control: max-age=0, private, must-revalidate, no-transform
+            content-length: '666'
+            content-type: application/json;charset=utf-8
+            date: Tue, 13 Jan 2026 09:53:15 GMT
+            vary: Origin
+            x-content-type-options: nosniff
+            x-frame-options: SAMEORIGIN
+          next_request: null
+          status_code: 201

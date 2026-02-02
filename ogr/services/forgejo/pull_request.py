@@ -21,6 +21,7 @@ from ogr.abstract import (
 from ogr.exceptions import ForgejoAPIException, OgrNetworkError
 from ogr.services import forgejo
 from ogr.services.base import BasePullRequest
+from ogr.services.forgejo.comments import ForgejoPRComment
 from ogr.services.forgejo.label import ForgejoPRLabel
 from ogr.services.forgejo.utils import paginate
 
@@ -38,9 +39,15 @@ class ForgejoPullRequest(BasePullRequest):
         project: "forgejo.ForgejoProject",
     ):
         super().__init__(raw_pr, project)
+        self.project = project
 
     def __str__(self) -> str:
         return "Forgejo" + super().__str__()
+
+    @property
+    def api(self):
+        """Returns the issue API client from pyforgejo."""
+        return self.project.service.api.issue
 
     @property
     def title(self) -> str:
@@ -289,31 +296,25 @@ class ForgejoPullRequest(BasePullRequest):
             )
         )
 
-    def get_comments(
-        self,
-        filter_regex: Optional[str] = None,
-        reverse: bool = False,
-        author: Optional[str] = None,
-    ) -> Union[list["PRComment"], Iterable["PRComment"]]:
-        """
-        Get list of pull request comments.
+    def _get_all_comments(self, reverse: bool = False) -> Iterable[PRComment]:
+        try:
+            comments = self.api.get_comments(
+                owner=self.project.namespace,
+                repo=self.project.repo,
+                index=self.id,
+            )
 
-        Args:
-            filter_regex: Filter the comments' content with `re.search`.
+        except NotFoundError as ex:
+            raise ForgejoAPIException(
+                "There was an error when retrieving PR comments.",
+            ) from ex
 
-                Defaults to `None`, which means no filtering.
-            reverse: Whether the comments are to be returned in
-                reversed order.
+        if reverse:
+            comments = list(reversed(comments))
 
-                Defaults to `False`.
-            author: Filter the comments by author.
-
-                Defaults to `None`, which means no filtering.
-
-        Returns:
-            List of pull request comments.
-        """
-        raise NotImplementedError()
+        return (
+            ForgejoPRComment(raw_comment=comment, parent=self) for comment in comments
+        )
 
     def comment(
         self,
@@ -321,7 +322,7 @@ class ForgejoPullRequest(BasePullRequest):
         commit: Optional[str] = None,
         filename: Optional[str] = None,
         row: Optional[int] = None,
-    ) -> "PRComment":
+    ) -> PRComment:
         """
         Add new comment to the pull request.
 
@@ -340,7 +341,17 @@ class ForgejoPullRequest(BasePullRequest):
         Returns:
             Newly created comment.
         """
-        raise NotImplementedError()
+        if commit or filename or row:
+            raise NotImplementedError
+
+        comment = self.api.create_comment(
+            owner=self.project.namespace,
+            repo=self.project.repo,
+            index=self.id,
+            body=body,
+        )
+
+        return ForgejoPRComment(raw_comment=comment, parent=self)
 
     def get_comment(self, comment_id: int) -> PRComment:
         """
@@ -352,7 +363,12 @@ class ForgejoPullRequest(BasePullRequest):
         Returns:
             Object representing a PR comment.
         """
-        raise NotImplementedError()
+        comment = self.project.service.api.issue.get_comment(
+            owner=self.project.namespace,
+            repo=self.project.repo,
+            id=comment_id,
+        )
+        return ForgejoPRComment(parent=self, raw_comment=comment)
 
     def get_statuses(self) -> Union[list[CommitFlag], Iterable[CommitFlag]]:
         """

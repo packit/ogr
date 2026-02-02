@@ -196,6 +196,9 @@ class Issue(OgrAbstractClass):
             reverse: Whether the comments are to be returned in
                 reversed order.
 
+                In case of Forgejo, setting reverse=True
+                leads to strict evaluation of all comments.
+
                 Defaults to `False`.
             author: Filter the comments by author.
 
