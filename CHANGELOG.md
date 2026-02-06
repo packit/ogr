@@ -1,3 +1,7 @@
+# 0.61.0
+
+- Ogr now supports Forgejo issues, comments and comment reactions. (#959)
+
 # 0.60.1
 
 - The method `get_rate_limit_remaining()` now also supports repository-specific checks for GitHub. (#972)
