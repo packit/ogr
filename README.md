@@ -8,13 +8,14 @@
 [![black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 [![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white)](https://github.com/pre-commit/pre-commit)
 
-Library for one API for many git forges. (e.g. GitHub, GitLab, Pagure).
+Library for one API for many git forges. (e.g. GitHub, GitLab, Pagure, Forgejo).
 
 ## Currently supported git forges:
 
 - GitHub
 - GitLab
 - Pagure
+- Forgejo
 
 ## To start using ogr:
 
