@@ -1,0 +1,2356 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+<meta name="generator" content="pdoc3 0.11.6">
+<title>ogr.services.forgejo API documentation</title>
+<meta name="description" content="">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/sanitize.min.css" integrity="sha512-y1dtMcuvtTMJc1yPgEqF0ZjQbhnc/bFhyvIyVNb9Zk5mIGtqVaAB1Ttl28su8AvFMOY0EwRbAe+HCLqj6W7/KA==" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/typography.min.css" integrity="sha512-Y1DYSb995BAfxobCkKepB1BqJJTPrOp3zPL74AWFugHHmmdcvO+C48WLrUOlhGMc0QG7AE3f7gmvvcrmX2fDoA==" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:1.5em;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:2em 0 .50em 0}h3{font-size:1.4em;margin:1.6em 0 .7em 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .2s ease-in-out}a:visited{color:#503}a:hover{color:#b62}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900;font-weight:bold}pre code{font-size:.8em;line-height:1.4em;padding:1em;display:block}code{background:#f3f3f3;font-family:"DejaVu Sans Mono",monospace;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source > summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible;min-width:max-content}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em 1em;margin:1em 0}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul ul{padding-left:1em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js" integrity="sha512-D9gUyxqja7hBtkWpPWGt9wfbfaMGVt9gnyCvYa+jojwwPHLCzUm5i8rpk7vD7wNee9bA35eYIjobYPaQuKS1MQ==" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => {
+hljs.configure({languages: ['bash', 'css', 'diff', 'graphql', 'ini', 'javascript', 'json', 'plaintext', 'python', 'python-repl', 'rust', 'shell', 'sql', 'typescript', 'xml', 'yaml']});
+hljs.highlightAll();
+/* Collapse source docstrings */
+setTimeout(() => {
+[...document.querySelectorAll('.hljs.language-python > .hljs-string')]
+.filter(el => el.innerHTML.length > 200 && ['"""', "'''"].includes(el.innerHTML.substring(0, 3)))
+.forEach(el => {
+let d = document.createElement('details');
+d.classList.add('hljs-string');
+d.innerHTML = '<summary>"""</summary>' + el.innerHTML.substring(3);
+el.replaceWith(d);
+});
+}, 100);
+})</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>ogr.services.forgejo</code></h1>
+</header>
+<section id="section-intro">
+</section>
+<section>
+<h2 class="section-title" id="header-submodules">Sub-modules</h2>
+<dl>
+<dt><code class="name"><a title="ogr.services.forgejo.comments" href="comments.html">ogr.services.forgejo.comments</a></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt><code class="name"><a title="ogr.services.forgejo.flag" href="flag.html">ogr.services.forgejo.flag</a></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt><code class="name"><a title="ogr.services.forgejo.issue" href="issue.html">ogr.services.forgejo.issue</a></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt><code class="name"><a title="ogr.services.forgejo.label" href="label.html">ogr.services.forgejo.label</a></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt><code class="name"><a title="ogr.services.forgejo.project" href="project.html">ogr.services.forgejo.project</a></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt><code class="name"><a title="ogr.services.forgejo.pull_request" href="pull_request.html">ogr.services.forgejo.pull_request</a></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt><code class="name"><a title="ogr.services.forgejo.release" href="release.html">ogr.services.forgejo.release</a></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt><code class="name"><a title="ogr.services.forgejo.service" href="service.html">ogr.services.forgejo.service</a></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt><code class="name"><a title="ogr.services.forgejo.user" href="user.html">ogr.services.forgejo.user</a></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt><code class="name"><a title="ogr.services.forgejo.utils" href="utils.html">ogr.services.forgejo.utils</a></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="ogr.services.forgejo.ForgejoComment"><code class="flex name class">
+<span>class <span class="ident">ForgejoComment</span></span>
+<span>(</span><span>raw_comment: Any | None = None,<br>parent: Any | None = None,<br>body: str | None = None,<br>id_: int | None = None,<br>author: str | None = None,<br>created: datetime.datetime | None = None,<br>edited: datetime.datetime | None = None)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class ForgejoComment(Comment):
+    def _from_raw_comment(self, raw_comment: _ForgejoComment) -&gt; None:
+        self._raw_comment = raw_comment
+        self._id = raw_comment.id
+        self._author = raw_comment.user.login
+        self._created = raw_comment.created_at
+        self._edited = raw_comment.updated_at
+
+    @property
+    def body(self) -&gt; str:
+        return self._raw_comment.body
+
+    @body.setter
+    def body(self, new_body: str) -&gt; None:
+        self._raw_comment = self._client.issue.edit_comment(
+            owner=self._parent.project.namespace,
+            repo=self._parent.project.repo,
+            id=self._id,
+            body=new_body,
+        )
+
+    @property
+    def edited(self) -&gt; datetime.datetime:
+        return self._edited
+
+    @property
+    def _client(self):
+        return self._parent.project.service.api
+
+    def get_reactions(self) -&gt; list[Reaction]:
+        try:
+            reactions = self._client.issue.get_comment_reactions(
+                owner=self._parent.project.namespace,
+                repo=self._parent.project.repo,
+                id=self._id,
+            )
+
+        # in case no reactions exist:
+        # re-recording causes pyforgejo to raise pydantic&#39;s ValidationError
+        # re-running tests causes pyforgejo&#39;s ApiError to be raised instead
+        # both need to be caught
+        except (ValidationError, ApiError):
+            return []
+
+        return [
+            ForgejoReaction(raw_reaction=reaction, parent=self)
+            for reaction in reactions
+        ]
+
+    def add_reaction(self, reaction: str) -&gt; Reaction:
+        raw_reaction = self._client.issue.post_comment_reaction(
+            owner=self._parent.project.namespace,
+            repo=self._parent.project.repo,
+            id=self._id,
+            content=reaction,
+        )
+        return ForgejoReaction(raw_reaction=raw_reaction, parent=self)</code></pre>
+</details>
+<div class="desc"></div>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="ogr.abstract.comment.Comment" href="../../abstract/comment.html#ogr.abstract.comment.Comment">Comment</a></li>
+<li><a title="ogr.abstract.abstract_class.OgrAbstractClass" href="../../abstract/abstract_class.html#ogr.abstract.abstract_class.OgrAbstractClass">OgrAbstractClass</a></li>
+</ul>
+<h3>Subclasses</h3>
+<ul class="hlist">
+<li><a title="ogr.services.forgejo.comments.ForgejoIssueComment" href="comments.html#ogr.services.forgejo.comments.ForgejoIssueComment">ForgejoIssueComment</a></li>
+<li><a title="ogr.services.forgejo.comments.ForgejoPRComment" href="comments.html#ogr.services.forgejo.comments.ForgejoPRComment">ForgejoPRComment</a></li>
+</ul>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="ogr.abstract.comment.Comment" href="../../abstract/comment.html#ogr.abstract.comment.Comment">Comment</a></b></code>:
+<ul class="hlist">
+<li><code><a title="ogr.abstract.comment.Comment.add_reaction" href="../../abstract/comment.html#ogr.abstract.comment.Comment.add_reaction">add_reaction</a></code></li>
+<li><code><a title="ogr.abstract.comment.Comment.author" href="../../abstract/comment.html#ogr.abstract.comment.Comment.author">author</a></code></li>
+<li><code><a title="ogr.abstract.comment.Comment.body" href="../../abstract/comment.html#ogr.abstract.comment.Comment.body">body</a></code></li>
+<li><code><a title="ogr.abstract.comment.Comment.created" href="../../abstract/comment.html#ogr.abstract.comment.Comment.created">created</a></code></li>
+<li><code><a title="ogr.abstract.comment.Comment.edited" href="../../abstract/comment.html#ogr.abstract.comment.Comment.edited">edited</a></code></li>
+<li><code><a title="ogr.abstract.comment.Comment.get_reactions" href="../../abstract/comment.html#ogr.abstract.comment.Comment.get_reactions">get_reactions</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+<dt id="ogr.services.forgejo.ForgejoIssue"><code class="flex name class">
+<span>class <span class="ident">ForgejoIssue</span></span>
+<span>(</span><span>raw_issue: pyforgejo.types.issue.Issue, project: forgejo.ForgejoProject)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class ForgejoIssue(BaseIssue):
+    project: &#34;forgejo.ForgejoProject&#34;
+
+    def __init__(self, raw_issue: _issue, project: &#34;forgejo.ForgejoProject&#34;):
+        if raw_issue.pull_request:
+            raise ForgejoAPIException(
+                f&#34;Requested issue #{raw_issue.number} is a pull request&#34;,
+            )
+
+        super().__init__(raw_issue, project)
+
+    @property
+    def api(self):
+        &#34;&#34;&#34;Returns the issue API client from pyforgejo.&#34;&#34;&#34;
+        return self.project.service.api.issue
+
+    def partial_api(self, method, /, *args, **kwargs):
+        &#34;&#34;&#34;Returns a partial API call for ForgejoIssue.
+
+
+        Injects owner and repo parameters for the calls to issue API endpoints.
+
+        Args:
+            method: Specific method on the Pyforgejo API that is to be wrapped.
+            *args: Positional arguments that get injected into every call.
+            **kwargs: Keyword-arguments that get injected into every call.
+
+        Returns:
+            Callable with pre-injected parameters.
+        &#34;&#34;&#34;
+        params = {&#34;owner&#34;: self.project.namespace, &#34;repo&#34;: self.project.repo}
+        return partial(method, *args, **kwargs, **params)
+
+    def __update_info(self) -&gt; None:
+        &#34;&#34;&#34;Refresh the local issue object with the latest data from the server.&#34;&#34;&#34;
+        self._raw_issue = self.partial_api(self.api.get_issue)(index=self.id)
+
+    @property
+    def title(self) -&gt; str:
+        return self._raw_issue.title
+
+    @title.setter
+    def title(self, new_title: str) -&gt; None:
+        self._raw_issue = self.partial_api(self.api.edit_issue)(
+            title=new_title,
+            index=self.id,
+        )
+
+    @property
+    def id(self) -&gt; int:
+        return self._raw_issue.number
+
+    @property
+    def url(self) -&gt; str:
+        return self._raw_issue.url
+
+    @property
+    def description(self) -&gt; str:
+        return self._raw_issue.body
+
+    @description.setter
+    def description(self, new_description: str):
+        self._raw_issue = self.partial_api(self.api.edit_issue)(
+            body=new_description,
+            index=self.id,
+        )
+
+    @property
+    def author(self) -&gt; str:
+        return self._raw_issue.user.login
+
+    @property
+    def created(self) -&gt; datetime:
+        return self._raw_issue.created_at
+
+    @property
+    def status(self) -&gt; IssueStatus:
+        return IssueStatus[self._raw_issue.state]
+
+    @property
+    def assignees(self) -&gt; list[PyforgejoUser]:
+        return self._raw_issue.assignees or []
+
+    @property
+    def labels(self) -&gt; list[IssueLabel]:
+        return [
+            ForgejoIssueLabel(raw_label, self) for raw_label in self._raw_issue.labels
+        ]
+
+    def __str__(self) -&gt; str:
+        return &#34;Forgejo&#34; + super().__str__()
+
+    @staticmethod
+    def create(
+        project: &#34;forgejo.ForgejoProject&#34;,
+        title: str,
+        body: str,
+        private: Optional[bool] = None,
+        labels: Optional[list[str]] = None,
+        assignees: Optional[list[str]] = None,
+    ) -&gt; &#34;Issue&#34;:
+        if private:
+            raise OperationNotSupported(&#34;Private issues are not supported by Forgejo&#34;)
+        if not project.has_issues:
+            raise IssueTrackerDisabled()
+
+        # The API requires ids of labels in the create_issue method
+        # which would lead to having to retrieve existing labels and
+        # needing to find the ids of those we need to add to the issue;
+        # A separate API call would also need to be made to create each
+        # label that does not yet exist, potentially leading to many
+        # API calls and unclear code, so labels are instead added seprately
+        # below after creating a new issue without labels
+        issue = project.service.api.issue.create_issue(
+            owner=project.namespace,
+            repo=project.repo,
+            title=title,
+            body=body,
+            labels=[],
+            assignees=assignees,
+        )
+
+        forgejo_issue = ForgejoIssue(issue, project)
+
+        if labels:
+            forgejo_issue.add_label(*labels)
+
+        return forgejo_issue
+
+    @staticmethod
+    def get(project: &#34;forgejo.ForgejoProject&#34;, issue_id: int) -&gt; &#34;Issue&#34;:
+        if not project.has_issues:
+            raise IssueTrackerDisabled()
+
+        try:
+            issue = project.service.api.issue.get_issue(
+                owner=project.namespace,
+                repo=project.repo,
+                index=issue_id,
+            )
+
+        except NotFoundError as ex:
+            raise ForgejoAPIException(f&#34;Issue {issue_id} not found&#34;) from ex
+        return ForgejoIssue(issue, project)
+
+    @staticmethod
+    def get_list(
+        project: &#34;forgejo.ForgejoProject&#34;,
+        status: IssueStatus = IssueStatus.open,
+        author: Optional[str] = None,
+        assignee: Optional[str] = None,
+        labels: Optional[list[str]] = None,
+    ) -&gt; list[&#34;Issue&#34;]:
+        if not project.has_issues:
+            raise IssueTrackerDisabled()
+
+        parameters: dict[str, Union[str, list[str], bool]] = {
+            &#34;state&#34;: status.name,
+            &#34;type&#34;: &#34;issues&#34;,
+        }
+        if author:
+            parameters[&#34;created_by&#34;] = author
+        if assignee:
+            parameters[&#34;assigned_by&#34;] = assignee
+        if labels:
+            parameters[&#34;labels&#34;] = labels
+
+        try:
+            return [
+                ForgejoIssue(issue, project)
+                for issue in paginate(
+                    project.service.api.issue.list_issues,
+                    owner=project.namespace,
+                    repo=project.repo,
+                    **parameters,
+                )
+            ]
+        except NotFoundError as ex:
+            raise ForgejoAPIException(&#34;Failed to list issues&#34;) from ex
+
+    def comment(self, body: str) -&gt; IssueComment:
+        comment = self.partial_api(self.api.create_comment)(
+            body=body,
+            index=self.id,
+        )
+        return ForgejoIssueComment(parent=self, raw_comment=comment)
+
+    def close(self) -&gt; &#34;Issue&#34;:
+        self._raw_issue = self.partial_api(self.api.edit_issue)(
+            state=&#34;closed&#34;,
+            index=self.id,
+        )
+
+        return self
+
+    def _get_all_comments(self, reverse: bool = False) -&gt; Iterable[IssueComment]:
+        comments = self.partial_api(self.api.get_comments)(
+            index=self.id,
+        )
+
+        if reverse:
+            comments = list(reversed(comments))
+
+        return (
+            ForgejoIssueComment(parent=self, raw_comment=raw_comment)
+            for raw_comment in comments
+        )
+
+    def get_comment(self, comment_id: int) -&gt; ForgejoIssueComment:
+        return ForgejoIssueComment(
+            self.partial_api(self.api.get_comment)(id=comment_id),
+            parent=self,
+        )
+
+    def add_assignee(self, *assignees: str) -&gt; None:
+        current_assignees = [assignee.login for assignee in self.assignees]
+        updated_assignees = set(itertools.chain(current_assignees, assignees))
+
+        try:
+            self._raw_issue = self.partial_api(self.api.edit_issue)(
+                assignees=updated_assignees,
+                index=self.id,
+            )
+        except ApiError as ex:
+            raise ForgejoAPIException(
+                &#34;Failed to assign issue, unknown user&#34;,
+            ) from ex
+
+    def add_label(self, *labels: str) -&gt; None:
+        self.partial_api(self.api.add_label)(labels=labels, index=self.id)
+        self.__update_info()</code></pre>
+</details>
+<div class="desc"><h2 id="attributes">Attributes</h2>
+<dl>
+<dt><strong><code>project</code></strong> :&ensp;<code>GitProject</code></dt>
+<dd>Project of the issue.</dd>
+</dl></div>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="ogr.services.base.BaseIssue" href="../base.html#ogr.services.base.BaseIssue">BaseIssue</a></li>
+<li><a title="ogr.abstract.issue.Issue" href="../../abstract/issue.html#ogr.abstract.issue.Issue">Issue</a></li>
+<li><a title="ogr.abstract.abstract_class.OgrAbstractClass" href="../../abstract/abstract_class.html#ogr.abstract.abstract_class.OgrAbstractClass">OgrAbstractClass</a></li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="ogr.services.forgejo.ForgejoIssue.project"><code class="name">var <span class="ident">project</span> : <a title="ogr.services.forgejo.project.ForgejoProject" href="project.html#ogr.services.forgejo.project.ForgejoProject">ForgejoProject</a></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Instance variables</h3>
+<dl>
+<dt id="ogr.services.forgejo.ForgejoIssue.api"><code class="name">prop <span class="ident">api</span></code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def api(self):
+    &#34;&#34;&#34;Returns the issue API client from pyforgejo.&#34;&#34;&#34;
+    return self.project.service.api.issue</code></pre>
+</details>
+<div class="desc"><p>Returns the issue API client from pyforgejo.</p></div>
+</dd>
+<dt id="ogr.services.forgejo.ForgejoIssue.assignees"><code class="name">prop <span class="ident">assignees</span> : list[pyforgejo.types.user.User]</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def assignees(self) -&gt; list[PyforgejoUser]:
+    return self._raw_issue.assignees or []</code></pre>
+</details>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Methods</h3>
+<dl>
+<dt id="ogr.services.forgejo.ForgejoIssue.partial_api"><code class="name flex">
+<span>def <span class="ident">partial_api</span></span>(<span>self, method, /, *args, **kwargs)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def partial_api(self, method, /, *args, **kwargs):
+    &#34;&#34;&#34;Returns a partial API call for ForgejoIssue.
+
+
+    Injects owner and repo parameters for the calls to issue API endpoints.
+
+    Args:
+        method: Specific method on the Pyforgejo API that is to be wrapped.
+        *args: Positional arguments that get injected into every call.
+        **kwargs: Keyword-arguments that get injected into every call.
+
+    Returns:
+        Callable with pre-injected parameters.
+    &#34;&#34;&#34;
+    params = {&#34;owner&#34;: self.project.namespace, &#34;repo&#34;: self.project.repo}
+    return partial(method, *args, **kwargs, **params)</code></pre>
+</details>
+<div class="desc"><p>Returns a partial API call for ForgejoIssue.</p>
+<p>Injects owner and repo parameters for the calls to issue API endpoints.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>method</code></strong></dt>
+<dd>Specific method on the Pyforgejo API that is to be wrapped.</dd>
+<dt><strong><code>*args</code></strong></dt>
+<dd>Positional arguments that get injected into every call.</dd>
+<dt><strong><code>**kwargs</code></strong></dt>
+<dd>Keyword-arguments that get injected into every call.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p>Callable with pre-injected parameters.</p></div>
+</dd>
+</dl>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="ogr.services.base.BaseIssue" href="../base.html#ogr.services.base.BaseIssue">BaseIssue</a></b></code>:
+<ul class="hlist">
+<li><code><a title="ogr.services.base.BaseIssue.add_assignee" href="../../abstract/issue.html#ogr.abstract.issue.Issue.add_assignee">add_assignee</a></code></li>
+<li><code><a title="ogr.services.base.BaseIssue.add_label" href="../../abstract/issue.html#ogr.abstract.issue.Issue.add_label">add_label</a></code></li>
+<li><code><a title="ogr.services.base.BaseIssue.author" href="../../abstract/issue.html#ogr.abstract.issue.Issue.author">author</a></code></li>
+<li><code><a title="ogr.services.base.BaseIssue.close" href="../../abstract/issue.html#ogr.abstract.issue.Issue.close">close</a></code></li>
+<li><code><a title="ogr.services.base.BaseIssue.comment" href="../../abstract/issue.html#ogr.abstract.issue.Issue.comment">comment</a></code></li>
+<li><code><a title="ogr.services.base.BaseIssue.create" href="../../abstract/issue.html#ogr.abstract.issue.Issue.create">create</a></code></li>
+<li><code><a title="ogr.services.base.BaseIssue.created" href="../../abstract/issue.html#ogr.abstract.issue.Issue.created">created</a></code></li>
+<li><code><a title="ogr.services.base.BaseIssue.description" href="../../abstract/issue.html#ogr.abstract.issue.Issue.description">description</a></code></li>
+<li><code><a title="ogr.services.base.BaseIssue.get" href="../../abstract/issue.html#ogr.abstract.issue.Issue.get">get</a></code></li>
+<li><code><a title="ogr.services.base.BaseIssue.get_comment" href="../../abstract/issue.html#ogr.abstract.issue.Issue.get_comment">get_comment</a></code></li>
+<li><code><a title="ogr.services.base.BaseIssue.get_list" href="../../abstract/issue.html#ogr.abstract.issue.Issue.get_list">get_list</a></code></li>
+<li><code><a title="ogr.services.base.BaseIssue.id" href="../../abstract/issue.html#ogr.abstract.issue.Issue.id">id</a></code></li>
+<li><code><a title="ogr.services.base.BaseIssue.labels" href="../../abstract/issue.html#ogr.abstract.issue.Issue.labels">labels</a></code></li>
+<li><code><a title="ogr.services.base.BaseIssue.private" href="../../abstract/issue.html#ogr.abstract.issue.Issue.private">private</a></code></li>
+<li><code><a title="ogr.services.base.BaseIssue.status" href="../../abstract/issue.html#ogr.abstract.issue.Issue.status">status</a></code></li>
+<li><code><a title="ogr.services.base.BaseIssue.title" href="../../abstract/issue.html#ogr.abstract.issue.Issue.title">title</a></code></li>
+<li><code><a title="ogr.services.base.BaseIssue.url" href="../../abstract/issue.html#ogr.abstract.issue.Issue.url">url</a></code></li>
+</ul>
+</li>
+<li><code><b><a title="ogr.abstract.issue.Issue" href="../../abstract/issue.html#ogr.abstract.issue.Issue">Issue</a></b></code>:
+<ul class="hlist">
+<li><code><a title="ogr.abstract.issue.Issue.can_close" href="../../abstract/issue.html#ogr.abstract.issue.Issue.can_close">can_close</a></code></li>
+<li><code><a title="ogr.abstract.issue.Issue.get_comments" href="../../abstract/issue.html#ogr.abstract.issue.Issue.get_comments">get_comments</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+<dt id="ogr.services.forgejo.ForgejoIssueComment"><code class="flex name class">
+<span>class <span class="ident">ForgejoIssueComment</span></span>
+<span>(</span><span>raw_comment: Any | None = None,<br>parent: Any | None = None,<br>body: str | None = None,<br>id_: int | None = None,<br>author: str | None = None,<br>created: datetime.datetime | None = None,<br>edited: datetime.datetime | None = None)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class ForgejoIssueComment(ForgejoComment, IssueComment):
+    def __str__(self) -&gt; str:
+        return &#34;Forgejo&#34; + super().__str__()</code></pre>
+</details>
+<div class="desc"></div>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="ogr.services.forgejo.comments.ForgejoComment" href="comments.html#ogr.services.forgejo.comments.ForgejoComment">ForgejoComment</a></li>
+<li><a title="ogr.abstract.comment.IssueComment" href="../../abstract/comment.html#ogr.abstract.comment.IssueComment">IssueComment</a></li>
+<li><a title="ogr.abstract.comment.Comment" href="../../abstract/comment.html#ogr.abstract.comment.Comment">Comment</a></li>
+<li><a title="ogr.abstract.abstract_class.OgrAbstractClass" href="../../abstract/abstract_class.html#ogr.abstract.abstract_class.OgrAbstractClass">OgrAbstractClass</a></li>
+</ul>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="ogr.services.forgejo.comments.ForgejoComment" href="comments.html#ogr.services.forgejo.comments.ForgejoComment">ForgejoComment</a></b></code>:
+<ul class="hlist">
+<li><code><a title="ogr.services.forgejo.comments.ForgejoComment.author" href="../../abstract/comment.html#ogr.abstract.comment.Comment.author">author</a></code></li>
+<li><code><a title="ogr.services.forgejo.comments.ForgejoComment.body" href="../../abstract/comment.html#ogr.abstract.comment.Comment.body">body</a></code></li>
+<li><code><a title="ogr.services.forgejo.comments.ForgejoComment.created" href="../../abstract/comment.html#ogr.abstract.comment.Comment.created">created</a></code></li>
+<li><code><a title="ogr.services.forgejo.comments.ForgejoComment.edited" href="../../abstract/comment.html#ogr.abstract.comment.Comment.edited">edited</a></code></li>
+</ul>
+</li>
+<li><code><b><a title="ogr.abstract.comment.IssueComment" href="../../abstract/comment.html#ogr.abstract.comment.IssueComment">IssueComment</a></b></code>:
+<ul class="hlist">
+<li><code><a title="ogr.abstract.comment.IssueComment.add_reaction" href="../../abstract/comment.html#ogr.abstract.comment.Comment.add_reaction">add_reaction</a></code></li>
+<li><code><a title="ogr.abstract.comment.IssueComment.get_reactions" href="../../abstract/comment.html#ogr.abstract.comment.Comment.get_reactions">get_reactions</a></code></li>
+<li><code><a title="ogr.abstract.comment.IssueComment.issue" href="../../abstract/comment.html#ogr.abstract.comment.IssueComment.issue">issue</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+<dt id="ogr.services.forgejo.ForgejoPRComment"><code class="flex name class">
+<span>class <span class="ident">ForgejoPRComment</span></span>
+<span>(</span><span>raw_comment: Any | None = None,<br>parent: Any | None = None,<br>body: str | None = None,<br>id_: int | None = None,<br>author: str | None = None,<br>created: datetime.datetime | None = None,<br>edited: datetime.datetime | None = None)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class ForgejoPRComment(ForgejoComment, PRComment):
+    def __str__(self) -&gt; str:
+        return &#34;Forgejo&#34; + super().__str__()</code></pre>
+</details>
+<div class="desc"></div>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="ogr.services.forgejo.comments.ForgejoComment" href="comments.html#ogr.services.forgejo.comments.ForgejoComment">ForgejoComment</a></li>
+<li><a title="ogr.abstract.comment.PRComment" href="../../abstract/comment.html#ogr.abstract.comment.PRComment">PRComment</a></li>
+<li><a title="ogr.abstract.comment.Comment" href="../../abstract/comment.html#ogr.abstract.comment.Comment">Comment</a></li>
+<li><a title="ogr.abstract.abstract_class.OgrAbstractClass" href="../../abstract/abstract_class.html#ogr.abstract.abstract_class.OgrAbstractClass">OgrAbstractClass</a></li>
+</ul>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="ogr.services.forgejo.comments.ForgejoComment" href="comments.html#ogr.services.forgejo.comments.ForgejoComment">ForgejoComment</a></b></code>:
+<ul class="hlist">
+<li><code><a title="ogr.services.forgejo.comments.ForgejoComment.author" href="../../abstract/comment.html#ogr.abstract.comment.Comment.author">author</a></code></li>
+<li><code><a title="ogr.services.forgejo.comments.ForgejoComment.body" href="../../abstract/comment.html#ogr.abstract.comment.Comment.body">body</a></code></li>
+<li><code><a title="ogr.services.forgejo.comments.ForgejoComment.created" href="../../abstract/comment.html#ogr.abstract.comment.Comment.created">created</a></code></li>
+<li><code><a title="ogr.services.forgejo.comments.ForgejoComment.edited" href="../../abstract/comment.html#ogr.abstract.comment.Comment.edited">edited</a></code></li>
+</ul>
+</li>
+<li><code><b><a title="ogr.abstract.comment.PRComment" href="../../abstract/comment.html#ogr.abstract.comment.PRComment">PRComment</a></b></code>:
+<ul class="hlist">
+<li><code><a title="ogr.abstract.comment.PRComment.add_reaction" href="../../abstract/comment.html#ogr.abstract.comment.Comment.add_reaction">add_reaction</a></code></li>
+<li><code><a title="ogr.abstract.comment.PRComment.get_reactions" href="../../abstract/comment.html#ogr.abstract.comment.Comment.get_reactions">get_reactions</a></code></li>
+<li><code><a title="ogr.abstract.comment.PRComment.pull_request" href="../../abstract/comment.html#ogr.abstract.comment.PRComment.pull_request">pull_request</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+<dt id="ogr.services.forgejo.ForgejoProject"><code class="flex name class">
+<span>class <span class="ident">ForgejoProject</span></span>
+<span>(</span><span>repo: str,<br>service: forgejo.ForgejoService,<br>namespace: str,<br>forgejo_repo: pyforgejo.types.repository.Repository | None = None,<br>**kwargs)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class ForgejoProject(BaseGitProject):
+    service: &#34;forgejo.ForgejoService&#34;
+    access_dict: ClassVar[dict] = {
+        AccessLevel.pull: &#34;read&#34;,
+        AccessLevel.triage: &#34;read&#34;,
+        AccessLevel.push: &#34;write&#34;,
+        AccessLevel.admin: &#34;admin&#34;,
+        AccessLevel.maintain: &#34;owner&#34;,
+        None: &#34;&#34;,
+    }
+
+    def __init__(
+        self,
+        repo: str,
+        service: &#34;forgejo.ForgejoService&#34;,
+        namespace: str,
+        forgejo_repo: Optional[Repository] = None,
+        **kwargs,
+    ):
+        super().__init__(repo, service, namespace)
+        self._forgejo_repo = forgejo_repo
+
+    @property
+    def api(self) -&gt; RepositoryClient:
+        &#34;&#34;&#34;Returns a `RepositoryClient` from pyforgejo. Helper to save some
+        typing.
+        &#34;&#34;&#34;
+        return self.service.api.repository
+
+    def partial_api(self, method, /, *args, **kwargs):
+        &#34;&#34;&#34;Returns a partial API call for `ForgejoProject`.
+
+        Injects `owner` and `repo` for the calls to `/repository/` endpoints.
+
+        Args:
+            method: Specific method on the Pyforgejo API that is to be wrapped.
+            *args: Positional arguments that get injected into every call.
+            **kwargs: Keyword-arguments that get injected into every call.
+
+        Returns:
+            Callable with pre-injected parameters.
+
+        &#34;&#34;&#34;
+        return partial(
+            method,
+            *args,
+            **kwargs,
+            owner=self.namespace,
+            repo=self.repo,
+        )
+
+    @cached_property
+    def forgejo_repo(self) -&gt; types.Repository:
+        return self.api.repo_get(
+            owner=self.namespace,
+            repo=self.repo,
+        )
+
+    def __str__(self) -&gt; str:
+        return (
+            f&#39;ForgejoProject(namespace=&#34;{self.namespace}&#34;, repo=&#34;{self.repo}&#34;, &#39;
+            f&#34;service={self.service})&#34;
+        )
+
+    def __eq__(self, o: object) -&gt; bool:
+        return (
+            isinstance(o, ForgejoProject)
+            and self.repo == o.repo
+            and self.namespace == o.namespace
+            and self.service == o.service
+        )
+
+    @property
+    def description(self) -&gt; str:
+        return self.forgejo_repo.description or &#34;&#34;
+
+    @description.setter
+    def description(self, new_description: str) -&gt; None:
+        self.partial_api(self.api.repo_edit)(description=new_description)
+
+    def delete(self) -&gt; None:
+        self.partial_api(self.api.repo_delete)()
+
+    def exists(self) -&gt; bool:
+        try:
+            _ = self.forgejo_repo
+            return True
+        except NotFoundError:
+            return False
+
+    def is_private(self) -&gt; bool:
+        return self.forgejo_repo.private
+
+    def is_forked(self) -&gt; bool:
+        return (
+            self.forgejo_repo.fork
+            and self.forgejo_repo.owner.login == self.service.user.get_username()
+        )
+
+    @property
+    def is_fork(self) -&gt; bool:
+        return self.forgejo_repo.fork
+
+    @property
+    def full_repo_name(self) -&gt; str:
+        return self.forgejo_repo.full_name
+
+    @property
+    def parent(self) -&gt; Optional[&#34;GitProject&#34;]:
+        if not self.forgejo_repo.parent:
+            return None
+
+        return ForgejoProject(
+            service=self.service,
+            repo=self.forgejo_repo.parent.name,
+            namespace=self.forgejo_repo.parent.owner.username,
+        )
+
+    @property
+    def has_issues(self) -&gt; bool:
+        return self.forgejo_repo.has_issues
+
+    def get_branches(self) -&gt; Iterable[str]:
+        return (
+            branch.name
+            for branch in paginate(
+                self.partial_api(self.api.repo_list_branches),
+            )
+        )
+
+    @property
+    def default_branch(self) -&gt; str:
+        return self.forgejo_repo.default_branch
+
+    def get_commits(self, ref: Optional[str] = None) -&gt; Iterable[str]:
+        return (
+            commit.sha
+            for commit in paginate(
+                self.partial_api(
+                    self.api.repo_get_all_commits,
+                    sha=ref,
+                ),
+            )
+        )
+
+    def get_description(self) -&gt; str:
+        return self.description
+
+    def _construct_fork_project(self) -&gt; Optional[&#34;ForgejoProject&#34;]:
+        login = self.service.user.get_username()
+        try:
+            project = ForgejoProject(
+                repo=self.repo,
+                service=self.service,
+                namespace=login,
+            )
+            _ = project.forgejo_repo
+            return project
+        except NotFoundError:
+            return None
+
+    def get_fork(self, create: bool = True) -&gt; Optional[&#34;GitProject&#34;]:
+        # The cheapest check that assumes fork has the same repository name as
+        # the upstream
+        if fork := self._construct_fork_project():
+            return fork
+
+        # If not successful, the fork could still exist, but has a custom name
+        username = self.service.user.get_username()
+        for fork in self.get_forks():
+            if fork.forgejo_repo.owner.login == username:
+                return fork
+
+        # We have not found any fork owned by the auth&#39;d user
+        if create:
+            return self.fork_create()
+
+        logger.info(
+            f&#34;Fork of {self.forgejo_repo.full_name}&#34;
+            &#34; does not exist and we were asked not to create it.&#34;,
+        )
+        return None
+
+    def get_owners(self) -&gt; list[str]:
+        return [self.forgejo_repo.owner.username]
+
+    def _get_owner_or_org_collaborators(self) -&gt; set[str]:
+        namespace = self.get_owners()[0]
+        try:
+            teams = self.api.repo_list_teams(
+                owner=self.namespace,
+                repo=self.repo,
+            )
+        except Exception as ex:
+            # no teams, repo owned by regular user
+            if &#34;not owned by an organization&#34; in str(ex):
+                return {namespace}
+            raise
+
+        # repo owned by org, each org can have multiple teams with
+        # different levels of access
+        collaborators: set[str] = set()
+        for team in teams:
+            members = self.service.api.organization.org_list_team_members(team.id)
+            collaborators.update(user.username for user in members)
+
+        return collaborators
+
+    def _get_collaborators(self) -&gt; list[str]:
+        return [
+            c.username
+            for c in self.api.repo_list_collaborators(
+                owner=self.namespace,
+                repo=self.repo,
+            )
+        ] + list(self._get_owner_or_org_collaborators())
+
+    def _get_collaborators_with_access(self) -&gt; dict[str, str]:
+        return {
+            c: self.api.repo_get_repo_permissions(
+                owner=self.namespace,
+                repo=self.repo,
+                collaborator=c,
+            ).permission
+            for c in self._get_collaborators()
+        }
+
+    def get_contributors(self) -&gt; set[str]:
+        return set(self._get_collaborators())
+
+    def users_with_write_access(self) -&gt; set[str]:
+        return {
+            collaborator
+            for collaborator, access in self._get_collaborators_with_access().items()
+            if access in (&#34;owner&#34;, &#34;admin&#34;, &#34;write&#34;)
+        }
+
+    def who_can_close_issue(self) -&gt; set[str]:
+        return self.users_with_write_access()
+
+    def who_can_merge_pr(self) -&gt; set[str]:
+        return self.users_with_write_access()
+
+    def can_merge_pr(self, username: str) -&gt; bool:
+        return self.api.repo_get_repo_permissions(
+            owner=self.namespace,
+            repo=self.repo,
+            collaborator=username,
+        ).permission in (&#34;owner&#34;, &#34;admin&#34;, &#34;write&#34;)
+
+    def get_users_with_given_access(self, access_levels: list[AccessLevel]) -&gt; set[str]:
+        access_levels_forgejo = [
+            self.access_dict[access_level] for access_level in access_levels
+        ]
+
+        return {
+            user
+            for user, permission in self._get_collaborators_with_access().items()
+            if permission in access_levels_forgejo
+        }
+
+    def add_user(self, user: str, access_level: AccessLevel) -&gt; None:
+        if access_level == AccessLevel.maintain:
+            raise OperationNotSupported(&#34;Not possible to add a user as `owner`.&#34;)
+
+        self.api.repo_add_collaborator(
+            owner=self.namespace,
+            repo=self.repo,
+            collaborator=user,
+            permission=self.access_dict[access_level],
+        )
+
+    def remove_user(self, user: str) -&gt; None:
+        self.api.repo_delete_collaborator(
+            owner=self.namespace,
+            repo=self.repo,
+            collaborator=user,
+        )
+
+    def request_access(self) -&gt; None:
+        raise OperationNotSupported(&#34;Not possible on Forgejo&#34;)
+
+    @indirect(ForgejoIssue.get_list)
+    def get_issue_list(
+        self,
+        status: IssueStatus = IssueStatus.open,
+        author: Optional[str] = None,
+        assignee: Optional[str] = None,
+        labels: Optional[list[str]] = None,
+    ) -&gt; list[&#34;Issue&#34;]:
+        pass
+
+    @indirect(ForgejoIssue.get)
+    def get_issue(self, issue_id: int) -&gt; &#34;Issue&#34;:
+        pass
+
+    @indirect(ForgejoIssue.create)
+    def create_issue(
+        self,
+        title: str,
+        body: str,
+        private: Optional[bool] = None,
+        labels: Optional[list[str]] = None,
+        assignees: Optional[list[str]] = None,
+    ) -&gt; Issue:
+        pass
+
+    @indirect(ForgejoPullRequest.get_list)
+    def get_pr_list(self, status: PRStatus = PRStatus.open) -&gt; Iterable[&#34;PullRequest&#34;]:
+        pass
+
+    @indirect(ForgejoPullRequest.get)
+    def get_pr(self, pr_id: int) -&gt; &#34;PullRequest&#34;:
+        pass
+
+    def get_pr_files_diff(
+        self,
+        pr_id: int,
+        retries: int = 0,
+        wait_seconds: int = 3,
+    ) -&gt; dict:
+        &#34;&#34;&#34;
+        Get files diff of a pull request.
+
+        Args:
+            pr_id: ID of the pull request.
+
+        Returns:
+            Dictionary representing files diff.
+        &#34;&#34;&#34;
+        # [NOTE] Implemented only for Pagure, for details see
+        # https://github.com/packit/ogr/issues/895
+        raise NotImplementedError()
+
+    def get_tags(self) -&gt; Iterable[&#34;GitTag&#34;]:
+        return (
+            GitTag(
+                name=tag.name,
+                commit_sha=tag.commit.sha,
+            )
+            for tag in paginate(self.partial_api(self.api.repo_list_tags))
+        )
+
+    def get_sha_from_tag(self, tag_name: str) -&gt; str:
+        return self.partial_api(
+            self.api.repo_get_tag,
+            tag=tag_name,
+        )().commit.sha
+
+    @indirect(ForgejoRelease.get)
+    def get_release(
+        self,
+        identifier: Optional[int] = None,
+        name: Optional[str] = None,
+        tag_name: Optional[str] = None,
+    ) -&gt; Release:
+        pass
+
+    @indirect(ForgejoRelease.get_latest)
+    def get_latest_release(self) -&gt; Optional[Release]:
+        pass
+
+    @indirect(ForgejoRelease.get_list)
+    def get_releases(self) -&gt; list[Release]:
+        pass
+
+    @indirect(ForgejoRelease.create)
+    def create_release(
+        self,
+        tag: str,
+        name: str,
+        message: str,
+        ref: Optional[str] = None,
+    ) -&gt; Release:
+        pass
+
+    @indirect(ForgejoPullRequest.create)
+    def create_pr(
+        self,
+        title: str,
+        body: str,
+        target_branch: str,
+        source_branch: str,
+        fork_username: Optional[str] = None,
+    ) -&gt; &#34;PullRequest&#34;:
+        pass
+
+    def commit_comment(
+        self,
+        commit: str,
+        body: str,
+        filename: Optional[str] = None,
+        row: Optional[int] = None,
+    ) -&gt; &#34;CommitComment&#34;:
+        raise OperationNotSupported(&#34;Forgejo doesn&#39;t support commit comments&#34;)
+
+    def get_commit_comments(self, commit: str) -&gt; list[CommitComment]:
+        raise OperationNotSupported(&#34;Forgejo doesn&#39;t support commit comments&#34;)
+
+    def get_commit_comment(self, commit_sha: str, comment_id: int) -&gt; CommitComment:
+        raise OperationNotSupported(&#34;Forgejo doesn&#39;t support commit comments&#34;)
+
+    @indirect(ForgejoCommitFlag.set)
+    def set_commit_status(
+        self,
+        commit: str,
+        state: Union[CommitStatus, str],
+        target_url: str,
+        description: str,
+        context: str,
+        trim: bool = False,
+    ) -&gt; &#34;CommitFlag&#34;:
+        pass
+
+    @indirect(ForgejoCommitFlag.get)
+    def get_commit_statuses(self, commit: str) -&gt; Iterable[&#34;CommitFlag&#34;]:
+        pass
+
+    def get_git_urls(self) -&gt; dict[str, str]:
+        return {
+            &#34;git&#34;: self.forgejo_repo.clone_url,
+            &#34;ssh&#34;: self.forgejo_repo.ssh_url,
+        }
+
+    def fork_create(self, namespace: Optional[str] = None) -&gt; &#34;GitProject&#34;:
+        if namespace:
+            self.api.create_fork(
+                owner=self.namespace,
+                repo=self.repo,
+                organization=namespace,
+            )
+            return ForgejoProject(
+                repo=self.repo,
+                service=self.service,
+                namespace=namespace,
+            )
+
+        self.api.create_fork(
+            owner=self.namespace,
+            repo=self.repo,
+        )
+        return ForgejoProject(
+            repo=self.repo,
+            service=self.service,
+            namespace=self.service.user.get_username(),
+        )
+
+    def change_token(self, new_token: str) -&gt; None:
+        # [NOTE] API doesn&#39;t provide any method to change the token, and it&#39;s
+        # embedded in the httpx client that&#39;s wrapped by pyforgejo wrapper to
+        # avoid duplication between sync and async calls…
+        raise NotImplementedError(
+            &#34;Not possible; requires recreation of the httpx client&#34;,
+        )
+
+    def get_file_content(
+        self,
+        path: str,
+        ref: Optional[str] = None,
+        headers: Optional[dict[str, str]] = None,
+    ) -&gt; str:
+        try:
+            remote_file: types.ContentsResponse = self.partial_api(
+                self.api.repo_get_contents,
+                filepath=path,
+                ref=ref,
+            )()
+
+            # [NOTE] If you touch this, good luck, have fun…
+            # tl;dr ‹ContentsResponse› from the Pyforgejo contains the content
+            # of the file that&#39;s (I hope always) base64-encoded, but it&#39;s stored
+            # as a string, so here it&#39;s needed to convert the UTF-8 encoded
+            # string back to bytes (duh, cause base64 is used for encoding raw
+            # data), then decode the base64 bytes to just bytes and then decode
+            # those to a UTF-8 string… EWWW…
+            return codecs.decode(
+                bytes(remote_file.content, &#34;utf-8&#34;),
+                encoding=remote_file.encoding,
+            ).decode(&#34;utf-8&#34;)
+
+        except NotFoundError as ex:
+            raise FileNotFoundError() from ex
+
+    def __get_files(
+        self,
+        path: str,
+        ref: str,
+        recursive: bool,
+    ) -&gt; Iterable[str]:
+        contents: types.ContentsResponse | list[types.ContentsResponse]
+
+        subdirectories = [&#34;.&#34;]
+
+        with contextlib.suppress(IndexError):
+            while path := subdirectories.pop():
+                contents = self.partial_api(
+                    self.api.repo_get_contents,
+                    filepath=path,
+                    ref=ref,
+                )()
+
+                if isinstance(contents, types.ContentsResponse):
+                    # singular file, return path and skip any further processing
+                    yield contents.path
+                    continue
+
+                for file in contents:
+                    if file.type == &#34;dir&#34;:
+                        subdirectories.append(file.path)
+                        continue
+
+                    yield file.path
+
+    def get_files(
+        self,
+        ref: Optional[str] = None,
+        filter_regex: Optional[str] = None,
+        recursive: bool = False,
+    ) -&gt; Iterable[str]:
+        logger.warning(
+            &#34;‹ForgejoProject.get_files()› method can fail because of incorrect&#34;
+            &#34; OpenAPI spec&#34;,
+        )
+
+        ref = ref or self.default_branch
+        paths = self.__get_files(&#34;.&#34;, ref=ref, recursive=recursive)
+
+        if filter_regex:
+            return filter_paths(paths, filter_regex)
+
+        return paths
+
+    def get_forks(self) -&gt; Iterable[&#34;ForgejoProject&#34;]:
+        return (
+            ForgejoProject(
+                namespace=fork.owner.login,
+                repo=fork.name,
+                service=self.service,
+            )
+            for fork in paginate(
+                self.partial_api(self.api.list_forks),
+            )
+        )
+
+    def get_web_url(self) -&gt; str:
+        return self.forgejo_repo.html_url
+
+    def get_sha_from_branch(self, branch: str) -&gt; Optional[str]:
+        try:
+            branch_info = self.partial_api(
+                self.api.repo_get_branch,
+                branch=branch,
+            )()
+            return branch_info.commit.id
+        except NotFoundError:
+            return None</code></pre>
+</details>
+<div class="desc"><h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>repo</code></strong></dt>
+<dd>Name of the project.</dd>
+<dt><strong><code>service</code></strong></dt>
+<dd>GitService instance.</dd>
+<dt><strong><code>namespace</code></strong></dt>
+<dd>
+<p>Namespace of the project.</p>
+<ul>
+<li>GitHub: username or org name.</li>
+<li>GitLab: username or org name.</li>
+<li>Pagure: namespace (e.g. <code>"rpms"</code>).</li>
+</ul>
+<p>In case of forks: <code>"fork/{username}/{namespace}"</code>.</p>
+</dd>
+</dl></div>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="ogr.services.base.BaseGitProject" href="../base.html#ogr.services.base.BaseGitProject">BaseGitProject</a></li>
+<li><a title="ogr.abstract.git_project.GitProject" href="../../abstract/git_project.html#ogr.abstract.git_project.GitProject">GitProject</a></li>
+<li><a title="ogr.abstract.abstract_class.OgrAbstractClass" href="../../abstract/abstract_class.html#ogr.abstract.abstract_class.OgrAbstractClass">OgrAbstractClass</a></li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="ogr.services.forgejo.ForgejoProject.access_dict"><code class="name">var <span class="ident">access_dict</span> : ClassVar[dict]</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="ogr.services.forgejo.ForgejoProject.service"><code class="name">var <span class="ident">service</span> : <a title="ogr.services.forgejo.service.ForgejoService" href="service.html#ogr.services.forgejo.service.ForgejoService">ForgejoService</a></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Instance variables</h3>
+<dl>
+<dt id="ogr.services.forgejo.ForgejoProject.api"><code class="name">prop <span class="ident">api</span> : pyforgejo.repository.client.RepositoryClient</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def api(self) -&gt; RepositoryClient:
+    &#34;&#34;&#34;Returns a `RepositoryClient` from pyforgejo. Helper to save some
+    typing.
+    &#34;&#34;&#34;
+    return self.service.api.repository</code></pre>
+</details>
+<div class="desc"><p>Returns a <code>RepositoryClient</code> from pyforgejo. Helper to save some
+typing.</p></div>
+</dd>
+<dt id="ogr.services.forgejo.ForgejoProject.forgejo_repo"><code class="name">var <span class="ident">forgejo_repo</span> : pyforgejo.types.repository.Repository</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@cached_property
+def forgejo_repo(self) -&gt; types.Repository:
+    return self.api.repo_get(
+        owner=self.namespace,
+        repo=self.repo,
+    )</code></pre>
+</details>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Methods</h3>
+<dl>
+<dt id="ogr.services.forgejo.ForgejoProject.partial_api"><code class="name flex">
+<span>def <span class="ident">partial_api</span></span>(<span>self, method, /, *args, **kwargs)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def partial_api(self, method, /, *args, **kwargs):
+    &#34;&#34;&#34;Returns a partial API call for `ForgejoProject`.
+
+    Injects `owner` and `repo` for the calls to `/repository/` endpoints.
+
+    Args:
+        method: Specific method on the Pyforgejo API that is to be wrapped.
+        *args: Positional arguments that get injected into every call.
+        **kwargs: Keyword-arguments that get injected into every call.
+
+    Returns:
+        Callable with pre-injected parameters.
+
+    &#34;&#34;&#34;
+    return partial(
+        method,
+        *args,
+        **kwargs,
+        owner=self.namespace,
+        repo=self.repo,
+    )</code></pre>
+</details>
+<div class="desc"><p>Returns a partial API call for <code><a title="ogr.services.forgejo.ForgejoProject" href="#ogr.services.forgejo.ForgejoProject">ForgejoProject</a></code>.</p>
+<p>Injects <code>owner</code> and <code>repo</code> for the calls to <code>/repository/</code> endpoints.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>method</code></strong></dt>
+<dd>Specific method on the Pyforgejo API that is to be wrapped.</dd>
+<dt><strong><code>*args</code></strong></dt>
+<dd>Positional arguments that get injected into every call.</dd>
+<dt><strong><code>**kwargs</code></strong></dt>
+<dd>Keyword-arguments that get injected into every call.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p>Callable with pre-injected parameters.</p></div>
+</dd>
+</dl>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="ogr.services.base.BaseGitProject" href="../base.html#ogr.services.base.BaseGitProject">BaseGitProject</a></b></code>:
+<ul class="hlist">
+<li><code><a title="ogr.services.base.BaseGitProject.add_group" href="../../abstract/git_project.html#ogr.abstract.git_project.GitProject.add_group">add_group</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitProject.add_user" href="../../abstract/git_project.html#ogr.abstract.git_project.GitProject.add_user">add_user</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitProject.can_merge_pr" href="../../abstract/git_project.html#ogr.abstract.git_project.GitProject.can_merge_pr">can_merge_pr</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitProject.change_token" href="../../abstract/git_project.html#ogr.abstract.git_project.GitProject.change_token">change_token</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitProject.commit_comment" href="../../abstract/git_project.html#ogr.abstract.git_project.GitProject.commit_comment">commit_comment</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitProject.create_issue" href="../../abstract/git_project.html#ogr.abstract.git_project.GitProject.create_issue">create_issue</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitProject.create_pr" href="../../abstract/git_project.html#ogr.abstract.git_project.GitProject.create_pr">create_pr</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitProject.create_release" href="../../abstract/git_project.html#ogr.abstract.git_project.GitProject.create_release">create_release</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitProject.default_branch" href="../../abstract/git_project.html#ogr.abstract.git_project.GitProject.default_branch">default_branch</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitProject.delete" href="../../abstract/git_project.html#ogr.abstract.git_project.GitProject.delete">delete</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitProject.description" href="../../abstract/git_project.html#ogr.abstract.git_project.GitProject.description">description</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitProject.exists" href="../../abstract/git_project.html#ogr.abstract.git_project.GitProject.exists">exists</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitProject.fork_create" href="../../abstract/git_project.html#ogr.abstract.git_project.GitProject.fork_create">fork_create</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitProject.full_repo_name" href="../../abstract/git_project.html#ogr.abstract.git_project.GitProject.full_repo_name">full_repo_name</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitProject.get_branches" href="../../abstract/git_project.html#ogr.abstract.git_project.GitProject.get_branches">get_branches</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitProject.get_commit_comment" href="../../abstract/git_project.html#ogr.abstract.git_project.GitProject.get_commit_comment">get_commit_comment</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitProject.get_commit_comments" href="../../abstract/git_project.html#ogr.abstract.git_project.GitProject.get_commit_comments">get_commit_comments</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitProject.get_commit_statuses" href="../../abstract/git_project.html#ogr.abstract.git_project.GitProject.get_commit_statuses">get_commit_statuses</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitProject.get_commits" href="../../abstract/git_project.html#ogr.abstract.git_project.GitProject.get_commits">get_commits</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitProject.get_contributors" href="../../abstract/git_project.html#ogr.abstract.git_project.GitProject.get_contributors">get_contributors</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitProject.get_description" href="../../abstract/git_project.html#ogr.abstract.git_project.GitProject.get_description">get_description</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitProject.get_file_content" href="../../abstract/git_project.html#ogr.abstract.git_project.GitProject.get_file_content">get_file_content</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitProject.get_files" href="../../abstract/git_project.html#ogr.abstract.git_project.GitProject.get_files">get_files</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitProject.get_fork" href="../../abstract/git_project.html#ogr.abstract.git_project.GitProject.get_fork">get_fork</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitProject.get_forks" href="../../abstract/git_project.html#ogr.abstract.git_project.GitProject.get_forks">get_forks</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitProject.get_git_urls" href="../../abstract/git_project.html#ogr.abstract.git_project.GitProject.get_git_urls">get_git_urls</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitProject.get_issue" href="../../abstract/git_project.html#ogr.abstract.git_project.GitProject.get_issue">get_issue</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitProject.get_issue_info" href="../../abstract/git_project.html#ogr.abstract.git_project.GitProject.get_issue_info">get_issue_info</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitProject.get_issue_list" href="../../abstract/git_project.html#ogr.abstract.git_project.GitProject.get_issue_list">get_issue_list</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitProject.get_latest_release" href="../../abstract/git_project.html#ogr.abstract.git_project.GitProject.get_latest_release">get_latest_release</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitProject.get_owners" href="../../abstract/git_project.html#ogr.abstract.git_project.GitProject.get_owners">get_owners</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitProject.get_pr" href="../../abstract/git_project.html#ogr.abstract.git_project.GitProject.get_pr">get_pr</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitProject.get_pr_files_diff" href="../../abstract/git_project.html#ogr.abstract.git_project.GitProject.get_pr_files_diff">get_pr_files_diff</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitProject.get_pr_list" href="../../abstract/git_project.html#ogr.abstract.git_project.GitProject.get_pr_list">get_pr_list</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitProject.get_release" href="../../abstract/git_project.html#ogr.abstract.git_project.GitProject.get_release">get_release</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitProject.get_releases" href="../../abstract/git_project.html#ogr.abstract.git_project.GitProject.get_releases">get_releases</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitProject.get_sha_from_branch" href="../../abstract/git_project.html#ogr.abstract.git_project.GitProject.get_sha_from_branch">get_sha_from_branch</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitProject.get_sha_from_tag" href="../../abstract/git_project.html#ogr.abstract.git_project.GitProject.get_sha_from_tag">get_sha_from_tag</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitProject.get_tags" href="../../abstract/git_project.html#ogr.abstract.git_project.GitProject.get_tags">get_tags</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitProject.get_users_with_given_access" href="../../abstract/git_project.html#ogr.abstract.git_project.GitProject.get_users_with_given_access">get_users_with_given_access</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitProject.get_web_url" href="../../abstract/git_project.html#ogr.abstract.git_project.GitProject.get_web_url">get_web_url</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitProject.has_issues" href="../../abstract/git_project.html#ogr.abstract.git_project.GitProject.has_issues">has_issues</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitProject.has_write_access" href="../../abstract/git_project.html#ogr.abstract.git_project.GitProject.has_write_access">has_write_access</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitProject.is_fork" href="../../abstract/git_project.html#ogr.abstract.git_project.GitProject.is_fork">is_fork</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitProject.is_forked" href="../../abstract/git_project.html#ogr.abstract.git_project.GitProject.is_forked">is_forked</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitProject.is_private" href="../../abstract/git_project.html#ogr.abstract.git_project.GitProject.is_private">is_private</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitProject.parent" href="../../abstract/git_project.html#ogr.abstract.git_project.GitProject.parent">parent</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitProject.remove_group" href="../../abstract/git_project.html#ogr.abstract.git_project.GitProject.remove_group">remove_group</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitProject.remove_user" href="../../abstract/git_project.html#ogr.abstract.git_project.GitProject.remove_user">remove_user</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitProject.request_access" href="../../abstract/git_project.html#ogr.abstract.git_project.GitProject.request_access">request_access</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitProject.set_commit_status" href="../../abstract/git_project.html#ogr.abstract.git_project.GitProject.set_commit_status">set_commit_status</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitProject.users_with_write_access" href="../../abstract/git_project.html#ogr.abstract.git_project.GitProject.users_with_write_access">users_with_write_access</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitProject.which_groups_can_merge_pr" href="../../abstract/git_project.html#ogr.abstract.git_project.GitProject.which_groups_can_merge_pr">which_groups_can_merge_pr</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitProject.who_can_close_issue" href="../../abstract/git_project.html#ogr.abstract.git_project.GitProject.who_can_close_issue">who_can_close_issue</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitProject.who_can_merge_pr" href="../../abstract/git_project.html#ogr.abstract.git_project.GitProject.who_can_merge_pr">who_can_merge_pr</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+<dt id="ogr.services.forgejo.ForgejoPullRequest"><code class="flex name class">
+<span>class <span class="ident">ForgejoPullRequest</span></span>
+<span>(</span><span>raw_pr: pyforgejo.types.pull_request.PullRequest,<br>project: forgejo.ForgejoProject)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class ForgejoPullRequest(BasePullRequest):
+    _target_project: &#34;forgejo.ForgejoProject&#34; = None
+    _source_project: &#34;forgejo.ForgejoProject&#34; = None
+    _labels: list[PRLabel] = None
+
+    def __init__(
+        self,
+        raw_pr: PyforgejoPullRequest,
+        project: &#34;forgejo.ForgejoProject&#34;,
+    ):
+        super().__init__(raw_pr, project)
+        self.project = project
+
+    def __str__(self) -&gt; str:
+        return &#34;Forgejo&#34; + super().__str__()
+
+    @property
+    def api(self):
+        &#34;&#34;&#34;Returns the issue API client from pyforgejo.&#34;&#34;&#34;
+        return self.project.service.api.issue
+
+    @property
+    def title(self) -&gt; str:
+        return self._raw_pr.title
+
+    @title.setter
+    def title(self, new_title: str) -&gt; None:
+        self.update_info(title=new_title)
+
+    @property
+    def id(self) -&gt; int:
+        return self._raw_pr.number
+
+    @property
+    def status(self) -&gt; PRStatus:
+        return PRStatus.merged if self._raw_pr.merged else PRStatus[self._raw_pr.state]
+
+    @property
+    def url(self) -&gt; str:
+        return self._raw_pr.url
+
+    @property
+    def description(self) -&gt; str:
+        return self._raw_pr.body
+
+    @description.setter
+    def description(self, new_description: str) -&gt; None:
+        self.update_info(description=new_description)
+
+    @property
+    def author(self) -&gt; str:
+        return self._raw_pr.user.login
+
+    @property
+    def source_branch(self) -&gt; str:
+        return self._raw_pr.head.ref
+
+    @property
+    def target_branch(self) -&gt; str:
+        return self._raw_pr.base.ref
+
+    @property
+    def created(self) -&gt; datetime.datetime:
+        return self._raw_pr.created_at
+
+    @property
+    def labels(self) -&gt; list[PRLabel]:
+        if self._labels is None:
+            self._labels = (
+                [ForgejoPRLabel(raw_label, self) for raw_label in self._raw_pr.labels]
+                if self._raw_pr.labels
+                else []
+            )
+        return self._labels
+
+    @property
+    def diff_url(self) -&gt; str:
+        return self._raw_pr.diff_url
+
+    @property
+    def patch(self) -&gt; bytes:
+        patch_url = self._raw_pr.patch_url
+        response = httpx.get(patch_url)
+
+        if not response.is_success:
+            raise OgrNetworkError(
+                f&#34;Couldn&#39;t get patch from {patch_url}.patch because {response.reason}.&#34;,
+            )
+
+        return response.content
+
+    @property
+    def head_commit(self) -&gt; str:
+        return self._raw_pr.head.sha
+
+    @property
+    def merge_commit_sha(self) -&gt; Optional[str]:
+        # this is None for non-merged PRs
+        return self._raw_pr.merge_commit_sha
+
+    @property
+    def merge_commit_status(self) -&gt; MergeCommitStatus:
+        return (
+            MergeCommitStatus.can_be_merged
+            if self._raw_pr.mergeable
+            else MergeCommitStatus.cannot_be_merged
+        )
+
+    @cached_property
+    def source_project(self) -&gt; &#34;forgejo.ForgejoProject&#34;:
+        pyforgejo_repo = self._raw_pr.head.repo
+        return self._target_project.service.get_project(
+            repo=pyforgejo_repo.name,
+            namespace=pyforgejo_repo.owner.login,
+            forgejo_repo=pyforgejo_repo,
+        )
+
+    @property
+    def commits_url(self) -&gt; str:
+        return f&#34;{self.url}/commits&#34;
+
+    @property
+    def closed_by(self) -&gt; Optional[str]:
+        return self._raw_pr.merged_by.login if self._raw_pr.merged_by else None
+
+    @staticmethod
+    def create(
+        project: &#34;forgejo.ForgejoProject&#34;,
+        title: str,
+        body: str,
+        target_branch: str,
+        source_branch: str,
+        fork_username: Optional[str] = None,
+    ) -&gt; &#34;PullRequest&#34;:
+        target_project = project
+
+        if project.is_fork and fork_username is None:
+            # handles fork -&gt; upstream (called on fork)
+            source_branch = f&#34;{project.namespace}:{source_branch}&#34;
+            target_project = project.parent  # type: ignore
+        elif fork_username:
+            if fork_username != project.namespace and project.parent is not None:
+                # handles fork -&gt; other_fork
+                #   (username of other_fork owner specified by fork_username)
+                forks = list(
+                    filter(
+                        lambda fork: fork.namespace == fork_username,
+                        project.parent.get_forks(),
+                    ),
+                )
+                if not forks:
+                    raise ForgejoAPIException(&#34;Requested fork doesn&#39;t exist&#34;)
+                target_project = forks[0]  # type: ignore
+                source_branch = f&#34;{project.namespace}:{source_branch}&#34;
+            else:
+                # handles fork -&gt; upstream
+                #   (username of fork owner specified by fork_username)
+                source_branch = f&#34;{fork_username}:{source_branch}&#34;
+
+        logger.debug(f&#34;Creating PR {target_branch}&lt;-{source_branch}&#34;)
+
+        pr = target_project.api.repo_create_pull_request(
+            owner=target_project.namespace,
+            repo=target_project.repo,
+            base=target_branch,
+            body=body,
+            head=source_branch,
+            title=title,
+        )
+        logger.info(f&#34;PR {pr.id} created.&#34;)
+
+        return ForgejoPullRequest(pr, target_project)
+
+    @staticmethod
+    def get(project: &#34;forgejo.ForgejoProject&#34;, pr_id: int) -&gt; &#34;PullRequest&#34;:
+        try:
+            raw_pr = project.api.repo_get_pull_request(
+                owner=project.namespace,
+                repo=project.repo,
+                index=pr_id,
+            )
+        except NotFoundError as ex:
+            raise ForgejoAPIException(f&#34;No pull request with id {pr_id} found.&#34;) from ex
+        return ForgejoPullRequest(raw_pr, project)
+
+    @staticmethod
+    def get_list(
+        project: &#34;forgejo.ForgejoProject&#34;,
+        status: PRStatus = PRStatus.open,
+    ) -&gt; Iterable[&#34;PullRequest&#34;]:
+        prs = paginate(
+            partial(
+                project.api.repo_list_pull_requests,
+                owner=project.namespace,
+                repo=project.repo,
+                # Forgejo has just open/closed/all
+                state=status.name if status != PRStatus.merged else &#34;closed&#34;,
+            ),
+        )
+        return (ForgejoPullRequest(pr, project) for pr in prs)
+
+    def update_info(
+        self,
+        title: Optional[str] = None,
+        description: Optional[str] = None,
+    ) -&gt; &#34;PullRequest&#34;:
+        try:
+            data = {&#34;title&#34;: title if title else self.title}
+
+            if description is not None:
+                data[&#34;body&#34;] = description
+
+            updated_pr = self._target_project.api.repo_edit_pull_request(
+                owner=self.target_project.namespace,
+                repo=self.target_project.repo,
+                index=self.id,
+                **data,
+            )
+
+            self._raw_pr = updated_pr
+            return self
+        except Exception as ex:
+            raise ForgejoAPIException(
+                f&#34;There was an error while updating Forgejo PR: {ex}&#34;,
+            ) from ex
+
+    def close(self) -&gt; &#34;PullRequest&#34;:
+        self._raw_pr = self._target_project.api.repo_edit_pull_request(
+            owner=self.target_project.namespace,
+            repo=self.target_project.repo,
+            index=self.id,
+            state=&#34;closed&#34;,
+        )
+        return self
+
+    def merge(self) -&gt; &#34;PullRequest&#34;:
+        self._target_project.api.repo_merge_pull_request(
+            owner=self.target_project.namespace,
+            repo=self.target_project.repo,
+            index=self.id,
+            # options: merge, rebase, rebase-merge, squash, fast-forward-only, manually-merged
+            do=&#34;merge&#34;,
+        )
+        return self.get(self._target_project, self.id)
+
+    def add_label(self, *labels: str) -&gt; None:
+        issue_client = self._target_project.service.api.issue
+        new_labels = issue_client.add_label(
+            owner=self.target_project.namespace,
+            repo=self.target_project.repo,
+            index=self.id,
+            labels=list(labels),
+        )
+        self._labels = [ForgejoPRLabel(raw_label, self) for raw_label in new_labels]
+
+    def get_all_commits(self) -&gt; Iterable[str]:
+        return (
+            commit.sha
+            for commit in paginate(
+                partial(
+                    self._target_project.api.repo_get_pull_request_commits,
+                    owner=self.target_project.namespace,
+                    repo=self.target_project.repo,
+                    index=self.id,
+                ),
+            )
+        )
+
+    def _get_all_comments(self, reverse: bool = False) -&gt; Iterable[PRComment]:
+        try:
+            comments = self.api.get_comments(
+                owner=self.project.namespace,
+                repo=self.project.repo,
+                index=self.id,
+            )
+
+        except NotFoundError as ex:
+            raise ForgejoAPIException(
+                &#34;There was an error when retrieving PR comments.&#34;,
+            ) from ex
+
+        if reverse:
+            comments = list(reversed(comments))
+
+        return (
+            ForgejoPRComment(raw_comment=comment, parent=self) for comment in comments
+        )
+
+    def comment(
+        self,
+        body: str,
+        commit: Optional[str] = None,
+        filename: Optional[str] = None,
+        row: Optional[int] = None,
+    ) -&gt; PRComment:
+        &#34;&#34;&#34;
+        Add new comment to the pull request.
+
+        Args:
+            body: Body of the comment.
+            commit: Commit hash to which comment is related.
+
+                Defaults to generic comment.
+            filename: Path to the file to which comment is related.
+
+                Defaults to no relation to the file.
+            row: Line number to which the comment is related.
+
+                Defaults to no relation to the line.
+
+        Returns:
+            Newly created comment.
+        &#34;&#34;&#34;
+        if commit or filename or row:
+            raise NotImplementedError
+
+        comment = self.api.create_comment(
+            owner=self.project.namespace,
+            repo=self.project.repo,
+            index=self.id,
+            body=body,
+        )
+
+        return ForgejoPRComment(raw_comment=comment, parent=self)
+
+    def get_comment(self, comment_id: int) -&gt; PRComment:
+        &#34;&#34;&#34;
+        Returns a PR comment.
+
+        Args:
+            comment_id: id of comment
+
+        Returns:
+            Object representing a PR comment.
+        &#34;&#34;&#34;
+        comment = self.project.service.api.issue.get_comment(
+            owner=self.project.namespace,
+            repo=self.project.repo,
+            id=comment_id,
+        )
+        return ForgejoPRComment(parent=self, raw_comment=comment)
+
+    def get_statuses(self) -&gt; Union[list[CommitFlag], Iterable[CommitFlag]]:
+        &#34;&#34;&#34;
+        Returns statuses for latest commit on pull request.
+
+        Returns:
+            List of commit statuses of the latest commit.
+        &#34;&#34;&#34;
+        raise NotImplementedError()</code></pre>
+</details>
+<div class="desc"><h2 id="attributes">Attributes</h2>
+<dl>
+<dt><strong><code>project</code></strong> :&ensp;<code>GitProject</code></dt>
+<dd>Project of the pull request.</dd>
+</dl></div>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="ogr.services.base.BasePullRequest" href="../base.html#ogr.services.base.BasePullRequest">BasePullRequest</a></li>
+<li><a title="ogr.abstract.pull_request.PullRequest" href="../../abstract/pull_request.html#ogr.abstract.pull_request.PullRequest">PullRequest</a></li>
+<li><a title="ogr.abstract.abstract_class.OgrAbstractClass" href="../../abstract/abstract_class.html#ogr.abstract.abstract_class.OgrAbstractClass">OgrAbstractClass</a></li>
+</ul>
+<h3>Instance variables</h3>
+<dl>
+<dt id="ogr.services.forgejo.ForgejoPullRequest.api"><code class="name">prop <span class="ident">api</span></code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def api(self):
+    &#34;&#34;&#34;Returns the issue API client from pyforgejo.&#34;&#34;&#34;
+    return self.project.service.api.issue</code></pre>
+</details>
+<div class="desc"><p>Returns the issue API client from pyforgejo.</p></div>
+</dd>
+</dl>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="ogr.services.base.BasePullRequest" href="../base.html#ogr.services.base.BasePullRequest">BasePullRequest</a></b></code>:
+<ul class="hlist">
+<li><code><a title="ogr.services.base.BasePullRequest.add_label" href="../../abstract/pull_request.html#ogr.abstract.pull_request.PullRequest.add_label">add_label</a></code></li>
+<li><code><a title="ogr.services.base.BasePullRequest.author" href="../../abstract/pull_request.html#ogr.abstract.pull_request.PullRequest.author">author</a></code></li>
+<li><code><a title="ogr.services.base.BasePullRequest.close" href="../../abstract/pull_request.html#ogr.abstract.pull_request.PullRequest.close">close</a></code></li>
+<li><code><a title="ogr.services.base.BasePullRequest.closed_by" href="../../abstract/pull_request.html#ogr.abstract.pull_request.PullRequest.closed_by">closed_by</a></code></li>
+<li><code><a title="ogr.services.base.BasePullRequest.comment" href="../../abstract/pull_request.html#ogr.abstract.pull_request.PullRequest.comment">comment</a></code></li>
+<li><code><a title="ogr.services.base.BasePullRequest.commits_url" href="../../abstract/pull_request.html#ogr.abstract.pull_request.PullRequest.commits_url">commits_url</a></code></li>
+<li><code><a title="ogr.services.base.BasePullRequest.create" href="../../abstract/pull_request.html#ogr.abstract.pull_request.PullRequest.create">create</a></code></li>
+<li><code><a title="ogr.services.base.BasePullRequest.created" href="../../abstract/pull_request.html#ogr.abstract.pull_request.PullRequest.created">created</a></code></li>
+<li><code><a title="ogr.services.base.BasePullRequest.description" href="../../abstract/pull_request.html#ogr.abstract.pull_request.PullRequest.description">description</a></code></li>
+<li><code><a title="ogr.services.base.BasePullRequest.diff_url" href="../../abstract/pull_request.html#ogr.abstract.pull_request.PullRequest.diff_url">diff_url</a></code></li>
+<li><code><a title="ogr.services.base.BasePullRequest.get" href="../../abstract/pull_request.html#ogr.abstract.pull_request.PullRequest.get">get</a></code></li>
+<li><code><a title="ogr.services.base.BasePullRequest.get_all_commits" href="../../abstract/pull_request.html#ogr.abstract.pull_request.PullRequest.get_all_commits">get_all_commits</a></code></li>
+<li><code><a title="ogr.services.base.BasePullRequest.get_comment" href="../../abstract/pull_request.html#ogr.abstract.pull_request.PullRequest.get_comment">get_comment</a></code></li>
+<li><code><a title="ogr.services.base.BasePullRequest.get_list" href="../../abstract/pull_request.html#ogr.abstract.pull_request.PullRequest.get_list">get_list</a></code></li>
+<li><code><a title="ogr.services.base.BasePullRequest.head_commit" href="../../abstract/pull_request.html#ogr.abstract.pull_request.PullRequest.head_commit">head_commit</a></code></li>
+<li><code><a title="ogr.services.base.BasePullRequest.id" href="../../abstract/pull_request.html#ogr.abstract.pull_request.PullRequest.id">id</a></code></li>
+<li><code><a title="ogr.services.base.BasePullRequest.labels" href="../../abstract/pull_request.html#ogr.abstract.pull_request.PullRequest.labels">labels</a></code></li>
+<li><code><a title="ogr.services.base.BasePullRequest.merge" href="../../abstract/pull_request.html#ogr.abstract.pull_request.PullRequest.merge">merge</a></code></li>
+<li><code><a title="ogr.services.base.BasePullRequest.merge_commit_sha" href="../../abstract/pull_request.html#ogr.abstract.pull_request.PullRequest.merge_commit_sha">merge_commit_sha</a></code></li>
+<li><code><a title="ogr.services.base.BasePullRequest.merge_commit_status" href="../../abstract/pull_request.html#ogr.abstract.pull_request.PullRequest.merge_commit_status">merge_commit_status</a></code></li>
+<li><code><a title="ogr.services.base.BasePullRequest.patch" href="../../abstract/pull_request.html#ogr.abstract.pull_request.PullRequest.patch">patch</a></code></li>
+<li><code><a title="ogr.services.base.BasePullRequest.source_branch" href="../../abstract/pull_request.html#ogr.abstract.pull_request.PullRequest.source_branch">source_branch</a></code></li>
+<li><code><a title="ogr.services.base.BasePullRequest.source_project" href="../../abstract/pull_request.html#ogr.abstract.pull_request.PullRequest.source_project">source_project</a></code></li>
+<li><code><a title="ogr.services.base.BasePullRequest.status" href="../../abstract/pull_request.html#ogr.abstract.pull_request.PullRequest.status">status</a></code></li>
+<li><code><a title="ogr.services.base.BasePullRequest.target_branch" href="../../abstract/pull_request.html#ogr.abstract.pull_request.PullRequest.target_branch">target_branch</a></code></li>
+<li><code><a title="ogr.services.base.BasePullRequest.title" href="../../abstract/pull_request.html#ogr.abstract.pull_request.PullRequest.title">title</a></code></li>
+<li><code><a title="ogr.services.base.BasePullRequest.update_info" href="../../abstract/pull_request.html#ogr.abstract.pull_request.PullRequest.update_info">update_info</a></code></li>
+<li><code><a title="ogr.services.base.BasePullRequest.url" href="../../abstract/pull_request.html#ogr.abstract.pull_request.PullRequest.url">url</a></code></li>
+</ul>
+</li>
+<li><code><b><a title="ogr.services.base.BasePullRequest" href="../base.html#ogr.services.base.BasePullRequest">BasePullRequest</a></b></code>:
+<ul class="hlist">
+<li><code><a title="ogr.services.base.BasePullRequest.target_branch_head_commit" href="../../abstract/pull_request.html#ogr.abstract.pull_request.PullRequest.target_branch_head_commit">target_branch_head_commit</a></code></li>
+<li><code><a title="ogr.services.base.BasePullRequest.target_project" href="../../abstract/pull_request.html#ogr.abstract.pull_request.PullRequest.target_project">target_project</a></code></li>
+</ul>
+</li>
+<li><code><b><a title="ogr.abstract.pull_request.PullRequest" href="../../abstract/pull_request.html#ogr.abstract.pull_request.PullRequest">PullRequest</a></b></code>:
+<ul class="hlist">
+<li><code><a title="ogr.abstract.pull_request.PullRequest.get_statuses" href="../../abstract/pull_request.html#ogr.abstract.pull_request.PullRequest.get_statuses">get_statuses</a></code></li>
+</ul>
+</li>
+<li><code><b><a title="ogr.abstract.pull_request.PullRequest" href="../../abstract/pull_request.html#ogr.abstract.pull_request.PullRequest">PullRequest</a></b></code>:
+<ul class="hlist">
+<li><code><a title="ogr.abstract.pull_request.PullRequest.get_comments" href="../../abstract/pull_request.html#ogr.abstract.pull_request.PullRequest.get_comments">get_comments</a></code></li>
+<li><code><a title="ogr.abstract.pull_request.PullRequest.search" href="../../abstract/pull_request.html#ogr.abstract.pull_request.PullRequest.search">search</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+<dt id="ogr.services.forgejo.ForgejoRelease"><code class="flex name class">
+<span>class <span class="ident">ForgejoRelease</span></span>
+<span>(</span><span>raw_release: Any, project: GitProject)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class ForgejoRelease(Release):
+    _raw_release: PyforgejoRelease
+    project: &#34;ogr_forgejo.ForgejoProject&#34;
+
+    @property
+    def title(self) -&gt; str:
+        return self._raw_release.name
+
+    @property
+    def body(self) -&gt; str:
+        return self._raw_release.body
+
+    @cached_property
+    def git_tag(self) -&gt; GitTag:
+        tag = self.project.api.repo_get_tag(
+            owner=self.project.namespace,
+            repo=self.project.repo,
+            tag=self.tag_name,
+        )
+        return GitTag(name=tag.name, commit_sha=tag.commit.sha)
+
+    @property
+    def tag_name(self) -&gt; str:
+        return self._raw_release.tag_name
+
+    @property
+    def url(self) -&gt; Optional[str]:
+        return self._raw_release.url
+
+    @property
+    def created_at(self) -&gt; datetime.datetime:
+        return self._raw_release.created_at
+
+    @property
+    def tarball_url(self) -&gt; str:
+        return self._raw_release.tarball_url
+
+    @staticmethod
+    def _release_id_from_name(
+        project: &#34;ogr_forgejo.ForgejoProject&#34;,
+        name: str,
+    ) -&gt; Optional[int]:
+        for release in paginate(
+            partial(
+                project.api.repo_list_releases,
+                owner=project.namespace,
+                repo=project.repo,
+            ),
+        ):
+            if release.name == name:
+                return release.id
+        return None
+
+    @staticmethod
+    def get(
+        project: &#34;ogr_forgejo.ForgejoProject&#34;,
+        identifier: Optional[int] = None,
+        name: Optional[str] = None,
+        tag_name: Optional[str] = None,
+    ) -&gt; &#34;Release&#34;:
+        if tag_name:
+            release = project.api.repo_get_release_by_tag(
+                owner=project.namespace,
+                repo=project.repo,
+                tag=tag_name,
+            )
+            return ForgejoRelease(release, project)
+
+        if name:
+            identifier = ForgejoRelease._release_id_from_name(project, name)
+
+        if identifier is None:
+            raise ForgejoAPIException(&#34;Release was not found.&#34;)
+
+        release = project.api.repo_get_release(
+            owner=project.namespace,
+            repo=project.repo,
+            id=identifier,
+        )
+        return ForgejoRelease(release, project)
+
+    @staticmethod
+    def get_latest(project: &#34;ogr_forgejo.ForgejoProject&#34;) -&gt; Optional[&#34;Release&#34;]:
+        releases = project.api.repo_list_releases(
+            owner=project.namespace,
+            repo=project.repo,
+            page=1,
+            limit=1,
+        )
+
+        return ForgejoRelease(releases[0], project) if releases else None
+
+    @staticmethod
+    def get_list(project: &#34;ogr_forgejo.ForgejoProject&#34;) -&gt; list[&#34;Release&#34;]:
+        releases = paginate(
+            partial(
+                project.api.repo_list_releases,
+                owner=project.namespace,
+                repo=project.repo,
+            ),
+        )
+        return [ForgejoRelease(release, project) for release in releases]
+
+    @staticmethod
+    def create(
+        project: &#34;ogr_forgejo.ForgejoProject&#34;,
+        tag: str,
+        name: str,
+        message: str,
+        ref: Optional[str] = None,
+    ) -&gt; &#34;Release&#34;:
+        release = project.api.repo_create_release(
+            owner=project.namespace,
+            repo=project.repo,
+            tag_name=tag,
+            body=message,
+            name=name,
+            target_commitish=ref,
+        )
+
+        return ForgejoRelease(release, project)
+
+    def edit_release(self, name: str, message: str) -&gt; None:
+        try:
+            data = {}
+            if name is not None:
+                data[&#34;name&#34;] = name
+
+            if message is not None:
+                data[&#34;body&#34;] = message
+
+            updated_release = self.project.api.repo_edit_release(
+                owner=self.project.namespace,
+                repo=self.project.repo,
+                id=self._raw_release.id,
+                **data,
+            )
+
+            self._raw_release = updated_release
+        except Exception as ex:
+            raise ForgejoAPIException(
+                f&#34;There was an error while updating Forgejo release: {ex}&#34;,
+            ) from ex</code></pre>
+</details>
+<div class="desc"><p>Object that represents release.</p>
+<h2 id="attributes">Attributes</h2>
+<dl>
+<dt><strong><code>project</code></strong> :&ensp;<code>GitProject</code></dt>
+<dd>Project on which the release is created.</dd>
+</dl></div>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="ogr.abstract.release.Release" href="../../abstract/release.html#ogr.abstract.release.Release">Release</a></li>
+<li><a title="ogr.abstract.abstract_class.OgrAbstractClass" href="../../abstract/abstract_class.html#ogr.abstract.abstract_class.OgrAbstractClass">OgrAbstractClass</a></li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="ogr.services.forgejo.ForgejoRelease.project"><code class="name">var <span class="ident">project</span> : <a title="ogr.services.forgejo.project.ForgejoProject" href="project.html#ogr.services.forgejo.project.ForgejoProject">ForgejoProject</a></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="ogr.abstract.release.Release" href="../../abstract/release.html#ogr.abstract.release.Release">Release</a></b></code>:
+<ul class="hlist">
+<li><code><a title="ogr.abstract.release.Release.body" href="../../abstract/release.html#ogr.abstract.release.Release.body">body</a></code></li>
+<li><code><a title="ogr.abstract.release.Release.create" href="../../abstract/release.html#ogr.abstract.release.Release.create">create</a></code></li>
+<li><code><a title="ogr.abstract.release.Release.created_at" href="../../abstract/release.html#ogr.abstract.release.Release.created_at">created_at</a></code></li>
+<li><code><a title="ogr.abstract.release.Release.edit_release" href="../../abstract/release.html#ogr.abstract.release.Release.edit_release">edit_release</a></code></li>
+<li><code><a title="ogr.abstract.release.Release.get" href="../../abstract/release.html#ogr.abstract.release.Release.get">get</a></code></li>
+<li><code><a title="ogr.abstract.release.Release.get_latest" href="../../abstract/release.html#ogr.abstract.release.Release.get_latest">get_latest</a></code></li>
+<li><code><a title="ogr.abstract.release.Release.get_list" href="../../abstract/release.html#ogr.abstract.release.Release.get_list">get_list</a></code></li>
+<li><code><a title="ogr.abstract.release.Release.git_tag" href="../../abstract/release.html#ogr.abstract.release.Release.git_tag">git_tag</a></code></li>
+<li><code><a title="ogr.abstract.release.Release.save_archive" href="../../abstract/release.html#ogr.abstract.release.Release.save_archive">save_archive</a></code></li>
+<li><code><a title="ogr.abstract.release.Release.tag_name" href="../../abstract/release.html#ogr.abstract.release.Release.tag_name">tag_name</a></code></li>
+<li><code><a title="ogr.abstract.release.Release.tarball_url" href="../../abstract/release.html#ogr.abstract.release.Release.tarball_url">tarball_url</a></code></li>
+<li><code><a title="ogr.abstract.release.Release.title" href="../../abstract/release.html#ogr.abstract.release.Release.title">title</a></code></li>
+<li><code><a title="ogr.abstract.release.Release.url" href="../../abstract/release.html#ogr.abstract.release.Release.url">url</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+<dt id="ogr.services.forgejo.ForgejoService"><code class="flex name class">
+<span>class <span class="ident">ForgejoService</span></span>
+<span>(</span><span>instance_url: str = 'https://codeberg.org', token: str | None = None, **kwargs)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@use_for_service(&#34;forgejo&#34;)
+@use_for_service(&#34;codeberg.org&#34;)
+class ForgejoService(BaseGitService):
+    version = &#34;/api/v1&#34;
+
+    def __init__(
+        self,
+        instance_url: str = &#34;https://codeberg.org&#34;,
+        token: Optional[str] = None,
+        **kwargs,
+    ):
+        super().__init__()
+        self.instance_url = instance_url + self.version
+        self._token = f&#34;token {token}&#34;
+        self._api = None
+
+    @cached_property
+    def api(self) -&gt; PyforgejoApi:
+        return PyforgejoApi(base_url=self.instance_url, api_key=self._token)
+
+    def get_project(  # type: ignore[override]
+        self,
+        repo: str,
+        namespace: str,
+        **kwargs,
+    ) -&gt; &#34;ForgejoProject&#34;:
+        return ForgejoProject(
+            repo=repo,
+            namespace=namespace,
+            service=self,
+            **kwargs,
+        )
+
+    @property
+    def user(self) -&gt; GitUser:
+        return ForgejoUser(self)
+
+    def project_create(
+        self,
+        repo: str,
+        namespace: Optional[str] = None,
+        description: Optional[str] = None,
+    ) -&gt; &#34;ForgejoProject&#34;:
+        if namespace:
+            new_repo = self.api.organization.create_org_repo(
+                org=namespace,
+                name=repo,
+                description=description,
+            )
+        else:
+            new_repo = self.api.repository.create_current_user_repo(
+                name=repo,
+                description=description,
+            )
+        return ForgejoProject(
+            repo=repo,
+            namespace=namespace or self.user.get_username(),
+            service=self,
+            github_repo=new_repo,
+        )
+
+    def get_project_from_url(self, url: str) -&gt; &#34;ForgejoProject&#34;:
+        parsed_url = urlparse(url)
+        path_parts = parsed_url.path.strip(&#34;/&#34;).split(&#34;/&#34;)
+
+        if len(path_parts) &lt; 2:
+            raise OgrException(f&#34;Invalid Forgejo URL: {url}&#34;)
+
+        namespace = path_parts[0]
+        repo = path_parts[1]
+
+        return self.get_project(repo=repo, namespace=namespace)
+
+    def get_rate_limit_remaining(
+        self,
+        namespace: Optional[str] = None,
+        repo: Optional[str] = None,
+    ) -&gt; Optional[int]:
+        &#34;&#34;&#34;
+        There is no way to check rate limit status from Forgejo API.
+        &#34;&#34;&#34;
+        return None</code></pre>
+</details>
+<div class="desc"><h2 id="attributes">Attributes</h2>
+<dl>
+<dt><strong><code>instance_url</code></strong> :&ensp;<code>str</code></dt>
+<dd>URL of the git forge instance.</dd>
+</dl></div>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="ogr.services.base.BaseGitService" href="../base.html#ogr.services.base.BaseGitService">BaseGitService</a></li>
+<li><a title="ogr.abstract.git_service.GitService" href="../../abstract/git_service.html#ogr.abstract.git_service.GitService">GitService</a></li>
+<li><a title="ogr.abstract.abstract_class.OgrAbstractClass" href="../../abstract/abstract_class.html#ogr.abstract.abstract_class.OgrAbstractClass">OgrAbstractClass</a></li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="ogr.services.forgejo.ForgejoService.version"><code class="name">var <span class="ident">version</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Instance variables</h3>
+<dl>
+<dt id="ogr.services.forgejo.ForgejoService.api"><code class="name">var <span class="ident">api</span> : pyforgejo.client.PyforgejoApi</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@cached_property
+def api(self) -&gt; PyforgejoApi:
+    return PyforgejoApi(base_url=self.instance_url, api_key=self._token)</code></pre>
+</details>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Methods</h3>
+<dl>
+<dt id="ogr.services.forgejo.ForgejoService.get_rate_limit_remaining"><code class="name flex">
+<span>def <span class="ident">get_rate_limit_remaining</span></span>(<span>self, namespace: str | None = None, repo: str | None = None) ‑> int | None</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_rate_limit_remaining(
+    self,
+    namespace: Optional[str] = None,
+    repo: Optional[str] = None,
+) -&gt; Optional[int]:
+    &#34;&#34;&#34;
+    There is no way to check rate limit status from Forgejo API.
+    &#34;&#34;&#34;
+    return None</code></pre>
+</details>
+<div class="desc"><p>There is no way to check rate limit status from Forgejo API.</p></div>
+</dd>
+</dl>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="ogr.services.base.BaseGitService" href="../base.html#ogr.services.base.BaseGitService">BaseGitService</a></b></code>:
+<ul class="hlist">
+<li><code><a title="ogr.services.base.BaseGitService.get_project" href="../../abstract/git_service.html#ogr.abstract.git_service.GitService.get_project">get_project</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitService.project_create" href="../../abstract/git_service.html#ogr.abstract.git_service.GitService.project_create">project_create</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitService.user" href="../../abstract/git_service.html#ogr.abstract.git_service.GitService.user">user</a></code></li>
+</ul>
+</li>
+<li><code><b><a title="ogr.services.base.BaseGitService" href="../base.html#ogr.services.base.BaseGitService">BaseGitService</a></b></code>:
+<ul class="hlist">
+<li><code><a title="ogr.services.base.BaseGitService.change_token" href="../../abstract/git_service.html#ogr.abstract.git_service.GitService.change_token">change_token</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitService.get_group" href="../../abstract/git_service.html#ogr.abstract.git_service.GitService.get_group">get_group</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitService.list_projects" href="../../abstract/git_service.html#ogr.abstract.git_service.GitService.list_projects">list_projects</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitService.reset_auth_method" href="../../abstract/git_service.html#ogr.abstract.git_service.GitService.reset_auth_method">reset_auth_method</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitService.set_auth_method" href="../../abstract/git_service.html#ogr.abstract.git_service.GitService.set_auth_method">set_auth_method</a></code></li>
+</ul>
+</li>
+<li><code><b><a title="ogr.abstract.git_service.GitService" href="../../abstract/git_service.html#ogr.abstract.git_service.GitService">GitService</a></b></code>:
+<ul class="hlist">
+<li><code><a title="ogr.abstract.git_service.GitService.get_project_from_url" href="../../abstract/git_service.html#ogr.abstract.git_service.GitService.get_project_from_url">get_project_from_url</a></code></li>
+</ul>
+</li>
+<li><code><b><a title="ogr.abstract.git_service.GitService" href="../../abstract/git_service.html#ogr.abstract.git_service.GitService">GitService</a></b></code>:
+<ul class="hlist">
+<li><code><a title="ogr.abstract.git_service.GitService.hostname" href="../../abstract/git_service.html#ogr.abstract.git_service.GitService.hostname">hostname</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+<dt id="ogr.services.forgejo.ForgejoUser"><code class="flex name class">
+<span>class <span class="ident">ForgejoUser</span></span>
+<span>(</span><span>service: forgejo.ForgejoService)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class ForgejoUser(BaseGitUser):
+    service: &#34;forgejo.ForgejoService&#34;
+
+    def __init__(self, service: &#34;forgejo.ForgejoService&#34;) -&gt; None:
+        super().__init__(service=service)
+        self._forgejo_user = None
+
+    def __str__(self) -&gt; str:
+        return f&#39;ForgejoUser(username=&#34;{self.get_username()}&#34;)&#39;
+
+    @cached_property
+    def forgejo_user(self):
+        return self.service.api.user.get_current()
+
+    def get_username(self) -&gt; str:
+        return self.forgejo_user.login
+
+    def get_email(self) -&gt; str:
+        return self.forgejo_user.email
+
+    def get_projects(self) -&gt; list[&#34;ForgejoProject&#34;]:
+        repos = self.service.api.user.current_list_repos()
+        return [
+            ForgejoProject(
+                repo=repo.name,
+                namespace=repo.owner.login,
+                service=self.service,
+                forgejo_repo=repo,
+            )
+            for repo in repos
+        ]
+
+    def get_forks(self) -&gt; list[&#34;ForgejoProject&#34;]:
+        return [project for project in self.get_projects() if project.forgejo_repo.fork]</code></pre>
+</details>
+<div class="desc"><p>Represents currently authenticated user through service.</p></div>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="ogr.services.base.BaseGitUser" href="../base.html#ogr.services.base.BaseGitUser">BaseGitUser</a></li>
+<li><a title="ogr.abstract.git_user.GitUser" href="../../abstract/git_user.html#ogr.abstract.git_user.GitUser">GitUser</a></li>
+<li><a title="ogr.abstract.abstract_class.OgrAbstractClass" href="../../abstract/abstract_class.html#ogr.abstract.abstract_class.OgrAbstractClass">OgrAbstractClass</a></li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="ogr.services.forgejo.ForgejoUser.service"><code class="name">var <span class="ident">service</span> : <a title="ogr.services.forgejo.service.ForgejoService" href="service.html#ogr.services.forgejo.service.ForgejoService">ForgejoService</a></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Instance variables</h3>
+<dl>
+<dt id="ogr.services.forgejo.ForgejoUser.forgejo_user"><code class="name">var <span class="ident">forgejo_user</span></code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@cached_property
+def forgejo_user(self):
+    return self.service.api.user.get_current()</code></pre>
+</details>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="ogr.services.base.BaseGitUser" href="../base.html#ogr.services.base.BaseGitUser">BaseGitUser</a></b></code>:
+<ul class="hlist">
+<li><code><a title="ogr.services.base.BaseGitUser.get_email" href="../../abstract/git_user.html#ogr.abstract.git_user.GitUser.get_email">get_email</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitUser.get_forks" href="../../abstract/git_user.html#ogr.abstract.git_user.GitUser.get_forks">get_forks</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitUser.get_projects" href="../../abstract/git_user.html#ogr.abstract.git_user.GitUser.get_projects">get_projects</a></code></li>
+<li><code><a title="ogr.services.base.BaseGitUser.get_username" href="../../abstract/git_user.html#ogr.abstract.git_user.GitUser.get_username">get_username</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="ogr.services" href="../index.html">ogr.services</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-submodules">Sub-modules</a></h3>
+<ul>
+<li><code><a title="ogr.services.forgejo.comments" href="comments.html">ogr.services.forgejo.comments</a></code></li>
+<li><code><a title="ogr.services.forgejo.flag" href="flag.html">ogr.services.forgejo.flag</a></code></li>
+<li><code><a title="ogr.services.forgejo.issue" href="issue.html">ogr.services.forgejo.issue</a></code></li>
+<li><code><a title="ogr.services.forgejo.label" href="label.html">ogr.services.forgejo.label</a></code></li>
+<li><code><a title="ogr.services.forgejo.project" href="project.html">ogr.services.forgejo.project</a></code></li>
+<li><code><a title="ogr.services.forgejo.pull_request" href="pull_request.html">ogr.services.forgejo.pull_request</a></code></li>
+<li><code><a title="ogr.services.forgejo.release" href="release.html">ogr.services.forgejo.release</a></code></li>
+<li><code><a title="ogr.services.forgejo.service" href="service.html">ogr.services.forgejo.service</a></code></li>
+<li><code><a title="ogr.services.forgejo.user" href="user.html">ogr.services.forgejo.user</a></code></li>
+<li><code><a title="ogr.services.forgejo.utils" href="utils.html">ogr.services.forgejo.utils</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="ogr.services.forgejo.ForgejoComment" href="#ogr.services.forgejo.ForgejoComment">ForgejoComment</a></code></h4>
+</li>
+<li>
+<h4><code><a title="ogr.services.forgejo.ForgejoIssue" href="#ogr.services.forgejo.ForgejoIssue">ForgejoIssue</a></code></h4>
+<ul class="">
+<li><code><a title="ogr.services.forgejo.ForgejoIssue.api" href="#ogr.services.forgejo.ForgejoIssue.api">api</a></code></li>
+<li><code><a title="ogr.services.forgejo.ForgejoIssue.assignees" href="#ogr.services.forgejo.ForgejoIssue.assignees">assignees</a></code></li>
+<li><code><a title="ogr.services.forgejo.ForgejoIssue.partial_api" href="#ogr.services.forgejo.ForgejoIssue.partial_api">partial_api</a></code></li>
+<li><code><a title="ogr.services.forgejo.ForgejoIssue.project" href="#ogr.services.forgejo.ForgejoIssue.project">project</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="ogr.services.forgejo.ForgejoIssueComment" href="#ogr.services.forgejo.ForgejoIssueComment">ForgejoIssueComment</a></code></h4>
+</li>
+<li>
+<h4><code><a title="ogr.services.forgejo.ForgejoPRComment" href="#ogr.services.forgejo.ForgejoPRComment">ForgejoPRComment</a></code></h4>
+</li>
+<li>
+<h4><code><a title="ogr.services.forgejo.ForgejoProject" href="#ogr.services.forgejo.ForgejoProject">ForgejoProject</a></code></h4>
+<ul class="">
+<li><code><a title="ogr.services.forgejo.ForgejoProject.access_dict" href="#ogr.services.forgejo.ForgejoProject.access_dict">access_dict</a></code></li>
+<li><code><a title="ogr.services.forgejo.ForgejoProject.api" href="#ogr.services.forgejo.ForgejoProject.api">api</a></code></li>
+<li><code><a title="ogr.services.forgejo.ForgejoProject.forgejo_repo" href="#ogr.services.forgejo.ForgejoProject.forgejo_repo">forgejo_repo</a></code></li>
+<li><code><a title="ogr.services.forgejo.ForgejoProject.partial_api" href="#ogr.services.forgejo.ForgejoProject.partial_api">partial_api</a></code></li>
+<li><code><a title="ogr.services.forgejo.ForgejoProject.service" href="#ogr.services.forgejo.ForgejoProject.service">service</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="ogr.services.forgejo.ForgejoPullRequest" href="#ogr.services.forgejo.ForgejoPullRequest">ForgejoPullRequest</a></code></h4>
+<ul class="">
+<li><code><a title="ogr.services.forgejo.ForgejoPullRequest.api" href="#ogr.services.forgejo.ForgejoPullRequest.api">api</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="ogr.services.forgejo.ForgejoRelease" href="#ogr.services.forgejo.ForgejoRelease">ForgejoRelease</a></code></h4>
+<ul class="">
+<li><code><a title="ogr.services.forgejo.ForgejoRelease.project" href="#ogr.services.forgejo.ForgejoRelease.project">project</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="ogr.services.forgejo.ForgejoService" href="#ogr.services.forgejo.ForgejoService">ForgejoService</a></code></h4>
+<ul class="">
+<li><code><a title="ogr.services.forgejo.ForgejoService.api" href="#ogr.services.forgejo.ForgejoService.api">api</a></code></li>
+<li><code><a title="ogr.services.forgejo.ForgejoService.get_rate_limit_remaining" href="#ogr.services.forgejo.ForgejoService.get_rate_limit_remaining">get_rate_limit_remaining</a></code></li>
+<li><code><a title="ogr.services.forgejo.ForgejoService.version" href="#ogr.services.forgejo.ForgejoService.version">version</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="ogr.services.forgejo.ForgejoUser" href="#ogr.services.forgejo.ForgejoUser">ForgejoUser</a></code></h4>
+<ul class="">
+<li><code><a title="ogr.services.forgejo.ForgejoUser.forgejo_user" href="#ogr.services.forgejo.ForgejoUser.forgejo_user">forgejo_user</a></code></li>
+<li><code><a title="ogr.services.forgejo.ForgejoUser.service" href="#ogr.services.forgejo.ForgejoUser.service">service</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.11.6</a>.</p>
+</footer>
+</body>
+</html>
