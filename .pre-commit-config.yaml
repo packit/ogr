@@ -3,8 +3,8 @@
 # pre-commit install -t pre-commit -t pre-push
 
 repos:
-  - repo: https://github.com/psf/black
-    rev: 25.9.0
+  - repo: https://github.com/psf/black-pre-commit-mirror
+    rev: 26.1.0
     hooks:
       - id: black
   - repo: https://github.com/pre-commit/mirrors-prettier
@@ -26,14 +26,14 @@ repos:
       - id: mixed-line-ending
       - id: trailing-whitespace
   - repo: https://github.com/pre-commit/mirrors-mypy
-    rev: v1.18.2
+    rev: v1.19.1
     hooks:
       - id: mypy
         args: [--no-strict-optional, --ignore-missing-imports]
         additional_dependencies:
           [types-setuptools, types-requests, types-Deprecated]
   - repo: https://github.com/teemtee/tmt.git
-    rev: 1.57.0
+    rev: 1.67.0
     hooks:
       - id: tmt-lint
         # Do not run in pre-commit.ci as it requires an internet access
@@ -56,17 +56,17 @@ repos:
         stages: [manual, pre-push]
   - repo: https://github.com/astral-sh/ruff-pre-commit
     # Ruff version.
-    rev: v0.13.1
+    rev: v0.15.2
     hooks:
       - id: ruff
         args: [--fix, --exit-non-zero-on-fix]
   - repo: https://github.com/python-jsonschema/check-jsonschema
-    rev: 0.34.0
+    rev: 0.36.2
     hooks:
       - id: check-github-workflows
         args: ["--verbose"]
   - repo: https://github.com/Lucas-C/pre-commit-hooks
-    rev: v1.5.5
+    rev: v1.5.6
     hooks:
       - id: insert-license
         files: \.py$
