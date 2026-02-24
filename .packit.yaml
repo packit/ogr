@@ -112,17 +112,4 @@ jobs:
       - packit
     dist_git_branches:
       - fedora-all
-
-  - job: koji_build
-    trigger: commit
-    packit_instances: ["stg"]
-    allowed_pr_authors: ["packit-stg", "packit"]
-    dist_git_branches:
-      - epel-10-all
-
-  - job: bodhi_update
-    trigger: commit
-    packit_instances: ["stg"]
-    allowed_builders: ["packit-stg", "packit"]
-    dist_git_branches:
       - epel-10-all
