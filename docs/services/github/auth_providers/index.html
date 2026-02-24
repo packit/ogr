@@ -1,0 +1,551 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+<meta name="generator" content="pdoc3 0.11.6">
+<title>ogr.services.github.auth_providers API documentation</title>
+<meta name="description" content="">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/sanitize.min.css" integrity="sha512-y1dtMcuvtTMJc1yPgEqF0ZjQbhnc/bFhyvIyVNb9Zk5mIGtqVaAB1Ttl28su8AvFMOY0EwRbAe+HCLqj6W7/KA==" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/typography.min.css" integrity="sha512-Y1DYSb995BAfxobCkKepB1BqJJTPrOp3zPL74AWFugHHmmdcvO+C48WLrUOlhGMc0QG7AE3f7gmvvcrmX2fDoA==" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:1.5em;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:2em 0 .50em 0}h3{font-size:1.4em;margin:1.6em 0 .7em 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .2s ease-in-out}a:visited{color:#503}a:hover{color:#b62}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900;font-weight:bold}pre code{font-size:.8em;line-height:1.4em;padding:1em;display:block}code{background:#f3f3f3;font-family:"DejaVu Sans Mono",monospace;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source > summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible;min-width:max-content}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em 1em;margin:1em 0}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul ul{padding-left:1em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js" integrity="sha512-D9gUyxqja7hBtkWpPWGt9wfbfaMGVt9gnyCvYa+jojwwPHLCzUm5i8rpk7vD7wNee9bA35eYIjobYPaQuKS1MQ==" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => {
+hljs.configure({languages: ['bash', 'css', 'diff', 'graphql', 'ini', 'javascript', 'json', 'plaintext', 'python', 'python-repl', 'rust', 'shell', 'sql', 'typescript', 'xml', 'yaml']});
+hljs.highlightAll();
+/* Collapse source docstrings */
+setTimeout(() => {
+[...document.querySelectorAll('.hljs.language-python > .hljs-string')]
+.filter(el => el.innerHTML.length > 200 && ['"""', "'''"].includes(el.innerHTML.substring(0, 3)))
+.forEach(el => {
+let d = document.createElement('details');
+d.classList.add('hljs-string');
+d.innerHTML = '<summary>"""</summary>' + el.innerHTML.substring(3);
+el.replaceWith(d);
+});
+}, 100);
+})</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>ogr.services.github.auth_providers</code></h1>
+</header>
+<section id="section-intro">
+</section>
+<section>
+<h2 class="section-title" id="header-submodules">Sub-modules</h2>
+<dl>
+<dt><code class="name"><a title="ogr.services.github.auth_providers.abstract" href="abstract.html">ogr.services.github.auth_providers.abstract</a></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt><code class="name"><a title="ogr.services.github.auth_providers.github_app" href="github_app.html">ogr.services.github.auth_providers.github_app</a></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt><code class="name"><a title="ogr.services.github.auth_providers.token" href="token.html">ogr.services.github.auth_providers.token</a></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt><code class="name"><a title="ogr.services.github.auth_providers.tokman" href="tokman.html">ogr.services.github.auth_providers.tokman</a></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="ogr.services.github.auth_providers.GithubApp"><code class="flex name class">
+<span>class <span class="ident">GithubApp</span></span>
+<span>(</span><span>id: str, private_key: str, private_key_path: str)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class GithubApp(GithubAuthentication):
+    def __init__(self, id: str, private_key: str, private_key_path: str) -&gt; None:
+        self.id = id
+        self._private_key = private_key
+        self._private_key_path = private_key_path
+
+        self._github: github.Github = None
+        self._integration: github.GithubIntegration = None
+
+    def __eq__(self, o: object) -&gt; bool:
+        if not issubclass(o.__class__, GithubApp):
+            return False
+
+        return (
+            self.id == o.id  # type: ignore
+            and self._private_key == o._private_key  # type: ignore
+            and self._private_key_path == o._private_key_path  # type: ignore
+        )
+
+    def __str__(self) -&gt; str:
+        censored_id = f&#34;id=&#39;{self.id[:1]}***{self.id[-1:]}&#39;&#34;
+        censored_private_key = (
+            f&#34;, private_key&#34; f&#34;=&#39;{self._private_key[:1]}***{self._private_key[-1:]}&#39;&#34;
+            if self._private_key
+            else &#34;&#34;
+        )
+        private_key_path = (
+            f&#34;, private_key_path=&#39;{self._private_key_path}&#39;&#34;
+            if self._private_key_path
+            else &#34;&#34;
+        )
+
+        return f&#34;GithubApp({censored_id}{censored_private_key}{private_key_path})&#34;
+
+    @property
+    def private_key(self) -&gt; str:
+        if self._private_key:
+            return self._private_key
+
+        if self._private_key_path:
+            if not Path(self._private_key_path).is_file():
+                raise OgrException(
+                    f&#34;File with the github-app private key &#34;
+                    f&#34;({self._private_key_path}) &#34;
+                    f&#34;does not exist.&#34;,
+                )
+            return Path(self._private_key_path).read_text()
+
+        return None
+
+    @property
+    def pygithub_instance(self) -&gt; Optional[github.Github]:
+        # used for backward compatibility with GitUser
+        return None
+
+    @property
+    def integration(self) -&gt; github.GithubIntegration:
+        if not self._integration:
+            self._integration = github.GithubIntegration(self.id, self.private_key)
+        return self._integration
+
+    def get_token(self, namespace: str, repo: str) -&gt; str:
+        if not self.private_key:
+            return None
+
+        # PyGithub 1.58 deprecated get_installation() in favor of get_repo_installation()
+        # that raises an exception on error rather than returning None
+        if hasattr(self.integration, &#34;get_repo_installation&#34;):
+            try:
+                inst_id = self.integration.get_repo_installation(namespace, repo).id
+            except github.GithubException:
+                inst_id = None
+        else:
+            inst_id = self.integration.get_installation(namespace, repo).id
+        # PyGithub&lt;1.52 returned an object for id, with a value attribute,
+        # which was None or an ID.
+        # This was changed in:
+        # https://github.com/PyGithub/PyGithub/commit/61808da15e8e3bcb660acd0e7947326a4a6c0c7a#diff-b8f1ee87df332916352809a397ea259aL54
+        # &#39;id&#39; is now None or an ID.
+        inst_id = (
+            inst_id
+            if isinstance(inst_id, int) or inst_id is None
+            else inst_id.value  # type: ignore
+        )
+        if not inst_id:
+            raise OgrException(
+                f&#34;No installation ID provided for {namespace}/{repo}: &#34;
+                &#34;please make sure that you provided correct credentials of your GitHub app.&#34;,
+            )
+        inst_auth = self.integration.get_access_token(inst_id)  # type: ignore
+        return inst_auth.token
+
+    @staticmethod
+    def try_create(
+        github_app_id: Optional[str] = None,
+        github_app_private_key: Optional[str] = None,
+        github_app_private_key_path: Optional[str] = None,
+        **_,
+    ) -&gt; Optional[&#34;GithubApp&#34;]:
+        return (
+            GithubApp(
+                github_app_id,
+                github_app_private_key,
+                github_app_private_key_path,
+            )
+            if github_app_id
+            else None
+        )</code></pre>
+</details>
+<div class="desc"><p>Represents a token manager for authentication via GitHub App.</p></div>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="ogr.services.github.auth_providers.abstract.GithubAuthentication" href="abstract.html#ogr.services.github.auth_providers.abstract.GithubAuthentication">GithubAuthentication</a></li>
+</ul>
+<h3>Instance variables</h3>
+<dl>
+<dt id="ogr.services.github.auth_providers.GithubApp.integration"><code class="name">prop <span class="ident">integration</span> : github.GithubIntegration.GithubIntegration</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def integration(self) -&gt; github.GithubIntegration:
+    if not self._integration:
+        self._integration = github.GithubIntegration(self.id, self.private_key)
+    return self._integration</code></pre>
+</details>
+<div class="desc"></div>
+</dd>
+<dt id="ogr.services.github.auth_providers.GithubApp.private_key"><code class="name">prop <span class="ident">private_key</span> : str</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def private_key(self) -&gt; str:
+    if self._private_key:
+        return self._private_key
+
+    if self._private_key_path:
+        if not Path(self._private_key_path).is_file():
+            raise OgrException(
+                f&#34;File with the github-app private key &#34;
+                f&#34;({self._private_key_path}) &#34;
+                f&#34;does not exist.&#34;,
+            )
+        return Path(self._private_key_path).read_text()
+
+    return None</code></pre>
+</details>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="ogr.services.github.auth_providers.abstract.GithubAuthentication" href="abstract.html#ogr.services.github.auth_providers.abstract.GithubAuthentication">GithubAuthentication</a></b></code>:
+<ul class="hlist">
+<li><code><a title="ogr.services.github.auth_providers.abstract.GithubAuthentication.get_token" href="abstract.html#ogr.services.github.auth_providers.abstract.GithubAuthentication.get_token">get_token</a></code></li>
+<li><code><a title="ogr.services.github.auth_providers.abstract.GithubAuthentication.pygithub_instance" href="abstract.html#ogr.services.github.auth_providers.abstract.GithubAuthentication.pygithub_instance">pygithub_instance</a></code></li>
+<li><code><a title="ogr.services.github.auth_providers.abstract.GithubAuthentication.try_create" href="abstract.html#ogr.services.github.auth_providers.abstract.GithubAuthentication.try_create">try_create</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+<dt id="ogr.services.github.auth_providers.GithubAuthentication"><code class="flex name class">
+<span>class <span class="ident">GithubAuthentication</span></span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class GithubAuthentication:
+    &#34;&#34;&#34;
+    Represents a token manager for authentication via GitHub App.
+    &#34;&#34;&#34;
+
+    def get_token(self, namespace: str, repo: str) -&gt; str:
+        &#34;&#34;&#34;
+        Get a GitHub token for requested repository.
+
+        Args:
+            namespace: Namespace of the repository.
+            repo: Name of the repository.
+
+        Returns:
+            A token that can be used in PyGithub instance for authentication.
+        &#34;&#34;&#34;
+        raise NotImplementedError()
+
+    @property
+    def pygithub_instance(self) -&gt; &#34;github.Github&#34;:
+        &#34;&#34;&#34;
+        Returns:
+            Generic PyGithub instance. Used for `GitUser` for example.
+        &#34;&#34;&#34;
+        raise NotImplementedError()
+
+    @staticmethod
+    def try_create(**kwargs) -&gt; Optional[&#34;GithubAuthentication&#34;]:
+        &#34;&#34;&#34;
+        Tries to construct authentication object from provided keyword arguments.
+
+        Returns:
+            `GithubAuthentication` object or `None` if the creation was not
+            successful.
+        &#34;&#34;&#34;
+        raise NotImplementedError()</code></pre>
+</details>
+<div class="desc"><p>Represents a token manager for authentication via GitHub App.</p></div>
+<h3>Subclasses</h3>
+<ul class="hlist">
+<li><a title="ogr.services.github.auth_providers.github_app.GithubApp" href="github_app.html#ogr.services.github.auth_providers.github_app.GithubApp">GithubApp</a></li>
+<li><a title="ogr.services.github.auth_providers.token.TokenAuthentication" href="token.html#ogr.services.github.auth_providers.token.TokenAuthentication">TokenAuthentication</a></li>
+<li><a title="ogr.services.github.auth_providers.tokman.Tokman" href="tokman.html#ogr.services.github.auth_providers.tokman.Tokman">Tokman</a></li>
+</ul>
+<h3>Static methods</h3>
+<dl>
+<dt id="ogr.services.github.auth_providers.GithubAuthentication.try_create"><code class="name flex">
+<span>def <span class="ident">try_create</span></span>(<span>**kwargs) ‑> <a title="ogr.services.github.auth_providers.abstract.GithubAuthentication" href="abstract.html#ogr.services.github.auth_providers.abstract.GithubAuthentication">GithubAuthentication</a> | None</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@staticmethod
+def try_create(**kwargs) -&gt; Optional[&#34;GithubAuthentication&#34;]:
+    &#34;&#34;&#34;
+    Tries to construct authentication object from provided keyword arguments.
+
+    Returns:
+        `GithubAuthentication` object or `None` if the creation was not
+        successful.
+    &#34;&#34;&#34;
+    raise NotImplementedError()</code></pre>
+</details>
+<div class="desc"><p>Tries to construct authentication object from provided keyword arguments.</p>
+<h2 id="returns">Returns</h2>
+<p><code><a title="ogr.services.github.auth_providers.GithubAuthentication" href="#ogr.services.github.auth_providers.GithubAuthentication">GithubAuthentication</a></code> object or <code>None</code> if the creation was not
+successful.</p></div>
+</dd>
+</dl>
+<h3>Instance variables</h3>
+<dl>
+<dt id="ogr.services.github.auth_providers.GithubAuthentication.pygithub_instance"><code class="name">prop <span class="ident">pygithub_instance</span> : github.Github</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def pygithub_instance(self) -&gt; &#34;github.Github&#34;:
+    &#34;&#34;&#34;
+    Returns:
+        Generic PyGithub instance. Used for `GitUser` for example.
+    &#34;&#34;&#34;
+    raise NotImplementedError()</code></pre>
+</details>
+<div class="desc"><h2 id="returns">Returns</h2>
+<p>Generic PyGithub instance. Used for <code>GitUser</code> for example.</p></div>
+</dd>
+</dl>
+<h3>Methods</h3>
+<dl>
+<dt id="ogr.services.github.auth_providers.GithubAuthentication.get_token"><code class="name flex">
+<span>def <span class="ident">get_token</span></span>(<span>self, namespace: str, repo: str) ‑> str</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_token(self, namespace: str, repo: str) -&gt; str:
+    &#34;&#34;&#34;
+    Get a GitHub token for requested repository.
+
+    Args:
+        namespace: Namespace of the repository.
+        repo: Name of the repository.
+
+    Returns:
+        A token that can be used in PyGithub instance for authentication.
+    &#34;&#34;&#34;
+    raise NotImplementedError()</code></pre>
+</details>
+<div class="desc"><p>Get a GitHub token for requested repository.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>namespace</code></strong></dt>
+<dd>Namespace of the repository.</dd>
+<dt><strong><code>repo</code></strong></dt>
+<dd>Name of the repository.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p>A token that can be used in PyGithub instance for authentication.</p></div>
+</dd>
+</dl>
+</dd>
+<dt id="ogr.services.github.auth_providers.TokenAuthentication"><code class="flex name class">
+<span>class <span class="ident">TokenAuthentication</span></span>
+<span>(</span><span>token: str, max_retries: int | urllib3.util.retry.Retry = 0, **_)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class TokenAuthentication(GithubAuthentication):
+    def __init__(self, token: str, max_retries: Union[int, Retry] = 0, **_) -&gt; None:
+        self._token = token
+        self._pygithub_instance = github.Github(login_or_token=token, retry=max_retries)
+
+    def __eq__(self, o: object) -&gt; bool:
+        return issubclass(o.__class__, TokenAuthentication) and (
+            self._token == o._token  # type: ignore
+        )
+
+    def __str__(self) -&gt; str:
+        censored_token = (
+            f&#34;token=&#39;{self._token[:1]}***{self._token[-1:]}&#39;&#34; if self._token else &#34;&#34;
+        )
+        return f&#34;Token({censored_token})&#34;
+
+    @property
+    def pygithub_instance(self) -&gt; github.Github:
+        return self._pygithub_instance
+
+    def get_token(self, namespace: str, repo: str) -&gt; str:
+        return self._token
+
+    @staticmethod
+    def try_create(
+        token: Optional[str] = None,
+        max_retries: Union[int, Retry] = 0,
+        **_,
+    ) -&gt; Optional[&#34;TokenAuthentication&#34;]:
+        return TokenAuthentication(token, max_retries=max_retries)</code></pre>
+</details>
+<div class="desc"><p>Represents a token manager for authentication via GitHub App.</p></div>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="ogr.services.github.auth_providers.abstract.GithubAuthentication" href="abstract.html#ogr.services.github.auth_providers.abstract.GithubAuthentication">GithubAuthentication</a></li>
+</ul>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="ogr.services.github.auth_providers.abstract.GithubAuthentication" href="abstract.html#ogr.services.github.auth_providers.abstract.GithubAuthentication">GithubAuthentication</a></b></code>:
+<ul class="hlist">
+<li><code><a title="ogr.services.github.auth_providers.abstract.GithubAuthentication.get_token" href="abstract.html#ogr.services.github.auth_providers.abstract.GithubAuthentication.get_token">get_token</a></code></li>
+<li><code><a title="ogr.services.github.auth_providers.abstract.GithubAuthentication.pygithub_instance" href="abstract.html#ogr.services.github.auth_providers.abstract.GithubAuthentication.pygithub_instance">pygithub_instance</a></code></li>
+<li><code><a title="ogr.services.github.auth_providers.abstract.GithubAuthentication.try_create" href="abstract.html#ogr.services.github.auth_providers.abstract.GithubAuthentication.try_create">try_create</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+<dt id="ogr.services.github.auth_providers.Tokman"><code class="flex name class">
+<span>class <span class="ident">Tokman</span></span>
+<span>(</span><span>instance_url: str)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Tokman(GithubAuthentication):
+    def __init__(self, instance_url: str):
+        self._instance_url = instance_url
+
+    def __eq__(self, o: object) -&gt; bool:
+        if not issubclass(o.__class__, Tokman):
+            return False
+
+        return self._instance_url == o._instance_url  # type: ignore
+
+    def __str__(self) -&gt; str:
+        return f&#34;Tokman(instance_url=&#39;{self._instance_url}&#39;)&#34;
+
+    @property
+    def pygithub_instance(self) -&gt; Optional[github.Github]:
+        # used for backward compatibility with GitUser
+        return None
+
+    def get_token(self, namespace: str, repo: str) -&gt; str:
+        response = requests.get(f&#34;{self._instance_url}/api/{namespace}/{repo}&#34;)
+
+        if not response.ok:
+            if response.status_code == 400:
+                raise GithubAppNotInstalledError(response.text)
+
+            cls = OgrNetworkError if response.status_code &gt;= 500 else OgrException
+            raise cls(
+                f&#34;Couldn&#39;t retrieve token from Tokman: ({response.status_code}) {response.text}&#34;,
+            )
+
+        return response.json().get(&#34;access_token&#34;, None)
+
+    @staticmethod
+    def try_create(
+        tokman_instance_url: Optional[str] = None,
+        **_,
+    ) -&gt; Optional[&#34;Tokman&#34;]:
+        return Tokman(tokman_instance_url) if tokman_instance_url else None</code></pre>
+</details>
+<div class="desc"><p>Represents a token manager for authentication via GitHub App.</p></div>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="ogr.services.github.auth_providers.abstract.GithubAuthentication" href="abstract.html#ogr.services.github.auth_providers.abstract.GithubAuthentication">GithubAuthentication</a></li>
+</ul>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="ogr.services.github.auth_providers.abstract.GithubAuthentication" href="abstract.html#ogr.services.github.auth_providers.abstract.GithubAuthentication">GithubAuthentication</a></b></code>:
+<ul class="hlist">
+<li><code><a title="ogr.services.github.auth_providers.abstract.GithubAuthentication.get_token" href="abstract.html#ogr.services.github.auth_providers.abstract.GithubAuthentication.get_token">get_token</a></code></li>
+<li><code><a title="ogr.services.github.auth_providers.abstract.GithubAuthentication.pygithub_instance" href="abstract.html#ogr.services.github.auth_providers.abstract.GithubAuthentication.pygithub_instance">pygithub_instance</a></code></li>
+<li><code><a title="ogr.services.github.auth_providers.abstract.GithubAuthentication.try_create" href="abstract.html#ogr.services.github.auth_providers.abstract.GithubAuthentication.try_create">try_create</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="ogr.services.github" href="../index.html">ogr.services.github</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-submodules">Sub-modules</a></h3>
+<ul>
+<li><code><a title="ogr.services.github.auth_providers.abstract" href="abstract.html">ogr.services.github.auth_providers.abstract</a></code></li>
+<li><code><a title="ogr.services.github.auth_providers.github_app" href="github_app.html">ogr.services.github.auth_providers.github_app</a></code></li>
+<li><code><a title="ogr.services.github.auth_providers.token" href="token.html">ogr.services.github.auth_providers.token</a></code></li>
+<li><code><a title="ogr.services.github.auth_providers.tokman" href="tokman.html">ogr.services.github.auth_providers.tokman</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="ogr.services.github.auth_providers.GithubApp" href="#ogr.services.github.auth_providers.GithubApp">GithubApp</a></code></h4>
+<ul class="">
+<li><code><a title="ogr.services.github.auth_providers.GithubApp.integration" href="#ogr.services.github.auth_providers.GithubApp.integration">integration</a></code></li>
+<li><code><a title="ogr.services.github.auth_providers.GithubApp.private_key" href="#ogr.services.github.auth_providers.GithubApp.private_key">private_key</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="ogr.services.github.auth_providers.GithubAuthentication" href="#ogr.services.github.auth_providers.GithubAuthentication">GithubAuthentication</a></code></h4>
+<ul class="">
+<li><code><a title="ogr.services.github.auth_providers.GithubAuthentication.get_token" href="#ogr.services.github.auth_providers.GithubAuthentication.get_token">get_token</a></code></li>
+<li><code><a title="ogr.services.github.auth_providers.GithubAuthentication.pygithub_instance" href="#ogr.services.github.auth_providers.GithubAuthentication.pygithub_instance">pygithub_instance</a></code></li>
+<li><code><a title="ogr.services.github.auth_providers.GithubAuthentication.try_create" href="#ogr.services.github.auth_providers.GithubAuthentication.try_create">try_create</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="ogr.services.github.auth_providers.TokenAuthentication" href="#ogr.services.github.auth_providers.TokenAuthentication">TokenAuthentication</a></code></h4>
+</li>
+<li>
+<h4><code><a title="ogr.services.github.auth_providers.Tokman" href="#ogr.services.github.auth_providers.Tokman">Tokman</a></code></h4>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.11.6</a>.</p>
+</footer>
+</body>
+</html>

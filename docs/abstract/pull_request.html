@@ -1,0 +1,1256 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+<meta name="generator" content="pdoc3 0.11.6">
+<title>ogr.abstract.pull_request API documentation</title>
+<meta name="description" content="">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/sanitize.min.css" integrity="sha512-y1dtMcuvtTMJc1yPgEqF0ZjQbhnc/bFhyvIyVNb9Zk5mIGtqVaAB1Ttl28su8AvFMOY0EwRbAe+HCLqj6W7/KA==" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/typography.min.css" integrity="sha512-Y1DYSb995BAfxobCkKepB1BqJJTPrOp3zPL74AWFugHHmmdcvO+C48WLrUOlhGMc0QG7AE3f7gmvvcrmX2fDoA==" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:1.5em;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:2em 0 .50em 0}h3{font-size:1.4em;margin:1.6em 0 .7em 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .2s ease-in-out}a:visited{color:#503}a:hover{color:#b62}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900;font-weight:bold}pre code{font-size:.8em;line-height:1.4em;padding:1em;display:block}code{background:#f3f3f3;font-family:"DejaVu Sans Mono",monospace;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source > summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible;min-width:max-content}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em 1em;margin:1em 0}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul ul{padding-left:1em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js" integrity="sha512-D9gUyxqja7hBtkWpPWGt9wfbfaMGVt9gnyCvYa+jojwwPHLCzUm5i8rpk7vD7wNee9bA35eYIjobYPaQuKS1MQ==" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => {
+hljs.configure({languages: ['bash', 'css', 'diff', 'graphql', 'ini', 'javascript', 'json', 'plaintext', 'python', 'python-repl', 'rust', 'shell', 'sql', 'typescript', 'xml', 'yaml']});
+hljs.highlightAll();
+/* Collapse source docstrings */
+setTimeout(() => {
+[...document.querySelectorAll('.hljs.language-python > .hljs-string')]
+.filter(el => el.innerHTML.length > 200 && ['"""', "'''"].includes(el.innerHTML.substring(0, 3)))
+.forEach(el => {
+let d = document.createElement('details');
+d.classList.add('hljs-string');
+d.innerHTML = '<summary>"""</summary>' + el.innerHTML.substring(3);
+el.replaceWith(d);
+});
+}, 100);
+})</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>ogr.abstract.pull_request</code></h1>
+</header>
+<section id="section-intro">
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="ogr.abstract.pull_request.PullRequest"><code class="flex name class">
+<span>class <span class="ident">PullRequest</span></span>
+<span>(</span><span>raw_pr: Any, project: GitProject)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class PullRequest(OgrAbstractClass):
+    &#34;&#34;&#34;
+    Attributes:
+        project (GitProject): Project of the pull request.
+    &#34;&#34;&#34;
+
+    def __init__(self, raw_pr: Any, project: &#34;GitProject&#34;) -&gt; None:
+        self._raw_pr = raw_pr
+        self._target_project = project
+
+    @property
+    def title(self) -&gt; str:
+        &#34;&#34;&#34;Title of the pull request.&#34;&#34;&#34;
+        raise NotImplementedError()
+
+    @title.setter
+    def title(self, new_title: str) -&gt; None:
+        raise NotImplementedError()
+
+    @property
+    def id(self) -&gt; int:
+        &#34;&#34;&#34;ID of the pull request.&#34;&#34;&#34;
+        raise NotImplementedError()
+
+    @property
+    def status(self) -&gt; PRStatus:
+        &#34;&#34;&#34;Status of the pull request.&#34;&#34;&#34;
+        raise NotImplementedError()
+
+    @property
+    def url(self) -&gt; str:
+        &#34;&#34;&#34;Web URL of the pull request.&#34;&#34;&#34;
+        raise NotImplementedError()
+
+    @property
+    def description(self) -&gt; str:
+        &#34;&#34;&#34;Description of the pull request.&#34;&#34;&#34;
+        raise NotImplementedError()
+
+    @description.setter
+    def description(self, new_description: str) -&gt; None:
+        raise NotImplementedError
+
+    @property
+    def author(self) -&gt; str:
+        &#34;&#34;&#34;Login of the author of the pull request.&#34;&#34;&#34;
+        raise NotImplementedError()
+
+    @property
+    def source_branch(self) -&gt; str:
+        &#34;&#34;&#34;Name of the source branch (from which the changes are pulled).&#34;&#34;&#34;
+        raise NotImplementedError()
+
+    @property
+    def target_branch(self) -&gt; str:
+        &#34;&#34;&#34;Name of the target branch (where the changes are being merged).&#34;&#34;&#34;
+        raise NotImplementedError()
+
+    @property
+    def created(self) -&gt; datetime.datetime:
+        &#34;&#34;&#34;Datetime of creating the pull request.&#34;&#34;&#34;
+        raise NotImplementedError()
+
+    @property
+    def labels(self) -&gt; Union[list[&#34;_abstract.PRLabel&#34;], Iterable[&#34;_abstract.PRLabel&#34;]]:
+        &#34;&#34;&#34;
+        Labels of the pull request. Cached, may be outdated if modified externally.
+        &#34;&#34;&#34;
+        raise NotImplementedError()
+
+    @property
+    def diff_url(self) -&gt; str:
+        &#34;&#34;&#34;Web URL to the diff of the pull request.&#34;&#34;&#34;
+        raise NotImplementedError()
+
+    @property
+    def patch(self) -&gt; bytes:
+        &#34;&#34;&#34;Patch of the pull request.&#34;&#34;&#34;
+        raise NotImplementedError()
+
+    @property
+    def head_commit(self) -&gt; str:
+        &#34;&#34;&#34;Commit hash of the HEAD commit of the pull request.&#34;&#34;&#34;
+        raise NotImplementedError()
+
+    @property
+    def target_branch_head_commit(self) -&gt; str:
+        &#34;&#34;&#34;Commit hash of the HEAD commit of the target branch.&#34;&#34;&#34;
+        raise NotImplementedError()
+
+    @property
+    def merge_commit_sha(self) -&gt; str:
+        &#34;&#34;&#34;
+        Commit hash of the merge commit of the pull request.
+
+        Before merging represents test merge commit, if git forge supports it.
+        &#34;&#34;&#34;
+        raise NotImplementedError()
+
+    @property
+    def merge_commit_status(self) -&gt; MergeCommitStatus:
+        &#34;&#34;&#34;Current status of the test merge commit.&#34;&#34;&#34;
+        raise NotImplementedError()
+
+    @property
+    def source_project(self) -&gt; &#34;GitProject&#34;:
+        &#34;&#34;&#34;Object that represents source project (from which the changes are pulled).&#34;&#34;&#34;
+        raise NotImplementedError()
+
+    @property
+    def target_project(self) -&gt; &#34;GitProject&#34;:
+        &#34;&#34;&#34;Object that represents target project (where changes are merged).&#34;&#34;&#34;
+        return self._target_project
+
+    @property
+    def commits_url(self) -&gt; str:
+        &#34;&#34;&#34;Web URL to the list of commits in the pull request.&#34;&#34;&#34;
+        raise NotImplementedError()
+
+    @property
+    def closed_by(self) -&gt; Optional[str]:
+        &#34;&#34;&#34;Login of the account that closed the pull request.&#34;&#34;&#34;
+        raise NotImplementedError()
+
+    def __str__(self) -&gt; str:
+        description = (
+            f&#34;{self.description[:10]}...&#34; if self.description is not None else &#34;None&#34;
+        )
+        return (
+            f&#34;PullRequest(&#34;
+            f&#34;title=&#39;{self.title}&#39;, &#34;
+            f&#34;id={self.id}, &#34;
+            f&#34;status=&#39;{self.status.name}&#39;, &#34;
+            f&#34;url=&#39;{self.url}&#39;, &#34;
+            f&#34;diff_url=&#39;{self.diff_url}&#39;, &#34;
+            f&#34;description=&#39;{description}&#39;, &#34;
+            f&#34;author=&#39;{self.author}&#39;, &#34;
+            f&#34;source_branch=&#39;{self.source_branch}&#39;, &#34;
+            f&#34;target_branch=&#39;{self.target_branch}&#39;, &#34;
+            f&#34;created=&#39;{self.created}&#39;)&#34;
+        )
+
+    @staticmethod
+    def create(
+        project: Any,
+        title: str,
+        body: str,
+        target_branch: str,
+        source_branch: str,
+        fork_username: Optional[str] = None,
+    ) -&gt; &#34;PullRequest&#34;:
+        &#34;&#34;&#34;
+        Create new pull request.
+
+        Args:
+            project (GitProject): Project where the pull request will be created.
+            title: Title of the pull request.
+            body: Description of the pull request.
+            target_branch: Branch in the project where the changes are being
+                merged.
+            source_branch: Branch from which the changes are being pulled.
+            fork_username: The username/namespace of the forked repository.
+
+        Returns:
+            Object that represents newly created pull request.
+        &#34;&#34;&#34;
+        raise NotImplementedError()
+
+    @staticmethod
+    def get(project: Any, id: int) -&gt; &#34;PullRequest&#34;:
+        &#34;&#34;&#34;
+        Get pull request.
+
+        Args:
+            project (GitProject): Project where the pull request is located.
+            id: ID of the pull request.
+
+        Returns:
+            Object that represents pull request.
+        &#34;&#34;&#34;
+        raise NotImplementedError()
+
+    @staticmethod
+    def get_list(
+        project: Any,
+        status: PRStatus = PRStatus.open,
+    ) -&gt; Union[list[&#34;PullRequest&#34;], Iterable[&#34;PullRequest&#34;]]:
+        &#34;&#34;&#34;
+        List of pull requests.
+
+        Args:
+            project (GitProject): Project where the pull requests are located.
+            status: Filters out the pull requests.
+
+                Defaults to `PRStatus.open`.
+
+        Returns:
+            List of pull requests with requested status.
+        &#34;&#34;&#34;
+        raise NotImplementedError()
+
+    def update_info(
+        self,
+        title: Optional[str] = None,
+        description: Optional[str] = None,
+    ) -&gt; &#34;PullRequest&#34;:
+        &#34;&#34;&#34;
+        Update pull request information.
+
+        Args:
+            title: The new title of the pull request.
+
+                Defaults to `None`, which means no updating.
+            description: The new description of the pull request.
+
+                Defaults to `None`, which means no updating.
+
+        Returns:
+            Pull request itself.
+        &#34;&#34;&#34;
+        raise NotImplementedError()
+
+    def _get_all_comments(
+        self,
+        reverse: bool = False,
+    ) -&gt; Union[list[&#34;_abstract.PRComment&#34;], Iterable[&#34;_abstract.PRComment&#34;]]:
+        &#34;&#34;&#34;
+        Get list of all pull request comments.
+
+        Args:
+            reverse: Defines whether the comments should be listed in a reversed
+                order.
+
+                Defaults to `False`.
+
+        Returns:
+            List of all comments on the pull request.
+        &#34;&#34;&#34;
+        raise NotImplementedError()
+
+    def get_comments(
+        self,
+        filter_regex: Optional[str] = None,
+        reverse: bool = False,
+        author: Optional[str] = None,
+    ) -&gt; Union[list[&#34;_abstract.PRComment&#34;], Iterable[&#34;_abstract.PRComment&#34;]]:
+        &#34;&#34;&#34;
+        Get list of pull request comments.
+
+        Args:
+            filter_regex: Filter the comments&#39; content with `re.search`.
+
+                Defaults to `None`, which means no filtering.
+            reverse: Whether the comments are to be returned in
+                reversed order.
+
+                Defaults to `False`.
+            author: Filter the comments by author.
+
+                Defaults to `None`, which means no filtering.
+
+        Returns:
+            List of pull request comments.
+        &#34;&#34;&#34;
+        raise NotImplementedError()
+
+    def get_all_commits(self) -&gt; Union[list[str], Iterable[str]]:
+        &#34;&#34;&#34;
+        Returns:
+            List of commit hashes of commits in pull request.
+        &#34;&#34;&#34;
+        raise NotImplementedError()
+
+    def search(
+        self,
+        filter_regex: str,
+        reverse: bool = False,
+        description: bool = True,
+    ) -&gt; Optional[Match[str]]:
+        &#34;&#34;&#34;
+        Find match in pull request description or comments.
+
+        Args:
+            filter_regex: Regex that is used to filter the comments&#39; content with `re.search`.
+            reverse: Reverse order of the comments.
+
+                Defaults to `False`.
+            description: Whether description is included in the search.
+
+                Defaults to `True`.
+
+        Returns:
+            `re.Match` if found, `None` otherwise.
+        &#34;&#34;&#34;
+        raise NotImplementedError()
+
+    def comment(
+        self,
+        body: str,
+        commit: Optional[str] = None,
+        filename: Optional[str] = None,
+        row: Optional[int] = None,
+    ) -&gt; &#34;_abstract.PRComment&#34;:
+        &#34;&#34;&#34;
+        Add new comment to the pull request.
+
+        Args:
+            body: Body of the comment.
+            commit: Commit hash to which comment is related.
+
+                Defaults to generic comment.
+            filename: Path to the file to which comment is related.
+
+                Defaults to no relation to the file.
+            row: Line number to which the comment is related.
+
+                Defaults to no relation to the line.
+
+        Returns:
+            Newly created comment.
+        &#34;&#34;&#34;
+        raise NotImplementedError()
+
+    def close(self) -&gt; &#34;PullRequest&#34;:
+        &#34;&#34;&#34;
+        Close the pull request.
+
+        Returns:
+            Pull request itself.
+        &#34;&#34;&#34;
+        raise NotImplementedError()
+
+    def merge(self) -&gt; &#34;PullRequest&#34;:
+        &#34;&#34;&#34;
+        Merge the pull request.
+
+        Returns:
+            Pull request itself.
+        &#34;&#34;&#34;
+        raise NotImplementedError()
+
+    def add_label(self, *labels: str) -&gt; None:
+        &#34;&#34;&#34;
+        Add labels to the pull request.
+
+        Args:
+            *labels: Labels to be added.
+        &#34;&#34;&#34;
+        raise NotImplementedError()
+
+    def get_statuses(self) -&gt; Union[list[&#34;CommitFlag&#34;], Iterable[&#34;CommitFlag&#34;]]:
+        &#34;&#34;&#34;
+        Returns statuses for latest commit on pull request.
+
+        Returns:
+            List of commit statuses of the latest commit.
+        &#34;&#34;&#34;
+        raise NotImplementedError()
+
+    def get_comment(self, comment_id: int) -&gt; &#34;_abstract.PRComment&#34;:
+        &#34;&#34;&#34;
+        Returns a PR comment.
+
+        Args:
+            comment_id: id of comment
+
+        Returns:
+            Object representing a PR comment.
+        &#34;&#34;&#34;
+        raise NotImplementedError()</code></pre>
+</details>
+<div class="desc"><h2 id="attributes">Attributes</h2>
+<dl>
+<dt><strong><code>project</code></strong> :&ensp;<code>GitProject</code></dt>
+<dd>Project of the pull request.</dd>
+</dl></div>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="ogr.abstract.abstract_class.OgrAbstractClass" href="abstract_class.html#ogr.abstract.abstract_class.OgrAbstractClass">OgrAbstractClass</a></li>
+</ul>
+<h3>Subclasses</h3>
+<ul class="hlist">
+<li><a title="ogr.read_only.PullRequestReadOnly" href="../read_only.html#ogr.read_only.PullRequestReadOnly">PullRequestReadOnly</a></li>
+<li><a title="ogr.services.base.BasePullRequest" href="../services/base.html#ogr.services.base.BasePullRequest">BasePullRequest</a></li>
+</ul>
+<h3>Static methods</h3>
+<dl>
+<dt id="ogr.abstract.pull_request.PullRequest.create"><code class="name flex">
+<span>def <span class="ident">create</span></span>(<span>project: Any,<br>title: str,<br>body: str,<br>target_branch: str,<br>source_branch: str,<br>fork_username: str | None = None) ‑> <a title="ogr.abstract.pull_request.PullRequest" href="#ogr.abstract.pull_request.PullRequest">PullRequest</a></span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@staticmethod
+def create(
+    project: Any,
+    title: str,
+    body: str,
+    target_branch: str,
+    source_branch: str,
+    fork_username: Optional[str] = None,
+) -&gt; &#34;PullRequest&#34;:
+    &#34;&#34;&#34;
+    Create new pull request.
+
+    Args:
+        project (GitProject): Project where the pull request will be created.
+        title: Title of the pull request.
+        body: Description of the pull request.
+        target_branch: Branch in the project where the changes are being
+            merged.
+        source_branch: Branch from which the changes are being pulled.
+        fork_username: The username/namespace of the forked repository.
+
+    Returns:
+        Object that represents newly created pull request.
+    &#34;&#34;&#34;
+    raise NotImplementedError()</code></pre>
+</details>
+<div class="desc"><p>Create new pull request.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>project</code></strong> :&ensp;<code>GitProject</code></dt>
+<dd>Project where the pull request will be created.</dd>
+<dt><strong><code>title</code></strong></dt>
+<dd>Title of the pull request.</dd>
+<dt><strong><code>body</code></strong></dt>
+<dd>Description of the pull request.</dd>
+<dt><strong><code>target_branch</code></strong></dt>
+<dd>Branch in the project where the changes are being
+merged.</dd>
+<dt><strong><code>source_branch</code></strong></dt>
+<dd>Branch from which the changes are being pulled.</dd>
+<dt><strong><code>fork_username</code></strong></dt>
+<dd>The username/namespace of the forked repository.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p>Object that represents newly created pull request.</p></div>
+</dd>
+<dt id="ogr.abstract.pull_request.PullRequest.get"><code class="name flex">
+<span>def <span class="ident">get</span></span>(<span>project: Any, id: int) ‑> <a title="ogr.abstract.pull_request.PullRequest" href="#ogr.abstract.pull_request.PullRequest">PullRequest</a></span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@staticmethod
+def get(project: Any, id: int) -&gt; &#34;PullRequest&#34;:
+    &#34;&#34;&#34;
+    Get pull request.
+
+    Args:
+        project (GitProject): Project where the pull request is located.
+        id: ID of the pull request.
+
+    Returns:
+        Object that represents pull request.
+    &#34;&#34;&#34;
+    raise NotImplementedError()</code></pre>
+</details>
+<div class="desc"><p>Get pull request.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>project</code></strong> :&ensp;<code>GitProject</code></dt>
+<dd>Project where the pull request is located.</dd>
+<dt><strong><code>id</code></strong></dt>
+<dd>ID of the pull request.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p>Object that represents pull request.</p></div>
+</dd>
+<dt id="ogr.abstract.pull_request.PullRequest.get_list"><code class="name flex">
+<span>def <span class="ident">get_list</span></span>(<span>project: Any,<br>status: <a title="ogr.abstract.status.PRStatus" href="status.html#ogr.abstract.status.PRStatus">PRStatus</a> = 1) ‑> list[<a title="ogr.abstract.pull_request.PullRequest" href="#ogr.abstract.pull_request.PullRequest">PullRequest</a>] | Iterable[<a title="ogr.abstract.pull_request.PullRequest" href="#ogr.abstract.pull_request.PullRequest">PullRequest</a>]</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@staticmethod
+def get_list(
+    project: Any,
+    status: PRStatus = PRStatus.open,
+) -&gt; Union[list[&#34;PullRequest&#34;], Iterable[&#34;PullRequest&#34;]]:
+    &#34;&#34;&#34;
+    List of pull requests.
+
+    Args:
+        project (GitProject): Project where the pull requests are located.
+        status: Filters out the pull requests.
+
+            Defaults to `PRStatus.open`.
+
+    Returns:
+        List of pull requests with requested status.
+    &#34;&#34;&#34;
+    raise NotImplementedError()</code></pre>
+</details>
+<div class="desc"><p>List of pull requests.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>project</code></strong> :&ensp;<code>GitProject</code></dt>
+<dd>Project where the pull requests are located.</dd>
+<dt><strong><code>status</code></strong></dt>
+<dd>
+<p>Filters out the pull requests.</p>
+<p>Defaults to <code>PRStatus.open</code>.</p>
+</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p>List of pull requests with requested status.</p></div>
+</dd>
+</dl>
+<h3>Instance variables</h3>
+<dl>
+<dt id="ogr.abstract.pull_request.PullRequest.author"><code class="name">prop <span class="ident">author</span> : str</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def author(self) -&gt; str:
+    &#34;&#34;&#34;Login of the author of the pull request.&#34;&#34;&#34;
+    raise NotImplementedError()</code></pre>
+</details>
+<div class="desc"><p>Login of the author of the pull request.</p></div>
+</dd>
+<dt id="ogr.abstract.pull_request.PullRequest.closed_by"><code class="name">prop <span class="ident">closed_by</span> : str | None</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def closed_by(self) -&gt; Optional[str]:
+    &#34;&#34;&#34;Login of the account that closed the pull request.&#34;&#34;&#34;
+    raise NotImplementedError()</code></pre>
+</details>
+<div class="desc"><p>Login of the account that closed the pull request.</p></div>
+</dd>
+<dt id="ogr.abstract.pull_request.PullRequest.commits_url"><code class="name">prop <span class="ident">commits_url</span> : str</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def commits_url(self) -&gt; str:
+    &#34;&#34;&#34;Web URL to the list of commits in the pull request.&#34;&#34;&#34;
+    raise NotImplementedError()</code></pre>
+</details>
+<div class="desc"><p>Web URL to the list of commits in the pull request.</p></div>
+</dd>
+<dt id="ogr.abstract.pull_request.PullRequest.created"><code class="name">prop <span class="ident">created</span> : datetime.datetime</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def created(self) -&gt; datetime.datetime:
+    &#34;&#34;&#34;Datetime of creating the pull request.&#34;&#34;&#34;
+    raise NotImplementedError()</code></pre>
+</details>
+<div class="desc"><p>Datetime of creating the pull request.</p></div>
+</dd>
+<dt id="ogr.abstract.pull_request.PullRequest.description"><code class="name">prop <span class="ident">description</span> : str</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def description(self) -&gt; str:
+    &#34;&#34;&#34;Description of the pull request.&#34;&#34;&#34;
+    raise NotImplementedError()</code></pre>
+</details>
+<div class="desc"><p>Description of the pull request.</p></div>
+</dd>
+<dt id="ogr.abstract.pull_request.PullRequest.diff_url"><code class="name">prop <span class="ident">diff_url</span> : str</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def diff_url(self) -&gt; str:
+    &#34;&#34;&#34;Web URL to the diff of the pull request.&#34;&#34;&#34;
+    raise NotImplementedError()</code></pre>
+</details>
+<div class="desc"><p>Web URL to the diff of the pull request.</p></div>
+</dd>
+<dt id="ogr.abstract.pull_request.PullRequest.head_commit"><code class="name">prop <span class="ident">head_commit</span> : str</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def head_commit(self) -&gt; str:
+    &#34;&#34;&#34;Commit hash of the HEAD commit of the pull request.&#34;&#34;&#34;
+    raise NotImplementedError()</code></pre>
+</details>
+<div class="desc"><p>Commit hash of the HEAD commit of the pull request.</p></div>
+</dd>
+<dt id="ogr.abstract.pull_request.PullRequest.id"><code class="name">prop <span class="ident">id</span> : int</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def id(self) -&gt; int:
+    &#34;&#34;&#34;ID of the pull request.&#34;&#34;&#34;
+    raise NotImplementedError()</code></pre>
+</details>
+<div class="desc"><p>ID of the pull request.</p></div>
+</dd>
+<dt id="ogr.abstract.pull_request.PullRequest.labels"><code class="name">prop <span class="ident">labels</span> : list['_abstract.PRLabel'] | Iterable['_abstract.PRLabel']</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def labels(self) -&gt; Union[list[&#34;_abstract.PRLabel&#34;], Iterable[&#34;_abstract.PRLabel&#34;]]:
+    &#34;&#34;&#34;
+    Labels of the pull request. Cached, may be outdated if modified externally.
+    &#34;&#34;&#34;
+    raise NotImplementedError()</code></pre>
+</details>
+<div class="desc"><p>Labels of the pull request. Cached, may be outdated if modified externally.</p></div>
+</dd>
+<dt id="ogr.abstract.pull_request.PullRequest.merge_commit_sha"><code class="name">prop <span class="ident">merge_commit_sha</span> : str</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def merge_commit_sha(self) -&gt; str:
+    &#34;&#34;&#34;
+    Commit hash of the merge commit of the pull request.
+
+    Before merging represents test merge commit, if git forge supports it.
+    &#34;&#34;&#34;
+    raise NotImplementedError()</code></pre>
+</details>
+<div class="desc"><p>Commit hash of the merge commit of the pull request.</p>
+<p>Before merging represents test merge commit, if git forge supports it.</p></div>
+</dd>
+<dt id="ogr.abstract.pull_request.PullRequest.merge_commit_status"><code class="name">prop <span class="ident">merge_commit_status</span> : <a title="ogr.abstract.status.MergeCommitStatus" href="status.html#ogr.abstract.status.MergeCommitStatus">MergeCommitStatus</a></code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def merge_commit_status(self) -&gt; MergeCommitStatus:
+    &#34;&#34;&#34;Current status of the test merge commit.&#34;&#34;&#34;
+    raise NotImplementedError()</code></pre>
+</details>
+<div class="desc"><p>Current status of the test merge commit.</p></div>
+</dd>
+<dt id="ogr.abstract.pull_request.PullRequest.patch"><code class="name">prop <span class="ident">patch</span> : bytes</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def patch(self) -&gt; bytes:
+    &#34;&#34;&#34;Patch of the pull request.&#34;&#34;&#34;
+    raise NotImplementedError()</code></pre>
+</details>
+<div class="desc"><p>Patch of the pull request.</p></div>
+</dd>
+<dt id="ogr.abstract.pull_request.PullRequest.source_branch"><code class="name">prop <span class="ident">source_branch</span> : str</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def source_branch(self) -&gt; str:
+    &#34;&#34;&#34;Name of the source branch (from which the changes are pulled).&#34;&#34;&#34;
+    raise NotImplementedError()</code></pre>
+</details>
+<div class="desc"><p>Name of the source branch (from which the changes are pulled).</p></div>
+</dd>
+<dt id="ogr.abstract.pull_request.PullRequest.source_project"><code class="name">prop <span class="ident">source_project</span> : GitProject</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def source_project(self) -&gt; &#34;GitProject&#34;:
+    &#34;&#34;&#34;Object that represents source project (from which the changes are pulled).&#34;&#34;&#34;
+    raise NotImplementedError()</code></pre>
+</details>
+<div class="desc"><p>Object that represents source project (from which the changes are pulled).</p></div>
+</dd>
+<dt id="ogr.abstract.pull_request.PullRequest.status"><code class="name">prop <span class="ident">status</span> : <a title="ogr.abstract.status.PRStatus" href="status.html#ogr.abstract.status.PRStatus">PRStatus</a></code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def status(self) -&gt; PRStatus:
+    &#34;&#34;&#34;Status of the pull request.&#34;&#34;&#34;
+    raise NotImplementedError()</code></pre>
+</details>
+<div class="desc"><p>Status of the pull request.</p></div>
+</dd>
+<dt id="ogr.abstract.pull_request.PullRequest.target_branch"><code class="name">prop <span class="ident">target_branch</span> : str</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def target_branch(self) -&gt; str:
+    &#34;&#34;&#34;Name of the target branch (where the changes are being merged).&#34;&#34;&#34;
+    raise NotImplementedError()</code></pre>
+</details>
+<div class="desc"><p>Name of the target branch (where the changes are being merged).</p></div>
+</dd>
+<dt id="ogr.abstract.pull_request.PullRequest.target_branch_head_commit"><code class="name">prop <span class="ident">target_branch_head_commit</span> : str</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def target_branch_head_commit(self) -&gt; str:
+    &#34;&#34;&#34;Commit hash of the HEAD commit of the target branch.&#34;&#34;&#34;
+    raise NotImplementedError()</code></pre>
+</details>
+<div class="desc"><p>Commit hash of the HEAD commit of the target branch.</p></div>
+</dd>
+<dt id="ogr.abstract.pull_request.PullRequest.target_project"><code class="name">prop <span class="ident">target_project</span> : GitProject</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def target_project(self) -&gt; &#34;GitProject&#34;:
+    &#34;&#34;&#34;Object that represents target project (where changes are merged).&#34;&#34;&#34;
+    return self._target_project</code></pre>
+</details>
+<div class="desc"><p>Object that represents target project (where changes are merged).</p></div>
+</dd>
+<dt id="ogr.abstract.pull_request.PullRequest.title"><code class="name">prop <span class="ident">title</span> : str</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def title(self) -&gt; str:
+    &#34;&#34;&#34;Title of the pull request.&#34;&#34;&#34;
+    raise NotImplementedError()</code></pre>
+</details>
+<div class="desc"><p>Title of the pull request.</p></div>
+</dd>
+<dt id="ogr.abstract.pull_request.PullRequest.url"><code class="name">prop <span class="ident">url</span> : str</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def url(self) -&gt; str:
+    &#34;&#34;&#34;Web URL of the pull request.&#34;&#34;&#34;
+    raise NotImplementedError()</code></pre>
+</details>
+<div class="desc"><p>Web URL of the pull request.</p></div>
+</dd>
+</dl>
+<h3>Methods</h3>
+<dl>
+<dt id="ogr.abstract.pull_request.PullRequest.add_label"><code class="name flex">
+<span>def <span class="ident">add_label</span></span>(<span>self, *labels: str) ‑> None</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def add_label(self, *labels: str) -&gt; None:
+    &#34;&#34;&#34;
+    Add labels to the pull request.
+
+    Args:
+        *labels: Labels to be added.
+    &#34;&#34;&#34;
+    raise NotImplementedError()</code></pre>
+</details>
+<div class="desc"><p>Add labels to the pull request.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>*labels</code></strong></dt>
+<dd>Labels to be added.</dd>
+</dl></div>
+</dd>
+<dt id="ogr.abstract.pull_request.PullRequest.close"><code class="name flex">
+<span>def <span class="ident">close</span></span>(<span>self) ‑> <a title="ogr.abstract.pull_request.PullRequest" href="#ogr.abstract.pull_request.PullRequest">PullRequest</a></span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def close(self) -&gt; &#34;PullRequest&#34;:
+    &#34;&#34;&#34;
+    Close the pull request.
+
+    Returns:
+        Pull request itself.
+    &#34;&#34;&#34;
+    raise NotImplementedError()</code></pre>
+</details>
+<div class="desc"><p>Close the pull request.</p>
+<h2 id="returns">Returns</h2>
+<p>Pull request itself.</p></div>
+</dd>
+<dt id="ogr.abstract.pull_request.PullRequest.comment"><code class="name flex">
+<span>def <span class="ident">comment</span></span>(<span>self,<br>body: str,<br>commit: str | None = None,<br>filename: str | None = None,<br>row: int | None = None) ‑> <a title="ogr.abstract.comment.PRComment" href="comment.html#ogr.abstract.comment.PRComment">PRComment</a></span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def comment(
+    self,
+    body: str,
+    commit: Optional[str] = None,
+    filename: Optional[str] = None,
+    row: Optional[int] = None,
+) -&gt; &#34;_abstract.PRComment&#34;:
+    &#34;&#34;&#34;
+    Add new comment to the pull request.
+
+    Args:
+        body: Body of the comment.
+        commit: Commit hash to which comment is related.
+
+            Defaults to generic comment.
+        filename: Path to the file to which comment is related.
+
+            Defaults to no relation to the file.
+        row: Line number to which the comment is related.
+
+            Defaults to no relation to the line.
+
+    Returns:
+        Newly created comment.
+    &#34;&#34;&#34;
+    raise NotImplementedError()</code></pre>
+</details>
+<div class="desc"><p>Add new comment to the pull request.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>body</code></strong></dt>
+<dd>Body of the comment.</dd>
+<dt><strong><code>commit</code></strong></dt>
+<dd>
+<p>Commit hash to which comment is related.</p>
+<p>Defaults to generic comment.</p>
+</dd>
+<dt><strong><code>filename</code></strong></dt>
+<dd>
+<p>Path to the file to which comment is related.</p>
+<p>Defaults to no relation to the file.</p>
+</dd>
+<dt><strong><code>row</code></strong></dt>
+<dd>
+<p>Line number to which the comment is related.</p>
+<p>Defaults to no relation to the line.</p>
+</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p>Newly created comment.</p></div>
+</dd>
+<dt id="ogr.abstract.pull_request.PullRequest.get_all_commits"><code class="name flex">
+<span>def <span class="ident">get_all_commits</span></span>(<span>self) ‑> list[str] | Iterable[str]</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_all_commits(self) -&gt; Union[list[str], Iterable[str]]:
+    &#34;&#34;&#34;
+    Returns:
+        List of commit hashes of commits in pull request.
+    &#34;&#34;&#34;
+    raise NotImplementedError()</code></pre>
+</details>
+<div class="desc"><h2 id="returns">Returns</h2>
+<p>List of commit hashes of commits in pull request.</p></div>
+</dd>
+<dt id="ogr.abstract.pull_request.PullRequest.get_comment"><code class="name flex">
+<span>def <span class="ident">get_comment</span></span>(<span>self, comment_id: int) ‑> <a title="ogr.abstract.comment.PRComment" href="comment.html#ogr.abstract.comment.PRComment">PRComment</a></span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_comment(self, comment_id: int) -&gt; &#34;_abstract.PRComment&#34;:
+    &#34;&#34;&#34;
+    Returns a PR comment.
+
+    Args:
+        comment_id: id of comment
+
+    Returns:
+        Object representing a PR comment.
+    &#34;&#34;&#34;
+    raise NotImplementedError()</code></pre>
+</details>
+<div class="desc"><p>Returns a PR comment.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>comment_id</code></strong></dt>
+<dd>id of comment</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p>Object representing a PR comment.</p></div>
+</dd>
+<dt id="ogr.abstract.pull_request.PullRequest.get_comments"><code class="name flex">
+<span>def <span class="ident">get_comments</span></span>(<span>self,<br>filter_regex: str | None = None,<br>reverse: bool = False,<br>author: str | None = None) ‑> list[<a title="ogr.abstract.comment.PRComment" href="comment.html#ogr.abstract.comment.PRComment">PRComment</a>] | Iterable[<a title="ogr.abstract.comment.PRComment" href="comment.html#ogr.abstract.comment.PRComment">PRComment</a>]</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_comments(
+    self,
+    filter_regex: Optional[str] = None,
+    reverse: bool = False,
+    author: Optional[str] = None,
+) -&gt; Union[list[&#34;_abstract.PRComment&#34;], Iterable[&#34;_abstract.PRComment&#34;]]:
+    &#34;&#34;&#34;
+    Get list of pull request comments.
+
+    Args:
+        filter_regex: Filter the comments&#39; content with `re.search`.
+
+            Defaults to `None`, which means no filtering.
+        reverse: Whether the comments are to be returned in
+            reversed order.
+
+            Defaults to `False`.
+        author: Filter the comments by author.
+
+            Defaults to `None`, which means no filtering.
+
+    Returns:
+        List of pull request comments.
+    &#34;&#34;&#34;
+    raise NotImplementedError()</code></pre>
+</details>
+<div class="desc"><p>Get list of pull request comments.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>filter_regex</code></strong></dt>
+<dd>
+<p>Filter the comments' content with <code>re.search</code>.</p>
+<p>Defaults to <code>None</code>, which means no filtering.</p>
+</dd>
+<dt><strong><code>reverse</code></strong></dt>
+<dd>
+<p>Whether the comments are to be returned in
+reversed order.</p>
+<p>Defaults to <code>False</code>.</p>
+</dd>
+<dt><strong><code>author</code></strong></dt>
+<dd>
+<p>Filter the comments by author.</p>
+<p>Defaults to <code>None</code>, which means no filtering.</p>
+</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p>List of pull request comments.</p></div>
+</dd>
+<dt id="ogr.abstract.pull_request.PullRequest.get_statuses"><code class="name flex">
+<span>def <span class="ident">get_statuses</span></span>(<span>self) ‑> list[<a title="ogr.abstract.commit_flag.CommitFlag" href="commit_flag.html#ogr.abstract.commit_flag.CommitFlag">CommitFlag</a>] | Iterable[<a title="ogr.abstract.commit_flag.CommitFlag" href="commit_flag.html#ogr.abstract.commit_flag.CommitFlag">CommitFlag</a>]</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_statuses(self) -&gt; Union[list[&#34;CommitFlag&#34;], Iterable[&#34;CommitFlag&#34;]]:
+    &#34;&#34;&#34;
+    Returns statuses for latest commit on pull request.
+
+    Returns:
+        List of commit statuses of the latest commit.
+    &#34;&#34;&#34;
+    raise NotImplementedError()</code></pre>
+</details>
+<div class="desc"><p>Returns statuses for latest commit on pull request.</p>
+<h2 id="returns">Returns</h2>
+<p>List of commit statuses of the latest commit.</p></div>
+</dd>
+<dt id="ogr.abstract.pull_request.PullRequest.merge"><code class="name flex">
+<span>def <span class="ident">merge</span></span>(<span>self) ‑> <a title="ogr.abstract.pull_request.PullRequest" href="#ogr.abstract.pull_request.PullRequest">PullRequest</a></span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def merge(self) -&gt; &#34;PullRequest&#34;:
+    &#34;&#34;&#34;
+    Merge the pull request.
+
+    Returns:
+        Pull request itself.
+    &#34;&#34;&#34;
+    raise NotImplementedError()</code></pre>
+</details>
+<div class="desc"><p>Merge the pull request.</p>
+<h2 id="returns">Returns</h2>
+<p>Pull request itself.</p></div>
+</dd>
+<dt id="ogr.abstract.pull_request.PullRequest.search"><code class="name flex">
+<span>def <span class="ident">search</span></span>(<span>self, filter_regex: str, reverse: bool = False, description: bool = True) ‑> re.Match[str] | None</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def search(
+    self,
+    filter_regex: str,
+    reverse: bool = False,
+    description: bool = True,
+) -&gt; Optional[Match[str]]:
+    &#34;&#34;&#34;
+    Find match in pull request description or comments.
+
+    Args:
+        filter_regex: Regex that is used to filter the comments&#39; content with `re.search`.
+        reverse: Reverse order of the comments.
+
+            Defaults to `False`.
+        description: Whether description is included in the search.
+
+            Defaults to `True`.
+
+    Returns:
+        `re.Match` if found, `None` otherwise.
+    &#34;&#34;&#34;
+    raise NotImplementedError()</code></pre>
+</details>
+<div class="desc"><p>Find match in pull request description or comments.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>filter_regex</code></strong></dt>
+<dd>Regex that is used to filter the comments' content with <code>re.search</code>.</dd>
+<dt><strong><code>reverse</code></strong></dt>
+<dd>
+<p>Reverse order of the comments.</p>
+<p>Defaults to <code>False</code>.</p>
+</dd>
+<dt><strong><code>description</code></strong></dt>
+<dd>
+<p>Whether description is included in the search.</p>
+<p>Defaults to <code>True</code>.</p>
+</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p><code>re.Match</code> if found, <code>None</code> otherwise.</p></div>
+</dd>
+<dt id="ogr.abstract.pull_request.PullRequest.update_info"><code class="name flex">
+<span>def <span class="ident">update_info</span></span>(<span>self, title: str | None = None, description: str | None = None) ‑> <a title="ogr.abstract.pull_request.PullRequest" href="#ogr.abstract.pull_request.PullRequest">PullRequest</a></span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def update_info(
+    self,
+    title: Optional[str] = None,
+    description: Optional[str] = None,
+) -&gt; &#34;PullRequest&#34;:
+    &#34;&#34;&#34;
+    Update pull request information.
+
+    Args:
+        title: The new title of the pull request.
+
+            Defaults to `None`, which means no updating.
+        description: The new description of the pull request.
+
+            Defaults to `None`, which means no updating.
+
+    Returns:
+        Pull request itself.
+    &#34;&#34;&#34;
+    raise NotImplementedError()</code></pre>
+</details>
+<div class="desc"><p>Update pull request information.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>title</code></strong></dt>
+<dd>
+<p>The new title of the pull request.</p>
+<p>Defaults to <code>None</code>, which means no updating.</p>
+</dd>
+<dt><strong><code>description</code></strong></dt>
+<dd>
+<p>The new description of the pull request.</p>
+<p>Defaults to <code>None</code>, which means no updating.</p>
+</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p>Pull request itself.</p></div>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="ogr.abstract" href="index.html">ogr.abstract</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="ogr.abstract.pull_request.PullRequest" href="#ogr.abstract.pull_request.PullRequest">PullRequest</a></code></h4>
+<ul class="">
+<li><code><a title="ogr.abstract.pull_request.PullRequest.add_label" href="#ogr.abstract.pull_request.PullRequest.add_label">add_label</a></code></li>
+<li><code><a title="ogr.abstract.pull_request.PullRequest.author" href="#ogr.abstract.pull_request.PullRequest.author">author</a></code></li>
+<li><code><a title="ogr.abstract.pull_request.PullRequest.close" href="#ogr.abstract.pull_request.PullRequest.close">close</a></code></li>
+<li><code><a title="ogr.abstract.pull_request.PullRequest.closed_by" href="#ogr.abstract.pull_request.PullRequest.closed_by">closed_by</a></code></li>
+<li><code><a title="ogr.abstract.pull_request.PullRequest.comment" href="#ogr.abstract.pull_request.PullRequest.comment">comment</a></code></li>
+<li><code><a title="ogr.abstract.pull_request.PullRequest.commits_url" href="#ogr.abstract.pull_request.PullRequest.commits_url">commits_url</a></code></li>
+<li><code><a title="ogr.abstract.pull_request.PullRequest.create" href="#ogr.abstract.pull_request.PullRequest.create">create</a></code></li>
+<li><code><a title="ogr.abstract.pull_request.PullRequest.created" href="#ogr.abstract.pull_request.PullRequest.created">created</a></code></li>
+<li><code><a title="ogr.abstract.pull_request.PullRequest.description" href="#ogr.abstract.pull_request.PullRequest.description">description</a></code></li>
+<li><code><a title="ogr.abstract.pull_request.PullRequest.diff_url" href="#ogr.abstract.pull_request.PullRequest.diff_url">diff_url</a></code></li>
+<li><code><a title="ogr.abstract.pull_request.PullRequest.get" href="#ogr.abstract.pull_request.PullRequest.get">get</a></code></li>
+<li><code><a title="ogr.abstract.pull_request.PullRequest.get_all_commits" href="#ogr.abstract.pull_request.PullRequest.get_all_commits">get_all_commits</a></code></li>
+<li><code><a title="ogr.abstract.pull_request.PullRequest.get_comment" href="#ogr.abstract.pull_request.PullRequest.get_comment">get_comment</a></code></li>
+<li><code><a title="ogr.abstract.pull_request.PullRequest.get_comments" href="#ogr.abstract.pull_request.PullRequest.get_comments">get_comments</a></code></li>
+<li><code><a title="ogr.abstract.pull_request.PullRequest.get_list" href="#ogr.abstract.pull_request.PullRequest.get_list">get_list</a></code></li>
+<li><code><a title="ogr.abstract.pull_request.PullRequest.get_statuses" href="#ogr.abstract.pull_request.PullRequest.get_statuses">get_statuses</a></code></li>
+<li><code><a title="ogr.abstract.pull_request.PullRequest.head_commit" href="#ogr.abstract.pull_request.PullRequest.head_commit">head_commit</a></code></li>
+<li><code><a title="ogr.abstract.pull_request.PullRequest.id" href="#ogr.abstract.pull_request.PullRequest.id">id</a></code></li>
+<li><code><a title="ogr.abstract.pull_request.PullRequest.labels" href="#ogr.abstract.pull_request.PullRequest.labels">labels</a></code></li>
+<li><code><a title="ogr.abstract.pull_request.PullRequest.merge" href="#ogr.abstract.pull_request.PullRequest.merge">merge</a></code></li>
+<li><code><a title="ogr.abstract.pull_request.PullRequest.merge_commit_sha" href="#ogr.abstract.pull_request.PullRequest.merge_commit_sha">merge_commit_sha</a></code></li>
+<li><code><a title="ogr.abstract.pull_request.PullRequest.merge_commit_status" href="#ogr.abstract.pull_request.PullRequest.merge_commit_status">merge_commit_status</a></code></li>
+<li><code><a title="ogr.abstract.pull_request.PullRequest.patch" href="#ogr.abstract.pull_request.PullRequest.patch">patch</a></code></li>
+<li><code><a title="ogr.abstract.pull_request.PullRequest.search" href="#ogr.abstract.pull_request.PullRequest.search">search</a></code></li>
+<li><code><a title="ogr.abstract.pull_request.PullRequest.source_branch" href="#ogr.abstract.pull_request.PullRequest.source_branch">source_branch</a></code></li>
+<li><code><a title="ogr.abstract.pull_request.PullRequest.source_project" href="#ogr.abstract.pull_request.PullRequest.source_project">source_project</a></code></li>
+<li><code><a title="ogr.abstract.pull_request.PullRequest.status" href="#ogr.abstract.pull_request.PullRequest.status">status</a></code></li>
+<li><code><a title="ogr.abstract.pull_request.PullRequest.target_branch" href="#ogr.abstract.pull_request.PullRequest.target_branch">target_branch</a></code></li>
+<li><code><a title="ogr.abstract.pull_request.PullRequest.target_branch_head_commit" href="#ogr.abstract.pull_request.PullRequest.target_branch_head_commit">target_branch_head_commit</a></code></li>
+<li><code><a title="ogr.abstract.pull_request.PullRequest.target_project" href="#ogr.abstract.pull_request.PullRequest.target_project">target_project</a></code></li>
+<li><code><a title="ogr.abstract.pull_request.PullRequest.title" href="#ogr.abstract.pull_request.PullRequest.title">title</a></code></li>
+<li><code><a title="ogr.abstract.pull_request.PullRequest.update_info" href="#ogr.abstract.pull_request.PullRequest.update_info">update_info</a></code></li>
+<li><code><a title="ogr.abstract.pull_request.PullRequest.url" href="#ogr.abstract.pull_request.PullRequest.url">url</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.11.6</a>.</p>
+</footer>
+</body>
+</html>

@@ -1,0 +1,903 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+<meta name="generator" content="pdoc3 0.11.6">
+<title>ogr.abstract.issue API documentation</title>
+<meta name="description" content="">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/sanitize.min.css" integrity="sha512-y1dtMcuvtTMJc1yPgEqF0ZjQbhnc/bFhyvIyVNb9Zk5mIGtqVaAB1Ttl28su8AvFMOY0EwRbAe+HCLqj6W7/KA==" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/typography.min.css" integrity="sha512-Y1DYSb995BAfxobCkKepB1BqJJTPrOp3zPL74AWFugHHmmdcvO+C48WLrUOlhGMc0QG7AE3f7gmvvcrmX2fDoA==" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:1.5em;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:2em 0 .50em 0}h3{font-size:1.4em;margin:1.6em 0 .7em 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .2s ease-in-out}a:visited{color:#503}a:hover{color:#b62}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900;font-weight:bold}pre code{font-size:.8em;line-height:1.4em;padding:1em;display:block}code{background:#f3f3f3;font-family:"DejaVu Sans Mono",monospace;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source > summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible;min-width:max-content}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em 1em;margin:1em 0}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul ul{padding-left:1em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js" integrity="sha512-D9gUyxqja7hBtkWpPWGt9wfbfaMGVt9gnyCvYa+jojwwPHLCzUm5i8rpk7vD7wNee9bA35eYIjobYPaQuKS1MQ==" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => {
+hljs.configure({languages: ['bash', 'css', 'diff', 'graphql', 'ini', 'javascript', 'json', 'plaintext', 'python', 'python-repl', 'rust', 'shell', 'sql', 'typescript', 'xml', 'yaml']});
+hljs.highlightAll();
+/* Collapse source docstrings */
+setTimeout(() => {
+[...document.querySelectorAll('.hljs.language-python > .hljs-string')]
+.filter(el => el.innerHTML.length > 200 && ['"""', "'''"].includes(el.innerHTML.substring(0, 3)))
+.forEach(el => {
+let d = document.createElement('details');
+d.classList.add('hljs-string');
+d.innerHTML = '<summary>"""</summary>' + el.innerHTML.substring(3);
+el.replaceWith(d);
+});
+}, 100);
+})</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>ogr.abstract.issue</code></h1>
+</header>
+<section id="section-intro">
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="ogr.abstract.issue.Issue"><code class="flex name class">
+<span>class <span class="ident">Issue</span></span>
+<span>(</span><span>raw_issue: Any, project: _abstract.GitProject)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Issue(OgrAbstractClass):
+    &#34;&#34;&#34;
+    Attributes:
+        project (GitProject): Project of the issue.
+    &#34;&#34;&#34;
+
+    def __init__(self, raw_issue: Any, project: &#34;_abstract.GitProject&#34;) -&gt; None:
+        self._raw_issue = raw_issue
+        self.project = project
+
+    @property
+    def title(self) -&gt; str:
+        &#34;&#34;&#34;Title of the issue.&#34;&#34;&#34;
+        raise NotImplementedError()
+
+    @property
+    def private(self) -&gt; bool:
+        &#34;&#34;&#34;`True` if issue is confidential, `False` otherwise.&#34;&#34;&#34;
+        raise NotImplementedError()
+
+    @property
+    def id(self) -&gt; int:
+        &#34;&#34;&#34;ID of the issue.&#34;&#34;&#34;
+        raise NotImplementedError()
+
+    @property
+    def status(self) -&gt; IssueStatus:
+        &#34;&#34;&#34;Status of the issue.&#34;&#34;&#34;
+        raise NotImplementedError()
+
+    @property
+    def url(self) -&gt; str:
+        &#34;&#34;&#34;Web URL of the issue.&#34;&#34;&#34;
+        raise NotImplementedError()
+
+    @property
+    def description(self) -&gt; str:
+        &#34;&#34;&#34;Description of the issue.&#34;&#34;&#34;
+        raise NotImplementedError()
+
+    @property
+    def author(self) -&gt; str:
+        &#34;&#34;&#34;Username of the author of the issue.&#34;&#34;&#34;
+        raise NotImplementedError()
+
+    @property
+    def created(self) -&gt; datetime.datetime:
+        &#34;&#34;&#34;Datetime of the creation of the issue.&#34;&#34;&#34;
+        raise NotImplementedError()
+
+    @property
+    def labels(
+        self,
+    ) -&gt; Union[list[&#34;_abstract.IssueLabel&#34;], Iterable[&#34;_abstract.IssueLabel&#34;]]:
+        &#34;&#34;&#34;Labels of the issue.&#34;&#34;&#34;
+        raise NotImplementedError()
+
+    def __str__(self) -&gt; str:
+        description = (
+            f&#34;{self.description[:10]}...&#34; if self.description is not None else &#34;None&#34;
+        )
+        return (
+            f&#34;Issue(&#34;
+            f&#34;title=&#39;{self.title}&#39;, &#34;
+            f&#34;id={self.id}, &#34;
+            f&#34;status=&#39;{self.status.name}&#39;, &#34;
+            f&#34;url=&#39;{self.url}&#39;, &#34;
+            f&#34;description=&#39;{description}&#39;, &#34;
+            f&#34;author=&#39;{self.author}&#39;, &#34;
+            f&#34;created=&#39;{self.created}&#39;)&#34;
+        )
+
+    @staticmethod
+    def create(
+        project: Any,
+        title: str,
+        body: str,
+        private: Optional[bool] = None,
+        labels: Optional[list[str]] = None,
+        assignees: Optional[list[str]] = None,
+    ) -&gt; &#34;Issue&#34;:
+        &#34;&#34;&#34;
+        Open new issue.
+
+        Args:
+            project (GitProject): Project where the issue is to be opened.
+            title: Title of the issue.
+            body: Description of the issue.
+            private: Is the new issue supposed to be confidential?
+
+                **Supported only by GitLab and Pagure.**
+
+                Defaults to unset.
+            labels: List of labels that are to be added to
+                the issue.
+
+                Defaults to no labels.
+            assignees: List of usernames of the assignees.
+
+                Defaults to no assignees.
+
+        Returns:
+            Object that represents newly created issue.
+        &#34;&#34;&#34;
+        raise NotImplementedError()
+
+    @staticmethod
+    def get(project: Any, id: int) -&gt; &#34;Issue&#34;:
+        &#34;&#34;&#34;
+        Get issue.
+
+        Args:
+            project (GitProject): Project where the issue is to be opened.
+            issue_id: ID of the issue.
+
+        Returns:
+            Object that represents requested issue.
+        &#34;&#34;&#34;
+        raise NotImplementedError()
+
+    @staticmethod
+    def get_list(
+        project: Any,
+        status: IssueStatus = IssueStatus.open,
+        author: Optional[str] = None,
+        assignee: Optional[str] = None,
+        labels: Optional[list[str]] = None,
+    ) -&gt; Union[list[&#34;Issue&#34;], Iterable[&#34;Issue&#34;]]:
+        &#34;&#34;&#34;
+        List of issues.
+
+        Args:
+            project (GitProject): Project where the issue is to be opened.
+            status: Status of the issues that are to be
+                included in the list.
+
+                Defaults to `IssueStatus.open`.
+            author: Username of the author of the issues.
+
+                Defaults to no filtering by author.
+            assignee: Username of the assignee on the issues.
+
+                Defaults to no filtering by assignees.
+            labels: Filter issues that have set specific labels.
+
+                Defaults to no filtering by labels.
+
+        Returns:
+            List of objects that represent requested issues.
+        &#34;&#34;&#34;
+        raise NotImplementedError()
+
+    def _get_all_comments(
+        self,
+        reverse: bool = False,
+    ) -&gt; Union[list[&#34;_abstract.IssueComment&#34;], Iterable[&#34;_abstract.IssueComment&#34;]]:
+        &#34;&#34;&#34;
+        Get list of all issue comments.
+
+        Args:
+            reverse: Defines whether the comments should be listed in a reversed
+                order.
+
+                Defaults to `False`.
+
+        Returns:
+            List of all comments on the issue.
+        &#34;&#34;&#34;
+        raise NotImplementedError()
+
+    def get_comments(
+        self,
+        filter_regex: Optional[str] = None,
+        reverse: bool = False,
+        author: Optional[str] = None,
+    ) -&gt; Union[list[&#34;_abstract.IssueComment&#34;], Iterable[&#34;_abstract.IssueComment&#34;]]:
+        &#34;&#34;&#34;
+        Get list of issue comments.
+
+        Args:
+            filter_regex: Filter the comments&#39; content with `re.search`.
+
+                Defaults to `None`, which means no filtering.
+            reverse: Whether the comments are to be returned in
+                reversed order.
+
+                In case of Forgejo, setting reverse=True
+                leads to strict evaluation of all comments.
+
+                Defaults to `False`.
+            author: Filter the comments by author.
+
+                Defaults to `None`, which means no filtering.
+
+        Returns:
+            List of issue comments.
+        &#34;&#34;&#34;
+        raise NotImplementedError()
+
+    def can_close(self, username: str) -&gt; bool:
+        &#34;&#34;&#34;
+        Check if user have permissions to modify an issue.
+
+        Args:
+            username: Login of the user.
+
+        Returns:
+            `True` if user can close the issue, `False` otherwise.
+        &#34;&#34;&#34;
+        raise NotImplementedError()
+
+    def comment(self, body: str) -&gt; &#34;_abstract.IssueComment&#34;:
+        &#34;&#34;&#34;
+        Add new comment to the issue.
+
+        Args:
+            body: Text contents of the comment.
+
+        Returns:
+            Object that represents posted comment.
+        &#34;&#34;&#34;
+        raise NotImplementedError()
+
+    def close(self) -&gt; &#34;Issue&#34;:
+        &#34;&#34;&#34;
+        Close an issue.
+
+        Returns:
+            Issue itself.
+        &#34;&#34;&#34;
+        raise NotImplementedError()
+
+    def add_label(self, *labels: str) -&gt; None:
+        &#34;&#34;&#34;
+        Add labels to the issue.
+
+        Args:
+            *labels: Labels to be added.
+        &#34;&#34;&#34;
+        raise NotImplementedError()
+
+    def add_assignee(self, *assignees: str) -&gt; None:
+        &#34;&#34;&#34;
+        Assign users to an issue.
+
+        Args:
+            *assignees: List of logins of the assignees.
+        &#34;&#34;&#34;
+        raise NotImplementedError()
+
+    def get_comment(self, comment_id: int) -&gt; &#34;_abstract.IssueComment&#34;:
+        &#34;&#34;&#34;
+        Returns an issue comment.
+
+        Args:
+            comment_id: id of a comment
+
+        Returns:
+            Object representing an issue comment.
+        &#34;&#34;&#34;
+        raise NotImplementedError()</code></pre>
+</details>
+<div class="desc"><h2 id="attributes">Attributes</h2>
+<dl>
+<dt><strong><code>project</code></strong> :&ensp;<code>GitProject</code></dt>
+<dd>Project of the issue.</dd>
+</dl></div>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="ogr.abstract.abstract_class.OgrAbstractClass" href="abstract_class.html#ogr.abstract.abstract_class.OgrAbstractClass">OgrAbstractClass</a></li>
+</ul>
+<h3>Subclasses</h3>
+<ul class="hlist">
+<li><a title="ogr.services.base.BaseIssue" href="../services/base.html#ogr.services.base.BaseIssue">BaseIssue</a></li>
+</ul>
+<h3>Static methods</h3>
+<dl>
+<dt id="ogr.abstract.issue.Issue.create"><code class="name flex">
+<span>def <span class="ident">create</span></span>(<span>project: Any,<br>title: str,<br>body: str,<br>private: bool | None = None,<br>labels: list[str] | None = None,<br>assignees: list[str] | None = None) ‑> <a title="ogr.abstract.issue.Issue" href="#ogr.abstract.issue.Issue">Issue</a></span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@staticmethod
+def create(
+    project: Any,
+    title: str,
+    body: str,
+    private: Optional[bool] = None,
+    labels: Optional[list[str]] = None,
+    assignees: Optional[list[str]] = None,
+) -&gt; &#34;Issue&#34;:
+    &#34;&#34;&#34;
+    Open new issue.
+
+    Args:
+        project (GitProject): Project where the issue is to be opened.
+        title: Title of the issue.
+        body: Description of the issue.
+        private: Is the new issue supposed to be confidential?
+
+            **Supported only by GitLab and Pagure.**
+
+            Defaults to unset.
+        labels: List of labels that are to be added to
+            the issue.
+
+            Defaults to no labels.
+        assignees: List of usernames of the assignees.
+
+            Defaults to no assignees.
+
+    Returns:
+        Object that represents newly created issue.
+    &#34;&#34;&#34;
+    raise NotImplementedError()</code></pre>
+</details>
+<div class="desc"><p>Open new issue.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>project</code></strong> :&ensp;<code>GitProject</code></dt>
+<dd>Project where the issue is to be opened.</dd>
+<dt><strong><code>title</code></strong></dt>
+<dd>Title of the issue.</dd>
+<dt><strong><code>body</code></strong></dt>
+<dd>Description of the issue.</dd>
+<dt><strong><code>private</code></strong></dt>
+<dd>
+<p>Is the new issue supposed to be confidential?</p>
+<p><strong>Supported only by GitLab and Pagure.</strong></p>
+<p>Defaults to unset.</p>
+</dd>
+<dt><strong><code>labels</code></strong></dt>
+<dd>
+<p>List of labels that are to be added to
+the issue.</p>
+<p>Defaults to no labels.</p>
+</dd>
+<dt><strong><code>assignees</code></strong></dt>
+<dd>
+<p>List of usernames of the assignees.</p>
+<p>Defaults to no assignees.</p>
+</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p>Object that represents newly created issue.</p></div>
+</dd>
+<dt id="ogr.abstract.issue.Issue.get"><code class="name flex">
+<span>def <span class="ident">get</span></span>(<span>project: Any, id: int) ‑> <a title="ogr.abstract.issue.Issue" href="#ogr.abstract.issue.Issue">Issue</a></span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@staticmethod
+def get(project: Any, id: int) -&gt; &#34;Issue&#34;:
+    &#34;&#34;&#34;
+    Get issue.
+
+    Args:
+        project (GitProject): Project where the issue is to be opened.
+        issue_id: ID of the issue.
+
+    Returns:
+        Object that represents requested issue.
+    &#34;&#34;&#34;
+    raise NotImplementedError()</code></pre>
+</details>
+<div class="desc"><p>Get issue.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>project</code></strong> :&ensp;<code>GitProject</code></dt>
+<dd>Project where the issue is to be opened.</dd>
+<dt><strong><code>issue_id</code></strong></dt>
+<dd>ID of the issue.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p>Object that represents requested issue.</p></div>
+</dd>
+<dt id="ogr.abstract.issue.Issue.get_list"><code class="name flex">
+<span>def <span class="ident">get_list</span></span>(<span>project: Any,<br>status: <a title="ogr.abstract.status.IssueStatus" href="status.html#ogr.abstract.status.IssueStatus">IssueStatus</a> = 1,<br>author: str | None = None,<br>assignee: str | None = None,<br>labels: list[str] | None = None) ‑> list[<a title="ogr.abstract.issue.Issue" href="#ogr.abstract.issue.Issue">Issue</a>] | Iterable[<a title="ogr.abstract.issue.Issue" href="#ogr.abstract.issue.Issue">Issue</a>]</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@staticmethod
+def get_list(
+    project: Any,
+    status: IssueStatus = IssueStatus.open,
+    author: Optional[str] = None,
+    assignee: Optional[str] = None,
+    labels: Optional[list[str]] = None,
+) -&gt; Union[list[&#34;Issue&#34;], Iterable[&#34;Issue&#34;]]:
+    &#34;&#34;&#34;
+    List of issues.
+
+    Args:
+        project (GitProject): Project where the issue is to be opened.
+        status: Status of the issues that are to be
+            included in the list.
+
+            Defaults to `IssueStatus.open`.
+        author: Username of the author of the issues.
+
+            Defaults to no filtering by author.
+        assignee: Username of the assignee on the issues.
+
+            Defaults to no filtering by assignees.
+        labels: Filter issues that have set specific labels.
+
+            Defaults to no filtering by labels.
+
+    Returns:
+        List of objects that represent requested issues.
+    &#34;&#34;&#34;
+    raise NotImplementedError()</code></pre>
+</details>
+<div class="desc"><p>List of issues.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>project</code></strong> :&ensp;<code>GitProject</code></dt>
+<dd>Project where the issue is to be opened.</dd>
+<dt><strong><code>status</code></strong></dt>
+<dd>
+<p>Status of the issues that are to be
+included in the list.</p>
+<p>Defaults to <code>IssueStatus.open</code>.</p>
+</dd>
+<dt><strong><code>author</code></strong></dt>
+<dd>
+<p>Username of the author of the issues.</p>
+<p>Defaults to no filtering by author.</p>
+</dd>
+<dt><strong><code>assignee</code></strong></dt>
+<dd>
+<p>Username of the assignee on the issues.</p>
+<p>Defaults to no filtering by assignees.</p>
+</dd>
+<dt><strong><code>labels</code></strong></dt>
+<dd>
+<p>Filter issues that have set specific labels.</p>
+<p>Defaults to no filtering by labels.</p>
+</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p>List of objects that represent requested issues.</p></div>
+</dd>
+</dl>
+<h3>Instance variables</h3>
+<dl>
+<dt id="ogr.abstract.issue.Issue.author"><code class="name">prop <span class="ident">author</span> : str</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def author(self) -&gt; str:
+    &#34;&#34;&#34;Username of the author of the issue.&#34;&#34;&#34;
+    raise NotImplementedError()</code></pre>
+</details>
+<div class="desc"><p>Username of the author of the issue.</p></div>
+</dd>
+<dt id="ogr.abstract.issue.Issue.created"><code class="name">prop <span class="ident">created</span> : datetime.datetime</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def created(self) -&gt; datetime.datetime:
+    &#34;&#34;&#34;Datetime of the creation of the issue.&#34;&#34;&#34;
+    raise NotImplementedError()</code></pre>
+</details>
+<div class="desc"><p>Datetime of the creation of the issue.</p></div>
+</dd>
+<dt id="ogr.abstract.issue.Issue.description"><code class="name">prop <span class="ident">description</span> : str</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def description(self) -&gt; str:
+    &#34;&#34;&#34;Description of the issue.&#34;&#34;&#34;
+    raise NotImplementedError()</code></pre>
+</details>
+<div class="desc"><p>Description of the issue.</p></div>
+</dd>
+<dt id="ogr.abstract.issue.Issue.id"><code class="name">prop <span class="ident">id</span> : int</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def id(self) -&gt; int:
+    &#34;&#34;&#34;ID of the issue.&#34;&#34;&#34;
+    raise NotImplementedError()</code></pre>
+</details>
+<div class="desc"><p>ID of the issue.</p></div>
+</dd>
+<dt id="ogr.abstract.issue.Issue.labels"><code class="name">prop <span class="ident">labels</span> : list['_abstract.IssueLabel'] | Iterable['_abstract.IssueLabel']</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def labels(
+    self,
+) -&gt; Union[list[&#34;_abstract.IssueLabel&#34;], Iterable[&#34;_abstract.IssueLabel&#34;]]:
+    &#34;&#34;&#34;Labels of the issue.&#34;&#34;&#34;
+    raise NotImplementedError()</code></pre>
+</details>
+<div class="desc"><p>Labels of the issue.</p></div>
+</dd>
+<dt id="ogr.abstract.issue.Issue.private"><code class="name">prop <span class="ident">private</span> : bool</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def private(self) -&gt; bool:
+    &#34;&#34;&#34;`True` if issue is confidential, `False` otherwise.&#34;&#34;&#34;
+    raise NotImplementedError()</code></pre>
+</details>
+<div class="desc"><p><code>True</code> if issue is confidential, <code>False</code> otherwise.</p></div>
+</dd>
+<dt id="ogr.abstract.issue.Issue.status"><code class="name">prop <span class="ident">status</span> : <a title="ogr.abstract.status.IssueStatus" href="status.html#ogr.abstract.status.IssueStatus">IssueStatus</a></code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def status(self) -&gt; IssueStatus:
+    &#34;&#34;&#34;Status of the issue.&#34;&#34;&#34;
+    raise NotImplementedError()</code></pre>
+</details>
+<div class="desc"><p>Status of the issue.</p></div>
+</dd>
+<dt id="ogr.abstract.issue.Issue.title"><code class="name">prop <span class="ident">title</span> : str</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def title(self) -&gt; str:
+    &#34;&#34;&#34;Title of the issue.&#34;&#34;&#34;
+    raise NotImplementedError()</code></pre>
+</details>
+<div class="desc"><p>Title of the issue.</p></div>
+</dd>
+<dt id="ogr.abstract.issue.Issue.url"><code class="name">prop <span class="ident">url</span> : str</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def url(self) -&gt; str:
+    &#34;&#34;&#34;Web URL of the issue.&#34;&#34;&#34;
+    raise NotImplementedError()</code></pre>
+</details>
+<div class="desc"><p>Web URL of the issue.</p></div>
+</dd>
+</dl>
+<h3>Methods</h3>
+<dl>
+<dt id="ogr.abstract.issue.Issue.add_assignee"><code class="name flex">
+<span>def <span class="ident">add_assignee</span></span>(<span>self, *assignees: str) ‑> None</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def add_assignee(self, *assignees: str) -&gt; None:
+    &#34;&#34;&#34;
+    Assign users to an issue.
+
+    Args:
+        *assignees: List of logins of the assignees.
+    &#34;&#34;&#34;
+    raise NotImplementedError()</code></pre>
+</details>
+<div class="desc"><p>Assign users to an issue.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>*assignees</code></strong></dt>
+<dd>List of logins of the assignees.</dd>
+</dl></div>
+</dd>
+<dt id="ogr.abstract.issue.Issue.add_label"><code class="name flex">
+<span>def <span class="ident">add_label</span></span>(<span>self, *labels: str) ‑> None</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def add_label(self, *labels: str) -&gt; None:
+    &#34;&#34;&#34;
+    Add labels to the issue.
+
+    Args:
+        *labels: Labels to be added.
+    &#34;&#34;&#34;
+    raise NotImplementedError()</code></pre>
+</details>
+<div class="desc"><p>Add labels to the issue.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>*labels</code></strong></dt>
+<dd>Labels to be added.</dd>
+</dl></div>
+</dd>
+<dt id="ogr.abstract.issue.Issue.can_close"><code class="name flex">
+<span>def <span class="ident">can_close</span></span>(<span>self, username: str) ‑> bool</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def can_close(self, username: str) -&gt; bool:
+    &#34;&#34;&#34;
+    Check if user have permissions to modify an issue.
+
+    Args:
+        username: Login of the user.
+
+    Returns:
+        `True` if user can close the issue, `False` otherwise.
+    &#34;&#34;&#34;
+    raise NotImplementedError()</code></pre>
+</details>
+<div class="desc"><p>Check if user have permissions to modify an issue.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>username</code></strong></dt>
+<dd>Login of the user.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p><code>True</code> if user can close the issue, <code>False</code> otherwise.</p></div>
+</dd>
+<dt id="ogr.abstract.issue.Issue.close"><code class="name flex">
+<span>def <span class="ident">close</span></span>(<span>self) ‑> <a title="ogr.abstract.issue.Issue" href="#ogr.abstract.issue.Issue">Issue</a></span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def close(self) -&gt; &#34;Issue&#34;:
+    &#34;&#34;&#34;
+    Close an issue.
+
+    Returns:
+        Issue itself.
+    &#34;&#34;&#34;
+    raise NotImplementedError()</code></pre>
+</details>
+<div class="desc"><p>Close an issue.</p>
+<h2 id="returns">Returns</h2>
+<p>Issue itself.</p></div>
+</dd>
+<dt id="ogr.abstract.issue.Issue.comment"><code class="name flex">
+<span>def <span class="ident">comment</span></span>(<span>self, body: str) ‑> <a title="ogr.abstract.comment.IssueComment" href="comment.html#ogr.abstract.comment.IssueComment">IssueComment</a></span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def comment(self, body: str) -&gt; &#34;_abstract.IssueComment&#34;:
+    &#34;&#34;&#34;
+    Add new comment to the issue.
+
+    Args:
+        body: Text contents of the comment.
+
+    Returns:
+        Object that represents posted comment.
+    &#34;&#34;&#34;
+    raise NotImplementedError()</code></pre>
+</details>
+<div class="desc"><p>Add new comment to the issue.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>body</code></strong></dt>
+<dd>Text contents of the comment.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p>Object that represents posted comment.</p></div>
+</dd>
+<dt id="ogr.abstract.issue.Issue.get_comment"><code class="name flex">
+<span>def <span class="ident">get_comment</span></span>(<span>self, comment_id: int) ‑> <a title="ogr.abstract.comment.IssueComment" href="comment.html#ogr.abstract.comment.IssueComment">IssueComment</a></span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_comment(self, comment_id: int) -&gt; &#34;_abstract.IssueComment&#34;:
+    &#34;&#34;&#34;
+    Returns an issue comment.
+
+    Args:
+        comment_id: id of a comment
+
+    Returns:
+        Object representing an issue comment.
+    &#34;&#34;&#34;
+    raise NotImplementedError()</code></pre>
+</details>
+<div class="desc"><p>Returns an issue comment.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>comment_id</code></strong></dt>
+<dd>id of a comment</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p>Object representing an issue comment.</p></div>
+</dd>
+<dt id="ogr.abstract.issue.Issue.get_comments"><code class="name flex">
+<span>def <span class="ident">get_comments</span></span>(<span>self,<br>filter_regex: str | None = None,<br>reverse: bool = False,<br>author: str | None = None) ‑> list[<a title="ogr.abstract.comment.IssueComment" href="comment.html#ogr.abstract.comment.IssueComment">IssueComment</a>] | Iterable[<a title="ogr.abstract.comment.IssueComment" href="comment.html#ogr.abstract.comment.IssueComment">IssueComment</a>]</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_comments(
+    self,
+    filter_regex: Optional[str] = None,
+    reverse: bool = False,
+    author: Optional[str] = None,
+) -&gt; Union[list[&#34;_abstract.IssueComment&#34;], Iterable[&#34;_abstract.IssueComment&#34;]]:
+    &#34;&#34;&#34;
+    Get list of issue comments.
+
+    Args:
+        filter_regex: Filter the comments&#39; content with `re.search`.
+
+            Defaults to `None`, which means no filtering.
+        reverse: Whether the comments are to be returned in
+            reversed order.
+
+            In case of Forgejo, setting reverse=True
+            leads to strict evaluation of all comments.
+
+            Defaults to `False`.
+        author: Filter the comments by author.
+
+            Defaults to `None`, which means no filtering.
+
+    Returns:
+        List of issue comments.
+    &#34;&#34;&#34;
+    raise NotImplementedError()</code></pre>
+</details>
+<div class="desc"><p>Get list of issue comments.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>filter_regex</code></strong></dt>
+<dd>
+<p>Filter the comments' content with <code>re.search</code>.</p>
+<p>Defaults to <code>None</code>, which means no filtering.</p>
+</dd>
+<dt><strong><code>reverse</code></strong></dt>
+<dd>
+<p>Whether the comments are to be returned in
+reversed order.</p>
+<p>In case of Forgejo, setting reverse=True
+leads to strict evaluation of all comments.</p>
+<p>Defaults to <code>False</code>.</p>
+</dd>
+<dt><strong><code>author</code></strong></dt>
+<dd>
+<p>Filter the comments by author.</p>
+<p>Defaults to <code>None</code>, which means no filtering.</p>
+</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p>List of issue comments.</p></div>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="ogr.abstract" href="index.html">ogr.abstract</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="ogr.abstract.issue.Issue" href="#ogr.abstract.issue.Issue">Issue</a></code></h4>
+<ul class="two-column">
+<li><code><a title="ogr.abstract.issue.Issue.add_assignee" href="#ogr.abstract.issue.Issue.add_assignee">add_assignee</a></code></li>
+<li><code><a title="ogr.abstract.issue.Issue.add_label" href="#ogr.abstract.issue.Issue.add_label">add_label</a></code></li>
+<li><code><a title="ogr.abstract.issue.Issue.author" href="#ogr.abstract.issue.Issue.author">author</a></code></li>
+<li><code><a title="ogr.abstract.issue.Issue.can_close" href="#ogr.abstract.issue.Issue.can_close">can_close</a></code></li>
+<li><code><a title="ogr.abstract.issue.Issue.close" href="#ogr.abstract.issue.Issue.close">close</a></code></li>
+<li><code><a title="ogr.abstract.issue.Issue.comment" href="#ogr.abstract.issue.Issue.comment">comment</a></code></li>
+<li><code><a title="ogr.abstract.issue.Issue.create" href="#ogr.abstract.issue.Issue.create">create</a></code></li>
+<li><code><a title="ogr.abstract.issue.Issue.created" href="#ogr.abstract.issue.Issue.created">created</a></code></li>
+<li><code><a title="ogr.abstract.issue.Issue.description" href="#ogr.abstract.issue.Issue.description">description</a></code></li>
+<li><code><a title="ogr.abstract.issue.Issue.get" href="#ogr.abstract.issue.Issue.get">get</a></code></li>
+<li><code><a title="ogr.abstract.issue.Issue.get_comment" href="#ogr.abstract.issue.Issue.get_comment">get_comment</a></code></li>
+<li><code><a title="ogr.abstract.issue.Issue.get_comments" href="#ogr.abstract.issue.Issue.get_comments">get_comments</a></code></li>
+<li><code><a title="ogr.abstract.issue.Issue.get_list" href="#ogr.abstract.issue.Issue.get_list">get_list</a></code></li>
+<li><code><a title="ogr.abstract.issue.Issue.id" href="#ogr.abstract.issue.Issue.id">id</a></code></li>
+<li><code><a title="ogr.abstract.issue.Issue.labels" href="#ogr.abstract.issue.Issue.labels">labels</a></code></li>
+<li><code><a title="ogr.abstract.issue.Issue.private" href="#ogr.abstract.issue.Issue.private">private</a></code></li>
+<li><code><a title="ogr.abstract.issue.Issue.status" href="#ogr.abstract.issue.Issue.status">status</a></code></li>
+<li><code><a title="ogr.abstract.issue.Issue.title" href="#ogr.abstract.issue.Issue.title">title</a></code></li>
+<li><code><a title="ogr.abstract.issue.Issue.url" href="#ogr.abstract.issue.Issue.url">url</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.11.6</a>.</p>
+</footer>
+</body>
+</html>

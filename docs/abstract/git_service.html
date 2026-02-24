@@ -1,0 +1,565 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+<meta name="generator" content="pdoc3 0.11.6">
+<title>ogr.abstract.git_service API documentation</title>
+<meta name="description" content="">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/sanitize.min.css" integrity="sha512-y1dtMcuvtTMJc1yPgEqF0ZjQbhnc/bFhyvIyVNb9Zk5mIGtqVaAB1Ttl28su8AvFMOY0EwRbAe+HCLqj6W7/KA==" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/typography.min.css" integrity="sha512-Y1DYSb995BAfxobCkKepB1BqJJTPrOp3zPL74AWFugHHmmdcvO+C48WLrUOlhGMc0QG7AE3f7gmvvcrmX2fDoA==" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:1.5em;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:2em 0 .50em 0}h3{font-size:1.4em;margin:1.6em 0 .7em 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .2s ease-in-out}a:visited{color:#503}a:hover{color:#b62}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900;font-weight:bold}pre code{font-size:.8em;line-height:1.4em;padding:1em;display:block}code{background:#f3f3f3;font-family:"DejaVu Sans Mono",monospace;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source > summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible;min-width:max-content}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em 1em;margin:1em 0}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul ul{padding-left:1em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js" integrity="sha512-D9gUyxqja7hBtkWpPWGt9wfbfaMGVt9gnyCvYa+jojwwPHLCzUm5i8rpk7vD7wNee9bA35eYIjobYPaQuKS1MQ==" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => {
+hljs.configure({languages: ['bash', 'css', 'diff', 'graphql', 'ini', 'javascript', 'json', 'plaintext', 'python', 'python-repl', 'rust', 'shell', 'sql', 'typescript', 'xml', 'yaml']});
+hljs.highlightAll();
+/* Collapse source docstrings */
+setTimeout(() => {
+[...document.querySelectorAll('.hljs.language-python > .hljs-string')]
+.filter(el => el.innerHTML.length > 200 && ['"""', "'''"].includes(el.innerHTML.substring(0, 3)))
+.forEach(el => {
+let d = document.createElement('details');
+d.classList.add('hljs-string');
+d.innerHTML = '<summary>"""</summary>' + el.innerHTML.substring(3);
+el.replaceWith(d);
+});
+}, 100);
+})</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>ogr.abstract.git_service</code></h1>
+</header>
+<section id="section-intro">
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="ogr.abstract.git_service.GitService"><code class="flex name class">
+<span>class <span class="ident">GitService</span></span>
+<span>(</span><span>**_: Any)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class GitService(OgrAbstractClass):
+    &#34;&#34;&#34;
+    Attributes:
+        instance_url (str): URL of the git forge instance.
+    &#34;&#34;&#34;
+
+    instance_url: Optional[str] = None
+
+    def __init__(self, **_: Any) -&gt; None:
+        pass
+
+    def __str__(self) -&gt; str:
+        return f&#34;GitService(instance_url={self.instance_url})&#34;
+
+    def get_project(self, **kwargs: Any) -&gt; &#34;GitProject&#34;:
+        &#34;&#34;&#34;
+        Get the requested project.
+
+        Args:
+            namespace (str): Namespace of the project.
+            user (str): Username of the project&#39;s owner.
+            repo (str): Repository name.
+
+        Returns:
+            Object that represents git project.
+        &#34;&#34;&#34;
+        raise NotImplementedError
+
+    def get_project_from_url(self, url: str) -&gt; &#34;GitProject&#34;:
+        &#34;&#34;&#34;
+        Args:
+            url: URL of the git repository.
+
+        Returns:
+            Object that represents project from the parsed URL.
+        &#34;&#34;&#34;
+        repo_url = parse_git_repo(potential_url=url)
+        if not repo_url:
+            raise OgrException(f&#34;Failed to find repository for url: {url}&#34;)
+        return self.get_project(repo=repo_url.repo, namespace=repo_url.namespace)
+
+    @_cached_property
+    def hostname(self) -&gt; Optional[str]:
+        &#34;&#34;&#34;Hostname of the service.&#34;&#34;&#34;
+        raise NotImplementedError
+
+    @property
+    def user(self) -&gt; &#34;_abstract.GitUser&#34;:
+        &#34;&#34;&#34;User authenticated through the service.&#34;&#34;&#34;
+        raise NotImplementedError
+
+    def change_token(self, new_token: str) -&gt; None:
+        &#34;&#34;&#34;
+        Change an API token. Only for the current instance and newly created projects.
+
+        Args:
+            new_token: New token to be set.
+        &#34;&#34;&#34;
+        raise NotImplementedError
+
+    def set_auth_method(self, method: AuthMethod) -&gt; None:
+        &#34;&#34;&#34;
+        Override the default auth method.
+        Can be used when the service has more auth methods available.
+
+        Args:
+            method: the method identifier (a str name)
+        &#34;&#34;&#34;
+        raise NotImplementedError()
+
+    def reset_auth_method(self) -&gt; None:
+        &#34;&#34;&#34;
+        Set the auth method to the default one.
+        &#34;&#34;&#34;
+        raise NotImplementedError()
+
+    def project_create(
+        self,
+        repo: str,
+        namespace: Optional[str] = None,
+        description: Optional[str] = None,
+    ) -&gt; &#34;GitProject&#34;:
+        &#34;&#34;&#34;
+        Create new project.
+
+        Args:
+            repo: Name of the newly created project.
+            namespace: Namespace of the newly created project.
+
+                Defaults to currently authenticated user.
+            description: Description of the newly created project.
+
+        Returns:
+            Object that represents newly created project.
+        &#34;&#34;&#34;
+        raise NotImplementedError()
+
+    def list_projects(
+        self,
+        namespace: Optional[str] = None,
+        user: Optional[str] = None,
+        search_pattern: Optional[str] = None,
+        language: Optional[str] = None,
+    ) -&gt; Union[list[&#34;GitProject&#34;], Iterable[&#34;GitProject&#34;]]:
+        &#34;&#34;&#34;
+        List projects for given criteria.
+
+        Args:
+            namespace: Namespace to list projects from.
+            user: Login of the owner of the projects.
+            search_pattern: Regular expression that repository name should match.
+            language: Language to be present in the project, e.g. `&#34;python&#34;` or
+                `&#34;html&#34;`.
+        &#34;&#34;&#34;
+        raise NotImplementedError
+
+    def get_group(self, group_name: str):
+        &#34;&#34;&#34;
+        Get a group by name.
+        &#34;&#34;&#34;
+        raise NotImplementedError
+
+    def get_rate_limit_remaining(
+        self,
+        namespace: Optional[str] = None,
+        repo: Optional[str] = None,
+    ) -&gt; Optional[int]:
+        &#34;&#34;&#34;
+        Get the remaining rate limit. If namespace and repo are set,
+        returns repository-specific rate limit.
+
+        Args:
+            namespace: Namespace of the project.
+            repo: Repository name.
+
+        Returns:
+            Number of remaining API requests, or None if rate limit information
+            is not available.
+        &#34;&#34;&#34;
+        raise NotImplementedError</code></pre>
+</details>
+<div class="desc"><h2 id="attributes">Attributes</h2>
+<dl>
+<dt><strong><code>instance_url</code></strong> :&ensp;<code>str</code></dt>
+<dd>URL of the git forge instance.</dd>
+</dl></div>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="ogr.abstract.abstract_class.OgrAbstractClass" href="abstract_class.html#ogr.abstract.abstract_class.OgrAbstractClass">OgrAbstractClass</a></li>
+</ul>
+<h3>Subclasses</h3>
+<ul class="hlist">
+<li><a title="ogr.services.base.BaseGitService" href="../services/base.html#ogr.services.base.BaseGitService">BaseGitService</a></li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="ogr.abstract.git_service.GitService.instance_url"><code class="name">var <span class="ident">instance_url</span> : str | None</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Instance variables</h3>
+<dl>
+<dt id="ogr.abstract.git_service.GitService.hostname"><code class="name">var <span class="ident">hostname</span> : str | None</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@_cached_property
+def hostname(self) -&gt; Optional[str]:
+    &#34;&#34;&#34;Hostname of the service.&#34;&#34;&#34;
+    raise NotImplementedError</code></pre>
+</details>
+<div class="desc"><p>Hostname of the service.</p></div>
+</dd>
+<dt id="ogr.abstract.git_service.GitService.user"><code class="name">prop <span class="ident">user</span> : _abstract.GitUser</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def user(self) -&gt; &#34;_abstract.GitUser&#34;:
+    &#34;&#34;&#34;User authenticated through the service.&#34;&#34;&#34;
+    raise NotImplementedError</code></pre>
+</details>
+<div class="desc"><p>User authenticated through the service.</p></div>
+</dd>
+</dl>
+<h3>Methods</h3>
+<dl>
+<dt id="ogr.abstract.git_service.GitService.change_token"><code class="name flex">
+<span>def <span class="ident">change_token</span></span>(<span>self, new_token: str) ‑> None</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def change_token(self, new_token: str) -&gt; None:
+    &#34;&#34;&#34;
+    Change an API token. Only for the current instance and newly created projects.
+
+    Args:
+        new_token: New token to be set.
+    &#34;&#34;&#34;
+    raise NotImplementedError</code></pre>
+</details>
+<div class="desc"><p>Change an API token. Only for the current instance and newly created projects.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>new_token</code></strong></dt>
+<dd>New token to be set.</dd>
+</dl></div>
+</dd>
+<dt id="ogr.abstract.git_service.GitService.get_group"><code class="name flex">
+<span>def <span class="ident">get_group</span></span>(<span>self, group_name: str)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_group(self, group_name: str):
+    &#34;&#34;&#34;
+    Get a group by name.
+    &#34;&#34;&#34;
+    raise NotImplementedError</code></pre>
+</details>
+<div class="desc"><p>Get a group by name.</p></div>
+</dd>
+<dt id="ogr.abstract.git_service.GitService.get_project"><code class="name flex">
+<span>def <span class="ident">get_project</span></span>(<span>self, **kwargs: Any) ‑> <a title="ogr.abstract.git_project.GitProject" href="git_project.html#ogr.abstract.git_project.GitProject">GitProject</a></span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_project(self, **kwargs: Any) -&gt; &#34;GitProject&#34;:
+    &#34;&#34;&#34;
+    Get the requested project.
+
+    Args:
+        namespace (str): Namespace of the project.
+        user (str): Username of the project&#39;s owner.
+        repo (str): Repository name.
+
+    Returns:
+        Object that represents git project.
+    &#34;&#34;&#34;
+    raise NotImplementedError</code></pre>
+</details>
+<div class="desc"><p>Get the requested project.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>namespace</code></strong> :&ensp;<code>str</code></dt>
+<dd>Namespace of the project.</dd>
+<dt><strong><code>user</code></strong> :&ensp;<code>str</code></dt>
+<dd>Username of the project's owner.</dd>
+<dt><strong><code>repo</code></strong> :&ensp;<code>str</code></dt>
+<dd>Repository name.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p>Object that represents git project.</p></div>
+</dd>
+<dt id="ogr.abstract.git_service.GitService.get_project_from_url"><code class="name flex">
+<span>def <span class="ident">get_project_from_url</span></span>(<span>self, url: str) ‑> <a title="ogr.abstract.git_project.GitProject" href="git_project.html#ogr.abstract.git_project.GitProject">GitProject</a></span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_project_from_url(self, url: str) -&gt; &#34;GitProject&#34;:
+    &#34;&#34;&#34;
+    Args:
+        url: URL of the git repository.
+
+    Returns:
+        Object that represents project from the parsed URL.
+    &#34;&#34;&#34;
+    repo_url = parse_git_repo(potential_url=url)
+    if not repo_url:
+        raise OgrException(f&#34;Failed to find repository for url: {url}&#34;)
+    return self.get_project(repo=repo_url.repo, namespace=repo_url.namespace)</code></pre>
+</details>
+<div class="desc"><h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>url</code></strong></dt>
+<dd>URL of the git repository.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p>Object that represents project from the parsed URL.</p></div>
+</dd>
+<dt id="ogr.abstract.git_service.GitService.get_rate_limit_remaining"><code class="name flex">
+<span>def <span class="ident">get_rate_limit_remaining</span></span>(<span>self, namespace: str | None = None, repo: str | None = None) ‑> int | None</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_rate_limit_remaining(
+    self,
+    namespace: Optional[str] = None,
+    repo: Optional[str] = None,
+) -&gt; Optional[int]:
+    &#34;&#34;&#34;
+    Get the remaining rate limit. If namespace and repo are set,
+    returns repository-specific rate limit.
+
+    Args:
+        namespace: Namespace of the project.
+        repo: Repository name.
+
+    Returns:
+        Number of remaining API requests, or None if rate limit information
+        is not available.
+    &#34;&#34;&#34;
+    raise NotImplementedError</code></pre>
+</details>
+<div class="desc"><p>Get the remaining rate limit. If namespace and repo are set,
+returns repository-specific rate limit.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>namespace</code></strong></dt>
+<dd>Namespace of the project.</dd>
+<dt><strong><code>repo</code></strong></dt>
+<dd>Repository name.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p>Number of remaining API requests, or None if rate limit information
+is not available.</p></div>
+</dd>
+<dt id="ogr.abstract.git_service.GitService.list_projects"><code class="name flex">
+<span>def <span class="ident">list_projects</span></span>(<span>self,<br>namespace: str | None = None,<br>user: str | None = None,<br>search_pattern: str | None = None,<br>language: str | None = None) ‑> list[<a title="ogr.abstract.git_project.GitProject" href="git_project.html#ogr.abstract.git_project.GitProject">GitProject</a>] | Iterable[<a title="ogr.abstract.git_project.GitProject" href="git_project.html#ogr.abstract.git_project.GitProject">GitProject</a>]</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def list_projects(
+    self,
+    namespace: Optional[str] = None,
+    user: Optional[str] = None,
+    search_pattern: Optional[str] = None,
+    language: Optional[str] = None,
+) -&gt; Union[list[&#34;GitProject&#34;], Iterable[&#34;GitProject&#34;]]:
+    &#34;&#34;&#34;
+    List projects for given criteria.
+
+    Args:
+        namespace: Namespace to list projects from.
+        user: Login of the owner of the projects.
+        search_pattern: Regular expression that repository name should match.
+        language: Language to be present in the project, e.g. `&#34;python&#34;` or
+            `&#34;html&#34;`.
+    &#34;&#34;&#34;
+    raise NotImplementedError</code></pre>
+</details>
+<div class="desc"><p>List projects for given criteria.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>namespace</code></strong></dt>
+<dd>Namespace to list projects from.</dd>
+<dt><strong><code>user</code></strong></dt>
+<dd>Login of the owner of the projects.</dd>
+<dt><strong><code>search_pattern</code></strong></dt>
+<dd>Regular expression that repository name should match.</dd>
+<dt><strong><code>language</code></strong></dt>
+<dd>Language to be present in the project, e.g. <code>"python"</code> or
+<code>"html"</code>.</dd>
+</dl></div>
+</dd>
+<dt id="ogr.abstract.git_service.GitService.project_create"><code class="name flex">
+<span>def <span class="ident">project_create</span></span>(<span>self, repo: str, namespace: str | None = None, description: str | None = None) ‑> <a title="ogr.abstract.git_project.GitProject" href="git_project.html#ogr.abstract.git_project.GitProject">GitProject</a></span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def project_create(
+    self,
+    repo: str,
+    namespace: Optional[str] = None,
+    description: Optional[str] = None,
+) -&gt; &#34;GitProject&#34;:
+    &#34;&#34;&#34;
+    Create new project.
+
+    Args:
+        repo: Name of the newly created project.
+        namespace: Namespace of the newly created project.
+
+            Defaults to currently authenticated user.
+        description: Description of the newly created project.
+
+    Returns:
+        Object that represents newly created project.
+    &#34;&#34;&#34;
+    raise NotImplementedError()</code></pre>
+</details>
+<div class="desc"><p>Create new project.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>repo</code></strong></dt>
+<dd>Name of the newly created project.</dd>
+<dt><strong><code>namespace</code></strong></dt>
+<dd>
+<p>Namespace of the newly created project.</p>
+<p>Defaults to currently authenticated user.</p>
+</dd>
+<dt><strong><code>description</code></strong></dt>
+<dd>Description of the newly created project.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p>Object that represents newly created project.</p></div>
+</dd>
+<dt id="ogr.abstract.git_service.GitService.reset_auth_method"><code class="name flex">
+<span>def <span class="ident">reset_auth_method</span></span>(<span>self) ‑> None</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def reset_auth_method(self) -&gt; None:
+    &#34;&#34;&#34;
+    Set the auth method to the default one.
+    &#34;&#34;&#34;
+    raise NotImplementedError()</code></pre>
+</details>
+<div class="desc"><p>Set the auth method to the default one.</p></div>
+</dd>
+<dt id="ogr.abstract.git_service.GitService.set_auth_method"><code class="name flex">
+<span>def <span class="ident">set_auth_method</span></span>(<span>self,<br>method: <a title="ogr.abstract.auth_method.AuthMethod" href="auth_method.html#ogr.abstract.auth_method.AuthMethod">AuthMethod</a>) ‑> None</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def set_auth_method(self, method: AuthMethod) -&gt; None:
+    &#34;&#34;&#34;
+    Override the default auth method.
+    Can be used when the service has more auth methods available.
+
+    Args:
+        method: the method identifier (a str name)
+    &#34;&#34;&#34;
+    raise NotImplementedError()</code></pre>
+</details>
+<div class="desc"><p>Override the default auth method.
+Can be used when the service has more auth methods available.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>method</code></strong></dt>
+<dd>the method identifier (a str name)</dd>
+</dl></div>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="ogr.abstract" href="index.html">ogr.abstract</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="ogr.abstract.git_service.GitService" href="#ogr.abstract.git_service.GitService">GitService</a></code></h4>
+<ul class="">
+<li><code><a title="ogr.abstract.git_service.GitService.change_token" href="#ogr.abstract.git_service.GitService.change_token">change_token</a></code></li>
+<li><code><a title="ogr.abstract.git_service.GitService.get_group" href="#ogr.abstract.git_service.GitService.get_group">get_group</a></code></li>
+<li><code><a title="ogr.abstract.git_service.GitService.get_project" href="#ogr.abstract.git_service.GitService.get_project">get_project</a></code></li>
+<li><code><a title="ogr.abstract.git_service.GitService.get_project_from_url" href="#ogr.abstract.git_service.GitService.get_project_from_url">get_project_from_url</a></code></li>
+<li><code><a title="ogr.abstract.git_service.GitService.get_rate_limit_remaining" href="#ogr.abstract.git_service.GitService.get_rate_limit_remaining">get_rate_limit_remaining</a></code></li>
+<li><code><a title="ogr.abstract.git_service.GitService.hostname" href="#ogr.abstract.git_service.GitService.hostname">hostname</a></code></li>
+<li><code><a title="ogr.abstract.git_service.GitService.instance_url" href="#ogr.abstract.git_service.GitService.instance_url">instance_url</a></code></li>
+<li><code><a title="ogr.abstract.git_service.GitService.list_projects" href="#ogr.abstract.git_service.GitService.list_projects">list_projects</a></code></li>
+<li><code><a title="ogr.abstract.git_service.GitService.project_create" href="#ogr.abstract.git_service.GitService.project_create">project_create</a></code></li>
+<li><code><a title="ogr.abstract.git_service.GitService.reset_auth_method" href="#ogr.abstract.git_service.GitService.reset_auth_method">reset_auth_method</a></code></li>
+<li><code><a title="ogr.abstract.git_service.GitService.set_auth_method" href="#ogr.abstract.git_service.GitService.set_auth_method">set_auth_method</a></code></li>
+<li><code><a title="ogr.abstract.git_service.GitService.user" href="#ogr.abstract.git_service.GitService.user">user</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.11.6</a>.</p>
+</footer>
+</body>
+</html>
