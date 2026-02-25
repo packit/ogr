@@ -24,6 +24,7 @@ from ogr.exceptions import (
     OperationNotSupported,
     PagureAPIException,
 )
+from ogr.metrics import track_ogr_request
 from ogr.read_only import GitProjectReadOnly, if_readonly
 from ogr.services import pagure as ogr_pagure
 from ogr.services.base import BaseGitProject
@@ -184,9 +185,11 @@ class PagureProject(BaseGitProject):
             add_api_endpoint_part=add_api_endpoint_part,
         )
 
+    @track_ogr_request("pagure")
     def get_project_info(self):
         return self._call_project_api(method="GET")
 
+    @track_ogr_request("pagure")
     def get_branches(self) -> list[str]:
         return_value = self._call_project_api("git", "branches", method="GET")
         return return_value["branches"]
@@ -258,6 +261,7 @@ class PagureProject(BaseGitProject):
     def request_access(self):
         raise OperationNotSupported("Not possible on Pagure")
 
+    @track_ogr_request("pagure")
     @indirect(PagureIssue.get_list)
     def get_issue_list(
         self,
@@ -268,6 +272,7 @@ class PagureProject(BaseGitProject):
     ) -> list[Issue]:
         pass
 
+    @track_ogr_request("pagure")
     @indirect(PagureIssue.get)
     def get_issue(self, issue_id: int) -> Issue:
         pass
@@ -275,6 +280,7 @@ class PagureProject(BaseGitProject):
     def delete(self) -> None:
         self._call_project_api_raw("delete", method="POST")
 
+    @track_ogr_request("pagure")
     @indirect(PagureIssue.create)
     def create_issue(
         self,
@@ -286,6 +292,7 @@ class PagureProject(BaseGitProject):
     ) -> Issue:
         pass
 
+    @track_ogr_request("pagure")
     @indirect(PagurePullRequest.get_list)
     def get_pr_list(
         self,
@@ -295,6 +302,7 @@ class PagureProject(BaseGitProject):
     ) -> list[PullRequest]:
         pass
 
+    @track_ogr_request("pagure")
     @indirect(PagurePullRequest.get)
     def get_pr(self, pr_id: int) -> PullRequest:
         pass
@@ -308,6 +316,7 @@ class PagureProject(BaseGitProject):
     ) -> dict:
         pass
 
+    @track_ogr_request("pagure")
     @if_readonly(return_function=GitProjectReadOnly.create_pr)
     @indirect(PagurePullRequest.create)
     def create_pr(
@@ -320,6 +329,7 @@ class PagureProject(BaseGitProject):
     ) -> PullRequest:
         pass
 
+    @track_ogr_request("pagure")
     @if_readonly(return_function=GitProjectReadOnly.fork_create)
     def fork_create(self, namespace: Optional[str] = None) -> "PagureProject":
         if namespace is not None:
@@ -372,6 +382,7 @@ class PagureProject(BaseGitProject):
         )
         return None
 
+    @track_ogr_request("pagure")
     def exists(self) -> bool:
         response = self._call_project_api_raw()
         return response.ok
@@ -465,6 +476,7 @@ class PagureProject(BaseGitProject):
     def change_token(self, new_token: str) -> None:
         self.service.change_token(new_token)
 
+    @track_ogr_request("pagure")
     def get_file_content(
         self,
         path: str,
@@ -490,6 +502,7 @@ class PagureProject(BaseGitProject):
             )
         return result.content.decode()
 
+    @track_ogr_request("pagure")
     def get_sha_from_tag(self, tag_name: str) -> str:
         tags_dict = self.get_tags_dict()
         if tag_name not in tags_dict:
@@ -512,6 +525,7 @@ class PagureProject(BaseGitProject):
     def get_commit_comment(self, commit_sha: str, comment_id: int) -> CommitComment:
         raise OperationNotSupported("Commit comments are not supported on Pagure.")
 
+    @track_ogr_request("pagure")
     @if_readonly(return_function=GitProjectReadOnly.set_commit_status)
     @indirect(PagureCommitFlag.set)
     def set_commit_status(
@@ -527,10 +541,12 @@ class PagureProject(BaseGitProject):
     ) -> "CommitFlag":
         pass
 
+    @track_ogr_request("pagure")
     @indirect(PagureCommitFlag.get)
     def get_commit_statuses(self, commit: str) -> list[CommitFlag]:
         pass
 
+    @track_ogr_request("pagure")
     def get_tags(self) -> list[GitTag]:
         response = self._call_project_api("git", "tags", params={"with_commits": True})
         return [GitTag(name=n, commit_sha=c) for n, c in response["tags"].items()]
@@ -539,18 +555,22 @@ class PagureProject(BaseGitProject):
         response = self._call_project_api("git", "tags", params={"with_commits": True})
         return {n: GitTag(name=n, commit_sha=c) for n, c in response["tags"].items()}
 
+    @track_ogr_request("pagure")
     @indirect(PagureRelease.get_list)
     def get_releases(self) -> list[Release]:
         pass
 
+    @track_ogr_request("pagure")
     @indirect(PagureRelease.get)
     def get_release(self, identifier=None, name=None, tag_name=None) -> PagureRelease:
         pass
 
+    @track_ogr_request("pagure")
     @indirect(PagureRelease.get_latest)
     def get_latest_release(self) -> Optional[PagureRelease]:
         pass
 
+    @track_ogr_request("pagure")
     @indirect(PagureRelease.create)
     def create_release(
         self,
@@ -561,6 +581,7 @@ class PagureProject(BaseGitProject):
     ) -> Release:
         pass
 
+    @track_ogr_request("pagure")
     def get_forks(self) -> list["PagureProject"]:
         forks_url = self.service.get_api_url("projects")
         projects_response = self.service.call_api(
@@ -608,6 +629,7 @@ class PagureProject(BaseGitProject):
                 elif recursive and file["type"] == "folder":
                     subfolders.append(file["path"])
 
+    @track_ogr_request("pagure")
     def get_files(
         self,
         ref: Optional[str] = None,
@@ -621,6 +643,7 @@ class PagureProject(BaseGitProject):
 
         return paths
 
+    @track_ogr_request("pagure")
     def get_sha_from_branch(self, branch: str) -> Optional[str]:
         branches = self._call_project_api(
             "git",

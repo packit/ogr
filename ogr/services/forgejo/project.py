@@ -25,6 +25,7 @@ from ogr.abstract import (
     Release,
 )
 from ogr.exceptions import OperationNotSupported
+from ogr.metrics import track_ogr_request
 from ogr.services import forgejo
 from ogr.services.base import BaseGitProject
 from ogr.utils import filter_paths, indirect
@@ -121,6 +122,7 @@ class ForgejoProject(BaseGitProject):
     def delete(self) -> None:
         self.partial_api(self.api.repo_delete)()
 
+    @track_ogr_request("forgejo")
     def exists(self) -> bool:
         try:
             _ = self.forgejo_repo
@@ -160,6 +162,7 @@ class ForgejoProject(BaseGitProject):
     def has_issues(self) -> bool:
         return self.forgejo_repo.has_issues
 
+    @track_ogr_request("forgejo")
     def get_branches(self) -> Iterable[str]:
         return (
             branch.name
@@ -172,6 +175,7 @@ class ForgejoProject(BaseGitProject):
     def default_branch(self) -> str:
         return self.forgejo_repo.default_branch
 
+    @track_ogr_request("forgejo")
     def get_commits(self, ref: Optional[str] = None) -> Iterable[str]:
         return (
             commit.sha
@@ -320,6 +324,7 @@ class ForgejoProject(BaseGitProject):
     def request_access(self) -> None:
         raise OperationNotSupported("Not possible on Forgejo")
 
+    @track_ogr_request("forgejo")
     @indirect(ForgejoIssue.get_list)
     def get_issue_list(
         self,
@@ -330,10 +335,12 @@ class ForgejoProject(BaseGitProject):
     ) -> list["Issue"]:
         pass
 
+    @track_ogr_request("forgejo")
     @indirect(ForgejoIssue.get)
     def get_issue(self, issue_id: int) -> "Issue":
         pass
 
+    @track_ogr_request("forgejo")
     @indirect(ForgejoIssue.create)
     def create_issue(
         self,
@@ -345,10 +352,12 @@ class ForgejoProject(BaseGitProject):
     ) -> Issue:
         pass
 
+    @track_ogr_request("forgejo")
     @indirect(ForgejoPullRequest.get_list)
     def get_pr_list(self, status: PRStatus = PRStatus.open) -> Iterable["PullRequest"]:
         pass
 
+    @track_ogr_request("forgejo")
     @indirect(ForgejoPullRequest.get)
     def get_pr(self, pr_id: int) -> "PullRequest":
         pass
@@ -372,6 +381,7 @@ class ForgejoProject(BaseGitProject):
         # https://github.com/packit/ogr/issues/895
         raise NotImplementedError()
 
+    @track_ogr_request("forgejo")
     def get_tags(self) -> Iterable["GitTag"]:
         return (
             GitTag(
@@ -381,12 +391,14 @@ class ForgejoProject(BaseGitProject):
             for tag in paginate(self.partial_api(self.api.repo_list_tags))
         )
 
+    @track_ogr_request("forgejo")
     def get_sha_from_tag(self, tag_name: str) -> str:
         return self.partial_api(
             self.api.repo_get_tag,
             tag=tag_name,
         )().commit.sha
 
+    @track_ogr_request("forgejo")
     @indirect(ForgejoRelease.get)
     def get_release(
         self,
@@ -396,14 +408,17 @@ class ForgejoProject(BaseGitProject):
     ) -> Release:
         pass
 
+    @track_ogr_request("forgejo")
     @indirect(ForgejoRelease.get_latest)
     def get_latest_release(self) -> Optional[Release]:
         pass
 
+    @track_ogr_request("forgejo")
     @indirect(ForgejoRelease.get_list)
     def get_releases(self) -> list[Release]:
         pass
 
+    @track_ogr_request("forgejo")
     @indirect(ForgejoRelease.create)
     def create_release(
         self,
@@ -414,6 +429,7 @@ class ForgejoProject(BaseGitProject):
     ) -> Release:
         pass
 
+    @track_ogr_request("forgejo")
     @indirect(ForgejoPullRequest.create)
     def create_pr(
         self,
@@ -440,6 +456,7 @@ class ForgejoProject(BaseGitProject):
     def get_commit_comment(self, commit_sha: str, comment_id: int) -> CommitComment:
         raise OperationNotSupported("Forgejo doesn't support commit comments")
 
+    @track_ogr_request("forgejo")
     @indirect(ForgejoCommitFlag.set)
     def set_commit_status(
         self,
@@ -452,6 +469,7 @@ class ForgejoProject(BaseGitProject):
     ) -> "CommitFlag":
         pass
 
+    @track_ogr_request("forgejo")
     @indirect(ForgejoCommitFlag.get)
     def get_commit_statuses(self, commit: str) -> Iterable["CommitFlag"]:
         pass
@@ -462,6 +480,7 @@ class ForgejoProject(BaseGitProject):
             "ssh": self.forgejo_repo.ssh_url,
         }
 
+    @track_ogr_request("forgejo")
     def fork_create(self, namespace: Optional[str] = None) -> "GitProject":
         if namespace:
             self.api.create_fork(
@@ -493,6 +512,7 @@ class ForgejoProject(BaseGitProject):
             "Not possible; requires recreation of the httpx client",
         )
 
+    @track_ogr_request("forgejo")
     def get_file_content(
         self,
         path: str,
@@ -551,6 +571,7 @@ class ForgejoProject(BaseGitProject):
 
                     yield file.path
 
+    @track_ogr_request("forgejo")
     def get_files(
         self,
         ref: Optional[str] = None,
@@ -570,6 +591,7 @@ class ForgejoProject(BaseGitProject):
 
         return paths
 
+    @track_ogr_request("forgejo")
     def get_forks(self) -> Iterable["ForgejoProject"]:
         return (
             ForgejoProject(
@@ -585,6 +607,7 @@ class ForgejoProject(BaseGitProject):
     def get_web_url(self) -> str:
         return self.forgejo_repo.html_url
 
+    @track_ogr_request("forgejo")
     def get_sha_from_branch(self, branch: str) -> Optional[str]:
         try:
             branch_info = self.partial_api(
