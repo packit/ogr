@@ -23,6 +23,7 @@ from ogr.abstract import (
     Release,
 )
 from ogr.exceptions import GitlabAPIException, OperationNotSupported
+from ogr.metrics import track_ogr_request
 from ogr.services import gitlab as ogr_gitlab
 from ogr.services.base import BaseGitProject
 from ogr.services.gitlab.comments import GitlabCommitComment
@@ -113,6 +114,7 @@ class GitlabProject(BaseGitProject):
             logger.debug(f"Project {user_login}/{self.repo} does not exist: {ex}")
         return None
 
+    @track_ogr_request("gitlab")
     def exists(self) -> bool:
         try:
             _ = self.gitlab_repo
@@ -256,10 +258,12 @@ class GitlabProject(BaseGitProject):
         except gitlab.exceptions.GitlabCreateError as e:
             raise GitlabAPIException("Unable to request access") from e
 
+    @track_ogr_request("gitlab")
     @indirect(GitlabPullRequest.get_list)
     def get_pr_list(self, status: PRStatus = PRStatus.open) -> list["PullRequest"]:
         pass
 
+    @track_ogr_request("gitlab")
     def get_sha_from_tag(self, tag_name: str) -> str:
         try:
             tag = self.gitlab_repo.tags.get(tag_name)
@@ -268,6 +272,7 @@ class GitlabProject(BaseGitProject):
             logger.error(f"Tag {tag_name} was not found.")
             raise GitlabAPIException(f"Tag {tag_name} was not found.") from ex
 
+    @track_ogr_request("gitlab")
     @indirect(GitlabPullRequest.create)
     def create_pr(
         self,
@@ -279,6 +284,7 @@ class GitlabProject(BaseGitProject):
     ) -> "PullRequest":
         pass
 
+    @track_ogr_request("gitlab")
     def commit_comment(
         self,
         commit: str,
@@ -307,6 +313,7 @@ class GitlabProject(BaseGitProject):
             sha=commit,
         )
 
+    @track_ogr_request("gitlab")
     def get_commit_comments(self, commit: str) -> list[CommitComment]:
         try:
             commit_object: ProjectCommit = self.gitlab_repo.commits.get(commit)
@@ -351,6 +358,7 @@ class GitlabProject(BaseGitProject):
 
         return self._commit_comment_from_gitlab_object(comment, commit_sha)
 
+    @track_ogr_request("gitlab")
     @indirect(GitlabCommitFlag.set)
     def set_commit_status(
         self,
@@ -363,6 +371,7 @@ class GitlabProject(BaseGitProject):
     ) -> "CommitFlag":
         pass
 
+    @track_ogr_request("gitlab")
     @indirect(GitlabCommitFlag.get)
     def get_commit_statuses(self, commit: str) -> list[CommitFlag]:
         pass
@@ -373,6 +382,7 @@ class GitlabProject(BaseGitProject):
             "ssh": self.gitlab_repo.attributes["ssh_url_to_repo"],
         }
 
+    @track_ogr_request("gitlab")
     def fork_create(self, namespace: Optional[str] = None) -> "GitlabProject":
         data = {}
         if namespace:
@@ -395,9 +405,11 @@ class GitlabProject(BaseGitProject):
     def change_token(self, new_token: str):
         self.service.change_token(new_token)
 
+    @track_ogr_request("gitlab")
     def get_branches(self) -> list[str]:
         return [branch.name for branch in self.gitlab_repo.branches.list(all=True)]
 
+    @track_ogr_request("gitlab")
     def get_commits(self, ref: Optional[str] = None) -> list[str]:
         ref = ref or self.default_branch
         return [
@@ -405,6 +417,7 @@ class GitlabProject(BaseGitProject):
             for commit in self.gitlab_repo.commits.list(ref_name=ref, all=True)
         ]
 
+    @track_ogr_request("gitlab")
     def get_file_content(
         self,
         path: str,
@@ -422,6 +435,7 @@ class GitlabProject(BaseGitProject):
                 raise FileNotFoundError(f"File '{path}' on {ref} not found") from ex
             raise GitlabAPIException() from ex
 
+    @track_ogr_request("gitlab")
     def get_files(
         self,
         ref: Optional[str] = None,
@@ -443,6 +457,7 @@ class GitlabProject(BaseGitProject):
 
         return paths
 
+    @track_ogr_request("gitlab")
     @indirect(GitlabIssue.get_list)
     def get_issue_list(
         self,
@@ -453,10 +468,12 @@ class GitlabProject(BaseGitProject):
     ) -> list[Issue]:
         pass
 
+    @track_ogr_request("gitlab")
     @indirect(GitlabIssue.get)
     def get_issue(self, issue_id: int) -> Issue:
         pass
 
+    @track_ogr_request("gitlab")
     @indirect(GitlabIssue.create)
     def create_issue(
         self,
@@ -468,10 +485,12 @@ class GitlabProject(BaseGitProject):
     ) -> Issue:
         pass
 
+    @track_ogr_request("gitlab")
     @indirect(GitlabPullRequest.get)
     def get_pr(self, pr_id: int) -> PullRequest:
         pass
 
+    @track_ogr_request("gitlab")
     def get_tags(self) -> list["GitTag"]:
         tags = self.gitlab_repo.tags.list()
         return [GitTag(tag.name, tag.commit["id"]) for tag in tags]
@@ -480,14 +499,17 @@ class GitlabProject(BaseGitProject):
         git_tag = self.gitlab_repo.tags.get(tag_name)
         return GitTag(name=git_tag.name, commit_sha=git_tag.commit["id"])
 
+    @track_ogr_request("gitlab")
     @indirect(GitlabRelease.get_list)
     def get_releases(self) -> list[Release]:
         pass
 
+    @track_ogr_request("gitlab")
     @indirect(GitlabRelease.get)
     def get_release(self, identifier=None, name=None, tag_name=None) -> GitlabRelease:
         pass
 
+    @track_ogr_request("gitlab")
     @indirect(GitlabRelease.create)
     def create_release(
         self,
@@ -498,6 +520,7 @@ class GitlabProject(BaseGitProject):
     ) -> GitlabRelease:
         pass
 
+    @track_ogr_request("gitlab")
     @indirect(GitlabRelease.get_latest)
     def get_latest_release(self) -> Optional[GitlabRelease]:
         pass
@@ -511,6 +534,7 @@ class GitlabProject(BaseGitProject):
         """
         return list(self.gitlab_repo.labels.list())
 
+    @track_ogr_request("gitlab")
     def get_forks(self) -> list["GitlabProject"]:
         try:
             forks = self.gitlab_repo.forks.list()
@@ -565,6 +589,7 @@ class GitlabProject(BaseGitProject):
     def get_web_url(self) -> str:
         return self.gitlab_repo.web_url
 
+    @track_ogr_request("gitlab")
     def get_sha_from_branch(self, branch: str) -> Optional[str]:
         try:
             return self.gitlab_repo.branches.get(branch).attributes["commit"]["id"]
@@ -573,6 +598,7 @@ class GitlabProject(BaseGitProject):
                 return None
             raise GitlabAPIException from ex
 
+    @track_ogr_request("gitlab")
     def get_contributors(self) -> set[str]:
         """
         Returns:
