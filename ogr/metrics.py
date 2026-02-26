@@ -15,7 +15,7 @@ to automatically track API calls.
 import functools
 import logging
 from collections import defaultdict
-from typing import Callable, TypeVar
+from typing import Any, Callable, TypeVar, cast
 
 logger = logging.getLogger(__name__)
 
@@ -98,6 +98,9 @@ def track_ogr_request(service_type: str) -> Callable[[F], F]:
     The decorated method must be called on a GitProject instance
     (which has `namespace` and `service` attributes).
 
+    For Pagure projects, the namespace is combined with the repo name
+    (e.g., "rpms/python-requests") to provide more granular metrics.
+
     Args:
         service_type: The service type (e.g., "github", "gitlab", "pagure")
 
@@ -109,17 +112,24 @@ def track_ogr_request(service_type: str) -> Callable[[F], F]:
 
     def decorator(func: F) -> F:
         @functools.wraps(func)
-        def wrapper(self, *args, **kwargs):
+        def wrapper(self: object, *args: Any, **kwargs: Any) -> Any:
             namespace = getattr(self, "namespace", None)
             if namespace:
                 try:
+                    # For Pagure, append the repo name to the namespace
+                    # to get more granular metrics (e.g., "rpms/python-requests")
+                    if service_type == "pagure":
+                        repo = getattr(self, "repo", None)
+                        if repo:
+                            namespace = f"{namespace}/{repo}"
+
                     record_ogr_request(service_type, namespace)
                 except Exception as e:
                     logger.debug(f"Failed to record metrics: {e}")
 
             return func(self, *args, **kwargs)
 
-        return wrapper  # type: ignore
+        return cast(F, wrapper)
 
     return decorator
 

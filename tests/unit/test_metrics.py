@@ -265,3 +265,62 @@ class TestTrackOgrRequestDecorator:
             ("github", "packit"): 2,
             ("github", "rpms"): 1,
         }
+
+    def test_decorator_pagure_appends_repo_to_namespace(self):
+        """Test that Pagure decorator appends repo name to namespace."""
+        tracker = get_metrics_tracker()
+        tracker.reset()
+
+        # Create mock Pagure project with namespace and repo
+        mock_project = flexmock(namespace="rpms", repo="python-requests")
+
+        @track_ogr_request("pagure")
+        def test_method(self):
+            return "success"
+
+        result = test_method(mock_project)
+
+        assert result == "success"
+
+        counts = tracker.get_all_counts()
+        assert counts == {("pagure", "rpms/python-requests"): 1}
+
+    def test_decorator_pagure_without_repo(self):
+        """Test Pagure decorator when repo attribute is missing."""
+        tracker = get_metrics_tracker()
+        tracker.reset()
+
+        # Create mock Pagure project with only namespace
+        mock_project = flexmock(namespace="rpms")
+
+        @track_ogr_request("pagure")
+        def test_method(self):
+            return "success"
+
+        result = test_method(mock_project)
+
+        assert result == "success"
+
+        # Should fall back to just namespace when repo is missing
+        counts = tracker.get_all_counts()
+        assert counts == {("pagure", "rpms"): 1}
+
+    def test_decorator_non_pagure_does_not_append_repo(self):
+        """Test that non-Pagure services don't append repo to namespace."""
+        tracker = get_metrics_tracker()
+        tracker.reset()
+
+        # Create mock project with both namespace and repo
+        mock_project = flexmock(namespace="packit", repo="some-repo")
+
+        @track_ogr_request("github")
+        def test_method(self):
+            return "success"
+
+        result = test_method(mock_project)
+
+        assert result == "success"
+
+        # For non-Pagure services, repo should be ignored
+        counts = tracker.get_all_counts()
+        assert counts == {("github", "packit"): 1}
