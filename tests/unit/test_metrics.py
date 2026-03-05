@@ -13,6 +13,7 @@ from ogr.metrics import (
     record_ogr_request,
     track_ogr_request,
 )
+from ogr.services.pagure import PagureService
 
 
 class TestRequestMetricsTracker:
@@ -21,24 +22,24 @@ class TestRequestMetricsTracker:
     def test_record_request_basic(self):
         """Test basic request recording."""
         tracker = RequestMetricsTracker()
-        tracker.record_request("github", "packit")
+        tracker.record_request("https://github.com", "packit")
 
         counts = tracker.get_all_counts()
-        assert counts == {("github", "packit"): 1}
+        assert counts == {("https://github.com", "packit"): 1}
 
     def test_record_request_multiple(self):
         """Test recording multiple requests."""
         tracker = RequestMetricsTracker()
-        tracker.record_request("github", "packit")
-        tracker.record_request("github", "packit")
-        tracker.record_request("github", "rpms")
-        tracker.record_request("gitlab", "packit")
+        tracker.record_request("https://github.com", "packit")
+        tracker.record_request("https://github.com", "packit")
+        tracker.record_request("https://github.com", "rpms")
+        tracker.record_request("https://gitlab.com", "packit")
 
         counts = tracker.get_all_counts()
         assert counts == {
-            ("github", "packit"): 2,
-            ("github", "rpms"): 1,
-            ("gitlab", "packit"): 1,
+            ("https://github.com", "packit"): 2,
+            ("https://github.com", "rpms"): 1,
+            ("https://gitlab.com", "packit"): 1,
         }
 
     def test_get_all_counts_empty(self):
@@ -50,8 +51,8 @@ class TestRequestMetricsTracker:
     def test_reset(self):
         """Test resetting counters."""
         tracker = RequestMetricsTracker()
-        tracker.record_request("github", "packit")
-        tracker.record_request("gitlab", "rpms")
+        tracker.record_request("https://github.com", "packit")
+        tracker.record_request("https://gitlab.com", "rpms")
 
         # Verify counts before reset
         assert len(tracker.get_all_counts()) == 2
@@ -62,27 +63,44 @@ class TestRequestMetricsTracker:
         assert counts == {}
 
     @pytest.mark.parametrize(
-        ("service_type", "namespace", "count"),
+        ("instance_url", "namespace", "count"),
         [
-            ("github", "packit", 1),
-            ("gitlab", "rpms", 5),
-            ("pagure", "fedora-infrastructure", 10),
-            ("forgejo", "example-org", 3),
+            ("https://github.com", "packit", 1),
+            ("https://gitlab.com", "rpms", 5),
+            ("https://pagure.io", "fedora-infrastructure", 10),
+            ("https://codeberg.org", "example-org", 3),
         ],
     )
     def test_record_request_various_services(
         self,
-        service_type: str,
+        instance_url: str,
         namespace: str,
         count: int,
     ):
         """Test recording requests for various service types."""
         tracker = RequestMetricsTracker()
         for _ in range(count):
-            tracker.record_request(service_type, namespace)
+            tracker.record_request(instance_url, namespace)
 
         counts = tracker.get_all_counts()
-        assert counts == {(service_type, namespace): count}
+        assert counts == {(instance_url, namespace): count}
+
+    def test_multiple_instances_same_service_type(self):
+        """Test that different instances of the same service type are tracked separately."""
+        tracker = RequestMetricsTracker()
+        tracker.record_request("https://gitlab.com", "packit")
+        tracker.record_request("https://gitlab.example.com", "packit")
+        tracker.record_request("https://gitlab.com", "packit")
+        tracker.record_request("https://codeberg.org", "myorg")
+        tracker.record_request("https://forgejo.example.com", "myorg")
+
+        counts = tracker.get_all_counts()
+        assert counts == {
+            ("https://gitlab.com", "packit"): 2,
+            ("https://gitlab.example.com", "packit"): 1,
+            ("https://codeberg.org", "myorg"): 1,
+            ("https://forgejo.example.com", "myorg"): 1,
+        }
 
 
 class TestGlobalFunctions:
@@ -101,11 +119,11 @@ class TestGlobalFunctions:
         tracker = get_metrics_tracker()
         tracker.reset()
 
-        record_ogr_request("github", "packit")
-        record_ogr_request("github", "packit")
+        record_ogr_request("https://github.com", "packit")
+        record_ogr_request("https://github.com", "packit")
 
         counts = tracker.get_all_counts()
-        assert counts[("github", "packit")] == 2
+        assert counts[("https://github.com", "packit")] == 2
 
 
 class TestTrackOgrRequestDecorator:
@@ -116,9 +134,10 @@ class TestTrackOgrRequestDecorator:
         tracker = get_metrics_tracker()
         tracker.reset()
 
-        mock_project = flexmock(namespace="packit")
+        mock_service = flexmock(instance_url="https://github.com")
+        mock_project = flexmock(namespace="packit", service=mock_service)
 
-        @track_ogr_request("github")
+        @track_ogr_request
         def test_method(self):
             return "success"
 
@@ -127,7 +146,7 @@ class TestTrackOgrRequestDecorator:
         assert result == "success"
 
         counts = tracker.get_all_counts()
-        assert counts == {("github", "packit"): 1}
+        assert counts == {("https://github.com", "packit"): 1}
 
     def test_decorator_with_none_namespace(self):
         """Test decorator when namespace is None (should not track)."""
@@ -137,7 +156,7 @@ class TestTrackOgrRequestDecorator:
         # Create a mock project without namespace
         mock_project = flexmock(namespace=None)
 
-        @track_ogr_request("github")
+        @track_ogr_request
         def test_method(self):
             return "success"
 
@@ -155,7 +174,7 @@ class TestTrackOgrRequestDecorator:
 
         mock_obj = flexmock()  # No namespace attribute
 
-        @track_ogr_request("github")
+        @track_ogr_request
         def test_method(self):
             return "success"
 
@@ -175,7 +194,7 @@ class TestTrackOgrRequestDecorator:
             ValueError("Test exception"),
         )
 
-        @track_ogr_request("github")
+        @track_ogr_request
         def test_method(self):
             return "success"
 
@@ -193,7 +212,7 @@ class TestTrackOgrRequestDecorator:
     def test_decorator_preserves_function_metadata(self):
         """Test that decorator preserves function name and docstring."""
 
-        @track_ogr_request("github")
+        @track_ogr_request
         def example_method(self):
             """Example docstring."""
             return "result"
@@ -206,9 +225,10 @@ class TestTrackOgrRequestDecorator:
         tracker = get_metrics_tracker()
         tracker.reset()
 
-        mock_project = flexmock(namespace="packit")
+        mock_service = flexmock(instance_url="https://github.com")
+        mock_project = flexmock(namespace="packit", service=mock_service)
 
-        @track_ogr_request("github")
+        @track_ogr_request
         def test_method(self):
             return "success"
 
@@ -217,31 +237,34 @@ class TestTrackOgrRequestDecorator:
             test_method(mock_project)
 
         counts = tracker.get_all_counts()
-        assert counts == {("github", "packit"): 5}
+        assert counts == {("https://github.com", "packit"): 5}
 
     def test_decorator_with_different_service_types(self):
         """Test decorator with different service types."""
         tracker = get_metrics_tracker()
         tracker.reset()
 
-        mock_project = flexmock(namespace="packit")
+        mock_github_service = flexmock(instance_url="https://github.com")
+        mock_gitlab_service = flexmock(instance_url="https://gitlab.com")
+        mock_github_project = flexmock(namespace="packit", service=mock_github_service)
+        mock_gitlab_project = flexmock(namespace="packit", service=mock_gitlab_service)
 
-        @track_ogr_request("github")
+        @track_ogr_request
         def github_method(self):
             return "github"
 
-        @track_ogr_request("gitlab")
+        @track_ogr_request
         def gitlab_method(self):
             return "gitlab"
 
-        github_method(mock_project)
-        github_method(mock_project)
-        gitlab_method(mock_project)
+        github_method(mock_github_project)
+        github_method(mock_github_project)
+        gitlab_method(mock_gitlab_project)
 
         counts = tracker.get_all_counts()
         assert counts == {
-            ("github", "packit"): 2,
-            ("gitlab", "packit"): 1,
+            ("https://github.com", "packit"): 2,
+            ("https://gitlab.com", "packit"): 1,
         }
 
     def test_integration_with_different_namespaces(self):
@@ -249,12 +272,13 @@ class TestTrackOgrRequestDecorator:
         tracker = get_metrics_tracker()
         tracker.reset()
 
-        @track_ogr_request("github")
+        @track_ogr_request
         def get_issues(self):
             return []
 
-        project1 = flexmock(namespace="packit")
-        project2 = flexmock(namespace="rpms")
+        mock_service = flexmock(instance_url="https://github.com")
+        project1 = flexmock(namespace="packit", service=mock_service)
+        project2 = flexmock(namespace="rpms", service=mock_service)
 
         get_issues(project1)
         get_issues(project1)
@@ -262,8 +286,8 @@ class TestTrackOgrRequestDecorator:
 
         counts = tracker.get_all_counts()
         assert counts == {
-            ("github", "packit"): 2,
-            ("github", "rpms"): 1,
+            ("https://github.com", "packit"): 2,
+            ("https://github.com", "rpms"): 1,
         }
 
     def test_decorator_pagure_appends_repo_to_namespace(self):
@@ -271,10 +295,15 @@ class TestTrackOgrRequestDecorator:
         tracker = get_metrics_tracker()
         tracker.reset()
 
-        # Create mock Pagure project with namespace and repo
-        mock_project = flexmock(namespace="rpms", repo="python-requests")
+        # Create mock Pagure service - must be actual instance for isinstance() check
+        mock_service = flexmock(PagureService(instance_url="https://pagure.io"))
+        mock_project = flexmock(
+            namespace="rpms",
+            repo="python-requests",
+            service=mock_service,
+        )
 
-        @track_ogr_request("pagure")
+        @track_ogr_request
         def test_method(self):
             return "success"
 
@@ -283,17 +312,18 @@ class TestTrackOgrRequestDecorator:
         assert result == "success"
 
         counts = tracker.get_all_counts()
-        assert counts == {("pagure", "rpms/python-requests"): 1}
+        assert counts == {("https://pagure.io", "rpms/python-requests"): 1}
 
     def test_decorator_pagure_without_repo(self):
-        """Test Pagure decorator when repo attribute is missing."""
+        """Test Pagure decorator when repo is None or empty."""
         tracker = get_metrics_tracker()
         tracker.reset()
 
-        # Create mock Pagure project with only namespace
-        mock_project = flexmock(namespace="rpms")
+        # Create mock Pagure service - must be actual instance for isinstance() check
+        mock_service = flexmock(PagureService(instance_url="https://pagure.io"))
+        mock_project = flexmock(namespace="rpms", repo=None, service=mock_service)
 
-        @track_ogr_request("pagure")
+        @track_ogr_request
         def test_method(self):
             return "success"
 
@@ -301,26 +331,6 @@ class TestTrackOgrRequestDecorator:
 
         assert result == "success"
 
-        # Should fall back to just namespace when repo is missing
+        # Should fall back to just namespace when repo is None/empty
         counts = tracker.get_all_counts()
-        assert counts == {("pagure", "rpms"): 1}
-
-    def test_decorator_non_pagure_does_not_append_repo(self):
-        """Test that non-Pagure services don't append repo to namespace."""
-        tracker = get_metrics_tracker()
-        tracker.reset()
-
-        # Create mock project with both namespace and repo
-        mock_project = flexmock(namespace="packit", repo="some-repo")
-
-        @track_ogr_request("github")
-        def test_method(self):
-            return "success"
-
-        result = test_method(mock_project)
-
-        assert result == "success"
-
-        # For non-Pagure services, repo should be ignored
-        counts = tracker.get_all_counts()
-        assert counts == {("github", "packit"): 1}
+        assert counts == {("https://pagure.io", "rpms"): 1}

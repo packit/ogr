@@ -141,7 +141,7 @@ class GithubProject(BaseGitProject):
             logger.debug(f"Project {user_login}/{self.repo} does not exist: {ex}")
             return None
 
-    @track_ogr_request("github")
+    @track_ogr_request
     def exists(self) -> bool:
         try:
             _ = self.github_repo
@@ -173,11 +173,11 @@ class GithubProject(BaseGitProject):
     def default_branch(self):
         return self.github_repo.default_branch
 
-    @track_ogr_request("github")
+    @track_ogr_request
     def get_branches(self) -> list[str]:
         return [branch.name for branch in self.github_repo.get_branches()]
 
-    @track_ogr_request("github")
+    @track_ogr_request
     def get_commits(self, ref: Optional[str] = None) -> list[str]:
         ref = ref or self.github_repo.default_branch
         return [commit.sha for commit in self.github_repo.get_commits(sha=ref)]
@@ -269,7 +269,7 @@ class GithubProject(BaseGitProject):
             collaborators[user.login] = permission
         return collaborators
 
-    @track_ogr_request("github")
+    @track_ogr_request
     @indirect(GithubIssue.get_list)
     def get_issue_list(
         self,
@@ -280,12 +280,12 @@ class GithubProject(BaseGitProject):
     ) -> list[Issue]:
         pass
 
-    @track_ogr_request("github")
+    @track_ogr_request
     @indirect(GithubIssue.get)
     def get_issue(self, issue_id: int) -> Issue:
         pass
 
-    @track_ogr_request("github")
+    @track_ogr_request
     @indirect(GithubIssue.create)
     def create_issue(
         self,
@@ -300,17 +300,17 @@ class GithubProject(BaseGitProject):
     def delete(self) -> None:
         self.github_repo.delete()
 
-    @track_ogr_request("github")
+    @track_ogr_request
     @indirect(GithubPullRequest.get_list)
     def get_pr_list(self, status: PRStatus = PRStatus.open) -> list[PullRequest]:
         pass
 
-    @track_ogr_request("github")
+    @track_ogr_request
     @indirect(GithubPullRequest.get)
     def get_pr(self, pr_id: int) -> PullRequest:
         pass
 
-    @track_ogr_request("github")
+    @track_ogr_request
     def get_sha_from_tag(self, tag_name: str) -> str:
         # TODO: This is ugly. Can we do it better?
         all_tags = self.github_repo.get_tags()
@@ -335,7 +335,7 @@ class GithubProject(BaseGitProject):
                 return GitTag(name=tag.name, commit_sha=tag.commit.sha)
         return None
 
-    @track_ogr_request("github")
+    @track_ogr_request
     @if_readonly(return_function=GitProjectReadOnly.create_pr)
     @indirect(GithubPullRequest.create)
     def create_pr(
@@ -348,7 +348,7 @@ class GithubProject(BaseGitProject):
     ) -> PullRequest:
         pass
 
-    @track_ogr_request("github")
+    @track_ogr_request
     @if_readonly(
         return_function=GitProjectReadOnly.commit_comment,
         log_message="Create Comment to commit",
@@ -380,7 +380,7 @@ class GithubProject(BaseGitProject):
             sha=raw_commit_coment.commit_id,
         )
 
-    @track_ogr_request("github")
+    @track_ogr_request
     def get_commit_comments(self, commit: str) -> list[CommitComment]:
         github_commit: Commit = self.github_repo.get_commit(commit)
         return [
@@ -388,13 +388,13 @@ class GithubProject(BaseGitProject):
             for comment in github_commit.get_comments()
         ]
 
-    @track_ogr_request("github")
+    @track_ogr_request
     def get_commit_comment(self, commit_sha: str, comment_id: int) -> CommitComment:
         return self._commit_comment_from_github_object(
             self.github_repo.get_comment(comment_id),
         )
 
-    @track_ogr_request("github")
+    @track_ogr_request
     @if_readonly(
         return_function=GitProjectReadOnly.set_commit_status,
         log_message="Create a status on a commit",
@@ -411,12 +411,12 @@ class GithubProject(BaseGitProject):
     ):
         pass
 
-    @track_ogr_request("github")
+    @track_ogr_request
     @indirect(GithubCommitFlag.get)
     def get_commit_statuses(self, commit: str) -> list[CommitFlag]:
         pass
 
-    @track_ogr_request("github")
+    @track_ogr_request
     @indirect(GithubCheckRun.get)
     def get_check_run(
         self,
@@ -425,7 +425,7 @@ class GithubProject(BaseGitProject):
     ) -> Optional["GithubCheckRun"]:
         pass
 
-    @track_ogr_request("github")
+    @track_ogr_request
     @indirect(GithubCheckRun.create)
     def create_check_run(
         self,
@@ -442,7 +442,7 @@ class GithubProject(BaseGitProject):
     ) -> "GithubCheckRun":
         pass
 
-    @track_ogr_request("github")
+    @track_ogr_request
     @indirect(GithubCheckRun.get_list)
     def get_check_runs(
         self,
@@ -455,7 +455,7 @@ class GithubProject(BaseGitProject):
     def get_git_urls(self) -> dict[str, str]:
         return {"git": self.github_repo.clone_url, "ssh": self.github_repo.ssh_url}
 
-    @track_ogr_request("github")
+    @track_ogr_request
     @if_readonly(return_function=GitProjectReadOnly.fork_create)
     def fork_create(self, namespace: Optional[str] = None) -> "GithubProject":
         fork_repo = (
@@ -471,7 +471,7 @@ class GithubProject(BaseGitProject):
     def change_token(self, new_token: str):
         raise OperationNotSupported
 
-    @track_ogr_request("github")
+    @track_ogr_request
     def get_file_content(
         self,
         path: str,
@@ -489,7 +489,7 @@ class GithubProject(BaseGitProject):
                 raise FileNotFoundError(f"File '{path}' on {ref} not found") from ex
             raise GithubAPIException() from ex
 
-    @track_ogr_request("github")
+    @track_ogr_request
     def get_files(
         self,
         ref: Optional[str] = None,
@@ -561,27 +561,27 @@ class GithubProject(BaseGitProject):
             return color[1:]
         return color
 
-    @track_ogr_request("github")
+    @track_ogr_request
     @indirect(GithubRelease.get)
     def get_release(self, identifier=None, name=None, tag_name=None) -> GithubRelease:
         pass
 
-    @track_ogr_request("github")
+    @track_ogr_request
     @indirect(GithubRelease.get_latest)
     def get_latest_release(self) -> Optional[GithubRelease]:
         pass
 
-    @track_ogr_request("github")
+    @track_ogr_request
     @indirect(GithubRelease.get_list)
     def get_releases(self) -> list[Release]:
         pass
 
-    @track_ogr_request("github")
+    @track_ogr_request
     @indirect(GithubRelease.create)
     def create_release(self, tag: str, name: str, message: str) -> GithubRelease:
         pass
 
-    @track_ogr_request("github")
+    @track_ogr_request
     def get_forks(self) -> list["GithubProject"]:
         return [
             self.service.get_project_from_github_repository(fork)
@@ -592,11 +592,11 @@ class GithubProject(BaseGitProject):
     def get_web_url(self) -> str:
         return self.github_repo.html_url
 
-    @track_ogr_request("github")
+    @track_ogr_request
     def get_tags(self) -> list["GitTag"]:
         return [GitTag(tag.name, tag.commit.sha) for tag in self.github_repo.get_tags()]
 
-    @track_ogr_request("github")
+    @track_ogr_request
     def get_sha_from_branch(self, branch: str) -> Optional[str]:
         try:
             return self.github_repo.get_branch(branch).commit.sha
@@ -605,7 +605,7 @@ class GithubProject(BaseGitProject):
                 return None
             raise GithubAPIException from ex
 
-    @track_ogr_request("github")
+    @track_ogr_request
     def get_contributors(self) -> set[str]:
         """
         Returns:
