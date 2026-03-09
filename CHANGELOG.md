@@ -1,3 +1,7 @@
+# 0.61.1
+
+- Force downstream synchronization of upstream configuration to enable side tagging in EPEL 10.
+
 # 0.61.0
 
 - Ogr now supports Forgejo issues, comments and comment reactions. (#959)
