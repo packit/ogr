@@ -15,6 +15,7 @@ from github.PullRequestComment import PullRequestComment as _GithubPullRequestCo
 from github.Repository import Repository as _GithubRepository
 
 from ogr.abstract import MergeCommitStatus, PRComment, PRLabel, PRStatus, PullRequest
+from ogr.abstract.pull_request import PullRequestChanges
 from ogr.exceptions import GithubAPIException, OgrNetworkError
 from ogr.services import github as ogr_github
 from ogr.services.base import BasePullRequest
@@ -29,6 +30,7 @@ class GithubPullRequest(BasePullRequest):
     _target_project: "ogr_github.GithubProject"
     _source_project: "ogr_github.GithubProject" = None
     _labels: list[PRLabel] = None
+    _changes: "GithubPullRequestChanges" = None
 
     @property
     def title(self) -> str:
@@ -86,6 +88,12 @@ class GithubPullRequest(BasePullRequest):
                 for raw_label in self._raw_pr.get_labels()
             ]
         return self._labels
+
+    @property
+    def changes(self) -> "GithubPullRequestChanges":
+        if not self._changes:
+            self._changes = GithubPullRequestChanges(self)
+        return self._changes
 
     @property
     def diff_url(self) -> str:
@@ -275,3 +283,29 @@ class GithubPullRequest(BasePullRequest):
 
     def get_comment(self, comment_id: int) -> PRComment:
         return GithubPRComment(self._raw_pr.get_issue_comment(comment_id))
+
+
+class GithubPullRequestChanges(PullRequestChanges):
+    pull_request: "ogr_github.GithubPullRequest"
+
+    @property
+    def files(self) -> Iterable[str]:
+        for file in self.pull_request._raw_pr.get_files():
+            yield file.filename
+
+    @property
+    def patch(self) -> bytes:
+        patch_url = self.pull_request._raw_pr.patch_url
+        response = requests.get(patch_url)
+
+        if not response.ok:
+            cls = OgrNetworkError if response.status_code >= 500 else GithubAPIException
+            raise cls(
+                f"Couldn't get patch from {patch_url} because {response.reason}.",
+            )
+
+        return response.content
+
+    @property
+    def diff_url(self) -> str:
+        return f"{self.pull_request._raw_pr.html_url}.diff"

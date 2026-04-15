@@ -116,6 +116,16 @@ class GitProject(OgrAbstractClass):
         """Default branch (usually `main`, `master` or `trunk`)."""
         raise NotImplementedError()
 
+    def get_commit(self, sha: str) -> "_abstract.GitCommit":
+        """
+        Get a specific commit information.
+
+        Args:
+            sha: Specific sha of the commit
+
+        """
+        raise NotImplementedError()
+
     def get_commits(self, ref: Optional[str] = None) -> Union[list[str], Iterable[str]]:
         """
         Get list of commits for the project.
