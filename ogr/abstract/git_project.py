@@ -186,6 +186,30 @@ class GitProject(OgrAbstractClass):
         """
         raise NotImplementedError()
 
+    def has_permission(self, username: str, access_level: AccessLevel) -> bool:
+        """
+        Check if user has at least the given access level.
+
+        Not all forges support all access levels. When a forge lacks an
+        equivalent for a given level, the check falls back to the nearest
+        higher level (e.g., triage falls back to write/push on forges
+        without a triage concept). See the ``AccessLevel`` docstring for
+        the per-forge mapping table.
+
+        Implementations must not propagate forge-specific exceptions for
+        unknown or non-existent users — return ``False`` instead.
+
+        Args:
+            username: Username.
+            access_level: Minimum required access level.
+
+        Returns:
+            ``True`` if user has at least the given access level,
+            ``False`` otherwise. Returns ``False`` if the user does not
+            exist or is not a collaborator.
+        """
+        raise NotImplementedError()
+
     def get_users_with_given_access(self, access_levels: list[AccessLevel]) -> set[str]:
         """
         Args:

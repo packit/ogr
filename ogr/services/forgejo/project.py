@@ -49,6 +49,25 @@ class ForgejoProject(BaseGitProject):
         None: "",
     }
 
+    _FORGEJO_PERM_RANK: ClassVar[dict[str, int]] = {
+        "none": -1,
+        "read": 0,
+        "write": 1,
+        "admin": 2,
+        "owner": 3,
+    }
+
+    # Intentionally differs from access_dict: triage maps to "write"
+    # (not "read") because "read" would bypass the permission gate on
+    # public repos.
+    _ACCESS_LEVEL_TO_FORGEJO_PERM: ClassVar[dict[AccessLevel, str]] = {
+        AccessLevel.pull: "read",
+        AccessLevel.triage: "write",
+        AccessLevel.push: "write",
+        AccessLevel.admin: "admin",
+        AccessLevel.maintain: "owner",
+    }
+
     def __init__(
         self,
         repo: str,
@@ -287,6 +306,28 @@ class ForgejoProject(BaseGitProject):
             repo=self.repo,
             collaborator=username,
         ).permission in ("owner", "admin", "write")
+
+    def has_permission(self, username: str, access_level: AccessLevel) -> bool:
+        try:
+            perm = self.api.repo_get_repo_permissions(
+                owner=self.namespace,
+                repo=self.repo,
+                collaborator=username,
+            ).permission
+        except NotFoundError:
+            return False
+        perm = perm.lower() if perm else "none"
+        if perm not in self._FORGEJO_PERM_RANK:
+            logger.warning(
+                "Unknown Forgejo permission %r for user %s on %s/%s; denying",
+                perm,
+                username,
+                self.namespace,
+                self.repo,
+            )
+            return False
+        required = self._ACCESS_LEVEL_TO_FORGEJO_PERM[access_level]
+        return self._FORGEJO_PERM_RANK[perm] >= self._FORGEJO_PERM_RANK[required]
 
     def get_users_with_given_access(self, access_levels: list[AccessLevel]) -> set[str]:
         access_levels_forgejo = [

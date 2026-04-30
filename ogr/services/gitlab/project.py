@@ -3,7 +3,7 @@
 
 import logging
 import os
-from typing import Any, Optional, Union
+from typing import Any, ClassVar, Optional, Union
 
 import gitlab
 from gitlab.exceptions import GitlabGetError
@@ -37,6 +37,14 @@ logger = logging.getLogger(__name__)
 
 class GitlabProject(BaseGitProject):
     service: "ogr_gitlab.GitlabService"
+
+    _ACCESS_LEVEL_TO_GITLAB: ClassVar[dict[AccessLevel, int]] = {
+        AccessLevel.pull: gitlab.const.GUEST_ACCESS,
+        AccessLevel.triage: gitlab.const.REPORTER_ACCESS,
+        AccessLevel.push: gitlab.const.DEVELOPER_ACCESS,
+        AccessLevel.admin: gitlab.const.MAINTAINER_ACCESS,
+        AccessLevel.maintain: gitlab.const.OWNER_ACCESS,
+    }
 
     def __init__(
         self,
@@ -192,6 +200,34 @@ class GitlabProject(BaseGitProject):
 
     def can_merge_pr(self, username) -> bool:
         return username in self.who_can_merge_pr()
+
+    def has_permission(self, username: str, access_level: AccessLevel) -> bool:
+        required_access = self._ACCESS_LEVEL_TO_GITLAB[access_level]
+        try:
+            users = self.service.gitlab_instance.users.list(username=username)
+            user = next(
+                (u for u in users if u.username.lower() == username.lower()),
+                None,
+            )
+            if user is None:
+                return False
+            member_manager = getattr(
+                self.gitlab_repo,
+                "members_all",
+                self.gitlab_repo.members,
+            )
+            member = member_manager.get(user.id)
+            member_access = (
+                member["access_level"]
+                if isinstance(member, dict)
+                else member.access_level
+            )
+            return member_access >= required_access
+        except (
+            gitlab.exceptions.GitlabGetError,
+            gitlab.exceptions.GitlabOperationError,
+        ):
+            return False
 
     def delete(self) -> None:
         self.gitlab_repo.delete()

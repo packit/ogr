@@ -6,9 +6,10 @@ from unittest import TestCase
 
 import pytest
 from flexmock import flexmock
+from github import UnknownObjectException
 
 from ogr import GithubService
-from ogr.abstract import AuthMethod
+from ogr.abstract import AccessLevel, AuthMethod
 from ogr.exceptions import GithubAPIException
 from ogr.services.github.auth_providers.token import TokenAuthentication
 from ogr.services.github.auth_providers.tokman import Tokman
@@ -203,3 +204,80 @@ def test_no_set_reset_customized_auth_method(github_service_with_one_auth_method
     with pytest.raises(GithubAPIException):
         service.set_auth_method(AuthMethod.github_app)
     assert isinstance(service.authentication, Tokman)
+
+
+class TestGithubHasPermission:
+    @pytest.mark.parametrize(
+        ("perm", "access_level", "expected"),
+        [
+            ("admin", AccessLevel.triage, True),
+            ("write", AccessLevel.triage, True),
+            ("maintain", AccessLevel.triage, True),
+            ("triage", AccessLevel.triage, True),
+            ("triage", AccessLevel.push, False),
+            ("read", AccessLevel.triage, False),
+            ("read", AccessLevel.pull, True),
+            ("none", AccessLevel.triage, False),
+            ("none", AccessLevel.pull, False),
+            ("admin", AccessLevel.admin, True),
+            ("admin", AccessLevel.maintain, True),
+            ("maintain", AccessLevel.admin, False),
+            ("write", AccessLevel.push, True),
+            ("read", AccessLevel.push, False),
+        ],
+    )
+    def test_has_permission(self, perm, access_level, expected):
+        project = GithubProject(
+            repo="test_repo",
+            service="test_service",
+            namespace="test_namespace",
+        )
+        mock_repo = flexmock()
+        mock_repo.should_receive("get_collaborator_permission").with_args(
+            "testuser",
+        ).and_return(perm)
+        flexmock(project).should_receive("github_repo").and_return(mock_repo)
+
+        assert project.has_permission("testuser", access_level) is expected
+
+    def test_has_permission_nonexistent_user(self):
+        project = GithubProject(
+            repo="test_repo",
+            service="test_service",
+            namespace="test_namespace",
+        )
+        mock_repo = flexmock()
+        mock_repo.should_receive("get_collaborator_permission").with_args(
+            "ghost",
+        ).and_raise(UnknownObjectException(404, data="Not Found"))
+        flexmock(project).should_receive("github_repo").and_return(mock_repo)
+
+        assert project.has_permission("ghost", AccessLevel.pull) is False
+
+    def test_has_permission_unknown_string(self):
+        project = GithubProject(
+            repo="test_repo",
+            service="test_service",
+            namespace="test_namespace",
+        )
+        mock_repo = flexmock()
+        mock_repo.should_receive("get_collaborator_permission").with_args(
+            "testuser",
+        ).and_return("custom_role")
+        flexmock(project).should_receive("github_repo").and_return(mock_repo)
+
+        assert project.has_permission("testuser", AccessLevel.pull) is False
+
+    def test_has_permission_none_permission(self):
+        project = GithubProject(
+            repo="test_repo",
+            service="test_service",
+            namespace="test_namespace",
+        )
+        mock_repo = flexmock()
+        mock_repo.should_receive("get_collaborator_permission").with_args(
+            "testuser",
+        ).and_return(None)
+        flexmock(project).should_receive("github_repo").and_return(mock_repo)
+
+        assert project.has_permission("testuser", AccessLevel.pull) is False
