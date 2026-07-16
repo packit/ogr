@@ -53,11 +53,15 @@ We recommend running tests in a container. You need to have `podman` or
 
 To build the test image run:
 
-    make build-test-image
+```
+make build-test-image
+```
 
 You can run the test now with:
 
-    make check-in-container
+```
+make check-in-container
+```
 
 The 'make build-test-image' command builds a local image with all the dependencies using
 [ansible-bender](https://github.com/ansible-community/ansible-bender);
@@ -131,6 +135,6 @@ Run tests locally:
 make check
 ```
 
----
+______________________________________________________________________
 
 Thank you for your interest!

@@ -499,8 +499,6 @@
 - Tests were removed from the zuul gating pipeline. (@lbarcziova)
 - We now use [rpmautospec] for generating changelogs in Fedora. (@TomasTomecek)
 
-[rpmautospec]: https://pagure.io/Fedora-Infra/rpmautospec
-
 # 0.11.1
 
 ## New Features
@@ -549,10 +547,10 @@
 - General restructure of the classes thanks to the
   [Red Hat Open Source Contest](https://research.redhat.com/red-hat-open-source-contest/)
   project done by @mfocko.
-  _ Classes are better linked together.
-  _ Functionality is moved to the classes from the `GitProject` classes.
-  _ You can now use the properties (setters) to modify objects.
-  _ Old behaviour should work as before, but will raise deprecation warnings.
+  \_ Classes are better linked together.
+  \_ Functionality is moved to the classes from the `GitProject` classes.
+  \_ You can now use the properties (setters) to modify objects.
+  \_ Old behaviour should work as before, but will raise deprecation warnings.
 
 ## Fixes
 
@@ -722,3 +720,5 @@
 ## Fixes
 
 - Object representation of the pull-request and pull-request commend.
+
+[rpmautospec]: https://pagure.io/Fedora-Infra/rpmautospec

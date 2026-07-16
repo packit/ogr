@@ -9,7 +9,9 @@
 
 Run:
 
-    $ tmt -v run -a provision -h local
+```
+$ tmt -v run -a provision -h local
+```
 
 > [!WARNING]
 >
@@ -20,17 +22,23 @@ Run:
 
 It may be needed to install the `container` provisioning plugin:
 
-    $ sudo dnf install tmt-provision-container
+```
+$ sudo dnf install tmt-provision-container
+```
 
 Afterwards you can run the tests via:
 
-    $ tmt -v run -a provision -h container
+```
+$ tmt -v run -a provision -h container
+```
 
 Additionally you can also limit what tests are being run by setting the
 `TEST_TARGET` environment variable:
 
-    # For example this limits to only Forgejo tests
-    $ tmt -v run -e TEST_TARGET=integration/forgejo/ -a provision -h container
+```
+# For example this limits to only Forgejo tests
+$ tmt -v run -e TEST_TARGET=integration/forgejo/ -a provision -h container
+```
 
 ## Regenerating requre responses via `tmt`
 
@@ -47,13 +55,15 @@ clean up.
 This can be avoided by instructing tmt to keep the work directory after the test
 execution is finished:
 
-    # For example to generate Forgejo responses
-    $ tmt -vv \
-        run -a -k \
-        -e FORGEJO_TOKEN=$FORGEJO_TOKEN -e TEST_TARGET=integration/forgejo/ \
-          provision -h container \
-          plan -n full \
-          report -h display
+```
+# For example to generate Forgejo responses
+$ tmt -vv \
+    run -a -k \
+    -e FORGEJO_TOKEN=$FORGEJO_TOKEN -e TEST_TARGET=integration/forgejo/ \
+      provision -h container \
+      plan -n full \
+      report -h display
+```
 
 Explanation of the `tmt` command:
 
@@ -74,8 +84,9 @@ Explanation of the `tmt` command:
 >    cp .env.template .env
 >    ```
 >
-> 2. Populate `.env` with tokens
-> 3. Adjust the tmt command:
+> 1. Populate `.env` with tokens
+>
+> 1. Adjust the tmt command:
 >
 >    ```
 >    tmt -vv \
@@ -91,7 +102,9 @@ Explanation of the `tmt` command:
 Afterwards the generated responses can be found in the test directory
 (`<ID>` varies):
 
-    /var/tmp/tmt/<ID>/plans/full/discover/default-0/tests/
+```
+/var/tmp/tmt/<ID>/plans/full/discover/default-0/tests/
+```
 
 > [!WARNING]
 >
