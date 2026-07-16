@@ -1,0 +1,19 @@
+summary:
+    Execute pre-commit checks on the repository.
+
+discover:
+    how: shell
+    tests:
+    - name: pre-commit checks
+      test: pre-commit run --all-files --hook-stage manual --verbose
+
+prepare:
+- name: Install pre-commit and its dependencies
+  how: install
+  package:
+  - git-core
+  - python
+  - pre-commit
+
+execute:
+    how: tmt
