@@ -1,0 +1,986 @@
+_requre:
+  DataTypes: 1
+  key_strategy: StorageKeysInspectSimple
+  version_storage_file: 3
+requests.sessions:
+  send:
+    GET:
+      https://api.github.com:443/repos/packit/hello-world:
+      - metadata:
+          latency: 0.32793116569519043
+          module_call_list:
+          - unittest.case
+          - requre.record_and_replace
+          - tests.integration.github.test_commit
+          - ogr.abstract
+          - ogr.utils
+          - ogr.abstract
+          - ogr.services.github.commit
+          - ogr.services.github.project
+          - github.MainClass
+          - github.Requester
+          - requests.sessions
+          - requre.objects
+          - requre.cassette
+          - requests.sessions
+          - send
+        output:
+          __store_indicator: 2
+          _content:
+            allow_forking: true
+            archive_url: https://api.github.com/repos/packit/hello-world/{archive_format}{/ref}
+            archived: false
+            assignees_url: https://api.github.com/repos/packit/hello-world/assignees{/user}
+            blobs_url: https://api.github.com/repos/packit/hello-world/git/blobs{/sha}
+            branches_url: https://api.github.com/repos/packit/hello-world/branches{/branch}
+            clone_url: https://github.com/packit/hello-world.git
+            collaborators_url: https://api.github.com/repos/packit/hello-world/collaborators{/collaborator}
+            comments_url: https://api.github.com/repos/packit/hello-world/comments{/number}
+            commits_url: https://api.github.com/repos/packit/hello-world/commits{/sha}
+            compare_url: https://api.github.com/repos/packit/hello-world/compare/{base}...{head}
+            contents_url: https://api.github.com/repos/packit/hello-world/contents/{+path}
+            contributors_url: https://api.github.com/repos/packit/hello-world/contributors
+            created_at: '2019-05-02T18:54:46Z'
+            custom_properties: {}
+            default_branch: main
+            deployments_url: https://api.github.com/repos/packit/hello-world/deployments
+            description: The most progresive command-line tool in the world.
+            disabled: false
+            downloads_url: https://api.github.com/repos/packit/hello-world/downloads
+            events_url: https://api.github.com/repos/packit/hello-world/events
+            fork: false
+            forks: 23
+            forks_count: 23
+            forks_url: https://api.github.com/repos/packit/hello-world/forks
+            full_name: packit/hello-world
+            git_commits_url: https://api.github.com/repos/packit/hello-world/git/commits{/sha}
+            git_refs_url: https://api.github.com/repos/packit/hello-world/git/refs{/sha}
+            git_tags_url: https://api.github.com/repos/packit/hello-world/git/tags{/sha}
+            git_url: git://github.com/packit/hello-world.git
+            has_discussions: false
+            has_downloads: true
+            has_issues: true
+            has_pages: false
+            has_projects: true
+            has_wiki: true
+            homepage: null
+            hooks_url: https://api.github.com/repos/packit/hello-world/hooks
+            html_url: https://github.com/packit/hello-world
+            id: 184635124
+            is_template: false
+            issue_comment_url: https://api.github.com/repos/packit/hello-world/issues/comments{/number}
+            issue_events_url: https://api.github.com/repos/packit/hello-world/issues/events{/number}
+            issues_url: https://api.github.com/repos/packit/hello-world/issues{/number}
+            keys_url: https://api.github.com/repos/packit/hello-world/keys{/key_id}
+            labels_url: https://api.github.com/repos/packit/hello-world/labels{/name}
+            language: Python
+            languages_url: https://api.github.com/repos/packit/hello-world/languages
+            license:
+              key: mit
+              name: MIT License
+              node_id: MDc6TGljZW5zZTEz
+              spdx_id: MIT
+              url: https://api.github.com/licenses/mit
+            merges_url: https://api.github.com/repos/packit/hello-world/merges
+            milestones_url: https://api.github.com/repos/packit/hello-world/milestones{/number}
+            mirror_url: null
+            name: hello-world
+            network_count: 23
+            node_id: MDEwOlJlcG9zaXRvcnkxODQ2MzUxMjQ=
+            notifications_url: https://api.github.com/repos/packit/hello-world/notifications{?since,all,participating}
+            open_issues: 99
+            open_issues_count: 99
+            organization:
+              avatar_url: https://avatars.githubusercontent.com/u/46870917?v=4
+              events_url: https://api.github.com/users/packit/events{/privacy}
+              followers_url: https://api.github.com/users/packit/followers
+              following_url: https://api.github.com/users/packit/following{/other_user}
+              gists_url: https://api.github.com/users/packit/gists{/gist_id}
+              gravatar_id: ''
+              html_url: https://github.com/packit
+              id: 46870917
+              login: packit
+              node_id: MDEyOk9yZ2FuaXphdGlvbjQ2ODcwOTE3
+              organizations_url: https://api.github.com/users/packit/orgs
+              received_events_url: https://api.github.com/users/packit/received_events
+              repos_url: https://api.github.com/users/packit/repos
+              site_admin: false
+              starred_url: https://api.github.com/users/packit/starred{/owner}{/repo}
+              subscriptions_url: https://api.github.com/users/packit/subscriptions
+              type: Organization
+              url: https://api.github.com/users/packit
+              user_view_type: public
+            owner:
+              avatar_url: https://avatars.githubusercontent.com/u/46870917?v=4
+              events_url: https://api.github.com/users/packit/events{/privacy}
+              followers_url: https://api.github.com/users/packit/followers
+              following_url: https://api.github.com/users/packit/following{/other_user}
+              gists_url: https://api.github.com/users/packit/gists{/gist_id}
+              gravatar_id: ''
+              html_url: https://github.com/packit
+              id: 46870917
+              login: packit
+              node_id: MDEyOk9yZ2FuaXphdGlvbjQ2ODcwOTE3
+              organizations_url: https://api.github.com/users/packit/orgs
+              received_events_url: https://api.github.com/users/packit/received_events
+              repos_url: https://api.github.com/users/packit/repos
+              site_admin: false
+              starred_url: https://api.github.com/users/packit/starred{/owner}{/repo}
+              subscriptions_url: https://api.github.com/users/packit/subscriptions
+              type: Organization
+              url: https://api.github.com/users/packit
+              user_view_type: public
+            permissions:
+              admin: false
+              maintain: false
+              pull: true
+              push: false
+              triage: false
+            private: false
+            pulls_url: https://api.github.com/repos/packit/hello-world/pulls{/number}
+            pushed_at: '2025-05-28T04:58:49Z'
+            releases_url: https://api.github.com/repos/packit/hello-world/releases{/id}
+            size: 226
+            ssh_url: git@github.com:packit/hello-world.git
+            stargazers_count: 4
+            stargazers_url: https://api.github.com/repos/packit/hello-world/stargazers
+            statuses_url: https://api.github.com/repos/packit/hello-world/statuses/{sha}
+            subscribers_count: 5
+            subscribers_url: https://api.github.com/repos/packit/hello-world/subscribers
+            subscription_url: https://api.github.com/repos/packit/hello-world/subscription
+            svn_url: https://github.com/packit/hello-world
+            tags_url: https://api.github.com/repos/packit/hello-world/tags
+            teams_url: https://api.github.com/repos/packit/hello-world/teams
+            topics: []
+            trees_url: https://api.github.com/repos/packit/hello-world/git/trees{/sha}
+            updated_at: '2023-01-31T17:16:23Z'
+            url: https://api.github.com/repos/packit/hello-world
+            visibility: public
+            watchers: 4
+            watchers_count: 4
+            web_commit_signoff_required: false
+          _next: null
+          elapsed: 0.2
+          encoding: utf-8
+          headers:
+            Access-Control-Allow-Origin: '*'
+            Access-Control-Expose-Headers: ETag, Link, Location, Retry-After, X-GitHub-OTP,
+              X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Used, X-RateLimit-Resource,
+              X-RateLimit-Reset, X-OAuth-Scopes, X-Accepted-OAuth-Scopes, X-Poll-Interval,
+              X-GitHub-Media-Type, X-GitHub-SSO, X-GitHub-Request-Id, Deprecation,
+              Sunset
+            Cache-Control: private, max-age=60, s-maxage=60
+            Content-Encoding: gzip
+            Content-Security-Policy: default-src 'self';script-src 'self' 'nonce-YqLDC0BS8d7iY8mKO7VtBbIne'
+              https://apps.fedoraproject.org; style-src 'self' 'nonce-YqLDC0BS8d7iY8mKO7VtBbIne';
+              object-src 'none';base-uri 'self';img-src 'self' https:;
+            Content-Type: application/json; charset=utf-8
+            Date: Fri, 01 Nov 2019 13-36-03 GMT
+            ETag: W/"1e51b8e1c48787a433405211e9e0fe61"
+            Last-Modified: Tue, 31 Jan 2023 17:16:23 GMT
+            Referrer-Policy: origin-when-cross-origin, strict-origin-when-cross-origin
+            Server: github.com
+            Strict-Transport-Security: max-age=31536000; includeSubdomains; preload
+            Transfer-Encoding: chunked
+            Vary: Accept, Authorization, Cookie, X-GitHub-OTP,Accept-Encoding, Accept,
+              X-Requested-With
+            X-Content-Type-Options: nosniff
+            X-Frame-Options: deny
+            X-GitHub-Media-Type: github.v3; format=json
+            X-GitHub-Request-Id: 18FB:AA1A:99616C4:B8092CB:5CC15425
+            X-RateLimit-Limit: '5000'
+            X-RateLimit-Remaining: '4972'
+            X-RateLimit-Reset: '1572953901'
+            X-RateLimit-Resource: core
+            X-RateLimit-Used: '194'
+            X-XSS-Protection: '0'
+            github-authentication-token-expiration: 2025-06-22 10:14:27 +0200
+            x-accepted-github-permissions: metadata=read
+            x-github-api-version-selected: '2022-11-28'
+          raw: !!binary ""
+          raw_decoded: !!binary ""
+          reason: OK
+          status_code: 200
+      https://api.github.com:443/repos/packit/hello-world/commits/0840e2d:
+      - metadata:
+          latency: 0.32741880416870117
+          module_call_list:
+          - unittest.case
+          - requre.record_and_replace
+          - tests.integration.github.test_commit
+          - ogr.abstract
+          - ogr.utils
+          - ogr.abstract
+          - ogr.services.github.commit
+          - github.Repository
+          - github.Requester
+          - requests.sessions
+          - requre.objects
+          - requre.cassette
+          - requests.sessions
+          - send
+        output:
+          __store_indicator: 2
+          _content:
+            author:
+              avatar_url: https://avatars.githubusercontent.com/u/288686?v=4
+              events_url: https://api.github.com/users/jpopelka/events{/privacy}
+              followers_url: https://api.github.com/users/jpopelka/followers
+              following_url: https://api.github.com/users/jpopelka/following{/other_user}
+              gists_url: https://api.github.com/users/jpopelka/gists{/gist_id}
+              gravatar_id: ''
+              html_url: https://github.com/jpopelka
+              id: 288686
+              login: jpopelka
+              node_id: MDQ6VXNlcjI4ODY4Ng==
+              organizations_url: https://api.github.com/users/jpopelka/orgs
+              received_events_url: https://api.github.com/users/jpopelka/received_events
+              repos_url: https://api.github.com/users/jpopelka/repos
+              site_admin: false
+              starred_url: https://api.github.com/users/jpopelka/starred{/owner}{/repo}
+              subscriptions_url: https://api.github.com/users/jpopelka/subscriptions
+              type: User
+              url: https://api.github.com/users/jpopelka
+              user_view_type: public
+            comments_url: https://api.github.com/repos/packit/hello-world/commits/0840e2dac94668176ceb6ecfc0f14e2b95118e75/comments
+            commit:
+              author:
+                date: '2021-11-30T09:33:52Z'
+                email: jpopelka@redhat.com
+                name: Jiri Popelka
+              comment_count: 0
+              committer:
+                date: '2021-11-30T09:33:52Z'
+                email: noreply@github.com
+                name: GitHub
+              message: 'Merge pull request #556 from jpopelka/dist_git_branches
+
+
+                dist-git-branch has been renamed dist_git_branches'
+              tree:
+                sha: 2dd2805625d9e9970847fb3bd8f9582825ae7317
+                url: https://api.github.com/repos/packit/hello-world/git/trees/2dd2805625d9e9970847fb3bd8f9582825ae7317
+              url: https://api.github.com/repos/packit/hello-world/git/commits/0840e2dac94668176ceb6ecfc0f14e2b95118e75
+              verification:
+                payload: 'tree 2dd2805625d9e9970847fb3bd8f9582825ae7317
+
+                  parent 15b64f2eb671d05dfb5773e544156aa570a50f96
+
+                  parent 622a20fbd42ca7a70a6d65321b45d556090a13c0
+
+                  author Jiri Popelka <jpopelka@redhat.com> 1638264832 +0100
+
+                  committer GitHub <noreply@github.com> 1638264832 +0100
+
+
+                  Merge pull request #556 from jpopelka/dist_git_branches
+
+
+                  dist-git-branch has been renamed dist_git_branches'
+                reason: valid
+                signature: '-----BEGIN PGP SIGNATURE-----
+
+
+                  wsBcBAABCAAQBQJhpfAACRBK7hj4Ov3rIwAAlC0IAByAm56tlftqiU7NiD15UkEU
+
+                  dPpqDd573kfr7cHksOLYO5R2Bbf5Bpza/nc5pQwwA7VL3YHkN2uqstt+EMQkKlsn
+
+                  1+L5pqQz11EGMENDGlGS8vOuZRaaHvUjCaMgScCkKYpCgMSFbOuR1cIJe+eOj573
+
+                  m0rRReWJ4P/wAFN99xOIVIfqFsISNyo/vBTreJz4ZMiusR307H3gbJXjNl+5drTD
+
+                  mMyJ0odSXLiaLD2MiHensEZKSdOZFmHRDYdIbMIpLCpyf13loWH1H4X/n4GwPAfZ
+
+                  dWINKuAAU5SSZlM475uxH7bttV1U+72Uprvc6AFCQopTmUSpjdKa6WrlmMbsa8U=
+
+                  =7kes
+
+                  -----END PGP SIGNATURE-----
+
+                  '
+                verified: true
+                verified_at: '2024-01-16T19:59:59Z'
+            committer:
+              avatar_url: https://avatars.githubusercontent.com/u/19864447?v=4
+              events_url: https://api.github.com/users/web-flow/events{/privacy}
+              followers_url: https://api.github.com/users/web-flow/followers
+              following_url: https://api.github.com/users/web-flow/following{/other_user}
+              gists_url: https://api.github.com/users/web-flow/gists{/gist_id}
+              gravatar_id: ''
+              html_url: https://github.com/web-flow
+              id: 19864447
+              login: web-flow
+              node_id: MDQ6VXNlcjE5ODY0NDQ3
+              organizations_url: https://api.github.com/users/web-flow/orgs
+              received_events_url: https://api.github.com/users/web-flow/received_events
+              repos_url: https://api.github.com/users/web-flow/repos
+              site_admin: false
+              starred_url: https://api.github.com/users/web-flow/starred{/owner}{/repo}
+              subscriptions_url: https://api.github.com/users/web-flow/subscriptions
+              type: User
+              url: https://api.github.com/users/web-flow
+              user_view_type: public
+            files:
+            - additions: 2
+              blob_url: https://github.com/packit/hello-world/blob/0840e2dac94668176ceb6ecfc0f14e2b95118e75/.packit.yaml
+              changes: 3
+              contents_url: https://api.github.com/repos/packit/hello-world/contents/.packit.yaml?ref=0840e2dac94668176ceb6ecfc0f14e2b95118e75
+              deletions: 1
+              filename: .packit.yaml
+              patch: "@@ -39,4 +39,5 @@ jobs:\n - job: propose_downstream\n   trigger:\
+                \ release\n   metadata:\n-    dist-git-branch: fedora-all\n+    dist_git_branches:\n\
+                +    - fedora-all"
+              raw_url: https://github.com/packit/hello-world/raw/0840e2dac94668176ceb6ecfc0f14e2b95118e75/.packit.yaml
+              sha: 2398a301b53810364acff591ad82eb50e23c4e7c
+              status: modified
+            html_url: https://github.com/packit/hello-world/commit/0840e2dac94668176ceb6ecfc0f14e2b95118e75
+            node_id: C_kwDOCwFO9NoAKDA4NDBlMmRhYzk0NjY4MTc2Y2ViNmVjZmMwZjE0ZTJiOTUxMThlNzU
+            parents:
+            - html_url: https://github.com/packit/hello-world/commit/15b64f2eb671d05dfb5773e544156aa570a50f96
+              sha: 15b64f2eb671d05dfb5773e544156aa570a50f96
+              url: https://api.github.com/repos/packit/hello-world/commits/15b64f2eb671d05dfb5773e544156aa570a50f96
+            - html_url: https://github.com/packit/hello-world/commit/622a20fbd42ca7a70a6d65321b45d556090a13c0
+              sha: 622a20fbd42ca7a70a6d65321b45d556090a13c0
+              url: https://api.github.com/repos/packit/hello-world/commits/622a20fbd42ca7a70a6d65321b45d556090a13c0
+            sha: 0840e2dac94668176ceb6ecfc0f14e2b95118e75
+            stats:
+              additions: 2
+              deletions: 1
+              total: 3
+            url: https://api.github.com/repos/packit/hello-world/commits/0840e2dac94668176ceb6ecfc0f14e2b95118e75
+          _next: null
+          elapsed: 0.2
+          encoding: utf-8
+          headers:
+            Access-Control-Allow-Origin: '*'
+            Access-Control-Expose-Headers: ETag, Link, Location, Retry-After, X-GitHub-OTP,
+              X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Used, X-RateLimit-Resource,
+              X-RateLimit-Reset, X-OAuth-Scopes, X-Accepted-OAuth-Scopes, X-Poll-Interval,
+              X-GitHub-Media-Type, X-GitHub-SSO, X-GitHub-Request-Id, Deprecation,
+              Sunset
+            Cache-Control: private, max-age=60, s-maxage=60
+            Content-Encoding: gzip
+            Content-Security-Policy: default-src 'self';script-src 'self' 'nonce-YqLDC0BS8d7iY8mKO7VtBbIne'
+              https://apps.fedoraproject.org; style-src 'self' 'nonce-YqLDC0BS8d7iY8mKO7VtBbIne';
+              object-src 'none';base-uri 'self';img-src 'self' https:;
+            Content-Type: application/json; charset=utf-8
+            Date: Fri, 01 Nov 2019 13-36-03 GMT
+            ETag: W/"1e51b8e1c48787a433405211e9e0fe61"
+            Last-Modified: Tue, 30 Nov 2021 09:33:52 GMT
+            Referrer-Policy: origin-when-cross-origin, strict-origin-when-cross-origin
+            Server: github.com
+            Strict-Transport-Security: max-age=31536000; includeSubdomains; preload
+            Transfer-Encoding: chunked
+            Vary: Accept, Authorization, Cookie, X-GitHub-OTP,Accept-Encoding, Accept,
+              X-Requested-With
+            X-Content-Type-Options: nosniff
+            X-Frame-Options: deny
+            X-GitHub-Media-Type: github.v3; format=json
+            X-GitHub-Request-Id: 18FB:AA1A:99616C4:B8092CB:5CC15425
+            X-RateLimit-Limit: '5000'
+            X-RateLimit-Remaining: '4972'
+            X-RateLimit-Reset: '1572953901'
+            X-RateLimit-Resource: core
+            X-RateLimit-Used: '195'
+            X-XSS-Protection: '0'
+            github-authentication-token-expiration: 2025-06-22 10:14:27 +0200
+            x-accepted-github-permissions: contents=read
+            x-github-api-version-selected: '2022-11-28'
+          raw: !!binary ""
+          raw_decoded: !!binary ""
+          reason: OK
+          status_code: 200
+      https://api.github.com:443/repos/packit/hello-world/commits/0840e2dac94668176ceb6ecfc0f14e2b95118e75/pulls:
+      - metadata:
+          latency: 0.7519180774688721
+          module_call_list:
+          - unittest.case
+          - requre.record_and_replace
+          - tests.integration.github.test_commit
+          - ogr.abstract
+          - ogr.services.github.commit
+          - github.PaginatedList
+          - github.Requester
+          - requests.sessions
+          - requre.objects
+          - requre.cassette
+          - requests.sessions
+          - send
+        output:
+          __store_indicator: 2
+          _content:
+          - _links:
+              comments:
+                href: https://api.github.com/repos/packit/hello-world/issues/556/comments
+              commits:
+                href: https://api.github.com/repos/packit/hello-world/pulls/556/commits
+              html:
+                href: https://github.com/packit/hello-world/pull/556
+              issue:
+                href: https://api.github.com/repos/packit/hello-world/issues/556
+              review_comment:
+                href: https://api.github.com/repos/packit/hello-world/pulls/comments{/number}
+              review_comments:
+                href: https://api.github.com/repos/packit/hello-world/pulls/556/comments
+              self:
+                href: https://api.github.com/repos/packit/hello-world/pulls/556
+              statuses:
+                href: https://api.github.com/repos/packit/hello-world/statuses/622a20fbd42ca7a70a6d65321b45d556090a13c0
+            active_lock_reason: null
+            assignee: null
+            assignees: []
+            author_association: MEMBER
+            auto_merge: null
+            base:
+              label: packit:main
+              ref: main
+              repo:
+                allow_forking: true
+                archive_url: https://api.github.com/repos/packit/hello-world/{archive_format}{/ref}
+                archived: false
+                assignees_url: https://api.github.com/repos/packit/hello-world/assignees{/user}
+                blobs_url: https://api.github.com/repos/packit/hello-world/git/blobs{/sha}
+                branches_url: https://api.github.com/repos/packit/hello-world/branches{/branch}
+                clone_url: https://github.com/packit/hello-world.git
+                collaborators_url: https://api.github.com/repos/packit/hello-world/collaborators{/collaborator}
+                comments_url: https://api.github.com/repos/packit/hello-world/comments{/number}
+                commits_url: https://api.github.com/repos/packit/hello-world/commits{/sha}
+                compare_url: https://api.github.com/repos/packit/hello-world/compare/{base}...{head}
+                contents_url: https://api.github.com/repos/packit/hello-world/contents/{+path}
+                contributors_url: https://api.github.com/repos/packit/hello-world/contributors
+                created_at: '2019-05-02T18:54:46Z'
+                default_branch: main
+                deployments_url: https://api.github.com/repos/packit/hello-world/deployments
+                description: The most progresive command-line tool in the world.
+                disabled: false
+                downloads_url: https://api.github.com/repos/packit/hello-world/downloads
+                events_url: https://api.github.com/repos/packit/hello-world/events
+                fork: false
+                forks: 23
+                forks_count: 23
+                forks_url: https://api.github.com/repos/packit/hello-world/forks
+                full_name: packit/hello-world
+                git_commits_url: https://api.github.com/repos/packit/hello-world/git/commits{/sha}
+                git_refs_url: https://api.github.com/repos/packit/hello-world/git/refs{/sha}
+                git_tags_url: https://api.github.com/repos/packit/hello-world/git/tags{/sha}
+                git_url: git://github.com/packit/hello-world.git
+                has_discussions: false
+                has_downloads: true
+                has_issues: true
+                has_pages: false
+                has_projects: true
+                has_wiki: true
+                homepage: null
+                hooks_url: https://api.github.com/repos/packit/hello-world/hooks
+                html_url: https://github.com/packit/hello-world
+                id: 184635124
+                is_template: false
+                issue_comment_url: https://api.github.com/repos/packit/hello-world/issues/comments{/number}
+                issue_events_url: https://api.github.com/repos/packit/hello-world/issues/events{/number}
+                issues_url: https://api.github.com/repos/packit/hello-world/issues{/number}
+                keys_url: https://api.github.com/repos/packit/hello-world/keys{/key_id}
+                labels_url: https://api.github.com/repos/packit/hello-world/labels{/name}
+                language: Python
+                languages_url: https://api.github.com/repos/packit/hello-world/languages
+                license:
+                  key: mit
+                  name: MIT License
+                  node_id: MDc6TGljZW5zZTEz
+                  spdx_id: MIT
+                  url: https://api.github.com/licenses/mit
+                merges_url: https://api.github.com/repos/packit/hello-world/merges
+                milestones_url: https://api.github.com/repos/packit/hello-world/milestones{/number}
+                mirror_url: null
+                name: hello-world
+                node_id: MDEwOlJlcG9zaXRvcnkxODQ2MzUxMjQ=
+                notifications_url: https://api.github.com/repos/packit/hello-world/notifications{?since,all,participating}
+                open_issues: 99
+                open_issues_count: 99
+                owner:
+                  avatar_url: https://avatars.githubusercontent.com/u/46870917?v=4
+                  events_url: https://api.github.com/users/packit/events{/privacy}
+                  followers_url: https://api.github.com/users/packit/followers
+                  following_url: https://api.github.com/users/packit/following{/other_user}
+                  gists_url: https://api.github.com/users/packit/gists{/gist_id}
+                  gravatar_id: ''
+                  html_url: https://github.com/packit
+                  id: 46870917
+                  login: packit
+                  node_id: MDEyOk9yZ2FuaXphdGlvbjQ2ODcwOTE3
+                  organizations_url: https://api.github.com/users/packit/orgs
+                  received_events_url: https://api.github.com/users/packit/received_events
+                  repos_url: https://api.github.com/users/packit/repos
+                  site_admin: false
+                  starred_url: https://api.github.com/users/packit/starred{/owner}{/repo}
+                  subscriptions_url: https://api.github.com/users/packit/subscriptions
+                  type: Organization
+                  url: https://api.github.com/users/packit
+                  user_view_type: public
+                private: false
+                pulls_url: https://api.github.com/repos/packit/hello-world/pulls{/number}
+                pushed_at: '2025-05-28T04:58:49Z'
+                releases_url: https://api.github.com/repos/packit/hello-world/releases{/id}
+                size: 226
+                ssh_url: git@github.com:packit/hello-world.git
+                stargazers_count: 4
+                stargazers_url: https://api.github.com/repos/packit/hello-world/stargazers
+                statuses_url: https://api.github.com/repos/packit/hello-world/statuses/{sha}
+                subscribers_url: https://api.github.com/repos/packit/hello-world/subscribers
+                subscription_url: https://api.github.com/repos/packit/hello-world/subscription
+                svn_url: https://github.com/packit/hello-world
+                tags_url: https://api.github.com/repos/packit/hello-world/tags
+                teams_url: https://api.github.com/repos/packit/hello-world/teams
+                topics: []
+                trees_url: https://api.github.com/repos/packit/hello-world/git/trees{/sha}
+                updated_at: '2023-01-31T17:16:23Z'
+                url: https://api.github.com/repos/packit/hello-world
+                visibility: public
+                watchers: 4
+                watchers_count: 4
+                web_commit_signoff_required: false
+              sha: 15b64f2eb671d05dfb5773e544156aa570a50f96
+              user:
+                avatar_url: https://avatars.githubusercontent.com/u/46870917?v=4
+                events_url: https://api.github.com/users/packit/events{/privacy}
+                followers_url: https://api.github.com/users/packit/followers
+                following_url: https://api.github.com/users/packit/following{/other_user}
+                gists_url: https://api.github.com/users/packit/gists{/gist_id}
+                gravatar_id: ''
+                html_url: https://github.com/packit
+                id: 46870917
+                login: packit
+                node_id: MDEyOk9yZ2FuaXphdGlvbjQ2ODcwOTE3
+                organizations_url: https://api.github.com/users/packit/orgs
+                received_events_url: https://api.github.com/users/packit/received_events
+                repos_url: https://api.github.com/users/packit/repos
+                site_admin: false
+                starred_url: https://api.github.com/users/packit/starred{/owner}{/repo}
+                subscriptions_url: https://api.github.com/users/packit/subscriptions
+                type: Organization
+                url: https://api.github.com/users/packit
+                user_view_type: public
+            body: null
+            closed_at: '2021-11-30T09:33:52Z'
+            comments_url: https://api.github.com/repos/packit/hello-world/issues/556/comments
+            commits_url: https://api.github.com/repos/packit/hello-world/pulls/556/commits
+            created_at: '2021-11-27T09:47:07Z'
+            diff_url: https://github.com/packit/hello-world/pull/556.diff
+            draft: false
+            head:
+              label: jpopelka:dist_git_branches
+              ref: dist_git_branches
+              repo:
+                allow_forking: true
+                archive_url: https://api.github.com/repos/jpopelka/hello-world/{archive_format}{/ref}
+                archived: false
+                assignees_url: https://api.github.com/repos/jpopelka/hello-world/assignees{/user}
+                blobs_url: https://api.github.com/repos/jpopelka/hello-world/git/blobs{/sha}
+                branches_url: https://api.github.com/repos/jpopelka/hello-world/branches{/branch}
+                clone_url: https://github.com/jpopelka/hello-world.git
+                collaborators_url: https://api.github.com/repos/jpopelka/hello-world/collaborators{/collaborator}
+                comments_url: https://api.github.com/repos/jpopelka/hello-world/comments{/number}
+                commits_url: https://api.github.com/repos/jpopelka/hello-world/commits{/sha}
+                compare_url: https://api.github.com/repos/jpopelka/hello-world/compare/{base}...{head}
+                contents_url: https://api.github.com/repos/jpopelka/hello-world/contents/{+path}
+                contributors_url: https://api.github.com/repos/jpopelka/hello-world/contributors
+                created_at: '2019-08-29T12:29:57Z'
+                default_branch: main
+                deployments_url: https://api.github.com/repos/jpopelka/hello-world/deployments
+                description: The most progresive command-line tool in the world.
+                disabled: false
+                downloads_url: https://api.github.com/repos/jpopelka/hello-world/downloads
+                events_url: https://api.github.com/repos/jpopelka/hello-world/events
+                fork: true
+                forks: 0
+                forks_count: 0
+                forks_url: https://api.github.com/repos/jpopelka/hello-world/forks
+                full_name: jpopelka/hello-world
+                git_commits_url: https://api.github.com/repos/jpopelka/hello-world/git/commits{/sha}
+                git_refs_url: https://api.github.com/repos/jpopelka/hello-world/git/refs{/sha}
+                git_tags_url: https://api.github.com/repos/jpopelka/hello-world/git/tags{/sha}
+                git_url: git://github.com/jpopelka/hello-world.git
+                has_discussions: false
+                has_downloads: true
+                has_issues: false
+                has_pages: false
+                has_projects: true
+                has_wiki: true
+                homepage: null
+                hooks_url: https://api.github.com/repos/jpopelka/hello-world/hooks
+                html_url: https://github.com/jpopelka/hello-world
+                id: 205159136
+                is_template: false
+                issue_comment_url: https://api.github.com/repos/jpopelka/hello-world/issues/comments{/number}
+                issue_events_url: https://api.github.com/repos/jpopelka/hello-world/issues/events{/number}
+                issues_url: https://api.github.com/repos/jpopelka/hello-world/issues{/number}
+                keys_url: https://api.github.com/repos/jpopelka/hello-world/keys{/key_id}
+                labels_url: https://api.github.com/repos/jpopelka/hello-world/labels{/name}
+                language: Python
+                languages_url: https://api.github.com/repos/jpopelka/hello-world/languages
+                license:
+                  key: mit
+                  name: MIT License
+                  node_id: MDc6TGljZW5zZTEz
+                  spdx_id: MIT
+                  url: https://api.github.com/licenses/mit
+                merges_url: https://api.github.com/repos/jpopelka/hello-world/merges
+                milestones_url: https://api.github.com/repos/jpopelka/hello-world/milestones{/number}
+                mirror_url: null
+                name: hello-world
+                node_id: MDEwOlJlcG9zaXRvcnkyMDUxNTkxMzY=
+                notifications_url: https://api.github.com/repos/jpopelka/hello-world/notifications{?since,all,participating}
+                open_issues: 1
+                open_issues_count: 1
+                owner:
+                  avatar_url: https://avatars.githubusercontent.com/u/288686?v=4
+                  events_url: https://api.github.com/users/jpopelka/events{/privacy}
+                  followers_url: https://api.github.com/users/jpopelka/followers
+                  following_url: https://api.github.com/users/jpopelka/following{/other_user}
+                  gists_url: https://api.github.com/users/jpopelka/gists{/gist_id}
+                  gravatar_id: ''
+                  html_url: https://github.com/jpopelka
+                  id: 288686
+                  login: jpopelka
+                  node_id: MDQ6VXNlcjI4ODY4Ng==
+                  organizations_url: https://api.github.com/users/jpopelka/orgs
+                  received_events_url: https://api.github.com/users/jpopelka/received_events
+                  repos_url: https://api.github.com/users/jpopelka/repos
+                  site_admin: false
+                  starred_url: https://api.github.com/users/jpopelka/starred{/owner}{/repo}
+                  subscriptions_url: https://api.github.com/users/jpopelka/subscriptions
+                  type: User
+                  url: https://api.github.com/users/jpopelka
+                  user_view_type: public
+                private: false
+                pulls_url: https://api.github.com/repos/jpopelka/hello-world/pulls{/number}
+                pushed_at: '2021-11-30T16:26:17Z'
+                releases_url: https://api.github.com/repos/jpopelka/hello-world/releases{/id}
+                size: 29
+                ssh_url: git@github.com:jpopelka/hello-world.git
+                stargazers_count: 0
+                stargazers_url: https://api.github.com/repos/jpopelka/hello-world/stargazers
+                statuses_url: https://api.github.com/repos/jpopelka/hello-world/statuses/{sha}
+                subscribers_url: https://api.github.com/repos/jpopelka/hello-world/subscribers
+                subscription_url: https://api.github.com/repos/jpopelka/hello-world/subscription
+                svn_url: https://github.com/jpopelka/hello-world
+                tags_url: https://api.github.com/repos/jpopelka/hello-world/tags
+                teams_url: https://api.github.com/repos/jpopelka/hello-world/teams
+                topics: []
+                trees_url: https://api.github.com/repos/jpopelka/hello-world/git/trees{/sha}
+                updated_at: '2021-11-30T16:26:20Z'
+                url: https://api.github.com/repos/jpopelka/hello-world
+                visibility: public
+                watchers: 0
+                watchers_count: 0
+                web_commit_signoff_required: false
+              sha: 622a20fbd42ca7a70a6d65321b45d556090a13c0
+              user:
+                avatar_url: https://avatars.githubusercontent.com/u/288686?v=4
+                events_url: https://api.github.com/users/jpopelka/events{/privacy}
+                followers_url: https://api.github.com/users/jpopelka/followers
+                following_url: https://api.github.com/users/jpopelka/following{/other_user}
+                gists_url: https://api.github.com/users/jpopelka/gists{/gist_id}
+                gravatar_id: ''
+                html_url: https://github.com/jpopelka
+                id: 288686
+                login: jpopelka
+                node_id: MDQ6VXNlcjI4ODY4Ng==
+                organizations_url: https://api.github.com/users/jpopelka/orgs
+                received_events_url: https://api.github.com/users/jpopelka/received_events
+                repos_url: https://api.github.com/users/jpopelka/repos
+                site_admin: false
+                starred_url: https://api.github.com/users/jpopelka/starred{/owner}{/repo}
+                subscriptions_url: https://api.github.com/users/jpopelka/subscriptions
+                type: User
+                url: https://api.github.com/users/jpopelka
+                user_view_type: public
+            html_url: https://github.com/packit/hello-world/pull/556
+            id: 789905241
+            issue_url: https://api.github.com/repos/packit/hello-world/issues/556
+            labels: []
+            locked: false
+            merge_commit_sha: 0840e2dac94668176ceb6ecfc0f14e2b95118e75
+            merged_at: '2021-11-30T09:33:52Z'
+            milestone: null
+            node_id: PR_kwDOCwFO9M4vFP9Z
+            number: 556
+            patch_url: https://github.com/packit/hello-world/pull/556.patch
+            requested_reviewers: []
+            requested_teams: []
+            review_comment_url: https://api.github.com/repos/packit/hello-world/pulls/comments{/number}
+            review_comments_url: https://api.github.com/repos/packit/hello-world/pulls/556/comments
+            state: closed
+            statuses_url: https://api.github.com/repos/packit/hello-world/statuses/622a20fbd42ca7a70a6d65321b45d556090a13c0
+            title: dist-git-branch has been renamed to dist_git_branches
+            updated_at: '2021-11-30T09:34:09Z'
+            url: https://api.github.com/repos/packit/hello-world/pulls/556
+            user:
+              avatar_url: https://avatars.githubusercontent.com/u/288686?v=4
+              events_url: https://api.github.com/users/jpopelka/events{/privacy}
+              followers_url: https://api.github.com/users/jpopelka/followers
+              following_url: https://api.github.com/users/jpopelka/following{/other_user}
+              gists_url: https://api.github.com/users/jpopelka/gists{/gist_id}
+              gravatar_id: ''
+              html_url: https://github.com/jpopelka
+              id: 288686
+              login: jpopelka
+              node_id: MDQ6VXNlcjI4ODY4Ng==
+              organizations_url: https://api.github.com/users/jpopelka/orgs
+              received_events_url: https://api.github.com/users/jpopelka/received_events
+              repos_url: https://api.github.com/users/jpopelka/repos
+              site_admin: false
+              starred_url: https://api.github.com/users/jpopelka/starred{/owner}{/repo}
+              subscriptions_url: https://api.github.com/users/jpopelka/subscriptions
+              type: User
+              url: https://api.github.com/users/jpopelka
+              user_view_type: public
+          _next: null
+          elapsed: 0.2
+          encoding: utf-8
+          headers:
+            Access-Control-Allow-Origin: '*'
+            Access-Control-Expose-Headers: ETag, Link, Location, Retry-After, X-GitHub-OTP,
+              X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Used, X-RateLimit-Resource,
+              X-RateLimit-Reset, X-OAuth-Scopes, X-Accepted-OAuth-Scopes, X-Poll-Interval,
+              X-GitHub-Media-Type, X-GitHub-SSO, X-GitHub-Request-Id, Deprecation,
+              Sunset
+            Cache-Control: private, max-age=60, s-maxage=60
+            Content-Encoding: gzip
+            Content-Security-Policy: default-src 'self';script-src 'self' 'nonce-YqLDC0BS8d7iY8mKO7VtBbIne'
+              https://apps.fedoraproject.org; style-src 'self' 'nonce-YqLDC0BS8d7iY8mKO7VtBbIne';
+              object-src 'none';base-uri 'self';img-src 'self' https:;
+            Content-Type: application/json; charset=utf-8
+            Date: Fri, 01 Nov 2019 13-36-03 GMT
+            ETag: W/"1e51b8e1c48787a433405211e9e0fe61"
+            Referrer-Policy: origin-when-cross-origin, strict-origin-when-cross-origin
+            Server: github.com
+            Strict-Transport-Security: max-age=31536000; includeSubdomains; preload
+            Transfer-Encoding: chunked
+            Vary: Accept, Authorization, Cookie, X-GitHub-OTP,Accept-Encoding, Accept,
+              X-Requested-With
+            X-Content-Type-Options: nosniff
+            X-Frame-Options: deny
+            X-GitHub-Media-Type: github.v3; param=groot-preview; format=json
+            X-GitHub-Request-Id: 18FB:AA1A:99616C4:B8092CB:5CC15425
+            X-RateLimit-Limit: '5000'
+            X-RateLimit-Remaining: '4972'
+            X-RateLimit-Reset: '1572953901'
+            X-RateLimit-Resource: core
+            X-RateLimit-Used: '196'
+            X-XSS-Protection: '0'
+            github-authentication-token-expiration: 2025-06-22 10:14:27 +0200
+            x-accepted-github-permissions: pull_requests=read
+            x-github-api-version-selected: '2022-11-28'
+          raw: !!binary ""
+          raw_decoded: !!binary ""
+          reason: OK
+          status_code: 200
+      https://api.github.com:443/repos/packit/hello-world/commits/f2c98da:
+      - metadata:
+          latency: 0.3561985492706299
+          module_call_list:
+          - unittest.case
+          - requre.record_and_replace
+          - tests.integration.github.test_commit
+          - ogr.abstract
+          - ogr.utils
+          - ogr.abstract
+          - ogr.services.github.commit
+          - github.Repository
+          - github.Requester
+          - requests.sessions
+          - requre.objects
+          - requre.cassette
+          - requests.sessions
+          - send
+        output:
+          __store_indicator: 2
+          _content:
+            author: null
+            comments_url: https://api.github.com/repos/packit/hello-world/commits/f2c98da9efc0190628db81cd220fe8cc2a8e9e95/comments
+            commit:
+              author:
+                date: '2023-03-03T10:31:43Z'
+                email: csomh@redhat.com
+                name: "Hunor Csomort\xE1ni"
+              comment_count: 1
+              committer:
+                date: '2023-03-03T10:31:43Z'
+                email: csomh@redhat.com
+                name: "Hunor Csomort\xE1ni"
+              message: "Modernize .packit.yaml\n\nDrop the deprecated config keys.\n\
+                \nSigned-off-by: Hunor Csomort\xE1ni <csomh@redhat.com>"
+              tree:
+                sha: a62827b52a7df704b8f80eee8e7d6c08a872685d
+                url: https://api.github.com/repos/packit/hello-world/git/trees/a62827b52a7df704b8f80eee8e7d6c08a872685d
+              url: https://api.github.com/repos/packit/hello-world/git/commits/f2c98da9efc0190628db81cd220fe8cc2a8e9e95
+              verification:
+                payload: "tree a62827b52a7df704b8f80eee8e7d6c08a872685d\nparent fc6f281825c946572d0f8c2c6ea3b63809b76647\n\
+                  author Hunor Csomort\xE1ni <csomh@redhat.com> 1677839503 +0100\n\
+                  committer Hunor Csomort\xE1ni <csomh@redhat.com> 1677839503 +0100\n\
+                  \nModernize .packit.yaml\n\nDrop the deprecated config keys.\n\n\
+                  Signed-off-by: Hunor Csomort\xE1ni <csomh@redhat.com>\n"
+                reason: no_user
+                signature: '-----BEGIN PGP SIGNATURE-----
+
+
+                  iQEzBAABCAAdFiEEvbtio33HhIXR9z4nJOzqhCG/J58FAmQBzKgACgkQJOzqhCG/
+
+                  J58K3gf/ZPwpTXdQZ4wnV8dzWYcQWA8mgk7ML/oGHYy2ffBucMVJc9q42mXnqhjk
+
+                  nhFUObyh17pKHJ+q5hwpjP8ivPufAUD4jRgYkVIhjEFFprnSg4kNqkZMtgjHf6qF
+
+                  fKHmJEWpqeaBlWQJezdMgv0PDiJUE33qL9tR2IifOHw2qa2tbBQU0P4pAHafS6zf
+
+                  4r1gvl1oEfaRazji6XAPFNd70eM02tkbQzr/ZqGW+tk8EDUaUCeIVUBlGUNL0lvq
+
+                  3gOisCsL8Jmg4/Nl3XZqoEM169bKDZf9X6iqHEUKoMgrM7IIavzshGv4wrC7U6or
+
+                  lGfb66ZxbqpaatnIz23O6mfhrX3ljg==
+
+                  =d5zd
+
+                  -----END PGP SIGNATURE-----'
+                verified: false
+                verified_at: null
+            committer: null
+            files:
+            - additions: 15
+              blob_url: https://github.com/packit/hello-world/blob/f2c98da9efc0190628db81cd220fe8cc2a8e9e95/.packit.yaml
+              changes: 34
+              contents_url: https://api.github.com/repos/packit/hello-world/contents/.packit.yaml?ref=f2c98da9efc0190628db81cd220fe8cc2a8e9e95
+              deletions: 19
+              filename: .packit.yaml
+              patch: "@@ -1,7 +1,8 @@\n ---\n packit_instances: [\"prod\", \"stg\"\
+                ]\n specfile_path: hello.spec\n-synced_files:\n+files_to_sync:\n+\
+                \  - .packit.yaml\n   - hello.spec\n upstream_package_name: hello\n\
+                \ downstream_package_name: hello\n@@ -12,34 +13,29 @@ downstream_package_name:\
+                \ hello\n jobs:\n - job: copr_build\n   trigger: pull_request\n- \
+                \ metadata:\n-    targets:\n-    - fedora-stable-x86_64\n-    - fedora-rawhide-x86_64\n\
+                +  targets:\n+  - fedora-stable-x86_64\n+  - fedora-rawhide-x86_64\n\
+                \ \n - job: copr_build\n   trigger: release\n-  metadata:\n-    targets:\n\
+                -    - fedora-stable\n+  targets:\n+  - fedora-stable\n \n - job:\
+                \ copr_build\n   trigger: commit\n-  metadata:\n-    branch: main\n\
+                -    targets:\n-      - fedora-stable\n+  branch: main\n+  targets:\n\
+                +    - fedora-stable\n \n - job: tests\n   trigger: pull_request\n\
+                -  metadata:\n-    targets:\n-    - fedora-stable-x86_64\n-    - fedora-rawhide-x86_64\n\
+                +  targets:\n+  - fedora-stable-x86_64\n+  - fedora-rawhide-x86_64\n\
+                \ \n - job: propose_downstream\n   trigger: release\n   packit_instances:\
+                \ [\"stg\"]\n-  metadata:\n-    dist_git_branches:\n-    - fedora-all\n\
+                +  dist_git_branches:\n+  - fedora-all"
+              raw_url: https://github.com/packit/hello-world/raw/f2c98da9efc0190628db81cd220fe8cc2a8e9e95/.packit.yaml
+              sha: dce8acc376266b277763db048b1a9fbe4f2be2fb
+              status: modified
+            html_url: https://github.com/packit/hello-world/commit/f2c98da9efc0190628db81cd220fe8cc2a8e9e95
+            node_id: C_kwDOCwFO9NoAKGYyYzk4ZGE5ZWZjMDE5MDYyOGRiODFjZDIyMGZlOGNjMmE4ZTllOTU
+            parents:
+            - html_url: https://github.com/packit/hello-world/commit/fc6f281825c946572d0f8c2c6ea3b63809b76647
+              sha: fc6f281825c946572d0f8c2c6ea3b63809b76647
+              url: https://api.github.com/repos/packit/hello-world/commits/fc6f281825c946572d0f8c2c6ea3b63809b76647
+            sha: f2c98da9efc0190628db81cd220fe8cc2a8e9e95
+            stats:
+              additions: 15
+              deletions: 19
+              total: 34
+            url: https://api.github.com/repos/packit/hello-world/commits/f2c98da9efc0190628db81cd220fe8cc2a8e9e95
+          _next: null
+          elapsed: 0.2
+          encoding: utf-8
+          headers:
+            Access-Control-Allow-Origin: '*'
+            Access-Control-Expose-Headers: ETag, Link, Location, Retry-After, X-GitHub-OTP,
+              X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Used, X-RateLimit-Resource,
+              X-RateLimit-Reset, X-OAuth-Scopes, X-Accepted-OAuth-Scopes, X-Poll-Interval,
+              X-GitHub-Media-Type, X-GitHub-SSO, X-GitHub-Request-Id, Deprecation,
+              Sunset
+            Cache-Control: private, max-age=60, s-maxage=60
+            Content-Encoding: gzip
+            Content-Security-Policy: default-src 'self';script-src 'self' 'nonce-YqLDC0BS8d7iY8mKO7VtBbIne'
+              https://apps.fedoraproject.org; style-src 'self' 'nonce-YqLDC0BS8d7iY8mKO7VtBbIne';
+              object-src 'none';base-uri 'self';img-src 'self' https:;
+            Content-Type: application/json; charset=utf-8
+            Date: Fri, 01 Nov 2019 13-36-03 GMT
+            ETag: W/"1e51b8e1c48787a433405211e9e0fe61"
+            Last-Modified: Fri, 03 Mar 2023 10:31:43 GMT
+            Referrer-Policy: origin-when-cross-origin, strict-origin-when-cross-origin
+            Server: github.com
+            Strict-Transport-Security: max-age=31536000; includeSubdomains; preload
+            Transfer-Encoding: chunked
+            Vary: Accept, Authorization, Cookie, X-GitHub-OTP,Accept-Encoding, Accept,
+              X-Requested-With
+            X-Content-Type-Options: nosniff
+            X-Frame-Options: deny
+            X-GitHub-Media-Type: github.v3; format=json
+            X-GitHub-Request-Id: 18FB:AA1A:99616C4:B8092CB:5CC15425
+            X-RateLimit-Limit: '5000'
+            X-RateLimit-Remaining: '4972'
+            X-RateLimit-Reset: '1572953901'
+            X-RateLimit-Resource: core
+            X-RateLimit-Used: '197'
+            X-XSS-Protection: '0'
+            github-authentication-token-expiration: 2025-06-22 10:14:27 +0200
+            x-accepted-github-permissions: contents=read
+            x-github-api-version-selected: '2022-11-28'
+          raw: !!binary ""
+          raw_decoded: !!binary ""
+          reason: OK
+          status_code: 200
+      https://api.github.com:443/repos/packit/hello-world/commits/f2c98da9efc0190628db81cd220fe8cc2a8e9e95/pulls:
+      - metadata:
+          latency: 0.30278682708740234
+          module_call_list:
+          - unittest.case
+          - requre.record_and_replace
+          - tests.integration.github.test_commit
+          - ogr.abstract
+          - ogr.services.github.commit
+          - github.PaginatedList
+          - github.Requester
+          - requests.sessions
+          - requre.objects
+          - requre.cassette
+          - requests.sessions
+          - send
+        output:
+          __store_indicator: 2
+          _content: []
+          _next: null
+          elapsed: 0.2
+          encoding: utf-8
+          headers:
+            Access-Control-Allow-Origin: '*'
+            Access-Control-Expose-Headers: ETag, Link, Location, Retry-After, X-GitHub-OTP,
+              X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Used, X-RateLimit-Resource,
+              X-RateLimit-Reset, X-OAuth-Scopes, X-Accepted-OAuth-Scopes, X-Poll-Interval,
+              X-GitHub-Media-Type, X-GitHub-SSO, X-GitHub-Request-Id, Deprecation,
+              Sunset
+            Cache-Control: private, max-age=60, s-maxage=60
+            Content-Length: '2'
+            Content-Security-Policy: default-src 'self';script-src 'self' 'nonce-YqLDC0BS8d7iY8mKO7VtBbIne'
+              https://apps.fedoraproject.org; style-src 'self' 'nonce-YqLDC0BS8d7iY8mKO7VtBbIne';
+              object-src 'none';base-uri 'self';img-src 'self' https:;
+            Content-Type: application/json; charset=utf-8
+            Date: Fri, 01 Nov 2019 13-36-03 GMT
+            ETag: W/"1e51b8e1c48787a433405211e9e0fe61"
+            Referrer-Policy: origin-when-cross-origin, strict-origin-when-cross-origin
+            Server: github.com
+            Strict-Transport-Security: max-age=31536000; includeSubdomains; preload
+            Vary: Accept, Authorization, Cookie, X-GitHub-OTP,Accept-Encoding, Accept,
+              X-Requested-With
+            X-Content-Type-Options: nosniff
+            X-Frame-Options: deny
+            X-GitHub-Media-Type: github.v3; param=groot-preview; format=json
+            X-GitHub-Request-Id: 18FB:AA1A:99616C4:B8092CB:5CC15425
+            X-RateLimit-Limit: '5000'
+            X-RateLimit-Remaining: '4972'
+            X-RateLimit-Reset: '1572953901'
+            X-RateLimit-Resource: core
+            X-RateLimit-Used: '198'
+            X-XSS-Protection: '0'
+            github-authentication-token-expiration: 2025-06-22 10:14:27 +0200
+            x-accepted-github-permissions: pull_requests=read
+            x-github-api-version-selected: '2022-11-28'
+          raw: !!binary ""
+          raw_decoded: !!binary ""
+          reason: OK
+          status_code: 200

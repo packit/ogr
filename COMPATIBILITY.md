@@ -34,6 +34,14 @@ In case you find any error, please [create a new issue](https://github.com/packi
 | ----------------- | :----: | :----: | :----: | :-----: |
 | `add_label`       |   ✔    |   ✔    |   ✘    |    ✔    |
 | `get_all_commits` |   ✔    |   ✔    |   ✘    |    ✔    |
+| `changes`         |   ✔    |   ✘    |   ✘    |    ✘    |
+
+## GitCommit
+
+|           | GitHub | GitLab | Pagure | Forgejo |
+| --------- | :----: | :----: | :----: | :-----: |
+| `changes` |   ✔    |   ✘    |   ✘    |    ✘    |
+| `get_prs` |   ✔    |   ✘    |   ✘    |    ✘    |
 
 ## Release
 
@@ -63,6 +71,7 @@ In case you find any error, please [create a new issue](https://github.com/packi
 | `which_groups_can_merge_pr`   |   ✘    |   ✘    |            ✔            |    ✘    |
 | `get_pr_files_diff`           |   ✘    |   ✘    |            ✔            |    ✘    |
 | `get_users_with_given_access` |   ✘    |   ✘    |            ✔            |    ✔    |
+| `get_commit`                  |   ✔    |   ✘    |            ✘            |    ✘    |
 
 ## User
 

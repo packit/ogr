@@ -17,6 +17,7 @@ from ogr.abstract import (
     CommitComment,
     CommitFlag,
     CommitStatus,
+    GitCommit,
     GitTag,
     Issue,
     IssueStatus,
@@ -35,6 +36,7 @@ from ogr.services.github.check_run import (
     GithubCheckRunStatus,
 )
 from ogr.services.github.comments import GithubCommitComment
+from ogr.services.github.commit import GithubCommit
 from ogr.services.github.flag import GithubCommitFlag
 from ogr.services.github.issue import GithubIssue
 from ogr.services.github.pull_request import GithubPullRequest
@@ -299,6 +301,10 @@ class GithubProject(BaseGitProject):
 
     @indirect(GithubPullRequest.get)
     def get_pr(self, pr_id: int) -> PullRequest:
+        pass
+
+    @indirect(GithubCommit.get)
+    def get_commit(self, sha: str) -> GitCommit:
         pass
 
     def get_sha_from_tag(self, tag_name: str) -> str:

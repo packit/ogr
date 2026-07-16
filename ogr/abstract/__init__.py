@@ -12,6 +12,7 @@ from ogr.abstract.comment import (
     PRComment,
     Reaction,
 )
+from ogr.abstract.commit import GitCommit
 from ogr.abstract.commit_flag import CommitFlag
 from ogr.abstract.git_project import GitProject
 from ogr.abstract.git_service import GitService
@@ -34,6 +35,7 @@ __all__ = [
     PRComment.__name__,
     Reaction.__name__,
     CommitFlag.__name__,
+    GitCommit.__name__,
     GitProject.__name__,
     GitService.__name__,
     GitTag.__name__,
