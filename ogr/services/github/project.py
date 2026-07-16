@@ -49,6 +49,23 @@ class GithubProject(BaseGitProject):
     # Permission levels that can merge PRs
     CAN_MERGE_PERMS: ClassVar[set[str]] = {"admin", "write"}
 
+    _GITHUB_PERM_RANK: ClassVar[dict[str, int]] = {
+        "none": -1,
+        "read": 0,
+        "triage": 1,
+        "write": 2,
+        "maintain": 3,
+        "admin": 4,
+    }
+
+    _ACCESS_LEVEL_TO_GITHUB_PERM: ClassVar[dict[AccessLevel, str]] = {
+        AccessLevel.pull: "read",
+        AccessLevel.triage: "triage",
+        AccessLevel.push: "write",
+        AccessLevel.admin: "admin",
+        AccessLevel.maintain: "maintain",
+    }
+
     def __init__(
         self,
         repo: str,
@@ -250,6 +267,24 @@ class GithubProject(BaseGitProject):
             self.github_repo.get_collaborator_permission(username)
             in self.CAN_MERGE_PERMS
         )
+
+    def has_permission(self, username: str, access_level: AccessLevel) -> bool:
+        try:
+            perm = self.github_repo.get_collaborator_permission(username)
+        except UnknownObjectException:
+            return False
+        perm = perm.lower() if perm else "none"
+        if perm not in self._GITHUB_PERM_RANK:
+            logger.warning(
+                "Unknown GitHub permission %r for user %s on %s/%s; denying",
+                perm,
+                username,
+                self.namespace,
+                self.repo,
+            )
+            return False
+        required = self._ACCESS_LEVEL_TO_GITHUB_PERM[access_level]
+        return self._GITHUB_PERM_RANK[perm] >= self._GITHUB_PERM_RANK[required]
 
     def _get_collaborators_with_permission(self) -> dict:
         """

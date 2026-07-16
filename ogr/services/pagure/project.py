@@ -47,6 +47,25 @@ class PagureProject(BaseGitProject):
         None: "",
     }
 
+    _PAGURE_PERM_RANK: ClassVar[dict[str, int]] = {
+        "ticket": 0,
+        "commit": 1,
+        "admin": 2,
+        "owner": 3,
+    }
+
+    # Intentionally differs from access_dict: triage maps to "commit"
+    # (not "ticket") and admin maps to "admin" (not "commit") because
+    # has_permission uses "at least" threshold semantics rather than
+    # the assignment semantics of access_dict.
+    _ACCESS_LEVEL_TO_PAGURE_PERM: ClassVar[dict[AccessLevel, str]] = {
+        AccessLevel.pull: "ticket",
+        AccessLevel.triage: "commit",
+        AccessLevel.push: "commit",
+        AccessLevel.admin: "admin",
+        AccessLevel.maintain: "admin",
+    }
+
     def __init__(
         self,
         repo: str,
@@ -254,6 +273,34 @@ class PagureProject(BaseGitProject):
             f"All users (considering groups) that can merge PR: {accounts_that_can_merge_pr}",
         )
         return username in accounts_that_can_merge_pr
+
+    def has_permission(self, username: str, access_level: AccessLevel) -> bool:
+        required = self._ACCESS_LEVEL_TO_PAGURE_PERM[access_level]
+        required_rank = self._PAGURE_PERM_RANK[required]
+        qualifying = [
+            perm
+            for perm, rank in self._PAGURE_PERM_RANK.items()
+            if rank >= required_rank
+        ]
+        try:
+            # Check direct user access first to avoid O(G) group expansion
+            project = self.get_project_info()
+            access_users = project.get("access_users", {})
+            for perm in qualifying:
+                if username in access_users.get(perm, []):
+                    return True
+
+            # Fall back to group expansion
+            access_groups = project.get("access_groups", {})
+            for perm in qualifying:
+                if perm == "owner":
+                    continue
+                for group in access_groups.get(perm, []):
+                    if username in self.service.get_group(group).members:
+                        return True
+            return False
+        except PagureAPIException:
+            return False
 
     def request_access(self):
         raise OperationNotSupported("Not possible on Pagure")
