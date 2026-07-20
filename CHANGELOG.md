@@ -1,3 +1,7 @@
+# 0.61.2
+
+- The `ogr` library now correctly handles the Forgejo 'error' commit flag, resolving an issue that previously caused it to fail during internal mapping. (#991)
+
 # 0.61.1
 
 - Force downstream synchronization of upstream configuration to enable side tagging in EPEL 10.
