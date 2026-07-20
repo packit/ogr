@@ -24,7 +24,7 @@ class ForgejoCommitFlag(BaseCommitFlag):
         "pending": CommitStatus.pending,
         "success": CommitStatus.success,
         "failure": CommitStatus.failure,
-        "canceled": CommitStatus.error,
+        "error": CommitStatus.error,
         "warning": CommitStatus.warning,
     }
 
