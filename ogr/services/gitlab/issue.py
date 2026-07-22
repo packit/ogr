@@ -184,4 +184,7 @@ class GitlabIssue(BaseIssue):
         self._raw_issue.save()
 
     def get_comment(self, comment_id: int) -> IssueComment:
-        return GitlabIssueComment(self._raw_issue.notes.get(comment_id))
+        return GitlabIssueComment(
+            parent=self,
+            raw_comment=self._raw_issue.notes.get(comment_id),
+        )

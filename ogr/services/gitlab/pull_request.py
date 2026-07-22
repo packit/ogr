@@ -300,4 +300,7 @@ class GitlabPullRequest(BasePullRequest):
         self._raw_pr.save()
 
     def get_comment(self, comment_id: int) -> PRComment:
-        return GitlabPRComment(self._raw_pr.notes.get(comment_id))
+        return GitlabPRComment(
+            parent=self,
+            raw_comment=self._raw_pr.notes.get(comment_id),
+        )
