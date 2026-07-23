@@ -6,9 +6,10 @@ import pytest
 from flexmock import Mock, flexmock
 from urllib3.util import Retry
 
-from ogr import GithubService, GitlabService, PagureService
+from ogr import ForgejoService, GithubService, GitlabService, PagureService
 from ogr.exceptions import OgrException
 from ogr.factory import get_instances_from_dict, get_project, get_service_class
+from ogr.services.forgejo import ForgejoProject
 from ogr.services.github import GithubProject
 from ogr.services.gitlab import GitlabProject
 from ogr.services.pagure import PagureProject
@@ -35,7 +36,7 @@ from ogr.services.pagure import PagureProject
             {"github.com": PagureService},
             PagureService,
         ),
-        ("https://src.fedoraproject.org/rpms/python-ogr", None, PagureService),
+        ("https://src.fedoraproject.org/rpms/python-ogr", None, ForgejoService),
         ("https://pagure.io/ogr", None, PagureService),
         ("https://pagure.something.com/ogr", None, PagureService),
         ("https://gitlab.com/someone/project", None, GitlabService),
@@ -55,18 +56,18 @@ from ogr.services.pagure import PagureProject
         (
             "https://src.fedoraproject.org/rpms/golang-gitlab-flimzy-testy",
             None,
-            PagureService,
+            ForgejoService,
         ),
         (
             "https://src.stg.fedoraproject.org/rpms/golang-gitlab-flimzy-testy",
             None,
-            PagureService,
+            ForgejoService,
         ),
-        ("https://src.fedoraproject.org/rpms/python-gitlab", None, PagureService),
+        ("https://src.fedoraproject.org/rpms/python-gitlab", None, ForgejoService),
         (
             "https://src.fedoraproject.org/rpms/golang-gitlab-yawning-utls",
             None,
-            PagureService,
+            ForgejoService,
         ),
     ],
 )
@@ -165,10 +166,10 @@ def test_get_service_class_not_found(url, mapping):
             None,
             None,
             True,
-            PagureProject(
+            ForgejoProject(
                 namespace="rpms",
                 repo="python-ogr",
-                service=PagureService(instance_url="https://src.fedoraproject.org"),
+                service=ForgejoService(instance_url="https://src.fedoraproject.org"),
             ),
         ),
         (
@@ -350,6 +351,7 @@ def test_get_project_not_found(url, mapping, instances, exc_str):
         ({"github.com": {"token": "abcd"}}, {GithubService(token="abcd")}),
         ({"gitlab": {"token": "abcd"}}, {GitlabService(token="abcd")}),
         ({"pagure": {"token": "abcd"}}, {PagureService(token="abcd")}),
+        ({"forgejo": {"token": "abcd"}}, {ForgejoService(token="abcd")}),
         (
             {
                 "pagure": {
@@ -358,6 +360,20 @@ def test_get_project_not_found(url, mapping, instances, exc_str):
                 },
             },
             {PagureService(token="abcd", instance_url="https://src.fedoraproject.org")},
+        ),
+        (
+            {
+                "forgejo": {
+                    "token": "abcd",
+                    "instance_url": "https://src.fedoraproject.org",
+                },
+            },
+            {
+                ForgejoService(
+                    token="abcd",
+                    instance_url="https://src.fedoraproject.org",
+                ),
+            },
         ),
         (
             {"github.com": {"token": "abcd"}, "gitlab": {"token": "abcd"}},
