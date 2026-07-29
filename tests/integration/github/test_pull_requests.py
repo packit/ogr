@@ -362,8 +362,10 @@ class PullRequests(GithubTests):
         assert "\nDate: Mon, 18 Nov 2019 12:42:35 +0100\n" in patch.decode()
 
     def test_get_comment(self):
-        comment = self.hello_world_project.get_pr(72).get_comment(559765628)
+        pr = self.hello_world_project.get_pr(72)
+        comment = pr.get_comment(559765628)
         assert comment.body == "check comment updates\r\n\r\nedit"
+        assert comment._parent is pr
 
     def test_pr_not_exists(self):
         with pytest.raises(GithubAPIException):

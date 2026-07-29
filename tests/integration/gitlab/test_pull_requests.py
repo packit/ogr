@@ -445,8 +445,10 @@ class PullRequests(GitlabTests):
         assert "\nDate: Wed, 11 Sep 2019 14:50:41 +0200\n" in patch.decode()
 
     def test_get_comment(self):
-        comment = self.project.get_pr(1).get_comment(214842329)
+        pr = self.project.get_pr(1)
+        comment = pr.get_comment(214842329)
         assert comment.body == "first comment of mergerequest"
+        assert comment._parent is pr
 
     def test_pr_not_exists(self):
         with pytest.raises(GitlabAPIException):
