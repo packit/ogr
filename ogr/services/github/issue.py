@@ -186,4 +186,7 @@ class GithubIssue(BaseIssue):
             raise GithubAPIException("Failed to assign issue, unknown user") from ex
 
     def get_comment(self, comment_id: int) -> IssueComment:
-        return GithubIssueComment(self._raw_issue.get_comment(comment_id))
+        return GithubIssueComment(
+            parent=self,
+            raw_comment=self._raw_issue.get_comment(comment_id),
+        )

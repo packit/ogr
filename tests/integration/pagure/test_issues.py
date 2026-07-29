@@ -131,8 +131,10 @@ class Issues(PagureTests):
             namespace=None,
             username="nikromen",
         )
-        comment = project.get_issue(1).get_comment(753462)
+        issue = project.get_issue(1)
+        comment = issue.get_comment(753462)
         assert comment.body == "example issue comment"
+        assert comment._parent is issue
 
     def test_create_with_disabled_issues(self):
         with pytest.raises(IssueTrackerDisabled):

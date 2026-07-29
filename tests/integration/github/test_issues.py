@@ -200,8 +200,10 @@ class Issues(GithubTests):
         assert issue.description == old_description
 
     def test_get_comment(self):
-        comment = self.hello_world_project.get_issue(297).get_comment(926035728)
+        issue = self.hello_world_project.get_issue(297)
+        comment = issue.get_comment(926035728)
         assert comment.body == "this is a comment"
+        assert comment._parent is issue
 
     def test_create_with_disabled_issues(self):
         with pytest.raises(IssueTrackerDisabled):

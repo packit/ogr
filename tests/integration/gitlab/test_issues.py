@@ -241,8 +241,10 @@ class Issues(GitlabTests):
         assert issue.description == old_description
 
     def test_get_comment(self):
-        comment = self.project.get_issue(102).get_comment(686264162)
+        issue = self.project.get_issue(102)
+        comment = issue.get_comment(686264162)
         assert comment.body == "issue comment"
+        assert comment._parent is issue
 
     def test_create_with_disabled_issues(self):
         project = self.service.get_project(

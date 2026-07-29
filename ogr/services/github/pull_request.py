@@ -274,4 +274,7 @@ class GithubPullRequest(BasePullRequest):
         ]
 
     def get_comment(self, comment_id: int) -> PRComment:
-        return GithubPRComment(self._raw_pr.get_issue_comment(comment_id))
+        return GithubPRComment(
+            parent=self,
+            raw_comment=self._raw_pr.get_issue_comment(comment_id),
+        )
