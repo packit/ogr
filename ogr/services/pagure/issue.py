@@ -237,7 +237,8 @@ class PagureIssue(BaseIssue):
 
     def get_comment(self, comment_id: int) -> IssueComment:
         return PagureIssueComment(
-            self.project._call_project_api(
+            parent=self,
+            raw_comment=self.project._call_project_api(
                 "issue",
                 str(self.id),
                 "comment",
