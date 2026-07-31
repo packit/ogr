@@ -1,3 +1,7 @@
+# 0.62.3
+
+- Emoji reactions on GitLab comments now work reliably
+
 # 0.61.2
 
 - The `ogr` library now correctly handles the Forgejo 'error' commit flag, resolving an issue that previously caused it to fail during internal mapping. (#991)
