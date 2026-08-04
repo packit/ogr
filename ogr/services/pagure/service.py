@@ -246,6 +246,7 @@ class PagureService(BaseGitService):
         params=None,
         data=None,
         header=None,
+        timeout: Optional[float] = None,
     ) -> RequestResponse:
         """
         Call API endpoint and wrap the response in `RequestResponse` type.
@@ -275,6 +276,7 @@ class PagureService(BaseGitService):
             headers=headers,
             data=data,
             verify=not self.insecure,
+            timeout=timeout,
         )
         logger.debug(
             f"Ogr sent request with following headers: {headers | {'Authorization': '<redacted>'}}",

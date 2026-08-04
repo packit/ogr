@@ -6,7 +6,7 @@ import logging
 from collections.abc import Iterable
 from typing import Optional
 
-from requests.exceptions import ConnectionError
+from requests.exceptions import ConnectionError, ReadTimeout
 
 from ogr.abstract import GitProject, GitService
 from ogr.constant import DGIT_URLS
@@ -124,7 +124,7 @@ def get_service_class_or_none(
     Get the matching service class from the URL.
     When attempting to get the matching service class for dist-git, probing
     is used to determine whether `PagureService` or `ForgejoService`
-    should be returned.
+    should be returned. This probing is set to timeout after 5 seconds.
 
     Args:
         url: URL of the project, e.g. `"https://github.com/packit/ogr"`.
@@ -137,7 +137,7 @@ def get_service_class_or_none(
         Matched class (subclass of `GitService`) or `None`.
 
     Raises:
-        OgrNetworkError, in case a ConnectionError error
+        OgrNetworkError, in case a ConnectionError or ReadTimeout error
             is encountered when attempting to probe Pagure dist-git.
     """
     mapping = {}
@@ -169,14 +169,14 @@ def get_service_class_or_none(
 
             try:
                 pagure_service = PagureService()
-                response = pagure_service.get_raw_request(url=request_url)
+                response = pagure_service.get_raw_request(url=request_url, timeout=5)
 
                 # if not found, then dist-git is no longer hosted on Pagure
                 if response.status_code != 404:
                     return PagureService
                 return ForgejoService
 
-            except ConnectionError as er:
+            except (ConnectionError, ReadTimeout) as er:
                 logger.error(er)
                 raise OgrNetworkError(f"Cannot connect to url: '{url}'.") from er
 

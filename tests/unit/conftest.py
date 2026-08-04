@@ -15,11 +15,13 @@ def setup_api_request_mock():
     response = flexmock(status_code=404)
     flexmock(PagureService).should_receive("get_raw_request").with_args(
         url="https://src.fedoraproject.org/api/0/version",
+        timeout=5,
     ).and_return(
         response,
     )
     flexmock(PagureService).should_receive("get_raw_request").with_args(
         url="https://src.stg.fedoraproject.org/api/0/version",
+        timeout=5,
     ).and_return(
         response,
     )
