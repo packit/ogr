@@ -3,13 +3,13 @@
 
 from functools import cached_property
 from typing import Optional
-from urllib.parse import urlparse
 
 from pyforgejo import PyforgejoApi
 
 from ogr.abstract import GitUser
 from ogr.exceptions import OgrException
 from ogr.factory import use_for_service
+from ogr.parsing import parse_git_repo
 from ogr.services.base import BaseGitService
 from ogr.services.forgejo.project import ForgejoProject
 from ogr.services.forgejo.user import ForgejoUser
@@ -93,16 +93,11 @@ class ForgejoService(BaseGitService):
         )
 
     def get_project_from_url(self, url: str) -> "ForgejoProject":
-        parsed_url = urlparse(url)
-        path_parts = parsed_url.path.strip("/").split("/")
+        repo_url = parse_git_repo(potential_url=url)
+        if not repo_url:
+            raise OgrException(f"Invalid Forgejo URL: '{url}'")
 
-        if len(path_parts) < 2:
-            raise OgrException(f"Invalid Forgejo URL: {url}")
-
-        namespace = path_parts[0]
-        repo = path_parts[1]
-
-        return self.get_project(repo=repo, namespace=namespace)
+        return self.get_project(repo=repo_url.repo, namespace=repo_url.namespace)
 
     def get_rate_limit_remaining(
         self,

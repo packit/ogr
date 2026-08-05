@@ -6,9 +6,10 @@ import pytest
 from flexmock import Mock, flexmock
 from urllib3.util import Retry
 
-from ogr import GithubService, GitlabService, PagureService
+from ogr import ForgejoService, GithubService, GitlabService, PagureService
 from ogr.exceptions import OgrException
 from ogr.factory import get_instances_from_dict, get_project, get_service_class
+from ogr.services.forgejo import ForgejoProject
 from ogr.services.github import GithubProject
 from ogr.services.gitlab import GitlabProject
 from ogr.services.pagure import PagureProject
@@ -222,6 +223,33 @@ def test_get_service_class_not_found(url, mapping):
                 repo="testing-ogr-repo",
                 namespace="lbarcziova",
                 service=GitlabService(instance_url="https://gitlab.gnome.org"),
+            ),
+        ),
+        (
+            "https://src.stg.fedoraproject.org/rpms/python-dockerpty.git",
+            None,
+            [ForgejoService(instance_url="https://src.stg.fedoraproject.org")],
+            True,
+            ForgejoProject(
+                repo="python-dockerpty",
+                namespace="rpms",
+                service=ForgejoService(
+                    instance_url="https://src.stg.fedoraproject.org",
+                ),
+            ),
+        ),
+        (
+            "https://src.fedoraproject.org/rpms/python-dockerpty.git",
+            None,
+            [
+                ForgejoService(instance_url="https://src.stg.fedoraproject.org"),
+                ForgejoService(instance_url="https://src.fedoraproject.org"),
+            ],
+            False,
+            ForgejoProject(
+                repo="python-dockerpty",
+                namespace="rpms",
+                service=ForgejoService(instance_url="https://src.fedoraproject.org"),
             ),
         ),
         (
