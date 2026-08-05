@@ -3,6 +3,7 @@
 
 import functools
 import logging
+import time
 from collections.abc import Iterable
 from typing import Optional
 
@@ -14,6 +15,10 @@ from ogr.exceptions import OgrException, OgrNetworkError
 from ogr.parsing import parse_git_repo
 
 _SERVICE_MAPPING: dict[str, type[GitService]] = {}
+
+# cache dist-git forge service class for two minutes
+_DGIT_FORGE_CACHE: dict[str, tuple[float, type[GitService]]] = {}
+_DGIT_FORGE_CACHE_TTL = 120
 
 logger = logging.getLogger(__name__)
 
@@ -124,7 +129,8 @@ def get_service_class_or_none(
     Get the matching service class from the URL.
     When attempting to get the matching service class for dist-git, probing
     is used to determine whether `PagureService` or `ForgejoService`
-    should be returned. This probing is set to timeout after 5 seconds.
+    should be returned. This information is cached for two minutes. The
+    probing request is set to timeout after 5 seconds.
 
     Args:
         url: URL of the project, e.g. `"https://github.com/packit/ogr"`.
@@ -162,6 +168,12 @@ def get_service_class_or_none(
             from ogr.services.forgejo import ForgejoService
             from ogr.services.pagure import PagureService
 
+            cache = _DGIT_FORGE_CACHE.get(dgit_url)
+
+            now = time.monotonic()
+            if cache and ((now - cache[0]) < _DGIT_FORGE_CACHE_TTL):
+                return cache[1]
+
             # API call to the Pagure backend
             api_endpoint = "https://src.fedoraproject.org/api/0/version"
             api_endpoint_stg = "https://src.stg.fedoraproject.org/api/0/version"
@@ -172,9 +184,12 @@ def get_service_class_or_none(
                 response = pagure_service.get_raw_request(url=request_url, timeout=5)
 
                 # if not found, then dist-git is no longer hosted on Pagure
-                if response.status_code != 404:
-                    return PagureService
-                return ForgejoService
+                dgit_service_kls = (
+                    PagureService if response.status_code != 404 else ForgejoService
+                )
+
+                _DGIT_FORGE_CACHE[dgit_url] = (now, dgit_service_kls)
+                return dgit_service_kls
 
             except (ConnectionError, ReadTimeout) as er:
                 logger.error(er)
