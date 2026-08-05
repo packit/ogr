@@ -35,6 +35,22 @@ class ForgejoService(BaseGitService):
     def api(self) -> PyforgejoApi:
         return PyforgejoApi(base_url=self.instance_url, api_key=self._token)
 
+    def __str__(self) -> str:
+        token_str = f", token='{self._token[:1]}***{self._token[-1:]}'"
+        return f"ForgejoService(instance_url='{self.instance_url}'" f"{token_str})"
+
+    def __eq__(self, o: object) -> bool:
+        if not issubclass(o.__class__, ForgejoService):
+            return False
+
+        return (
+            self._token == o._token  # type: ignore
+            and self.instance_url == o.instance_url  # type: ignore
+        )
+
+    def __hash__(self) -> int:
+        return hash(str(self))
+
     def get_project(  # type: ignore[override]
         self,
         repo: str,
