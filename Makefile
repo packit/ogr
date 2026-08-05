@@ -52,7 +52,10 @@ remove-response-files-pagure:
 remove-response-files-gitlab:
 	rm -rf ./tests/integration/gitlab/test_data/
 
-remove-response-files: remove-response-files-github remove-response-files-pagure remove-response-files-gitlab
+remove-response-files-forgejo:
+	rm -rf ./tests/integration/forgejo/test_data/
+
+remove-response-files: remove-response-files-github remove-response-files-pagure remove-response-files-gitlab remove-response-files-forgejo
 
 requre-purge-files:
 	pre-commit run --all-files requre-purge --verbose --hook-stage manual
