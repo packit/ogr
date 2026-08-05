@@ -81,7 +81,7 @@ If you need to generate a new file, just run the tests and provide environment v
 The missing file will be automatically generated from the real response. Do not forget to commit the file as well.
 
 If you need to regenerate a response file, just remove it and rerun the tests.
-(There are Makefile targets for removing the response files: `remove-response-files`, `remove-response-files-github`, `remove-response-files-gitlab`, `remove-response-files-pagure`.)
+(There are Makefile targets for removing the response files: `remove-response-files`, `remove-response-files-github`, `remove-response-files-gitlab`, `remove-response-files-pagure`, `remove-response-files-forgejo`.)
 
 In case you (re)generate response files, don't forget to run `pre-commit` that includes cleanup of response files.
 
