@@ -28,12 +28,14 @@ class ForgejoService(BaseGitService):
     ):
         super().__init__()
         self.instance_url = instance_url + self.version
-        self._token = f"token {token}"
+        self._token = token
         self._api = None
 
     @cached_property
     def api(self) -> PyforgejoApi:
-        return PyforgejoApi(base_url=self.instance_url, api_key=self._token)
+        # pyforgejo doesn't add the "token " prefix by default
+        api_key = f"token {self._token}"
+        return PyforgejoApi(base_url=self.instance_url, api_key=api_key)
 
     def get_project(  # type: ignore[override]
         self,
