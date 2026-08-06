@@ -90,7 +90,7 @@ class GithubProject(BaseGitProject):
                 self._github_repo.owner.login != self.namespace
                 or self._github_repo.name != self.repo
             ):
-                (self.namespace, self.repo) = (
+                self.namespace, self.repo = (
                     self._github_repo.owner.login,
                     self._github_repo.name,
                 )
