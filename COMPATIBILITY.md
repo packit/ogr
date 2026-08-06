@@ -9,24 +9,24 @@ In case you find any error, please [create a new issue](https://github.com/packi
 
 | | GitHub | GitLab | Pagure | Forgejo |
 | ---------------- | :----: | :----: | :----: | :-----: |
-| `body` (get/set) | ✔/✔ | ✔/✔ | ✔/✘ | ✘/✘ |
-| `add_reaction` | ✔ | ✔ | ✘ | ✘ |
-| `get_reactions` | ✔ | ✔ | ✘ | ✘ |
+| `body` (get/set) | ✔/✔ | ✔/✔ | ✔/✘ | ✔/✔ |
+| `add_reaction` | ✔ | ✔ | ✘ | ✔ |
+| `get_reactions` | ✔ | ✔ | ✘ | ✔ |
 
 ### `PRComment`
 
 | | GitHub | GitLab | Pagure | Forgejo |
 | ---------------- | :----: | :----: | :----: | :-----: |
-| `body` (get/set) | ✔/✔ | ✔/✔ | ✔/✘ | ✘ |
-| `add_reaction` | ✔ | ✔ | ✘ | ✘ |
-| `get_reactions` | ✔ | ✔ | ✘ | ✘ |
-| `closed_by` | ✘ | ✘ | ✔ | ✘ |
+| `body` (get/set) | ✔/✔ | ✔/✔ | ✔/✘ | ✔/✔ |
+| `add_reaction` | ✔ | ✔ | ✘ | ✔ |
+| `get_reactions` | ✔ | ✔ | ✘ | ✔ |
+| `closed_by` | ✘ | ✘ | ✔ | ✔ |
 
 ## Issue
 
 | | GitHub | GitLab | Pagure | Forgejo |
 | ----------- | :----: | :----: | :----: | :-----: |
-| `add_label` | ✔ | ✔ | ✘ | ✘ |
+| `add_label` | ✔ | ✔ | ✘ | ✔ |
 
 ## Pull request
 
@@ -46,16 +46,16 @@ In case you find any error, please [create a new issue](https://github.com/packi
 
 | | GitHub | GitLab | Pagure | Forgejo |
 | -------- | :----: | :----: | :----: | :-----: |
-| `edited` | ✔ | ✘ | ✔ | ✘ |
+| `edited` | ✔ | ✘ | ✔ | ✔ |
 
 ## Project
 
 | | GitHub | GitLab | Pagure | Forgejo |
 | ----------------------------- | :----: | :----: | :---------------------: | :-----: |
 | `change_token` | ✘ | ✔ | ✔ | ✘ |
-| `get_release` | ✔ | ✔ | ✘ | ✘ |
+| `get_release` | ✔ | ✔ | ✘ | ✔ |
 | `get_commits` | ✔ | ✔ | ✘ | ✔ |
-| `get_latest_release` | ✔ | ✔ | ✘ | ✘ |
+| `get_latest_release` | ✔ | ✔ | ✘ | ✔ |
 | `is_private` | ✔ | ✔ | ✘ (may not be accurate) | ✔ |
 | `remove_user` | ✘ | ✘ | ✔ | ✔ |
 | `add_group` | ✘ | ✘ | ✔ | ✘ |
@@ -76,7 +76,7 @@ In case you find any error, please [create a new issue](https://github.com/packi
 
 | | GitHub | GitLab | Pagure | Forgejo |
 | -------- | :----: | :----: | :----: | :-----: |
-| `delete` | ✔ | ✔ | ✘ | ✘ |
+| `delete` | ✔ | ✔ | ✘ | ✔ |
 
 ## Service
 
