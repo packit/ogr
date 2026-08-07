@@ -20,7 +20,6 @@ In case you find any error, please [create a new issue](https://github.com/packi
 | `body` (get/set) | ✔/✔ | ✔/✔ | ✔/✘ | ✔/✔ |
 | `add_reaction` | ✔ | ✔ | ✘ | ✔ |
 | `get_reactions` | ✔ | ✔ | ✘ | ✔ |
-| `closed_by` | ✘ | ✘ | ✔ | ✔ |
 
 ## Issue
 
@@ -34,6 +33,7 @@ In case you find any error, please [create a new issue](https://github.com/packi
 | ----------------- | :----: | :----: | :----: | :-----: |
 | `add_label` | ✔ | ✔ | ✘ | ✔ |
 | `get_all_commits` | ✔ | ✔ | ✘ | ✔ |
+| `closed_by` | ✘ | ✘ | ✔ | ✔ |
 
 ## Release
 
