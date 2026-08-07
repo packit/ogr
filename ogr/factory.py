@@ -2,14 +2,25 @@
 # SPDX-License-Identifier: MIT
 
 import functools
+import logging
+import time
 from collections.abc import Iterable
 from typing import Optional
 
+from requests.exceptions import ConnectionError, ReadTimeout
+
 from ogr.abstract import GitProject, GitService
-from ogr.exceptions import OgrException
+from ogr.constant import DGIT_URLS
+from ogr.exceptions import OgrException, OgrNetworkError
 from ogr.parsing import parse_git_repo
 
 _SERVICE_MAPPING: dict[str, type[GitService]] = {}
+
+# cache dist-git forge service class for two minutes
+_DGIT_FORGE_CACHE: dict[str, tuple[float, type[GitService]]] = {}
+_DGIT_FORGE_CACHE_TTL = 120
+
+logger = logging.getLogger(__name__)
 
 
 def use_for_service(service: str, _func=None):
@@ -29,7 +40,7 @@ def use_for_service(service: str, _func=None):
         pass
 
     @use_for_service("pagure.io")
-    @use_for_service("src.fedoraproject.org")
+    @use_for_service("git.centos.org")
     class PagureService(BaseGitService):
         pass
     ```
@@ -116,6 +127,10 @@ def get_service_class_or_none(
 ) -> Optional[type[GitService]]:
     """
     Get the matching service class from the URL.
+    When attempting to get the matching service class for dist-git, probing
+    is used to determine whether `PagureService` or `ForgejoService`
+    should be returned. This information is cached for two minutes. The
+    probing request is set to timeout after 5 seconds.
 
     Args:
         url: URL of the project, e.g. `"https://github.com/packit/ogr"`.
@@ -126,13 +141,60 @@ def get_service_class_or_none(
 
     Returns:
         Matched class (subclass of `GitService`) or `None`.
+
+    Raises:
+        OgrNetworkError, in case a ConnectionError or ReadTimeout error
+            is encountered when attempting to probe Pagure dist-git.
     """
     mapping = {}
     mapping.update(_SERVICE_MAPPING)
+    non_overridden_dgit_urls: Iterable[str] = DGIT_URLS
+
     if service_mapping_update:
         mapping.update(service_mapping_update)
+        non_overridden_dgit_urls = (
+            set(non_overridden_dgit_urls) - service_mapping_update.keys()
+        )
 
     parsed_url = parse_git_repo(url)
+
+    # [XXX] remove once the migration of dist-git is finished
+    for dgit_url in non_overridden_dgit_urls:
+
+        # if dealing with dist-git, we need to check whether we need to use
+        # `PagureService` or `ForgejoService`
+        if dgit_url in parsed_url.hostname:
+
+            from ogr.services.forgejo import ForgejoService
+            from ogr.services.pagure import PagureService
+
+            cache = _DGIT_FORGE_CACHE.get(dgit_url)
+
+            now = time.monotonic()
+            if cache and ((now - cache[0]) < _DGIT_FORGE_CACHE_TTL):
+                return cache[1]
+
+            # API call to the Pagure backend
+            api_endpoint = "https://src.fedoraproject.org/api/0/version"
+            api_endpoint_stg = "https://src.stg.fedoraproject.org/api/0/version"
+            request_url = api_endpoint_stg if ".stg." in dgit_url else api_endpoint
+
+            try:
+                pagure_service = PagureService()
+                response = pagure_service.get_raw_request(url=request_url, timeout=5)
+
+                # if not found, then dist-git is no longer hosted on Pagure
+                dgit_service_kls = (
+                    PagureService if response.status_code != 404 else ForgejoService
+                )
+
+                _DGIT_FORGE_CACHE[dgit_url] = (now, dgit_service_kls)
+                return dgit_service_kls
+
+            except (ConnectionError, ReadTimeout) as er:
+                logger.error(er)
+                raise OgrNetworkError(f"Cannot connect to url: '{url}'.") from er
+
     for service, service_kls in mapping.items():
         if parse_git_repo(service).hostname in parsed_url.hostname:
             return service_kls
@@ -178,13 +240,13 @@ def get_instances_from_dict(instances: dict) -> set[GitService]:
     ```py
     get_instances_from_dict({
         "github.com": {"token": "abcd"},
-        "pagure": {
+        "forgejo": {
             "token": "abcd",
             "instance_url": "https://src.fedoraproject.org",
         },
     }) == {
         GithubService(token="abcd"),
-        PagureService(token="abcd", instance_url="https://src.fedoraproject.org")
+        ForgejoService(token="abcd", instance_url="https://src.fedoraproject.org")
     }
     ```
 

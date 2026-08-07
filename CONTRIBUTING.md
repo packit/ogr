@@ -25,9 +25,10 @@ Here are some links to the documentation that could be helpful when contributing
   - for details also see [official GitLab API docs](https://docs.gitlab.com/ee/api/)
 - Pagure (through `requests`) - API is dependent on deployed version of Pagure service;
   `ogr` is majorly used on (links lead directly to API docs)
-  - [src.fedoraproject.org](https://src.fedoraproject.org/api/0/)
   - [pagure.io](https://pagure.io/api/0/)
   - [git.stg.centos.org](https://git.stg.centos.org/api/0/)
+- Forgejo
+  - [src.fedoraproject.org](https://src.fedoraproject.org/api/v1/)
 
 ## Making raw HTTP requests
 
