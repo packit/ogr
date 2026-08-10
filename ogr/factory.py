@@ -168,12 +168,11 @@ def get_service_class_or_none(
             from ogr.services.forgejo import ForgejoService
             from ogr.services.pagure import PagureService
 
-            cache = _DGIT_FORGE_CACHE.get(dgit_url)
-
-            now = time.monotonic()
-            if cache and ((now - cache[0]) < _DGIT_FORGE_CACHE_TTL):
-                return cache[1]
-
+            if cache := _DGIT_FORGE_CACHE.get(dgit_url):
+                timestamp, service_type = cache
+                now = time.monotonic()
+                if now - timestamp < _DGIT_FORGE_CACHE_TTL:
+                    return service_type
             # API call to the Pagure backend
             api_endpoint = "https://src.fedoraproject.org/api/0/version"
             api_endpoint_stg = "https://src.stg.fedoraproject.org/api/0/version"
