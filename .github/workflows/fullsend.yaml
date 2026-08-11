@@ -52,3 +52,37 @@ jobs:
     secrets:
       FULLSEND_GCP_WIF_PROVIDER: ${{ secrets.FULLSEND_GCP_WIF_PROVIDER }}
       FULLSEND_GCP_PROJECT_ID: ${{ secrets.FULLSEND_GCP_PROJECT_ID }}
+
+  stop-fix:
+    if: >-
+      github.event_name == 'issue_comment'
+        && github.event.issue.pull_request
+        && github.event.comment.user.type != 'Bot'
+        && github.event.comment.body == '/fs-fix-stop'
+        && (
+          github.event.comment.author_association == 'OWNER'
+          || github.event.comment.author_association == 'MEMBER'
+          || github.event.comment.author_association == 'COLLABORATOR'
+          || github.event.comment.author_association == 'CONTRIBUTOR'
+          || github.event.comment.user.login == github.event.issue.user.login
+        )
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: read
+      issues: write
+      pull-requests: write
+    steps:
+      - name: Add fullsend-no-fix label and notify
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PR_NUMBER: ${{ github.event.issue.number }}
+          REPO: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+          gh label create "fullsend-no-fix" --repo "$REPO" \
+            --description "Skip bot-triggered fix agent runs" --color "FBCA04" \
+            --force 2>/dev/null || true
+          gh pr edit "$PR_NUMBER" --repo "$REPO" \
+            --add-label "fullsend-no-fix"
+          gh pr comment "$PR_NUMBER" --repo "$REPO" \
+            --body "Fix agent disabled for this PR. Remove the \`fullsend-no-fix\` label or use \`/fs-fix\` to re-engage."
