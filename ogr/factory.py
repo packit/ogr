@@ -168,9 +168,9 @@ def get_service_class_or_none(
             from ogr.services.forgejo import ForgejoService
             from ogr.services.pagure import PagureService
 
+            now = time.monotonic()
             if cache := _DGIT_FORGE_CACHE.get(dgit_url):
                 timestamp, service_type = cache
-                now = time.monotonic()
                 if now - timestamp < _DGIT_FORGE_CACHE_TTL:
                     return service_type
             # API call to the Pagure backend
