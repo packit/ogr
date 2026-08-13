@@ -1,3 +1,8 @@
+# 0.62.4
+
+- The `ForgejoService.get_project_from_url()` method has been updated to ensure repository names are parsed accurately. It now correctly removes the `.git` extension from the repository name, addressing an issue where the extension was previously retained. (#1005)
+- The implementation of `__str__`, `__eq__`, and `__hash__` methods has been added to `ForgejoService`. (#1001)
+
 # 0.62.3
 
 - Emoji reactions on GitLab comments now work reliably
