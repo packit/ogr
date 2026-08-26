@@ -422,6 +422,7 @@ class ForgejoProject(BaseGitProject):
         target_branch: str,
         source_branch: str,
         fork_username: Optional[str] = None,
+        allow_maintainer_edit: Optional[bool] = None,
     ) -> "PullRequest":
         pass
 

@@ -1,0 +1,1421 @@
+_requre:
+  DataTypes: 1
+  key_strategy: StorageKeysInspectSimple
+  version_storage_file: 3
+requests.sessions:
+  send:
+    GET:
+      https://gitlab.com/api/v4/projects/14233409/merge_requests/92:
+      - metadata:
+          latency: 0.2979578971862793
+          module_call_list:
+          - unittest.case
+          - requre.record_and_replace
+          - tests.integration.gitlab.test_pull_requests
+          - ogr.abstract.exception
+          - ogr.utils
+          - ogr.abstract.exception
+          - ogr.services.gitlab.pull_request
+          - gitlab.exceptions
+          - gitlab.mixins
+          - gitlab.client
+          - gitlab._backends.requests_backend
+          - requests.sessions
+          - requre.objects
+          - requre.cassette
+          - requests.sessions
+          - send
+        output:
+          __store_indicator: 2
+          _content:
+            allow_collaboration: true
+            allow_maintainer_to_push: true
+            approvals_before_merge: null
+            assignee: null
+            assignees: []
+            author:
+              avatar_url: https://secure.gravatar.com/avatar/8e9f7fa31246159d6479f97e8f3efabeb501c4eb99c14489d73b4f2fcdfc1f2a?s=80&d=identicon
+              id: 40699970
+              locked: false
+              name: "Al\u017Eb\u011Bta Ku\u010Derov\xE1"
+              public_email: null
+              state: active
+              username: akucerov
+              web_url: https://gitlab.com/akucerov
+            blocking_discussions_resolved: true
+            changes_count: '1'
+            closed_at: null
+            closed_by: null
+            created_at: '2026-08-25T13:03:32.446Z'
+            description: Description
+            detailed_merge_status: preparing
+            diff_refs:
+              base_sha: 59b1a9bab5b5198c619270646410867788685c16
+              head_sha: 6a9b824f6fa26eb6a3c0d8f164a5bbe95118d2c9
+              start_sha: dd9b6c54c0788301c86bdf058a8e91e3594a0a17
+            discussion_locked: null
+            downvotes: 0
+            draft: false
+            first_contribution: true
+            first_deployed_to_production_at: null
+            force_remove_source_branch: true
+            has_conflicts: false
+            head_pipeline: null
+            id: 523588543
+            iid: 92
+            imported: false
+            imported_from: none
+            labels: []
+            latest_build_finished_at: null
+            latest_build_started_at: null
+            merge_after: null
+            merge_commit_sha: null
+            merge_error: null
+            merge_status: checking
+            merge_user: null
+            merge_when_pipeline_succeeds: false
+            merged_at: null
+            merged_by: null
+            milestone: null
+            pipeline: null
+            prepared_at: null
+            project_id: 14233409
+            reference: '!92'
+            references:
+              full: packit-service/ogr-tests!92
+              relative: '!92'
+              short: '!92'
+            reviewers: []
+            sha: 6a9b824f6fa26eb6a3c0d8f164a5bbe95118d2c9
+            should_remove_source_branch: null
+            source_branch: pr-test1
+            source_project_id: 85738133
+            squash: false
+            squash_commit_sha: null
+            squash_on_merge: false
+            state: opened
+            subscribed: true
+            target_branch: master
+            target_project_id: 14233409
+            task_completion_status:
+              completed_count: 0
+              count: 0
+            time_stats:
+              human_time_estimate: null
+              human_total_time_spent: null
+              time_estimate: 0
+              total_time_spent: 0
+            title: test mainainer edits setting
+            updated_at: '2026-08-25T13:03:32.446Z'
+            upvotes: 0
+            user:
+              can_merge: false
+            user_notes_count: 0
+            web_url: https://gitlab.com/packit-service/ogr-tests/-/merge_requests/92
+            work_in_progress: false
+          _next: null
+          elapsed: 0.2
+          encoding: utf-8
+          headers:
+            CF-Cache-Status: BYPASS
+            CF-Ray: a30acc2a191fbc7b-PRG
+            Cache-Control: max-age=0, private, must-revalidate
+            Connection: keep-alive
+            Content-Encoding: gzip
+            Content-Type: application/json
+            Date: Fri, 01 Nov 2019 13-36-03 GMT
+            ETag: W/"1e51b8e1c48787a433405211e9e0fe61"
+            Server: cloudflare
+            Strict-Transport-Security: max-age=31536000
+            Transfer-Encoding: chunked
+            Vary: Origin
+            content-security-policy: default-src 'none'
+            gitlab-lb: haproxy-main-13-lb-gprd
+            gitlab-sv: api-gke-us-east1-b
+            nel: '{"max_age": 0}'
+            ratelimit-limit: '2000'
+            ratelimit-name: throttle_authenticated_api
+            ratelimit-observed: '6'
+            ratelimit-remaining: '1994'
+            ratelimit-reset: '1787663040'
+            referrer-policy: strict-origin-when-cross-origin
+            x-content-type-options: nosniff
+            x-frame-options: SAMEORIGIN
+            x-gitlab-meta: '{"correlation_id":"a30acc2a191fbc7b-PRG","version":"1"}'
+            x-request-id: a30acc2a191fbc7b-PRG
+            x-runtime: '0.125410'
+          raw: !!binary ""
+          raw_decoded: !!binary ""
+          reason: OK
+          status_code: 200
+      https://gitlab.com/api/v4/projects/akucerov%2Fogr-tests:
+      - metadata:
+          latency: 0.33234572410583496
+          module_call_list:
+          - unittest.case
+          - requre.record_and_replace
+          - tests.integration.gitlab.test_pull_requests
+          - ogr.abstract.exception
+          - ogr.utils
+          - ogr.abstract.exception
+          - ogr.services.gitlab.pull_request
+          - ogr.services.gitlab.project
+          - gitlab.exceptions
+          - gitlab.mixins
+          - gitlab.client
+          - gitlab._backends.requests_backend
+          - requests.sessions
+          - requre.objects
+          - requre.cassette
+          - requests.sessions
+          - send
+        output:
+          __store_indicator: 2
+          _content:
+            _links:
+              cluster_agents: https://gitlab.com/api/v4/projects/85738133/cluster_agents
+              events: https://gitlab.com/api/v4/projects/85738133/events
+              issues: https://gitlab.com/api/v4/projects/85738133/issues
+              labels: https://gitlab.com/api/v4/projects/85738133/labels
+              members: https://gitlab.com/api/v4/projects/85738133/members
+              merge_requests: https://gitlab.com/api/v4/projects/85738133/merge_requests
+              repo_branches: https://gitlab.com/api/v4/projects/85738133/repository/branches
+              self: https://gitlab.com/api/v4/projects/85738133
+            allow_merge_on_skipped_pipeline: null
+            analytics_access_level: enabled
+            archived: false
+            auto_cancel_pending_pipelines: enabled
+            auto_devops_deploy_strategy: continuous
+            auto_devops_enabled: false
+            autoclose_referenced_issues: true
+            avatar_url: null
+            build_git_strategy: fetch
+            build_timeout: 3600
+            builds_access_level: enabled
+            can_create_merge_request_in: true
+            ci_allow_fork_pipelines_to_run_in_parent_project: true
+            ci_config_path: null
+            ci_default_git_depth: 50
+            ci_delete_pipelines_in_seconds: null
+            ci_display_pipeline_variables: false
+            ci_forward_deployment_enabled: true
+            ci_forward_deployment_rollback_allowed: true
+            ci_id_token_sub_claim_components:
+            - project_path
+            - ref_type
+            - ref
+            ci_job_token_scope_enabled: false
+            ci_pipeline_variables_minimum_override_role: no_one_allowed
+            ci_push_repository_for_job_token_allowed: false
+            ci_separated_caches: true
+            cicd_catalog_enabled: false
+            compliance_frameworks: []
+            container_expiration_policy:
+              cadence: 1d
+              enabled: false
+              keep_n: 10
+              name_regex: .*
+              name_regex_keep: null
+              next_run_at: '2026-08-26T12:31:15.663Z'
+              older_than: 90d
+            container_registry_access_level: enabled
+            container_registry_enabled: true
+            container_registry_image_prefix: registry.gitlab.com/akucerov/ogr-tests
+            created_at: '2026-08-25T12:31:15.641Z'
+            creator_id: 40699970
+            default_branch: master
+            description: Testing repository for python-ogr package.  |  https://github.com/packit-service/ogr
+            description_html: <p data-sourcepos="1:1-1:84" dir="auto">Testing repository
+              for python-ogr package.  |  <a data-sourcepos="1:48-1:84" href="https://github.com/packit-service/ogr"
+              rel="nofollow noreferrer noopener" target="_blank">https://github.com/packit-service/ogr</a></p>
+            emails_disabled: false
+            emails_enabled: true
+            empty_repo: false
+            enforce_auth_checks_on_uploads: true
+            environments_access_level: enabled
+            external_authorization_classification_label: ''
+            feature_flags_access_level: enabled
+            forked_from_project:
+              avatar_url: null
+              created_at: '2019-09-10T10:28:09.946Z'
+              default_branch: master
+              description: Testing repository for python-ogr package.  |  https://github.com/packit-service/ogr
+              forks_count: 6
+              http_url_to_repo: https://gitlab.com/packit-service/ogr-tests.git
+              id: 14233409
+              last_activity_at: '2026-08-25T12:51:03.047Z'
+              name: ogr-tests
+              name_with_namespace: Packit / ogr-tests
+              namespace:
+                avatar_url: /uploads/-/system/group/avatar/6032704/logo-square-small-borders.png
+                full_path: packit-service
+                id: 6032704
+                kind: group
+                name: Packit
+                parent_id: null
+                path: packit-service
+                web_url: https://gitlab.com/groups/packit-service
+              path: ogr-tests
+              path_with_namespace: packit-service/ogr-tests
+              readme_url: https://gitlab.com/packit-service/ogr-tests/-/blob/master/README.md
+              ssh_url_to_repo: git@gitlab.com:packit-service/ogr-tests.git
+              star_count: 0
+              tag_list: []
+              topics: []
+              visibility: public
+              web_url: https://gitlab.com/packit-service/ogr-tests
+            forking_access_level: enabled
+            forks_count: 0
+            group_runners_enabled: true
+            http_url_to_repo: https://gitlab.com/akucerov/ogr-tests.git
+            id: 85738133
+            import_error: null
+            import_status: finished
+            import_type: null
+            import_url: null
+            infrastructure_access_level: enabled
+            issue_branch_template: null
+            issues_access_level: enabled
+            issues_enabled: true
+            jobs_enabled: true
+            keep_latest_artifact: true
+            last_activity_at: '2026-08-25T12:31:15.333Z'
+            lfs_enabled: true
+            marked_for_deletion_at: null
+            marked_for_deletion_on: null
+            max_artifacts_size: null
+            merge_commit_template: null
+            merge_method: merge
+            merge_requests_access_level: enabled
+            merge_requests_enabled: true
+            model_experiments_access_level: enabled
+            model_registry_access_level: enabled
+            monitor_access_level: enabled
+            mr_default_target_self: false
+            mr_default_title_template: null
+            name: ogr-tests
+            name_with_namespace: "Al\u017Eb\u011Bta Ku\u010Derov\xE1 / ogr-tests"
+            namespace:
+              avatar_url: https://secure.gravatar.com/avatar/8e9f7fa31246159d6479f97e8f3efabeb501c4eb99c14489d73b4f2fcdfc1f2a?s=80&d=identicon
+              full_path: akucerov
+              id: 138405067
+              kind: user
+              name: "Al\u017Eb\u011Bta Ku\u010Derov\xE1"
+              parent_id: null
+              path: akucerov
+              web_url: https://gitlab.com/akucerov
+            only_allow_merge_if_all_discussions_are_resolved: false
+            only_allow_merge_if_pipeline_succeeds: false
+            open_issues_count: 0
+            owner:
+              avatar_url: https://secure.gravatar.com/avatar/8e9f7fa31246159d6479f97e8f3efabeb501c4eb99c14489d73b4f2fcdfc1f2a?s=80&d=identicon
+              id: 40699970
+              locked: false
+              name: "Al\u017Eb\u011Bta Ku\u010Derov\xE1"
+              public_email: null
+              state: active
+              username: akucerov
+              web_url: https://gitlab.com/akucerov
+            package_registry_access_level: public
+            packages_enabled: true
+            pages_access_level: enabled
+            path: ogr-tests
+            path_with_namespace: akucerov/ogr-tests
+            permissions:
+              group_access: null
+              project_access:
+                access_level: 50
+                notification_level: 3
+            printing_merge_request_link_enabled: true
+            protect_merge_request_pipelines: true
+            public_jobs: true
+            readme_url: https://gitlab.com/akucerov/ogr-tests/-/blob/master/README.md
+            releases_access_level: enabled
+            remove_source_branch_after_merge: true
+            repository_access_level: enabled
+            repository_object_format: sha1
+            request_access_enabled: true
+            requirements_access_level: enabled
+            requirements_enabled: false
+            resolve_outdated_diff_discussions: false
+            resource_group_default_process_mode: unordered
+            restrict_user_defined_variables: true
+            runner_token_expiration_interval: null
+            runners_token: nooneknows
+            security_and_compliance_access_level: private
+            security_and_compliance_enabled: true
+            service_desk_address: contact-project+akucerov-ogr-tests-85738133-issue-@incoming.gitlab.com
+            service_desk_enabled: true
+            shared_runners_enabled: true
+            shared_with_groups: []
+            show_diff_preview_in_email: true
+            snippets_access_level: enabled
+            snippets_enabled: true
+            squash_commit_template: null
+            squash_option: default_off
+            ssh_url_to_repo: git@gitlab.com:akucerov/ogr-tests.git
+            star_count: 0
+            suggestion_commit_message: null
+            tag_list: []
+            topics: []
+            updated_at: '2026-08-25T12:31:17.607Z'
+            visibility: public
+            warn_about_potentially_unwanted_characters: true
+            web_based_commit_signing_enabled: false
+            web_url: https://gitlab.com/akucerov/ogr-tests
+            wiki_access_level: enabled
+            wiki_enabled: true
+          _next: null
+          elapsed: 0.2
+          encoding: utf-8
+          headers:
+            CF-Cache-Status: BYPASS
+            CF-Ray: a30acc19dd2dbc7b-PRG
+            Cache-Control: max-age=0, private, must-revalidate
+            Connection: keep-alive
+            Content-Encoding: gzip
+            Content-Type: application/json
+            Date: Fri, 01 Nov 2019 13-36-03 GMT
+            ETag: W/"1e51b8e1c48787a433405211e9e0fe61"
+            Server: cloudflare
+            Strict-Transport-Security: max-age=31536000
+            Transfer-Encoding: chunked
+            Vary: Origin
+            content-security-policy: default-src 'none'
+            gitlab-lb: haproxy-main-04-lb-gprd
+            gitlab-sv: api-gke-us-east1-b
+            nel: '{"max_age": 0}'
+            ratelimit-limit: '2000'
+            ratelimit-name: throttle_authenticated_api
+            ratelimit-observed: '2'
+            ratelimit-remaining: '1998'
+            ratelimit-reset: '1787663040'
+            referrer-policy: strict-origin-when-cross-origin
+            x-content-type-options: nosniff
+            x-frame-options: SAMEORIGIN
+            x-gitlab-meta: '{"correlation_id":"a30acc19dd2dbc7b-PRG","version":"1"}'
+            x-request-id: a30acc19dd2dbc7b-PRG
+            x-runtime: '0.150162'
+          raw: !!binary ""
+          raw_decoded: !!binary ""
+          reason: OK
+          status_code: 200
+      https://gitlab.com/api/v4/projects/packit-service%2Fogr-tests:
+      - metadata:
+          latency: 0.9745008945465088
+          module_call_list:
+          - unittest.case
+          - requre.record_and_replace
+          - tests.integration.gitlab.test_pull_requests
+          - ogr.abstract.exception
+          - ogr.utils
+          - ogr.abstract.exception
+          - ogr.services.gitlab.pull_request
+          - ogr.services.gitlab.project
+          - gitlab.exceptions
+          - gitlab.mixins
+          - gitlab.client
+          - gitlab._backends.requests_backend
+          - requests.sessions
+          - requre.objects
+          - requre.cassette
+          - requests.sessions
+          - send
+        output:
+          __store_indicator: 2
+          _content:
+            _links:
+              cluster_agents: https://gitlab.com/api/v4/projects/14233409/cluster_agents
+              events: https://gitlab.com/api/v4/projects/14233409/events
+              issues: https://gitlab.com/api/v4/projects/14233409/issues
+              labels: https://gitlab.com/api/v4/projects/14233409/labels
+              members: https://gitlab.com/api/v4/projects/14233409/members
+              merge_requests: https://gitlab.com/api/v4/projects/14233409/merge_requests
+              repo_branches: https://gitlab.com/api/v4/projects/14233409/repository/branches
+              self: https://gitlab.com/api/v4/projects/14233409
+            allow_merge_on_skipped_pipeline: null
+            analytics_access_level: enabled
+            archived: false
+            autoclose_referenced_issues: true
+            avatar_url: null
+            builds_access_level: enabled
+            can_create_merge_request_in: true
+            ci_config_path: null
+            cicd_catalog_enabled: false
+            compliance_frameworks: []
+            container_registry_access_level: enabled
+            container_registry_enabled: true
+            container_registry_image_prefix: registry.gitlab.com/packit-service/ogr-tests
+            created_at: '2019-09-10T10:28:09.946Z'
+            creator_id: 433670
+            default_branch: master
+            description: Testing repository for python-ogr package.  |  https://github.com/packit-service/ogr
+            description_html: <p data-sourcepos="1:1-1:84" dir="auto">Testing repository
+              for python-ogr package.  |  <a data-sourcepos="1:48-1:84" href="https://github.com/packit-service/ogr"
+              rel="nofollow noreferrer noopener" target="_blank">https://github.com/packit-service/ogr</a></p>
+            emails_disabled: false
+            emails_enabled: true
+            empty_repo: false
+            enforce_auth_checks_on_uploads: true
+            environments_access_level: enabled
+            external_authorization_classification_label: ''
+            feature_flags_access_level: enabled
+            forking_access_level: enabled
+            forks_count: 6
+            http_url_to_repo: https://gitlab.com/packit-service/ogr-tests.git
+            id: 14233409
+            import_status: none
+            infrastructure_access_level: enabled
+            issue_branch_template: null
+            issues_access_level: enabled
+            issues_enabled: true
+            jobs_enabled: true
+            last_activity_at: '2026-08-25T12:51:03.047Z'
+            lfs_enabled: true
+            marked_for_deletion_at: null
+            marked_for_deletion_on: null
+            max_artifacts_size: null
+            merge_commit_template: null
+            merge_method: merge
+            merge_requests_access_level: enabled
+            merge_requests_enabled: true
+            model_experiments_access_level: enabled
+            model_registry_access_level: enabled
+            monitor_access_level: enabled
+            mr_default_title_template: null
+            name: ogr-tests
+            name_with_namespace: Packit / ogr-tests
+            namespace:
+              avatar_url: /uploads/-/system/group/avatar/6032704/logo-square-small-borders.png
+              full_path: packit-service
+              id: 6032704
+              kind: group
+              name: Packit
+              parent_id: null
+              path: packit-service
+              web_url: https://gitlab.com/groups/packit-service
+            only_allow_merge_if_all_discussions_are_resolved: false
+            only_allow_merge_if_pipeline_succeeds: false
+            open_issues_count: 77
+            package_registry_access_level: public
+            packages_enabled: true
+            pages_access_level: enabled
+            path: ogr-tests
+            path_with_namespace: packit-service/ogr-tests
+            permissions:
+              group_access: null
+              project_access: null
+            printing_merge_request_link_enabled: true
+            public_jobs: true
+            readme_url: https://gitlab.com/packit-service/ogr-tests/-/blob/master/README.md
+            releases_access_level: enabled
+            remove_source_branch_after_merge: null
+            repository_access_level: enabled
+            repository_object_format: sha1
+            request_access_enabled: false
+            requirements_access_level: enabled
+            requirements_enabled: false
+            resolve_outdated_diff_discussions: false
+            security_and_compliance_access_level: private
+            security_and_compliance_enabled: false
+            service_desk_enabled: true
+            shared_runners_enabled: true
+            shared_with_groups: []
+            show_diff_preview_in_email: true
+            snippets_access_level: enabled
+            snippets_enabled: true
+            squash_commit_template: null
+            squash_option: default_off
+            ssh_url_to_repo: git@gitlab.com:packit-service/ogr-tests.git
+            star_count: 0
+            suggestion_commit_message: null
+            tag_list: []
+            topics: []
+            updated_at: '2026-08-25T12:51:03.047Z'
+            visibility: public
+            warn_about_potentially_unwanted_characters: true
+            web_url: https://gitlab.com/packit-service/ogr-tests
+            wiki_access_level: enabled
+            wiki_enabled: true
+          _next: null
+          elapsed: 0.2
+          encoding: utf-8
+          headers:
+            CF-Cache-Status: BYPASS
+            CF-Ray: a30acc1bed15bc7b-PRG
+            Cache-Control: max-age=0, private, must-revalidate
+            Connection: keep-alive
+            Content-Encoding: gzip
+            Content-Type: application/json
+            Date: Fri, 01 Nov 2019 13-36-03 GMT
+            ETag: W/"1e51b8e1c48787a433405211e9e0fe61"
+            Server: cloudflare
+            Strict-Transport-Security: max-age=31536000
+            Transfer-Encoding: chunked
+            Vary: Origin
+            content-security-policy: default-src 'none'
+            gitlab-lb: haproxy-main-22-lb-gprd
+            gitlab-sv: api-gke-us-east1-b
+            nel: '{"max_age": 0}'
+            ratelimit-limit: '2000'
+            ratelimit-name: throttle_authenticated_api
+            ratelimit-observed: '3'
+            ratelimit-remaining: '1997'
+            ratelimit-reset: '1787663040'
+            referrer-policy: strict-origin-when-cross-origin
+            x-content-type-options: nosniff
+            x-frame-options: SAMEORIGIN
+            x-gitlab-meta: '{"correlation_id":"a30acc1bed15bc7b-PRG","version":"1"}'
+            x-request-id: a30acc1bed15bc7b-PRG
+            x-runtime: '0.791641'
+          raw: !!binary ""
+          raw_decoded: !!binary ""
+          reason: OK
+          status_code: 200
+      - metadata:
+          latency: 0.704564094543457
+          module_call_list:
+          - unittest.case
+          - requre.record_and_replace
+          - tests.integration.gitlab.test_pull_requests
+          - ogr.abstract.exception
+          - ogr.utils
+          - ogr.abstract.exception
+          - ogr.services.gitlab.pull_request
+          - ogr.services.gitlab.project
+          - gitlab.exceptions
+          - gitlab.mixins
+          - gitlab.client
+          - gitlab._backends.requests_backend
+          - requests.sessions
+          - requre.objects
+          - requre.cassette
+          - requests.sessions
+          - send
+        output:
+          __store_indicator: 2
+          _content:
+            _links:
+              cluster_agents: https://gitlab.com/api/v4/projects/14233409/cluster_agents
+              events: https://gitlab.com/api/v4/projects/14233409/events
+              issues: https://gitlab.com/api/v4/projects/14233409/issues
+              labels: https://gitlab.com/api/v4/projects/14233409/labels
+              members: https://gitlab.com/api/v4/projects/14233409/members
+              merge_requests: https://gitlab.com/api/v4/projects/14233409/merge_requests
+              repo_branches: https://gitlab.com/api/v4/projects/14233409/repository/branches
+              self: https://gitlab.com/api/v4/projects/14233409
+            allow_merge_on_skipped_pipeline: null
+            analytics_access_level: enabled
+            archived: false
+            autoclose_referenced_issues: true
+            avatar_url: null
+            builds_access_level: enabled
+            can_create_merge_request_in: true
+            ci_config_path: null
+            cicd_catalog_enabled: false
+            compliance_frameworks: []
+            container_registry_access_level: enabled
+            container_registry_enabled: true
+            container_registry_image_prefix: registry.gitlab.com/packit-service/ogr-tests
+            created_at: '2019-09-10T10:28:09.946Z'
+            creator_id: 433670
+            default_branch: master
+            description: Testing repository for python-ogr package.  |  https://github.com/packit-service/ogr
+            description_html: <p data-sourcepos="1:1-1:84" dir="auto">Testing repository
+              for python-ogr package.  |  <a data-sourcepos="1:48-1:84" href="https://github.com/packit-service/ogr"
+              rel="nofollow noreferrer noopener" target="_blank">https://github.com/packit-service/ogr</a></p>
+            emails_disabled: false
+            emails_enabled: true
+            empty_repo: false
+            enforce_auth_checks_on_uploads: true
+            environments_access_level: enabled
+            external_authorization_classification_label: ''
+            feature_flags_access_level: enabled
+            forking_access_level: enabled
+            forks_count: 6
+            http_url_to_repo: https://gitlab.com/packit-service/ogr-tests.git
+            id: 14233409
+            import_status: none
+            infrastructure_access_level: enabled
+            issue_branch_template: null
+            issues_access_level: enabled
+            issues_enabled: true
+            jobs_enabled: true
+            last_activity_at: '2026-08-25T12:51:03.047Z'
+            lfs_enabled: true
+            marked_for_deletion_at: null
+            marked_for_deletion_on: null
+            max_artifacts_size: null
+            merge_commit_template: null
+            merge_method: merge
+            merge_requests_access_level: enabled
+            merge_requests_enabled: true
+            model_experiments_access_level: enabled
+            model_registry_access_level: enabled
+            monitor_access_level: enabled
+            mr_default_title_template: null
+            name: ogr-tests
+            name_with_namespace: Packit / ogr-tests
+            namespace:
+              avatar_url: /uploads/-/system/group/avatar/6032704/logo-square-small-borders.png
+              full_path: packit-service
+              id: 6032704
+              kind: group
+              name: Packit
+              parent_id: null
+              path: packit-service
+              web_url: https://gitlab.com/groups/packit-service
+            only_allow_merge_if_all_discussions_are_resolved: false
+            only_allow_merge_if_pipeline_succeeds: false
+            open_issues_count: 77
+            package_registry_access_level: public
+            packages_enabled: true
+            pages_access_level: enabled
+            path: ogr-tests
+            path_with_namespace: packit-service/ogr-tests
+            permissions:
+              group_access: null
+              project_access: null
+            printing_merge_request_link_enabled: true
+            public_jobs: true
+            readme_url: https://gitlab.com/packit-service/ogr-tests/-/blob/master/README.md
+            releases_access_level: enabled
+            remove_source_branch_after_merge: null
+            repository_access_level: enabled
+            repository_object_format: sha1
+            request_access_enabled: false
+            requirements_access_level: enabled
+            requirements_enabled: false
+            resolve_outdated_diff_discussions: false
+            security_and_compliance_access_level: private
+            security_and_compliance_enabled: false
+            service_desk_enabled: true
+            shared_runners_enabled: true
+            shared_with_groups: []
+            show_diff_preview_in_email: true
+            snippets_access_level: enabled
+            snippets_enabled: true
+            squash_commit_template: null
+            squash_option: default_off
+            ssh_url_to_repo: git@gitlab.com:packit-service/ogr-tests.git
+            star_count: 0
+            suggestion_commit_message: null
+            tag_list: []
+            topics: []
+            updated_at: '2026-08-25T12:51:03.047Z'
+            visibility: public
+            warn_about_potentially_unwanted_characters: true
+            web_url: https://gitlab.com/packit-service/ogr-tests
+            wiki_access_level: enabled
+            wiki_enabled: true
+          _next: null
+          elapsed: 0.2
+          encoding: utf-8
+          headers:
+            CF-Cache-Status: BYPASS
+            CF-Ray: a30acc25a89ebc7b-PRG
+            Cache-Control: max-age=0, private, must-revalidate
+            Connection: keep-alive
+            Content-Encoding: gzip
+            Content-Type: application/json
+            Date: Fri, 01 Nov 2019 13-36-03 GMT
+            ETag: W/"1e51b8e1c48787a433405211e9e0fe61"
+            Server: cloudflare
+            Strict-Transport-Security: max-age=31536000
+            Transfer-Encoding: chunked
+            Vary: Origin
+            content-security-policy: default-src 'none'
+            gitlab-lb: haproxy-main-25-lb-gprd
+            gitlab-sv: api-gke-us-east1-b
+            nel: '{"max_age": 0}'
+            ratelimit-limit: '2000'
+            ratelimit-name: throttle_authenticated_api
+            ratelimit-observed: '5'
+            ratelimit-remaining: '1995'
+            ratelimit-reset: '1787663040'
+            referrer-policy: strict-origin-when-cross-origin
+            x-content-type-options: nosniff
+            x-frame-options: SAMEORIGIN
+            x-gitlab-meta: '{"correlation_id":"a30acc25a89ebc7b-PRG","version":"1"}'
+            x-request-id: a30acc25a89ebc7b-PRG
+            x-runtime: '0.431368'
+          raw: !!binary ""
+          raw_decoded: !!binary ""
+          reason: OK
+          status_code: 200
+      https://gitlab.com/api/v4/user:
+      - metadata:
+          latency: 0.5324723720550537
+          module_call_list:
+          - unittest.case
+          - requre.record_and_replace
+          - tests.integration.gitlab.test_pull_requests
+          - ogr.abstract.exception
+          - ogr.services.gitlab.user
+          - ogr.services.gitlab.service
+          - gitlab.client
+          - gitlab.exceptions
+          - gitlab.mixins
+          - gitlab.client
+          - gitlab._backends.requests_backend
+          - requests.sessions
+          - requre.objects
+          - requre.cassette
+          - requests.sessions
+          - send
+        output:
+          __store_indicator: 2
+          _content:
+            avatar_url: https://secure.gravatar.com/avatar/8e9f7fa31246159d6479f97e8f3efabeb501c4eb99c14489d73b4f2fcdfc1f2a?s=80&d=identicon
+            bio: ''
+            bot: false
+            can_create_group: true
+            can_create_project: true
+            color_scheme_id: 1
+            commit_email: akucerov@redhat.com
+            confirmed_at: '2026-07-28T08:33:13.927Z'
+            created_at: '2026-07-28T08:30:49.069Z'
+            current_sign_in_at: '2026-08-25T12:28:29.115Z'
+            discord: ''
+            email: akucerov@redhat.com
+            external: false
+            extra_shared_runners_minutes_limit: null
+            github: ''
+            id: 40699970
+            identities:
+            - extern_uid: baf072e0-5609-11f0-b969-0a58ac147216
+              provider: group_saml
+              saml_provider_id: 1769
+            job_title: ''
+            last_activity_on: '2026-08-25'
+            last_sign_in_at: '2026-07-30T11:44:54.530Z'
+            linkedin: ''
+            local_time: null
+            location: ''
+            locked: false
+            name: "Al\u017Eb\u011Bta Ku\u010Derov\xE1"
+            organization: ''
+            preferred_language: en
+            private_profile: false
+            projects_limit: 100000
+            pronouns: null
+            public_email: null
+            scim_identities: []
+            shared_runners_minutes_limit: null
+            state: active
+            theme_id: 3
+            twitter: ''
+            two_factor_enabled: true
+            username: akucerov
+            web_url: https://gitlab.com/akucerov
+            website_url: ''
+            work_information: null
+          _next: null
+          elapsed: 0.2
+          encoding: utf-8
+          headers:
+            CF-Cache-Status: BYPASS
+            CF-Ray: a30acc17cda2bc7b-PRG
+            Cache-Control: max-age=0, private, must-revalidate
+            Connection: keep-alive
+            Content-Encoding: gzip
+            Content-Type: application/json
+            Date: Fri, 01 Nov 2019 13-36-03 GMT
+            ETag: W/"1e51b8e1c48787a433405211e9e0fe61"
+            Server: cloudflare
+            Strict-Transport-Security: max-age=31536000
+            Transfer-Encoding: chunked
+            Vary: Origin
+            content-security-policy: default-src 'none'
+            gitlab-lb: haproxy-main-44-lb-gprd
+            gitlab-sv: api-gke-us-east1-c
+            nel: '{"max_age": 0}'
+            ratelimit-limit: '2000'
+            ratelimit-name: throttle_authenticated_api
+            ratelimit-observed: '1'
+            ratelimit-remaining: '1999'
+            ratelimit-reset: '1787663040'
+            referrer-policy: strict-origin-when-cross-origin
+            x-content-type-options: nosniff
+            x-frame-options: SAMEORIGIN
+            x-gitlab-meta: '{"correlation_id":"a30acc17cda2bc7b-PRG","version":"1"}'
+            x-request-id: a30acc17cda2bc7b-PRG
+            x-runtime: '0.117526'
+          raw: !!binary ""
+          raw_decoded: !!binary ""
+          reason: OK
+          status_code: 200
+    POST:
+      https://gitlab.com/api/v4/projects/85738133/merge_requests:
+      - metadata:
+          latency: 0.5690553188323975
+          module_call_list:
+          - unittest.case
+          - requre.record_and_replace
+          - tests.integration.gitlab.test_pull_requests
+          - ogr.abstract.exception
+          - ogr.utils
+          - ogr.abstract.exception
+          - ogr.services.gitlab.pull_request
+          - gitlab.exceptions
+          - gitlab.mixins
+          - gitlab.client
+          - gitlab._backends.requests_backend
+          - requests.sessions
+          - requre.objects
+          - requre.cassette
+          - requests.sessions
+          - send
+        output:
+          __store_indicator: 2
+          _content:
+            allow_collaboration: true
+            allow_maintainer_to_push: true
+            approvals_before_merge: null
+            assignee: null
+            assignees: []
+            author:
+              avatar_url: https://secure.gravatar.com/avatar/8e9f7fa31246159d6479f97e8f3efabeb501c4eb99c14489d73b4f2fcdfc1f2a?s=80&d=identicon
+              id: 40699970
+              locked: false
+              name: "Al\u017Eb\u011Bta Ku\u010Derov\xE1"
+              public_email: null
+              state: active
+              username: akucerov
+              web_url: https://gitlab.com/akucerov
+            blocking_discussions_resolved: true
+            changes_count: null
+            closed_at: null
+            closed_by: null
+            created_at: '2026-08-25T13:03:32.446Z'
+            description: Description
+            detailed_merge_status: preparing
+            diff_refs: null
+            discussion_locked: null
+            downvotes: 0
+            draft: false
+            first_deployed_to_production_at: null
+            force_remove_source_branch: true
+            has_conflicts: false
+            head_pipeline: null
+            id: 523588543
+            iid: 92
+            imported: false
+            imported_from: none
+            labels: []
+            latest_build_finished_at: null
+            latest_build_started_at: null
+            merge_after: null
+            merge_commit_sha: null
+            merge_error: null
+            merge_status: checking
+            merge_user: null
+            merge_when_pipeline_succeeds: false
+            merged_at: null
+            merged_by: null
+            milestone: null
+            pipeline: null
+            prepared_at: null
+            project_id: 14233409
+            reference: packit-service/ogr-tests!92
+            references:
+              full: packit-service/ogr-tests!92
+              relative: packit-service/ogr-tests!92
+              short: '!92'
+            reviewers: []
+            sha: 6a9b824f6fa26eb6a3c0d8f164a5bbe95118d2c9
+            should_remove_source_branch: null
+            source_branch: pr-test1
+            source_project_id: 85738133
+            squash: false
+            squash_commit_sha: null
+            squash_on_merge: false
+            state: opened
+            subscribed: true
+            target_branch: master
+            target_project_id: 14233409
+            task_completion_status:
+              completed_count: 0
+              count: 0
+            time_stats:
+              human_time_estimate: null
+              human_total_time_spent: null
+              time_estimate: 0
+              total_time_spent: 0
+            title: test mainainer edits setting
+            updated_at: '2026-08-25T13:03:32.446Z'
+            upvotes: 0
+            user:
+              can_merge: false
+            user_notes_count: 0
+            web_url: https://gitlab.com/packit-service/ogr-tests/-/merge_requests/92
+            work_in_progress: false
+          _next: null
+          elapsed: 0.2
+          encoding: utf-8
+          headers:
+            CF-Cache-Status: DYNAMIC
+            CF-Ray: a30acc221b76bc7b-PRG
+            Cache-Control: max-age=0, private, must-revalidate
+            Connection: keep-alive
+            Content-Length: '2064'
+            Content-Type: application/json
+            Date: Fri, 01 Nov 2019 13-36-03 GMT
+            ETag: W/"1e51b8e1c48787a433405211e9e0fe61"
+            Server: cloudflare
+            Strict-Transport-Security: max-age=31536000
+            Vary: Origin
+            content-security-policy: default-src 'none'
+            gitlab-lb: haproxy-main-29-lb-gprd
+            gitlab-sv: api-gke-us-east1-c
+            nel: '{"max_age": 0}'
+            ratelimit-limit: '2000'
+            ratelimit-name: throttle_authenticated_api
+            ratelimit-observed: '4'
+            ratelimit-remaining: '1996'
+            ratelimit-reset: '1787663040'
+            referrer-policy: strict-origin-when-cross-origin
+            x-content-type-options: nosniff
+            x-frame-options: SAMEORIGIN
+            x-gitlab-meta: '{"correlation_id":"a30acc221b76bc7b-PRG","version":"1"}'
+            x-gitlab-namespace: akucerov
+            x-gitlab-score-gitaly: '4'
+            x-request-id: a30acc221b76bc7b-PRG
+            x-runtime: '0.406038'
+          raw: !!binary ""
+          raw_decoded: !!binary ""
+          reason: Created
+          status_code: 201
+    PUT:
+      https://gitlab.com/api/v4/projects/14233409/merge_requests/92:
+      - metadata:
+          latency: 0.8193626403808594
+          module_call_list:
+          - unittest.case
+          - requre.record_and_replace
+          - tests.integration.gitlab.test_pull_requests
+          - ogr.abstract.exception
+          - ogr.services.gitlab.pull_request
+          - gitlab.mixins
+          - gitlab.exceptions
+          - gitlab.mixins
+          - gitlab.client
+          - gitlab._backends.requests_backend
+          - requests.sessions
+          - requre.objects
+          - requre.cassette
+          - requests.sessions
+          - send
+        output:
+          __store_indicator: 2
+          _content:
+            allow_collaboration: true
+            allow_maintainer_to_push: true
+            approvals_before_merge: null
+            assignee: null
+            assignees: []
+            author:
+              avatar_url: https://secure.gravatar.com/avatar/8e9f7fa31246159d6479f97e8f3efabeb501c4eb99c14489d73b4f2fcdfc1f2a?s=80&d=identicon
+              id: 40699970
+              locked: false
+              name: "Al\u017Eb\u011Bta Ku\u010Derov\xE1"
+              public_email: null
+              state: active
+              username: akucerov
+              web_url: https://gitlab.com/akucerov
+            blocking_discussions_resolved: true
+            changes_count: '1'
+            closed_at: null
+            closed_by: null
+            created_at: '2026-08-25T13:03:32.446Z'
+            description: this update shouldn't disable maintainer edits
+            detailed_merge_status: checking
+            diff_refs:
+              base_sha: 59b1a9bab5b5198c619270646410867788685c16
+              head_sha: 6a9b824f6fa26eb6a3c0d8f164a5bbe95118d2c9
+              start_sha: dd9b6c54c0788301c86bdf058a8e91e3594a0a17
+            discussion_locked: null
+            downvotes: 0
+            draft: false
+            first_deployed_to_production_at: null
+            force_remove_source_branch: true
+            has_conflicts: false
+            head_pipeline: null
+            id: 523588543
+            iid: 92
+            imported: false
+            imported_from: none
+            labels: []
+            latest_build_finished_at: null
+            latest_build_started_at: null
+            merge_after: null
+            merge_commit_sha: null
+            merge_error: null
+            merge_status: checking
+            merge_user: null
+            merge_when_pipeline_succeeds: false
+            merged_at: null
+            merged_by: null
+            milestone: null
+            pipeline: null
+            prepared_at: '2026-08-25T13:03:33.928Z'
+            project_id: 14233409
+            reference: '!92'
+            references:
+              full: packit-service/ogr-tests!92
+              relative: '!92'
+              short: '!92'
+            reviewers: []
+            sha: 6a9b824f6fa26eb6a3c0d8f164a5bbe95118d2c9
+            should_remove_source_branch: null
+            source_branch: pr-test1
+            source_project_id: 85738133
+            squash: false
+            squash_commit_sha: null
+            squash_on_merge: false
+            state: opened
+            subscribed: true
+            target_branch: master
+            target_project_id: 14233409
+            task_completion_status:
+              completed_count: 0
+              count: 0
+            time_stats:
+              human_time_estimate: null
+              human_total_time_spent: null
+              time_estimate: 0
+              total_time_spent: 0
+            title: test mainainer edits setting
+            updated_at: '2026-08-25T13:03:34.285Z'
+            upvotes: 0
+            user:
+              can_merge: false
+            user_notes_count: 0
+            web_url: https://gitlab.com/packit-service/ogr-tests/-/merge_requests/92
+            work_in_progress: false
+          _next: null
+          elapsed: 0.2
+          encoding: utf-8
+          headers:
+            CF-Cache-Status: DYNAMIC
+            CF-Ray: a30acc2c1ff6bc7b-PRG
+            Cache-Control: max-age=0, private, must-revalidate
+            Connection: keep-alive
+            Content-Encoding: gzip
+            Content-Type: application/json
+            Date: Fri, 01 Nov 2019 13-36-03 GMT
+            ETag: W/"1e51b8e1c48787a433405211e9e0fe61"
+            Server: cloudflare
+            Strict-Transport-Security: max-age=31536000
+            Transfer-Encoding: chunked
+            Vary: Origin
+            content-security-policy: default-src 'none'
+            gitlab-lb: haproxy-main-15-lb-gprd
+            gitlab-sv: api-gke-us-east1-d
+            nel: '{"max_age": 0}'
+            ratelimit-limit: '2000'
+            ratelimit-name: throttle_authenticated_api
+            ratelimit-observed: '7'
+            ratelimit-remaining: '1993'
+            ratelimit-reset: '1787663040'
+            referrer-policy: strict-origin-when-cross-origin
+            x-content-type-options: nosniff
+            x-frame-options: SAMEORIGIN
+            x-gitlab-meta: '{"correlation_id":"a30acc2c1ff6bc7b-PRG","version":"1"}'
+            x-gitlab-namespace: packit-service
+            x-gitlab-score-gitaly: '2'
+            x-request-id: a30acc2c1ff6bc7b-PRG
+            x-runtime: '0.409924'
+          raw: !!binary ""
+          raw_decoded: !!binary ""
+          reason: OK
+          status_code: 200
+      - metadata:
+          latency: 0.7585508823394775
+          module_call_list:
+          - unittest.case
+          - requre.record_and_replace
+          - tests.integration.gitlab.test_pull_requests
+          - ogr.abstract.exception
+          - ogr.services.gitlab.pull_request
+          - gitlab.mixins
+          - gitlab.exceptions
+          - gitlab.mixins
+          - gitlab.client
+          - gitlab._backends.requests_backend
+          - requests.sessions
+          - requre.objects
+          - requre.cassette
+          - requests.sessions
+          - send
+        output:
+          __store_indicator: 2
+          _content:
+            allow_collaboration: false
+            allow_maintainer_to_push: false
+            approvals_before_merge: null
+            assignee: null
+            assignees: []
+            author:
+              avatar_url: https://secure.gravatar.com/avatar/8e9f7fa31246159d6479f97e8f3efabeb501c4eb99c14489d73b4f2fcdfc1f2a?s=80&d=identicon
+              id: 40699970
+              locked: false
+              name: "Al\u017Eb\u011Bta Ku\u010Derov\xE1"
+              public_email: null
+              state: active
+              username: akucerov
+              web_url: https://gitlab.com/akucerov
+            blocking_discussions_resolved: true
+            changes_count: '1'
+            closed_at: null
+            closed_by: null
+            created_at: '2026-08-25T13:03:32.446Z'
+            description: this update shouldn't disable maintainer edits
+            detailed_merge_status: mergeable
+            diff_refs:
+              base_sha: 59b1a9bab5b5198c619270646410867788685c16
+              head_sha: 6a9b824f6fa26eb6a3c0d8f164a5bbe95118d2c9
+              start_sha: dd9b6c54c0788301c86bdf058a8e91e3594a0a17
+            discussion_locked: null
+            downvotes: 0
+            draft: false
+            first_deployed_to_production_at: null
+            force_remove_source_branch: true
+            has_conflicts: false
+            head_pipeline: null
+            id: 523588543
+            iid: 92
+            imported: false
+            imported_from: none
+            labels: []
+            latest_build_finished_at: null
+            latest_build_started_at: null
+            merge_after: null
+            merge_commit_sha: null
+            merge_error: null
+            merge_status: can_be_merged
+            merge_user: null
+            merge_when_pipeline_succeeds: false
+            merged_at: null
+            merged_by: null
+            milestone: null
+            pipeline: null
+            prepared_at: '2026-08-25T13:03:33.928Z'
+            project_id: 14233409
+            reference: '!92'
+            references:
+              full: packit-service/ogr-tests!92
+              relative: '!92'
+              short: '!92'
+            reviewers: []
+            sha: 6a9b824f6fa26eb6a3c0d8f164a5bbe95118d2c9
+            should_remove_source_branch: null
+            source_branch: pr-test1
+            source_project_id: 85738133
+            squash: false
+            squash_commit_sha: null
+            squash_on_merge: false
+            state: opened
+            subscribed: true
+            target_branch: master
+            target_project_id: 14233409
+            task_completion_status:
+              completed_count: 0
+              count: 0
+            time_stats:
+              human_time_estimate: null
+              human_total_time_spent: null
+              time_estimate: 0
+              total_time_spent: 0
+            title: test mainainer edits setting
+            updated_at: '2026-08-25T13:03:34.951Z'
+            upvotes: 0
+            user:
+              can_merge: false
+            user_notes_count: 0
+            web_url: https://gitlab.com/packit-service/ogr-tests/-/merge_requests/92
+            work_in_progress: false
+          _next: null
+          elapsed: 0.2
+          encoding: utf-8
+          headers:
+            CF-Cache-Status: DYNAMIC
+            CF-Ray: a30acc313ab5bc7b-PRG
+            Cache-Control: max-age=0, private, must-revalidate
+            Connection: keep-alive
+            Content-Encoding: gzip
+            Content-Type: application/json
+            Date: Fri, 01 Nov 2019 13-36-03 GMT
+            ETag: W/"1e51b8e1c48787a433405211e9e0fe61"
+            Server: cloudflare
+            Strict-Transport-Security: max-age=31536000
+            Transfer-Encoding: chunked
+            Vary: Origin
+            content-security-policy: default-src 'none'
+            gitlab-lb: haproxy-main-23-lb-gprd
+            gitlab-sv: gke-cny-api
+            nel: '{"max_age": 0}'
+            ratelimit-limit: '2000'
+            ratelimit-name: throttle_authenticated_api
+            ratelimit-observed: '8'
+            ratelimit-remaining: '1992'
+            ratelimit-reset: '1787663040'
+            x-content-type-options: nosniff
+            x-frame-options: SAMEORIGIN
+            x-gitlab-meta: '{"correlation_id":"a30acc313ab5bc7b-PRG","version":"1"}'
+            x-gitlab-namespace: packit-service
+            x-gitlab-score-gitaly: '6'
+            x-request-id: a30acc313ab5bc7b-PRG
+            x-runtime: '0.567443'
+          raw: !!binary ""
+          raw_decoded: !!binary ""
+          reason: OK
+          status_code: 200
+      - metadata:
+          latency: 0.5422101020812988
+          module_call_list:
+          - unittest.case
+          - requre.record_and_replace
+          - tests.integration.gitlab.test_pull_requests
+          - ogr.abstract.exception
+          - ogr.services.gitlab.pull_request
+          - gitlab.mixins
+          - gitlab.exceptions
+          - gitlab.mixins
+          - gitlab.client
+          - gitlab._backends.requests_backend
+          - requests.sessions
+          - requre.objects
+          - requre.cassette
+          - requests.sessions
+          - send
+        output:
+          __store_indicator: 2
+          _content:
+            allow_collaboration: false
+            allow_maintainer_to_push: false
+            approvals_before_merge: null
+            assignee: null
+            assignees: []
+            author:
+              avatar_url: https://secure.gravatar.com/avatar/8e9f7fa31246159d6479f97e8f3efabeb501c4eb99c14489d73b4f2fcdfc1f2a?s=80&d=identicon
+              id: 40699970
+              locked: false
+              name: "Al\u017Eb\u011Bta Ku\u010Derov\xE1"
+              public_email: null
+              state: active
+              username: akucerov
+              web_url: https://gitlab.com/akucerov
+            blocking_discussions_resolved: true
+            changes_count: '1'
+            closed_at: '2026-08-25T13:03:35.646Z'
+            closed_by:
+              avatar_url: https://secure.gravatar.com/avatar/8e9f7fa31246159d6479f97e8f3efabeb501c4eb99c14489d73b4f2fcdfc1f2a?s=80&d=identicon
+              id: 40699970
+              locked: false
+              name: "Al\u017Eb\u011Bta Ku\u010Derov\xE1"
+              public_email: null
+              state: active
+              username: akucerov
+              web_url: https://gitlab.com/akucerov
+            created_at: '2026-08-25T13:03:32.446Z'
+            description: this update shouldn't disable maintainer edits
+            detailed_merge_status: not_open
+            diff_refs:
+              base_sha: 59b1a9bab5b5198c619270646410867788685c16
+              head_sha: 6a9b824f6fa26eb6a3c0d8f164a5bbe95118d2c9
+              start_sha: dd9b6c54c0788301c86bdf058a8e91e3594a0a17
+            discussion_locked: null
+            downvotes: 0
+            draft: false
+            first_deployed_to_production_at: null
+            force_remove_source_branch: true
+            has_conflicts: false
+            head_pipeline: null
+            id: 523588543
+            iid: 92
+            imported: false
+            imported_from: none
+            labels: []
+            latest_build_finished_at: null
+            latest_build_started_at: null
+            merge_after: null
+            merge_commit_sha: null
+            merge_error: null
+            merge_status: can_be_merged
+            merge_user: null
+            merge_when_pipeline_succeeds: false
+            merged_at: null
+            merged_by: null
+            milestone: null
+            pipeline: null
+            prepared_at: '2026-08-25T13:03:33.928Z'
+            project_id: 14233409
+            reference: '!92'
+            references:
+              full: packit-service/ogr-tests!92
+              relative: '!92'
+              short: '!92'
+            reviewers: []
+            sha: 6a9b824f6fa26eb6a3c0d8f164a5bbe95118d2c9
+            should_remove_source_branch: null
+            source_branch: pr-test1
+            source_project_id: 85738133
+            squash: false
+            squash_commit_sha: null
+            squash_on_merge: false
+            state: closed
+            subscribed: true
+            target_branch: master
+            target_project_id: 14233409
+            task_completion_status:
+              completed_count: 0
+              count: 0
+            time_stats:
+              human_time_estimate: null
+              human_total_time_spent: null
+              time_estimate: 0
+              total_time_spent: 0
+            title: test mainainer edits setting
+            updated_at: '2026-08-25T13:03:35.617Z'
+            upvotes: 0
+            user:
+              can_merge: false
+            user_notes_count: 0
+            web_url: https://gitlab.com/packit-service/ogr-tests/-/merge_requests/92
+            work_in_progress: false
+          _next: null
+          elapsed: 0.2
+          encoding: utf-8
+          headers:
+            CF-Cache-Status: DYNAMIC
+            CF-Ray: a30acc360c2cbc7b-PRG
+            Cache-Control: max-age=0, private, must-revalidate
+            Connection: keep-alive
+            Content-Encoding: gzip
+            Content-Type: application/json
+            Date: Fri, 01 Nov 2019 13-36-03 GMT
+            ETag: W/"1e51b8e1c48787a433405211e9e0fe61"
+            Server: cloudflare
+            Strict-Transport-Security: max-age=31536000
+            Transfer-Encoding: chunked
+            Vary: Origin
+            content-security-policy: default-src 'none'
+            gitlab-lb: haproxy-main-30-lb-gprd
+            gitlab-sv: api-gke-us-east1-d
+            nel: '{"max_age": 0}'
+            ratelimit-limit: '2000'
+            ratelimit-name: throttle_authenticated_api
+            ratelimit-observed: '9'
+            ratelimit-remaining: '1991'
+            ratelimit-reset: '1787663040'
+            referrer-policy: strict-origin-when-cross-origin
+            x-content-type-options: nosniff
+            x-frame-options: SAMEORIGIN
+            x-gitlab-meta: '{"correlation_id":"a30acc360c2cbc7b-PRG","version":"1"}'
+            x-request-id: a30acc360c2cbc7b-PRG
+            x-runtime: '0.384848'
+          raw: !!binary ""
+          raw_decoded: !!binary ""
+          reason: OK
+          status_code: 200

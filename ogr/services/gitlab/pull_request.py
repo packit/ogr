@@ -3,7 +3,7 @@
 
 import datetime
 from collections.abc import Iterable
-from typing import ClassVar, Optional
+from typing import Any, ClassVar, Optional
 
 import gitlab
 import requests
@@ -42,6 +42,10 @@ class GitlabPullRequest(BasePullRequest):
     @property
     def id(self) -> int:
         return self._raw_pr.iid
+
+    @property
+    def allow_maintainer_edit(self) -> bool:
+        return self._raw_pr.allow_collaboration
 
     @property
     def status(self) -> PRStatus:
@@ -153,6 +157,7 @@ class GitlabPullRequest(BasePullRequest):
         target_branch: str,
         source_branch: str,
         fork_username: Optional[str] = None,
+        allow_maintainer_edit: Optional[bool] = None,
     ) -> "PullRequest":
         """
         How to create PR:
@@ -163,7 +168,7 @@ class GitlabPullRequest(BasePullRequest):
         -  fork -> other_fork - call on fork, fork_username set to other_fork owner
         """
         repo = project.gitlab_repo
-        parameters = {
+        parameters: dict[str, Any] = {
             "source_branch": source_branch,
             "target_branch": target_branch,
             "title": title,
@@ -195,6 +200,9 @@ class GitlabPullRequest(BasePullRequest):
 
         if target_id is not None:
             parameters["target_project_id"] = target_id
+
+        if allow_maintainer_edit is not None:
+            parameters["allow_collaboration"] = allow_maintainer_edit
 
         mr = repo.mergerequests.create(parameters)
         return GitlabPullRequest(mr, target_project)
@@ -257,11 +265,14 @@ class GitlabPullRequest(BasePullRequest):
         self,
         title: Optional[str] = None,
         description: Optional[str] = None,
+        allow_maintainer_edit: Optional[bool] = None,
     ) -> "PullRequest":
         if title:
             self._raw_pr.title = title
         if description:
             self._raw_pr.description = description
+        if allow_maintainer_edit is not None:
+            self._raw_pr.allow_collaboration = allow_maintainer_edit
 
         self._raw_pr.save()
         return self

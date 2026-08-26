@@ -97,6 +97,30 @@ class PullRequests(GitlabTests):
         closed_pr = pr_for_closing.close()
         assert closed_pr.status == PRStatus.closed
 
+    def test_pr_maintainer_edits(self):
+        project = self.service.get_project(
+            repo="ogr-tests",
+            namespace=self.service.user.get_username(),
+        )
+
+        pr = project.create_pr(
+            title="test mainainer edits setting",
+            body="Description",
+            target_branch="master",
+            source_branch="pr-test1",
+            allow_maintainer_edit=True,
+        )
+
+        pr = self.project.get_pr(pr.id)
+
+        pr.update_info(description="this update shouldn't disable maintainer edits")
+        assert pr.allow_maintainer_edit
+
+        pr.update_info(allow_maintainer_edit=False)
+        assert not pr.allow_maintainer_edit
+
+        pr.close()
+
     def test_pr_merge(self):
         """
         Create new PR and update pull request ID to this test before this test
