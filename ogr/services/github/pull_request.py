@@ -4,7 +4,7 @@
 import datetime
 import logging
 from collections.abc import Iterable
-from typing import Optional, Union
+from typing import Any, Optional, Union
 
 import github
 import requests
@@ -221,7 +221,13 @@ class GithubPullRequest(BasePullRequest):
         description: Optional[str] = None,
     ) -> "PullRequest":
         try:
-            self._raw_pr.edit(title=title, body=description)
+            kwargs: dict[str, Any] = {}
+            if title is not None:
+                kwargs["title"] = title
+            if description is not None:
+                kwargs["body"] = description
+
+            self._raw_pr.edit(**kwargs)
             logger.info(f"PR updated: {self._raw_pr.url}")
             return self
         except Exception as ex:
