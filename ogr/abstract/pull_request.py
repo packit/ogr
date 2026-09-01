@@ -38,6 +38,11 @@ class PullRequest(OgrAbstractClass):
         raise NotImplementedError()
 
     @property
+    def allow_maintainer_edit(self) -> bool:
+        """Whether to allow maintainer edits."""
+        raise NotImplementedError()
+
+    @property
     def status(self) -> PRStatus:
         """Status of the pull request."""
         raise NotImplementedError()
@@ -163,6 +168,7 @@ class PullRequest(OgrAbstractClass):
         target_branch: str,
         source_branch: str,
         fork_username: Optional[str] = None,
+        allow_maintainer_edit: Optional[bool] = None,
     ) -> "PullRequest":
         """
         Create new pull request.
@@ -175,6 +181,9 @@ class PullRequest(OgrAbstractClass):
                 merged.
             source_branch: Branch from which the changes are being pulled.
             fork_username: The username/namespace of the forked repository.
+            allow_maintainer_edit: Defines whether to allow maintainer edits.
+
+                Defaults to `None`, which means no explicit setting.
 
         Returns:
             Object that represents newly created pull request.
@@ -218,6 +227,7 @@ class PullRequest(OgrAbstractClass):
         self,
         title: Optional[str] = None,
         description: Optional[str] = None,
+        allow_maintainer_edit: Optional[bool] = None,
     ) -> "PullRequest":
         """
         Update pull request information.
@@ -227,6 +237,9 @@ class PullRequest(OgrAbstractClass):
 
                 Defaults to `None`, which means no updating.
             description: The new description of the pull request.
+
+                Defaults to `None`, which means no updating.
+            allow_maintainer_edit: Defines whether to allow maintainer edits.
 
                 Defaults to `None`, which means no updating.
 

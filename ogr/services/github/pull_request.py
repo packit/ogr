@@ -4,7 +4,7 @@
 import datetime
 import logging
 from collections.abc import Iterable
-from typing import Optional, Union
+from typing import Any, Optional, Union
 
 import github
 import requests
@@ -41,6 +41,10 @@ class GithubPullRequest(BasePullRequest):
     @property
     def id(self) -> int:
         return self._raw_pr.number
+
+    @property
+    def allow_maintainer_edit(self) -> bool:
+        return self._raw_pr.maintainer_can_modify
 
     @property
     def status(self) -> PRStatus:
@@ -144,6 +148,7 @@ class GithubPullRequest(BasePullRequest):
         target_branch: str,
         source_branch: str,
         fork_username: Optional[str] = None,
+        allow_maintainer_edit: Optional[bool] = None,
     ) -> "PullRequest":
         """
         The default behavior is the pull request is made to the immediate parent repository
@@ -167,11 +172,16 @@ class GithubPullRequest(BasePullRequest):
                     project.parent.github_repo,
                 )
 
+        kwargs: dict[str, Any] = {}
+        if allow_maintainer_edit is not None:
+            kwargs["maintainer_can_modify"] = allow_maintainer_edit
+
         created_pr = github_repo.create_pull(
             title=title,
             body=body,
             base=target_branch,
             head=source_branch,
+            **kwargs,
         )
         logger.info(f"PR {created_pr.id} created: {target_branch}<-{source_branch}")
         return GithubPullRequest(created_pr, target_project)
@@ -219,9 +229,18 @@ class GithubPullRequest(BasePullRequest):
         self,
         title: Optional[str] = None,
         description: Optional[str] = None,
+        allow_maintainer_edit: Optional[bool] = None,
     ) -> "PullRequest":
         try:
-            self._raw_pr.edit(title=title, body=description)
+            kwargs: dict[str, Any] = {}
+            if title is not None:
+                kwargs["title"] = title
+            if description is not None:
+                kwargs["body"] = description
+            if allow_maintainer_edit is not None:
+                kwargs["maintainer_can_modify"] = allow_maintainer_edit
+
+            self._raw_pr.edit(**kwargs)
             logger.info(f"PR updated: {self._raw_pr.url}")
             return self
         except Exception as ex:

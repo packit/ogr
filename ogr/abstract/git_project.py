@@ -465,6 +465,7 @@ class GitProject(OgrAbstractClass):
         target_branch: str,
         source_branch: str,
         fork_username: Optional[str] = None,
+        allow_maintainer_edit: Optional[bool] = None,
     ) -> "_abstract.PullRequest":
         """
         Create new pull request.
@@ -475,6 +476,9 @@ class GitProject(OgrAbstractClass):
             target_branch: Name of the branch where the changes are merged.
             source_branch: Name of the branch from which the changes are pulled.
             fork_username: The username of forked repository.
+
+                Defaults to `None`.
+            allow_maintainer_edit: Defines whether to allow maintainer edits.
 
                 Defaults to `None`.
 

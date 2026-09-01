@@ -16,7 +16,7 @@ from ogr.abstract import (
     PRStatus,
     PullRequest,
 )
-from ogr.exceptions import PagureAPIException
+from ogr.exceptions import OperationNotSupported, PagureAPIException
 from ogr.services import pagure as ogr_pagure
 from ogr.services.base import BasePullRequest
 from ogr.services.pagure.comments import PagurePRComment
@@ -165,7 +165,14 @@ class PagurePullRequest(BasePullRequest):
         target_branch: str,
         source_branch: str,
         fork_username: Optional[str] = None,
+        allow_maintainer_edit: Optional[bool] = None,
     ) -> "PullRequest":
+
+        if allow_maintainer_edit is not None:
+            raise OperationNotSupported(
+                "Pagure doesn't support allowing maintainer edits on PRs.",
+            )
+
         data = {
             "title": title,
             "branch_to": target_branch,
@@ -279,7 +286,13 @@ class PagurePullRequest(BasePullRequest):
         self,
         title: Optional[str] = None,
         description: Optional[str] = None,
+        allow_maintainer_edit: Optional[bool] = None,
     ) -> "PullRequest":
+        if allow_maintainer_edit is not None:
+            raise OperationNotSupported(
+                "Pagure doesn't support allowing maintainer edits on PRs.",
+            )
+
         try:
             data = {"title": title if title else self.title}
 

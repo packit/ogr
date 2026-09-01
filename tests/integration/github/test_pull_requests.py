@@ -195,6 +195,35 @@ class PullRequests(GithubTests):
         opened_pr.close()
         assert opened_pr.status == PRStatus.closed
 
+    def test_pr_create_upstream_fork_with_maintainer_edits(self):
+        """
+        Tests creating PR from fork to the upstream, by calling create_pr on fork.
+        Additionally, tests the process of setting allow_maintainer_edit on the PR
+        created by this test.
+
+        Requires  packit_service:test_source to be ahead of packit_service:test_target
+        at least by one commit.
+        """
+        gh_project = self.hello_world_project
+        pr_upstream_fork = gh_project.get_fork().create_pr(
+            title="test: PR with maintainer edits enabled",
+            body="pull request body",
+            target_branch="test_target",
+            source_branch="test_source",
+            allow_maintainer_edit=True,
+        )
+
+        assert pr_upstream_fork.title == "test: PR with maintainer edits enabled"
+        assert pr_upstream_fork.allow_maintainer_edit
+        assert pr_upstream_fork.status == PRStatus.open
+        assert not pr_upstream_fork.target_project.is_fork
+
+        pr_upstream_fork.update_info(allow_maintainer_edit=False)
+        assert not pr_upstream_fork.allow_maintainer_edit
+
+        pr_upstream_fork.close()
+        assert pr_upstream_fork.status == PRStatus.closed
+
     def test_pr_labels(self):
         """
         Remove the labels from this pr before regenerating the response files:

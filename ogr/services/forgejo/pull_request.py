@@ -4,7 +4,7 @@ import datetime
 import logging
 from collections.abc import Iterable
 from functools import cached_property, partial
-from typing import Optional, Union
+from typing import Any, Optional, Union
 
 import httpx
 from pyforgejo import NotFoundError
@@ -18,7 +18,7 @@ from ogr.abstract import (
     PRStatus,
     PullRequest,
 )
-from ogr.exceptions import ForgejoAPIException, OgrNetworkError
+from ogr.exceptions import ForgejoAPIException, OgrNetworkError, OperationNotSupported
 from ogr.services import forgejo
 from ogr.services.base import BasePullRequest
 from ogr.services.forgejo.comments import ForgejoPRComment
@@ -60,6 +60,10 @@ class ForgejoPullRequest(BasePullRequest):
     @property
     def id(self) -> int:
         return self._raw_pr.number
+
+    @property
+    def allow_maintainer_edit(self) -> bool:
+        return self._raw_pr.allow_maintainer_edit
 
     @property
     def status(self) -> PRStatus:
@@ -161,8 +165,17 @@ class ForgejoPullRequest(BasePullRequest):
         target_branch: str,
         source_branch: str,
         fork_username: Optional[str] = None,
+        allow_maintainer_edit: Optional[bool] = None,
     ) -> "PullRequest":
         target_project = project
+
+        if allow_maintainer_edit is not None:
+            raise OperationNotSupported(
+                "Forgejo doesn't support setting allow_maintainer_edit"
+                " directly as part of the request for creating a PR."
+                " Create the PR first and then call update_info() to"
+                " set it.",
+            )
 
         if project.is_fork and fork_username is None:
             # handles fork -> upstream (called on fork)
@@ -233,12 +246,16 @@ class ForgejoPullRequest(BasePullRequest):
         self,
         title: Optional[str] = None,
         description: Optional[str] = None,
+        allow_maintainer_edit: Optional[bool] = None,
     ) -> "PullRequest":
         try:
-            data = {"title": title if title else self.title}
+            data: dict[str, Any] = {"title": title if title else self.title}
 
             if description is not None:
                 data["body"] = description
+
+            if allow_maintainer_edit is not None:
+                data["allow_maintainer_edit"] = allow_maintainer_edit
 
             updated_pr = self._target_project.api.repo_edit_pull_request(
                 owner=self.target_project.namespace,
