@@ -18,7 +18,7 @@ from ogr.abstract import (
     PRStatus,
     PullRequest,
 )
-from ogr.exceptions import ForgejoAPIException, OgrNetworkError, OperationNotSupported
+from ogr.exceptions import ForgejoAPIException, OgrNetworkError
 from ogr.services import forgejo
 from ogr.services.base import BasePullRequest
 from ogr.services.forgejo.comments import ForgejoPRComment
@@ -169,14 +169,6 @@ class ForgejoPullRequest(BasePullRequest):
     ) -> "PullRequest":
         target_project = project
 
-        if allow_maintainer_edit is not None:
-            raise OperationNotSupported(
-                "Forgejo doesn't support setting allow_maintainer_edit"
-                " directly as part of the request for creating a PR."
-                " Create the PR first and then call update_info() to"
-                " set it.",
-            )
-
         if project.is_fork and fork_username is None:
             # handles fork -> upstream (called on fork)
             source_branch = f"{project.namespace}:{source_branch}"
@@ -202,7 +194,7 @@ class ForgejoPullRequest(BasePullRequest):
 
         logger.debug(f"Creating PR {target_branch}<-{source_branch}")
 
-        pr = target_project.api.repo_create_pull_request(
+        raw_pr = target_project.api.repo_create_pull_request(
             owner=target_project.namespace,
             repo=target_project.repo,
             base=target_branch,
@@ -210,9 +202,13 @@ class ForgejoPullRequest(BasePullRequest):
             head=source_branch,
             title=title,
         )
-        logger.info(f"PR {pr.id} created.")
 
-        return ForgejoPullRequest(pr, target_project)
+        pr = ForgejoPullRequest(raw_pr, target_project)
+        if allow_maintainer_edit is not None:
+            pr.update_info(allow_maintainer_edit=allow_maintainer_edit)
+
+        logger.info(f"PR {raw_pr.id} created.")
+        return pr
 
     @staticmethod
     def get(project: "forgejo.ForgejoProject", pr_id: int) -> "PullRequest":
