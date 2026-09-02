@@ -26,17 +26,13 @@ logger = logging.getLogger(__name__)
 
 
 @use_for_service("pagure")
-@use_for_service("src.fedoraproject.org")
-@use_for_service("src.stg.fedoraproject.org")
-@use_for_service("pkgs.fedoraproject.org")
-@use_for_service("pkgs.stg.fedoraproject.org")
 @use_for_service("git.centos.org")
 @use_for_service("git.stg.centos.org")
 class PagureService(BaseGitService):
     def __init__(
         self,
         token: Optional[str] = None,
-        instance_url: str = "https://src.fedoraproject.org",
+        instance_url: str = "https://pagure.io",
         read_only: bool = False,
         insecure: bool = False,
         max_retries: Union[int, urllib3.util.Retry] = 3,

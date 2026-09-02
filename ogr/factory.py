@@ -29,7 +29,7 @@ def use_for_service(service: str, _func=None):
         pass
 
     @use_for_service("pagure.io")
-    @use_for_service("src.fedoraproject.org")
+    @use_for_service("git.centos.org")
     class PagureService(BaseGitService):
         pass
     ```
@@ -178,13 +178,13 @@ def get_instances_from_dict(instances: dict) -> set[GitService]:
     ```py
     get_instances_from_dict({
         "github.com": {"token": "abcd"},
-        "pagure": {
+        "forgejo": {
             "token": "abcd",
             "instance_url": "https://src.fedoraproject.org",
         },
     }) == {
         GithubService(token="abcd"),
-        PagureService(token="abcd", instance_url="https://src.fedoraproject.org")
+        ForgejoService(token="abcd", instance_url="https://src.fedoraproject.org")
     }
     ```
 
