@@ -55,8 +55,7 @@ implementation under `ogr/services/<forge>/`.
 ## Code style
 
 - Formatting: `black`, `mdformat` (Markdown), enforced via `pre-commit`.
-- Linting: `ruff` (auto-fix on commit), `mypy --no-strict-optional
-  --ignore-missing-imports`.
+- Linting: `ruff` (auto-fix on commit), `mypy --no-strict-optional --ignore-missing-imports`.
 - Every `.py` file needs the two-line SPDX license header (see
   `LICENSE_HEADER.txt`) — `pre-commit`'s `insert-license` hook adds it
   automatically if missing.
