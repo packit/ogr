@@ -1,3 +1,10 @@
+# 0.63.0
+
+- `ogr` now supports the `allow_maintainer_edit` option for PRs/MRs for GitHub, GitLab and Forgejo. (#1011, #1012)
+- A potential bug has been fixed in the GitHub implementation of `PullRequest.update_info()`. Previously, `None` values
+  could have been passed to the underlying method called to edit a PR, which could result in an `AssertionError` being raised
+  as this method doesn't support `None` values. (#1011)
+
 # 0.62.4
 
 - The `ForgejoService.get_project_from_url()` method has been updated to ensure repository names are parsed accurately. It now correctly removes the `.git` extension from the repository name, addressing an issue where the extension was previously retained. (#1005)
