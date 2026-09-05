@@ -33,15 +33,22 @@ on:
   issue_comment:
     types: [created]
   pull_request_target:
-    types: [opened, synchronize, ready_for_review, closed, labeled, unlabeled]
+    # Review is opt-in: it starts only when a human adds ready-for-review.
+    # Keep closed for the retro agent and labeled for the manual review trigger.
+    types: [closed, labeled]
   pull_request_review:
     types: [submitted]
 
 jobs:
   dispatch:
     if: >-
-      github.event_name != 'issue_comment'
-      || github.event.comment.user.type != 'Bot'
+      (github.event_name != 'issue_comment'
+        || (github.event.comment.user.type != 'Bot'
+          && github.event.comment.body != '/fs-review'))
+      && (github.event_name != 'pull_request_target'
+        || github.event.action != 'labeled'
+        || (github.event.label.name == 'ready-for-review'
+          && github.event.sender.type != 'Bot'))
     uses: fullsend-ai/fullsend/.github/workflows/reusable-dispatch.yml@3cfa255ab4cc8190670585ea42da529119251632 # v0.32.0
     with:
       event_action: ${{ github.event.action }}
