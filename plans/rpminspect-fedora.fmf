@@ -1,0 +1,18 @@
+summary:
+    Check rpm files with rpminspect
+discover:
+    how: shell
+    tests:
+      - name: rpminspect SRPM and RPMs
+        test: for rpm in /var/share/test-artifacts/*.rpm; do rpminspect-fedora -E metadata $rpm; done
+prepare:
+  - name: packages
+    how: install
+    package:
+    - rpminspect
+    - rpminspect-data-fedora
+execute:
+    how: tmt
+adjust:
+    enabled: false
+    when: distro == centos-stream-9
