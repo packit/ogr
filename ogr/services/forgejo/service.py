@@ -17,6 +17,10 @@ from ogr.services.forgejo.user import ForgejoUser
 
 @use_for_service("forgejo")
 @use_for_service("codeberg.org")
+@use_for_service("src.fedoraproject.org")
+@use_for_service("src.stg.fedoraproject.org")
+@use_for_service("pkgs.fedoraproject.org")
+@use_for_service("pkgs.stg.fedoraproject.org")
 class ForgejoService(BaseGitService):
     version = "/api/v1"
 

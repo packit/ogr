@@ -195,7 +195,7 @@ class PagureProjectTokenCommands(PagureTests):
         )
 
     def test_is_private(self):
-        self.service.instance_url = "https://src.fedoraproject.org"
+        self.service.instance_url = "https://pagure.io"
         assert not self.ogr_project.is_private()
 
     def test_token_is_none_then_set(self):
