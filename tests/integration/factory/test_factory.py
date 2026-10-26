@@ -48,7 +48,10 @@ class FactoryTests(unittest.TestCase):
     @property
     def pagure_service(self):
         if not self._pagure_service:
-            self._pagure_service = PagureService(token=self.pagure_token)
+            self._pagure_service = PagureService(
+                token=self.pagure_token,
+                instance_url="https://src.fedoraproject.org",
+            )
         return self._pagure_service
 
     @property
