@@ -4,14 +4,13 @@ import datetime
 import logging
 from collections.abc import Iterable
 from functools import cached_property, partial
-from typing import Any, Optional, Union
+from typing import Any, Optional
 
 import httpx
 from pyforgejo import NotFoundError
 from pyforgejo.types import PullRequest as PyforgejoPullRequest
 
 from ogr.abstract import (
-    CommitFlag,
     MergeCommitStatus,
     PRComment,
     PRLabel,
@@ -382,12 +381,3 @@ class ForgejoPullRequest(BasePullRequest):
             id=comment_id,
         )
         return ForgejoPRComment(parent=self, raw_comment=comment)
-
-    def get_statuses(self) -> Union[list[CommitFlag], Iterable[CommitFlag]]:
-        """
-        Returns statuses for latest commit on pull request.
-
-        Returns:
-            List of commit statuses of the latest commit.
-        """
-        raise NotImplementedError()
