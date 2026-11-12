@@ -8,7 +8,9 @@ from collections.abc import Iterable
 from functools import cached_property, partial
 from typing import ClassVar, Optional, Union
 
+from pydantic import ValidationError
 from pyforgejo import NotFoundError, Repository, types
+from pyforgejo.core.pydantic_utilities import parse_obj_as
 from pyforgejo.repository.client import RepositoryClient
 
 from ogr.abstract import (
@@ -522,6 +524,28 @@ class ForgejoProject(BaseGitProject):
         except NotFoundError as ex:
             raise FileNotFoundError() from ex
 
+    def __get_contents(
+        self,
+        path: str,
+        ref: str,
+    ) -> types.ContentsResponse | list[types.ContentsResponse]:
+        try:
+            return self.partial_api(
+                self.api.repo_get_contents,
+                filepath=path,
+                ref=ref,
+            )()
+        except ValidationError as ex:
+            # pyforgejo 2.0.0 (still the version in EPEL 10) types the
+            # contents endpoint as a single ‹ContentsResponse›, so a directory
+            # listing fails validation; pyforgejo >= 2.0.1 accepts both. The
+            # response itself is fine and pydantic keeps it in the error, so
+            # validate it as a list instead of requesting it again.
+            errors = ex.errors()
+            if len(errors) != 1 or not isinstance(errors[0].get("input"), list):
+                raise
+            return parse_obj_as(list[types.ContentsResponse], errors[0]["input"])
+
     def __get_files(
         self,
         path: str,
@@ -534,11 +558,7 @@ class ForgejoProject(BaseGitProject):
 
         with contextlib.suppress(IndexError):
             while path := subdirectories.pop():
-                contents = self.partial_api(
-                    self.api.repo_get_contents,
-                    filepath=path,
-                    ref=ref,
-                )()
+                contents = self.__get_contents(path, ref)
 
                 if isinstance(contents, types.ContentsResponse):
                     # singular file, return path and skip any further processing
