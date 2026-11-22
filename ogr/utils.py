@@ -41,7 +41,8 @@ class CustomRetry(Retry):
         Get retry wait time from X-RateLimit-Reset header.
 
         Rate limit reset header (Unix timestamp) which is converted
-        to seconds to wait, compatible with Retry-After format.
+        to seconds to wait, compatible with Retry-After format. It is used
+        only when X-RateLimit-Remaining is 0 (or not sent).
 
         Args:
             response: HTTP response object that may contain X-RateLimit-Reset header.
@@ -51,13 +52,13 @@ class CustomRetry(Retry):
             or cannot be parsed.
         """
         # Only check X-RateLimit-Reset for rate limit responses
-        if (  # noqa: SIM102 This is more readable than a single if statement
-            response.status
-            in (
-                403,
-                429,
-            )
-        ):
+        if response.status in (403, 429):
+            # GitHub sends X-RateLimit-Reset on every response, also on a 403
+            # for missing permissions. It is only the time to wait for when
+            # the quota is used up, i.e. X-RateLimit-Remaining is 0.
+            remaining = response.headers.get("X-RateLimit-Remaining")
+            if remaining is not None and remaining.strip() != "0":
+                return None
             # urllib3 HTTPHeaderDict does a case-insensitive lookup
             # https://github.com/urllib3/urllib3/blob/83f8643ffb5b7f197457379148e2fa118ab0fcdc/src/urllib3/_collections.py#L215-L217
             if rate_limit_reset := response.headers.get(
