@@ -1,3 +1,8 @@
+# 0.63.1
+
+- Status checks are now supported for the Forgejo client via `ForgejoPullRequest.get_statuses()` (#1018)
+- An error when listing files in Forgejo repositories with `pyforgejo` 2.0.0 has been fixed. (#1018)
+
 # 0.63.0
 
 - `ogr` now supports the `allow_maintainer_edit` option for PRs/MRs for GitHub, GitLab and Forgejo. (#1011, #1012)
