@@ -383,8 +383,6 @@ class PagureProject(BaseGitProject):
             "git.centos.org",
             "git.stg.centos.org",
             "pagure.io",
-            "src.fedoraproject.org",
-            "src.stg.fedoraproject.org",
         ]:
             # private repositories are not allowed on generally used pagure instances
             return False
