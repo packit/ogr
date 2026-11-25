@@ -70,6 +70,26 @@ class GitlabAPIException(APIException):
 class ForgejoAPIException(APIException):
     """Exception related to Forgejo API."""
 
+    @staticmethod
+    def describe(ex: pyforgejo.core.api_error.ApiError) -> str:
+        """
+        Short description of a pyforgejo error: the HTTP status and the
+        message Forgejo sent. Unlike `str(ex)` it leaves out the response
+        headers.
+        """
+        message = ForgejoAPIException._message_of(ex.body)
+        if message is None:
+            message = "" if ex.body is None else str(ex.body)
+        return f"{ex.status_code} {message}".strip()
+
+    @staticmethod
+    def _message_of(body: Any) -> Optional[str]:
+        if isinstance(body, dict) and isinstance(body.get("message"), str):
+            return body["message"]
+        if isinstance(body, str) and body:
+            return body
+        return None
+
     @property
     def response_code(self):
         if self.__cause__ is None or not isinstance(
@@ -78,6 +98,16 @@ class ForgejoAPIException(APIException):
         ):
             return None
         return self.__cause__.status_code
+
+    @property
+    def forgejo_message(self) -> Optional[str]:
+        """Error message from Forgejo's response, if there is one."""
+        if self.__cause__ is None or not isinstance(
+            self.__cause__,
+            pyforgejo.core.api_error.ApiError,
+        ):
+            return None
+        return self._message_of(self.__cause__.body)
 
 
 class OperationNotSupported(OgrException):

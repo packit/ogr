@@ -62,7 +62,13 @@ def __wrap_exception(
 
     for caught_exception, ogr_exception in MAPPING.items():
         if isinstance(ex, caught_exception):
-            exc = ogr_exception(str(ex))
+            # str() of pyforgejo's ApiError includes the response headers
+            message = (
+                ForgejoAPIException.describe(ex)
+                if isinstance(ex, pyforgejo.core.api_error.ApiError)  # type: ignore
+                else str(ex)
+            )
+            exc = ogr_exception(message)
             exc.__cause__ = ex
             return exc
 
