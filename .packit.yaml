@@ -105,6 +105,7 @@ jobs:
   # downstream automation:
   - job: koji_build
     trigger: commit
+    packit_instances: ["prod"]
     allowed_pr_authors: ["packit-stg", "packit"]
     sidetag_group: packit-specfile-ogr-releases
     dependents:
